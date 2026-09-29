@@ -17,7 +17,7 @@ Status: Beta
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Infinity Edge + Lord Dominik's Regards + Rapid Firecannon + Bloodthirster — **sin cambios**.
 > **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
 > **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]

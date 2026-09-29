@@ -12,13 +12,15 @@ Status: Aprobado
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ⚠️ REVISAR Verificación automática (29/09/2026) — **⚠️ REQUIERE REVISIÓN ACOTADA — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
-> **Modelo:** sin hook cuantitativo (ítems sin resolver en el modelo: Stormsurge, Harmonic Echo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
+> **Δ de stats-input (no decide veredicto):** HSP (-12.5 %).
 > **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Echoes of Helia + Imperial Mandate + Stormsurge + Harmonic Echo — **sin cambios**.
 > **Ítems cambiados fuera de la build final:** Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
 > **Nota del lab (diff 7.3a):** HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) → Anotado [!WARNING] en el reporte
-> **Veredicto:** ⚠️ REVISAR — revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]

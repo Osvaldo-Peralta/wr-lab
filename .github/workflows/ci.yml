@@ -22,6 +22,9 @@ jobs:
         run: python3 model/build_bundles.py --check
       - name: Reportes verificados contra el último hotfix
         run: python3 model/update_reports.py check
+      - name: Lint del vault (informativo)
+        continue-on-error: true
+        run: python3 model/lint_reportes.py
       - name: Validar bundles regenerables
         run: |
           python3 - <<'EOF'

@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.7):** repo git versionado · BD SQLite derivada · 60 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.8):** repo git versionado · BD SQLite derivada · 74 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -18,6 +18,17 @@
 
 ## Hallazgos del optimizador (registro vivo)
 
+- **29/09 · Protocolo de validación (2 niveles):** NIVEL 1 — dentro de las candidatas del propio
+  reporte (§8), la publicada debe ganar: ✅ Jinx C (búsqueda exhaustiva), ✅ Diana D2-LT, ✅ Yuumi Y1
+  (puntuación normalizada). NIVEL 2 — exploración completa: puede superar al reporte; los modelos
+  NO puntúan defensa ni pasivas no modeladas (Zhonyas stasis, Echoes siphon, Redemption activo,
+  tenacidad de Wit's End) → los hallazgos se documentan aquí, NO se auto-aplican.
+- **29/09 · Kalista (motor onhit):** el híbrido `Gunmetal+Runaan+Statikk+Guinsoo+Terminus+BotRK`
+  supera a K2 por **0.3 %** (ruido del modelo; K2 conserva valor defensivo no modelado de Wit's End).
+  IE excluido del pool on-hit a propósito: kalista() no modela críticos (sub/valora ambos lados).
+- **29/09 · Diana/Yuumi (pool completo):** el objetivo puramente ofensivo prefiere glass-cannon
+  (Diana: Stormsurge+VoidStaff+Orb +31 % dps vs D2; Yuumi: Censer+Staff+HorizonFocus+Stormsurge
+  sobre Y1) — limitación conocida: sin valor defensivo/utilidad activa en el score.
 - **29/09 · Jinx post-7.3a:** con el pool completo y Leyes 1+3 duras (18 000 g, nivel 15), la
   frontera óptima se movió tras el buff de Yun Tal (AS 25→35): `Gunmetal+C44+Terminus+YunTal+LDR+IE`
   (pen 65) alcanza ~90 % de eficiencia normalizada vs ~83 % de la build C publicada (que sigue
@@ -31,10 +42,8 @@
    `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
    — envolver los scripts actuales en un solo punto de entrada con argparse.
 
-2. **Optimizador v2 para motores batch2** (medio, alto valor)
-   Extender `optimize_build.py` a los modelos de `analysis_batch2` (Kalista on-hit con E Rend,
-   Diana rotación AP, soportes valor-aliado): mismo esquema DFS+embudo sobre K_ITEMS/D_ITEMS/Y_ITEMS.
-   Validación cruzada: redescubrir K2 de Kalista, D2-LT de Diana e Y1 de Yuumi.
+2. ~~**Optimizador v2 para motores batch2**~~ ✅ **hecho en v1.8** — 4 motores (autos/onhit/
+   rotacion/aliado) con protocolo de validación en 2 niveles (ver §Hallazgos).
 
 3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
 

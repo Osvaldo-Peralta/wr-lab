@@ -44,7 +44,7 @@ class TestContenidoBundles(unittest.TestCase):
     def test_integridad_completo(self):
         problemas, _, _, n_rep = BB.validar(self.completo, "COMPLETO")
         self.assertEqual(problemas, [])
-        self.assertEqual(n_rep, len(os.listdir(os.path.join(BB.ROOT, "reportes"))))
+        self.assertEqual(n_rep, len([f for f in os.listdir(os.path.join(BB.ROOT, "reportes")) if f.endswith(".md")]))
 
     def test_modulos_nuevos_embebidos(self):
         for modulo in ("model/optimize_build.py", "model/update_reports.py",

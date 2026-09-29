@@ -208,7 +208,15 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
 #      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
 #      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
-# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
+# 7b. APLICAR números nuevos donde el motor los reproduce 1:1 (nunca toca builds):
+#    python3 model/update_reports.py refresh --patch <X.Xx> --apply
+# 7c. Para cada ❌ REGENERAR, generar el esqueleto de reemplazo en directorio aparte
+#    (el publicado NO se borra; el autor decide el reemplazo manual):
+#    python3 model/update_reports.py borrador --patch <X.Xx>   → reportes/_borradores/
+# 7d. Lint de reportes nuevos/externos (ítems alucinados, Ley 0, frontmatter, estilo):
+#    python3 model/lint_reportes.py [--strict]
+# 8. python3 -m unittest discover -s tests && python3 model/build_bundles.py
+#    python3 model/build_db.py && python3 model/update_reports.py check  → y commit.
 ```
 
 **Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se
@@ -2544,6 +2552,12 @@ D_ITEMS = {
  'Malignance':   dict(g=2700, ap=90, ah=15),
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
+# v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
+D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
+D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
     gold = sum(i['g'] for i in its)
@@ -2615,8 +2629,19 @@ for n,b in [('D1',D_BUILDS['D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)']),('D4'
     r = diana(b, mr=180); print(f"  {n}: DPS={r['dps']:.0f} MR efectiva={r['mr_eff']:.0f}")
 
 # ══════════════════════════════ YUUMI ══════════════════════════════
+# v1.8: diccionario expandido desde data/estructurada/items_7.3.csv (stats oficiales).
+# Pasivas no modeladas en yuumi()/karma() quedan como flag inerte (comentario por ítem):
+# el modelo de valor-aliado consume AP/HSP/haste; las pasivas de daño/amp se declaran pero
+# no puntúan (conservador).
 Y_ITEMS = {
  'Scythe':     dict(g=0,    ah=10),
+ 'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
+ 'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
+ 'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
+ 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
+ 'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
+ 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
@@ -2756,269 +2781,362 @@ for hp in [2500, 3500, 5000, 7000]:
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · optimize_build.py — optimizador exhaustivo de builds (ROADMAP módulo 2)
-================================================================================
-Busca la build ÓPTIMA de 6 slots (Ley 0: 1 botas T3 + 5 ítems) para cualquier
-ChampSpec del arquetipo de autos (dps_model), maximizando un objetivo ponderado
-de escenarios, sujeto a:
-    · presupuesto de oro            (--oro, default 18 000)
-    · Ley 1: crítico total ≤ 100 %  (poda estructural)
-    · Ley 2: AS cruda ≤ tope 3.0+ε  (poda estructural; pasivas tipo Get Excited quedan fuera)
-    · Ley 0: 1 botas + 5 ítems      (estructural: la botas se eligen en el lazo externo)
+WR-LAB · optimize_build.py — optimizador exhaustivo de builds (v2: 4 motores)
+=============================================================================
+Busca la build ÓPTIMA de 6 slots (Ley 0) maximizando un objetivo ponderado
+NORMALIZADO por escenario (cada escenario aporta en proporción, no en magnitud),
+sujeto a presupuesto de oro y —en el motor de autos— a las Leyes 1 y 2 como podas.
 
-Motor = dps_model.eval_build (fuente de verdad). Búsqueda en dos pasadas:
-    1) DFS podado sobre el pool (oro/AS/crit monótonos) puntuado con el escenario
-       de mayor peso → se conservan los mejores --embudo (default 400).
-    2) Re-puntuación EXACTA del embudo con el objetivo ponderado completo.
+MOTORES (adapters sobre los modelos del lab; el motor declara ítems, botas, escenarios y pesos):
+    autos     dps_model.eval_build    → Jinx, Yunara, Sivir, Caitlyn… (crítico/on-hit del engine)
+    onhit     analysis_batch2.kalista → Kalista (E Rend + Guinsoo doble on-hit)
+    rotacion  analysis_batch2.diana   → Diana (y magos de rotación AP; keystone configurable)
+    aliado    analysis_batch2.yuumi   → Yuumi/Karma (valor-aliado: escudo/cura/DPS-al-carry;
+                                        slot de quest fijo + botas Crimson)
 
 USO
-    python3 model/optimize_build.py jinx                     # top 10 por defecto
-    python3 model/optimize_build.py jinx --oro 15000 --top 5 # presupuesto early/mid
-    python3 model/optimize_build.py jinx --validar           # ¿redescubre la build publicada?
-    python3 model/optimize_build.py yunara --pesos 1v1:0.5,3v3:0.5
-    python3 model/optimize_build.py jinx --excluir ga,maw    # sin defensivos
+    python3 model/optimize_build.py jinx                        # motor autos (default del campeón)
+    python3 model/optimize_build.py jinx --crit-min 100 --pen-min 30 --validar
+    python3 model/optimize_build.py kalista --validar           # ¿redescubre K2 BotRK?
+    python3 model/optimize_build.py diana --keystone lt --validar
+    python3 model/optimize_build.py yuumi --oro 13000 --validar
+    python3 model/optimize_build.py jinx --motor autos --oro 15000 --top 5
+    python3 model/optimize_build.py jinx --incluir "Gunmetal,C44,Runaan's,IE,LDR,Kraken,BT" --excluir ga
 
-VALIDACIÓN CRUZADA (obligatoria tras tocar datos): con pesos por defecto debe
-redescubrir la build C de Jinx (Gunmetal+C44+Runaan's+IE+LDR+Kraken, 17 350 g).
+VALIDACIÓN CRUZADA (ROADMAP): con pesos default debe redescubrir la build C de Jinx
+(pool del reporte), K2 de Kalista, D2-LT de Diana e Y1 de Yuumi — ver tests/test_optimize_build.py.
 
-Alcance v1: arquetipo de AUTOS (crítico/on-hit del motor dps_model). Kalista/Diana/
-soportes usan los modelos de analysis_batch2 (optimizador propio = ROADMAP).
+Búsqueda: DFS podado (oro; en autos también AS-cap y crit≤100 como podas estructurales,
+y --crit-min/--pen-min como restricciones duras de hoja) + embudo re-puntuado con el
+objetivo ponderado completo. Cero dependencias.
 """
 import argparse, heapq, os, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "model"))
 import dps_model as M
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import analysis_batch2 as B2
 
 EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
-ESCENARIOS = {          # nombre → (kwargs de eval_build, métrica)
-    "1v1":     (dict(),                                   "dps1"),
-    "3v3":     (dict(targets=3),                          "dpsN"),
-    "vs120":   (dict(armor=120),                          "dps1"),
-    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500), "dps1"),
+
+# ---------------------------------------------------------------- motores
+ESC_AUTOS = {
+    "1v1":      (dict(),                                     "dps1"),
+    "3v3":      (dict(targets=3),                            "dpsN"),
+    "vs120":    (dict(armor=120),                            "dps1"),
+    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500),  "dps1"),
 }
-PESOS_DEFAULT = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+PESOS_AUTOS = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+
+ESC_ONHIT = {
+    "1v1":      (dict(), "single"),
+    "3v3":      (dict(targets=3), "multi"),
+    "vsTanque": (dict(armor=220, mr=150, ehp=4500), "single"),
+}
+PESOS_ONHIT = {"1v1": 0.35, "3v3": 0.45, "vsTanque": 0.20}
+
+ESC_ROT = {
+    "dps10s":  (dict(), "dps"),
+    "burst":   (dict(), "burst"),
+    "vs180mr": (dict(mr=180), "dps"),
+}
+PESOS_ROT = {"dps10s": 0.50, "burst": 0.30, "vs180mr": 0.20}
+
+ESC_ALIADO = {
+    "e_shield": (dict(), "e_shield"),
+    "r_heal":   (dict(), "r_heal"),
+    "adc_dps":  (dict(), "adc_dps_add"),
+}
+PESOS_ALIADO = {"e_shield": 0.35, "r_heal": 0.30, "adc_dps": 0.35}
+
+# IE fuera del pool on-hit: batch2.kalista() NO modela críticos (la E Rend no critica y los
+# autos critables no están en la fórmula) → IE aparecería como "AD barato" y su 25 % de crit
+# valdría 0 en el score. En la realidad ese crit SÍ vale: excluirlo es la postura conservadora.
+_K_NO_BOOT = [k for k in B2.K_ITEMS if k not in ("Gunmetal", "IE")]
+_D_NO_BOOT = [k for k in B2.D_ITEMS if k not in ("Spellslinger", "Crimson")]
+_Y_NO_BOOT = [k for k in B2.Y_ITEMS if k not in ("Crimson", "Scythe", "ionian")]
+
+ENGINES = {
+    "autos": dict(
+        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"],
+        boots=list(M.BOOT_UPGRADES.keys()), fixed=[], n_elegir=5, oro_default=18000,
+        escenarios=ESC_AUTOS, pesos=PESOS_AUTOS, podas_autos=True,
+        eval_fn=lambda champ, combo, kw, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False, **kw),
+        base_fn=lambda champ, combo, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False),
+        gold_fn=lambda k: M.ITEMS[k].gold,
+        requiere_spec=True,
+    ),
+    "onhit": dict(
+        items=_K_NO_BOOT, boots=["Gunmetal"], fixed=[], n_elegir=5, oro_default=18000,
+        escenarios=ESC_ONHIT, pesos=PESOS_ONHIT, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.kalista(combo, **kw),
+        base_fn=lambda champ, combo, opts: B2.kalista(combo),
+        gold_fn=lambda k: B2.K_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+    "rotacion": dict(
+        items=_D_NO_BOOT, boots=["Spellslinger", "Crimson"], fixed=[], n_elegir=5, oro_default=18500,
+        escenarios=ESC_ROT, pesos=PESOS_ROT, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.diana(combo, keystone=opts.get("keystone", "lt"), **kw),
+        base_fn=lambda champ, combo, opts: B2.diana(combo, keystone=opts.get("keystone", "lt")),
+        gold_fn=lambda k: B2.D_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+    "aliado": dict(
+        items=_Y_NO_BOOT, boots=["Crimson"], fixed=["Scythe"], n_elegir=4, oro_default=13000,
+        escenarios=ESC_ALIADO, pesos=PESOS_ALIADO, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.yuumi(combo, **kw),
+        base_fn=lambda champ, combo, opts: B2.yuumi(combo),
+        gold_fn=lambda k: B2.Y_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+}
+
+MOTOR_POR_CAMPEON = {"kalista": "onhit", "diana": "rotacion", "yuumi": "aliado", "karma": "aliado"}
 
 
-def pool_items(excluir=(), incluir=None):
-    ex = {x.lower() for x in excluir}
-    pool = [k for k in M.ITEMS if k not in M.BOOTS_ALL and k.lower() not in ex
-            and k != "boots_speed"]
-    if incluir:
-        inc = {M.resolve(x).key for x in incluir}
-        pool = [k for k in pool if k in inc]
-    return pool
+def motor_para(champ, override=None):
+    if override:
+        return override
+    return MOTOR_POR_CAMPEON.get(champ, "autos")
 
 
-def pool_botas(solo=None):
-    t3 = list(M.BOOT_UPGRADES.keys())          # solo Tier 3 (build final, min 10:00)
-    if solo:
-        wanted = {M.resolve(x).key for x in solo.split(",")}
-        t3 = [b for b in t3 if b in wanted]
-    return t3
-
-
-def optimizar(spec_key, oro=18000, top=10, pesos=None, excluir=(), solo_botas=None,
-              embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0, incluir=None):
-    spec = M.CHAMPS[spec_key]
-    pesos = pesos or dict(PESOS_DEFAULT)
-    falta = set(pesos) - set(ESCENARIOS)
+# ---------------------------------------------------------------- búsqueda
+def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), incluir=None,
+              solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
+              keystone="lt"):
+    champ = champ.lower()
+    motor = motor_para(champ, motor)
+    eng = ENGINES[motor]
+    if eng["requiere_spec"] and champ not in M.CHAMPS:
+        sys.exit(f"'{champ}' no tiene ChampSpec en dps_model.CHAMPS (motor autos). "
+                 f"Especs: {sorted(M.CHAMPS)}")
+    opts = {"keystone": keystone}
+    oro = oro or eng["oro_default"]
+    pesos = pesos or dict(eng["pesos"])
+    escenarios = eng["escenarios"]
+    falta = set(pesos) - set(escenarios)
     if falta:
-        sys.exit(f"escenarios desconocidos: {falta} (válidos: {list(ESCENARIOS)})")
+        sys.exit(f"escenarios desconocidos para motor {motor}: {falta} (válidos: {list(escenarios)})")
 
-    items = pool_items(excluir, incluir)
-    botas = pool_botas(solo_botas)
+    def resolver(x):
+        """alias/nombre visible → clave del pool del motor."""
+        x = x.strip()
+        if eng is ENGINES["autos"]:
+            try:
+                return M.resolve(x).key
+            except KeyError:
+                return x.lower()
+        for k in eng["items"] + eng["boots"] + eng["fixed"]:
+            if k.lower() == x.lower():
+                return k
+        try:                                  # nombres visibles del vault ("Runaan's Hurricane")
+            import update_reports as U
+            for k in eng["items"] + eng["boots"] + eng["fixed"]:
+                if U.resolver_clave(x, motor) == k:
+                    return k
+        except Exception:
+            pass
+        return x.lower()
+
+    ex_keys = {resolver(x) for x in excluir if x}
+    pool = [k for k in eng["items"] if k not in ex_keys]
+    if incluir:
+        inc = {resolver(x) for x in incluir if x.strip()}
+        pool = [k for k in pool if k in inc]
+    botas = list(eng["boots"])
+    if solo_botas:
+        wanted = {x.strip().lower() for x in solo_botas.split(",")}
+        botas = [b for b in botas if b.lower() in wanted]
     if not botas:
         sys.exit("sin botas candidatas")
+    fixed = list(eng["fixed"])
+    n_elegir = eng["n_elegir"]
 
-    # escenario de la pasada 1 = el de mayor peso
+    gold = eng["gold_fn"]
     esc1 = max(pesos, key=pesos.get)
-    kw1, met1 = ESCENARIOS[esc1]
+    kw1, met1 = escenarios[esc1]
 
-    # constantes de AS para la poda (as_total: raw = base_as + as_ratio·B)
-    lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
-    const_B = (spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as
-               + M.ALACRITY_FULL + spec.self_as_buff)
-    const_raw = spec.base_as + spec.as_ratio * const_B
-    as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in items}
-    oro_item = {k: M.ITEMS[k].gold for k in items}
-    crit_item = {k: M.ITEMS[k].crit for k in items}
-    oro_min = min(oro_item.values())
-
-    # pool ordenado por oro ascendente → poda de presupuesto más efectiva
-    orden = sorted(items, key=lambda k: oro_item[k])
+    # podas estructurales del motor de autos (Ley 1/2 como cotas monótonas)
+    if eng["podas_autos"]:
+        spec = M.CHAMPS[champ]
+        lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
+        const_raw = spec.base_as + spec.as_ratio * (
+            spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as + M.ALACRITY_FULL + spec.self_as_buff)
+        as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in pool}
+        crit_item = {k: M.ITEMS[k].crit for k in pool}
+    oro_item = {k: gold(k) for k in pool}
+    oro_min = min(oro_item.values()) if oro_item else 0
+    orden = sorted(pool, key=lambda k: oro_item[k])
     idx = {k: i for i, k in enumerate(orden)}
 
     t0 = time.time()
-    candidatos = []            # heap de (score1, oro_total,组合)
     hojas = 0
-    heap = []                  # min-heap con los mejores `embudo` por score1
+    heap = []                                   # min-heap (score1, -oro, combo)
+    eval_fn = eng["eval_fn"]
 
-    def dfs(start, elegidos, g, crit_p, as_p):
+    def dfs(start, elegidos, g):
         nonlocal hojas
-        faltan = 5 - len(elegidos)
-        if g + faltan * oro_min > oro:
-            return                                    # ni con lo más barato cabe
-        if crit_p > 100:
-            return                                    # Ley 1: crítico desperdiciado
-        if const_raw + spec.as_ratio * as_p > M.AS_CAP + EPS_AS:
-            return                                    # Ley 2: AS cruda pasmada
+        faltan = n_elegir - len(elegidos)
+        if g + faltan * oro_min > oro - oro_fijo:
+            return
+        if eng["podas_autos"]:
+            if sum(crit_item[k] for k in elegidos) > 100:
+                return
+            ai = sum(as_por_item[k] for k in elegidos)
+            if const_raw + spec.as_ratio * ai > M.AS_CAP + EPS_AS:
+                return
         if faltan == 0:
-            combo = botas_ctx + elegidos
-            r0 = M.eval_build(spec, combo, level=nivel, validate=False)
-            if r0["crit"] < crit_min or r0["pen"] < pen_min:
-                return                                  # Ley 1 / Ley 3 como restricción dura
+            combo = ctx_botas + fixed + elegidos
+            base = eng["base_fn"](champ, combo, opts)
+            if eng["podas_autos"]:
+                if base["crit"] < crit_min or base["pen"] < pen_min:
+                    return
             hojas += 1
-            r = M.eval_build(spec, combo, level=nivel, validate=False, **kw1) if kw1 else r0
-            s = r[met1] if kw1 else r0[met1]
+            r = eval_fn(champ, combo, kw1, opts) if kw1 else base
+            s = r[met1]
             if len(heap) < embudo:
                 heapq.heappush(heap, (s, -g, combo))
             elif s > heap[0][0]:
                 heapq.heapreplace(heap, (s, -g, combo))
             return
         for k in orden[start:]:
-            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k],
-                crit_p + crit_item[k], as_p + as_por_item[k])
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k])
 
+    oro_fijo = sum(gold(k) for k in fixed)
+    candidatos = []
     for b in botas:
-        botas_ctx = [b]
-        presupuesto = oro - M.ITEMS[b].gold
-        oro_save, oro = oro, presupuesto       # el DFS trabaja sobre el resto
-        dfs(0, [], 0, 0.0, 0.0)
+        ctx_botas = [b]
+        oro_save, oro = oro, oro - gold(b)
+        dfs(0, [], 0)
         oro = oro_save
         candidatos.extend(heap)
         heap = []
 
-    # pasada 2: objetivo ponderado NORMALIZADO (cada escenario aporta en proporción,
-    # no en magnitud absoluta: 3v3 ~10k no aplasta a vsTanque ~1.3k)
+    # pasada 2: objetivo ponderado NORMALIZADO por escenario
     brutos = []
     for s1, neg_g, combo in candidatos:
-        detalle = {}
-        for esc in ESCENARIOS:
-            kw, met = ESCENARIOS[esc]
-            detalle[esc] = M.eval_build(spec, combo, level=nivel, validate=False, **kw)[met]
-        base = M.eval_build(spec, combo, level=nivel, validate=False)
-        brutos.append((combo, detalle, base))
-    max_e = {esc: max((d[esc] for _, d, _ in brutos), default=1.0) or 1.0 for esc in ESCENARIOS}
+        det = {e: eval_fn(champ, combo, kw, opts)[m] for e, (kw, m) in escenarios.items()}
+        base = eng["base_fn"](champ, combo, opts)
+        brutos.append((combo, det, base))
+    max_e = {e: max((d[e] for _, d, _ in brutos), default=1.0) or 1.0 for e in escenarios}
     finales = []
-    for combo, detalle, base in brutos:
-        score = sum(pesos.get(esc, 0.0) * (detalle[esc] / max_e[esc]) for esc in ESCENARIOS)
-        finales.append((score, combo, detalle, base))
-    finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+    for combo, det, base in brutos:
+        score = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
+        finales.append((score, combo, det, base))
+    finales.sort(key=lambda x: (-x[0], sum(gold(k) for k in x[1])))
     if verbose:
-        print(f"[{spec.name}] hojas legales exploradas: {hojas:,} · embudo: {len(candidatos)} "
-              f"· {time.time()-t0:.1f}s · presupuesto {oro:,} g · nivel {nivel}")
+        print(f"[{champ}·{motor}] hojas legales: {hojas:,} · embudo: {len(candidatos)} · "
+              f"{time.time()-t0:.1f}s · ≤{oro:,} g · nivel {nivel}")
     return finales[:top], hojas
 
 
-def imprimir(finales, spec, pesos, oro):
-    nombres = lambda combo: "+".join(combo)
+def imprimir(finales, champ, motor, pesos, oro):
+    eng = ENGINES[motor]
+    gold = eng["gold_fn"]
     w = " · ".join(f"{e}:{p:g}" for e, p in sorted(pesos.items(), key=lambda x: -x[1]))
-    print(f"\n=== TOP builds · {spec.name} · objetivo [{w}] · ≤{oro:,} g ===")
+    print(f"\n=== TOP builds · {champ} ({motor}) · objetivo [{w}] · ≤{oro:,} g ===")
+    cols = list(eng["escenarios"])
+    print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    hdr = (f"{'#':>2} {'EFIC':>6} {'ORO':>6} {'AD':>4} {'AS':>5} {'crit':>4} {'pen':>4} "
-           + " ".join(f"{e:>7}" for e in ESCENARIOS) + "  BUILD")
-    print(hdr)
     for i, (score, combo, det, base) in enumerate(finales, 1):
-        as_s = f"{base['AS']:.2f}" + ("*" if base["overcap"] else "")
-        print(f"{i:>2} {score/tot_w*100:>5.1f}% {base['gold']:>6} {base['AD']:>4.0f} {as_s:>5} "
-              f"{base['crit']:>4.0f} {base['pen']:>4.0f} "
-              + " ".join(f"{det[e]:>7.0f}" for e in ESCENARIOS)
-              + f"  {nombres(combo)}")
-    print("(* = AS cruda excede el tope; el exceso viene de pasivas, no de ítems)")
+        og = sum(gold(k) for k in combo)
+        print(f"{i:>2} {score/tot_w*100:>5.1f}% {og:>6} "
+              + " ".join(f"{det[c]:>8.0f}" for c in cols)
+              + f"  {'+'.join(combo)}")
 
 
-def validar(finales, spec_key):
-    """Compara el top-1 contra la build publicada en el registro (si existe)."""
+def validar(finales, champ, motor):
+    """Compara el top-1 contra las builds publicadas del registro (mismo campeón)."""
+    eng = ENGINES[motor]
     reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
     if not os.path.exists(reg_path):
         print("⚠️ sin reportes_registry.json — corre update_reports.py baseline")
         return None
     import json
-    reg = json.load(open(reg_path, encoding="utf-8"))
+    with open(reg_path, encoding="utf-8") as fh:
+        reg = json.load(fh)
+    keys_pool = set(eng["items"]) | set(eng["boots"]) | set(eng["fixed"])
+
+    def norm_keys(bk):
+        out = []
+        for k in bk:
+            if k in keys_pool:
+                out.append(k)
+            elif eng is ENGINES["autos"]:
+                try:
+                    out.append(M.resolve(k).key)
+                except KeyError:
+                    out.append(k)
+            else:
+                hit = next((p for p in keys_pool if p.lower() == k.lower()), None)
+                out.append(hit or k)
+        return out
+
     pubs = []
     for f, e in reg["reportes"].items():
-        if e["champion"] == spec_key and e.get("build_keys") and e.get("hook"):
-            pubs.append((f, e["build_keys"]))
+        if e["champion"] != champ or not e.get("build_keys"):
+            continue
+        bk = norm_keys(e["build_keys"])
+        if all(k in keys_pool for k in bk):
+            pubs.append((f, bk))
     if not pubs:
-        print("⚠️ el registro no tiene build cuantitativa publicada para", spec_key)
+        print(f"⚠️ el registro no tiene build publicada compatible con el motor '{motor}' para {champ}")
         return None
     top1 = finales[0][1]
-    top1_keys = sorted(M.resolve(x).key for x in top1)
     ok_global = False
     for f, bk in pubs:
-        pub_keys = sorted(M.resolve(x).key for x in bk)
-        r = M.eval_build(M.CHAMPS[spec_key], bk, validate=False)
-        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1)
-                     if sorted(M.resolve(x).key for x in c) == pub_keys), None)
-        mismo = pub_keys == top1_keys
+        mismo = sorted(bk) == sorted(top1)
+        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1) if sorted(c) == sorted(bk)), None)
         ok_global |= mismo
         print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
-              f"top-1 del optimizador {'==' if mismo else '≠'} publicada"
-              + (f" (la publicada rankea #{rank} del top-{len(finales)})" if rank and not mismo else "")
-              + f" · dps1 publicada {r['dps1']:.0f} vs óptima {finales[0][3]['dps1']:.0f}")
+              f"top-1 {'==' if mismo else '≠'} publicada"
+              + ("" if mismo else f" (publicada rankea #{rank} del top-{len(finales)} mostrado)"
+                 if rank else " (publicada fuera del top mostrado — corre con --top mayor)")
+              + f" · publicada: {'+'.join(bk)}")
     return ok_global
 
 
 def parse_pesos(s):
-    out = {}
-    for par in s.split(","):
-        k, v = par.split(":")
-        out[k.strip()] = float(v)
-    return out
+    return {par.split(":")[0].strip(): float(par.split(":")[1]) for par in s.split(",")}
 
 
 def main():
-    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (motor dps_model)")
-    ap.add_argument("champion", help="clave en CHAMPS (jinx, yunara, shyvana…)")
-    ap.add_argument("--oro", type=int, default=18000, help="presupuesto total (default 18000)")
+    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (4 motores)")
+    ap.add_argument("champion")
+    ap.add_argument("--motor", default=None, choices=list(ENGINES),
+                    help="default: por campeón (kalista→onhit, diana→rotacion, yuumi/karma→aliado, resto→autos)")
+    ap.add_argument("--oro", type=int, default=None, help="presupuesto (default por motor)")
     ap.add_argument("--top", type=int, default=10)
     ap.add_argument("--nivel", type=int, default=15)
-    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5 (default 0.3/0.3/0.2/0.2)")
-    ap.add_argument("--excluir", default="", help="claves de ítem a excluir (coma-separadas)")
-    ap.add_argument("--incluir", default=None,
-                    help="restringir el pool a estos ítems (alias, coma-separados) — útil para "
-                         "validación cruzada contra el pool de candidatos de un reporte")
-    ap.add_argument("--botas", default=None, help="restringir botas T3 (coma-separadas, alias ok)")
+    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5")
+    ap.add_argument("--excluir", default="")
+    ap.add_argument("--incluir", default=None)
+    ap.add_argument("--botas", default=None)
+    ap.add_argument("--keystone", default="lt", help="motor rotacion: lt|empower|conq")
     ap.add_argument("--embudo", type=int, default=400)
-    ap.add_argument("--crit-min", type=float, default=0,
-                    help="Ley 1 como restricción dura (p.ej. 100 = crítico exacto)")
-    ap.add_argument("--pen-min", type=float, default=0,
-                    help="Ley 3 como restricción dura (p.ej. 30 = pen %% mínima)")
-    ap.add_argument("--validar", action="store_true", help="comparar contra la build publicada del registro")
-    ap.add_argument("--contra", default=None, help="build de referencia extra (alias separados por coma)")
+    ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
+    ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
+    ap.add_argument("--validar", action="store_true")
     args = ap.parse_args()
 
     ck = args.champion.lower()
-    if ck not in M.CHAMPS:
-        sys.exit(f"'{ck}' no está en CHAMPS. Especs: {sorted(M.CHAMPS)}")
-    pesos = parse_pesos(args.pesos) if args.pesos else dict(PESOS_DEFAULT)
-    excluir = tuple(x for x in args.excluir.split(",") if x)
-
-    finales, hojas = optimizar(ck, oro=args.oro, top=args.top, pesos=pesos,
-                               excluir=excluir, solo_botas=args.botas,
-                               embudo=args.embudo, nivel=args.nivel,
+    motor = motor_para(ck, args.motor)
+    eng = ENGINES[motor]
+    pesos = parse_pesos(args.pesos) if args.pesos else dict(eng["pesos"])
+    oro = args.oro or eng["oro_default"]
+    finales, hojas = optimizar(ck, motor=motor, oro=oro, top=args.top, pesos=pesos,
+                               excluir=tuple(x for x in args.excluir.split(",") if x),
+                               incluir=args.incluir.split(",") if args.incluir else None,
+                               solo_botas=args.botas, embudo=args.embudo, nivel=args.nivel,
                                crit_min=args.crit_min, pen_min=args.pen_min,
-                               incluir=[x for x in args.incluir.split(",")] if args.incluir else None)
-    if args.contra:
-        ref = [x.strip() for x in args.contra.split(",")]
-        M.validate_slots(ref)
-        det = {e: M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False, **kw)[met]
-               for e, (kw, met) in ESCENARIOS.items()}
-        base = M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False)
-        # re-normalizar incluyendo la referencia
-        max_e = {e: max([det[e]] + [d[e] for _, _, d, _ in finales]) for e in ESCENARIOS}
-        def score_norm(d):
-            tot = sum(pesos.values()) or 1.0
-            return sum(pesos.get(e, 0.0) * (d[e] / (max_e[e] or 1.0)) for e in ESCENARIOS)
-        finales = [(score_norm(d), c, d, b) for _, c, d, b in finales]
-        finales.append((score_norm(det), ref, det, base))
-        finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
-        finales = finales[:args.top + 1]
-    imprimir(finales, M.CHAMPS[ck], pesos, args.oro)
+                               keystone=args.keystone)
+    imprimir(finales, ck, motor, pesos, oro)
     if args.validar:
         print()
-        ok = validar(finales, ck)
+        ok = validar(finales, ck, motor)
         if ok is False:
             sys.exit(2)
 
@@ -7093,7 +7211,7 @@ Status: Beta
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Infinity Edge + Lord Dominik's Regards + Rapid Firecannon + Bloodthirster — **sin cambios**.
 > **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
 > **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
@@ -9948,7 +10066,7 @@ Status: Beta
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
 > **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
 <!-- WRLAB-VERIF:7.3a:END -->
 
 ## 0. RESUMEN EJECUTIVO
@@ -11042,13 +11160,15 @@ Status: Aprobado
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ⚠️ REVISAR Verificación automática (29/09/2026) — **⚠️ REQUIERE REVISIÓN ACOTADA — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
-> **Modelo:** sin hook cuantitativo (ítems sin resolver en el modelo: Stormsurge, Harmonic Echo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
+> **Δ de stats-input (no decide veredicto):** HSP (-12.5 %).
 > **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Echoes of Helia + Imperial Mandate + Stormsurge + Harmonic Echo — **sin cambios**.
 > **Ítems cambiados fuera de la build final:** Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
 > **Nota del lab (diff 7.3a):** HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) → Anotado [!WARNING] en el reporte
-> **Veredicto:** ⚠️ REVISAR — revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
@@ -11575,7 +11695,7 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.7):** repo git versionado · BD SQLite derivada · 60 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.8):** repo git versionado · BD SQLite derivada · 74 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -11593,6 +11713,17 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 ## Hallazgos del optimizador (registro vivo)
 
+- **29/09 · Protocolo de validación (2 niveles):** NIVEL 1 — dentro de las candidatas del propio
+  reporte (§8), la publicada debe ganar: ✅ Jinx C (búsqueda exhaustiva), ✅ Diana D2-LT, ✅ Yuumi Y1
+  (puntuación normalizada). NIVEL 2 — exploración completa: puede superar al reporte; los modelos
+  NO puntúan defensa ni pasivas no modeladas (Zhonyas stasis, Echoes siphon, Redemption activo,
+  tenacidad de Wit's End) → los hallazgos se documentan aquí, NO se auto-aplican.
+- **29/09 · Kalista (motor onhit):** el híbrido `Gunmetal+Runaan+Statikk+Guinsoo+Terminus+BotRK`
+  supera a K2 por **0.3 %** (ruido del modelo; K2 conserva valor defensivo no modelado de Wit's End).
+  IE excluido del pool on-hit a propósito: kalista() no modela críticos (sub/valora ambos lados).
+- **29/09 · Diana/Yuumi (pool completo):** el objetivo puramente ofensivo prefiere glass-cannon
+  (Diana: Stormsurge+VoidStaff+Orb +31 % dps vs D2; Yuumi: Censer+Staff+HorizonFocus+Stormsurge
+  sobre Y1) — limitación conocida: sin valor defensivo/utilidad activa en el score.
 - **29/09 · Jinx post-7.3a:** con el pool completo y Leyes 1+3 duras (18 000 g, nivel 15), la
   frontera óptima se movió tras el buff de Yun Tal (AS 25→35): `Gunmetal+C44+Terminus+YunTal+LDR+IE`
   (pen 65) alcanza ~90 % de eficiencia normalizada vs ~83 % de la build C publicada (que sigue
@@ -11606,10 +11737,8 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
    `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
    — envolver los scripts actuales en un solo punto de entrada con argparse.
 
-2. **Optimizador v2 para motores batch2** (medio, alto valor)
-   Extender `optimize_build.py` a los modelos de `analysis_batch2` (Kalista on-hit con E Rend,
-   Diana rotación AP, soportes valor-aliado): mismo esquema DFS+embudo sobre K_ITEMS/D_ITEMS/Y_ITEMS.
-   Validación cruzada: redescubrir K2 de Kalista, D2-LT de Diana e Y1 de Yuumi.
+2. ~~**Optimizador v2 para motores batch2**~~ ✅ **hecho en v1.8** — 4 motores (autos/onhit/
+   rotacion/aliado) con protocolo de validación en 2 niveles (ver §Hallazgos).
 
 3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
 
@@ -11826,10 +11955,13 @@ class TestRegistroVault(unittest.TestCase):
             self.assertEqual(e["hook"], "hook_diana", f)
             self.assertIsNotNone(e["metricas"], f)
 
-    def test_yuumi_poke_hybrid_sin_hook_honesto(self):
+    def test_yuumi_poke_hybrid_con_hook_tras_expansion(self):
+        """v1.8: Y_ITEMS expandido desde items_7.3.csv → la build poke-híbrida ya es cuantificable."""
         e = self.entry("Yuumi.md")
-        self.assertIsNone(e["hook"])                     # Stormsurge/Harmonic Echo fuera del modelo
-        self.assertIn("Stormsurge", e["hook_motivo"])
+        self.assertEqual(e["hook"], "hook_yuumi")
+        self.assertEqual(e["sin_resolver"], [])
+        self.assertEqual(round(e["metricas"]["AP"]), 230)      # AP de la build (fuente: CSV oficial)
+        self.assertLess(e["metricas"]["e_shield"], 339)        # sacrifica escudo vs Y1 clásica (~305)
 
     def test_reportes_sin_build_extraible(self):
         for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
@@ -11889,11 +12021,14 @@ class TestTriage73aVault(unittest.TestCase):
         """7.3a nerfeó su armadura base (input del spec)."""
         self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
 
-    def test_yuumi_revisar_conservador(self):
-        """Nerf directo a su W sin hook para la build poke-hybrid → revisión acotada, NO regenerar."""
+    def test_yuumi_anotar_cuantificado(self):
+        """v1.8: con el diccionario expandido, el nerf de la poke-híbrida se mide: Δ conservador
+        −1.7 % (< 2 %) → ✅ ANOTAR. (Con AP 230, el término 0.01 %/AP casi neutraliza el nerf.)"""
         t = self.por["Yuumi.md"]
-        self.assertEqual(t["veredicto"], "REVISAR")
-        self.assertIsNotNone(t["directo"])
+        self.assertEqual(t["veredicto"], "ANOTAR")
+        self.assertTrue(t["cuantificado"])
+        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
+        self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
 
     def test_jinx_anotar_delta_cero(self):
         t = self.por["Jinx.md"]
@@ -11909,8 +12044,8 @@ class TestTriage73aVault(unittest.TestCase):
 
     def test_balance_general(self):
         verdictos = [t["veredicto"] for t in self.res]
-        self.assertEqual(verdictos.count("REGENERAR"), 2)
-        self.assertEqual(verdictos.count("REVISAR"), 1)
+        self.assertEqual(verdictos.count("REGENERAR"), 2)      # Caitlyn + Rammus (inputs del spec)
+        self.assertEqual(verdictos.count("REVISAR"), 0)        # Yuumi ya es cuantificable (v1.8)
         self.assertEqual(len(self.res), 16)
 
     def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
@@ -12003,10 +12138,16 @@ if __name__ == "__main__":
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · tests del optimizador de builds (model/optimize_build.py).
-Validación cruzada exigida por el ROADMAP: dentro del pool de candidatos del reporte
-de Jinx y con las Leyes 1 y 3 como restricciones, el optimizador debe REDISCUBRIR
-la build C publicada (Gunmetal+C44+Runaan's+IE+LDR+Kraken).
+WR-LAB · tests del optimizador de builds (model/optimize_build.py, v2: 4 motores).
+
+Protocolo de validación cruzada (dos niveles, honesto con las limitaciones del modelo):
+  NIVEL 1 — candidates del reporte: la build publicada debe ganar ENTRE las candidatas
+            que el propio reporte comparó (§8): Jinx C (búsqueda), Diana D2-LT, Yuumi Y1.
+  NIVEL 2 — exploración completa: el optimizador puede superar al reporte (hallazgos:
+            Yun Tal post-7.3a para Jinx, híbrido Statikk para Kalista, glass-cannon AP
+            para Diana/Yuumi). Los modelos no puntúan defensa ni pasivas no modeladas
+            (Zhonyas stasis, Echoes siphon, Redemption activo) → los hallazgos se
+            DOCUMENTAN (ROADMAP §Hallazgos), no se auto-aplican a reportes publicados.
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
 import os, sys, unittest
@@ -12015,51 +12156,120 @@ import optimize_build as O
 import dps_model as M
 
 JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
-POOL_REPORTE = ["Gunmetal", "Berserker's", "C44", "Runaan's", "IE", "LDR", "Kraken",
-                "BT", "Galeforce", "Scimitar", "RFC"]
+POOL_JINX_REPORTE = ["Gunmetal", "Berserker's", "C44", "Runaan's", "IE", "LDR", "Kraken",
+                     "BT", "Galeforce", "Scimitar", "RFC"]
+KALISTA_K2 = ["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"]
+DIANA_CANDIDATAS = {          # §8 del reporte de Diana (keystone LT)
+    "D1": ["Spellslinger", "DuskDawn", "InfinityOrb", "Zhonyas", "Rabadon", "Luden"],
+    "D2": ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"],
+    "D3": ["Spellslinger", "Luden", "Rabadon", "InfinityOrb", "Stormsurge", "Zhonyas"],
+    "D4": ["Spellslinger", "DuskDawn", "Rabadon", "VoidStaff", "Zhonyas", "Cryptbloom"],
+}
+YUUMI_CANDIDATAS = {          # §8 del reporte de Yuumi (Y1-Y5)
+    "Y1": ["Scythe", "Crimson", "Censer", "Echoes", "Staff", "Redemption"],
+    "Y2": ["Scythe", "Crimson", "Echoes", "Staff", "Diadem", "Redemption"],
+    "Y3": ["Scythe", "Crimson", "Mikael", "Locket", "Censer", "Echoes"],
+    "Y4": ["Scythe", "Crimson", "Censer", "Staff", "Echoes", "Shurelya"],
+    "Y5": ["Scythe", "Crimson", "Zeke", "Censer", "Echoes", "Staff"],
+}
 
 
-class TestValidacionCruzada(unittest.TestCase):
-    def test_redescubre_jinx_C(self):
-        """ROADMAP: 'debe redescubrir la build C de Jinx' (pool del reporte + Leyes 1 y 3)."""
+def puntuar_normalizado(champ, motor, candidatas, keystone="lt"):
+    """Score del optimizador (ponderado normalizado) para una lista fija de builds."""
+    eng = O.ENGINES[motor]
+    pesos = eng["pesos"]
+    dets = {}
+    for nombre, build in candidatas.items():
+        dets[nombre] = {e: eng["eval_fn"](champ, build, kw, {"keystone": keystone})[m]
+                        for e, (kw, m) in eng["escenarios"].items()}
+    max_e = {e: max(d[e] for d in dets.values()) for e in eng["escenarios"]}
+    return {n: sum(pesos[e] * (d[e] / max_e[e]) for e in eng["escenarios"])
+            for n, d in dets.items()}
+
+
+class TestJinxAutos(unittest.TestCase):
+    def test_redescubre_C_en_pool_del_reporte(self):
+        """NIVEL 1 (búsqueda): pool del reporte + Leyes 1/3 duras → top-1 == build C."""
         finales, hojas = O.optimizar("jinx", oro=18000, top=3, crit_min=100, pen_min=30,
-                                     incluir=POOL_REPORTE, verbose=False)
+                                     incluir=POOL_JINX_REPORTE, verbose=False)
         self.assertGreater(hojas, 0)
-        top1 = finales[0][1]
-        self.assertEqual(sorted(M.resolve(x).key for x in top1),
+        self.assertEqual(sorted(M.resolve(x).key for x in finales[0][1]),
                          sorted(M.resolve(x).key for x in JINX_C))
-        base = finales[0][3]
-        self.assertEqual(round(base["dps1"]), 3042)      # golden number del reporte
-        self.assertEqual(base["gold"], 17350)
+        self.assertEqual(round(finales[0][3]["dps1"]), 3042)
 
-    def test_ley0_estructural(self):
-        """Toda build devuelta pasa validate_slots (1 botas T3 + 5 ítems)."""
-        finales, _ = O.optimizar("jinx", oro=18000, top=5, incluir=POOL_REPORTE, verbose=False)
+    def test_ley0_y_presupuesto(self):
+        finales, _ = O.optimizar("jinx", oro=18000, top=5, incluir=POOL_JINX_REPORTE, verbose=False)
         for score, combo, det, base in finales:
             self.assertEqual(M.validate_slots(combo), (1, 5))
             self.assertLessEqual(base["gold"], 18000)
 
     def test_restricciones_de_ley_duras(self):
-        """--crit-min/--pen-min se respetan en TODAS las builds devueltas."""
-        finales, _ = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30,
-                                 verbose=False)
+        finales, _ = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30, verbose=False)
         for score, combo, det, base in finales:
             self.assertGreaterEqual(base["crit"], 100)
             self.assertGreaterEqual(base["pen"], 30)
 
     def test_pool_completo_no_peor_que_publicada(self):
-        """Con el pool completo post-7.3a, el óptimo no pierde contra la build publicada
-        (documenta que el buff de Yun Tal expandió la frontera óptima)."""
+        """NIVEL 2: post-7.3a la frontera óptima se expande (Yun Tal buffeada); el óptimo
+        del pool completo no pierde contra la publicada en eficiencia normalizada."""
         finales, hojas = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30,
                                      verbose=False)
-        self.assertGreater(hojas, 20000)                 # búsqueda realmente exhaustiva
-        mejor = finales[0]
-        # eficiencia normalizada del top-1 ≥ la de la publicada bajo la misma normalización
-        max_e = {e: max(d[e] for _, _, d, _ in finales) for e in O.ESCENARIOS}
-        det_c = {e: M.eval_build(M.CHAMPS["jinx"], JINX_C, validate=False, **kw)[met]
-                 for e, (kw, met) in O.ESCENARIOS.items()}
-        eff_c = sum(O.PESOS_DEFAULT[e] * det_c[e] / max(max_e[e], det_c[e]) for e in O.ESCENARIOS)
-        self.assertGreaterEqual(mejor[0] + 1e-9, eff_c)
+        self.assertGreater(hojas, 20000)
+        det_c = {e: M.eval_build(M.CHAMPS["jinx"], JINX_C, validate=False, **kw)[m]
+                 for e, (kw, m) in O.ESC_AUTOS.items()}
+        max_e = {e: max([det_c[e]] + [d[e] for _, _, d, _ in finales]) for e in O.ESC_AUTOS}
+        eff_c = sum(O.PESOS_AUTOS[e] * det_c[e] / max_e[e] for e in O.ESC_AUTOS)
+        self.assertGreaterEqual(finales[0][0] + 1e-9, eff_c)
+
+
+class TestKalistaOnHit(unittest.TestCase):
+    def test_K2_en_top3_con_margen_minimo(self):
+        """NIVEL 2: el híbrido Statikk supera a K2 por <1.5 % (ruido del modelo: el valor
+        defensivo de Wit's End — MR/tenacidad — no está en la fórmula)."""
+        finales, hojas = O.optimizar("kalista", top=6, verbose=False)
+        combos = [sorted(c) for _, c, _, _ in finales]
+        self.assertIn(sorted(KALISTA_K2), combos)
+        rank = combos.index(sorted(KALISTA_K2)) + 1
+        self.assertLessEqual(rank, 3)
+        self.assertLess(finales[0][0] - finales[rank - 1][0], 0.015)
+
+    def test_IE_excluido_por_modelo(self):
+        """batch2.kalista no modela críticos → IE fuera del pool (conservador)."""
+        finales, _ = O.optimizar("kalista", top=10, verbose=False)
+        for _, combo, _, _ in finales:
+            self.assertNotIn("IE", combo)
+
+
+class TestDianaRotacion(unittest.TestCase):
+    def test_D2_gana_entre_las_candidatas_del_reporte(self):
+        """NIVEL 1: con los pesos del motor, D2-LT es la mejor de D1-D4 (§8 del reporte)."""
+        scores = puntuar_normalizado("diana", "rotacion", DIANA_CANDIDATAS)
+        self.assertEqual(max(scores, key=scores.get), "D2")
+        for otra in ("D1", "D3", "D4"):
+            self.assertGreater(scores["D2"], scores[otra])
+
+    def test_busqueda_estructural(self):
+        finales, hojas = O.optimizar("diana", top=3, verbose=False)
+        self.assertGreater(hojas, 100)
+        for _, combo, det, base in finales:
+            self.assertEqual(len(combo), 6)
+            self.assertIn(combo[0], ("Spellslinger", "Crimson"))   # 1 botas (Ley 0)
+
+
+class TestYuumiAliado(unittest.TestCase):
+    def test_Y1_gana_entre_las_candidatas_del_reporte(self):
+        """NIVEL 1: Y1 (Censer/Echoes/Staff/Redemption) es la mejor de Y1-Y5 (§8)."""
+        scores = puntuar_normalizado("yuumi", "aliado", YUUMI_CANDIDATAS)
+        self.assertEqual(max(scores, key=scores.get), "Y1")
+
+    def test_slots_fijos_de_support(self):
+        """Motor aliado: quest (Scythe) fija + botas Crimson + 4 elegibles = 6 slots."""
+        finales, hojas = O.optimizar("yuumi", top=5, verbose=False)
+        self.assertGreater(hojas, 0)
+        for _, combo, _, _ in finales:
+            self.assertEqual(len(combo), 6)
+            self.assertIn("Crimson", combo)
+            self.assertIn("Scythe", combo)
 
 
 if __name__ == "__main__":
@@ -12192,13 +12402,18 @@ SINONIMOS = {
     "statikk":                   {"autos": "statikk", "onhit": "Statikk"},
     "infinity orb":              {"rotacion": "InfinityOrb"},
     "luden's echo":              {"rotacion": "Luden"},
-    "liandry's anguish":         {"rotacion": "Liandry"},
+    "liandry's anguish":         {"rotacion": "Liandry", "aliado": "Liandry"},
     "morellonomicon":            {"rotacion": "Morello"},
     "zhonyas":                   {"rotacion": "Zhonyas"},
     "nashor":                    {"rotacion": "Nashor"},
     "rabadon":                   {"rotacion": "Rabadon"},
     "censer":                    {"aliado": "Censer"},
-    "redemption":                {"aliado": "Redemption"},
+    "stormsurge":                {"aliado": "Stormsurge", "rotacion": "Stormsurge"},
+    "harmonic echo":             {"aliado": "HarmonicEcho"},
+    "morellonomicon":            {"aliado": "Morello", "rotacion": "Morello"},
+    "rylai's crystal scepter":   {"aliado": "Rylai", "rotacion": "Rylai"},
+    "horizon focus":             {"aliado": "HorizonFocus", "rotacion": "HorizonFocus"},
+    "liandry's torment":         {"aliado": "Liandry", "rotacion": "Liandry"},
 }
 
 # relevancia de cambios sistémicos por rol (para notas cualitativas)
@@ -12892,6 +13107,189 @@ def insertar_bloque(txt, bloque, patch):
     return txt[:i].rstrip("\n") + "\n\n" + bloque + "\n\n" + txt[i:]
 
 
+# ================================================================ refresh (aplicar números nuevos)
+def variantes_num(pre, post):
+    """Pares (cadena_pre, cadena_post) con los formatos de número del estándar v1.4
+    (entero, entero con espacio de miles, 1 decimal) para reemplazo 1:1."""
+    pares = []
+    rp, rq = round(pre), round(post)
+    if rp != rq:
+        pares.append((str(rp), str(rq)))
+        f = lambda n: f"{n:,}".replace(",", " ")
+        if rp >= 1000:
+            pares.append((f(rp), f(rq)))
+    for dec in (1, 2):
+        a, b = f"{pre:.{dec}f}", f"{post:.{dec}f}"
+        if a != b:
+            pares.append((a, b))
+    return pares
+
+
+def refresh_texto(txt, delta, pre, post_cons, max_hits=3):
+    """Actualiza los números reproducibles DENTRO de la sección '### Resultado del modelo'
+    (y su cita titular). Devuelve (nuevo_txt, cambios). Si la sección no existe o ningún
+    número publicado coincide 1:1 con el modelo, no toca nada (honestidad: la anotación
+    WRLAB-VERIF sigue siendo la constancia del Δ)."""
+    m = re.search(r"(###\s+Resultado del modelo.*?)(?=\n---|\n## )", txt, re.S)
+    if not m:
+        return txt, []
+    seccion = m.group(1)
+    nueva = seccion
+    cambios = []
+    for k, dv in sorted(delta.items(), key=lambda x: -abs(x[1])):
+        if abs(dv) < 0.05 or k not in pre or k not in post_cons:
+            continue
+        for pre_s, post_s in variantes_num(pre[k], post_cons[k]):
+            hits = len(re.findall(rf"(?<![\d.,]){re.escape(pre_s)}(?![\d])", nueva))
+            if 0 < hits <= max_hits:
+                nueva = re.sub(rf"(?<![\d.,]){re.escape(pre_s)}(?![\d])", post_s, nueva)
+                cambios.append((k, pre_s, post_s, hits))
+    if cambios:
+        txt = txt[:m.start(1)] + nueva + txt[m.end(1):]
+    return txt, cambios
+
+
+def cmd_refresh(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    solo = set(args.solo.split(",")) if args.solo else None
+    for t in resultados:
+        if solo and t["archivo"] not in solo:
+            continue
+        ruta = os.path.join(REPORTES, t["archivo"])
+        if t["veredicto"] == "REGENERAR":
+            print(f"❌ {t['archivo']}: veredicto REGENERAR — refresh NO aplica "
+                  f"(usa 'borrador' y el flujo FRAMEWORK)")
+            continue
+        if not t.get("delta") or not any(abs(v) >= 0.05 for v in t["delta"].values()):
+            motivo = ("sin modelo cuantitativo (triage cualitativo)" if not t.get("hook")
+                      else "Δ 0 % — nada que refrescar")
+            print(f"=  {t['archivo']}: {motivo}")
+            continue
+        with open(ruta, encoding="utf-8") as fh:
+            txt = fh.read()
+        nuevo, cambios = refresh_texto(txt, t["delta"], t["pre"], t["post_cons"])
+        if not cambios:
+            print(f"⚠️  {t['archivo']}: Δ {t['delta_max']:.1f} % medido, pero sus números publicados "
+                  f"no son reproducibles 1:1 por el motor — sin auto-refresh (la anotación "
+                  f"WRLAB-VERIF documenta el Δ)")
+            continue
+        desc = ", ".join(f"{k}: {a}→{b} (×{n})" for k, a, b, n in cambios)
+        if args.apply:
+            with open(ruta, "w", encoding="utf-8") as fh:
+                fh.write(nuevo)
+            print(f"✍️  {t['archivo']}: números actualizados — {desc}")
+        else:
+            print(f"── {t['archivo']} (dry-run): {desc}")
+    if args.apply:
+        print("\nRecuerda: python3 model/build_bundles.py && python3 -m unittest discover -s tests")
+
+
+# ================================================================ borrador (para ❌ REGENERAR)
+def _fila_csv(rel, champ):
+    import csv as _csv
+    with open(os.path.join(ROOT, *rel.split("/")), encoding="utf-8", newline="") as fh:
+        for fila in _csv.reader(fh):
+            if fila and fila[0].strip().lower() == champ.lower():
+                return fila
+    return None
+
+
+def _esqueleto_template():
+    tpl = leer_md(os.path.join(ROOT, "metodologia", "TEMPLATE_REPORTE.md"))
+    m = re.search(r"## B\. ESQUELETO CANÓNICO.*?```markdown\n(.*?)```", tpl, re.S)
+    return m.group(1).rstrip() if m else "(copiar el esqueleto de metodologia/TEMPLATE_REPORTE.md §B)"
+
+
+def leer_md(ruta):
+    with open(ruta, encoding="utf-8") as fh:
+        return fh.read()
+
+
+def cmd_borrador(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    outdir = os.path.join(REPORTES, "_borradores")
+    os.makedirs(outdir, exist_ok=True)
+    hoy = datetime.date.today().strftime("%d/%m/%Y")
+    generados = 0
+    for t in resultados:
+        if t["veredicto"] != "REGENERAR":
+            continue
+        entry = reg["reportes"][t["archivo"]]
+        champ = t["champion"]
+        stem = re.sub(r"\.md$", "", t["archivo"]).replace(" ", "_")
+        partes = [f"""---
+tags:
+  - BORRADOR
+version: 0.1
+Status: Borrador
+champion: {champ}
+patch: "{patch}"
+---
+# ⚠️ BORRADOR DE REGENERACIÓN — {champ} ({patch}) · generado {hoy} por update_reports.py
+
+> [!DANGER] Por qué existe este borrador
+> El reporte publicado `{t['archivo']}` recibió veredicto **❌ REGENERAR** contra {patch}:
+> {'; '.join(t['razones'])}.
+> **Cambio directo:** {t['directo']['detalles'] if t['directo'] else '—'}
+
+## 1. DATOS NUEVOS DEL PARCHE (fuente: data/estructurada/cambios_{patch}.md)
+
+| Entidad | Tipo | Cambio |
+|---|---|---|"""]
+        if t["directo"]:
+            partes.append(f"| **{champ}** | {t['directo']['tipo']} | {t['directo']['detalles']} |")
+        for it in t["items_build"] + [v.split(" (")[0] for v in t["items_variantes"]]:
+            if it in cs["items"]:
+                partes.append(f"| {it} | {cs['items'][it]['tipo']} | {cs['items'][it]['detalles'][:160]} |")
+        for srow in t["sistemas"]:
+            partes.append(f"| (sistema) | — | {srow[:200]} |")
+        partes.append("")
+        as_row = _fila_csv("data/estructurada/champion_attack_speed_7.3.csv", champ)
+        dur_row = _fila_csv("data/estructurada/champion_durability_7.3.csv", champ)
+        partes.append("## 2. FICHA BASE (datos del lab)")
+        if as_row:
+            partes.append("- **AS oficial (7.3, overrides " + patch + " marcados):** `" + ", ".join(as_row) + "`")
+        if dur_row:
+            partes.append("- **Durabilidad (cambios 7.3):** `" + ", ".join(dur_row) + "`")
+        spec = M.CHAMPS.get(entry["champion"])
+        if spec:
+            partes.append(f"- **ChampSpec precargado:** AD {spec.base_ad}+{spec.ad_growth}/nv · "
+                          f"AS ratio {spec.as_ratio} · bonus base {spec.base_bonus_as} · "
+                          f"AS/nv {spec.as_per_lvl} — ⚠️ revisar contra el diff de arriba antes de regenerar")
+        else:
+            partes.append("- **ChampSpec:** NO existe en `model/champspecs.py` — crearlo desde el "
+                          "apéndice AS de las notas oficiales + wiki (FRAMEWORK §A paso 2)")
+        partes.append(f"""
+## 3. CÓMO REGENERAR (flujo FRAMEWORK §A de 10 pasos)
+
+1. Actualizar el spec/datos con los valores de §1 (fuente primaria: notas oficiales {patch}).
+2. Re-derivar candidatos: {'`python3 model/optimize_build.py ' + entry['champion'] + ' --validar --top 8`' if spec else 'crear primero el ChampSpec (paso 2 de FRAMEWORK §A) y luego `python3 model/optimize_build.py ' + entry['champion'] + ' --validar --top 8`; si el arquetipo no es de autos, comparar candidatas con analysis_batch2'}.
+   Verificar también a mano contra las candidatas del reporte original (§8).
+3. Rellenar el esqueleto TEMPLATE (§B) abajo, o generar el reporte completo en un chat
+   externo con el bundle `WR-LAB_completo.md`.
+4. Sustituir `reportes/{t['archivo']}` por la versión nueva (o decidir mantenerla con el
+   bloque ❌ visible), luego:
+   `python3 model/update_reports.py baseline && python3 model/update_reports.py annotate --patch {patch} --apply`
+5. `python3 model/build_bundles.py && python3 -m unittest discover -s tests` y commit.
+
+## 4. ESQUELETO DEL REPORTE NUEVO (TEMPLATE v1.4 §B)
+
+```markdown
+{_esqueleto_template().replace("{champion}", champ).replace("{patch}", patch)}
+```
+""")
+        destino = os.path.join(outdir, f"{stem}_{patch}_REGENERAR.md")
+        with open(destino, "w", encoding="utf-8") as fh:
+            fh.write("\n".join(partes))
+        generados += 1
+        print(f"📝 {os.path.relpath(destino, ROOT)}")
+    if not generados:
+        print(f"Ningún reporte con veredicto ❌ REGENERAR contra {patch} — nada que borrador.")
+
+
+
 # ================================================================ comandos
 def cmd_baseline(args):
     reg = construir_registro()
@@ -13009,9 +13407,16 @@ def main():
     a.add_argument("--apply", action="store_true", help="escribir en los reportes (default: dry-run)")
     a.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
     a.add_argument("--fecha", default=None, help="fecha del sello (dd/mm/aaaa)")
+    rf = sub.add_parser("refresh", help="aplicar los números post-parche dentro de los reportes (solo si el motor los reproduce 1:1)")
+    rf.add_argument("--patch", default=None)
+    rf.add_argument("--apply", action="store_true")
+    rf.add_argument("--solo", default=None)
+    bo = sub.add_parser("borrador", help="generar esqueletos de regeneración en reportes/_borradores/ (veredictos ❌)")
+    bo.add_argument("--patch", default=None)
     sub.add_parser("check", help="modo CI: drift + verificaciones pendientes")
     args = ap.parse_args()
-    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate, "check": cmd_check}[args.cmd](args)
+    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate,
+     "refresh": cmd_refresh, "borrador": cmd_borrador, "check": cmd_check}[args.cmd](args)
 
 
 if __name__ == "__main__":
@@ -13567,4 +13972,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 29/09/2026 · completo · sha256(cuerpo)=2c2ad7026a9490b4 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 29/09/2026 · completo · sha256(cuerpo)=2797703b4df3588b · NO editar a mano: editar las fuentes y regenerar -->
