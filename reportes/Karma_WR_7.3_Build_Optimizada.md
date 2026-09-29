@@ -15,6 +15,15 @@ patch: "7.3+7.3a"
 **Arquetipo:** Enchanter-poke con Mantra (cada 3 casts, la siguiente habilidad básica se potencia)
 **Enfoque:** CC fiable y barato (Q slow cada ~3.4 s + W root ×2) para mantener **Imperial Mandate** activo: +7 % de daño de TODO el equipo sobre el marcado, mientras Censer/E amplifican al carry.
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Karma:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (Imperial Mandate no está parametrizado en analysis_batch2.karma()) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Imperial Mandate + Ardent Censer + Echoes of Helia + Staff of Flowing Waters — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Whispering Circlet (NERF), Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > 

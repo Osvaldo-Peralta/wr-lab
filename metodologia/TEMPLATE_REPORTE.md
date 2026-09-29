@@ -88,6 +88,28 @@ original del autor apoyado en WR-LAB.
 ### A.7 Nomenclatura de archivo (vault/sitio)
 `{Campeón} — Wild Rift Build Optimizada.md` (título H1 NO se repite en el cuerpo si el frontmatter lleva `champion:`; el H1 lo pone Quartz). Para el lab: `reportes/{Campeón}_WR_{patch}_Build_Optimizada.md`.
 
+### A.8 Bloque de verificación automática de hotfix (gestionado por tooling)
+Cuando un hotfix toca (o podría tocar) un reporte publicado, `model/update_reports.py annotate --apply`
+inserta/actualiza un bloque **entre marcadores HTML** justo después del bloque de metadatos:
+
+```markdown
+<!-- WRLAB-VERIF:{patch}:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] {✅|⚠️|❌} Verificación automática ({fecha}) — **{NO requiere regeneración|…} — hotfix {patch}**
+> **Cambio directo:** {tipo y detalle, o "ninguno"}.
+> **Δ de resultado (conservador):** {métrica pre→post (±%)} · Δ máx **{x} %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.
+> {ítems de variantes/rechazados cambiados · sistemas relevantes al rol · nota del lab}
+> **Veredicto:** {✅ ANOTAR|⚠️ REVISAR|❌ REGENERAR} — {consecuencia}.
+<!-- WRLAB-VERIF:{patch}:END -->
+```
+
+Reglas: (1) el contenido entre marcadores **no se edita a mano** — se regenera con el tooling;
+(2) un bloque por parche verificado (los históricos se conservan encima del nuevo);
+(3) el veredicto usa **métricas de resultado** (DPS/escudo/cura), no stats-input;
+(4) ❌ REGENERAR es el único veredicto que autoriza re-derivar la build (flujo §A del FRAMEWORK
++ `update_reports.py baseline` al terminar). Los callouts manuales `> [!WARNING] Hotfix…` previos
+a v1.6 pueden convivir, pero la constancia canónica es el bloque automático.
+
 ---
 
 ## B. ESQUELETO CANÓNICO (copiar y llenar)
