@@ -25,7 +25,7 @@ def connect_fresh():
     CREATE TABLE items(name TEXT PRIMARY KEY, gold TEXT, stats TEXT, categories TEXT, passives TEXT);
     CREATE TABLE patches(id TEXT PRIMARY KEY, release_date TEXT, status TEXT, raw_path TEXT, diff_path TEXT);
     CREATE TABLE changes(patch TEXT, entity_type TEXT, entity TEXT, change TEXT);
-    CREATE TABLE reports(champion TEXT PRIMARY KEY, path TEXT, version TEXT, status TEXT, patch TEXT, tags TEXT);
+    CREATE TABLE reports(champion TEXT, path TEXT PRIMARY KEY, version TEXT, status TEXT, patch TEXT, tags TEXT);
     CREATE TABLE sources(name TEXT, url TEXT, accessed TEXT, role TEXT);
     """)
     return con
@@ -101,19 +101,28 @@ def main():
     for row in parse_change_rows(os.path.join(E, "cambios_7.3a.md"), "7.3a"):
         cur.execute("INSERT INTO changes VALUES(?,?,?,?)", row)
 
-    # reports (frontmatter)
+    # reports (frontmatter; champion con fallback al nombre de archivo — formato vault)
+    import contextlib, io as _io
+    with contextlib.redirect_stdout(_io.StringIO()):
+        import update_reports as U
     for f in sorted(os.listdir(rdir)):
         if not f.endswith(".md"): continue
         t = open(os.path.join(rdir, f), encoding="utf-8").read()
         fm = re.search(r'^---\n(.*?)\n---', t, re.S)
         champ = ver = stat = pat = tags = ""
+        fm_dict = {}
         if fm:
             for k, v in re.findall(r'^(\w+):\s*(.+)$', fm.group(1), flags=re.M):
+                fm_dict[k] = v
                 if k == "champion": champ = v
                 if k == "version": ver = v
                 if k == "Status": stat = v
                 if k == "patch": pat = v.strip('"')
             tags = ",".join(re.findall(r'^\s+-\s+(.+)$', fm.group(1), flags=re.M))
+        if not champ:
+            champ = U.champ_desde_archivo(f, fm_dict, t)
+        if not pat:
+            pat = U.parche_declarado(fm_dict, t) or ""
         if champ:
             cur.execute("INSERT OR REPLACE INTO reports VALUES(?,?,?,?,?,?)",
                         (champ, os.path.join("reportes", f), ver, stat, pat, tags))

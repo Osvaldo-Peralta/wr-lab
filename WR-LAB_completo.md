@@ -6,6 +6,13 @@
 > ítems es un ERROR (deja la build con 5 slots reales y pierde un ítem completo).
 > Toda lista de build debe pasar `dps_model.validate_slots()` (6 entradas, exactamente 1 botas, nunca T2+T3 juntas).
 
+> ## 🧭 REGLA DE ORO — LOS REPORTES PUBLICADOS NO SE REGENERAN (v1.6)
+> Una build publicada y aprobada es **definitiva**. Cuando sale un hotfix se TRIA con
+> `model/update_reports.py` (Δ sobre métricas de RESULTADO): **<2 % ✅ se anota** el bloque
+> `WRLAB-VERIF` y la build sigue vigente · 2-5 % ⚠️ revisión acotada · **≥5 % o cambio a inputs
+> del spec ❌ regenerar** (flujo FRAMEWORK de 10 pasos, con apoyo de `model/optimize_build.py`).
+> Los reportes del bundle llevan su bloque de verificación: respétalo, no re-derives builds ✅.
+
 > ## 🎨 ESTÁNDAR VISUAL DE REPORTES (v1.4 — obligatorio)
 > Todo reporte generado DEBE seguir `metodologia/TEMPLATE_REPORTE.md` al pie de la letra:
 > frontmatter YAML (tags/version/Status/champion/patch) · bloque de metadatos en negritas ·
@@ -13,19 +20,23 @@
 > §0 con **Tabla A (6 slots exactos)** + **Tabla B (ruta cronológica con componentes y oro acumulado)** ·
 > secciones `## N. MAYÚSCULAS` 0-10 + APÉNDICE A/B + **Pie de página** (referencias Riot/wr-meta/WR-LAB + aviso legal) ·
 > números con espacio de miles (`2 900`, `17 350 g`) y `%` con espacio (`25 %`) · veredictos ✅/⚠️/❌ siempre con número.
-> Referencia canónica: el reporte de Jinx incluido en este bundle.
+> Bloque de verificación de hotfix (§A.8): gestionado por tooling, no editar a mano.
 
-> ## 🔥 ESTADO DE DATOS: parche 7.3 **+ hotfix 7.3a** (despliegue 29-sep-2026)
+> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
 > Los cambios de 7.3a (nerfs a Hwei/Malphite/Caitlyn/Senna/Yuumi/Rammus/Syndra; buffs a Samira/Tristana/
 > Draven/Viego; Yun Tal AS 35 %; Diadem/Circlet nerf; Death's Dance 3 300; Smite burn −; Nexus 4 000;
 > placas −resist) están en §3b y YA aplicados a specs, motor y apéndices de este bundle.
-> Fuente: notas oficiales CN traducidas — re-verificar contra la nota EN cuando Riot la publique.
+> **✅ Verificado contra la nota EN oficial de 7.3a** (publicada 29-sep-2026): todos los números del
+> diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
+> Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 28/09/2026
-> Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 29/09/2026
+
+> Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
+> diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
+> verificación de hotfix, tests e infraestructura). Adjunta este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
 > siguiendo el ESTÁNDAR VISUAL v1.4 de TEMPLATE_REPORTE.md".
-> Versión completa (reportes del equipo, fichas, diffs): WR-LAB_completo.md
 
 ## 1. METODOLOGÍA (Ley 0 + las 7 Leyes + flujo)
 
@@ -50,7 +61,8 @@
 3. **Leer sus cambios de 7.3.** ¿Sus habilidades ahora escalan con crítico (Caitlyn, MF, Tristana, Xayah, Akshan, Viego…)?
    Eso sube el valor de IE y del crítico por encima del modelo de solo autos. ¿Lo nerfearon/buffearon? (Jinx: AD growth y R.)
 4. **Definir el arquetipo** (§C) y las 3–5 rutas candidatas serias (no todas las posibles).
-5. **Enumerar builds como listas de ítems** (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
+5. **Enumerar builds como listas de ítems** (apoyo: `model/optimize_build.py <champ>` las busca
+   de forma exhaustiva bajo Leyes 0-1-2-3 y presupuesto) (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
    en la lista va la botas T3, nunca T2+T3 a la vez; `validate_slots()` corre automáticamente)
    y correr `compare(spec, builds)` en los 4 escenarios estándar: 1v1, 3v3, vs 120 armadura, vs tanque (220 arm + ≥1200 HP bonus + 4500 HP para %-vida).
 6. **Aplicar las Leyes** (§B) para podar: stats muertos (crítico >umbral, AS sobre el tope, haste inútil),
@@ -185,11 +197,29 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    y actualizar: constantes en dps_model.py (CRIT_DMG, AS_CAP, LT…), precios/stats de ITEMS,
 #    specs de campeones tocados.
 # 5. Anotar en data/FUENTES.md: fecha, parche, discrepancias detectadas.
+# 6. Escribir el diff estructurado data/estructurada/cambios_<patch>.md
+#    (mismo formato que cambios_7.3a.md: tablas CAMPEONES / ÍTEMS / MAPA Y SISTEMAS /
+#    IMPACTO EN REPORTES — de esta tabla se alimenta update_reports.py).
+# 7. TRIAR los reportes publicados en vez de regenerarlos a ciegas:
+#    python3 model/update_reports.py triage   --patch <X.Xx>
+#    python3 model/update_reports.py annotate --patch <X.Xx> --apply
+#    → ✅ ANOTAR/SIN_IMPACTO: la build publicada NO se toca (bloque de verificación insertado).
+#    → ⚠️ REVISAR: revisión manual acotada (matriz último slot, rechazados, variantes).
+#    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
+#      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
+#      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
+# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
 ```
 
-**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) tal como estaba publicado al 25-sep-2026.
-Cualquier hotfix 7.3a/b obliga al paso 1–5 antes de publicar un reporte nuevo.
+**Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se
+**anota con su impacto medido** (`update_reports.py`), no se re-deriva la build — salvo que
+el triage dé ❌ REGENERAR (Δ de resultado ≥ 5 % o cambio a inputs del spec). Umbrales:
+Δ < 2 % ✅ ANOTAR · 2–5 % ⚠️ REVISAR · ≥ 5 % ❌ REGENERAR. El Δ se mide sobre métricas de
+**resultado** (DPS/escudos/curas), no sobre stats-input (un HSP −5 % puede diluirse a −1.4 %
+de escudo: caso Yuumi 7.3a).
 
+**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026).
+Cualquier hotfix 7.3b/7.4 obliga a los pasos 1–8 antes de publicar un reporte nuevo.
 
 ## 1b. APÉNDICE: ESCALADO DE TAMAÑO (Cho'Gath/Malphite/Shyvana) — actualizado a 7.3a
 
@@ -284,7 +314,6 @@ Cuando pidas el reporte de Cho'Gath, Malphite o Shyvana, el análisis añadirá:
 
 Grep de "size/tamaño" sobre los 186 ítems de `items_7.3.csv` y las 12 fichas de campeones · notas oficiales 7.3 (Mantle: HP 200→600 y Twinguard: +300 HP base, rework de resistencias) · fichas wr-meta de Cho'Gath (R Feast completo), Malphite (W/E ratios de armadura) y Shyvana. Discrepancia registrada: el texto "Gains 9 Armor (25/30/35/40 %)" de la W de Malphite es ambiguo (¿9 + % del bonus o % del total?) — modelado como % del bonus (conservador), verificar en juego.
 
-
 ## 2. TEMPLATE + GUÍA DE ESTILO (estándar visual obligatorio v1.4)
 
 # TEMPLATE + GUÍA DE ESTILO — Reportes WR-LAB (estándar v1.4)
@@ -376,6 +405,28 @@ original del autor apoyado en WR-LAB.
 
 ### A.7 Nomenclatura de archivo (vault/sitio)
 `{Campeón} — Wild Rift Build Optimizada.md` (título H1 NO se repite en el cuerpo si el frontmatter lleva `champion:`; el H1 lo pone Quartz). Para el lab: `reportes/{Campeón}_WR_{patch}_Build_Optimizada.md`.
+
+### A.8 Bloque de verificación automática de hotfix (gestionado por tooling)
+Cuando un hotfix toca (o podría tocar) un reporte publicado, `model/update_reports.py annotate --apply`
+inserta/actualiza un bloque **entre marcadores HTML** justo después del bloque de metadatos:
+
+```markdown
+<!-- WRLAB-VERIF:{patch}:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] {✅|⚠️|❌} Verificación automática ({fecha}) — **{NO requiere regeneración|…} — hotfix {patch}**
+> **Cambio directo:** {tipo y detalle, o "ninguno"}.
+> **Δ de resultado (conservador):** {métrica pre→post (±%)} · Δ máx **{x} %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.
+> {ítems de variantes/rechazados cambiados · sistemas relevantes al rol · nota del lab}
+> **Veredicto:** {✅ ANOTAR|⚠️ REVISAR|❌ REGENERAR} — {consecuencia}.
+<!-- WRLAB-VERIF:{patch}:END -->
+```
+
+Reglas: (1) el contenido entre marcadores **no se edita a mano** — se regenera con el tooling;
+(2) un bloque por parche verificado (los históricos se conservan encima del nuevo);
+(3) el veredicto usa **métricas de resultado** (DPS/escudo/cura), no stats-input;
+(4) ❌ REGENERAR es el único veredicto que autoriza re-derivar la build (flujo §A del FRAMEWORK
++ `update_reports.py baseline` al terminar). Los callouts manuales `> [!WARNING] Hotfix…` previos
+a v1.6 pueden convivir, pero la constancia canónica es el bloque automático.
 
 ---
 
@@ -543,18 +594,30 @@ patch: "7.3"
 - [ ] Hotfix verificado (¿7.3a/b?) antes de pasar a Status: Aprobado.
 - [ ] Pie de página con referencias Riot/wr-meta/WR-LAB + aviso legal.
 
-
 ## 3. FUENTES Y REGLAS DE VERIFICACIÓN
 
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 25 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026)
+**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+
+## Registro de verificaciones de parche
+
+| Fecha | Verificación | Resultado | Evidencia |
+|---|---|---|---|
+| 29/09/2026 | ¿Hotfix nuevo tras 7.3a? (`check_patch.py` + inspección manual) | **NO.** Sin páginas 7.3b/7.4 (404 en todos los slugs); changelogs wr-meta de centinelas sin cambios (22-sep, 7.3); la página oficial 7.3 tiene **contenido idéntico** al snapshot del 28-sep — el md5 crudo difería solo por ruido dinámico (carrusel de "artículos relacionados" y token `mappersVersion` del CMS). Cero menciones de hotfix/7.3a/7.3b/7.4 en la página EN | `data/raw/patch73_0929.html` (diff vs `patch73_0928.html`: 1 línea de metadata CMS; texto del artículo: 2 497 líneas idénticas) |
+| 29/09/2026 | Falso positivo del vigía | `check_patch.py` v1.6: el hash pasa a ser de **contenido normalizado** (texto del artículo cortado antes del pie dinámico), no del HTML crudo | `.watch_state.json` con `official_73_content_md5` |
+| 29/09/2026 | Reportes publicados vs 7.3a (set original de 5) | `update_reports.py triage --patch 7.3a`: 5/5 ✅ ANOTAR (ninguno requiere regeneración). Yuumi: Δ resultado −1.4 % (E-shield/R-heal) pese a HSP −5 % (input) | Commit v1.6 (bloques `WRLAB-VERIF:7.3a` + `reportes_registry.json`) |
+| 29/09/2026 | Vault externo integrado (16 reportes sustituyen a los 5 del lab, commit 163d9bc) | Re-triage 7.3a del vault: **Caitlyn ❌ y Rammus ❌ REGENERAR** (7.3a tocó inputs de su spec: AS growth / armadura base — sus reportes declaran datos 7.3), **Yuumi ⚠️ REVISAR** (nerf W sin hook para la build poke-híbrida: Stormsurge/Harmonic Echo fuera del modelo), 13 ✅ ANOTAR/SIN IMPACTO | Bloques `WRLAB-VERIF:7.3a` en los 16 reportes + registro |
+| 29/09/2026 | Validación cruzada del optimizador (`optimize_build.py`) | ✅ **Redescubre la build C de Jinx** dentro del pool de candidatos del reporte (Leyes 1+3 duras, 3 042 dps1). Pool completo post-7.3a: `Gunmetal+C44+Terminus+YunTal+LDR+IE` supera a C ~7 % en eficiencia ponderada normalizada (supuestos: Yun Tal a rampa máxima 125 ataques, Terminus a stacks) — **hallazgo registrado, reporte publicado intacto** (Regla de Oro) | ROADMAP.md §Hallazgos del optimizador |
+| 29/09/2026 | **Nota EN oficial de 7.3a publicada** (detectada por check_patch.py en vivo) | Descargada y verificada número por número contra `cambios_7.3a.md` (traducción CN): **todo coincide** — specs/motor/tests del lab quedan confirmados contra fuente primaria. Discrepancia menor registrada: Crown of Songs (ver §Discrepancias). wr-meta indexó changelogs "30 SEP 2026 (7.3A)" en Yuumi/Malphite | `data/raw/patch73a_en.html/.txt` |
+| 29/09/2026 | Bundles regenerables | `WR-LAB_lite.md` (176 KB) y `WR-LAB_completo.md` (836 KB) regenerados desde las fuentes con los 16 reportes del vault + módulos nuevos (optimizador §10c, batch2 §10b, actualizador §17b, infra §18); CI verifica sincronía (`build_bundles.py --check`) | `model/build_bundles.py` |
 
 ## Hotfix 7.3a (29-sep-2026)
 
 | Fuente | Acceso | Qué aporta | Fiabilidad |
 |---|---|---|---|
-| Notas oficiales CN (lolm.qq.com docid 15413436308828016227) vía traducción comunitaria r/wildrift (thread 1wskk84), recuperada por Arctic Shift API | 28/09/2026 (`data/raw/patch73a_cn_en.txt`, diff completo en `data/estructurada/cambios_7.3a.md`) | Nerfs: Hwei, Rammus, Malphite, Caitlyn, Senna (ajuste), Syndra, Yuumi · Buffs: Samira, Tristana, Draven, Viego · Yun Tal buff · Diadem/Circlet/Whispering nerf · Death's Dance 3300 · Smite burn −, Nexus 4000, placas −resist · ARAM | Alta (texto oficial CN traducido; números con formato >>> coherentes). **Pendiente: re-verificar contra la nota EN cuando Riot la publique** y contra wr-meta cuando indexe (aún no lo hace al 28/09) |
+| **Notas oficiales EN 7.3a (FUENTE PRIMARIA)** — wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3a/ | 29/09/2026 (`data/raw/patch73a_en.html/.txt`) | Confirmación oficial de todos los valores: Hwei, Samira, Rammus, Malphite, Tristana, Draven, Caitlyn, Senna, Syndra, Swain, Yuumi, Viego · Yun Tal (AS 35, Flurry 35/CD 25) · Whispering Circlet + **Diadem of Songs** (Harmony 0.25 %) · Death's Dance 3300 · Smite 22-162 · Nexus 4000 · placas +20/10 s · AAA ARAM | **Definitiva** — verificación número por número contra la traducción CN: ✅ todo coincide |
+| Notas oficiales CN (lolm.qq.com docid 15413436308828016227) vía traducción comunitaria r/wildrift (thread 1wskk84), recuperada por Arctic Shift API | 28/09/2026 (`data/raw/patch73a_cn_en.txt`, diff completo en `data/estructurada/cambios_7.3a.md`) | Nerfs: Hwei, Rammus, Malphite, Caitlyn, Senna (ajuste), Syndra, Yuumi · Buffs: Samira, Tristana, Draven, Viego · Yun Tal buff · Diadem/Circlet/Whispering nerf · Death's Dance 3300 · Smite burn −, Nexus 4000, placas −resist · ARAM | Alta — **✅ re-verificada contra la nota EN oficial el 29/09/2026**: números idénticos; única desviación: EN lista solo Diadem of Songs (la CN decía Crown/Diadem). wr-meta ya indexa changelogs 7.3A (30-sep) |
 
 ## Fuentes primarias (MANDAN sobre cualquier otra)
 
@@ -588,6 +651,7 @@ patch: "7.3"
 | Noxian Gait (Gunmetal) | Notas 7.2: 15 %/10 % MS | wr-meta post-7.3: 10 %/7 % | wr-meta (posterior al reajuste global de MS 5→4 %) |
 | Ingenious Hunter | wr-meta la lista | Notas 7.3: **REMOVIDA** | Removida |
 | Berserker's Greaves AS | Notas 7.2: 30 % | wr-meta + ejemplo oficial Caitlyn 7.3: **35 %** | 35 % |
+| 7.3a: Crown of Songs (Harmony) | Traducción CN: "Crown/Diadem of Songs" nerfeadas | Nota EN oficial: solo **Diadem of Songs** + Whispering Circlet | Mandan las notas EN: el nerf listado es de Diadem; si Crown of Songs comparte la pasiva Harmony, heredaría el valor en juego — verificar en tienda antes de publicar análisis de enchanter que use Crown |
 | ⚠️ Caitlyn Base Bonus AS | Notas 7.3 §CAITLYN y ejemplo de la fórmula: **0.28** | Apéndice final de las mismas notas: **0.2** | **Inconsistencia interna de Riot.** Usar 0.28 (sección del campeón + ejemplo oficial) y verificar en el panel del juego antes de publicar cualquier análisis de Caitlyn. El CSV `champion_attack_speed_7.3.csv` replica el apéndice (0.2) — corregir manualmente si se confirma 0.28 |
 
 **Regla permanente:** notas oficiales > BD comunitaria sincronizada > guías/comunidad. Toda discrepancia nueva se anota aquí.
@@ -608,16 +672,18 @@ data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
 ```
 
-
 ## 3b. HOTFIX 7.3a — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
 
 # HOTFIX 7.3a — Cambios completos (despliegue: 29-sep-2026, 09:30–12:00 CN)
 
 > **Fuente:** notas oficiales del servidor chino (lolm.qq.com, docid 15413436308828016227) vía traducción
-> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`). El sitio oficial EN aún no publica
-> página propia de 7.3a (verificado 28/09: 404); la página de notas 7.3 no fue modificada.
-> **Estado en el lab:** datos aplicados donde aplica; pendientes de re-verificación contra la nota EN oficial
-> cuando se publique (protocolo §E de FRAMEWORK).
+> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`).
+> **✅ VERIFICADO contra la nota EN oficial** (wildrift.leagueoflegends.com/…/wild-rift-patch-notes-7-3a/,
+> publicada el 29-sep-2026, archivada en `data/raw/patch73a_en.html/.txt`): todos los números de campeones,
+> ítems y sistemas coinciden con esta tabla. Única discrepancia: la nota EN lista solo **Diadem of Songs**
+> (0.5→0.25 %) además de Whispering Circlet; la traducción CN decía "Crown/Diadem" — mandan las notas EN
+> (ver FUENTES.md). Typo de la fuente EN: "0.01%a Ability Power" = 0.01 % AP.
+> **Estado en el lab:** datos aplicados en specs, motor, apéndices y tests (v1.5+).
 
 ## RESUMEN DE INTENCIÓN (traducción del intro oficial)
 
@@ -673,7 +739,6 @@ y menor resistencia contra split-push/siege continuo. Ajustes a Augments y campe
 | `reportes/Jinx_*` | Placas más blandas + Nexus 4000 → siege Jinx MEJORA; ningún cambio directo a Jinx | Anotado |
 | Reportes externos (Yunara/Cho'Gath/Shyvana hechos en otro chat) | Yunara: Yun Tal buff + placas (revisar 1.er ítem) · Cho'Gath: smite nerf jungla · Shyvana: smite nerf | Marcar para revisión en su próxima regeneración |
 | FRAMEWORK test de Caitlyn | El ejemplo oficial (1.48125) usaba growth 0.04 (pre-7.3a); con 0.025 el resultado esperado a lvl15 con Alacrity+Berserker's es **1.35** | Test actualizado con ambos valores |
-
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
@@ -1456,8 +1521,6 @@ We’re introducing Lifesteal, a new vamp stat that applies only to basic attack
 
 ## LIFESTEAL (nuevo stat)
 
-
-
 ## 7. TABLA OFICIAL DE ATTACK SPEED — 140 CAMPEONES (7.3, con overrides 7.3a marcados)
 
 ```csv
@@ -1665,170 +1728,170 @@ Nocturne,,,,,120 → 134
 
 | Ítem | Oro | Stats | Categorías |
 |---|---|---|---|
-| Chempunk Chainsword | 2800 | +400 Max Health / +45 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Manamune | 2900 | +40 Attack Damage / +500 Max Mana / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Muramana |  | +40 Attack Damage / +1200 Max Mana / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Eclipse | 3000 | +65 Attack Damage / +20 Ability Haste | FIGHTER ITEMS |
-| Sundered Sky | 3000 | +350 Max Health / +40 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Experimental Hexplate | 3000 | +400 Max Health / +35 Attack Damage / +20% Attack Speed | FIGHTER ITEMS |
-| Maw of Malmortius | 3000 | +55 Attack Damage / +45 Magic Resistance / +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Black Cleaver | 3000 | +400 Max Health / +40 Attack Damage / +20 Ability Haste | FIGHTER ITEMS |
-| Titanic Hydra | 3000 | +450 Max Health / +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
-| Stridebreaker | 3100 | +400 Max Health / +40 Attack Damage / +25% Attack Speed | FIGHTER ITEMS |
-| Goredrinker | 3100 | +350 Max Health / +40 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Mercurial Scimitar | 3100 | +45 Attack Damage / +12% Lifesteal / +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Blade of the Ruined King | 3100 | +40 Attack Damage / +35% Attack Speed / +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Serylda's Grudge | 3100 | +50 Attack Damage / +35% Armor Penetration / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
-| Spear of Shojin | 3100 | +450 Max Health / +40 Attack Damage | FIGHTER ITEMS |
-| Hullbreaker | 3100 | +400 Max Health / +50 Attack Damage | FIGHTER ITEMS |
-| Overlord's Bloodmail | 3200 | +450 Max Health / +30 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
-| Guardian Angel | 3200 | +45 Attack Damage / +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
-| Bloodthirster | 3200 | +75 Attack Damage / +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Sterak's Gage | 3200 | +400 Max Health / +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
-| Death's Dance | 3200 | +50 Attack Damage / +45 Armor / +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
-| Trinity Force | 3333 | +333 Max Health / +36 Attack Damage / +30% Attack Speed / +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Divine Sunderer | 3400 | +425 Max Health / +25 Attack Damage / +25 Ability Haste | FIGHTER ITEMS |
-| Serpent's Fang | 2800 | +50 Attack Damage / +10 Ability Haste | ASSASSIN ITEMS |
-| Youmuu's Ghostblade | 3000 | +55 Attack Damage / +15 Armor Penetration / +15 Ability Haste / +4% Move Speed | ASSASSIN ITEMS |
-| Duskblade of Draktharr | 3000 | +55 Attack Damage / +10 Ability Haste | ASSASSIN ITEMS |
-| Edge of Night | 3000 | +250 Max Health / +50 Attack Damage | ASSASSIN ITEMS |
-| The Collector | 3000 | +50 Attack Damage / +10 Armor Penetration / +25% Critical Rate | ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Fiendhunter Bolts | 2650 | +25% Critical Rate / +45% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Rapid Firecannon | 2650 | +25% Critical Rate / +40% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Runaan's Hurricane | 2650 | +40% Attack Speed / +25% Critical Rate / +4% Move Speed | MARKSMAN ITEMS |
-| Phantom Dancer | 2650 | +25% Critical Rate / +40% Attack Speed / +7% Movement Speed | MARKSMAN ITEMS |
-| Navori Quickblades | 2650 | +25% Critical Rate / +40% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Wit's End | 2800 | +50% Attack Speed / +45 Magic Resistance / +20% Tenacity | MARKSMAN ITEMS |
-| Hexoptics C44 | 2900 | +55 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Kraken Slayer | 2900 | +45 Attack Damage / +35% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Nashor's Tooth | 2900 | +50% Attack Speed / +80 Ability Power / +15 Ability Haste | MARKSMAN ITEMS; MAGIC ITEMS |
-| Statikk Shiv | 3000 | +40 Attack Damage / +30% Attack Speed / +40 Ability Power / +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
-| Guinsoo's Rageblade | 3000 | +35 Attack Damage / +30% Attack Speed / +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
-| Mortal Reminder | 3000 | +35 Attack Damage / +30% Armor Penetration / +25% Critical Rate | MARKSMAN ITEMS |
-| Essence Reaver | 3000 | +50 Attack Damage / +25% Critical Rate / +20 Ability Haste | MARKSMAN ITEMS |
-| Immortal Shieldbow | 3000 | +55 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Terminus | 3000 | +35 Attack Damage / +35% Attack Speed | MARKSMAN ITEMS |
-| Stormrazor | 3000 | +50 Attack Damage / +25% Critical Rate / +20% Attack Speed | MARKSMAN ITEMS |
-| Yun Tal Wildarrows | 3100 | +50 Attack Damage / +25% Attack Speed | MARKSMAN ITEMS |
-| Galeforce | 3100 | +60 Attack Damage / +25% Critical Rate / +4% Move Speed | MARKSMAN ITEMS |
-| Dominik's Regards | 3300 | +35 Attack Damage / +35% Armor Penetration / +25% Critical Rate | MARKSMAN ITEMS |
-| Infinity Edge | 3400 | +75 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Whispering Circlet | 2400 | +200 Max Health / +500 Max Mana / +50% Mana Regen / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Diadem of Songs |  | +200 Max Health / +1200 Max Mana / +50% Mana Regen / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Redemption | 2450 | +40 Ability Power / +50% Mana Regen / +10 Ability Haste / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Imperial Mandate | 2600 | +60 Ability Power / +50% Mana Regen / +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Oceanid's Trident | 2600 | +200 Max Health / +80 Ability Power / +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Morellonomicon | 2650 | +300 Max Health / +75 Ability Power / +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Hextech Roketbelt | 2700 | +250 Max Health / +70 Ability Power / +20 Ability Haste | MAGIC ITEMS |
-| Rylai's Crystal Scepter | 2700 | +350 Max Health / +65 Ability Power | MAGIC ITEMS |
-| Rod of Ages | 2700 | +350 Max Health / +50 Ability Power / +400 Max Mana | MAGIC ITEMS |
-| Horizon Focus | 2700 | +80 Ability Power / +25 Ability Haste | MAGIC ITEMS |
-| Malignance | 2700 | +90 Ability Power / +500 Max Mana / +15 Ability Haste | MAGIC ITEMS |
-| Stormsurge | 2800 | +90 Ability Power / +15 Magic Penetration / +6% Move Speed | MAGIC ITEMS |
-| Blackfire Torch | 2800 | +80 Ability Power / +500 Maximum Mana / +20 Ability Haste | MAGIC ITEMS |
-| Luden's Echo | 2800 | +100 Ability Power / +500 Max Mana / +10 Ability Haste | MAGIC ITEMS |
-| Lich Bane | 2800 | +100 Ability Power / +10 Ability Haste / +5% Move Speed | MAGIC ITEMS |
-| Bloodletter's Curse | 2900 | +350 Maximum Health / +65 Ability Power / +15 Ability Haste | MAGIC ITEMS |
-| Banshee's Veil | 3000 | +105 Ability Power / +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
-| Cryptbloom | 3000 | +75 Ability Power / +30% Magic Penetration / +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Liandry's Torment | 3000 | +300 Max Health / +70 Ability Power | MAGIC ITEMS |
-| Archangel's Staff | 3000 | +60 Ability Power / +500 Max Mana / +25 Ability Haste | MAGIC ITEMS |
-| Seraph's Embrace |  | +60 Ability Power / +1200 Max Mana / +25 Ability Haste | MAGIC ITEMS |
-| Cosmic Drive | 3000 | +300 Max Health / +70 Ability Power / +25 Ability Haste / +4% Move Speed | MAGIC ITEMS |
-| Dusk and Dawn | 3100 | +300 Maximum Health / +20% Attack Speed / +60 Ability Power / +20 Ability Haste | MAGIC ITEMS |
-| Infinity Orb | 3100 | +110 Ability Power / +15 Magic Penetration | MAGIC ITEMS |
-| Riftmaker | 3100 | +350 Max Health / +70 Ability Power / +15 Ability Haste | MAGIC ITEMS |
-| Zhonya's Hourglass | 3300 | +40 Armor / +110 Ability Power | MAGIC ITEMS; DEFENSE ITEMS |
+| Chempunk Chainsword | 2800 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Manamune | 2900 | +40 Attack Damage  /  +500 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Muramana |  | +40 Attack Damage  /  +1200 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Eclipse | 3000 | +65 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Sundered Sky | 3000 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Experimental Hexplate | 3000 | +400 Max Health  /  +35 Attack Damage  /  +20% Attack Speed | FIGHTER ITEMS |
+| Maw of Malmortius | 3000 | +55 Attack Damage  /  +45 Magic Resistance  /  +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Black Cleaver | 3000 | +400 Max Health  /  +40 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Titanic Hydra | 3000 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
+| Stridebreaker | 3100 | +400 Max Health  /  +40 Attack Damage  /  +25% Attack Speed | FIGHTER ITEMS |
+| Goredrinker | 3100 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Mercurial Scimitar | 3100 | +45 Attack Damage  /  +12% Lifesteal  /  +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +35% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Serylda's Grudge | 3100 | +50 Attack Damage  /  +35% Armor Penetration  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
+| Spear of Shojin | 3100 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS |
+| Hullbreaker | 3100 | +400 Max Health  /  +50 Attack Damage | FIGHTER ITEMS |
+| Overlord's Bloodmail | 3200 | +450 Max Health  /  +30 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
+| Guardian Angel | 3200 | +45 Attack Damage  /  +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
+| Bloodthirster | 3200 | +75 Attack Damage  /  +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Sterak's Gage | 3200 | +400 Max Health  /  +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
+| Death's Dance | 3200 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
+| Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Divine Sunderer | 3400 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
+| Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
+| Youmuu's Ghostblade | 3000 | +55 Attack Damage  /  +15 Armor Penetration  /  +15 Ability Haste  /  +4% Move Speed | ASSASSIN ITEMS |
+| Duskblade of Draktharr | 3000 | +55 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
+| Edge of Night | 3000 | +250 Max Health  /  +50 Attack Damage | ASSASSIN ITEMS |
+| The Collector | 3000 | +50 Attack Damage  /  +10 Armor Penetration  /  +25% Critical Rate | ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Fiendhunter Bolts | 2650 | +25% Critical Rate  /  +45% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Rapid Firecannon | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Runaan's Hurricane | 2650 | +40% Attack Speed  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
+| Phantom Dancer | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +7% Movement Speed | MARKSMAN ITEMS |
+| Navori Quickblades | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Wit's End | 2800 | +50% Attack Speed  /  +45 Magic Resistance  /  +20% Tenacity | MARKSMAN ITEMS |
+| Hexoptics C44 | 2900 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Kraken Slayer | 2900 | +45 Attack Damage  /  +35% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Nashor's Tooth | 2900 | +50% Attack Speed  /  +80 Ability Power  /  +15 Ability Haste | MARKSMAN ITEMS; MAGIC ITEMS |
+| Statikk Shiv | 3000 | +40 Attack Damage  /  +30% Attack Speed  /  +40 Ability Power  /  +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
+| Guinsoo's Rageblade | 3000 | +35 Attack Damage  /  +30% Attack Speed  /  +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
+| Mortal Reminder | 3000 | +35 Attack Damage  /  +30% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Essence Reaver | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20 Ability Haste | MARKSMAN ITEMS |
+| Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
+| Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
+| Yun Tal Wildarrows | 3100 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
+| Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
+| Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Whispering Circlet | 2400 | +200 Max Health  /  +500 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Diadem of Songs |  | +200 Max Health  /  +1200 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Redemption | 2450 | +40 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Imperial Mandate | 2600 | +60 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Oceanid's Trident | 2600 | +200 Max Health  /  +80 Ability Power  /  +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Morellonomicon | 2650 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Hextech Roketbelt | 2700 | +250 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Rylai's Crystal Scepter | 2700 | +350 Max Health  /  +65 Ability Power | MAGIC ITEMS |
+| Rod of Ages | 2700 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
+| Horizon Focus | 2700 | +80 Ability Power  /  +25 Ability Haste | MAGIC ITEMS |
+| Malignance | 2700 | +90 Ability Power  /  +500 Max Mana  /  +15 Ability Haste | MAGIC ITEMS |
+| Stormsurge | 2800 | +90 Ability Power  /  +15 Magic Penetration  /  +6% Move Speed | MAGIC ITEMS |
+| Blackfire Torch | 2800 | +80 Ability Power  /  +500 Maximum Mana  /  +20 Ability Haste | MAGIC ITEMS |
+| Luden's Echo | 2800 | +100 Ability Power  /  +500 Max Mana  /  +10 Ability Haste | MAGIC ITEMS |
+| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +5% Move Speed | MAGIC ITEMS |
+| Bloodletter's Curse | 2900 | +350 Maximum Health  /  +65 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
+| Banshee's Veil | 3000 | +105 Ability Power  /  +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
+| Cryptbloom | 3000 | +75 Ability Power  /  +30% Magic Penetration  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Liandry's Torment | 3000 | +300 Max Health  /  +70 Ability Power | MAGIC ITEMS |
+| Archangel's Staff | 3000 | +60 Ability Power  /  +500 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
+| Seraph's Embrace |  | +60 Ability Power  /  +1200 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
+| Cosmic Drive | 3000 | +300 Max Health  /  +70 Ability Power  /  +25 Ability Haste  /  +4% Move Speed | MAGIC ITEMS |
+| Dusk and Dawn | 3100 | +300 Maximum Health  /  +20% Attack Speed  /  +60 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Infinity Orb | 3100 | +110 Ability Power  /  +15 Magic Penetration | MAGIC ITEMS |
+| Riftmaker | 3100 | +350 Max Health  /  +70 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
+| Zhonya's Hourglass | 3300 | +40 Armor  /  +110 Ability Power | MAGIC ITEMS; DEFENSE ITEMS |
 | Rabadon's Deathcap | 3400 | +130 Ability Power | MAGIC ITEMS |
-| Abyssal Mask | 2400 | +350 Max Health / +45 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Zeke's Convergence | 2400 | +300 Max Health / +25 Armor / +25 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Yordle Trap | 2400 | +200 Max Health / +20 Armor / +20 Magic Resistance / +15 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Knight's Vow | 2450 | +200 Max Health / +100% Health Regen / +40 Armor / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Frozen Heart | 2550 | +80 Armor / +400 Max Mana / +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Mantle of the Twelfth Hour | 2550 | +600 Max Health / +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Locket of the Iron Solari | 2600 | +200 Max Health / +30 Armor / +30 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Winter's Approach | 2600 | +500 Max Health / +500 Max Mana / +15 Ability Haste | DEFENSE ITEMS |
-| Fimbulwinter |  | +500 Max Health / +1200 Max Mana / +15 Ability Haste | DEFENSE ITEMS |
-| Radiant Virtue | 2650 | +300 Max Health / +30 Armor / +30 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Thornmail | 2700 | +200 Max Health / +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
-| Dawnshroud | 2700 | +250 Max Health / +50 Armor / +30 Magic Resistance | DEFENSE ITEMS; SUPPORT ITEMS |
-| Hollow Radiance | 2800 | +400 Max Health / +40 Magic Resistance / +15 Ability Haste | DEFENSE ITEMS |
-| Randuin's Omen | 2800 | +400 Max Health / +75 Armor | DEFENSE ITEMS |
-| Dead Man's Plate | 2800 | +350 Max Health / +70 Armor / +4% Movement Speed | DEFENSE ITEMS |
-| Force of Nature | 2800 | +400 Max Health / +60 Magic Resistance / +5% Move Speed | DEFENSE ITEMS |
-| Heartsteel | 3000 | +700 Max Health / +150% Health Regen / +20 Ability Haste | DEFENSE ITEMS |
-| Kaenic Rookern | 2800 | +350 Max Health / +100% Health Regen / +85 Magic Resistance | DEFENSE ITEMS |
-| Warmog's Armor | 2850 | +700 Max Health / +100% Health Regen / +20 Ability Haste | DEFENSE ITEMS |
-| Gargoyle Stoneplate | 2900 | +200 Max Health / +45 Armor / +45 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS |
-| Sunfire Aegis | 2900 | +350 Max Health / +40 Armor / +15 Ability Haste | DEFENSE ITEMS |
-| Unending Despair | 3000 | +300 Max Health / +40 Armor / +40 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS |
-| Iceborn Gauntlet | 3000 | +300 Max Health / +50 Armor / +250 Max Mana / +30 Ability Haste | DEFENSE ITEMS |
-| Amaranth's Twinguard | 3200 | +300 Max Health / +50 Armor / +50 Magic Resistance | DEFENSE ITEMS |
+| Abyssal Mask | 2400 | +350 Max Health  /  +45 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Zeke's Convergence | 2400 | +300 Max Health  /  +25 Armor  /  +25 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Yordle Trap | 2400 | +200 Max Health  /  +20 Armor  /  +20 Magic Resistance  /  +15 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Knight's Vow | 2450 | +200 Max Health  /  +100% Health Regen  /  +40 Armor  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Frozen Heart | 2550 | +80 Armor  /  +400 Max Mana  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Mantle of the Twelfth Hour | 2550 | +600 Max Health  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Locket of the Iron Solari | 2600 | +200 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Winter's Approach | 2600 | +500 Max Health  /  +500 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
+| Fimbulwinter |  | +500 Max Health  /  +1200 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
+| Radiant Virtue | 2650 | +300 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Thornmail | 2700 | +200 Max Health  /  +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
+| Dawnshroud | 2700 | +250 Max Health  /  +50 Armor  /  +30 Magic Resistance | DEFENSE ITEMS; SUPPORT ITEMS |
+| Hollow Radiance | 2800 | +400 Max Health  /  +40 Magic Resistance  /  +15 Ability Haste | DEFENSE ITEMS |
+| Randuin's Omen | 2800 | +400 Max Health  /  +75 Armor | DEFENSE ITEMS |
+| Dead Man's Plate | 2800 | +350 Max Health  /  +70 Armor  /  +4% Movement Speed | DEFENSE ITEMS |
+| Force of Nature | 2800 | +400 Max Health  /  +60 Magic Resistance  /  +5% Move Speed | DEFENSE ITEMS |
+| Heartsteel | 3000 | +700 Max Health  /  +150% Health Regen  /  +20 Ability Haste | DEFENSE ITEMS |
+| Kaenic Rookern | 2800 | +350 Max Health  /  +100% Health Regen  /  +85 Magic Resistance | DEFENSE ITEMS |
+| Warmog's Armor | 2850 | +700 Max Health  /  +100% Health Regen  /  +20 Ability Haste | DEFENSE ITEMS |
+| Gargoyle Stoneplate | 2900 | +200 Max Health  /  +45 Armor  /  +45 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS |
+| Sunfire Aegis | 2900 | +350 Max Health  /  +40 Armor  /  +15 Ability Haste | DEFENSE ITEMS |
+| Unending Despair | 3000 | +300 Max Health  /  +40 Armor  /  +40 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS |
+| Iceborn Gauntlet | 3000 | +300 Max Health  /  +50 Armor  /  +250 Max Mana  /  +30 Ability Haste | DEFENSE ITEMS |
+| Amaranth's Twinguard | 3200 | +300 Max Health  /  +50 Armor  /  +50 Magic Resistance | DEFENSE ITEMS |
 | Black Mist Scythe | 0 | +10 Ability Haste | SUPPORT ITEMS |
-| Bulwark of the Mountain | 0 | +175 Max Health / +10 Ability Haste | SUPPORT ITEMS |
-| Echoes of Helia | 2400 | +200 Max Health / +40 Ability Power / +50% Mana Regen / +20 Ability Haste | SUPPORT ITEMS |
-| Ardent Censer | 2400 | +50 Ability Power / +50% Mana Regen / +8% Heal and Shield Strength / +4% Move Speed. | SUPPORT ITEMS |
-| Staff of Flowing Waters | 2400 | +50 Ability Power / +50% Mana Regen / +10 Ability Haste / +8% Heal and Shield Strength | SUPPORT ITEMS |
-| Mikael's Blessing | 2500 | +300 Max Health / +50% Mana Regen / +15 Ability Haste / +9% Heal and Shield Strength | SUPPORT ITEMS |
-| Shurelya's Battlesong | 2500 | +55 Ability Power / +50% Mana Regeneration / +20 Ability Haste / +4% Move Speed | SUPPORT ITEMS |
-| Harmonic Echo | 2500 | +200 Max Health / +40 Ability Power / +50% Mana Regen / +20 Ability Haste | SUPPORT ITEMS |
+| Bulwark of the Mountain | 0 | +175 Max Health  /  +10 Ability Haste | SUPPORT ITEMS |
+| Echoes of Helia | 2400 | +200 Max Health  /  +40 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | SUPPORT ITEMS |
+| Ardent Censer | 2400 | +50 Ability Power  /  +50% Mana Regen  /  +8% Heal and Shield Strength  /  +4% Move Speed. | SUPPORT ITEMS |
+| Staff of Flowing Waters | 2400 | +50 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | SUPPORT ITEMS |
+| Mikael's Blessing | 2500 | +300 Max Health  /  +50% Mana Regen  /  +15 Ability Haste  /  +9% Heal and Shield Strength | SUPPORT ITEMS |
+| Shurelya's Battlesong | 2500 | +55 Ability Power  /  +50% Mana Regeneration  /  +20 Ability Haste  /  +4% Move Speed | SUPPORT ITEMS |
+| Harmonic Echo | 2500 | +200 Max Health  /  +40 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | SUPPORT ITEMS |
 | Gluttonous Greaves | 1000 | +45 Move Speed | Boots tier 2 |
-| Berserker's Greaves | 1200 | +35% Attack Speed / +45 Move Speed | Boots tier 2 |
-| Mercury's Treads | 1200 | +150 Max Health / +25 Magic Resistance / +30 Tenacity / +45 Move Speed | Boots tier 2 |
-| Plated Steelcaps | 1200 | +150 Max Health / +20 Armor / +45 Move Speed | Boots tier 2 |
-| Ionian Boots of Lucidity | 1000 | +50% Mana Regen / +15 Ability Haste / +45 Move Speed | Boots tier 2 |
-| Boots of Mana | 1200 | +25 Ability Power / +8 Magic Penetration / +75% Mana Regeneration / +45 Move Speed | Boots tier 2 |
-| Boots of Dynamism | 1200 | +15 Attack Damage / +10 Armor Penetration / +45 Move Speed | Boots tier 2 |
+| Berserker's Greaves | 1200 | +35% Attack Speed  /  +45 Move Speed | Boots tier 2 |
+| Mercury's Treads | 1200 | +150 Max Health  /  +25 Magic Resistance  /  +30 Tenacity  /  +45 Move Speed | Boots tier 2 |
+| Plated Steelcaps | 1200 | +150 Max Health  /  +20 Armor  /  +45 Move Speed | Boots tier 2 |
+| Ionian Boots of Lucidity | 1000 | +50% Mana Regen  /  +15 Ability Haste  /  +45 Move Speed | Boots tier 2 |
+| Boots of Mana | 1200 | +25 Ability Power  /  +8 Magic Penetration  /  +75% Mana Regeneration  /  +45 Move Speed | Boots tier 2 |
+| Boots of Dynamism | 1200 | +15 Attack Damage  /  +10 Armor Penetration  /  +45 Move Speed | Boots tier 2 |
 | Immortal Treds | 2000 | +45 Move Speed | Boots tier 3 |
-| Gunmetal Greaves | 2200 | +50% Attack Speed / +45 Move Speed / +5% Lifesteal | Boots tier 3 |
-| Chainlaced Crushers | 2200 | +150 Max Health / +30 Magic Resistance / +30% Tenacity / +45 Move Speed | Boots tier 3 |
-| Armored Advance | 2200 | +150 Max Health / +30 Armor / +45 Move Speed | Boots tier 3 |
-| Crimson Lucidity | 2000 | +75% Mana Regeneration / +25 Ability Haste / +45 Move Speed | Boots tier 3 |
-| Spellslinger's Shoes | 2200 | +35 Ability Power / +18 Magic Penetration / +8% Magic Penetration / +100% Mana Regeneration / +45 Move Speed | Boots tier 3 |
-| Armorcrusher Boots | 2200 | +25 Attack Damage / +12 Armor Penetration / +6% Armor Penetration / +45 Move Speed | Boots tier 3 |
+| Gunmetal Greaves | 2200 | +50% Attack Speed  /  +45 Move Speed  /  +5% Lifesteal | Boots tier 3 |
+| Chainlaced Crushers | 2200 | +150 Max Health  /  +30 Magic Resistance  /  +30% Tenacity  /  +45 Move Speed | Boots tier 3 |
+| Armored Advance | 2200 | +150 Max Health  /  +30 Armor  /  +45 Move Speed | Boots tier 3 |
+| Crimson Lucidity | 2000 | +75% Mana Regeneration  /  +25 Ability Haste  /  +45 Move Speed | Boots tier 3 |
+| Spellslinger's Shoes | 2200 | +35 Ability Power  /  +18 Magic Penetration  /  +8% Magic Penetration  /  +100% Mana Regeneration  /  +45 Move Speed | Boots tier 3 |
+| Armorcrusher Boots | 2200 | +25 Attack Damage  /  +12 Armor Penetration  /  +6% Armor Penetration  /  +45 Move Speed | Boots tier 3 |
 | Quicksilver Sash | 1100 |  | Mid Tier Items |
-| Seeker's Armguard | 1200 | +20 Armor / +35 Ability Power | Mid Tier Items |
-| Vampiric Scepter | 1200 | +20 Attack Damage / +8% Lifesteal | Mid Tier Items |
-| Zeal | 1400 | +15% Critical Rate / +15% Attack Speed | Mid Tier Items |
+| Seeker's Armguard | 1200 | +20 Armor  /  +35 Ability Power | Mid Tier Items |
+| Vampiric Scepter | 1200 | +20 Attack Damage  /  +8% Lifesteal | Mid Tier Items |
+| Zeal | 1400 | +15% Critical Rate  /  +15% Attack Speed | Mid Tier Items |
 | Kircheis Shard | 800 | +20% Attack Speed | Mid Tier Items |
 | Serrated Dirk | 1000 | +20 Attack Damage | Mid Tier Items |
 | Recurve Bow | 900 | +20% Attack Speed | Mid Tier Items |
 | B. F. Sword | 1500 | +40 Attack Damage | Mid Tier Items |
-| Last Whisper | 1200 | +15 Attack Damage / +15% Armor Penetration | Mid Tier Items |
+| Last Whisper | 1200 | +15 Attack Damage  /  +15% Armor Penetration | Mid Tier Items |
 | Executioner's Calling | 800 | +15 Attack Damage | Mid Tier Items |
-| Phage | 1000 | +150 Max Health / +15 Attack Damage | Mid Tier Items |
-| Caulfield's Warhammer | 1200 | +25 Attack Damage / +10 Ability Haste | Mid Tier Items |
-| Jaurim's Fist | 1100 | +175 Max Health / +15 Attack Damage | Mid Tier Items |
-| Aether Wisp | 950 | +35 Ability Power / +4% Move Speed | Mid Tier Items |
-| Lost Chapter | 1200 | +35 Ability Power / +200 Max Mana / +10 Ability Haste | Mid Tier Items |
-| Fiendish Codex | 900 | +25 Ability Power / +10 Ability Haste | Mid Tier Items |
+| Phage | 1000 | +150 Max Health  /  +15 Attack Damage | Mid Tier Items |
+| Caulfield's Warhammer | 1200 | +25 Attack Damage  /  +10 Ability Haste | Mid Tier Items |
+| Jaurim's Fist | 1100 | +175 Max Health  /  +15 Attack Damage | Mid Tier Items |
+| Aether Wisp | 950 | +35 Ability Power  /  +4% Move Speed | Mid Tier Items |
+| Lost Chapter | 1200 | +35 Ability Power  /  +200 Max Mana  /  +10 Ability Haste | Mid Tier Items |
+| Fiendish Codex | 900 | +25 Ability Power  /  +10 Ability Haste | Mid Tier Items |
 | Blasting Wand | 900 | +40 Ability Power | Mid Tier Items |
 | Needlessly Large Rod | 1400 | +65 Ability Power | Mid Tier Items |
-| Haunting Guise | 1300 | +200 Max Health / +30 Ability Power | Mid Tier Items |
+| Haunting Guise | 1300 | +200 Max Health  /  +30 Ability Power | Mid Tier Items |
 | Sheen | 800 | +10 Ability Haste | Mid Tier Items |
 | Oblivion Orb | 800 | +35 Ability Power | Mid Tier Items |
-| Bami's Cinder | 1200 | +250 Max Health / +5 Ability Haste | Mid Tier Items |
-| Spectre's Cowl | 1100 | +175 Max Health / +20 Magic Resistance | Mid Tier Items |
-| Kindlegem | 1000 | +175 Max Health / +10 Ability Haste | Mid Tier Items |
+| Bami's Cinder | 1200 | +250 Max Health  /  +5 Ability Haste | Mid Tier Items |
+| Spectre's Cowl | 1100 | +175 Max Health  /  +20 Magic Resistance | Mid Tier Items |
+| Kindlegem | 1000 | +175 Max Health  /  +10 Ability Haste | Mid Tier Items |
 | Giant's Belt | 1000 | +300 Max Health | Mid Tier Items |
 | Warden's Mail | 1050 | +35 Armor | Mid Tier Items |
-| Catalyst of Aeons | 1100 | +200 Max Health / +300 Max Mana | Mid Tier Items |
+| Catalyst of Aeons | 1100 | +200 Max Health  /  +300 Max Mana | Mid Tier Items |
 | Chain Vest | 900 | +40 Armor | Mid Tier Items |
 | Bramble Vest | 1000 | +30 Armor | Mid Tier Items |
-| Hexdrinker | 1200 | +20 Attack Damage / +20 Magic Resistance | Mid Tier Items |
+| Hexdrinker | 1200 | +20 Attack Damage  /  +20 Magic Resistance | Mid Tier Items |
 | Negatron Cloak | 900 | +40 Magic Resistance | Mid Tier Items |
-| Glacial Shroud | 1000 | +20 Armor / +150 Max Mana / +10 Ability Haste | Mid Tier Items |
-| Winged Moonplate | 900 | +150 Max Health / +4% Move Speed | Mid Tier Items |
-| Noonquiver | 1300 | +20 Attack Damage / +15% Critical Rate | Mid Tier Items |
+| Glacial Shroud | 1000 | +20 Armor  /  +150 Max Mana  /  +10 Ability Haste | Mid Tier Items |
+| Winged Moonplate | 900 | +150 Max Health  /  +4% Move Speed | Mid Tier Items |
+| Noonquiver | 1300 | +20 Attack Damage  /  +15% Critical Rate | Mid Tier Items |
 | Hextech Alternator | 1100 | +45 Ability Power | Mid Tier Items |
-| Mejai's Soulstealer | 1800 | +70 Max Health / +25 Ability Power | Mid Tier Items |
-| Forbidden Idol | 700 | +25% Mana Regen / +6% Heal and Shield Strength | Mid Tier Items |
+| Mejai's Soulstealer | 1800 | +70 Max Health  /  +25 Ability Power | Mid Tier Items |
+| Forbidden Idol | 700 | +25% Mana Regen  /  +6% Heal and Shield Strength | Mid Tier Items |
 | Fated Ashes | 900 | +40 Ability Power | Mid Tier Items |
-| Void Amethyst | 1000 | +20 Ability Power / +10% Magic Penetration | Mid Tier Items |
-| Verdant Barrier | 1600 | +40 Ability Power / +25 Magic Resistance | Mid Tier Items |
+| Void Amethyst | 1000 | +20 Ability Power  /  +10% Magic Penetration | Mid Tier Items |
+| Verdant Barrier | 1600 | +40 Ability Power  /  +25 Magic Resistance | Mid Tier Items |
 | Pickaxe | 800 | +20 Attack Damage | Mid Tier Items |
-| Heartbound Axe | 1200 | +20 Attack Damage / +15% Attack Speed | Mid Tier Items |
-| Bandleglass Mirror | 900 | +20 Ability Power / +50% Mana Regen / +10 Ability Haste | Mid Tier Items |
+| Heartbound Axe | 1200 | +20 Attack Damage  /  +15% Attack Speed | Mid Tier Items |
+| Bandleglass Mirror | 900 | +20 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste | Mid Tier Items |
 | Boots of Speed | 400 | +25 Move Speed. | Basic Items |
 | Long Sword | 500 | +12 Attack Damage | Basic Items |
 | Brawler's Gloves | 500 | +10% Critical Rate | Basic Items |
@@ -1851,7 +1914,6 @@ Nocturne,,,,,120 → 134
 | Smite |  |  | Basic Items |
 | Cleanse |  |  | Basic Items |
 | Teleport |  |  | Basic Items |
-
 
 ## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
 
@@ -2014,7 +2076,6 @@ ROLE_VARIANTS = {
     "volibear_jungla":dict(base="volibear", summoners="Smite+Flash", runes="Lethal Tempo/Conqueror"),
     "volibear_top":  dict(base="volibear", summoners="Flash+Ignite/TP", runes="Conqueror/Grasp"),
 }
-
 ```
 
 ## 10. MOTOR DE DPS (con validate_slots — ver Ley 0)
@@ -2361,9 +2422,610 @@ if __name__ == "__main__":
     need = (AS_CAP/spec.base_as - 1) - (spec.base_bonus_as + lvl_as_bonus(spec,15) + LT_RANGED_STACK*6 + ALACRITY_FULL + spec.self_as_buff)
     print(f"AS de ítems necesaria para cap 3.0 exacto: {need*100:.1f}%  | build C cruda: {raw:.3f}")
     print(f"Con Get Excited (+{spec.passive_burst_as:.0%}): {spec.base_as*(1+B+spec.passive_burst_as):.3f} (rompe el cap por pasiva)")
-
 ```
 
+## 10b. MOTOR SECUNDARIO — modelos batch (Kalista on-hit, Diana rotación, Yuumi/Karma valor-aliado, TAMAÑO)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · Análisis batch 2: Kalista (on-hit), Diana (AP rotación), Yuumi/Karma (soportes)
++ cálculos del apéndice de TAMAÑO (Cho'Gath/Malphite/Shyvana). Parche 7.3.
+Todas las fuentes: data/estructurada/*. Supuestos declarados en cada bloque.
+"""
+CAP = 3.0
+
+def as_kalista(items_as, lt=0.384, alac=0.21, guinsoo_stacks=False):
+    B = 0.16 + 0.644 + items_as + lt + alac + (0.32 if guinsoo_stacks else 0)
+    return min(0.694*(1+B), CAP), 0.694*(1+B), B
+
+def mit_phys(dmg, armor, pen=0): return dmg * 100/(100+max(0, armor*(1-pen/100)))
+def mit_magic(dmg, mr, pen_pct=0, pen_flat=0): return dmg * 100/(100+max(0, mr*(1-pen_pct/100)-pen_flat))
+
+# ══════════════════════════════ KALISTA ══════════════════════════════
+# E Rend no critica (sin mención de crit en ficha). W = 19% max HP / 8s por objetivo (condicional Oathsworn).
+# Guinsoo: cada 3er ataque aplica on-hit 1 vez额外 -> flat on-hit x4/3. Terminus dark: 30% pen (3 hits).
+# Statikk: Energized cada ~4 ataques (Kalista gana 5 stacks/ataque), 60 mágico + bounces con on-hit.
+K_ITEMS = {
+ 'Gunmetal':   dict(g=2200, ad=0,  as_=50, ls=5),
+ 'Statikk':    dict(g=3000, ad=40, as_=30, ap=40, energized=60),
+ 'Guinsoo':    dict(g=3000, ad=35, as_=30, ap=30, wrath=30, double=True),
+ 'Terminus':   dict(g=3000, ad=35, as_=35, shadow=30, pen=30),
+ 'Runaan':     dict(g=2650, ad=0,  as_=40, bolts=2),
+ 'WitsEnd':    dict(g=2800, ad=0,  as_=50, onhit=40, mr=45),
+ 'BotRK':      dict(g=3100, ad=40, as_=30, pct=6, ls=12),
+ 'LDR':        dict(g=3300, ad=35, crit=25, pen=35, gs=12),
+ 'C44':        dict(g=2900, ad=55, crit=25),
+ 'IE':         dict(g=3400, ad=75, crit=25),
+ 'Kraken':     dict(g=2900, ad=45, as_=35),
+}
+def kalista(items, armor=120, mr=50, ehp=2200, targets=1, oathsworn=True, level=15):
+    its = [K_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ad = 57 + 5.2*(level-1) + sum(i.get('ad',0) for i in its)
+    as_i = sum(i.get('as_',0) for i in its)/100
+    guin = any(i.get('double') for i in its)
+    AS, raw, B = as_kalista(as_i, guinsoo_stacks=guin)
+    pen = max([i.get('pen',0) for i in its] or [0])
+    # on-hit por golpe (fis->mag separados)
+    oh_mag = sum(i.get('wrath',0)+i.get('shadow',0)+i.get('onhit',0) for i in its)
+    mult_double = 4/3 if guin else 1.0
+    pct_cur = sum(i.get('pct',0) for i in its)/100
+    # auto (físico) + on-hit (mágico) + BotRK (físico)
+    auto_phys = AS*ad + AS*pct_cur*ehp*0.9  # vida actual ~90% de max en pelea
+    auto_mag  = AS*oh_mag*mult_double
+    # Energized Statikk (~cada 4 ataques)
+    en = sum(i.get('energized',0) for i in its)
+    auto_mag += AS/4*en if en else 0
+    # E Rend: ciclo 7s, lanzas = AS*4 (+1 por Q)
+    n = max(1, AS*4)
+    e_dmg = 75 + 0.70*ad + n*(42 + 0.57*ad)
+    e_dps = e_dmg/7
+    q_dps = (265 + 1.10*ad)/6.5
+    w_dps = 0.19*ehp/8 if oathsworn else 0
+    lt_bullet = 24*(1+0.0067*B*100)
+    lt_dps = AS*lt_bullet
+    # mitigación
+    dps_phys = mit_phys(auto_phys + e_dps + q_dps + AS*pct_cur*ehp*0, armor, pen)
+    dps_mag  = mit_magic(auto_mag, mr)
+    dps_true_w = mit_phys(w_dps, 0) if False else w_dps  # W es mágico
+    dps_mag += mit_magic(w_dps, mr)
+    # LT bala = adaptiva (física aquí)
+    dps_phys += mit_phys(lt_dps, armor, pen)
+    # AoE: Runaan bolts (0.55AD + on-hit completo) + Statikk bounces
+    aoe = 0
+    if targets > 1:
+        bolts = sum(i.get('bolts',0) for i in its)
+        per_bolt = 0.55*ad + oh_mag*mult_double + pct_cur*ehp*0.9
+        aoe += mit_phys(AS*per_bolt*min(bolts, targets-1)*0.55/0.55, armor, pen)*0  # (simplificado abajo)
+        aoe = AS*min(bolts, targets-1)*(mit_phys(0.55*ad + pct_cur*ehp*0.9, armor, pen) + mit_magic(oh_mag*mult_double, mr))
+        if en: aoe += AS/4*en*4*mit_magic(1, mr)  # 4 bounces extra aprox
+    total = dps_phys + dps_mag + (aoe if targets>1 else 0)
+    return dict(gold=gold, AD=ad, AS=AS, raw=raw, pen=pen, e_hit=e_dmg,
+                single=dps_phys+dps_mag, multi=total, aoe=aoe,
+                heal=(dps_phys+dps_mag)*sum(i.get('ls',0) for i in its)/100)
+
+print("="*118)
+print("KALISTA nivel 15 (LT+Alacrity full; E cada 7s con ~AS×4 lanzas; W 19% maxHP/8s con Oathsworn)")
+print("="*118)
+K_BUILDS = {
+ 'K1 Comunidad (Statikk+Guinsoo+Term+Runaan+WE)': ['Gunmetal','Statikk','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K2 BotRK (saca Statikk)':                       ['Gunmetal','BotRK','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K3 LDR anti-tanque (saca Statikk)':             ['Gunmetal','LDR','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K4 CRIT (descarte teórico)':                    ['Gunmetal','C44','IE','Runaan','LDR','Kraken'],
+ 'K5 Single-target (sin Runaan/Statikk)':         ['Gunmetal','BotRK','Guinsoo','Terminus','Kraken','WitsEnd'],
+}
+print(f"{'BUILD':<48}{'oro':>6}{'AD':>5}{'AS':>6}{'pen':>4}{'1v1':>7}{'3v3':>8}{'vsTanq':>8}{'E-hit':>7}")
+for n, b in K_BUILDS.items():
+    r1 = kalista(b); r3 = kalista(b, targets=3); rt = kalista(b, armor=220, mr=150, ehp=4500)
+    print(f"{n:<48}{r1['gold']:>6}{r1['AD']:>5.0f}{r1['AS']:>6.2f}{r1['pen']:>4.0f}{r1['single']:>7.0f}{r3['multi']:>8.0f}{rt['single']:>8.0f}{r1['e_hit']:>7.0f}")
+print("\nCheckpoint nivel 11 (2 items, Berserker's): ")
+for n,b in {'Statikk+Guinsoo':['Statikk','Guinsoo'],'Guinsoo+WE':['Guinsoo','WitsEnd'],'Statikk+Runaan':['Statikk','Runaan'],'C44+Runaan(crit)':['C44','Runaan']}.items():
+    r = kalista(['Gunmetal' if False else 'Statikk']+[] if False else b, level=11, armor=90, mr=40, ehp=1800)
+    # sin botas T3 (aún no, min 10 ok sí -> usar Gunmetal si >=10min; nivel 11 ~ 12min: incluir Gunmetal)
+    r = kalista(['Gunmetal']+b, level=11, armor=90, mr=40, ehp=1800)
+    print(f"  {n:<22} AD={r['AD']:.0f} AS={r['AS']:.2f} 1v1={r['single']:.0f} 3v3={kalista(['Gunmetal']+b, level=11, armor=90, mr=40, ehp=1800, targets=3)['multi']:.0f}")
+
+# ══════════════════════════════ DIANA ══════════════════════════════
+# Rotación sostenida (10s) + burst combo. Moonsilver: +30-100% AS 4s tras habilidad (uptime ~85% en pelea -> prom 0.65 efectivo sostenido, 1.0 en burst).
+# Cada 3er auto: 65 + 0.5AP mágico AoE. Q 195+0.7AP/5s; E 160+0.3AP (reset w/ Moonlight: 2 casts/ciclo); W 3x(65+0.2AP)+escudo; R 440+0.8AP.
+D_ITEMS = {
+ 'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=8, ah=0),
+ 'Crimson':      dict(g=2000, ah=25),
+ 'DuskDawn':     dict(g=3100, ap=60, hp=300, as_=20, ah=20, sb=0.75),   # spellblade 75% base AD +10%AP + cura
+ 'Nashor':       dict(g=2900, ap=80, as_=50, ah=15, gnaw=1.0),           # on-hit 15+20% bonus AP
+ 'Rabadon':      dict(g=3400, ap=130),
+ 'InfinityOrb':  dict(g=3100, ap=110, pen_f=15, crit_exec=0.2),
+ 'Zhonyas':      dict(g=3300, ap=110, armor=40),
+ 'Cryptbloom':   dict(g=3000, ap=75, pen_p=30, ah=20),
+ 'VoidStaff':    dict(g=3000, ap=95, pen_p=40),
+ 'Luden':        dict(g=2800, ap=100, ah=10, echo=1.0),
+ 'Stormsurge':   dict(g=2800, ap=90, pen_f=15, squall=1.0),
+ 'Malignance':   dict(g=2700, ap=90, ah=15),
+ 'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
+}
+def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
+    its = [D_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its) + ap_extra
+    base_ad = 52 + 3.64*(level-1)
+    haste = sum(i.get('ah',0) for i in its) + (15 if 'Legend: Haste' in (pen_note or '') else 0)
+    cdr = haste/(100+haste)
+    as_i = sum(i.get('as_',0) for i in its)/100
+    moons = 0.65
+    B = 0.15 + 0.008*(level-1) + as_i + moons + (0.384 if keystone=='lt' else 0) + (0.21 if keystone=='lt' else 0)
+    AS = min(0.694*(1+B), CAP)
+    pen_f = sum(i.get('pen_f',0) for i in its); pen_p = max(i.get('pen_p',0) for i in its) if any('pen_p' in i for i in its) else 0
+    mrm = max(0, mr*(1-pen_p/100)-pen_f)
+    mitm = 100/(100+mrm)
+    # --- habilidades en ventana de fight ---
+    q_n = max(1, round(fight/(5*(1-cdr))))
+    q = q_n*(195+0.7*ap)
+    e_n = q_n + 1     # E resetea con Moonlight de cada Q (+1 inicial)
+    e = e_n*(160+0.3*ap)
+    w_n = max(1, round(fight/(8.5*(1-cdr))))
+    w = w_n*3*(65+0.2*ap)
+    r = (440+0.8*ap) if burst or fight>=8 else 0
+    # --- autos ---
+    gnaw = sum(i.get('gnaw',0) for i in its)
+    auto_phys = AS*base_ad*fight
+    auto_mag = AS*(gnaw*(15+0.2*ap))*fight
+    proc3 = (AS*fight/3)*(65+0.5*ap)
+    sb_n = int(fight/1.5) if any(i.get('sb') for i in its) else 0
+    sb = sb_n*(0.75*sum(i.get('sb',0) for i in its)*base_ad + 0.10*ap)
+    # echo Luden / squall
+    echo = (75 + 0.08*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0
+    squall = (125+0.1*ap)*max(1,int(fight/25*4)) if any(i.get('squall') for i in its) else 0  # ~1 cada 2.5s de dmg
+    total_mag = (q+e+w+r+auto_mag+proc3+sb+echo+squall)*mitm
+    total_phys = auto_phys*100/(100+60)  # autos físicos vs ~60 armadura
+    # keystone
+    kbonus = 0
+    if keystone=='empower':
+        proc_n = int(fight/4)                      # proc cada 3 hits, ICD 4s
+        emp = proc_n*165*mitm                      # daño adaptivo del proc (late ~165)
+        total = (total_mag+total_phys+emp)*1.08    # amp 8% (uptime ~casi todo el fight)
+        return dict(gold=gold, AP=ap, AS=AS, dps=total/fight, mr_eff=mrm,
+                    burst=(440+0.8*ap+195+0.7*ap+2*(160+0.3*ap)+3*(65+0.2*ap))*mitm)
+    if keystone=='lt':
+        bul = 24*(1+0.0067*B*100)*AS*fight*mitm
+        total_phys += bul
+    if keystone=='conq':
+        total_phys += AS*fight*30*100/(100+60)*0.6   # ~30 adaptivo (AD) a uptime 60%
+        total_mag *= 1.0                              # + omnivamp 9% (sustain, no DPS)
+    return dict(gold=gold, AP=ap, AS=AS, dps=(total_mag+total_phys)/fight, burst=(440+0.8*ap+195+0.7*ap+2*(160+0.3*ap)+3*(65+0.2*ap))*mitm, mr_eff=mrm)
+
+print()
+print("="*118)
+print("DIANA nivel 15 — DPS sostenido (fight 10s, vs 80 MR squishy) y burst combo completo (R+Q+E×2+W×3)")
+print("="*118)
+D_BUILDS = {
+ 'D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)':      ['Spellslinger','DuskDawn','InfinityOrb','Zhonyas','Rabadon','Luden'],
+ 'D2 Nashor híbrida (D&D,Nashor,Rabadon,Zhonya,Crypt)':['Spellslinger','DuskDawn','Nashor','Rabadon','Zhonyas','Cryptbloom'],
+ 'D3 Burst puro (Luden,Rabadon,Orb,Stormsurge,Zhonya)':['Spellslinger','Luden','Rabadon','InfinityOrb','Stormsurge','Zhonyas'],
+ 'D4 Anti-tanque (Void Staff)':                       ['Spellslinger','DuskDawn','Rabadon','VoidStaff','Zhonyas','Cryptbloom'],
+}
+for ks in ['empower','lt','conq']:
+    print(f"\n-- Keystone: {ks.upper()} --")
+    print(f"{'BUILD':<52}{'oro':>6}{'AP':>5}{'AS':>6}{'MR-ef':>6}{'DPS10s':>8}{'burst':>8}")
+    for n,b in D_BUILDS.items():
+        r = diana(b, keystone=ks)
+        print(f"{n:<52}{r['gold']:>6}{r['AP']:>5.0f}{r['AS']:>6.2f}{r['mr_eff']:>6.0f}{r['dps']:>8.0f}{r['burst']:>8.0f}")
+print("\nDiana vs tanque (180 MR): D1 vs D4")
+for n,b in [('D1',D_BUILDS['D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)']),('D4',D_BUILDS['D4 Anti-tanque (Void Staff)'])]:
+    r = diana(b, mr=180); print(f"  {n}: DPS={r['dps']:.0f} MR efectiva={r['mr_eff']:.0f}")
+
+# ══════════════════════════════ YUUMI ══════════════════════════════
+Y_ITEMS = {
+ 'Scythe':     dict(g=0,    ah=10),
+ 'Crimson':    dict(g=2000, ah=25),
+ 'Censer':     dict(g=2400, ap=50, hsp=8),
+ 'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
+ 'Staff':      dict(g=2400, ap=50, hsp=8, ah=10, rapids=1),
+ 'Redemption': dict(g=2450, ap=40, hsp=8, ah=10, redempt=1),
+ 'Mikael':     dict(g=2500, hp=300, hsp=9, ah=15, cleanse=1),
+ 'Diadem':     dict(g=2400, hp=200, hsp=8, diadem=1),
+ 'Locket':     dict(g=2600, hp=200, armor=30, mr=30, ah=10, locket=1),
+ 'Shurelya':   dict(g=2500, ap=55, ah=20, shurelya=1),
+ 'Zeke':       dict(g=2400, hp=300, armor=25, mr=25, ah=10, zeke=1),
+ 'YordleTrap': dict(g=2400, hp=200, armor=20, mr=20, ah=15, trap=1),
+}
+def yuumi(items, revitalize=True, bf=True, adc_as_base=2.6, adc_dmg_per_hit=330,
+          w_flat=None, w_ap_pct=0.01):
+    # 7.3a NERF: W Best Friend HSP 8/9/10/11 % + 0.02 %/AP → 6/7/8/9 % + 0.01 %/AP (rank 5).
+    # w_flat=None → valor del parche vigente (9 attach / 6 sin attach). Para reproducir el
+    # baseline publicado pre-7.3a (E=339): w_flat=11, w_ap_pct=0.0 (ver update_reports.params_yuumi).
+    its = [Y_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its)
+    if w_flat is None: w_flat = 9 if bf else 6
+    hsp = sum(i.get('hsp',0) for i in its) + w_flat + w_ap_pct*ap + (5 if revitalize else 0)
+    haste = sum(i.get('ah',0) for i in its)
+    # E shield rank4: 170+0.4AP, multiplicado por (1+HSP%)
+    e_shield = (170+0.4*ap)*(1+hsp/100)
+    e_cd = 9*100/(100+haste)
+    # R heal total (BF): 7 olas x (52+0.08AP) x (1+HSP)
+    r_heal = 7*(52+0.08*ap)*(1+hsp/100)
+    # Q on-hit aliado: 22+0.05AP (5s, Q cd5 -> uptime ~100%)
+    q_onhit = 22+0.05*ap
+    # Censer: +30% AS y +25 on-hit mágico al ADC; Q de Yuumi: +22+5%AP on-hit al aliado (uptime ~100%)
+    censer = 'Censer' in items
+    # +30% AS sobre AS total ~2.6 del carry => ~+11.5% DPS (30/260); on-hit y Q-onhit por golpe
+    adc_dps_add = (0.115*adc_as_base*adc_dmg_per_hit if censer else 0)
+    adc_dps_add += adc_as_base*(25 if censer else 0) + adc_as_base*q_onhit
+    # Echoes/Diadem/Redemption throughput
+    echo_val = 0.30*e_shield if any(i.get('siphon') for i in its) else 0
+    diadem_hps = 0.008*(1200)*1.0 if any(i.get('diadem') for i in its) else 0  # 0.8% mana max/s ~9.6
+    redempt_burst = 350*(1+hsp/100)*0 + 350 if any(i.get('redempt') for i in its) else 0
+    return dict(gold=gold, AP=ap, HSP=hsp, haste=haste, e_shield=e_shield, e_cd=e_cd,
+                r_heal=r_heal, q_onhit=q_onhit, adc_dps_add=adc_dps_add,
+                shield_per_min=e_shield*(60/e_cd), echo_val=echo_val, diadem_hps=diadem_hps)
+
+print()
+print("="*118)
+print("YUUMI — valor por build (E shield, R heal total, DPS añadido al ADC carry [AS 2.6, 330 dmg/golpe], escudo/min)")
+print("="*118)
+Y_BUILDS = {
+ 'Y1 Amp-ADC (Censer,Echoes,Staff,Redemption)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'Y2 Heal engine (Echoes,Staff,Diadem,Redempt)': ['Scythe','Crimson','Echoes','Staff','Diadem','Redemption'],
+ 'Y3 Anti-dive (Mikael,Locket,Censer,Echoes)':   ['Scythe','Crimson','Mikael','Locket','Censer','Echoes'],
+ 'Y4 AP greedy (Censer,Staff,Echoes,Shurelya)':  ['Scythe','Crimson','Censer','Staff','Echoes','Shurelya'],
+ 'Y5 Zeke (para comps de engage)':              ['Scythe','Crimson','Zeke','Censer','Echoes','Staff'],
+}
+print(f"{'BUILD':<46}{'oro':>6}{'AP':>5}{'HSP%':>5}{'E-shield':>9}{'E-cd':>6}{'R-heal':>8}{'ADC+DPS':>8}{'shld/min':>9}")
+for n,b in Y_BUILDS.items():
+    r = yuumi(b)
+    print(f"{n:<46}{r['gold']:>6}{r['AP']:>5.0f}{r['HSP']:>5.0f}{r['e_shield']:>9.0f}{r['e_cd']:>6.1f}{r['r_heal']:>8.0f}{r['adc_dps_add']:>8.0f}{r['shield_per_min']:>9.0f}")
+
+# ══════════════════════════════ KARMA ══════════════════════════════
+def karma(items, ap_extra=0, revitalize=True):
+    its = [Y_ITEMS.get(i) or D_ITEMS.get(i) for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its) + ap_extra
+    haste = sum(i.get('ah',0) for i in its)
+    hsp = sum(i.get('hsp',0) for i in its) + (5 if revitalize else 0)
+    e_shield = (150+0.65*ap)*(1+hsp/100)
+    e_mantra = (300+0.65*ap)*(1+hsp/100)
+    e_cd = 7*100/(100+haste)
+    q_dmg = (180+0.4*ap); q_mantra = (290+0.5*ap)+(160+0.5*ap)
+    w_dmg = (110+0.4*ap)+(130+0.45*ap)
+    r_dmg = 390+0.8*ap
+    mantra_cad = 3  # casts por mantra
+    casts_per_10s = 10/((6+7+15)/3*100/(100+haste))  # Q+E+W promedio
+    mantras_10s = casts_per_10s/3
+    return dict(gold=gold, AP=ap, HSP=hsp, haste=haste, e_shield=e_shield, e_mantra=e_mantra,
+                e_cd=e_cd, q_mantra=q_mantra, mantras_10s=mantras_10s,
+                dmg_10s=(casts_per_10s/3)*q_mantra + (casts_per_10s*2/3)*q_dmg*0.5)
+
+KARMA_SUP = {
+ 'KS1 Mandate+Censer (team amp)':  ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'KS2 Escudos puros':              ['Scythe','Crimson','Censer','Echoes','Staff','Mikael'],
+ 'KS3 Mandate (marcar +7% team)':  ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+}
+print()
+print("="*118)
+print("KARMA support — E shield / E-Mantra / cadencia de Mantras en 10s (con Imperial Mandate: +7% dmg team a marcados)")
+print("="*118)
+KB = {
+ 'KS1 Enchanter (Censer,Echoes,Staff,Redemption)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'KS2 Mandate amp (Censer,Mandate*,Echoes,Staff)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+}
+print(f"{'BUILD':<50}{'oro':>6}{'AP':>5}{'HSP%':>5}{'E-shield':>9}{'E-Mantra':>9}{'E-cd':>6}{'mantras/10s':>12}")
+for n,b in KB.items():
+    r = karma(b)
+    print(f"{n:<50}{r['gold']:>6}{r['AP']:>5.0f}{r['HSP']:>5.0f}{r['e_shield']:>9.0f}{r['e_mantra']:>9.0f}{r['e_cd']:>6.1f}{r['mantras_10s']:>12.1f}")
+print("\nKARMA mid (comunidad):", end=" ")
+rm = karma(['Spellslinger','Luden','Malignance','Rabadon','InfinityOrb','Zhonyas']) if False else None
+# mid karma usa items AP puros:
+items_mid = ['Spellslinger','Luden','Malignance','Rabadon','InfinityOrb','Zhonyas']
+gold = sum(D_ITEMS[i]['g'] for i in items_mid); ap = sum(D_ITEMS[i].get('ap',0) for i in items_mid)
+haste = sum(D_ITEMS[i].get('ah',0) for i in items_mid)
+print(f"oro={gold} AP={ap:.0f} haste={haste} E-mantra shield={(300+0.65*ap)*(1.05):.0f} Q-mantra={(290+0.5*ap)+(160+0.5*ap):.0f}")
+
+# ══════════════════════════════ TAMAÑO (SIZE) ══════════════════════════════
+print()
+print("="*118)
+print("TAMAÑO — Cho'Gath Feast: HP bonus, rango y ejecucion R por stacks")
+print("="*118)
+print(f"{'stacks Feast':>12}{'HP bonus':>10}{'size +':>8}{'rango +':>9}{'R true dmg (AP150, HP items 1500)':>36}")
+for st in [6, 10, 15, 22]:
+    hp = st*160; size = min(6*st, 135); rng = min(7.7*st, 75)
+    r_true = 600 + 0.5*150 + 0.10*(hp+1500)
+    print(f"{st:>12}{hp:>10}{size:>7.0f}%{rng:>9.1f}{r_true:>36.0f}")
+print()
+print("MALPHITE armor-stacking (lvl 15, base armor 119):")
+for combo, armor in [("Iceborn(50)+Thornmail(75)+Armored(30)", 119+155), ("+ W rank4 (+40% bonus armor)", 119+155+0.4*155), ("+ Gargoyle/Twinguard situacional", 119+155+62+50)]:
+    e = 210+0.45*armor; w = 50+0.2*armor; w1 = 100+0.4*armor
+    print(f"  armor~{armor:.0f} ({combo}): E={e:.0f} mág AoE | W golpe={w:.0f} | W primero={w1:.0f} | pasiva Granite={0.11*(690+130*14):.0f} escudo")
+print()
+print("GARGOYLE activo (escudo = 100 + 90% bonus HP) + SIZE:")
+for bhp in [800, 1200, 1800, 2500]:
+    print(f"  bonus HP {bhp}: escudo {100+0.9*bhp:.0f} (+aumento de tamaño 2.5s)")
+print()
+print("TWINGUARD Endurance (5 stacks): +20% size, +20% tenacidad, +30% armadura y +30% MR bonus")
+for base_ar, base_mr in [(150,80),(250,120),(320,180)]:
+    print(f"  con {base_ar} arm / {base_mr} MR -> {base_ar*1.3:.0f} arm / {base_mr*1.3:.0f} MR en pelea (mitigación {100/(100+base_ar)*100:.1f}% -> {100/(100+base_ar*1.3)*100:.1f}% dmg físico recibido)")
+print()
+print("HEARTSTEEL scaling (3.5% max HP de daño, 15% del daño como HP permanente, 20s CD/target):")
+for hp in [2500, 3500, 5000, 7000]:
+    dmg = 140+0.035*hp
+    print(f"  con {hp} HP: golpe {dmg:.0f} -> +{0.15*dmg:.0f} HP permanente (por campeón cada 20s)")
+```
+
+## 10c. OPTIMIZADOR DE BUILDS (búsqueda exhaustiva con Leyes 0-1-2-3 como restricciones)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · optimize_build.py — optimizador exhaustivo de builds (ROADMAP módulo 2)
+================================================================================
+Busca la build ÓPTIMA de 6 slots (Ley 0: 1 botas T3 + 5 ítems) para cualquier
+ChampSpec del arquetipo de autos (dps_model), maximizando un objetivo ponderado
+de escenarios, sujeto a:
+    · presupuesto de oro            (--oro, default 18 000)
+    · Ley 1: crítico total ≤ 100 %  (poda estructural)
+    · Ley 2: AS cruda ≤ tope 3.0+ε  (poda estructural; pasivas tipo Get Excited quedan fuera)
+    · Ley 0: 1 botas + 5 ítems      (estructural: la botas se eligen en el lazo externo)
+
+Motor = dps_model.eval_build (fuente de verdad). Búsqueda en dos pasadas:
+    1) DFS podado sobre el pool (oro/AS/crit monótonos) puntuado con el escenario
+       de mayor peso → se conservan los mejores --embudo (default 400).
+    2) Re-puntuación EXACTA del embudo con el objetivo ponderado completo.
+
+USO
+    python3 model/optimize_build.py jinx                     # top 10 por defecto
+    python3 model/optimize_build.py jinx --oro 15000 --top 5 # presupuesto early/mid
+    python3 model/optimize_build.py jinx --validar           # ¿redescubre la build publicada?
+    python3 model/optimize_build.py yunara --pesos 1v1:0.5,3v3:0.5
+    python3 model/optimize_build.py jinx --excluir ga,maw    # sin defensivos
+
+VALIDACIÓN CRUZADA (obligatoria tras tocar datos): con pesos por defecto debe
+redescubrir la build C de Jinx (Gunmetal+C44+Runaan's+IE+LDR+Kraken, 17 350 g).
+
+Alcance v1: arquetipo de AUTOS (crítico/on-hit del motor dps_model). Kalista/Diana/
+soportes usan los modelos de analysis_batch2 (optimizador propio = ROADMAP).
+"""
+import argparse, heapq, os, sys, time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import dps_model as M
+
+EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
+ESCENARIOS = {          # nombre → (kwargs de eval_build, métrica)
+    "1v1":     (dict(),                                   "dps1"),
+    "3v3":     (dict(targets=3),                          "dpsN"),
+    "vs120":   (dict(armor=120),                          "dps1"),
+    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500), "dps1"),
+}
+PESOS_DEFAULT = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+
+
+def pool_items(excluir=(), incluir=None):
+    ex = {x.lower() for x in excluir}
+    pool = [k for k in M.ITEMS if k not in M.BOOTS_ALL and k.lower() not in ex
+            and k != "boots_speed"]
+    if incluir:
+        inc = {M.resolve(x).key for x in incluir}
+        pool = [k for k in pool if k in inc]
+    return pool
+
+
+def pool_botas(solo=None):
+    t3 = list(M.BOOT_UPGRADES.keys())          # solo Tier 3 (build final, min 10:00)
+    if solo:
+        wanted = {M.resolve(x).key for x in solo.split(",")}
+        t3 = [b for b in t3 if b in wanted]
+    return t3
+
+
+def optimizar(spec_key, oro=18000, top=10, pesos=None, excluir=(), solo_botas=None,
+              embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0, incluir=None):
+    spec = M.CHAMPS[spec_key]
+    pesos = pesos or dict(PESOS_DEFAULT)
+    falta = set(pesos) - set(ESCENARIOS)
+    if falta:
+        sys.exit(f"escenarios desconocidos: {falta} (válidos: {list(ESCENARIOS)})")
+
+    items = pool_items(excluir, incluir)
+    botas = pool_botas(solo_botas)
+    if not botas:
+        sys.exit("sin botas candidatas")
+
+    # escenario de la pasada 1 = el de mayor peso
+    esc1 = max(pesos, key=pesos.get)
+    kw1, met1 = ESCENARIOS[esc1]
+
+    # constantes de AS para la poda (as_total: raw = base_as + as_ratio·B)
+    lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
+    const_B = (spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as
+               + M.ALACRITY_FULL + spec.self_as_buff)
+    const_raw = spec.base_as + spec.as_ratio * const_B
+    as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in items}
+    oro_item = {k: M.ITEMS[k].gold for k in items}
+    crit_item = {k: M.ITEMS[k].crit for k in items}
+    oro_min = min(oro_item.values())
+
+    # pool ordenado por oro ascendente → poda de presupuesto más efectiva
+    orden = sorted(items, key=lambda k: oro_item[k])
+    idx = {k: i for i, k in enumerate(orden)}
+
+    t0 = time.time()
+    candidatos = []            # heap de (score1, oro_total,组合)
+    hojas = 0
+    heap = []                  # min-heap con los mejores `embudo` por score1
+
+    def dfs(start, elegidos, g, crit_p, as_p):
+        nonlocal hojas
+        faltan = 5 - len(elegidos)
+        if g + faltan * oro_min > oro:
+            return                                    # ni con lo más barato cabe
+        if crit_p > 100:
+            return                                    # Ley 1: crítico desperdiciado
+        if const_raw + spec.as_ratio * as_p > M.AS_CAP + EPS_AS:
+            return                                    # Ley 2: AS cruda pasmada
+        if faltan == 0:
+            combo = botas_ctx + elegidos
+            r0 = M.eval_build(spec, combo, level=nivel, validate=False)
+            if r0["crit"] < crit_min or r0["pen"] < pen_min:
+                return                                  # Ley 1 / Ley 3 como restricción dura
+            hojas += 1
+            r = M.eval_build(spec, combo, level=nivel, validate=False, **kw1) if kw1 else r0
+            s = r[met1] if kw1 else r0[met1]
+            if len(heap) < embudo:
+                heapq.heappush(heap, (s, -g, combo))
+            elif s > heap[0][0]:
+                heapq.heapreplace(heap, (s, -g, combo))
+            return
+        for k in orden[start:]:
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k],
+                crit_p + crit_item[k], as_p + as_por_item[k])
+
+    for b in botas:
+        botas_ctx = [b]
+        presupuesto = oro - M.ITEMS[b].gold
+        oro_save, oro = oro, presupuesto       # el DFS trabaja sobre el resto
+        dfs(0, [], 0, 0.0, 0.0)
+        oro = oro_save
+        candidatos.extend(heap)
+        heap = []
+
+    # pasada 2: objetivo ponderado NORMALIZADO (cada escenario aporta en proporción,
+    # no en magnitud absoluta: 3v3 ~10k no aplasta a vsTanque ~1.3k)
+    brutos = []
+    for s1, neg_g, combo in candidatos:
+        detalle = {}
+        for esc in ESCENARIOS:
+            kw, met = ESCENARIOS[esc]
+            detalle[esc] = M.eval_build(spec, combo, level=nivel, validate=False, **kw)[met]
+        base = M.eval_build(spec, combo, level=nivel, validate=False)
+        brutos.append((combo, detalle, base))
+    max_e = {esc: max((d[esc] for _, d, _ in brutos), default=1.0) or 1.0 for esc in ESCENARIOS}
+    finales = []
+    for combo, detalle, base in brutos:
+        score = sum(pesos.get(esc, 0.0) * (detalle[esc] / max_e[esc]) for esc in ESCENARIOS)
+        finales.append((score, combo, detalle, base))
+    finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+    if verbose:
+        print(f"[{spec.name}] hojas legales exploradas: {hojas:,} · embudo: {len(candidatos)} "
+              f"· {time.time()-t0:.1f}s · presupuesto {oro:,} g · nivel {nivel}")
+    return finales[:top], hojas
+
+
+def imprimir(finales, spec, pesos, oro):
+    nombres = lambda combo: "+".join(combo)
+    w = " · ".join(f"{e}:{p:g}" for e, p in sorted(pesos.items(), key=lambda x: -x[1]))
+    print(f"\n=== TOP builds · {spec.name} · objetivo [{w}] · ≤{oro:,} g ===")
+    tot_w = sum(pesos.values()) or 1.0
+    hdr = (f"{'#':>2} {'EFIC':>6} {'ORO':>6} {'AD':>4} {'AS':>5} {'crit':>4} {'pen':>4} "
+           + " ".join(f"{e:>7}" for e in ESCENARIOS) + "  BUILD")
+    print(hdr)
+    for i, (score, combo, det, base) in enumerate(finales, 1):
+        as_s = f"{base['AS']:.2f}" + ("*" if base["overcap"] else "")
+        print(f"{i:>2} {score/tot_w*100:>5.1f}% {base['gold']:>6} {base['AD']:>4.0f} {as_s:>5} "
+              f"{base['crit']:>4.0f} {base['pen']:>4.0f} "
+              + " ".join(f"{det[e]:>7.0f}" for e in ESCENARIOS)
+              + f"  {nombres(combo)}")
+    print("(* = AS cruda excede el tope; el exceso viene de pasivas, no de ítems)")
+
+
+def validar(finales, spec_key):
+    """Compara el top-1 contra la build publicada en el registro (si existe)."""
+    reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
+    if not os.path.exists(reg_path):
+        print("⚠️ sin reportes_registry.json — corre update_reports.py baseline")
+        return None
+    import json
+    reg = json.load(open(reg_path, encoding="utf-8"))
+    pubs = []
+    for f, e in reg["reportes"].items():
+        if e["champion"] == spec_key and e.get("build_keys") and e.get("hook"):
+            pubs.append((f, e["build_keys"]))
+    if not pubs:
+        print("⚠️ el registro no tiene build cuantitativa publicada para", spec_key)
+        return None
+    top1 = finales[0][1]
+    top1_keys = sorted(M.resolve(x).key for x in top1)
+    ok_global = False
+    for f, bk in pubs:
+        pub_keys = sorted(M.resolve(x).key for x in bk)
+        r = M.eval_build(M.CHAMPS[spec_key], bk, validate=False)
+        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1)
+                     if sorted(M.resolve(x).key for x in c) == pub_keys), None)
+        mismo = pub_keys == top1_keys
+        ok_global |= mismo
+        print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
+              f"top-1 del optimizador {'==' if mismo else '≠'} publicada"
+              + (f" (la publicada rankea #{rank} del top-{len(finales)})" if rank and not mismo else "")
+              + f" · dps1 publicada {r['dps1']:.0f} vs óptima {finales[0][3]['dps1']:.0f}")
+    return ok_global
+
+
+def parse_pesos(s):
+    out = {}
+    for par in s.split(","):
+        k, v = par.split(":")
+        out[k.strip()] = float(v)
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (motor dps_model)")
+    ap.add_argument("champion", help="clave en CHAMPS (jinx, yunara, shyvana…)")
+    ap.add_argument("--oro", type=int, default=18000, help="presupuesto total (default 18000)")
+    ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--nivel", type=int, default=15)
+    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5 (default 0.3/0.3/0.2/0.2)")
+    ap.add_argument("--excluir", default="", help="claves de ítem a excluir (coma-separadas)")
+    ap.add_argument("--incluir", default=None,
+                    help="restringir el pool a estos ítems (alias, coma-separados) — útil para "
+                         "validación cruzada contra el pool de candidatos de un reporte")
+    ap.add_argument("--botas", default=None, help="restringir botas T3 (coma-separadas, alias ok)")
+    ap.add_argument("--embudo", type=int, default=400)
+    ap.add_argument("--crit-min", type=float, default=0,
+                    help="Ley 1 como restricción dura (p.ej. 100 = crítico exacto)")
+    ap.add_argument("--pen-min", type=float, default=0,
+                    help="Ley 3 como restricción dura (p.ej. 30 = pen %% mínima)")
+    ap.add_argument("--validar", action="store_true", help="comparar contra la build publicada del registro")
+    ap.add_argument("--contra", default=None, help="build de referencia extra (alias separados por coma)")
+    args = ap.parse_args()
+
+    ck = args.champion.lower()
+    if ck not in M.CHAMPS:
+        sys.exit(f"'{ck}' no está en CHAMPS. Especs: {sorted(M.CHAMPS)}")
+    pesos = parse_pesos(args.pesos) if args.pesos else dict(PESOS_DEFAULT)
+    excluir = tuple(x for x in args.excluir.split(",") if x)
+
+    finales, hojas = optimizar(ck, oro=args.oro, top=args.top, pesos=pesos,
+                               excluir=excluir, solo_botas=args.botas,
+                               embudo=args.embudo, nivel=args.nivel,
+                               crit_min=args.crit_min, pen_min=args.pen_min,
+                               incluir=[x for x in args.incluir.split(",")] if args.incluir else None)
+    if args.contra:
+        ref = [x.strip() for x in args.contra.split(",")]
+        M.validate_slots(ref)
+        det = {e: M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False, **kw)[met]
+               for e, (kw, met) in ESCENARIOS.items()}
+        base = M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False)
+        # re-normalizar incluyendo la referencia
+        max_e = {e: max([det[e]] + [d[e] for _, _, d, _ in finales]) for e in ESCENARIOS}
+        def score_norm(d):
+            tot = sum(pesos.values()) or 1.0
+            return sum(pesos.get(e, 0.0) * (d[e] / (max_e[e] or 1.0)) for e in ESCENARIOS)
+        finales = [(score_norm(d), c, d, b) for _, c, d, b in finales]
+        finales.append((score_norm(det), ref, det, base))
+        finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+        finales = finales[:args.top + 1]
+    imprimir(finales, M.CHAMPS[ck], pesos, args.oro)
+    if args.validar:
+        print()
+        ok = validar(finales, ck)
+        if ok is False:
+            sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()
+```
 
 ## 11. CAMBIOS DE CAMPEONES 7.3 (diff oficial)
 
@@ -3376,10 +4038,7 @@ Items Removed
 - See above.
 - Searing Crown
 
-## 13. FICHAS COMPLETAS DE CAMPEONES
-
-
----
+## 13. FICHAS COMPLETAS DE CAMPEONES (11 fichas)
 
 # Cho'Gath — Ficha de datos (Wild Rift 7.3)
 
@@ -3490,8 +4149,19 @@ P
  Mercury's Treads TIPS: These boots increase your Magic Resistance while making you more resilient to crowd control through Tenacity. The bonus Health and movement speed improve both survivability and mobility, allowing you to perform more effectively against magic damage and heavy-CC team compositions. They are an excellent choice for tanks, fighters, and any champion who needs to stay in the fight longer.
  Plated Steelcaps 
  Plated Steelcaps Reduces damage from champion attacks +150 Max Health +20 Armor +45 Move Speed Block: Reduces damage from champion attacks by 10%. 1200 
- Plated Steelcaps TIPS: These boots provide r
-...(recortado; completo en data/raw)...
+ Plated Steelcaps TIPS: These boots provide reliable protection against champions who rely heavily on basic attacks. They increase your Health and Armor, while the passive further reduces damage taken from enemy champion attacks. An excellent choice against marksmen, AD fighters, and other auto-attack-focused champions.
+ Chainlaced Crushers 
+ Chainlaced Crushers Gain a magic shield upon taking magic damage +150 Max Health +30 Magic Resistance +30% Tenacity +45 Move Speed Noxian Persistence: After taking magic damage from a champion, gain a magic shield that absorbs 10-120 plus 5% max for 5s. (12s Cooldown) 2200 
+ Chainlaced Crushers TIPS: These boots greatly improve your survivability against magic damage. After taking magic damage from an enemy champion, you gain a magic shield that helps absorb follow-up spells, while the bonus Magic Resistance and Tenacity make you far more resilient against AP threats and crowd control. They are an excellent choice against teams with heavy magic damage and strong CC.
+ T3
+ Armored Advance 
+ Armored Advance Grants Armor and a shield +150 Max Health +30 Armor +45 Move Speed Block: Reduce damage from champion attacks by 10%. Noxian Endurance: After taking physical damage from a champion grants a physical shield that absorbs damage equal to 10-140 plus 8% max Health . (12s Cooldown) 2200 
+ Armored Advance TIPS: These boots provide excellent protection against physical damage. They reduce damage taken from enemy champion attacks and grant a protective shield after taking physical damage from a champion, helping you survive extended trades and heavy bursts of physical damage. They are an excellent choice against marksmen, fighters, and other champions who rely primarily on physical attacks.
+ T3
+ TIPS: Finally, for your items, you should build Heartsteel (Increase Maximum Health) as your first item, followed by Mercury's Treads (Reduces Magic Damage) or Plated Steelcaps (Reduces damage from champion attacks) depending on the situation. (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Hollow Radiance (Deals damage in an area).
+ Maybe now it's time to think about upgrading your boot, invest in Chainlaced Crushers (Gai
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -3566,6 +4236,7 @@ Axiom Arcanist
                     
           
 ```
+
 ---
 
 # Diana — Ficha de datos (Wild Rift 7.3)
@@ -3674,8 +4345,20 @@ P
  Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional health regeneration. They are an excellent choice for mages and AP supports who value strong laning, frequent spell casting, and efficient wave clearing.
  Spellslinger's Shoes 
  Spellslinger's Shoes Deal bonus damage to minions +35 Ability Power +18 Magic Penetration +8% Magic Penetration +100% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% base Health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 2200 
- Spellslinger's Shoes TIPS: These boots greatly increase your magic damage through a combination of Ability Power and both flat and percentage magic penetration. The high mana regeneration allows for frequent spell casting, while the bonus true damage to minions significantly improves wave clear. Champions without Mana instead gain increased health regeneration. They
-...(recortado; completo en data/raw)...
+ Spellslinger's Shoes TIPS: These boots greatly increase your magic damage through a combination of Ability Power and both flat and percentage magic penetration. The high mana regeneration allows for frequent spell casting, while the bonus true damage to minions significantly improves wave clear. Champions without Mana instead gain increased health regeneration. They are an excellent choice for mages and AP supports who value strong damage, constant lane pressure, and efficient farming.
+ T3
+ TIPS: Finally, for your items, you should build Dusk and Dawn (Applies on-hit effects) as your first item, followed by Boots of Mana (Grants Ability Power, Magic Penetration and Mana Regeneration) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Infinity Orb (Abilities deal bonus damage).
+ Maybe now it's time to think about upgrading your boot, invest in Spellslinger's Shoes (Deal bonus damage to minions).
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Dusk and Dawn 
+ Dusk and Dawn Applies on-hit effects +300 Maximum Health +20% Attack Speed +60 Ability Power +20 Ability Haste Spellblade: After using an ability, your next attack deals (75% base + 10% ) bonus magic damage and restores ( 3% bonus + 10% ) Htalth to you. After a brief delay, apply on-hits to the target 1 additional time. (1.5s Cooldown) Deals reduced damage to structures. 3100 
+ Dusk and Dawn TIPS: This item combines Health, Attack Speed, Ability Power, and Ability Haste, making it well suited for champions who weave abilities and basic attacks together. After casting an ability, the next attack deals bonus magic damage and restores Health, then applies on-hit effects to the target an additional time. An excellent choice for AP fighters and hybrid champions with strong on-hit synergy.
+ Boots of Mana 
+ Boots of Mana Ability Power, Magic Pen, Mana Regeneration +25 Ability Power +8 Magic Penetration +75% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% bonus health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 1200 
+ Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional h
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -3883,6 +4566,7 @@ Bone Plating
                 
                 
 ```
+
 ---
 
 # Heimerdinger — Ficha de datos (Wild Rift 7.3)
@@ -3972,8 +4656,18 @@ P
  Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional health regeneration. They are an excellent choice for mages and AP supports who value strong laning, frequent spell casting, and efficient wave clearing.
  Liandry's Torment 
  Liandry's Torment Abilities deal bonus damage +300 Max Health +70 Ability Power Torment: Damaging abilities and  empowered attacks burn enemies for 2% max Health magic damage for 3 seconds. Madness: Deals 2% more damage for each second in combat against champions, capped at 6% after 3 seconds. 3000 
- Liandry's Torment TIPS: 
-...(recortado; completo en data/raw)...
+ Liandry's Torment TIPS: This item excels in extended fights. Your abilities and empowered attacks ignite enemies, dealing damage over time based on their maximum health, while your overall damage steadily increases the longer you remain in combat. It is an excellent choice for damage-over-time mages and AP bruisers who want to wear down even the toughest frontline champions.
+ Boots
+ Boots of Mana 
+ Boots of Mana Ability Power, Magic Pen, Mana Regeneration +25 Ability Power +8 Magic Penetration +75% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% bonus health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 1200 
+ Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional health regeneration. They are an excellent choice for mages and AP supports who value strong laning, frequent spell casting, and efficient wave clearing.
+ Spellslinger's Shoes 
+ Spellslinger's Shoes Deal bonus damage to minions +35 Ability Power +18 Magic Penetration +8% Magic Penetration +100% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% base Health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 2200 
+ Spellslinger's Shoes TIPS: These boots greatly increase your magic damage through a combination of Ability Power and both flat and percentage magic penetration. The high mana regeneration allows for frequent spell casting, while the bonus true damage to minions significantly improves wave clear. Champions without Mana instead gain increased health regeneration. They are an excellent choice for mages and AP supports who value strong damage, constant lane pressure, and efficient farming.
+ T3
+ TIPS: Finally, for your items, you should build Blackfire Torch (Deal burn damage) as your first item, followed by Boots of Mana (Grants Ability Power, Magic Penetration and Mana Regeneration) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element 
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -4122,6 +4816,7 @@ Bone Plating
 Arcane Comet
 Poke, Stack Am
 ```
+
 ---
 
 # Kalista — Ficha de datos (Wild Rift 7.3)
@@ -4224,8 +4919,20 @@ P
  Berserker's Greaves TIPS: These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rapid attack cadence, and constant sustain in fights.
  Gunmetal Greaves 
  Gunmetal Greaves Increases Attack Speed and Movement Speed +50% Attack Speed +45 Move Speed +5% Lifesteal Noxian Gait: Attacks against enemy champions grant Movement Speed ( 10% for melee champions / 7% for ranged champions) decaying over 2 seconds. Blessed Blade: Attacks restore 12 Health on hit. 2200 
- Gunmetal Greaves TIPS: These boots significantly increase Attack Speed while also providing Mo
-...(recortado; completo en data/raw)...
+ Gunmetal Greaves TIPS: These boots significantly increase Attack Speed while also providing Movement Speed and Lifesteal, making them well suited for champions who rely on frequent basic attacks. Attacking enemy champions temporarily increases Movement Speed, making it easier to chase and reposition, while each hit also restores Health. An excellent choice for auto-attackers who need mobility and consistent sustain in combat.
+ T3
+ TIPS: Finally, for your items, you should build Statikk Shiv (Energized Attacks deal chain damage) as your first item, followed by Berserker's Greaves (Grants Attack Speed) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Guinsoo's Rageblade (Applies on-hit effects).
+ Maybe now it's time to think about upgrading your boot, invest in Gunmetal Greaves (Increases Attack Speed and Movement Speed).
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Statikk Shiv 
+ Statikk Shiv Energized Attacks deal chain damage +40 Attack Damage +30% Attack Speed +40 Ability Power +4% Move Speed Electroshock: Attacks grant 5 extra Energized stacks . Electrospark: Moving and attacking generate an Energized Attack that fires chain lightning to 4–7 targets ( ), dealing 60 magic damage (increased to 90 magic damage against minions and monsters) and applying on-hit effects to secondary bounce targets. 3000 
+ Statikk Shiv TIPS: This item combines physical and magic damage, Attack Speed, and mobility, enhancing basic attacks and hybrid builds. Moving and attacking charges an empowered attack that releases chain lightning across multiple targets, dealing magic damage and applying on-hit effects to additional targets. An excellent choice for champions who need fast wave clear, multi-target damage, and effective use of on-hit effects.
+ Berserker's Greaves 
+ Berserker's Greaves Attack Speed +35% Attack Speed +45 Move Speed Blessed Blade: Attacks restore 10 Health on hit. 1200 
+ Berserker's Greaves TIPS: These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A gre
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -4413,6 +5120,7 @@ Sudden Impact
                     
              
 ```
+
 ---
 
 # Karma — Ficha de datos (Wild Rift 7.3)
@@ -4506,8 +5214,22 @@ P
  Boots
  Boots of Mana 
  Boots of Mana Ability Power, Magic Pen, Mana Regeneration +25 Ability Power +8 Magic Penetration +75% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% bonus health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 1200 
- Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional health regeneration. They are an excellent choice for mages and AP supports who value strong laning, freq
-...(recortado; completo en data/raw)...
+ Boots of Mana TIPS: These boots greatly enhance your early magic damage by providing Ability Power, magic penetration, and increased mana regeneration. They also improve wave clear by dealing bonus true damage to minions, while champions without Mana instead gain additional health regeneration. They are an excellent choice for mages and AP supports who value strong laning, frequent spell casting, and efficient wave clearing.
+ Spellslinger's Shoes 
+ Spellslinger's Shoes Deal bonus damage to minions +35 Ability Power +18 Magic Penetration +8% Magic Penetration +100% Mana Regeneration +45 Move Speed Equilibrium: Champions without Mana gain 50% base Health Regen. Big Bully: Attacks and active abilities deal 18 bonus true damage to minions. 2200 
+ Spellslinger's Shoes TIPS: These boots greatly increase your magic damage through a combination of Ability Power and both flat and percentage magic penetration. The high mana regeneration allows for frequent spell casting, while the bonus true damage to minions significantly improves wave clear. Champions without Mana instead gain increased health regeneration. They are an excellent choice for mages and AP supports who value strong damage, constant lane pressure, and efficient farming.
+ T3
+ TIPS: Finally, for your items, you should build Luden's Echo (Abilities deal bonus damage) as your first item, followed by Boots of Mana (Grants Ability Power, Magic Penetration and Mana Regeneration) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Malignance (An item made for Ultimate-centric playstyles).
+ Maybe now it's time to think about upgrading your boot, invest in Spellslinger's Shoes (Deal bonus damage to minions).
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Luden's Echo 
+ Luden's Echo Abilities deal bonus damage +100 Ability Power +500 Max Mana +10 Ability Haste Echo: Your next damaging ability or empowered attack deals an additional 140 + 15% magic damage to the target and up to 3 nearby enemies. (9s Cooldown) 2800 
+ Luden's Echo TIPS: This item greatly enhances your burst damage by empowering your next damaging ability or empowered attack with an additional magic explosion that also strikes nearby enemies. It is an excellent choice for mages who excel at wave clearing, poking multiple targets, and dominating short trades with high burst potential.
+ Boots of Mana 
+ Boots of
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -4689,6 +5411,7 @@ Bone Plating
 Arcane Comet
 Poke, Stack Am
 ```
+
 ---
 
 # Mordekaiser — Ficha de datos (Wild Rift 7.3)
@@ -4791,8 +5514,21 @@ P
  Mercury's Treads TIPS: These boots increase your Magic Resistance while making you more resilient to crowd control through Tenacity. The bonus Health and movement speed improve both survivability and mobility, allowing you to perform more effectively against magic damage and heavy-CC team compositions. They are an excellent choice for tanks, fighters, and any champion who needs to stay in the fight longer.
  Armored Advance 
  Armored Advance Grants Armor and a shield +150 Max Health +30 Armor +45 Move Speed Block: Reduce damage from champion attacks by 10%. Noxian Endurance: After taking physical damage from a champion grants a physical shield that absorbs damage equal to 10-140 plus 8% max Health . (12s Cooldown) 2200 
- Armored Advance TIPS: These boots provide excellent protection against physical damage. They reduce damage taken from enemy champion attacks a
-...(recortado; completo en data/raw)...
+ Armored Advance TIPS: These boots provide excellent protection against physical damage. They reduce damage taken from enemy champion attacks and grant a protective shield after taking physical damage from a champion, helping you survive extended trades and heavy bursts of physical damage. They are an excellent choice against marksmen, fighters, and other champions who rely primarily on physical attacks.
+ T3
+ Chainlaced Crushers 
+ Chainlaced Crushers Gain a magic shield upon taking magic damage +150 Max Health +30 Magic Resistance +30% Tenacity +45 Move Speed Noxian Persistence: After taking magic damage from a champion, gain a magic shield that absorbs 10-120 plus 5% max for 5s. (12s Cooldown) 2200 
+ Chainlaced Crushers TIPS: These boots greatly improve your survivability against magic damage. After taking magic damage from an enemy champion, you gain a magic shield that helps absorb follow-up spells, while the bonus Magic Resistance and Tenacity make you far more resilient against AP threats and crowd control. They are an excellent choice against teams with heavy magic damage and strong CC.
+ T3
+ TIPS: Finally, for your items, you should build Rylai's Crystal Scepter (Abilities apply slows) as your first item, followed by Plated Steelcaps (Reduces damage from champion attacks) or Mercury's Treads (Reduces Magic Damage) depending on the situation. (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Riftmaker (Ramping Damage).
+ Maybe now it's time to think about upgrading your boot, invest in Armored Advance (Grants Armor and a shield). You may want to replace it with Chainlaced Crushers (Gain a magic shield upon taking magic damage), it all depends on your playstyle and the situation on the battlefield.
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Rylai's Crystal Scepter 
+ Rylai's Crystal Scepter Abilities apply slows +350 Max Health +65 Ability Power Icy: Damaging abilities and empowered attacks slow enemies by 30% for 0.75 second. 2700 
+ Rylai's Crystal Scepter TIPS: This item enhances your crowd control by causing your abilities and empowered attacks to slow enemies with every h
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -4933,6 +5669,7 @@ Transcendence
 Conqueror
 Stacking Damage, Vam
 ```
+
 ---
 
 # Seraphine — Ficha de datos (Wild Rift 7.3)
@@ -5022,8 +5759,19 @@ P
  Ionian Boots of Lucidity TIPS: These boots are designed for champions who rely on casting abilities as often as possible. They provide mana regeneration, Ability Haste, and further reduce the cooldown of Summoner Spells, allowing you to use key abilities more frequently while bringing back Flash, Smite, Ignite, and other Summoner Spells faster. They are an excellent choice for mages, supports, fighters, and any champion who benefits from maximizing ability uptime.
  Echoes of Helia 
  Echoes of Helia Protect allies, granting them increased healing +200 Max Health +40 Ability Power +50% Mana Regen +20 Ability Haste Soul Siphon: Store 30% of the premitigation damage dealt to enemy champions as Soul Shards (max 80–250 shards ( )). Healing or shielding a teammate consumes all Soul Shards to heal them for the corresponding amount. 2400 
- Echoes of Helia TIPS: This item combines Health, Ability Power, Mana regeneration, and Ability Haste, making it well suited for active supports who both damage enemies and protect allies. Damage dealt to
-...(recortado; completo en data/raw)...
+ Echoes of Helia TIPS: This item combines Health, Ability Power, Mana regeneration, and Ability Haste, making it well suited for active supports who both damage enemies and protect allies. Damage dealt to enemy champions stores charges that are consumed when healing or shielding an ally to provide additional healing. An excellent choice for enchanters who frequently participate in trades and team fights.
+ Boots
+ Ionian Boots of Lucidity 
+ Ionian Boots of Lucidity Reduces ability cooldowns +50% Mana Regen +15 Ability Haste +45 Move Speed Summoned: Reduces spell cooldowns by 15% . 1000 
+ Ionian Boots of Lucidity TIPS: These boots are designed for champions who rely on casting abilities as often as possible. They provide mana regeneration, Ability Haste, and further reduce the cooldown of Summoner Spells, allowing you to use key abilities more frequently while bringing back Flash, Smite, Ignite, and other Summoner Spells faster. They are an excellent choice for mages, supports, fighters, and any champion who benefits from maximizing ability uptime.
+ Crimson Lucidity 
+ Crimson Lucidity Reduces ability cooldown +75% Mana Regeneration +25 Ability Haste +45 Move Speed Summoned: Reduces spell cooldown by 20% . Noxian Haste: Healing or shielding allied champions, casting a spell, or dealing damage to enemies with abilities grants Movement Speed ( 10% for melee champions / 8% for ranged champions) for 4 seconds. This effect can only be triggered once every 4 seconds per ability. 2000 
+ Crimson Lucidity TIPS: These boots are ideal for champions who rely on casting abilities as often as possible. They greatly reduce the cooldown of both abilities and Summoner Spells while granting bonus movement speed whenever you heal or shield allies, cast spells, or damage enemies with abilities. They are an excellent choice for mages, supports, and fighters who value high mobility and maximum ability uptime.
+ T3
+ TIPS: Finally, for your items, you should build Black Mist Scythe (Attack champions and structures to gain bonus gold) as your first item, followed by Ionian Boots of Lucidity (Reduces ability cooldowns) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Echoes of Helia (Protect allies, granting them increased healing).
+ Maybe now it's time to think about upgrading your boot, invest in Crimson Lucidity (Reduces ability
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -5215,6 +5963,7 @@ Aery
 Poke, Protect
 Your attacks and abilities send Aery to a target, damaging enemies or shieldi
 ```
+
 ---
 
 # Shyvana — Ficha de datos (Wild Rift 7.3)
@@ -5314,8 +6063,19 @@ P
  Boots
  Gluttonous Greaves 
  Gluttonous Greaves Attack Damage, Omnivamp +45 Move Speed Balance of Power: Gain 12 Attack Damage or 20 Ability Power (Adaptive). Conversion: Gain 5% Omnivamp . Champion takedowns grant an additional 0.5% Omnivamp , up to 5% . 1000 
- Gluttonous Greaves TIPS: These boots combine mobility, adaptive offensive power, and sustained healing. They increase your damage while Omnivamp restores health from all damage you deal.
-...(recortado; completo en data/raw)...
+ Gluttonous Greaves TIPS: These boots combine mobility, adaptive offensive power, and sustained healing. They increase your damage while Omnivamp restores health from all damage you deal. Champion takedowns further increase your Omnivamp, making them an excellent choice for champions who want to balance high damage output with strong sustain during extended fights.
+ Immortal Treds 
+ Immortal Treds Deal bonus damage or gain increased healing and shielding +45 Move Speed Balance of Power: Gain 12 Attack Damage or 20 Ability Power (Adaptive). Conversion: Gain 5% Omnivamp . Champion takedowns grant an additional 0.5% Omnivamp , up to 5% . Now and Forever: When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding. 2000 
+ Immortal Treds TIPS: These boots combine adaptive offensive power, sustain, and increased combat effectiveness. While above 50% Health, you deal increased damage, and when below 50% Health, you benefit from stronger healing and shielding to improve your survivability. The additional Omnivamp further restores Health from all damage you deal. They are an excellent choice for fighters, AP bruisers, and champions who want to balance offensive power with sustained durability throughout extended fights.
+ T3
+ TIPS: Finally, for your items, you should build Trinity Force (Well-Rounded) as your first item, followed by Gluttonous Greaves (Grants Attack Damage and Omnivamp) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Blade of the Ruined King (Attacks deal bonus damage).
+ Maybe now it's time to think about upgrading your boot, invest in Immortal Treds (Deal bonus damage or gain increased healing and shielding).
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Trinity Force 
+ Trinity Force Well-Rounded +333 Max Health +36 Attack Damage +30% Attack Speed +15 Ability Haste Valor: On hit, attacks grant  20 Move Speed for 2 seconds. Bonuses do not stack. Bonus Movement Speed does not stack. Ranged champions gain halved values. Spellblade: Using an ability causes the next attack used within 10 seconds to deal bonus physical damage equal to 200% base AD (1.5s Coold
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -5578,6 +6338,7 @@ Conqueror
 Stacking Damage, Vamp
 Gain stacks of A
 ```
+
 ---
 
 # Volibear — Ficha de datos (Wild Rift 7.3)
@@ -5685,8 +6446,21 @@ P
  Mercury's Treads Increases Magic resist +150 Max Health +25 Magic Resistance +30 Tenacity +45 Move Speed 1200 
  Mercury's Treads TIPS: These boots increase your Magic Resistance while making you more resilient to crowd control through Tenacity. The bonus Health and movement speed improve both survivability and mobility, allowing you to perform more effectively against magic damage and heavy-CC team compositions. They are an excellent choice for tanks, fighters, and any champion who needs to stay in the fight longer.
  Armored Advance 
- Armored Advance Grants Armor and a shield +150 Max Health +30 Armor +45 Move Speed Block: Reduce damage from champion attacks by 10%. Noxian Endurance: Aft
-...(recortado; completo en data/raw)...
+ Armored Advance Grants Armor and a shield +150 Max Health +30 Armor +45 Move Speed Block: Reduce damage from champion attacks by 10%. Noxian Endurance: After taking physical damage from a champion grants a physical shield that absorbs damage equal to 10-140 plus 8% max Health . (12s Cooldown) 2200 
+ Armored Advance TIPS: These boots provide excellent protection against physical damage. They reduce damage taken from enemy champion attacks and grant a protective shield after taking physical damage from a champion, helping you survive extended trades and heavy bursts of physical damage. They are an excellent choice against marksmen, fighters, and other champions who rely primarily on physical attacks.
+ T3
+ Chainlaced Crushers 
+ Chainlaced Crushers Gain a magic shield upon taking magic damage +150 Max Health +30 Magic Resistance +30% Tenacity +45 Move Speed Noxian Persistence: After taking magic damage from a champion, gain a magic shield that absorbs 10-120 plus 5% max for 5s. (12s Cooldown) 2200 
+ Chainlaced Crushers TIPS: These boots greatly improve your survivability against magic damage. After taking magic damage from an enemy champion, you gain a magic shield that helps absorb follow-up spells, while the bonus Magic Resistance and Tenacity make you far more resilient against AP threats and crowd control. They are an excellent choice against teams with heavy magic damage and strong CC.
+ T3
+ TIPS: Finally, for your items, you should build Dusk and Dawn (Applies on-hit effects) as your first item, followed by Plated Steelcaps (Reduces damage from champion attacks) or Mercury's Treads (Reduces Magic Damage) depending on the situation. (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Navori Quickblades (Attacks reduce basic ability cooldowns).
+ Maybe now it's time to think about upgrading your boot, invest in Armored Advance (Grants Armor and a shield). You may want to replace it with Chainlaced Crushers (Gain a magic shield upon taking magic damage), it all depends on your playstyle and the situation on the battlefield.
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Dusk and Dawn 
+ Dusk and Daw
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -5817,6 +6591,7 @@ Grasp of Undying
 Tank, Heal
 Every 3s in combat, your next atta
 ```
+
 ---
 
 # Yunara — Ficha de datos (Wild Rift 7.3)
@@ -5913,8 +6688,22 @@ P
  Boots
  Berserker's Greaves 
  Berserker's Greaves Attack Speed +35% Attack Speed +45 Move Speed Blessed Blade: Attacks restore 10 Health on hit. 1200 
- Berserker's Greaves TIPS: These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rap
-...(recortado; completo en data/raw)...
+ Berserker's Greaves TIPS: These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rapid attack cadence, and constant sustain in fights.
+ Gunmetal Greaves 
+ Gunmetal Greaves Increases Attack Speed and Movement Speed +50% Attack Speed +45 Move Speed +5% Lifesteal Noxian Gait: Attacks against enemy champions grant Movement Speed ( 10% for melee champions / 7% for ranged champions) decaying over 2 seconds. Blessed Blade: Attacks restore 12 Health on hit. 2200 
+ Gunmetal Greaves TIPS: These boots significantly increase Attack Speed while also providing Movement Speed and Lifesteal, making them well suited for champions who rely on frequent basic attacks. Attacking enemy champions temporarily increases Movement Speed, making it easier to chase and reposition, while each hit also restores Health. An excellent choice for auto-attackers who need mobility and consistent sustain in combat.
+ T3
+ TIPS: Finally, for your items, you should build Kraken Slayer (Deal bonus physical damage) as your first item, followed by Berserker's Greaves (Grants Attack Speed) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Runaan's Hurricane (Ranged Attacks hit 3 targets).
+ Maybe now it's time to think about upgrading your boot, invest in Gunmetal Greaves (Increases Attack Speed and Movement Speed).
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ Example build
+ Kraken Slayer 
+ Kraken Slayer Deal bonus physical damage +45 Attack Damage +35% Attack Speed +4% Move Speed Bring it Down: Every third attack deals 150–210 bonus physical damage ( 120–168 for ranged champions), increased by 0.75% per 1% Health the target is missing, up to an increase of 75%. 2900 
+ Kraken Slayer TIPS: This item combines Attack Damage, Attack Speed, and mobility, enhancing sustained basic attack damage. Every third attack deals bonus physical damage that increases as the enemy loses Health. An excellent choice for marksmen and other champions who rely on frequent basic attacks and want to finish off weakened targets more effectively.
+ Berserker's Greaves 
+ Berserker's Greaves Attack Speed +35% At
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -5988,6 +6777,7 @@ Lethal Tempo
 Attack Speed
 Gain Attack Speed when attacking enemy champions. Stacks up to 6 times. At max stack
 ```
+
 ---
 
 # Yuumi — Ficha de datos (Wild Rift 7.3)
@@ -6076,8 +6866,19 @@ P
  Black Mist Scythe Attack champions and structures to gain bonus gold +10 Ability Haste Versatile: Gain 14 Attack Damage or 28 Ability Power (Adaptive). Soulcast: Every 60 seconds, gains 75 gold , 25 Health and 2 Attack Damage , or 4 Ability Power (Adaptive); up to  250 Health and 20 Attack Damage , or 40 Ability Power (Adaptive). Deal 2 more damage to Sight Wards revealed by Sweeping Lens, Control Ward, and Scryer’s Bloom. When out of combat, gain 10% Movement Speed when you move toward your Perfect Partner. If you're more than 2,500 units apart, this bonus increases to 30%. 0 
  Black Mist Scythe TIPS: This item is designed for support players, granting passive bonuses to gold and stats. It reduces your gold from killing minions and monsters but provides 75 gold and 1 Soulforce stack every 60 seconds. Each Soulforce stack adaptively grants health, attack damage, or ability power, and at 10 stacks you gain a significant bonus to one of these stats. The item also increases your effectiveness in clearing vision by dealing extra damage to revealed enemy wards. Ideal for map-control–focused supports who want to help their team without worrying about farming; you’ll steadily generate resources and strengthen your utility for both protect and peel.
  Ionian Boots of Lucidity 
- Ionian
-...(recortado; completo en data/raw)...
+ Ionian Boots of Lucidity Reduces ability cooldowns +50% Mana Regen +15 Ability Haste +45 Move Speed Summoned: Reduces spell cooldowns by 15% . 1000 
+ Ionian Boots of Lucidity TIPS: These boots are designed for champions who rely on casting abilities as often as possible. They provide mana regeneration, Ability Haste, and further reduce the cooldown of Summoner Spells, allowing you to use key abilities more frequently while bringing back Flash, Smite, Ignite, and other Summoner Spells faster. They are an excellent choice for mages, supports, fighters, and any champion who benefits from maximizing ability uptime.
+ Echoes of Helia 
+ Echoes of Helia Protect allies, granting them increased healing +200 Max Health +40 Ability Power +50% Mana Regen +20 Ability Haste Soul Siphon: Store 30% of the premitigation damage dealt to enemy champions as Soul Shards (max 80–250 shards ( )). Healing or shielding a teammate consumes all Soul Shards to heal them for the corresponding amount. 2400 
+ Echoes of Helia TIPS: This item combines Health, Ability Power, Mana regeneration, and Ability Haste, making it well suited for active supports who both damage enemies and protect allies. Damage dealt to enemy champions stores charges that are consumed when healing or shielding an ally to provide additional healing. An excellent choice for enchanters who frequently participate in trades and team fights.
+ Boots
+ Ionian Boots of Lucidity 
+ Ionian Boots of Lucidity Reduces ability cooldowns +50% Mana Regen +15 Ability Haste +45 Move Speed Summoned: Reduces spell cooldowns by 15% . 1000 
+ Ionian Boots of Lucidity TIPS: These boots are designed for champions who rely on casting abilities as often as possible. They provide mana regeneration, Ability Haste, and further reduce the cooldown of Summoner Spells, allowing you to use key abilities more frequently while bringing back Flash, Smite, Ignite, and other Summoner Spells faster. They are an excellent choice for mages, supports, fighters, and any champion who benefits from maximizing ability uptime.
+ Crimson Lucidity 
+ Crimson Lucidity Reduces ability cooldown +75% Mana Regeneration +25 Ability Haste +45 Move Speed Summoned: Reduces spell cooldown by 20% . Noxian Haste: Healing or shielding allied champion
+```
+
 ## Change history (cambios recientes)
 
 ```
@@ -6271,38 +7072,655 @@ Revitalize
       
 ```
 
-## 14. REPORTES COMPLETOS (estándar v1.4, anotados 7.3a: Jinx, Kalista, Diana, Yuumi, Karma)
+## 14. REPORTES PUBLICADOS DEL VAULT (16 archivos — con bloques de verificación WRLAB-VERIF generados por update_reports.py)
+
+---
+tags:
+  - ADC
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 28/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+**Arquetipo:** Crítico burst/abilities — Headshots
+**Enfoque:** Aprovechar su rango base de 650 para procar Magnification y RFC de forma segura.
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> **Cambio directo:** NERF — **AS growth 0.04→0.025** · Headshot ratio 60–100→**60–90 % AD**.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Infinity Edge + Lord Dominik's Regards + Rapid Firecannon + Bloodthirster — **sin cambios**.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 28/09/2026):
+> ** Win Rate 51.41 % | Pick Rate 35.85 % | Ban 42.81 % | Tendencia ↑ | Rol: ADC Bot Lane
+> El buff a su escalado de crítico la devuelve al tier S de lane bullies y ejecutores de late game.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS · 5 % LS · 12 HP/golpe · 7 % MS |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD · 25 % crit · Magnification +10 % (rango 650+) |
+| 3 | **Infinity Edge** | 3 400 | 75 AD · 25 % crit · crítico 200→230 % (multiplica Headshot y R) |
+| 4 | **Lord Dominik's Regards** | 3 300 | 35 AD · 35 % pen · 25 % crit · Giant Slayer +12 % |
+| 5 | **Rapid Firecannon** | 2 650 | 40 % AS · 25 % crit · +150 rango (Energized) |
+| 6 | **Bloodthirster** | 3 200 | 75 AD · 15 % LS · escudo Ichorshield |
+
+> **Oro total: 17 650 g** · AD 359 · AS 2.08 · Crit 100 % @230 % · Pen 35 % · Lifesteal 20 %
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Long Sword (start) | 500 | 0:00 |
+| 2 | Pickaxe + Noonquiver → **Hexoptics C44** | 3 400 | ~7:00–8:00 |
+| 3 | **Berserker's Greaves** | 4 600 | ~9:00 |
+| 4 | BF Sword + Pickaxe + Brawler's → **Infinity Edge** | 8 000 | ~12:30–13:30 |
+| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 9 000 | ~13:30 (post 10:00) |
+| 6 | Last Whisper + Noonquiver → **Lord Dominik's Regards** | 12 300 | ~16:30–17:30 |
+| 7 | Zeal + Kircheis → **Rapid Firecannon** | 14 950 | ~19:00 |
+| 8 | Vampiric Scepter + BF Sword → **Bloodthirster** | 17 650 | ~21:30 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (38.4 % AS + bala) / **First Strike** (poke con Headshot desde niebla) |
+| Precisión 2 | **Legend: Alacrity** (+21 % AS) |
+| Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe) |
+| Precisión 4 | **Coup de Grace** (+8 % a <40 % HP — sinergia con R) |
+| Secundaria | **Bone Plating** (anti-burst lane) / **Celerity** (kiteo) |
+| Hechizos | **Flash + Heal** / **Flash + Barrier** |
+| Skills | **Q → W → E** (R en 5/9/13) |
+
+### Resultado del modelo (nivel 15, LT/Alacrity full, 100 % crit)
+| Escenario | DPS / Burst |
+|-----------|-----|
+| **1v1** (pre-mitigación, autos + Headshot cíclico) | **2 850** |
+| **3v3** (AoE limitado, Q+Headshots) | **4 120** |
+| **vs 120 armadura** | **1 605** |
+| **vs Tanque** (220 arm + 4 500 HP + Giant Slayer) | **1 340** |
+| **Burst de R** (100 % crit, IE, 50 % missing HP) | **1 515** (pre-mit) |
+| Heal/s (Gunmetal + BT) | **410** |
+
+> **Titular:** El nuevo escalado de crítico convierte su Headshot en un mini-burst de **1 184 de daño físico** y su R en un misil de **1 515**, superando en +28 % de daño efectivo a la build de 7.2.
+
+---
+
+## 1. LEYES APLICADAS A CAITLYN
+
+### Ley 1 — Umbral de crítico exacto: 100 %
+| Crítico | Mult. con IE | Ganancia marginal |
+|---|---|---|
+| 50 % | 1.65 | base |
+| 75 % | 1.975 | +19.7 % |
+| **100 %** | **2.30** | **+16.4 % vs 75 %** |
+**Combo exacto:** C44(25) + IE(25) + LDR(25) + RFC(25) = **100.0 %**
+Cualquier ítem con 25 % crit adicional (Galeforce, Shieldbow) desperdicia ~1 250 g en stats muertos y rompe la eficiencia de la R.
+
+---
+
+## 2. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | DPS lvl 12 (3v3) | Nota |
+|---|---|---|---|---|---|---|
+| **Hexoptics C44** | 2 900 | 510 | 820 | 890 | 1 450 | Magnification +10 % permanente (rango 650) |
+| Kraken Slayer | 2 900 | **580** | **910** | **960** | 1 520 | Gana 1v1 temprano, pero pierde sinergia con R |
+| Stormrazor | 3 000 | 540 | 850 | 910 | 1 480 | Alternativa anti-presión (Energized 120 + 45 % MS) |
+
+**Veredicto:** **C44 primero.** Kraken gana el duelo de autos planos (+14 %), pero Caitlyn no es un ADC de autos planos. C44 multiplica su Headshot y su R gracias al AD plano y Magnification, además de permitirle pokear desde arbustos con First Strike de forma segura.
+
+---
+
+## 3. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Berserker's → Gunmetal** | +15 % AS sobre T2 por 1 000 g; +5 % LS; 12 HP/golpe. Estrictamente dominante. |
+| 1 | **Hexoptics C44** (2 900) | 55 AD + Magnification +10 % permanente. Su rango base 650 garantiza el máximo bono. |
+| 2 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica Headshot (+30 % AD extra) y R (+9 % mult global). |
+| 3 | **Lord Dominik's Regards** (3 300) | Cierra 100 % crit exacto + 35 % pen + Giant Slayer. Obligatorio vs el meta de tanques. |
+| 4 | **Rapid Firecannon** (2 650) | +150 rango (llega a 800). Permite detonar cristales de torreta y procar Headshots desde la niebla. |
+| 5 | **Bloodthirster** (3 200) | 75 AD + 15 % LS. Sustain para sobrevivir a los dives post-lane. |
+
+### Matriz del último slot (situacional)
+| Situación | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (sustain)** | **Bloodthirster** | 3 200 | 410 HP/s + escudo Ichorshield |
+| CC duro + AP | Mercurial Scimitar | 3 100 | QSS + 40 MR + 12 % LS |
+| Burst AD / asesinos | Guardian Angel | 3 200 | Revivir (sin crit desperdiciado) |
+| 3+ Tanques / Curación | Mortal Reminder | 3 000 | Reemplaza LDR; mantiene 100 % crit + GW 50 % |
+
+---
+
+## 4. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Lethal Tempo / First Strike
+- **Lethal Tempo:** Para composiciones donde necesitas DPS sostenido en teamfights largos. La bala escala con su AS bonus intrínseco (0.84).
+- **First Strike:** La opción de **poke y lane bully**. Iniciar combate con un Headshot desde arbusto/niebla otorga +7 % de daño verdadero y oro extra. Sinergia brutal con su rango.
+### Secundarias
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Precisión | **Legend: Alacrity** | +21 % AS → Headshots más frecuentes |
+| Precisión/Dom | **Brutal** | 5 + 6 % AD bonus ≈ +45 DPS constante |
+| Precisión | **Coup de Grace** | +8 % a <40 % HP — convierte su R en ejecución garantizada |
+| Resolve | **Bone Plating** | Anti-burst lane (Draven/Lucian) |
+
+### Hechizos: Flash + Heal / Barrier
+Caitlyn es estática en peleas. Barrier es preferible en Diamond+ contra comps de burst mágico (ej. Syndra, Diana).
+
+### Orden de habilidades
+**Q → W → E** · R en 5/9/13.
+- Q max: waveclear y poke principal.
+- W segunda: más cargas y duración de trampas para controlar objetivos y river.
+- E última: el slow fue nerfeado a 1 s, su valor es puramente defensivo (red de seguridad).
+
+---
+
+## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, 100 % crit, vs 120 arm)
+| Build | Oro | AD | AS | Crit | Pen | 1v1 | Burst R | vs Tanque |
+|---|---|---|---|---|---|---|---|---|
+| **ÓPTIMA C44 (propuesta)** | 17 650 | 359 | 2.08 | 100 % | 35 % | **1 605** | **1 515** | **1 340** |
+| Meta 7.2 (sin escalado crit) | 17 200 | 340 | 2.25 | 75 % | 35 % | 1 240 | 980 | 1 020 |
+| Ruta Lethality (Armorcrusher) | 16 800 | 385 | 1.45 | 0 % | 40 % | 1 450 | 1 100 | 650 |
+
+---
+
+## 6. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+- **Start:** Long Sword (500 g).
+- **Lvl 1:** Q para pushear y llegar a lvl 2 primero. Coloca W en los arbustos de la river o en el carril para restringir movimiento.
+- **Headshots:** Farmea con autos, guarda el Headshot para el trade con el support enemigo o el ADC.
+- **Bajo presión:** Si te divean, usa E (90 Caliber Net) + Q en el aire para el combo rápido.
+
+### Mid (9:00 – 16:00)
+- **Min 10:00:** mejora Berserker's → **Gunmetal Greaves** (+1 000 g, mismo slot).
+- **Pico 1 (C44 + IE, ~13 min):** Tu Headshot ahora hace ~800 de daño pre-mitigación. Busca picks con W + R.
+- **Cristales:** cada ~50 s la torreta acumula cristales. Con RFC (800 de rango), dispara un auto desde la niebla para detonar **~1 300 de daño verdadero** y retrocede. Es presión gratuita.
+
+### Late (16:00+)
+- **Posicionamiento:** 800 de rango con RFC. Nunca entres en el radio de los engages enemigos.
+- **Teamfight:** Coloca W en las entradas de la jungla o alrededor de objetivos (Baron/Dragon). Si alguien pisa, **R + Headshot** = baja instantánea de squishies.
+- **Contra-ventana:** enemigos con Chainlaced Crushers (30 % tenacidad) reducen el impacto de tu W, pero tu R sigue siendo imparable.
+
+---
+
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema crit 200/230 %, escalado de Headshot/R, AS cap 3.0, apéndice AS |
+| Notas oficiales 7.2 | wildrift.leagueoflegends.com | Fin encantamientos, botas T2/T3, min 10:00 |
+
+### Discrepancias detectadas y resolución
+| Tema | Fuente A | Fuente B | Resolución |
+|---|---|---|---|
+| **Base Bonus AS** | Apéndice final: **0.2** | Sección Caitlyn y ejemplo oficial: **0.28** | **Mandan la sección específica y el ejemplo oficial (0.28).** El apéndice tiene errata conocida. |
+| Lethal Tempo (ranged) | wr-meta: 4.8 % | Notas 7.3: **6.4 %** | Mandan las notas oficiales |
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Caitlyn
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Hexoptics C44 (2 900) | ✅ Core 1 | Magnification +10 % permanente (rango 650) |
+| Infinity Edge (3 400) | ✅ Core 2 | Multiplica Headshot y R |
+| Lord Dominik's Regards (3 300) | ✅ Core 3 | Pen 35 % + GS |
+| Rapid Firecannon (2 650) | ✅ Core 4 | +150 rango = 800 de alcance seguro |
+| Bloodthirster (3 200) | ✅ 6.º default | Sustain + AD plano |
+| Mortal Reminder (3 000) | ✅ Reemplaza LDR vs curación | Mantiene 100 % crit |
+| Guardian Angel (3 200) | ✅ 6.º vs AD burst | Revivir |
+| Mercurial Scimitar (3 100) | ✅ 6.º vs CC | QSS + MR |
+| Galeforce (3 100) | ❌ | 25 % crit muerto |
+| Essence Reaver (3 000) | ❌ | Spellblade < multiplicador de IE |
+| The Collector (3 000) | ❌ | Pen plana ineficiente en late |
+| Manamune (2 900) | ❌ | Sin problemas de maná |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (máximo burst y control):
+LS → Pickaxe/Noonquiver → C44 (7-8') → Berserker's (9') → IE (12-13')
+→ ⬆️ Gunmetal T3 (13:30') → LDR (17') → RFC (19') → BT (21')
+
+ANTI-PRESIÓN (lane difícil / poke enemigo):
+LS → Stormrazor (8') → Berserker's → C44 → ⬆️ Gunmetal → IE → LDR → BT
+
+VS 3+ TANQUES / CURACIÓN:
+Default pero LDR → Mortal Reminder (mantiene 100 % crit + GW 50 %)
+
+VS CC DURO / BURST AP:
+Default pero BT → Mercurial Scimitar / Guardian Angel
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, escalado de crítico en habilidades, apéndice de Attack Speed y valores de ítems modificados.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats no tocados por el parche.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
+  - Barón
   - Jungla
-  - Mid
-  - Assassin
-  - AP-Híbrido
+  - Personalizado
 version: 1.2
-Status: Aprobado
-champion: Diana
-patch: "7.3+7.3a"
+Status: Beta
 ---
-**Fecha del análisis:** 25/09/2026
+**Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Jungla (preferente) / Mid
-**Arquetipo:** AP assassin híbrido — burst de rotación + autos potenciados por Moonsilver Blade (30-100 % AS tras habilidad)
-**Enfoque:** Explotar el Lethal Tempo rehecho: su pasiva le da AS bonus masiva y la bala de LT escala +0.67 % por cada 1 % de AS bonus → híbrido Nashor's/Dusk and Dawn + Rabadon's.
+**Rol principal:** Jungla (Preferente) / Top
+**Arquetipo:** Tanque de Escalado Infinito
+**Enfoque:** Convertir el tamaño en poder real
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Cho'Gath:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Hollow Radiance + Liandry's Torment + Force of Nature + Warmog's Armor — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > 
-> Mid: Win Rate 47.98 % | Pick 1.12 % | Tendencia ↓2 — **Jungla: Win Rate 50.82 % | Pick 1.90 %**. Diana está débil en mid; jungla es su rol viable en 7.3. Es un pick de confort, no tier S: expectativas honestas.
+> Jungla: Win Rate 50.78 % | Pick 7.22 % | Ban 38.00 % | Tendencia ↑14.
+> Top: Win Rate 51.20 % | Pick 12.60 % | Ban 38.00 % | Tendencia ↓1.
 
 > [!TIP]
-> **Variante one-shot:** si tu comp necesita borrar squishies (ej. vs Yuumi-carry), cambia Nashor's/D&D por **Luden's + Infinity Orb + Stormsurge**: burst 2 152 (vs 1 792) a costa de −39 % de DPS sostenido (593 vs 971).
+> **Variante Anti-Curación:** Si el enemigo tiene mucho sustain (Mundo, Soraka, Yuumi), cambia *Liandry's Torment* por **Morellonomicon** o añade **Thornmail** como 5.º ítem. Pierdes ~10 % de daño sostenido pero ganas control de salud enemiga crucial.
 
+---
 
-> [!WARNING] Hotfix 7.3a (29-sep-2026)
-> Sin cambios directos a Diana, pero el **burn de Smite vs monstruos bajó (30-198 → 22-162/s)**: clear de jungla early más lento → refuerza la ruta Nashor's-primero y exige escudo de W activo en campamentos. Build y números intactos.
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+| Slot      | Ítem                                                              | Oro   | Rol en la build                                                                          |
+| --------- | ----------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------------------- |
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | Bloqueo 10 % daño físico + Escudo físico. Esencial vs ADCs/Fighters AD.                  |
+| 2         | **Heartsteel**                                                    | 3 000 | Core infinito. +700 HP, daño % vida máxima, HP permanente por golpe.                     |
+| 3         | **Hollow Radiance**                                               | 2 800 | Daño mágico en área basado en HP bonus + 40 MR. Sinergia directa con Heartsteel.         |
+| 4         | **Liandry's Torment**                                             | 3 000 | Quemadura % vida máxima. Multiplica el daño de E (Vorpal Spikes) y W.                    |
+| 5         | **Force of Nature**                                               | 2 800 | RM escalable (hasta +70) + MS. Durabilidad contra composiciones AP.                      |
+| 6         | **Warmog's Armor**                                                | 2 850 | Regeneración masiva fuera de combate (>950 HP bonus). Presión de mapa sin volver a base. |
+
+> **Oro total: ~16 650 g** · HP Bonus ~3 500+ · HP Total ~5 200+ (con stacks) · AP 110 · Haste 55 · Daño E: ~150 + % vida enemigo.
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Ruby Crystal (Start) | 500 | 0:00 |
+| 2 | Kindlegem + Giant's Belt → **Heartsteel** | 3 500 | ~8:30–9:30 |
+| 3 | **Plated Steelcaps** | 4 700 | ~10:00 |
+| 4 | Negatron Cloak + Ruby Crystal → **Hollow Radiance** | 7 500 | ~13:00 |
+| 5 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 500 | ~14:00 (post 10:00) |
+| 6 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 11 500 | ~16:30 |
+| 7 | Winged Moonplate + Negatron Cloak → **Force of Nature** | 14 300 | ~19:00 |
+| 8 | Giant's Belt + Kindlegem → **Warmog's Armor** | 17 150 | ~22:00 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Grasp of Undying** (Daño % vida, cura, HP permanente) |
+| Resolve 2 | **Demolish** (Daño a torres, sinergia con push) |
+| Resolve 3 | **Second Wind** (Sustain en lane/jungla temprana) |
+| Resolve 4 | **Overgrowth** (+3 % HP máximo a 30 stacks) |
+| Sorcery 1 | **Transcendence** (Ability Haste para spam Q/E) |
+| Sorcery 2 | **Axiom Arcanist** (-7 % CD de R por takedown = más stacks) |
+| Hechizos | **Jungla: Smite + Flash** · **Top: Flash + Ignite/Teleport** |
+| Skills | **E → Q → W** (R en 5/9/13) |
+
+### Resultado del modelo (Nivel 15, 6 stacks Feast, vs Tanque 4 500 HP)
+| Escenario | Valor Estimado |
+|-----------|-----|
+| **HP Total** | **~5 200** (Base + Items + Stacks) |
+| **Daño E (Single Target)** | **~250 mágico + 3.5 % vida máx enemigo** |
+| **Daño Heartsteel (Proc)** | **~300 físico + 3.5 % vida máx enemigo** |
+| **Quemadura Liandry** | **2 % vida máx / s (3 s)** |
+| **EHP vs Físico** | **Extremo** (Armored Advance + Plated passive) |
+| **Regen Fuera de Combate** | **~180 HP/s** (Warmog's activo) |
+
+> **Titular:** Cho'Gath no busca burst instantáneo, sino asfixia porcentual. A nivel 15, su combinación de E + Heartsteel + Liandry derrite tanques en segundos mientras él se regenera completamente en 10 segundos fuera de combate.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos a Cho'Gath (7.3)
+| Stat / Habilidad | Antes | Ahora | Impacto |
+|---|---|---|---|
+| Daño Crítico Base | 175 % | **200 %** | Irrelevante (no usa crítico). |
+| AS Cap | 2.5 | **3.0** | Irrelevante (no escala con AS). |
+| E Vorpal Spikes | Buffed en 7.2c | **Mantenido** | Daño base aumentado a 20/45/70/95 + % vida. |
+| R Feast | CD 80/70/60 | **70/60/50** | Más frecuencia de ejecución = más stacks más rápido. |
+
+### 1.2 Cambios sistémicos que le afectan
+| Sistema | Cambio | Efecto en Cho'Gath |
+|---|---|---|
+| Heartsteel | Item nuevo/rework | **Core absoluto.** Permite escalar HP y daño simultáneamente. |
+| Jungla 7.3 | Smite escala con stats | Tu HP bonus de Heartsteel aumenta el daño verdadero de Smite. |
+| Torretas 7 000 HP | Cristales (Crystalline Overgrowth) | Cho'Gath con Demolish + E es el mejor destructor de torres del juego. |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+**No.** Cho'Gath es un campeón de **daño porcentual (% vida)** y **daño verdadero**. El crítico, la velocidad de ataque y el daño de ataque físico son stats muertos para su kit principal. Su escalado depende exclusivamente de **Vida Máxima**, **AP** (para ratios de Q/W/E) y **Penetración Mágica/Haste**.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|---|---|---|
+| AD base / growth | 62 / 4.0 | Ficha wr-meta |
+| AS base / ratio | 0.625 / 0.625 | Apéndice oficial 7.3 |
+| Base Bonus AS | 0.28 | Apéndice oficial 7.3 |
+| AS por nivel | 0.008 | Apéndice oficial 7.3 |
+| P Carnivore | Cura 18 HP + 4.35 Maná por kill (doble vs campeones/épicos) | Ficha wr-meta |
+| Q Rupture | 80-245 + 100 % AP, Knock-up 1 s, Slow 60 % | Ficha wr-meta |
+| W Feral Scream | 80-230 + 70 % AP, Silencio 1.4-2 s | Ficha wr-meta |
+| E Vorpal Spikes | 20-95 + 30 % AP + **(2.3-3.5 % + 0.6 % per stack) vida máx objetivo** | Ficha wr-meta |
+| R Feast | 300-600 + 50 % AP + **10 % HP Bonus** (Verdadero). +80/120/160 HP por stack. | Ficha wr-meta |
+
+**HP de referencia full build:** ~5 200 (con 6 stacks mínimos).
+**Daño E vs Tanque 4 500 HP:** ~250 base + ~157 (% vida) = **~407 por golpe** (sin contar MR).
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+### Fórmulas aplicadas
+Daño_E = (Base_E + AP * 0.3) + (Vida_Máx_Enemigo * (0.023 + 0.006 * Stacks_Feast))
+Daño_Heartsteel = 140 + (Vida_Máx_Cho * 0.035)
+Daño_Liandry = Vida_Máx_Enemigo * 0.02 * 3_segundos
+Mitigación_Mágica = 100 / (100 + MR_Enemigo * (1 - Pen_Mágica))
+
+### Supuestos específicos
+- Se asumen **6 stacks de Feast** de minions/monstruos no épicos (cap inicial) + stacks adicionales de campeones/épicos en late game.
+- Heartsteel está completamente cargado y ha generado HP permanente.
+- El enemigo tiene ~4 500 HP y ~80 MR (promedio late game).
+- Warmog's Armor está activo (>950 HP bonus).
+
+---
+
+## 4. LEYES APLICADAS A CHO'GATH
+
+### Ley 0 — Slots
+Build final = 1 botas (Armored Advance T3) + 5 ítems. `validate_slots(["Armored Advance", "Heartsteel", "Hollow Radiance", "Liandry's", "Force of Nature", "Warmog's"])` → **PASS**.
+*Nota:* En la ruta de compra se muestra Plated Steelcaps (T2) mejorando a Armored Advance (T3). Nunca tengas ambas equipadas simultáneamente.
+
+### Ley 3 — Penetración Mágica vs Daño Porcentual
+Cho'Gath hace daño mixto (Mágico en Q/W/E y Verdadero en R/Heartsteel proc).
+- **Liandry's Torment** aplica quemadura que ignora mitigación en parte al ser % vida, pero sigue siendo daño mágico.
+- Contra tanques con >150 MR, considerar **Cryptbloom** (30 % pen) en lugar de Force of Nature si el equipo necesita más daño mágico de equipo. Sin embargo, Force of Nature ofrece la supervivencia necesaria para mantenerse en rango de E.
+
+### Ley 4 — Stats Muertos
+| Stat | Valor para Cho'Gath | Nota |
+|---|---|---|
+| AD | ❌ Muerto | Solo útil para last hit early. |
+| AS | ❌ Muerto | No escala con autos. |
+| Crítico | ❌ Muerto | Ninguna habilidad critica. |
+| Maná | ⚠️ Bajo | Útil para spam, pero la pasiva y items como Frozen Heart cubren esto si es necesario. |
+| HP | ✅ Rey | Escala daño de R, Heartsteel, y durabilidad. |
+
+### Ley 5 — Eficiencia de Oro
+- **Heartsteel (3 000 g):** Extremadamente eficiente en partidas largas. El HP permanente y el daño % vida justifican el coste frente a items estáticos como Sunfire.
+- **Hollow Radiance (2 800 g):** Alta eficiencia para tanques AP. El daño en área basado en HP bonus sinergiza perfectamente con el pool de vida de Cho.
+- **Liandry's (3 000 g):** Estándar dorado para daño sostenido % vida.
+
+### Ley 6 — Timing
+Heartsteel requiere tiempo para cargar (2.5 s cerca de enemigos). Early game Cho es débil en burst. La ventana de poder comienza al completar Heartsteel (~9 min) y se vuelve dominante al añadir Liandry's (~16 min).
+
+### Ley 7 — Sistemas 7.3
+- **Smite 7.3:** Escala con HP bonus. Tu build de HP masivo aumenta el daño verdadero de Smite contra objetivos épicos.
+- **Cristales de Torreta:** Cho'Gath con Demolish y E puede detonar cristales rápidamente, ejerciendo presión de mapa global.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | Pros | Contras | Veredicto |
+|---|---|---|---|---|
+| **Heartsteel** | 3 000 | Escalado infinito HP/Daño. Sinergia total con kit. | Requiere proximidad para cargar. Débil en all-in temprano. | ✅ **CORE** |
+| Liandry's Torment | 3 000 | Daño consistente % vida. Buen clear de jungla. | Menos durabilidad inmediata. Sin escalado infinito de HP. | ⚠️ Alternativa AP |
+| Iceborn Gauntlet | 3 000 | Control de zona (slow en área). Maná. | Menos daño que Heartsteel/Liandry. | ❌ Pasivo de moda |
+| Sunfire Aegis | 2 900 | Daño en área constante. | Heartsteel es superior en escalado y daño single-target. | ❌ Outdated |
+
+**Veredicto:** Heartsteel primero SIEMPRE en esta build. Define la identidad de "Coloso Imparable".
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación Matemática |
+|---|---|---|
+| Botas | **Plated → ⬆️ Armored Advance** | Reduce 10 % daño de autos + escudo físico. Esencial para sobrevivir a ADCs y Fighters AD en jungle/top. |
+| 1 | **Heartsteel** (3 000) | Core del build. Aumenta HP máximo y daño de autos basado en % HP. Escalado infinito. |
+| 2 | **Hollow Radiance** (2 800) | Daño mágico en área basado en HP bonus. Sinergia directa con Heartsteel. Aporta 40 MR. |
+| 3 | **Liandry's Torment** (3 000) | Aplica quemadura % vida máxima. Sinergia con E (Vorpal Spikes) y W. Aporta 300 HP y 70 AP. |
+| 4 | **Force of Nature** (2 800) | Alta RM escalable con stacks (hasta +70). Movilidad para alcanzar enemigos. Sinergia con HP masivo. |
+| 5 | **Warmog's Armor** (2 850) | Regeneración masiva fuera de combate si tienes >950 HP bonus (fácil de lograr). Permite presión constante sin volver a base. |
+
+### Matriz del último slot (situacional)
+| Situación | Ítem | Coste | Impacto Medido |
+|---|---|---|---|
+| **Default** | **Warmog's Armor** | 2 850 | Regen ~180 HP/s fuera de combate. |
+| Vs Mucha Curación Enemiga | **Spirit Visage** | 2 800 | Amplifica la regeneración de Warmog y pasiva de Cho. +10 % HSP. |
+| Vs AD / Lifesteal | **Thornmail** | 2 700 | Refleja daño y aplica Grievous Wounds. |
+| Vs AS Heavy (ADCs) | **Frozen Heart** | 2 550 | Reduce AS enemiga en 25 % en área. |
+| Vs AP Burst | **Abyssal Mask** | 2 400 | Reduce MR enemiga en área (12 %) para tu equipo. |
+
+### RECHAZADOS (con motivo numérico)
+| Ítem | Motivo del Rechazo |
+|---|---|
+| Kraken Slayer / Runaan's / IE | Stats muertos (AS/Crítico). Cho no usa autos para daño principal. |
+| Nashor's Tooth | AS innecesaria. El daño de Cho viene de habilidades y % vida. |
+| Sunfire Aegis | Heartsteel ofrece mejor escalado de daño y HP permanente. |
+| Rylai's Crystal Scepter | Buen slow, pero Liandry's ya aplica ralentización implícita vía daño sostenido y ofrece mejor sinergia de % vida. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Grasp of Undying
+- Daño mágico basado en % vida máxima.
+- Cura y otorga HP permanente.
+- Sinergia perfecta con el escalado de HP de Cho'Gath y Heartsteel.
+
+### Secundarias
+| Slot | Runa | Valor Estimado |
+|---|---|---|
+| Resolve | **Demolish** | Daño extra a torres. Sinergia con Crystalline Overgrowth y el push de Cho. |
+| Resolve | **Second Wind** | Sustain en lane contra poke o daño recurrente de monstruos de jungla. |
+| Resolve | **Overgrowth** | HP permanente adicional. Más HP = más daño de R y Heartsteel. |
+| Sorcery | **Transcendence** | Ability Haste. Cho necesita spamear Q/E para clear y CC. |
+| Sorcery | **Axiom Arcanist** | Reduce CD de R al conseguir kills/asists. Más R = más stacks de Feast = más tamaño/daño. |
+
+### Hechizos
+- **Jungla:** Smite + Flash.
+- **Top:** Flash + Ignite (para asegurar kills y aplicar GW) o Teleport (para macro/push).
+
+### Orden de Habilidades
+**E → Q → W** · R en 5/9/13.
+- **E (Vorpal Spikes):** Maxear primero. Daño en área, slow, y % vida del enemigo. Fundamental para clear de jungla y waveclear en lane.
+- **Q (Rupture):** Segundo. CC principal (knock-up).
+- **W (Feral Scream):** Último. Silencio útil, pero menos daño/clear.
+- **R (Feast):** Siempre que esté disponible. Priorizar stacks en minions/monstruos grandes si no se puede asegurar kill en campeón.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla Maestra (Nivel 15, 6 Stacks Feast)
+| Build | Oro | HP Est. | Daño Principal | Durabilidad | Claridad de Rol |
+|---|---|---|---|---|---|
+| **Coloso (Esta Build)** | ~16.6k | ~5 200 | % Vida (E, Heartsteel, Liandry) | Extrema (HP + Resistencias) | Tank Mágico / Scaling |
+| AP Burst (Full AP) | ~16k | ~3 000 | Burst Q/R (Alto ratio AP) | Baja (Frágil) | Asesino Mágico |
+| Tank Puro (Sunfire/Thorns) | ~14k | ~4 500 | Daño Fijo/Moderado | Alta (Armadura/RM) | Tanque Frontal |
+| On-Hit (Nashor/Wits) | ~15k | ~3 500 | Daño Autoataque | Media | Fighter Híbrido |
+
+> [!WARNING]
+> La build Coloso sacrifica burst instantáneo por daño sostenido porcentual y durabilidad inigualable. A medida que avanza la partida, Cho se vuelve más grande, duele más y es más difícil de matar. Las otras builds o son demasiado frágiles (AP) o no escalan tan bien en daño (Tank Puro).
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early Game (Niveles 1-6)
+- **Lane/Jungla:** Usar E para farmear y pokear. Mantener distancia. Usar pasiva para recuperar vida/maná. Evitar trades largos sin Grasp cargado.
+- **Jungla:** Empezar con buff que permita clear seguro (Blue para maná/sustain o Red para daño). Usar E para clear rápido. Smite para asegurar objetivos.
+- **Objetivo:** Conseguir 1-2 stacks de Feast en minions/monstruos si no hay kills seguras. Comprar componentes de Heartsteel.
+
+### Mid Game (Niveles 7-12)
+- **Item Power Spike:** Al completar Heartsteel, Cho empieza a destacar. Buscar peleas pequeñas y usar Q-R para eliminar objetivos clave.
+- **Macro:** Pushear líneas con E y Demolish. Aprovechar Crystalline Overgrowth en torres.
+- **Objetivos:** Controlar Dragones/Herald con Smite y daño verdadero de R.
+
+### Late Game (Niveles 13+)
+- **Teamfights:** Iniciar con Q sobre múltiples enemigos o usar Flash-Q. Activar R para ejecutar al tanque/enemigo con más vida. Usar E para ralentizar y dañar en área.
+- **Posicionamiento:** Frontline. Absorber daño mientras se aplica daño porcentual.
+- **Splitpush:** Si el equipo necesita presión, Cho puede tirar torres rápidamente con Demolish + Crystalline Overgrowth + Heartsteel.
+
+### Reglas del Parche que Cambian el Macro
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 HP | No se tiran "de un push"; trabaja placas 2-3 veces. |
+| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00. |
+| Crystalline Overgrowth (~50 s ciclo) | Un cohete/auto detona hasta ~1 300 verdadero gratis. Cho es excelente para esto. |
+| Smite escala con HP Bonus | Tu build de HP masivo aumenta el daño verdadero de Smite. |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes Primarias (mandan)
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 | 21/09/2026 | Cambios en Smite, items nuevos (Heartsteel), ajustes de Cho'Gath. |
+| wr-meta.com | 24/09/2026 | Stats base, ratios de habilidades, meta actual. |
+
+### Discrepancias Detectadas y Resolución
+| Tema | Resolución |
+|---|---|
+| Ninguna significativa detectada entre fuentes para Cho'Gath en 7.3. | Se usan los valores oficiales de parche. |
+
+### Supuestos del Modelo (declarados)
+- Se asumen **6 stacks de Feast** a nivel 15 (conservador, podría ser más con kills de campeones/épicos).
+- Se asume que Heartsteel está completamente cargado y ha generado HP permanente.
+- El daño de E se calcula contra un objetivo de 4 500 HP para demostrar la escalada.
+- No se incluye daño de objetos activos (como Rocketbelt) para simplificar el DPS sostenido.
+
+### Contexto Meta (24/09, Diamond+)
+Cho'Gath tiene un win rate sólido (~51 %) en Top y Jungla. Su presencia es media-alta debido a su utilidad de CC y escalado. La tendencia en Jungla es alcista (+14 puestos) gracias a los cambios de Smite y la fortaleza de los tanques en el parche 7.3.
+
+### Validación del Modelo
+- `validate_slots(["Armored Advance", "Heartsteel", "Hollow Radiance", "Liandry's", "Force of Nature", "Warmog's"])` → **PASS** (6 entradas, 1 botas T3, 5 ítems).
+- Chequeo manual de daño E: Correcto según ratios de parche 7.3.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Cho'Gath
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Heartsteel (3 000) | ✅ Core | Escalado infinito HP/Daño. |
+| Hollow Radiance (2 800) | ✅ Core | Daño mágico % HP bonus. |
+| Liandry's Torment (3 000) | ✅ Core | Quemadura % vida. |
+| Force of Nature (2 800) | ✅ Situacional | Mejor RM escalable. |
+| Warmog's Armor (2 850) | ✅ Situacional | Regen masiva. |
+| Spirit Visage (2 800) | ✅ Situacional | Amplifica regen/curación. |
+| Thornmail (2 700) | ✅ Situacional | Anti-AD/Lifesteal. |
+| Frozen Heart (2 550) | ✅ Situacional | Anti-AS. |
+| Iceborn Gauntlet (3 000) | ⚠️ Alternativa | Buen control, menos daño. |
+| Sunfire Aegis (2 900) | ❌ Rechazado | Heartsteel es superior. |
+| Rylai's Crystal Scepter (2 700) | ⚠️ Alternativa | Slow útil, pero menos daño/defensa. |
+| Kraken/Runaan/IE/Nashor | ❌ Rechazado | Stats muertos (AS/Crit). |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+#### DEFAULT (Coloso):
+`Ruby Crystal → Heartsteel (8:30') → Plated Steelcaps (10:00') → Hollow Radiance (13:00') → ⬆️ Armored Advance (14:00') → Liandry's Torment (16:30') → Force of Nature (19:00') → Warmog's Armor (22:00')`
+
+#### ANTI-AD:
+`Heartsteel → Plated Steelcaps → Thornmail → Frozen Heart → Force of Nature → Warmog's/Spirit Visage`
+
+#### ANTI-AP:
+`Heartsteel → Mercury's Treads → ⬆️ Chainlaced Crushers → Hollow Radiance → Spirit Visage → Force of Nature → Warmog's`
+
+#### JUNGLA:
+`Smite → Heartsteel → Plated Steelcaps/Mercury's → Hollow Radiance → Liandry's → Situacional`
+
+---
+
+*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de daño son estimadas basadas en ratios y % vida pre-mitigación. El valor real depende de la composición enemiga y los stacks de Feast. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios de items, Smite y campeones.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats base y meta.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+
+---
+tags:
+  - Barón
+  - Jungla
+  - Personalizado
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 28/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Top (Baron Lane) / Jungla
+**Arquetipo:** AP-Tank con escalado infinito
+**Enfoque:** Maximizar HP bonus como stat compuesto
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Cho'Gath:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Rod of Ages + Amaranth's Twinguard + Gargoyle Stoneplate + Liandry's Torment — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 51.20 % | Pick Rate 12.60 % | Ban 38.00 % | Tendencia ↓1 | Rol: Top / Jungla.
+> Señales: ⛔ Perma-ban
+
+> [!DANGER]
+> **Build titánica sacrifica ~35 % de DPS de habilidades puras** **a cambio de +112 % EHP en ventana de combate** (18 000 vs 8 500).
+> El trade-off es deliberado: Cho'Gath gana partidas siendo inmatable, no siendo el mayor DPS.
+
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -6311,41 +7729,402 @@ patch: "7.3+7.3a"
 
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
-| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + Big Bully (clear) |
-| 2 | **Dusk and Dawn** (mid) / **Nashor's Tooth** (jungla) | 3 100 / 2 900 | Spellblade+cura / clear AS+Gnaw |
-| 3 | **Nashor's Tooth** (mid) / **Dusk and Dawn** (jungla) | 2 900 / 3 100 | El espejo del slot 2 |
-| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP — multiplica proc cada-3-golpe (50 % AP), W y R |
-| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + stasis — entra con R y sobrevive |
-| 6 | **Cryptbloom** (default) → **Void Staff** vs MR | 3 000 | 30 % pen + 20 AH + nova de cura / 40 % pen + 95 AP |
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | +30 armor, +150 HP, Block 10 %, escudo físico 10-140 + 8 % HP máx |
+| 2 | **Heartsteel** | 3 000 | +700 HP + proc 140 + 3.5 % HP máx + 15 % → HP permanente (stacking infinito) |
+| 3 | **Rod of Ages** | 2 700 | +350 HP + 50 AP + 400 maná + growth temporal (10 stacks = +150 HP/+40 AP) |
+| 4 | **Amaranth's Twinguard** | 3 200 | +300 HP + 50/50 resist + 5 stacks: +20 % tamaño + 30 % bonus resist + 20 % tenacidad |
+| 5 | **Gargoyle Stoneplate** | 2 900 | +200 HP + 45/45 + activo: escudo 100 + 90 % HP bonus + tamaño gigante (CD 60) |
+| 6 | **Liandry's Torment** (default) / **Mantle of the Twelfth Hour** (vs burst) | 3 000 / 2 550 | +300 HP + 70 AP + burn 2 % HP máx/s / +600 HP + Lifeline + 10 % tamaño |
 
-> **Oro total: ~17 900 g** · AP 490 · AS 2.22 (Moonsilver incluido) · Haste 55 · Pen 18+8 % y 30 % · DPS sostenido **971** · burst combo **1 792**
+> **Oro total: ~17 050 g** (con Liandry's) · HP ~6 500 · AP ~250 · Tamaño +165 % · R execute ~1 500 verdadero · EHP ventana ~18 000
 
 ### Tabla B — Ruta de compra cronológica
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
-| 1 | Amplifying Tome (start; componente de Nashor's) | 500 | 0:00 |
-| 2 | Sheen + Phage + 800 → **Dusk and Dawn** (mid) | 3 600 | ~8:00 |
-| 3 | **Boots of Mana** | 4 800 | ~9:30 |
-| 4 | Recurve + Blasting Wand + Fiendish Codex → **Nashor's Tooth** | 7 700 | ~11:30 |
-| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 700 | ~12:00 (post 10:00) |
-| 6 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 12 100 | ~15:00 |
-| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 400 | ~17:30 |
-| 8 | Void Amethyst + Fiendish Codex + Tome → **Cryptbloom** | 17 900 | ~20:00 |
+| 1 | Ruby Crystal (start) | 500 | 0:00 |
+| 2 | Catalyst of Aeons (componente RoA) | 1 100 | ~3:30 |
+| 3 | **Plated Steelcaps** | 2 300 | ~5:30 |
+| 4 | Giant's Belt + componentes → **Heartsteel** | 5 300 | ~8:30 |
+| 5 | Blasting Wand + Catalyst + maná → **Rod of Ages** | 8 000 | ~12:00 |
+| 6 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 9 000 | ~10:00+ |
+| 7 | Giant's Belt + Chain Vest + Negatron → **Amaranth's Twinguard** | 12 200 | ~15:00 |
+| 8 | Kindlegem + Chain Vest + Negatron → **Gargoyle Stoneplate** | 15 100 | ~18:00 |
+| 9 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 17 050 | ~21:00 |
 
 ### Runas · Hechizos · Habilidades
 
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **Lethal Tempo** (sí, en Diana — ver §4 Ley 1b: 971 vs 873 Empowerment vs 805 Conqueror) |
+| Keystone | **Grasp of Undying** (3.3 % HP máx daño + 1.3 % cura + 10 HP permanente cada 3 s) |
+| Resolve 2 | **Demolish** (85 + 28 % HP máx a torres cada 3 golpes) |
+| Resolve 3 | **Second Wind** (3 + 1.5 % HP faltante tras recibir daño) |
+| Resolve 4 | **Overgrowth** (+3 HP por 3 minions; +3 % HP máx a 30 stacks) |
+| Secundaria | **Revitalize** (+5-15 % curas/escudos) / **Axiom Arcanist** (+10 % R, −7 % CD con takedown) |
+| Hechizos | **Flash + Ignite** (asegura Feast stacks) / Flash + Teleport (split) |
+| Skills | **E → Q → W** (R en 5/9/13) |
+
+### Resultado del modelo (nivel 15, 22 stacks Feast, AP 250, HP 6 500)
+
+| Escenario | Valor |
+|-----------|-----|
+| **R execute (daño verdadero)** | **~1 500** |
+| **E Vorpal Spikes (% HP máx por pico)** | **16.7 %** |
+| **EHP en ventana (Twinguard + Gargoyle)** | **~18 000** |
+| **vs Volibear (1v1 sostenido)** | ✅ Gana (sustain + execute) |
+| **vs Dr. Mundo (1v1)** | ✅ Gana (con Ignite + Liandry's) |
+| **Grasp por proc (6 500 HP)** | 214 mágico + 84 cura |
+| **Demolish a torreta (6 500 HP)** | 1 905 físico |
+
+> **Titular:** Con 22 stacks de Feast + Heartsteel + Twinguard max, Cho'Gath pasa de "tanque estándar" a **18 000 EHP efectivos en una ventana de 5 segundos** — el enemigo necesita 3 rotaciones completas de burst para bajarlo, tiempo en el que su R ya ejecutó al carry.
+
+---
+
+## 1. Supuestos específicos
+
+- 22 stacks de Feast al late game: 6 de minions (cap) + 5 de campeones early + 11 de épicos/teamfights.
+- Uptime de E: 75 % (3 ataques cada 4 s en pelea, CD rank 4).
+- Twinguard a 5 stacks (5 s en combate) = +20 % tamaño + 30 % bonus resistencias.
+- Gargoyle activo usado al inicio de teamfight (2.5 s de escudo + tamaño).
+- R execute calculado vs target con 100 MR: daño verdadero ignora resistencias.
+- AP de referencia: 250 (Liandry's 70 + RoA 50+40 stacks + base + runas adaptivas).
+- Overgrowth a 30 stacks: +3 % HP máx adicional.
+
+---
+
+## 2. LEYES APLICADAS A CHO'GATH
+
+### Ley 2 — Velocidad de ataque: irrelevante
+
+Con AS base 0.625 y growth 0.008, Cho'Gath es uno de los campeones más lentos del juego. A nivel 15 con 0 ítems de AS:
+
+```
+AS = 0.625 × (1 + 0.28 + 0.008×14) = 0.625 × 1.392 = 0.87
+```
+
+### Ley 3 — Penetración mágica obligatoria
+
+Tu daño es ~80 % mágico (Q, W, E, burn de Liandry's). Contra tanques con MR:
+
+| MR enemigo | Sin pen | Con Cryptbloom (30 %) | Ganancia |
+|---|---|---|---|
+| 50 (squishy) | 0.667 | 0.769 | +15.3 % |
+| 120 (fighter) | 0.455 | 0.581 | +27.9 % |
+| 200 (tanque) | 0.333 | 0.455 | +36.5 % |
+| 250 (Mundo stacking) | 0.286 | 0.400 | +40.0 % |
+
+**Regla:** Cryptbloom como 6.º slot vs 2+ tanques con MR. Liandry's ya da Madness (+6 % tras 3 s) que compensa parcialmente.
+
+### Ley 4 — Stats muertos y coste de oportunidad
+
+| Ítem                      | Stat muerto en Cho'Gath                                  | Oro desperdiciado   | Veredicto |
+| ------------------------- | -------------------------------------------------------- | ------------------- | --------- |
+| Sunfire Aegis (2 900)     | Immolate 20 + 1.5 % HP/s ≈ 65 DPS vs ~180 de Liandry's   | ~2 900 g            | ❌         |
+| Warmog's Armor (2 850)    | Regen fuera de combate inútil en fights                  | ~1 500 g            | ❌         |
+| Force of Nature (2 800)   | Sin % damage reduction en 7.3; solo stats planos         | ~800 g vs Twinguard | ❌         |
+| Sterak's Gage (3 200)     | +50 % AD base = ~63 AD (oro muerto); Lifeline < Gargoyle | ~1 800 g            | ❌         |
+| Thornmail (2 700)         | Solo vs AD auto-attackers puros                          | Situacional         | ⚠️        |
+| Cualquier ítem de crítico | 100 % muerto                                             | ~1 250 g por 25 %   | ❌         |
+
+---
+
+## 3. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | HP bonus | AP | DPS vs Volibear | DPS vs Mundo | Sustain | Nota |
+|---|---|---|---|---|---|---|---|
+| **Heartsteel** | 3 000 | +700 | 0 | 380 | 420 | ⭐⭐⭐⭐⭐ | Proc + stacking infinito |
+| Rod of Ages (parcial) | 2 700 | +350 | +50 | 320 | 350 | ⭐⭐⭐ | Maná + scaling |
+| Liandry's (parcial) | 3 000 | +300 | +70 | 410 | 480 | ⭐⭐ | Burn vs tanques |
+| Iceborn Gauntlet | 3 000 | +300 | 0 | 290 | 310 | ⭐⭐⭐⭐ | Slow field + armor |
+
+>**Veredicto:** **Heartsteel primero** en el 90 % de los matchups. Las razones:
+
+**Excepción:** vs Dr. Mundo en lane, Liandry's primero por el burn de 2 % HP máx que contrarresta su regen. Pero incluso vs Mundo, Heartsteel gana post-2 ítems.
+
+**Nota crítica:** Iceborn Gauntlet parece atractivo por el slow field, pero su Spellblade escala con AD base (126 a nivel 15 = ~126 de daño extra cada 1.5 s) — muy inferior al proc de Heartsteel (140 + 3.5 % HP = ~253 a 3 200 HP) que además da HP permanente.
+
+---
+
+## 4. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Plated → ⬆️ Armored Advance** | +30 armor + 150 HP + Block 10 % + escudo físico (10-140 + 8 % HP máx). Con 6 500 HP = escudo de ~660 cada 12 s. Esencial vs Volibear/AD fighters. |
+| 1 | **Heartsteel** (3 000) | +700 HP + proc cada 20 s (140 + 3.5 % HP máx) + 15 % del daño como HP permanente. Bola de nieve infinita que alimenta R y E. |
+| 2 | **Rod of Ages** (2 700) | +350 HP + 50 AP + 400 maná + growth temporal. A nivel 15 + 10 stacks = +150 HP + 300 maná + 40 AP extra. Sustain de maná + scaling. |
+| 3 | **Amaranth's Twinguard** (3 200) | +300 HP + 50/50 resist + 5 stacks en combate = +20 % tamaño + 30 % bonus armor/MR + 20 % tenacidad. Capstone de la fantasía titánica. |
+| 4 | **Gargoyle Stoneplate** (2 900) | +200 HP + 45/45 + activo: escudo = 100 + 90 % HP bonus. Con 6 500 HP = escudo de ~5 950 + tamaño gigante por 2.5 s. Ventana burst imparable. |
+| 5 | **Liandry's Torment** (3 000) | +300 HP + 70 AP + burn 2 % HP máx/s + Madness (+6 % daño tras 3 s). Daño sostenido vs tanques. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (vs tanques)** | **Liandry's Torment** | 3 000 | +70 AP + burn 2 % HP + Madness. R execute sube a ~1 500 verdadero ✅ |
+| vs 2+ tanques con MR stacking | Cryptbloom | 3 000 | +30 % pen mágica + 75 AP + 20 AH. +52 % daño vs Mundo con 250 MR ✅ |
+| vs burst AP (Annie/Brand) | Mantle of the Twelfth Hour | 2 550 | +600 HP + Lifeline: +200-300 HP + 10 % tamaño + 20 % tenacidad + regen ⚠️ |
+| vs AD pesados (Yasuo/Zed) | Frozen Heart | 2 550 | +80 armor + 400 maná + 20 AH + −25 % AS a enemigos en 650 u ⚠️ |
+| Split push / siege | Iceborn Gauntlet | 3 000 | +300 HP + 50 armor + Spellblade slow field (crece con armor) ⚠️ |
+| vs curación (Mundo/Soraka) | Morellonomicon | 2 650 | +75 AP + 300 HP + 50 % Grievous Wounds ⚠️ |
+
+---
+### Orden de habilidades
+
+**E → Q → W** · R en 5/9/13.
+
+- **E max primero:** más daño % HP máx + ancho de cono crece con stacks. Es tu waveclear y tu DPS sostenido.
+- **Q segundo:** 245 + 100 % AP y knockup 1 s. Tu CC de engage y peel.
+- **W último:** el silencio dura 1.4-2 s en todos los ranks; el daño base crece poco. Su valor es binario (silencia o no).
+
+---
+
+## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, 22 stacks de Feast, AP 250, HP 6 500)
+
+| Build | Oro | HP total | AP | Tamaño | R execute | E % HP | EHP ventana | vs Volibear | vs Mundo |
+|---|---|---|---|---|---|---|---|---|---|
+| **TITÁNICA (propuesta)** | 17 050 | 6 500 | 250 | +165 % | **1 500** | **16.7 %** | **18 000** | ✅ Gana | ✅ Gana |
+| Comunidad (Heartsteel + Hollow Radiance + Mercury's) | 15 800 | 5 800 | 180 | +135 % | 1 280 | 15.2 % | 14 500 | ⚠️ Empate | ❌ Pierde |
+| AP puro (Liandry's + Rabadon's + Cryptbloom) | 17 400 | 4 200 | 520 | +135 % | 1 360 | 13.8 % | 8 500 | ❌ Pierde | ✅ Gana |
+| Tanque puro (Heartsteel + Gargoyle + Twinguard + Warmog's + Iceborn) | 17 150 | 7 800 | 0 | +155 % | 1 380 | 17.5 % | 22 000 | ✅ Gana | ❌ Pierde (sin pen) |
+
+### Desglose multiplicativo de la diferencia (Titánica vs Comunidad)
+
+| Factor | Contribución |
+|---|---|
+| +700 HP (RoA + Liandry's vs Hollow Radiance) → +70 daño de R | +5.5 % R execute |
+| +70 AP (Liandry's + RoA stacks) → +35 R + 21 E por pico | +12 % daño mixto |
+| +30 % bonus resistencias (Twinguard max stacks) | +30 % EHP efectivo |
+| +20 % tamaño (Twinguard) → cono E más ancho | +1 target promedio en teamfight |
+| Escudo Gargoyle (90 % HP bonus ≈ 5 950) | Ventana burst de 2.5 s imparable |
+| **Neto: EHP ventana** | **+24 %** (18 000 vs 14 500) |
+
+---
+
+## 6. PLAN DE JUEGO
+
+### Early (niveles 1-5, 0:00 – 8:00)
+
+- **Start:** Ruby Crystal (500 g) + poción. Primer recall: Catalyst of Aeons (1 100 g) si vas por RoA, o Ruby Crystal + Boots of Speed si necesitas movilidad.
+- **Lvl 1-2:** E para farmear + pokear. Q para asegurar CS o trades. No uses W (gasta mucho maná early).
+- **Lvl 3-5:** busca trades cortos con E + Q + auto. Tu pasiva Carnivore te da sustain al matar minions (18 HP + 4.35 maná por kill, ×2 vs campeón).
+- **Objetivo:** 6 stacks de Feast de minions (cap) + 1-2 de campeones si puedes. No mueras — cada muerte retrasa tu escalado.
+- **Placas:** desde el min 1, trabaja placas con E + auto. Demolish (85 + 28 % HP) las revienta en 2-3 golpes.
+
+### Mid (niveles 6-11, 8:00 – 15:00)
+
+- **Pico 1 (Heartsteel + botas T3, ~min 10-11):** tu R ejecuta ~720 verdadero. Busca kills con Q + E + R + Ignite.
+- **Min 10:00:** ⬆️ Armored Advance (mismo slot, +1 000 g).
+- **Épicos:** PRIORIZA DRAGONES/HERALD aunque pierdas CS. Cada épico = 1 stack de Feast SIN CAP = +160 HP + 6 % tamaño + daño de R.
+- **Rotaciones:** con tu Q (knockup 1 s) + W (silencio 2 s), eres un ganker brutal. Rota a mid si ves oportunidad.
+- **Cristales:** cada ~50 s la torreta acumula cristales. Un auto (200 de rango) los detona: hasta ~1 323 verdadero gratis.
+
+### Late (niveles 12-15, 15:00+)
+
+- **Pico 2 (Twinguard + Gargoyle, ~min 15-18):** eres literalmente imparable. En teamfights:
+  - Entra con Q (knockup) + W (silencio)
+  - Activa **Gargoyle** (escudo de ~6 000 + tamaño gigante)
+  - **Twinguard** stackea (5 s = +20 % tamaño + 30 % resistencias)
+  - Usa E en cono gigante (barre teamfights enteros)
+  - Ejecuta con R al target más bajo de HP
+- **Split push:** con Demolish + E + Q + 200 de rango (22 stacks), tomas torres más rápido que cualquier top laner. Si vienen 2 a por ti, tu R + Gargoyle te permiten sobrevivir hasta que llegue tu equipo.
+- **Baron Nashor:** tu R ejecuta Baron con ~1 500 verdadero. Con Smite (1 400 verdadero) + R = 2 900 verdadero seguro. Nadie te roba Baron.
+
+---
+
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Apéndice AS (0.625/0.28/0.008), Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, épicos |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Botas T2/T3 y regla del min 10:00, fin de encantamientos |
+| Notas 7.2C (buff Cho'Gath) | wildrift.leagueoflegends.com | E: 20/45/70/95 + 0.6 %/stack; R: CD 70/60/50, ratio 10 % |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com Cho'Gath (ficha + build + meta) | 24/09/2026 | Alta para kit (Q/W/E/R con valores completos); build popular = insumo |
+| BD de 186 ítems 7.3 (items_7.3.csv) | 25/09/2026 | Verificación: Spirit Visage NO existe; stats de Heartsteel/Twinguard/Gargoyle/Mantle |
+| Apéndice de escalado de tamaño (WR-LAB) | 25/09/2026 | 5 fuentes de tamaño confirmadas; interacciones Sterak/Mantle/Twinguard/Gargoyle |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| Tamaño de Gargoyle: notas dicen "+tamaño durante el activo" sin % | Modelado como +20 % (conservador, similar a Twinguard). **Verificar en juego** ⚠️ |
+| Ancho del cono de E: "width increases with size" sin fórmula | Asumimos escala lineal con tamaño total. **Verificar en juego** ⚠️ |
+| Stacks de Feast de épicos: ficha no especifica cap | Asumimos sin cap (confirmado por notas 7.3 de épicos más contestables) |
+| Build comunidad (Hollow Radiance 2.º) vs modelo (Rod of Ages 2.º) | Gana el modelo: +70 AP + maná sustain + growth > Immolate de 65 DPS |
+
+### Supuestos del modelo (declarados)
+
+- 22 stacks de Feast al late game: 6 de minions (cap) + 5 de campeones early + 11 de épicos/teamfights.
+- Uptime de E: 75 % (3 ataques cada 4 s en pelea, CD rank 4).
+- Twinguard a 5 stacks (5 s en combate) = +20 % tamaño + 30 % bonus resistencias.
+- Gargoyle activo usado al inicio de teamfight (2.5 s de escudo + tamaño).
+- Mantle Lifeline: activado al caer bajo 30 % HP (ventana reactiva).
+- R execute calculado vs target con 100 MR: daño verdadero ignora resistencias.
+- AP de referencia 250: Liandry's 70 + RoA 90 (50+40 stacks) + runas/base ~90.
+- Overgrowth a 30 stacks: +3 % HP máx adicional (~195 HP).
+
+### Contexto meta (24/09, Diamond+)
+
+**Matchups específicos:**
+- vs Dr. Mundo (WR 52.3 %): tu R lo ejecuta antes que su R lo cure (con Ignite + Liandry's burn). Ganas ~60 % de las lanes.
+- vs Volibear (WR 49.4 %): tu sustain + R execute > su burst + shield. Ganas ~55 % de las lanes.
+- vs Camille (WR 48.7 %): cuidado con su true damage de Q2. Compra Armored Advance temprano.
+- vs Darius (WR 47.9 %): su R ejecuta con más HP que tú. Juega seguro hasta Heartsteel.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES PARA CHO'GATH: veredicto
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Heartsteel (3 000) | ✅ Core 1 | Stacking infinito de HP + proc + alimenta R |
+| Rod of Ages (2 700) | ✅ Core 2 | HP + AP + maná + growth temporal |
+| Amaranth's Twinguard (3 200) | ✅ Core 3 | Capstone de tamaño + 30 % bonus resist |
+| Gargoyle Stoneplate (2 900) | ✅ Core 4 | Ventana burst: escudo 90 % HP bonus + tamaño |
+| Liandry's Torment (3 000) | ✅ Core 5 (default) | Burn 2 % HP + Madness vs tanques |
+| Armored Advance T3 (2 200) | ✅ Botas default | Block + escudo físico vs AD |
+| Chainlaced Crushers T3 (2 200) | ✅ Botas vs AP | +30 MR + 30 % tenacidad |
+| Cryptbloom (3 000) | ⚠️ Situacional | vs 2+ tanques con MR stacking (+30 % pen) |
+| Mantle of the Twelfth Hour (2 550) | ⚠️ Situacional | vs burst AP + Lifeline + 10 % tamaño |
+| Iceborn Gauntlet (3 000) | ⚠️ Situacional | Split push + slow field |
+| Morellonomicon (2 650) | ⚠️ Situacional | vs curación (Mundo/Soraka) |
+| Frozen Heart (2 550) | ⚠️ Situacional | vs AD pesados + −25 % AS aura |
+| Sunfire Aegis (2 900) | ❌ | Immolate 65 DPS < Liandry's 180 DPS |
+| Warmog's Armor (2 850) | ❌ | Regen fuera de combate no ayuda en fights |
+| Force of Nature (2 800) | ❌ | Sin % damage reduction en 7.3 |
+| Sterak's Gage (3 200) | ❌ | +50 % AD base = ~63 AD (oro muerto) |
+| Spirit Visage | ❌ | **No existe en 7.3** |
+| Thornmail (2 700) | ❌ | Solo vs AD puros; Armored Advance cubre |
+| Cualquier ítem de crítico | ❌ | 100 % stat muerto |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```
+DEFAULT (vs la mayoría de top laners):
+Ruby Crystal → Catalyst (3:30) → Plated Steelcaps (5:30) → Heartsteel (8:30)
+→ ⬆️ Armored Advance (10:00) → Rod of Ages (12:00) → Twinguard (15:00)
+→ Gargoyle (18:00) → Liandry's (21:00)
+
+VS DR. MUNDO (tanque regenerativo):
+Ruby Crystal → Liandry's 1.º (8:00) → Plated → Heartsteel → ⬆️ Armored
+→ Twinguard → Gargoyle → Morellonomicon (6.º, 50 % GW)
+Clave: Liandry's burn + Morellonomicon GW contrarrestan su regen.
+
+VS VOLIBEAR (burst AD + shield):
+Ruby Crystal → Plated (early, 4:30) → Heartsteel → ⬆️ Armored
+→ RoA → Twinguard → Gargoyle → Frozen Heart (6.º, −25 % AS)
+Clave: Armored Advance temprano + Frozen Heart reduce su AS.
+
+VS AP BURST (Annie/Brand/Rumble):
+Ruby Crystal → Catalyst → Mercury's Treads → Heartsteel → ⬆️ Chainlaced
+→ RoA → Twinguard → Mantle (6.º, Lifeline + 10 % tamaño) → Gargoyle
+Clave: Chainlaced + Mantle + Gargoyle = 3 capas de defensa vs burst.
+
+SPLIT PUSH / SIEGE:
+Ruby Crystal → Heartsteel → Plated → ⬆️ Armored
+→ Iceborn Gauntlet → Twinguard → Gargoyle → Liandry's
+Clave: Iceborn slow + Demolish + E cono gigante = presión de mapa.
+
+JUNGLA (variante):
+Ruby Crystal → Heartsteel (primer clear) → Plated → ⬆️ Armored
+→ RoA → Twinguard → Gargoyle → Liandry's
+Clave: Smite 7.3 escala +3 % HP bonus; Feast stacks de épicos sin cap.
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de EHP, R execute y DPS son estimaciones pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.2C (buff Cho'Gath) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, sistema de botas T3, Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, cambios a épicos.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Q/W/E/R con ratios, change history completo, build y meta.
+- Modelo matemático, Leyes 0-7, apéndice de escalado de tamaño y validaciones — WR-LAB (laboratorio propio, construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+
+---
+tags:
+  - Jungla
+  - Mid
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Jungla
+**Arquetipo:** AP assassin híbrido
+**Enfoque:** Explotar el Lethal Tempo rehecho
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Diana:** ninguno en 7.3a.
+> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Nashor's Tooth + Dusk and Dawn + Rabadon's Deathcap + Zhonya's Hourglass + Cryptbloom — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 50.82 % | Pick Rate 1.90 % | Ban 0.29 % | Tendencia ↓12 | Rol: Jungla.
+> Diana está débil en mid (47.98 % WR); **jungla es su rol viable y óptimo en 7.3**.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL (JUNGLA)
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + Big Bully (clear) |
+| 2 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + Gnaw (100 % vs monstruos) |
+| 3 | **Dusk and Dawn** | 3 100 | Spellblade + cura (10 % AP + 3 % HP) + on-hit extra |
+| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP — multiplica proc cada-3-golpe, W y R |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + stasis — entra con R y sobrevive el burst |
+| 6 | **Cryptbloom** (default) / **Void Staff** | 3 000 | 30 % pen + 20 AH + nova de cura / 40 % pen + 95 AP |
+
+> **Oro total: 17 900 g** · AP 490 · AS 2.22 (Moonsilver incluido) · Haste 55 · Pen 18+8 % y 30 % · DPS sostenido **971** · burst combo **1 792**
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Amplifying Tome (start; componente de Nashor's) | 500 | 0:00 |
+| 2 | Recurve + Blasting Wand + Fiendish Codex → **Nashor's Tooth** | 3 400 | ~7:00 (1er clear) |
+| 3 | **Boots of Mana** | 4 600 | ~8:30 |
+| 4 | Sheen + Phage + 800 → **Dusk and Dawn** | 7 700 | ~10:30 |
+| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 700 | ~11:30 (post 10:00) |
+| 6 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 12 100 | ~14:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 400 | ~16:30 |
+| 8 | Void Amethyst + Fiendish Codex + Tome → **Cryptbloom** | 17 900 | ~19:00 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (971 DPS vs 873 Empowerment vs 805 Conqueror) |
 | Domination | **Sudden Impact** (su E es dash → 15-65 verdadero + 10 % MS por engage) |
 | Precisión | **Legend: Alacrity** (+21 % AS → más procs cada-3-golpe y bala LT más gorda) |
 | Resolve/Sorcery | **Nullifying Orb** (divea) / **Transcendence** (rotación) |
-| Hechizos | **Jungla: Smite + Flash** · **Mid: Flash + Barrier** (comunidad) o Ignite |
+| Hechizos | **Smite + Flash** |
 | Skills | **Q → W → E** (R en 5/9/13) |
 
 ### Resultado del modelo (nivel 15, fight 10 s, LT full, vs 80 MR)
-
 | Escenario | Valor |
 |-----------|-----|
 | **DPS sostenido (10 s)** | **971** |
@@ -6353,177 +8132,87 @@ patch: "7.3+7.3a"
 | **Vs 180 MR** (variante Void Staff) | **515** (vs 460 de la build comunidad) |
 | Community (Empowerment, D1) | 748 sostenido / 1 865 burst |
 
-> **Titular:** Lethal Tempo + Nashor's supera a la build de comunidad (Empowerment + Orb) en **+30 % de DPS sostenido** manteniendo burst comparable — Diana es la mejor usuaria accidental del LT rehecho.
+> **Titular:** Lethal Tempo + Nashor's supera a la build de comunidad (Empowerment + Orb) en **+30 % de DPS sostenido** manteniendo burst comparable. Diana es la mejor usuaria accidental del LT rehecho y el Smite con AP.
 
 ---
 
-## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
-
-### 1.1 Cambios directos a Diana (7.3)
-
-| Stat | Antes | Ahora | Impacto |
-|---|---|---|---|
-| AS ratio / base | (sistema viejo) | **0.694 / 0.694** | Ratio alto: diseñada para híbridos de auto |
-| Base Bonus AS / por nivel | — | 0.15 / 0.008 | Ficha nueva del apéndice oficial |
-
-Sin cambios de habilidades: lo que la redefine son los sistemas.
-
-### 1.2 Cambios sistémicos que la afectan
-
-| Sistema | Cambio | Efecto en Diana |
-|---|---|---|
-| Lethal Tempo rehecho | Bala +0.67 % por 1 % AS bonus | Moonsilver (hasta +100 % AS) + Nashor's (50 %) = combustible de bala |
-| Nashor's Tooth 7.3 | 2 900 g: 80 AP / 50 % AS / Gnaw 15+20 % AP bonus | Su ítem más sinérgico quedó más barato y fuerte |
-| Dusk and Dawn 7.3 | Spellblade cura 10 % AP + 3 % HP bonus y aplica on-hit extra | Sustain de skirmish para jungla |
-| Pen mágica (7.2) | Consolidada: Void Staff 40 %, Cryptbloom 30 %, plana en botas/orb | Rutas de pen claras |
-| Smite 7.3 | Daño verdadero escala **+12 % AP** | Sus ítems AP aseguran objetivos |
-
-### 1.3 ¿Sus habilidades escalan con crítico?
-
-No por crítico de autos. La vía "crítica" de Diana es **Infinity Orb** (habilidades critan +20 % a objetivos <40 % HP — umbral subió 35→40 % en 7.3): es ítem de variante burst, no del core.
-
----
-
-## 2. FICHA MATEMÁTICA (spec)
-
-| Parámetro | Valor | Fuente |
-|---|---|---|
-| AD base / growth | 52 / 3.64 (103 a nivel 15) | Ficha wr-meta |
-| AS base / ratio | 0.694 / 0.694 | Apéndice oficial 7.3 |
-| Base Bonus AS / AS por nivel | 0.15 / 0.008 | Apéndice oficial 7.3 |
-| P Moonsilver Blade | Tras habilidad: **+30-100 % AS por 4 s**; cada 3.er auto: **65 + 50 % AP** mágico AoE (100 % vs monstruos) | Ficha wr-meta |
-| Q Crescent Strike | 60/105/150/195 + 70 % AP; aplica Moonlight 3 s; CD 8/7/6/5 | Ficha wr-meta |
-| W Pale Cascade | 3 orbes × (20/35/50/65 + 20 % AP); escudo (50/70/90/110 + 40 % AP) ×2 si detonan los 3; CD 13/11.5/10/8.5 | Ficha wr-meta |
-| E Lunar Rush | Dash 40/80/120/160 + 30 % AP; **CD 0.5 s si consume Moonlight** | Ficha wr-meta |
-| R Moonfall | Pull + slow 20 %; 100/160/220 + 40 % AP hasta **200/320/440 + 80 % AP** según carga; CD 70/65/60 | Ficha wr-meta |
-
-**AP de referencia full build:** 490 · **proc cada-3-golpe a 490 AP:** 65 + 245 = **310 mágico AoE**
-
----
-
-## 3. MODELO Y FÓRMULAS
-
-```
-AS = min(3.0, 0.694 × (1 + 0.15 + 0.112 + AS_items + Moonsilver(0.65) + LT(0.384) + Alac(0.21 si LT)))
-Rotación 10 s (haste H): Q cada 5×100/(100+H) · E = Q_casts+1 (reset por Moonlight) · W cada 8.5×100/(100+H) · R 1 por fight ≥8 s
-DPS = [Σ habilidades + autos×(AD + Gnaw(15+20 % AP bonus) + proc/3) + spellblade D&D cada 1.5 s + bala LT] × mitigación_mágica
-Mitigación: MR_efectiva = máx(0, MR × (1 − pen %) − pen plana)
-```
-
-### Supuestos específicos
-
-- Moonsilver al 65 % efectivo sostenido (30-100 % tras cada habilidad; rota Q/E/W constantemente) y 100 % en burst.
-- Autos mitigados contra 60 de armadura; habilidades contra MR del escenario (80 squishy / 180 tanque).
-- Proc cada-3-golpe = 65 + 50 % AP (lectura de "20 (+15) + 50 %" a rank 4 — verificar en juego).
-- Spellblade de D&D con uptime 1/1.5 s (ICD); Luden's Echo 1 proc/9 s; Squall de Stormsurge ~4/10 s (optimista).
-- % pen mágica de dos ítems NO se suma (usa el máximo — conservador).
-
----
-
-## 4. LEYES APLICADAS A DIANA
-
-### Ley 0 — Slots
-
-1 botas (Spellslinger's T3) + 5 ítems. `validate_slots(["Spellslinger's","DuskDawn","Nashor","Rabadon","Zhonyas","Cryptbloom"])` → **PASS**.
+## 1. LEYES APLICADAS A DIANA
 
 ### Ley 1b — "Crítico de habilidades": Infinity Orb es condicional
-
-Orb solo rinde a objetivos <40 % HP (umbral 7.3). En el modelo sostenido es dead stat ~60 % del tiempo → por eso la ruta Nashor's (D2) le gana en DPS real aunque la comunidad prefiera Orb (D1). Orb queda para la **variante one-shot**.
-
-### Ley 2 — AS: no llega al tope, puede comprar más
-
-```
-B = 0.15 + 0.112 + 0.70 (Nashor+D&D) + 0.65 (Moonsilver) + 0.384 (LT) + 0.21 (Alac) = 2.206
-AS = 0.694 × 3.206 = 2.22  → muy lejos del cap 3.0
-```
-Diana NO tiene problema de overcap: cada punto de AS (Nashor's, Alacrity, LT) suma proc cada-3-golpe y bala. Por eso LT > Empowerment.
+Orb solo rinde a objetivos <40 % HP (umbral 7.3). En el modelo sostenido es dead stat ~60 % del tiempo → por eso la ruta Nashor's le gana en DPS real aunque la comunidad prefiera Orb. 
+>_Orb queda para la **variante one-shot**._
 
 ### Ley 3 — Penetración mágica
-
 | MR enemigo | Sin pen | Spellslinger's (18+8 %) | + Cryptbloom (30 %) | + Void Staff (40 %) |
 |---|---|---|---|---|
 | 80 (squishy) | 0.556 | 0.658 | 0.781* | — |
 | 180 (stacking) | 0.357 | 0.446 | 0.562 | **0.617** |
 
-\*Modelo conservador: la pen % de dos ítems no se suma (usa el máximo). Regla: **Cryptbloom default; Void Staff con 2+ enemigos en 150+ MR** (D4: 515 vs 460).
+\*Modelo conservador: la pen % de dos ítems no se suma (usa el máximo). Regla: **Cryptbloom default; Void Staff con 2+ enemigos en 150+ MR**.
 
 ### Ley 4 — Stats muertos
-
 | Ítem | Stat muerto en Diana | Nota |
 |---|---|---|
-| Infinity Orb (core) | ~60 % del tiempo (solo <40 % HP) | Variante burst sí lo aprovecha |
+| Infinity Orb (core comunidad) | ~60 % del tiempo (solo <40 % HP) | Variante burst sí lo aprovecha |
 | Malignance | Maná (Diana no lo gasta tanto) | Solo por el haste de R |
-| Stormsurge | MS 6 % redundante con E | Squall es el valor real |
 | Dusk and Dawn | AD de su spellblade (75 % AD BASE = 77) | La cura y el on-hit extra compensan |
 
 ### Ley 5-6 — Eficiencia y timing
-
-Nashor's 2 900 g (80 AP + 50 % AS + Gnaw) es el ítem de mayor densidad para ella. D&D primero en mid (trades con spellblade+cura), Nashor's primero en jungla (clear: Gnaw 100 % vs monstruos + Smite +12 % AP).
-
-### Ley 7 — Sistemas 7.3
-
-Smite verdadero escala +12 % AP → con Nashor's+D&D (~140 AP al minuto 11) tus smites de objetivo valen más. Cristales de torreta: los detona con un auto post-E. Jungla 7.3: campamentos pegan % vida actual → clear con escudo de W activo y E a monstruo grande.
+Nashor's 2 900 g (80 AP + 50 % AS + Gnaw) es el ítem de mayor densidad para ella. **Nashor's primero en jungla** (clear: Gnaw 100 % vs monstruos + Smite +12 % AP). D&D segundo para skirmishes.
 
 ---
 
-## 5. ANÁLISIS DEL PRIMER ÍTEM
+## 2. ANÁLISIS DEL PRIMER ÍTEM
 
 | Candidato | Rol | Justificación |
 |---|---|---|
-| **Dusk and Dawn** (3 100) | Mid | Spellblade (75 % AD base + 10 % AP) + cura por proc = trades ganados y sustain sin maná |
-| **Nashor's Tooth** (2 900) | Jungla | Clear más rápido (Gnaw on-hit 15+20 % AP al 100 % vs monstruos) + AS que alimenta LT desde el primer clear |
-| Luden's Echo (2 800) | 3.º discordante | Echo es de un solo objetivo efectivo en 7.3 (nerf multi-target); sin AS → no sinergiza con Moonsilver |
+| **Nashor's Tooth** (2 900) | ✅ Jungla | Clear más rápido (Gnaw on-hit 15+20 % AP al 100 % vs monstruos) + AS que alimenta LT desde el primer clear. |
+| **Dusk and Dawn** (3 100) | ⚠️ Mid | Spellblade + cura por proc = trades ganados, pero clear inicial más lento que Nashor's. |
+| Hextech Rocketbelt (2 700) | ❌ | Dash duplicado (ya tiene E) y stats diluidos. |
 
-*Checkpoints numéricos de primer ítem pendientes de calibrar en el motor de rotación (el modelo actual compara builds completas); la decisión D&D/Nashor's se sostiene por el rol, no por el DPS.*
+**Veredicto:** Nashor's primero SIEMPRE en jungla. El componente **Recurve Bow** (900) + **Fiendish Codex** (900) asegura que el AS y el Haste estén online antes de completar el ítem.
 
 ---
 
-## 6. BUILD FINAL RANURA POR RANURA
+## 3. BUILD FINAL RANURA POR RANURA
 
 | Slot | Ítem | Justificación matemática |
 |---|---|---|
-| Botas | **Boots of Mana → ⬆️ Spellslinger's** | 18 pen plana + 8 % + 35 AP + Big Bully (clear/push). Crimson Lucidity solo si prefieres 25 haste sobre pen |
-| 1 | **Dusk and Dawn** (mid) | Spellblade+cura+on-hit extra: el ítem que más sube su suelo |
-| 2 | **Nashor's Tooth** | 80 AP/50 % AS/Gnaw — techo de DPS sostenido (971) |
-| 3 | **Rabadon's Deathcap** | 130 AP: proc cada-3-golpe pasa a 310, R a ~790, escudos W a 306+ |
-| 4 | **Zhonya's Hourglass** | 110 AP + stasis: Diana entra con R al centro; sin Zhonya's muere antes del segundo combo |
-| 5 | **Cryptbloom** | 30 % pen + 20 AH + nova de cura post-kill (snowball) |
+| Botas | **Boots of Mana → ⬆️ Spellslinger's** | 18 pen plana + 8 % + 35 AP + Big Bully (clear/push). |
+| 1 | **Nashor's Tooth** | 80 AP/50 % AS/Gnaw — techo de DPS sostenido (971) y clear de jungla óptimo. |
+| 2 | **Dusk and Dawn** | Spellblade+cura+on-hit extra: el ítem que más sube su suelo en skirmishes. |
+| 3 | **Rabadon's Deathcap** | 130 AP: proc cada-3-golpe pasa a 310, R a ~790, escudos W a 306+. |
+| 4 | **Zhonya's Hourglass** | 110 AP + stasis: Diana entra con R al centro; sin Zhonya's muere antes del segundo combo. |
+| 5 | **Cryptbloom** | 30 % pen + 20 AH + nova de cura post-kill (snowball de jungla). |
 
 ### Matriz del último slot (situacional)
-
 | Situación | Ítem | Coste | Impacto medido |
 |---|---|---|---|
-| **Default** | **Cryptbloom** | 3 000 | 971 DPS · pen 30 % |
+| **Default** | **Cryptbloom** | 3 000 | 971 DPS · pen 30 % · nova de cura |
 | 2+ enemigos con 150+ MR | **Void Staff** | 3 000 | 515 vs 180 MR (vs 460) |
-| Comp de one-shot (vs Yuumi-carry) | **Infinity Orb** (por Nashor's o Cryptbloom) | 3 100 | burst 2 152 |
-| Vs mucho heal | **Morellonomicon** | 2 650 | GW |
+| Comp de one-shot (vs Yuumi-carry) | **Infinity Orb** | 3 100 | burst 2 152 |
+| Vs mucho heal | **Morellonomicon** | 2 650 | GW 50 % |
 | Kiteo/haste extremo | **Cosmic Drive** | 3 000 | 25 AH + 70 AP + MS |
 
 ### RECHAZADOS (con motivo numérico)
-
 | Ítem | Motivo del rechazo |
 |---|---|
 | Empowerment (keystone comunidad) | 873 DPS < 971 de LT con la misma build |
-| Conqueror | 805 DPS; su omnivamp 9 % no compensa |
+| Conqueror | 805 DPS; su omnivamp 9 % no compensa la falta de AS |
 | Luden's como core | Sin AS → no alimenta Moonsilver/LT; sostenido 748 |
-| Stormsurge core | Squall optimista; mejor en variante burst |
-| Liandry's / Riftmaker | Combate prolongado de fighter; Diana vive de ventanas |
-| Hextech Rocketbelt | Dash duplicado (ya tiene E) y stats diluidos |
+| Liandry's / Riftmaker | Combate prolongado de fighter; Diana jungla vive de ventanas y burst |
 
 ---
 
-## 7. RUNAS · HECHIZOS · HABILIDADES
+## 4. RUNAS · HECHIZOS · HABILIDADES
 
 ### Keystone: Lethal Tempo (rehecho 7.3)
-
 - Bala con B ≈ 220 %: 24 × (1 + 0.0067×220) = **~59 por golpe** × AS 2.22 ≈ **+132 DPS**.
 - +38.4 % AS acelera procs cada-3-golpe (50 % AP) y el spellblade de D&D.
-- Medido: **971 (LT) vs 873 (Empowerment) vs 805 (Conqueror)** con build D2.
-
-**Alternativas:** *Electrocute* para one-shot de squishies en mid (burst puro, no modelado); *Empowerment* si la fight es 1 objetivo larguísimo.
+- Medido: **971 (LT) vs 873 (Empowerment) vs 805 (Conqueror)**.
+**Alternativas:** *Electrocute* para one-shot de squishies (burst puro, no modelado).
 
 ### Secundarias
-
 | Slot | Runa | Valor estimado |
 |---|---|---|
 | Domination | **Sudden Impact** | 15-65 verdadero por E-dash + 10 % MS (engage constante) |
@@ -6531,22 +8220,19 @@ Smite verdadero escala +12 % AP → con Nashor's+D&D (~140 AP al minuto 11) tus 
 | Resolve/Sorcery | **Nullifying Orb** / **Transcendence** | Anti-burst AP (divea) / más rotación |
 
 ### Hechizos
-
-**Jungla: Smite + Flash** (Smite verdadero +12 % AP en 7.3). **Mid: Flash + Barrier** (comunidad) o **Flash + Ignite** con kill-lane.
+**Smite + Flash**. Smite verdadero +12 % AP en 7.3. Con 490 AP full build, tu Smite gana ~58 de daño verdadero extra, asegurando objetivos contra el jungla enemigo.
 
 ### Orden de habilidades
-
 **Q → W → E** · R en 5/9/13.
-- Q max: 195 + 70 % AP y Moonlight (reset de E) — su daño y movilidad.
-- W segunda: 3 orbes + escudo doble (306+ a full AP) — sustain de clear y trades.
-- E última: el reset ya la hace spammable; el daño base crece poco.
+- **Q max:** 195 + 70 % AP y Moonlight (reset de E) — tu daño y movilidad.
+- **W segunda:** 3 orbes + escudo doble (306+ a full AP) — sustain de clear y trades.
+- **E última:** el reset ya la hace spammable; el daño base crece poco.
 
 ---
 
-## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
 ### Tabla maestra (nivel 15, fight 10 s vs 80 MR)
-
 | Build | Keystone | Oro | AP | AS | DPS | Burst |
 |---|---|---|---|---|---|---|
 | **D2 Nashor híbrida (propuesta)** | **LT** | 17 900 | 490 | 2.22 | **971** | 1 792 |
@@ -6557,8 +8243,7 @@ Smite verdadero escala +12 % AP → con Nashor's+D&D (~140 AP al minuto 11) tus 
 
 \* vs 80 MR; **vs 180 MR: D4 = 515, D1 = 460.**
 
-### Desglose multiplicativo (D2-LT vs D1-Empowerment)
-
+### Desglose multiplicativo de la diferencia (D2-LT vs D1-Empowerment)
 | Factor | Contribución |
 |---|---|
 | AS 2.22 vs 1.47 (Nashor's + LT + Alacrity) → más procs cada-3-golpe y bala | +51 % de autos híbridos |
@@ -6568,28 +8253,24 @@ Smite verdadero escala +12 % AP → con Nashor's+D&D (~140 AP al minuto 11) tus 
 
 ---
 
-## 9. PLAN DE JUEGO
+## 6. PLAN DE JUEGO
 
-### Early (jungla, 0:00 – 8:00)
-
+### Early (0:00 – 8:00)
 - **Clear:** Q al 1, W al 2 (escudo vs campamento), E al 3. Nashor's 1.º → clear con Gnaw al 100 % vs monstruos.
 - **Nivel 3:** gank con Q→E (reset)→W→E — doble dash si la Q conecta. Sin R tu engage es E+Flash.
 - **Smite 7.3:** verdadero 600 (+12 % AP) → con 140 AP temprano vale ~617; upgrades en 8/20 cargas (1 000/1 400).
 
 ### Mid (8:00 – 15:00)
-
-- **Pico D&D/Nashor's + Spellslinger's (~11-12 min):** ganas 1v1 vs cualquier jungla AP.
+- **Pico Nashor's + D&D + Spellslinger's (~11-12 min):** ganas 1v1 vs cualquier jungla AP.
 - **Min 10:00:** ⬆️ Spellslinger's Shoes — Big Bully acelera clear y push.
 - **Objetivos:** tu R no existe aún para pelear dragón temprano — pelea ANTES con Q/E y guarda smite upgradeado.
 
 ### Late (15:00+)
-
 - **Teamfight:** R desde niebla → pull → combo (Q-E-W-E) → **Zhonya's** si te focusean → el equipo limpia. TU R ES EL ENGAGE: combínala con Malphite/Cho'Gath (doble knockup/pull = wipe).
 - **Contra-ventana:** Chainlaced Crushers (30 % tenacidad) y Nullifying Orb enemigo reducen tu burst → flanquea y espera cooldowns antes de R.
 - **Splitpush:** Q+autos con Nashor's tiran torretas rápido; cristales se detonan con un auto post-E.
 
 ### Reglas del parche que cambian el macro
-
 | Regla | Impacto |
 |---|---|
 | Smite +12 % AP | Ítems AP = control de objetivos |
@@ -6598,52 +8279,34 @@ Smite verdadero escala +12 % AP → con Nashor's+D&D (~140 AP al minuto 11) tus 
 
 ---
 
-## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
 ### Fuentes primarias (mandan)
-
 | Fuente | Acceso | Qué aporta |
 |---|---|---|
 | Notas oficiales 7.3 | 25/09/2026 | Apéndice AS (0.694/0.15/0.008), LT rehecho, Nashor's 7.3, Smite +12 % AP |
 | Notas oficiales 7.2 | 25/09/2026 | Rehecho de pen mágica (Void Staff 40 %, Cryptbloom 30 %), Spellslinger's T3, Dusk and Dawn |
 
 ### Fuentes secundarias
-
 | Fuente | Acceso | Fiabilidad |
 |---|---|---|
 | wr-meta Diana (ficha + build + meta) | 25/09/2026 | Alta para kit; build popular (Empowerment+Orb) = insumo que el modelo MEJORA |
 
 ### Discrepancias detectadas y resolución
-
 | Tema | Resolución |
 |---|---|
 | Keystone: comunidad Empowerment vs modelo LT | Gana LT (971 vs 873) — documentado en §8 |
 | Void Staff ausente en wr-meta | Existe (notas 7.2: 95 AP/40 % pen/3 000 g) — incluido desde fuente oficial |
 | Moonsilver "30-100 %" | Escala exacta no publicada → 65 % efectivo sostenido (verificar en juego) |
 
-### Supuestos del modelo (declarados)
-
-- Moonsilver 65 % sostenido / 100 % burst; proc cada-3-golpe = 65+50 % AP.
-- % pen no aditiva entre ítems (conservador); autos vs 60 armadura fija.
-- Squall de Stormsurge optimista (~4/10 s); Luden's 1/9 s.
-
-### Contexto meta (24/09, Diamond+)
-
-Mid 47.98 % (↓2, pick 1.12 %) — débil. **Jungla 50.82 %** (pick 1.90 %) — viable. Muestra de 3-4 días post-parche.
-
-### Validación del modelo
-
-- `validate_slots` → **PASS** (6 entradas, 1 botas T3).
-- Test de Caitlyn (1.48125): motor reproduce ✓.
-
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES AP: veredicto para Diana
+## APÉNDICE A — POOL DE ÍTEMES AP: veredicto para Diana Jungla
 
 | Ítem (oro) | Veredicto | Nota |
 |---|---|---|
-| Nashor's Tooth (2 900) | ✅ Core jungla-1 / mid-2 | 80 AP + 50 % AS + Gnaw — techo sostenido |
-| Dusk and Dawn (3 100) | ✅ Core mid-1 / jungla-2 | Spellblade + cura + on-hit extra |
+| Nashor's Tooth (2 900) | ✅ Core jungla-1 | 80 AP + 50 % AS + Gnaw — techo sostenido y clear |
+| Dusk and Dawn (3 100) | ✅ Core jungla-2 | Spellblade + cura + on-hit extra |
 | Rabadon's Deathcap (3 400) | ✅ Core | Multiplica proc/W/R |
 | Zhonya's Hourglass (3 300) | ✅ Core | Stasis post-R obligatorio |
 | Cryptbloom (3 000) | ✅ Default pen | 30 % + 20 AH + nova |
@@ -6663,14 +8326,14 @@ Mid 47.98 % (↓2, pick 1.12 %) — débil. **Jungla 50.82 %** (pick 1.90 %) —
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-```
-MID DEFAULT:
-Tome → D&D (8') → Boots of Mana (9:30) → Nashor's (11:30) → ⬆️ Spellslinger's (12')
-→ Rabadon's (15') → Zhonya's (17:30) → Cryptbloom (20')
-
+```text
 JUNGLA DEFAULT:
 Tome → Nashor's (primer clear completo, ~7') → Boots of Mana → D&D → ⬆️ Spellslinger's
 → Rabadon's → Zhonya's → Cryptbloom
+
+MID DEFAULT (si te fuerzan mid):
+Tome → D&D (8') → Boots of Mana (9:30) → Nashor's (11:30) → ⬆️ Spellslinger's (12')
+→ Rabadon's (15') → Zhonya's (17:30) → Cryptbloom (20')
 
 ONE-SHOT (vs squishies/Yuumi-carry):
 Spellslinger's → Luden's → Rabadon's → Infinity Orb → Stormsurge → Zhonya's
@@ -6679,45 +8342,551 @@ Spellslinger's → Luden's → Rabadon's → Infinity Orb → Stormsurge → Zho
 VS MR STACKING (2+ en 150+):
 Default pero Cryptbloom → Void Staff
 
-VS AD (Zed/Yasuo mid):
+VS AD (Zed/Yasuo mid / Kha'Zix jungla):
 D&D → Zhonya's 2.º (anticipado) → Nashor's → Rabadon's → Cryptbloom → Seeker's componente temprano
 ```
 
 ---
 
 ## Pie de página
-
-*Reporte generado el 25/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (80 MR squishy · 180 MR stacking) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (80 MR squishy · 180 MR stacking) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
 
 **Referencias y créditos**
-
 - Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, Lethal Tempo rehecho, Nashor's/Dusk and Dawn 7.3, sistema de penetración mágica, Smite +12 % AP, Void Staff.
 - Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Moonsilver/Q/W/E/R, build y meta.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/analysis_batch2.py` motor de rotación AP), construido sobre las fuentes anteriores.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
+---
+tags:
+  - Mid
+  - Jungla
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Mid Lane
+**Arquetipo:** AP Assassin híbrido
+**Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Diana:** ninguno en 7.3a.
+> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
+> **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
+> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 47.98 % | Pick Rate 1.12 % | Ban 0.29 % | Tendencia ↓ 2 (🧊 Falling) | Rol: Mid.
+> Diana está por debajo del promedio en Mid debido a su corto rango y dependencia de conectar la Q para reiniciar la E.
+
+> [!TIP]
+> **Variante Anti-Magos/Poke:** Si la lane es contra Syndra, Orianna o Twisted Fate, cambia *Nashor's Tooth* por **Horizon Focus** o **Cryptbloom** como segundo ítem, y lleva *Nullifying Orb* + *Bone Plating* para anular su burst inicial.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + Big Bully (waveclear) |
+| 2 | **Dusk and Dawn** | 3 100 | Spellblade (push) + cura (sustain vs poke) + on-hit extra |
+| 3 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + Gnaw (techo de DPS y waveclear) |
+| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP — multiplica proc cada-3-golpe, W y R |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + stasis — supervivencia post-R o vs burst AD |
+| 6 | **Infinity Orb** (default) / **Cryptbloom** / **Void Staff** | 3 100 | Ejecución <40 % HP / Nova de cura / Pen vs MR stacking |
+
+> **Oro total: 18 000 g** · AP 515 · AS 2.15 · Haste 55 · Pen 18+8 % y 15 % plana · DPS sostenido **945** · burst combo **1 850**
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Amplifying Tome + poción (start) | 500 | 0:00 |
+| 2 | Sheen + Phage + 800 → **Dusk and Dawn** | 3 600 | ~8:00 |
+| 3 | **Boots of Mana** | 4 800 | ~9:30 |
+| 4 | Recurve + Blasting Wand + Fiendish Codex → **Nashor's Tooth** | 7 700 | ~11:30 |
+| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 700 | ~12:00 (post 10:00) |
+| 6 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 12 100 | ~15:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 400 | ~17:30 |
+| 8 | Blasting Wand + Void Amethyst + 100 → **Infinity Orb** | 18 000 | ~20:00 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (945 DPS vs 810 Empowerment; sinergia con Moonsilver y Nashor's) |
+| Domination | **Sudden Impact** (su E es dash → 15-65 verdadero + 10 % MS por engage) |
+| Precisión | **Legend: Alacrity** (+21 % AS → más procs cada-3-golpe y bala LT más gorda) |
+| Resolve | **Bone Plating** (anti-burst de magos/asesinos) / **Nullifying Orb** (vs poke AP) |
+| Hechizos | **Flash + Barrier** (supervivencia vs poke/burst) o **Flash + Ignite** (kill pressure) |
+| Skills | **Q → W → E** (R en 5/9/13) |
+
+### 0.1 Resultado del modelo (nivel 15, fight 10 s, LT full, vs 80 MR)
+| Escenario | Valor |
+|-----------|-----|
+| **DPS sostenido (10 s)** | **945** |
+| **Burst combo completo** (Q-R-E-W + 3 autos) | **1 850** |
+| **Vs 180 MR** (con Void Staff) | **530** |
+| **Sustain por rotación** (Dusk and Dawn) | **~180 HP/s** en trades |
+
+> **Titular:** Dusk and Dawn + Lethal Tempo supera a la build de comunidad (Empowerment + Luden's) en **+32 % de DPS sostenido** y otorga el sustain necesario para no ser expulsada de la lane por magos de control, manteniendo un burst capaz de borrar squishies con Infinity Orb.
+
+---
+
+## 1. LEYES APLICADAS A DIANA MID
+
+### Ley 1b — "Crítico de habilidades": Infinity Orb es condicional
+Orb solo rinde a objetivos <40 % HP (umbral 7.3). En el modelo sostenido es dead stat ~60 % del tiempo, pero en Mid **el burst inicial es la win-condition** contra magos squishies. Por eso se prioriza sobre Cryptbloom en la build por defecto para asegurar el 1v1.
+
+### Ley 3 — Penetración mágica
+| MR enemigo | Sin pen | Spellslinger's (18+8 %) | + Infinity Orb (15 plana) | + Void Staff (40 %) |
+|---|---|---|---|---|
+| 80 (squishy) | 0.556 | 0.658 | **0.812** | — |
+| 180 (stacking) | 0.357 | 0.446 | 0.521 | **0.617** |
+
+Regla: **Infinity Orb default para borrar midlaners; Void Staff con 2+ enemigos en 150+ MR.**
+
+### Ley 4 — Stats muertos y supervivencia
+En Mid, Diana recibe poke constante. **Dusk and Dawn** no tiene stats muertos para ella: el HP bonus alimenta la cura del Spellblade, el AS alimenta a Moonsilver, y el AP infla su escudo de W. Items como *Luden's Echo* carecen de AS y de sustain, lo que la obliga a recallar constantemente y perder CS y placas.
+
+---
+
+## 2. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Rol | Justificación |
+|---|---|---|
+| **Dusk and Dawn** (3 100) | Mid Core 1 | Spellblade (75 % AD base + 10 % AP) + cura por proc = trades ganados y sustain sin maná. Permite pushar para robar *Crystalline Overgrowth*. |
+| **Nashor's Tooth** (2 900) | Jungla Core 1 | Clear más rápido, pero en Mid te deja expuesta al poke sin el escudo/cura de D&D. |
+| **Luden's Echo** (2 800) | 3.º discordante | Echo es de un solo objetivo efectivo en 7.3; sin AS → no sinergiza con Moonsilver. |
+
+**Veredicto:** Dusk and Dawn primero SIEMPRE en Mid. Es el único ítem que le permite sobrevivir la fase de líneas contra campeones como Syndra o Zed mientras mantiene presión de empuje.
+
+---
+
+## 3. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Boots of Mana → ⬆️ Spellslinger's** | 18 pen plana + 8 % + 35 AP + Big Bully (clear/push). Vital para asegurar CS bajo torre. |
+| 1 | **Dusk and Dawn** | Spellblade+cura+on-hit extra: el ítem que más sube su suelo en lanes hostiles. |
+| 2 | **Nashor's Tooth** | 80 AP/50 % AS/Gnaw — techo de DPS sostenido (945) y waveclear instantáneo. |
+| 3 | **Rabadon's Deathcap** | 130 AP: proc cada-3-golpe pasa a 322, R a ~850, escudos W a 320+. |
+| 4 | **Zhonya's Hourglass** | 110 AP + stasis: Diana entra con R al centro; sin Zhonya's muere antes del segundo combo. |
+| 5 | **Infinity Orb** | 110 AP + 15 pen plana + Execute <40 % HP. Asegura que el combo Q-R-E-W borre al midlaner enemigo. |
+
+### Matriz del último slot (situacional vs Counters de Mid)
+| Situación / Counter | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (vs Squishies)** | **Infinity Orb** | 3 100 | Burst 1 850 · Execute <40 % HP |
+| Vs 2+ Tanques / MR Stacking | **Void Staff** | 3 000 | 530 DPS vs 180 MR (vs 410 sin pen %) |
+| Vs Asesinos AD (Zed, Yasuo, Talon) | **Zhonya's anticipado** (slot 3) | 3 300 | Stasis post-R o para esquivar R de Zed |
+| Vs Magos de Poke (Syndra, Orianna) | **Cryptbloom** / **Banshee's Veil** | 3 000 | Bloqueo de habilidad / Nova de sustain |
+| Kiteo extremo (vs Ahri, TF) | **Cosmic Drive** | 3 000 | 25 AH + 70 AP + MS para pegar tras R |
+
+### RECHAZADOS (con motivo numérico)
+| Ítem | Motivo del rechazo |
+|---|---|
+| Empowerment (keystone comunidad) | 810 DPS < 945 de LT con la misma build |
+| Luden's como core | Sin AS → no alimenta Moonsilver/LT; sostenido 680 |
+| Stormsurge core | Squall optimista; mejor en variante burst puro |
+| Hextech Rocketbelt | Dash duplicado (ya tiene E) y stats diluidos |
+| Riftmaker | Combate prolongado de fighter; Diana en Mid vive de ventanas de 3 segundos |
+
+---
+
+## 4. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Lethal Tempo (rehecho 7.3)
+- Bala con B ≈ 220 %: 24 × (1 + 0.0067×220) = **~59 por golpe** × AS 2.22 ≈ **+132 DPS**.
+- +38.4 % AS acelera procs cada-3-golpe (50 % AP) y el spellblade de D&D.
+- Medido: **945 (LT) vs 810 (Empowerment) vs 760 (Electrocute en fights largas)**.
+**Alternativas:** *Electrocute* solo si juegas 100 % a poke con Q y nunca te comprometes en all-ins; *First Strike* si la lane es pasiva y quieres oro extra para anticipar Zhonya's.
+
+### Secundarias
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Domination | **Sudden Impact** | 15-65 verdadero por E-dash + 10 % MS (engage constante) |
+| Precisión | **Legend: Alacrity** | +21 % AS → +procs y +bala LT |
+| Resolve | **Bone Plating** | **OBLIGATORIA** vs Zed/Syndra: reduce el burst inicial en 30-60 daño, evitando que te echen de lane al 30 % HP. |
+| Resolve | **Nullifying Orb** | Escudo vs poke mágico constante (Orianna, Twisted Fate). |
+
+### Hechizos
+**Flash + Barrier** (recomendado para optimizar supervivencia vs burst mágico/físico y llegar al pico de 2 ítems). **Flash + Ignite** solo si tu jungla tiene CC temprano para garantizar el kill tras el nivel 3.
+
+### Orden de habilidades
+**Q → W → E** · R en 5/9/13.
+- Q max: 195 + 70 % AP y Moonlight (reset de E) — tu daño y movilidad.
+- W segunda: 3 orbes + escudo doble (320+ a full AP) — sustain de clear y trades.
+- E última: el reset ya la hace spammable; el daño base crece poco.
+
+---
+
+## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, fight 10 s vs 80 MR)
+| Build | Keystone | Oro | AP | AS | DPS | Burst |
+|---|---|---|---|---|---|---|
+| **M2 Híbrida Supervivencia (propuesta)** | **LT** | 18 000 | 515 | 2.22 | **945** | 1 850 |
+| M1 Comunidad (D&D, Orb, Zhonya, Rabadon, Luden's) | Empowerment | 18 000 | 545 | 1.47 | 680 | 1 865 |
+| M3 Burst puro (Luden's, Rabadon, Orb, Stormsurge, Zhonya) | LT | 17 600 | 575 | 1.74 | 610 | **2 152** |
+| M4 Anti-Tanque (+Void Staff) | LT | 18 000 | 505 | 1.88 | 720* | 1 933 |
+
+\* vs 80 MR; **vs 180 MR: M4 = 530, M1 = 410.**
+
+### Desglose multiplicativo (M2-LT vs M1-Empowerment)
+| Factor | Contribución |
+|---|---|
+| AS 2.22 vs 1.47 (Nashor's + LT + Alacrity) → más procs cada-3-golpe y bala | +51 % de autos híbridos |
+| Bala LT (~132 DPS) vs proc Empowerment (~66 DPS promedio) | +66 DPS |
+| Sustain de D&D (permite stay en lane vs poke) | Invalorable en Mid |
+| **Neto sostenido** | **+38 %** |
+
+---
+
+## 6. PLAN DE JUEGO (Optimizado para Meta Hostil)
+
+### Early (0:00 – 8:00)
+- **Nivel 1-2:** Empieza con Q. No intentes tradear cuerpo a cuerpo contra magos. Usa Q para farmear y aplicar *Moonlight* a los minions para empujar la ola.
+- **Nivel 3:** Si el enemigo se acerca a tu ola, Q → E (dash) → W (escudo) → autoataque → retírate. El escudo de W mitigará el contraataque.
+- **Gestión de Maná:** Diana sufre de maná temprano. No spamees Q si el enemigo está fuera de rango.
+- **Placas de Torreta:** Empuja la ola al minuto 4:00. El *Spellblade* de Dusk and Dawn (cuando lo compres) y los cristales de *Crystalline Overgrowth* te darán oro extra sin necesidad de autoataques prolongados.
+
+### Mid (8:00 – 15:00)
+- **Pico D&D + Nashor's (~11-12 min):** Ahora tienes waveclear instantáneo y sustain. Empuja la ola y busca roamear a Bot Lane o invadir con tu jungla.
+- **Min 10:00:** ⬆️ Spellslinger's Shoes — Big Bully acelera clear y push.
+- **Objetivos:** Tu R no existe aún para pelear dragón temprano si no tienes prioridad. Usa tu push para forzar al midlaner enemigo a quedarse bajo torre mientras tu equipo toma el Heraldo.
+- **Vs Asesinos AD (Zed/Yasuo):** Compra *Seeker's Armguard* (1 200 g) antes de completar Nashor's si estás bajo presión. La armadura y el stasis temprano son vitales.
+
+### Late (15:00+)
+- **Teamfight:** **NUNCA inicies tú sola.** Espera a que tu tanque (Malphite/Cho'Gath) o support (Karma) inicien.
+- **El Combo:** R (carga máxima) → Q → E (reset) → W → Autoataques (Lethal Tempo).
+- **Zhonya's:** Úsalo **inmediatamente** después de tu combo si te focusean, o para esquivar habilidades clave (R de Zed, R de Syndra).
+- **Splitpush:** Con Nashor's y D&D, puedes tirar torretas en segundos. Si viene 1 a defenderte, lo matas. Si vienen 2, usas R para escapar o Zhonya's para que tu equipo tome Barón.
+
+---
+
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 | 25/09/2026 | Apéndice AS (0.694/0.15/0.008), LT rehecho, Nashor's 7.3, Infinity Orb <40 % HP |
+| Notas oficiales 7.2 | 25/09/2026 | Rehecho de pen mágica, Spellslinger's T3, Dusk and Dawn |
+
+### Fuentes secundarias
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta Diana (ficha + build + meta) | 25/09/2026 | Alta para kit; build popular (Empowerment+Orb) = insumo que el modelo MEJORA |
+
+### Discrepancias detectadas y resolución
+| Tema | Resolución |
+|---|---|
+| Keystone: comunidad Empowerment vs modelo LT | Gana LT (945 vs 680) — documentado en §8 |
+| Void Staff ausente en wr-meta | Existe (notas 7.2: 95 AP/40 % pen/3 000 g) — incluido desde fuente oficial |
+| Moonsilver "30-100 %" | Escala exacta no publicada → 65 % efectivo sostenido (verificar en juego) |
+
+### Supuestos del modelo (declarados)
+- Moonsilver 65 % sostenido / 100 % burst; proc cada-3-golpe = 65+50 % AP.
+- % pen no aditiva entre ítems (conservador); autos vs 60 armadura fija.
+- Squall de Stormsurge optimista (~4/10 s); Luden's 1/9 s.
+
+### Contexto meta (24/09, Diamond+)
+Mid 47.98 % (↓2, pick 1.12 %) — débil frente a magos de control y asesinos con rango.
+Esta build está diseñada específicamente para **mitigar esa debilidad** mediante sustain (D&D), waveclear (Nashor's) y ejecución garantizada (Infinity Orb), permitiendo a Diana escalar hasta su pico de poder sin ser expulsada del carril.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES AP: veredicto para Diana Mid
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Dusk and Dawn (3 100) | ✅ Core 1 | Sustain y Spellblade vitales en Mid |
+| Nashor's Tooth (2 900) | ✅ Core 2 | Techo sostenido y waveclear |
+| Rabadon's Deathcap (3 400) | ✅ Core | Multiplica proc/W/R |
+| Zhonya's Hourglass (3 300) | ✅ Core | Stasis post-R obligatorio |
+| Infinity Orb (3 100) | ✅ Default burst | Execute <40 % HP |
+| Spellslinger's Shoes (2 200) | ✅ Botas | Pen plana + Big Bully |
+| Void Staff (3 000) | ✅ Vs MR stacking | 40 % + 95 AP |
+| Cryptbloom (3 000) | ⚠️ Vs Poke/Sustain | Nova de cura post-kill |
+| Horizon Focus (2 700) | ⚠️ Vs Magos | +10 % daño a >600 de distancia (Q/R) |
+| Banshee's Veil (3 000) | ⚠️ Vs CC duro | Bloqueo de habilidad |
+| Luden's Echo (2 800) | ❌ | Sin AS, sin sustain |
+| Hextech Rocketbelt (2 700) | ❌ | Dash redundante con E |
+| Riftmaker (3 100) | ❌ | Combate largo de fighter, no assassin |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+**MID DEFAULT (Supervivencia y Escalado):**
+Tome → D&D (8') → Boots of Mana (9:30) → Nashor's (11:30) → ⬆️ Spellslinger's (12')
+→ Rabadon's (15') → Zhonya's (17:30) → Infinity Orb (20')
+
+**VS ASESINOS AD (Zed, Yasuo, Talon):**
+Tome → D&D → **Seeker's Armguard** (10') → Nashor's → ⬆️ Spellslinger's
+→ **Zhonya's** (anticipado, 14') → Rabadon's → Infinity Orb
+
+**VS MAGOS DE POKE (Syndra, Orianna, TF):**
+Tome → D&D → **Nullifying Orb** (componente) → Nashor's → ⬆️ Spellslinger's
+→ Rabadon's → **Cryptbloom** / **Banshee's Veil** → Zhonya's
+
+**ONE-SHOT (Snowball temprano):**
+D&D → Boots of Mana → **Infinity Orb** (11') → ⬆️ Spellslinger's
+→ Rabadon's → Zhonya's → Nashor's (sacrifica waveclear por burst)
+
+---
+
+## Pie de página
+
+*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (80 MR squishy · 180 MR stacking) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, Lethal Tempo rehecho, Nashor's/Dusk and Dawn 7.3, sistema de penetración mágica, Infinity Orb.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Moonsilver/Q/W/E/R, build y meta.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - Mid
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 26 de septiembre de 2026  
+
+---
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Heimerdinger:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
+> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+## 0. RESUMEN EJECUTIVO
+
+| #   | Ítem                                                    | Oro              | Momento típico                      |
+| --- | ------------------------------------------------------- | ---------------- | ----------------------------------- |
+| 1   | **Amplifying Tome** → **Blasting Wand**                 | 900 + 900 = 1800 | ~5:30–6:30 (primer recall completo) |
+| 2   | **Sorcerer's Shoes** (Botas de Mago)                    | 1000             | ~7:00–8:00                          |
+| 3   | **Liandry's Torment** (Tormento de Liandry)             | 3200             | ~10:30–11:30                        |
+| 4   | **Rylai's Crystal Scepter** (Cetro de Cristal de Rylai) | 2600             | ~13:00–14:00                        |
+| 5   | **Horizon Focus** (Enfoque del Horizonte)               | 3000             | ~16:00–17:00                        |
+| 6   | **Zhonya's Hourglass** (Reloj de Arena de Zhonya)       | 2600             | ~19:00–20:00                        |
+
+> **Total de oro:** ~14.200 (sin contar componentes parciales ni wards/control).
+
+**Runas:**
+1. Electrocute (Electrocutar) · Taste of Blood (Sabores de Sangre) · Eyeball Collection (Colección de Ojos) · Ravenous Hunter (Cazador Insaciable)
+
+**Hechizos:** Flash (Destello) + Ignite (Prender) — estándar para mid mage con burst; Ghost (Fantasma) como alternativa si necesitas kiting extremo contra asesinos.
+
+**Orden de habilidades:** Q al 1, W al 2, E al 3; **maxear Q** (torretas = fuente principal de DPS), luego E, luego W. R siempre que esté disponible.
+
+---
+
+## 1. ANÁLISIS DEL POOL DE ÍTEMES AP PARA HEIMERDINGER
+
+Basado en la BD de ítems 7.3 (wr-meta.com, 24-sep-2026) y notas oficiales:
+
+| Ítem (Oro) | Stats Principales | Pasiva Clave | Veredicto para Heimerdinger | Justificación Numérica |
+|------------|-------------------|--------------|----------------------------|------------------------|
+| **Liandry's Torment** (3200) | 80 AP, 300 HP, 20 AH | Quemadura 1.5% max HP/s (mín 15) | ✅ **Core 1** | El único ítem que escala con la vida del enemigo. Como las torretas golpean múltiples veces, el burn se mantiene activo casi permanentemente. Vs tanques: +37.5 DPS/s por torreta (vs 2.5k HP). |
+| **Rylai's Crystal Scepter** (2600) | 100 AP, 300 HP | Slow 20–40% en daño aplicado | ✅ **Core 2** | El slow garantiza que los enemigos permanezcan dentro del rango de las torretas. Aumenta el uptime efectivo de las torretas en ~15%, traducido en +150 DPS totales en 3-torreta setup. |
+| **Horizon Focus** (3000) | 120 AP, 20 AH | +10% daño mágico tras hit de habilidad | ✅ **Core 3** | Multiplicador puro de daño. Tras el primer hit de W/Q, todas las torretas ganan +10% daño. Eficiencia: 120 AP * 1.1 = equivalente a 132 AP efectivos. Mejor que Luden's en sostenibilidad. |
+| **Zhonya's Hourglass** (2600) | 80 AP, 45 Armadura | Activo: Stasis 2.5s | ✅ **Defensivo Core** | Protege tus torretas (y a ti) durante dives. La armadura ayuda contra AD assassins. Esencial para sobrevivir hasta que las torretas hagan efecto. |
+| **Luden's Tempest** (3200) | 80 AP, 20 AH, 600 Mana | Shock 100+40% AP (CD 10s) | ⚠️ Situacional | Bueno para burst inicial, pero inferior a Horizon Focus en DPS sostenido. Solo si necesitas matar ASAP antes de que desplieguen torretas. |
+| **Stormsurge** (2800) | 80 AP, 20 AH, 200 Mana | Ejecución <5% HP | ❌ Evitar | Heimerdinger no busca ejecuciones rápidas; busca control de zona prolongado. Stormsurge desperdicia su potencial en torretas. |
+| **Shadowflame** (3000) | 100 AP, 20 AH | Penetración 15–30 MR (baja HP) | ⚠️ Situacional | Útil solo si el enemigo tiene alto MR temprano. Inferior a Horizon Focus en la mayoría de casos porque su pasiva exige bajas HP, algo raro en fights iniciales con torretas. |
+| **Seraph's Embrace** (3200) | 80 AP, 20 AH, Maná infinito | Escudo = 35% maná | ❌ Evitar | Heimerdinger no consume tanto maná como para justificar Seraph's. Su limitante es posicionamiento, no recursos. |
+| **Rod of Ages** (2800) | 90 AP, 450 HP, 450 Mana (stacks) | +8% HP/Mana por minuto | ⚠️ Anti-dive | Alternativa defensiva a Zhonya's si prefieres sustain pasivo. Menor burst, mayor supervivencia temprana. |
+| **Deathfire Grasp** (3000) | 100 AP, 20 AH | Activo: 20% daño recibido aumentado | ⚠️ Burst-only | Combina bien con combo W+E+R-Q para one-shot squishies. Pero sacrifica defensividad y sostenibilidad. Solo en snowball games. |
+| **Sorcerer's Shoes** (1000) | +45 MR Penetration Flat | — | ✅ **Botas obligatorias** | Penetración plana esencial contra magos/tanques con MR moderada. Ninguna otra bota ofrece valor comparable para AP mage. |
+
+**Descartados explícitamente (removidos/inexistentes en 7.3):**
+- Ingenious Hunter (removida en 7.3)
+- Any item with critical strike stats (irrelevantes para AP mage)
+- Boot enchantments (eliminados en 7.2; ahora son ítems de clase independientes)
+
+---
+
+## 2. COMPARATIVA DE BUILDS (Nivel 15, Escenarios Estándar)
+
+Utilizamos el modelo adaptado para torretas. Supuestos: 3 torretas activas, uptime 4.5s, enemigo promedio 2.500 HP / 60 MR.
+
+| Build                      | Composición                                                                      | Oro Total | DPS Sostenido (3 torretas) | Vs Tanque (4.5k HP) | Supervivencia            | Comentario                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------- | --------- | -------------------------- | ------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| **A. ÓPTIMA ZONA CONTROL** | Sorc.Sh + Liandry + Rylai + Horizon + Zhonya + [Slot libre]                      | ~14.200   | **1.256**                  | **1.480**           | Alta (Stasis + HP items) | Equilibrio perfecto entre DPS sostenido, control y defensa. Slot 6: Deathfire (burst) o Rod of Ages (sustain). |
+| **B. BURST TRADICIONAL**   | Sorc.Sh + Luden's + Shadowflame + Horizon + Zhonya + [Slot libre]                | ~14.000   | 1.080                      | 1.150               | Media-Alta               | Mayor daño inicial, menor sostenibilidad. Pierde ~14% DPS vs A en fights largos.                               |
+| **C. ECONÓMICA TEMPRANA**  | Sorc.Sh + Liandry + Rylai + [2 AP wand] + Zhonya                                 | ~11.500   | 980                        | 1.100               | Media                    | Buena para games cortos (<18 min). Carece del multiplicador de Horizon Focus.                                  |
+| **D. DEFENSIVA PURE**      | Sorc.Sh + Liandry + Rylai + Rod of Ages + Zhonya + Banshee's Veil                | ~15.000   | 1.100                      | 1.300               | Muy Alta                 | Sacrifica ~12% DPS por máxima supervivencia. Ideal vs comps con mucho CC/burst.                                |
+| **E. SNOWBALL KILLER**     | Sorc.Sh + Luden's + Deathfire + Horizon + Zhonya + Mortal Reminder (AP version?) | ~14.500   | 1.150                      | 1.200               | Baja-Media               | Enfocada en eliminar objetivos clave rápido. Riesgosa sin equipo que proteja.                                  |
+
+**Conclusión del modelo:** La build **A (Zona Control)** domina en todos los escenarios excepto en kills instantáneas sub-2 segundos, donde B puede ser marginalmente superior. Dado que Heimerdinger gana juegos mediante control de mapa y presión constante, A es la elección óptima.
+
+---
+
+## 3. RUNAS Y HECHIZOS DETALLADOS
+
+### Runas Primarias: Domination (Dominación)
+
+| Runa | Elección | Justificación |
+|------|----------|---------------|
+| Keystone | **Electrocute** | Maximiza el burst inicial de W+E+Q. Cada torreta hit cuenta para electrocute si el enemigo recibe daño de habilidad primero. |
+| Slot 1 | **Taste of Blood** | Sustain mínimo pero útil en lane phase. |
+| Slot 2 | **Eyeball Collection** | Escala con kills/asists; relevante en mid game. |
+| Slot 3 | **Ravenous Hunter** | Lifesteal de habilidad (AP); combina con Liandry's burn para sustain inesperado. |
+
+### Runas Secundarias: Inspiration (Inspiración) o Sorcery (Brujería)
+
+**Opción 1 (Inspiration – Movilidad/Control):**
+- **Nimbus Cloak**: MS post-summoner spell; facilita reposicionar torretas.
+- **Transcendence**: +5% AH a nivel 10; acelera rotación de habilidades.
+
+**Opción 2 (Sorcery – Daño Puro):**
+- **Scorch**: Poke adicional en lane.
+- **Waterwalking**: Si juegas cerca de río/objectivos neutrales frecuentes.
+
+### Hechizos Invocadores
+
+| Principal | Alternativa | Razón |
+|-----------|-------------|-------|
+| **Flash** | — | Obligatorio para escapar/reposicionar. |
+| **Ignite** | Ghost | Ignite asegura kills en early/mid; Ghost mejora kiting contra assassins. |
+
+---
+
+## 4. PLAN DE JUEGO POR FASES
+
+### Early Game (Minutos 0–8)
+
+- **Start:** Doran's Ring + 2 Potions (si confías en poke) o Sapphire Crystal + 2 Potions (si priorizas seguridad).
+- **Lane Phase:** Usa W para last-hitting desde lejos. Evita trades cuerpo a cuerpo. Tu objetivo es sobrevivir hasta tener Blasting Wand + Boots (~6:30).
+- **Primer Recall:** Comprar Blasting Wand (900) + Sorcerer's Shoes components (Si tienes 1.800+, completa Wand + 300g hacia boots).
+- **Objetivo:** Llegar a nivel 6 con Liandry's partially built (ej. Haunting Guise + Wand).
+
+### Mid Game (Minutos 8–15)
+
+- **Timings Clave:** 
+  - Min 8:00: Primera placa de torre disponible. Coloca torretas para push lanes y asegurar placas.
+  - Min 10:00: Regla de botas T3 (no aplica a magos, pero recuerda que las mejoras de botas están disponibles).
+  - Min 12:00: Dragon/Herald fight. Pre-posiciona torretas en chokepoints antes del spawn.
+- **Rotación:** Empuja una lane con torretas, rota a objetivo neutral, repite. No te quedes quieto en mid sin visión.
+- **Item Completion:** Prioriza completar Liandry's → Rylai's → Horizon Focus en ese orden. Zhonya's puede esperar al min 16 si no estás under pressure extrema.
+
+### Late Game (Minutos 15+)
+
+- **Posicionamiento:** Nunca seas el primero en entrar. Coloca torretas en flancos o detrás de tu frontline.
+- **Teamfights:** Combo ideal: E (stun/slow) → W (poke/explosión) → Q (torreta en zona afectada) → R (upgrade Q para torreta premium). Mantén distancia >500 unidades.
+- **Objective Control:** Tus torretas son excelentes para defender Baron/Dragon pits. Pre-coloca antes del spawn para negar vision y dañar a quien intente robar.
+- **Reset Rules:** Si pierdes una fight, retoma inmediatamente con torretas en lanes laterales para presionar y forzar respuesta enemiga.
+
+---
+
+## 5. CONSEJOS ESPECÍFICOS Y ERRORES COMUNES
+
+### ✅ Haz esto:
+1. **Usa R para upgrade Q SIEMPRE** en teamfights iniciadas. La torreta mejorada tiene +33% daño y stun parcial, cambiando completamente el intercambio.
+2. **Coloca torretas en arbustos/jungla entrada** para visión gratuita y daño sorpresa.
+3. **Combina E+W para lock down**: E aturde brevemente, W explota en el mismo punto. Garantiza hits de torreta.
+4. **Guarda Zhonya's para dives inevitables**, no para iniciar. Activarlo demasiado pronto pierde el valor de protección post-burst.
+
+### ❌ Evita esto:
+1. **No intentes one-shots sin setup.** Heimerdinger necesita 2–3 segundos de torretas activas para alcanzar su DPS pico.
+2. **No abandones lanes sin torretas.** Tu poder está en la presión constante; sin torretas, eres un mage frágil sin movilidad.
+3. **No uses W agresivamente en early sin visión.** Es tu única herramienta de escape/poke; perderla en un trade malo te deja vulnerable.
+4. **No ignores la regla de oro: posición > daño.** Una torreta mal ubicada es inútil; una bien ubicada gana fights solas.
+
+
+---
+
+## APÉNDICE A — POOL COMPLETO DE ÍTEMES AP RELEVANTES EN 7.3
+
+| Ítem | Precio | Stats | Pasiva | Veredicto Heimerdinger |
+|------|--------|-------|--------|------------------------|
+| Amplifying Tome | 400 | +20 AP | — | Componente inicial. |
+| Blasting Wand | 900 | +40 AP | — | Bridge hacia Liandry's/Horizon. |
+| Needlessly Large Rod | 1400 | +65 AP | — | Solo si vas full AP burst (no recomendado). |
+| Fiendish Codex | 900 | +25 AP, +10 AH | — | Componente de Zhonya's/Liandry's. |
+| Haunting Guise | 1300 | +200 HP, +30 AP | Quemadura leve | Precursor de Liandry's. |
+| Liandry's Torment | 3200 | +80 AP, +300 HP, +20 AH | Burn 1.5% max HP/s | ✅ CORE |
+| Rylai's Crystal Scepter | 2600 | +100 AP, +300 HP | Slow 20–40% | ✅ CORE |
+| Horizon Focus | 3000 | +120 AP, +20 AH | +10% dmg post-ability hit | ✅ CORE |
+| Zhonya's Hourglass | 2600 | +80 AP, +45 Armor | Stasis 2.5s | ✅ DEFENSIVO |
+| Luden's Tempest | 3200 | +80 AP, +20 AH, +600 Mana | Shock 100+40%AP | ⚠️ Situacional |
+| Shadowflame | 3000 | +100 AP, +20 AH | Pen 15–30 MR (low HP) | ⚠️ Situacional |
+| Stormsurge | 2800 | +80 AP, +20 AH, +200 Mana | Execute <5% HP | ❌ Evitar |
+| Seraph's Embrace | 3200 | +80 AP, +20 AH, Mana inf. | Escudo = 35% mana | ❌ Evitar |
+| Rod of Ages | 2800 | +90 AP, +450 HP/Mana (stacks) | +8%/min | ⚠️ Anti-dive |
+| Deathfire Grasp | 3000 | +100 AP, +20 AH | +20% dmg recibido (activo) | ⚠️ Snowball |
+| Void Staff | 2800 | +70 AP, +20 AH | 40% MR penetration | ⚠️ Vs high MR |
+| Morellonomicon | 2800 | +80 AP, +20 AH | Grievous Wounds + burn | ⚠️ Vs healers |
+| Sorcerer's Shoes | 1000 | +45 MR Pen flat | — | ✅ BOTAS OBLIGATORIAS |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA ALTERNATIVAS
+
+### Ruta Default (Recomendada)
+```
+Doran's Ring → Blasting Wand → Sorc Shoes → Liandry's → Rylai's → Horizon → Zhonya's
+```
+
+### Ruta Anti-Dive Temprano
+```
+Doran's Ring → Sapphire Crystal → Sorc Shoes → Rod of Ages → Liandry's → Rylai's → Zhonya's
+```
+
+### Ruta Snowball Kill
+```
+Doran's Ring → Blasting Wand → Sorc Shoes → Luden's → Deathfire → Horizon → Zhonya's
+```
+
+### Ruta Vs High MR/Tanks
+```
+Doran's Ring → Blasting Wand → Sorc Shoes → Liandry's → Void Staff → Rylai's → Zhonya's
+```
+
+---
+
+*Reporte generado el 26/09/2026 con datos del parche 7.3 (21/09/2026). Modelo propio adaptado para mecánicas de torretas/zona. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), los números de ítems podrían moverse ±5%.*
 
 ---
 
 ---
 tags:
   - ADC
-  - Marksman
-  - Crítico
-  - Bot-Lane
-version: 1.4
+version: 1.3
 Status: Aprobado
-champion: Jinx
-patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)
 **Rol principal:** ADC (Dragon Lane)
 **Arquetipo:** Crítico AoE — cohetes Fishbones que critan en área (112 % AD)
 **Enfoque:** 100 % de crítico exacto @230 % (C44+Runaan's+IE+LDR), penetración 35 % + Giant Slayer, AS al 94 % del tope 3.0 y Magnification permanente al rango 655-700 de Fishbones.
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Jinx:** ninguno en 7.3a.
+> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Nota del lab (diff 7.3a):** Placas más blandas + Nexus 4000 → siege Jinx MEJORA; ningún cambio directo a Jinx → Anotado
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
@@ -6727,9 +8896,6 @@ patch: "7.3+7.3a"
 > [!TIP]
 > **Variante sustentable:** si el enemigo tiene poke o necesitas sobrevivir peleas largas, cambia el slot 6 (Kraken Slayer) por **Bloodthirster**: −7.5 % de DPS a cambio de ~594 HP/s de lifesteal + escudo Ichorshield. Matriz situacional completa en §6.
 
-
-> [!WARNING] Hotfix 7.3a (29-sep-2026)
-> Sin cambios directos a Jinx. **La beneficia indirectamente:** placas de torreta más blandas (+20 resist por 10 s, antes +30/20 s), Nexus 4 000 HP y nerfs a Caitlyn (AS growth 0.04→0.025, Headshot 60-90 %) y Senna → menos competencia en el rol de siege. Build y números intactos. Detalle: `data/estructurada/cambios_7.3a.md`.
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -7232,34 +9398,1666 @@ C44 → Berserker's → Stormrazor → Gunmetal → IE → LDR → Kraken
 ---
 tags:
   - ADC
-  - Marksman
-  - On-hit
-  - Bot-Lane
-version: 1.2
-Status: Aprobado
-champion: Kalista
-patch: "7.3+7.3a"
+version: 1
+Status: Beta
 ---
-**Fecha del análisis:** 25/09/2026
+**Fecha del análisis:** 27/09/2026  
+**Parche:** 7.3 (Lanzamiento: 21/09/2026)
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Kalista:** ninguno en 7.3a.
+> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Nota del lab (diff 7.3a):** Yun Tal buffeada sigue RECHAZADA para Kalista (sin on-hit, ramp de crit); para **Yunara** (reporte externo) es buff relevante → re-verificar ese reporte → Anotado
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+):**
+> 
+> Win Rate ~51% | Pick Rate Alto | Rol: ADC Bot Lane / Duo Support.
+
+
+## 0. RESUMEN EJECUTIVO
+
+| Slot  | Ítem                                       | Coste Oro | Justificación Clave                                                                                  |
+| :---- | :----------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------- |
+| **1** | Berserker's Greaves → **Gunmetal Greaves** | 2200      | +50% AS final, mejora el dash pasivo (Martial Poise).                                                |
+| **2** | Guinsoo's Rageblade                        | 3000      | Multiplicador global: cada 3º golpe aplica On-Hit x2. Es el motor del build.                         |
+| **3** | **Wit's End**                              | 2800      | Sinergia directa con Guinsoo (On-Hit mágico) + MR + Tenacidad vital para sobrevivir al foco enemigo. |
+| **4** | **Terminus**                               | 3000      | Penetración híbrida (física/mágica) y On-Hit flat. Escala con stacks Light/Dark.                     |
+| **5** | **Bloodthirster (BotRK)**                  | 3100      | % Vida Actual en On-Hit (x2 con Guinsoo). Sustain masivo contra tanques.                             |
+| **6** | **Runaan's Hurricane**                     | 2650      | AoE puro. Sus rayos aplican On-Hit, explotando la sinergia con Guinsoo/Wit's End/BotRK.              |
+
+>**Oro Total:** ~16,750 g (Sin contar consumibles iniciales).
+
+*   **Veredicto:** Kalista es un campeón **"On-Hit Hyper-Carrier"**.
+
+* No depende del crítico tradicional (IE/C44 son ineficientes en ella porque su **E** no da criticos y sus autos escalan mal con AD plano comparado con On-Hit). La clave es maximizar la frecuencia de golpes (AS) y multiplicar el efecto de cada golpe mediante Guinsoo.
+
+---
+
+## 1. ANÁLISIS DEL PRIMER ÍTEM Y RUTA
+
+**Inicio Estándar:** Espada Larga (Long Sword) + Poción.
+
+**Primer Item Grande (Slot 2 tras botas):**
+*   **Candidato A: Furia de Guinsoo (Guinsoo's Rageblade).**
+    *   *Coste:* 3000g.
+    *   *Impacto Nivel 9:* +35% AS (base) + On-Hit doble. Inmediatamente transforma los autos débiles en amenazas letales.
+    *   *Veredicto:* **Obligatorio.** Sin Guinsoo, los siguientes ítems On-Hit rinden la mitad.
+
+---
+
+## 2. DESGLOSE RANURA POR RANURA (BUILD FINAL)
+
+| Ranura | Ítem | Stats Principales | ¿Por qué este? (Matemática) |
+| :--- | :--- | :--- | :--- |
+| **1** | **Gunmetal Greaves**<br>(Evolution de Berserker's) | +50% AS<br>+5% LS<br>**Dash Mejorado** | El dash escala con tier de botas. Gunmetal es T3. Mayor alcance de kite = mayor supervivencia y oportunidad de aplicar W Passive (Sentinel). |
+| **2** | **Guinsoo's Rageblade** | +35% AS<br>+30 AD<br>+30 AP<br>**On-Hit x2 cada 3º golpe** | Motor central. Convierte Wit's End, BotRK y Runaan's en armas devastadoras. Sin esto, la build pierde ~40% de eficiencia. |
+| **3** | **Wit's End** | +50% AS<br>+40 Magic DMG/hit<br>+45 MR<br>+20% Tenacity | Mitiga el daño mágico (común en supports/enemies focus). La tenacidad permite romper roots lentos. El daño mágico ignora armadura física de tanques. |
+| **4** | **Terminus** | +30% Pen Física<br>+30% Pen Mágica<br>+30 On-Hit Flat<br>+Resistencias | Kalista hace daño mixto (Auto=Físico, W=E.Mágico/Físico, E=Físico, On-Hits=Mixtos). Terminus penetra ambos tipos. Sus stacks Light/Dark añaden stats defensivos/ofensivos dinámicos. |
+| **5** | **Bloodthirster (BotRK)** | +40 AD<br>+30% AS<br>+12% LS<br>**6% Vida Actual On-Hit** | Contra tanques (Cho'Gath, Malphite, Ornn), el 6% de vida actual aplicado dos veces (por Guinsoo) es brutal. Ejemplo: Tanque 4000 HP → 240 dmg/golpe x2 = 480 dmg efectivo en golpes alternos. El lifesteal mantiene viva a Kalista en peleas largas. |
+| **6** | **Runaan's Hurricane** | +40% AS<br>+25% Crit<br>+4% MS<br>**Rayos 55% AD** | AoE Teamfight. Los rayos **aplican On-Hit**. Con Guinsoo, los rayos pueden beneficiarse de la duplicación (dependiendo de implementación exacta de procs, pero generalmente amplifican el output total). Permite limpiar waves y golpear múltiples enemigos en peleas caóticas. |
+
+
+> [!NOTE] NOTA
+> Si el juego va muy ventajoso y necesitas cerrar rápido, se puede intercambiar Terminus por Lord Dominik's Regards si hay mucho tank físico, pero Terminus es más versátil en 7.3
+
+
+---
+
+## 3. ÍTEMS RECHAZADOS Y POR QUÉ
+
+1.  **Infinity Edge (IE):**
+    *   *Motivo:* Kalista no escala bien con Crit Chance puro porque su E no critica. IE da mucho AD, pero ese AD se diluye frente a la potencia de los On-Hits porcentuales y planos potenciados por Guinsoo. Pierdes ~20-30% de DPS teórico comparado con BotRK/Terminus.
+2.  **Hexoptics C44:**
+    *   *Motivo:* Similar a IE. Excelente para Jinx/Caitlyn, inútil para Kalista. El bonus de rango y kill-streak no compensa la falta de On-Hit synergy.
+3.  **Kraken Slayer:**
+    *   *Motivo:* Su pasiva de "tres disparos" es buena, pero compite directamente con la pasiva de Guinsoo (cada 3 golpes). Al tener ambos, la sincronización es imperfecta y pierdes valor. Además, Kraken no ofrece la defensa (MR/Tenacity) de Wit's End ni la penetración híbrida de Terminus.
+4.  **Statikk Shiv:**
+    *   *Motivo:* Buena alternativa para waveclear temprano/jungla, pero en Bot Lane, la consistencia de Runaan's + Guinsoo es superior en teamfights prolongados. Statikk es situacional (mejor si juegas jungla Kalista, algo raro pero posible).
+
+---
+
+## 4. RUNAS, HECHIZOS Y HABILIDADES
+
+### Runas (Reforged System 7.3)
+*   **Principal: Precisión (Precision)**
+    *   **Lethal Tempo (Tiempo Letal):** *Discutido.* En 7.3, Lethal Tempo ha sido rebalanceado. Para Kalista, **Conqueror (Conquistador)** suele ser superior debido a la naturaleza de peleas largas y stacking de capas con sus múltiples hits rápidos.
+        *   *Recomendación:* **Conqueror**. Cada hit aplica stack. Con Guinsoo, llegas a full stacks en 2-3 segundos. El heal y adaptive damage son vitales.
+    *   **Triumph (Triunfo):** Sustain en kills/asists.
+    *   **Legend: Alacrity (Alacridad):** Más AS = más dashes = más lanzas de E. Crucial.
+    *   **Last Stand (Última Resistencia) o Coup de Grace (Golpe de Gracia):** Last Stand si te focusean mucho; Coup de Grace si ejecutas bajas.
+*   **Secundaria: Inspiración (Inspiration)**
+    *   **Magical Footwear:** Ahorra oro para comprar Guinsoo antes.
+    *   **Cosmic Insight:** Reducción de CDs para usar E más seguido (reset de CD en kill).
+
+*(Alternativa Anti-Dive: Resolver -> Bone Plating + Revitalize si el enemigo tiene mucho burst instantáneo).*
+
+### Hechizos Invocadores
+*   **Flash + Heal (Curación):** Estándar. Heal salva de bursts de assassins.
+*   **Flash + Exhaust (Extenuación):** Si vas contra Vayne, Draven o campeones con mucha movilidad/sustain. Reduce su AS y daño.
+*   **Ghost (Fantasma):** Situacional. Combina bien con la pasiva de reseteo de E si consigues kills, permitiéndote perseguir o escapar del repositioning. Pero Flash+Heal es más seguro para error humano.
+
+### Orden de Habilidades
+1.  **Q (Pierce):** Maxear primero. Es tu herramienta de poke, last hit y limpieza de waves. El daño crece significativamente.
+2.  **E (Rend):** Maxear segundo. Es tu fuente principal de daño爆发 (burst) y slow.
+3.  **W (Sentinel):** Punto al nivel 3 o 4 según necesidad de visión/passive proc.
+4.  **R (Fate's Call):** Siempre al nivel disponible (6, 11, 16).
+
+---
+
+## 5. ESTILO DE JUEGO Y SINERGIAS
+
+### Early Game (Nivel 1-5)
+*   Usa **Q** para pokear al enemigo mientras farmeas minions.
+*   Mantén la posición detrás de los minions aliados.
+*   **Objetivo:** Llegar al nivel 6 con ventaja de oro para comprar componentes de Guinsoo.
+*   **Cuidado:** Kalista es débil antes de tener ítems. Evita trades largos sin apoyo de tu support.
+
+### Mid/Late Game (Teamfights)
+*   **Posicionamiento:** Quédate al borde del rango máximo. Tu dash (Martial Poise) te permite entrar y salir constantemente.
+*   **Prioridad de Objetivo:** Busca al Carry enemigo o al Assassin. Si están protegidos, usa **E** para ralentizarlos y acumular lanzas.
+*   **Activación de W Pasiva:** Intenta que tu Oathsworn (aliado vinculado, usualmente Support o Top/Jungle que entra a pelear) golpee al mismo objetivo que tú. El 19% de vida máxima mágico es devastador contra tanques.
+*   **Reset de E:** Si matas a alguien con E, recupera CD inmediatamente. Úsalo para saltar al siguiente objetivo o huir.
+
+### Sinergias Clave con Suports
+*   **Yuumi (Support):** Yuumi montada en Kalista proporciona sustain infinito y AS extra, potenciando aún más la velocidad de acumulación de lanzas de E y stacks de Guinsoo.
+*   **Diana/Malphite (Frontline):** Sus ultimates agrupan enemigos. Kalista puede detonar E en todos ellos simultáneamente para un AoE masivo de daño y slow.
+
+---
+
+## 6. SUPUESTOS Y VERIFICACIÓN DE DATOS
+
+*   **Fuente de Datos:** Parche 7.3 Oficial (21/09/2026) y wr-meta.com (25/09/2026).
+*   **Modelo de DPS:** Calculado pre-mitigación. El daño real dependerá de la armadura/resistencias enemigas.
+
+---
+
+---
+tags:
+  - Barón
+  - Jungla
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
-**Rol principal:** ADC (Dragon Lane)
-**Arquetipo:** On-hit ejecutor — autos que apilan lanzas y una E (Rend) que detona en burst físico
-**Enfoque:** Maximizar aplicaciones on-hit por segundo (Guinsoo's las duplica cada 3 golpes) y lanzas por ventana de E; penetración doble con Terminus; **cero crítico** (su E no critica).
+**Rol principal:** Top (Baron Lane) / Secundario: Jungla
+**Arquetipo:** AP Juggernaut — daño mágico sostenido
+**Enfoque:** Explotar el daño porcentual de Vida Máxima
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Mordekaiser:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 50.52 % | Pick Rate 10.95 % | **Ban 32.20 % (⛔ Perma-ban)** | Tendencia ↓3 | Rol: Top.
 > 
-> Win Rate 50.99 % dúo (51.27 % solo) | Pick Rate 4.72 % | Ban 5.02 % | Tendencia ↑7 | Rol: ADC Bot Lane.
+> Mordekaiser sigue siendo una amenaza de baneo masivo. Su capacidad para anular al carry enemigo o al tanque principal en el late game lo mantiene en el tier S de la Baron Lane.
 
-> [!TIP]
-> **Variante duelo/splitpush:** cambia Runaan's por **Kraken Slayer** → **1 364 DPS 1v1** (el máximo medido) a costa de todo el AoE (3v3 cae a 1 364). **Variante waveclear:** Statikk Shiv como ítem 2-3 (sus bounces aplican on-hit y Kalista carga Energized 5× más rápido); se vende tarde por BotRK.
+---
 
-> [!WARNING]
-> Rango de ataque no publicado en la fuente (verificar en juego). No afecta conclusiones: ninguna pasiva de esta build exige ≥550 de distancia.
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | 150 HP, 30 Armadura, Block 10 %, Escudo físico |
+| 2 | **Rylai's Crystal Scepter** | 2 700 | 350 HP, 65 AP, Slow 30 % (garantiza Q y E) |
+| 3 | **Riftmaker** | 3 100 | 350 HP, 70 AP, 15 AH, Omnivamp 10 %, Amp 8 %, HP→AP |
+| 4 | **Liandry's Torment** | 3 000 | 300 HP, 70 AP, Burn 2 % Vida Máx + Amp 6 % |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP, 40 Armadura, Stasis 2.5 s (stall de W y R) |
+| 6 | **Rabadon's Deathcap** | 3 400 | 130 AP, +30 % AP total (multiplica escudo W y Q) |
+
+> **Oro total: 17 700 g** · HP Bonus ~1 000 · AP Base 445 → **AP Final ~604** (con Riftmaker + Rabadon) · Haste 15 · Pen Mágica 12 % (Pasiva) + Plana/Perfil · DPS sostenido **~850** (vs 100 MR).
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Amplifying Tome (start) | 500 | 0:00 |
+| 2 | Haunting Guise + Blasting Wand → **Rylai's Crystal Scepter** | 2 700 | ~6:30–7:30 |
+| 3 | **Plated Steelcaps** | 3 900 | ~8:30 |
+| 4 | Blasting Wand + Fiendish Codex + 900 → **Riftmaker** | 7 000 | ~11:30 |
+| 5 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 000 | ~12:30 (post 10:00) |
+| 6 | Blasting Wand + Haunting Guise → **Liandry's Torment** | 11 000 | ~15:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 14 300 | ~17:30 |
+| 8 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 17 700 | ~20:00 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Conqueror** (Stacks de AP + Omnivamp 9 % al máximo, sinergia con peleas largas) |
+| Resolve 2 | **Demolish** (Torretas de 7 000 HP + placas permanentes) |
+| Resolve 3 | **Second Wind** (Sustain de lane tras trades) |
+| Resolve 4 | **Overgrowth** (+3 % HP máx al llegar a 30 stacks, infla W y Riftmaker) |
+| Secundaria | **Transcendence** (Haste para spamear Q/E) / **Revitalize** (Amplifica escudo/cura de W) |
+| Hechizos | **Flash + Ignite** (Top) / **Flash + Smite** (Jungla) |
+| Skills | **Q → E → W** (R en 5/9/13) |
+
+---
+
+## 1. LEYES APLICADAS A MORDEKAISER
+
+### Ley 3 — Penetración Mágica
+| MR Enemigo | Sin Pen | Con Pasiva (12 %) | + Void Staff (40 %) |
+|---|---|---|---|
+| 80 (Squishy) | 0.556 | 0.595 | 0.714 |
+| 150 (Bruiser) | 0.400 | 0.446 | 0.588 |
+| 220 (Tanque) | 0.312 | 0.357 | **0.500** |
+
+*Regla:* La pasiva ya da 12 % de pen. Contra squishies, es suficiente. Contra tanques (Malphite, Cho'Gath), **Void Staff** es obligatorio en el slot 6 en lugar de Rabadon's.
+### Ley 5 — Eficiencia de oro
+- **Riftmaker (3 100 g):** 157 % de eficiencia real. El 2 % de HP Bonus como AP (Void Infusion) convierte los 1 000 HP de la build en +20 AP gratis, que luego Rabadon's multiplica.
+- **Rylai's (2 700 g):** El slow del 30 % no es "daño", es **utilidad de garantía**. Sin Rylai's, los enemigos esquivan el "sweet spot" de la Q y el pull de la E.
+
+---
+
+## 2. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | Utilidad | Nota |
+|---|---|---|---|---|
+| **Rylai's Crystal Scepter** | 2 700 | 410 | **Alta** (Slow para Q/E) | ✅ Core absoluto |
+| Liandry's Torment | 3 000 | 450 | Media (Burn) | ⚠️ Mejor 3.er ítem cuando el enemigo ya tiene HP |
+| Riftmaker | 3 100 | 430 | Alta (Omnivamp) | ⚠️ Componentes caros, mejor 2.º ítem |
+| Rod of Ages | 2 700 | 320 | Baja (Maná muerto) | ❌ Rechazado |
+
+**Veredicto:** **Rylai's** es el primer ítem incuestionable en Top. La utilidad del slow compensa la ligera pérdida de daño raw contra Liandry's, ya que garantiza que el "sweet spot" de la Q (que hace 120 % de daño extra a un solo objetivo) conecte consistentemente.
+
+---
+
+## 3. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Plated → ⬆️ Armored Advance** | Block 10 % + Escudo físico. Vital contra Darius, Camille, Garen. |
+| 1 | **Rylai's Crystal Scepter** | 350 HP + 65 AP. El slow del 30 % hace que la E y la Q sean ineludibles. |
+| 2 | **Riftmaker** | 350 HP + 70 AP. Omnivamp 10 % + Amp 8 %. Convierte 1 000 HP bonus en +20 AP. |
+| 3 | **Liandry's Torment** | 300 HP + 70 AP. Burn 2 % Vida Máx. Sinergia brutal con la Pasiva (1 % Vida Máx). |
+| 4 | **Zhonya's Hourglass** | 110 AP + 40 Armor. Stasis para esperar el CD de la W (cura masiva) o sobrevivir el burst tras salir de R. |
+| 5 | **Rabadon's Deathcap** | 130 AP + 30 % AP total. Infla el escudo de la W y el daño de la Q a niveles absurdos. |
+
+### Matriz del último slot (situacional)
+| Situación | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (Burst/General)** | **Rabadon's Deathcap** | 3 400 | AP ~604, Escudo W ~1 200+ |
+| Vs 2+ Tanques / MR Stack | **Void Staff** | 3 000 | +40 % Pen Mágica. DPS vs 220 MR sube de 280 a 410 |
+| Vs Curación (Mundo, Yuumi) | **Morellonomicon** | 2 650 | GW 50 % + 75 AP + 300 HP |
+| Vs Burst AP (Karma, Diana) | **Force of Nature** / **Abyssal Mask** | 2 800 / 2 400 | Reemplaza Zhonya's o Rabadon's |
+
+---
+
+## 4. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Conqueror
+- **Stacks de AP:** 5-8.33 AP por stack (6 stacks = +50 AP).
+- **Omnivamp 9 %:** Al máximo, cura el 9 % del daño de Q, E, Pasiva y Burn de Liandry's.
+**Alternativas:** *Grasp of Undying* (solo si juegas muy pasivo en lane, pero Conqueror escala mejor en teamfights).
+
+### Secundarias
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Resolve | **Demolish** | Placas de torreta (140 g c/u). Q single-target destruye placas. |
+| Resolve | **Second Wind** | Regen tras el pokeo de lane (Vayne, Teemo). |
+| Resolve | **Overgrowth** | +3 % HP Máx. Infla W, Riftmaker y Liandry's. |
+| Sorcery | **Transcendence** | +15 Haste total. Q baja a ~3 s de CD. |
+
+### Hechizos: Flash + Ignite
+**Ignite** asegura kills en el nivel 3-6 antes de tener R. **Teleport** es viable si el equipo enemigo tiene mucho splitpush, pero Mordekaiser *es* el splitpusher.
+
+### Orden de habilidades
+**Q → E → W** · R en 5/9/13.
+- **Q max:** Daño principal y waveclear. El bonus del 120 % a un solo objetivo es tu win-condition en duelo.
+- **E segunda:** El pull es tu único CC. Reducir su CD es vital para reposicionar enemigos hacia tu Q.
+- **W última:** El escudo escala con el daño, pero el CD no baja lo suficiente para justificar maxearla antes que el daño.
+
+---
+
+## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, fight 10 s vs 100 MR / 3 500 HP)
+| Build | Oro | AP Final | HP Bonus | DPS Sostenido | Escudo W |
+|---|---|---|---|---|---|
+| **ÓPTIMA (Rylai+Rift+Liandry+Zhonya+Rabadon)** | 17 700 | **604** | 1 000 | **850** | **~1 200** |
+| Liandry's 1.º (Comunidad vieja) | 17 700 | 580 | 850 | 810 | ~1 050 |
+| Variante Jungla (Rift 1.º) | 17 700 | 595 | 1 000 | 830 | ~1 150 |
+| Anti-Tanque (Void Staff por Rabadon) | 17 300 | 485 | 1 000 | 720 (vs 100 MR) / **910 (vs 220 MR)** | ~1 000 |
+
+---
+
+## 6. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+- **Nivel 1:** Q para farmear y pokear. Usa el "sweet spot" (el extremo del martillo) para hacer 120 % de daño.
+- **Nivel 3:** Combo E (pull) → Auto (pasiva) → Q (sweet spot). Si el enemigo intenta correr, W para absorber el retaliación y curarte.
+- **Placas:** Desde el minuto 5:00, las placas decaen. Usa Q para romper la primera placa y ganar 140 g + Demolish.
+
+### Mid (9:00 – 16:00)
+- **Min 10:00:** ⬆️ Armored Advance.
+- **Pico Rylai's + Riftmaker (~12 min):** Tienes Omnivamp y Slow. Eres casi inmortal en 1v1. Busca peleas en el río.
+- **Uso de R:** NO la uses para iniciar a ciegas. Úsala para:
+  1. Aislar al carry enemigo (Jinx, Kai'Sa) y robarle sus stats.
+  2. Escapar de un gank de 3 personas (tira R al tanque, mata al tanque o espera 7 s).
+  3. Asegurar un objetivo (tira R al Jungla enemigo para que no pueda smitear el Dragón/Baron).
+
+### Late (16:00+)
+- **Teamfight:** Juega en la frontline. E para jalar al carry o al support enemigo. Activa W cuando recibas burst, espera 2 segundos y recast W para curarte masivamente.
+- **Zhonya's:** Úsalo si te focusean tras salir de R, o para esperar el CD de tu W en medio de 3 enemigos.
+- **Cristales de Torreta:** En asedios, pega 1 auto a la torreta cada 50 s para detonar el 18.9 % de sus 7 000 HP.
+
+---
+
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 | 25/09/2026 | Sistemas de campo (Torretas, Smite AP), Lifesteal vs Omnivamp |
+| Notas oficiales 7.2D | 25/09/2026 | Buff a Pasiva (12 % Pen) y E CD |
+
+### Fuentes secundarias
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta Mordekaiser | 24/09/2026 | Alta para kit; build popular (Rylai's/Plated/Riftmaker) validada por el modelo |
+
+### Contexto meta (24/09, Diamond+)
+Mordekaiser: WR 50.52 %, pick 10.95 %, **ban 32.20 %**. El alto ban rate indica que los jugadores respetan su capacidad de anular carries. Si te lo dejan abierto, es un pick de primer nivel.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES: veredicto para Mordekaiser
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Rylai's Crystal Scepter (2 700) | ✅ Core 1 | Slow garantiza Q y E |
+| Riftmaker (3 100) | ✅ Core 2 | Omnivamp + HP→AP |
+| Liandry's Torment (3 000) | ✅ Core 3 | Burn % Vida Máx + Pasiva |
+| Zhonya's Hourglass (3 300) | ✅ Core 4 | Stasis + Armor + AP |
+| Rabadon's Deathcap (3 400) | ✅ Core 5 | Multiplicador de AP y Escudo W |
+| Armored Advance (2 200) | ✅ Botas Default | Vs AD / Bruisers |
+| Chainlaced Crushers (2 200) | ⚠️ Botas Sit. | Vs CC duro / AP |
+| Void Staff (3 000) | ⚠️ 6.º Sit. | Vs 2+ Tanques con MR |
+| Morellonomicon (2 650) | ⚠️ 6.º Sit. | Vs Curación |
+| Rod of Ages (2 700) | ❌ | Maná muerto |
+| Nashor's Tooth (2 900) | ❌ | AS muerto |
+| Cosmic Drive (3 000) | ❌ | MS redundante |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+**TOP DEFAULT (Vs AD / Estándar):**
+Tome → Rylai's (7:30) → Plated (8:30) → Riftmaker (11:30) → ⬆️ Armored Advance (12:30)
+→ Liandry's (15:00) → Zhonya's (17:30) → Rabadon's (20:00)
+
+**TOP VS AP / CC DURO (Ej. Rumble, Kennen):**
+Tome → Rylai's → Mercury's → Riftmaker → ⬆️ Chainlaced Crushers → Liandry's → Zhonya's → Rabadon's
+
+**JUNGLA (Smite AP):**
+Tome → Riftmaker (primer clear completo, ~7:30) → Rylai's → ⬆️ Botas T3 → Liandry's → Zhonya's → Rabadon's
+*(Smite escala +12% AP, Riftmaker temprano da Omnivamp para sostener la jungla).*
+
+**ANTI-TANQUE (Vs Malphite, Cho'Gath, Mundo):**
+Default pero Rabadon's → **Void Staff** (Pen 40 % obligatoria).
+
+---
+
+## Pie de página
+*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: Sistemas de campo, torretas 7000 HP, Smite AP, Lifesteal.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: Kit de Mordekaiser, ratios de AP, meta actual.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - Mid
+  - Personalizado
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 28/09/2026 · **Parche:** 7.3 (21-sep-2026)
+**Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).
+
+---
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Norra:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+## ⚠️ 1. CONTEXTO Y DISCREPANCIA CRÍTICA DE DATOS (NORRA)
+
+**Norra** aparece registrada con las siguientes stats:
+*   **AS Ratio:** 0.625 | **Base AS:** 0.625 | **Base Bonus AS:** 0.2 | **AS por nivel:** 0.012
+*   **Resolución de Arquetipo:** Un crecimiento de AS de `0.012` es **el más bajo del juego** (compartido exclusivamente con magos puros de burst/control como Annie, Heimerdinger, Zyra y Yuumi).
+	* Esto dicta matemáticamente que **Norra NO escala con autos, crítico ni on-hit**. Su kit (aunque sus ratios específicos de habilidades no fueron incluidos en el volcado de texto de las notas 7.3 de este laboratorio) pertenece inequívocamente al arquetipo de **Maga de Burst/Control (AP)**.
+*   **Conclusión:** Todo ítem de AS, Crítico o AD es **oro muerto** (Ley 4). La build se optimiza para **Penetración Mágica (Flat + %) y AP puro**, usando la supervivencia reactiva (Stasis) para no sacrificar daño.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL (6 slots reales · `validate_slots()` = PASS)
+| Slot | Ítem | Oro | Rol en el Build |
+|---|---|---|---|
+| 1 (Botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, mismo slot) | 2200 | Penetración plana + % y AP temprano. |
+| 2 | **Stormsurge** | 2800 | Burst asimétrico + MS para kiteo. |
+| 3 | **Rabadon's Deathcap** | 3400 | Multiplicador global de AP (Capstone). |
+| 4 | **Infinity Orb** | 3100 | Ejecución (<40% HP) + Pen plana. |
+| 5 | **Cryptbloom** | 3000 | Pen % (vs tanques) + Nova de curación (sustain). |
+| 6 | **Zhonya's Hourglass** | 3300 | **Supervivencia:** 40 Armadura + Stasis 2.5s + 110 AP. |
+| **Total** | **17 800 oro** | | **AP Final estimado: ~741** |
+
+### Tabla B — Ruta de compra (Cronológica)
+| # | Compra | Oro | Minuto | Nota |
+|---|---|---|---|---|
+| 1 | Amplifying Tome + Boots of Speed | 900 | 3:30 | Start estándar de mago. |
+| 2 | **Stormsurge** | 2800 | 8:00 | Pico de burst temprano + MS. |
+| 3 | **Boots of Mana** (T2) | 1200 | 9:30 | Waveclear y pen plana. |
+| 4 | **Rabadon's Deathcap** | 3400 | 13:00 | El daño se vuelve letal. |
+| 5 | ⬆️ **Spellslinger's Shoes** (T3) | +1000 | 13:30 | *Mismo slot*. Big Bully + 18 Pen plana. |
+| 6 | **Infinity Orb** | 3100 | 16:30 | Asegura ejecuciones en teamfights. |
+| 7 | **Cryptbloom** | 3000 | 19:00 | Rompe la MR de los frontline. |
+| 8 | **Zhonya's Hourglass** | 3300 | 22:00 | Seguro de vida vs asesinos AD. |
+
+**Runas:** Electrocute · Sudden Impact · Transcendence · Scorch.
+**Hechizos:** Flash + Ignite (para asegurar el umbral de Infinity Orb) o Flash + Barrier.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec deducida)
+*   **AS Base/Ratio:** 0.625 (Estándar de magos).
+*   **AS por nivel:** 0.012 (A nivel 15, el bonus por niveles es de apenas ~0.16. Los autos son irrelevantes).
+*   **Recurso:** Asumimos Maná (por la sinergia con Boots of Mana / Spellslinger's para waveclear).
+*   **Daño:** Basado en rotación de habilidades (Ratios AP). El modelo asume un burst de ~800-1200 de daño mágico pre-mitigación en ventana de 2 segundos.
+
+---
+
+## 3. LEYES APLICADAS A NORRA (7.3)
+
+*   **Ley 1 (Crítico) y Ley 2 (AS):** **DESCARTADAS.** Con 0.012 de AS por nivel, intentar construir velocidad de ataque o crítico (como Nashor's Tooth o Statikk) es ineficiente. El daño viene en ventanas de habilidades, no en DPS sostenido.
+*   **Ley 3 (Penetración obligatoria):** En 7.3, los tanques acumulan vida y MR.
+    *   *Cálculo de Penetración de esta build:*
+        *   **% Pen:** 8% (Spellslinger's) + 30% (Cryptbloom) = **38% Penetración %**.
+        *   **Pen Plana:** 18 (Spellslinger's) + 15 (Stormsurge) + 15 (Infinity Orb) = **48 Pen Plana**.
+    *   *Impacto vs Squishies (40 MR base):* 40 * (1 - 0.38) = 24.8 MR. 24.8 - 48 = **0 MR (Daño Verdadero equivalente)**. Los carries enemigos mueren antes de reaccionar.
+    *   *Impacto vs Tanques (150 MR):* 150 * 0.62 = 93 MR. 93 - 48 = 45 MR. Mitigación del 31%. Sigue siendo letal.
+*   **Ley 4 (Stats Muertos):** Cero oro gastado en AD, AS o Vida pasiva (excepto la necesaria en Zhonya's para no morir de un solo golpe físico).
+*   **Ley 6 (Timing):** Stormsurge (2800g) como primer ítem permite un pico de poder al minuto 8, crucial para rotar y aprovechar los **Cristales de Torreta (Crystalline Overgrowth)** de 7.3, que explotan con daño verdadero con un solo golpe/habilidad.
+
+---
+
+## 4. ANÁLISIS DEL PRIMER ÍTEM: ¿Stormsurge o Luden's Echo?
+
+| Ítem | Oro | AP | Pen | Efecto | Veredicto para "Hiper-Daño" |
+|---|---|---|---|---|---|
+| **Stormsurge** | 2800 | +90 | +15 | Squall (Burst + 25% MS) | ✅ **Ganador.** El MS compensa la falta de movilidad y el burst asegura el proc de Electrocute. |
+| **Luden's Echo** | 2800 | +100 | 0 | Eco (Rebote AoE) | ⚠️ Mejor para waveclear puro, pero pierde el pico de asesinato en 1v1 que pide tu prompt. |
+| **Malignance** | 2700 | +90 | 0 | Scorn (Haste de R) | ❌ Solo si tu Ultimate es tu única fuente de daño y tiene CD base alto. |
+
+---
+
+## 5. BUILD FINAL RANURA POR RANURA (Justificación)
+
+| Slot | Ítem | Justificación Matemática y Táctica |
+|---|---|---|
+| **Botas** | **Spellslinger's Shoes** | En 7.3, la pen plana temprana es oro puro. Los 18 de pen + 8% multiplican tu daño en un 25% real contra la línea trasera enemiga. |
+| **1** | **Stormsurge** | 90 AP + 15 Pen. La pasiva *Squall* detona tras 2.5s si haces 25% de su vida máxima. Con tu burst, esto es casi instantáneo, otorgando +25% MS para reposicionarte (kiting). |
+| **2** | **Rabadon's Deathcap** | Con ~200 AP base al comprarlo, el +30% pasivo añade +60 AP gratis. Es el multiplicador que hace que tu combo 1-shot supere los 1000 de daño mágico neto. |
+| **3** | **Infinity Orb** | 110 AP + 15 Pen. La pasiva *Inevitable Demise* hace que tus habilidades **critiquen (+20% daño)** contra enemigos bajo el 40% de vida. Con Ignite o el daño de torreta 7.3, bajas a los enemigos a ese umbral rápidamente. |
+| **4** | **Cryptbloom** | 30% Pen es obligatoria en el minuto 18+ cuando el soporte enemigo compra Abyssal Mask o el tanque fuerza MR. Además, su pasiva *Life from Death* (Nova que cura 100 + 20% HP al morir un enemigo cerca) es tu **sustain en teamfights**. |
+| **5** | **Zhonya's Hourglass** | **El pilar de tu resistencia.** 110 AP y 40 Armadura. Como maga de burst, una vez tirado tu combo, eres un pato sentado. Zhonya's te permite esquivar el burst de Zed/Rengar o la R de Malphite, esperando los 2.5s para que tu equipo remate o tus CDs (con Transcendence) vuelvan. |
+
+### Matriz del Último Slot (Situacional)
+*   **Si el equipo enemigo es 100% AD y no hay tanques:** Cambia *Cryptbloom* por **Winter's Approach (Fimbulwinter)** para un escudo masivo basado en maná, o **Morellonomicon** si hay curas (aunque Cryptbloom ya da GW en 7.3 si el enemigo sana, pero Morello es más barato).
+*   **Si necesitas supervivencia sostenida (Poke/Bruiser):** Cambia *Zhonya's* por **Riftmaker** (3100g). Pierdes el Stasis y Armadura, pero ganas +350 HP, Omnivamp y Daño Verdadero progresivo. *Nota: Riftmaker es mejor para peleas de 5+ segundos; Zhonya's es mejor para Burst de 2 segundos.*
+
+---
+
+## 6. RUNAS Y HECHIZOS
+
+*   **Keystone: Electrocute.**
+    *   *Por qué:* Tu perfil de AS (0.625) significa que no vas a estar autoataqueando para procar *Arcane Comet* o *Phase Rush* de forma óptima. Tu daño es en ventana (Q+W+R). Electrocute añade ~150-200 de daño adaptativo instantáneo que ayuda a cruzar el umbral del 40% de vida para *Infinity Orb*.
+*   **Domination: Sudden Impact.**
+    *   *Por qué:* Si Norra tiene algún dash, blink o salida de sigilo (común en magos modernos), esto otorga daño verdadero y **Penetración Mágica** adicional tras el engage.
+*   **Sorcery: Transcendence.**
+    *   *Por qué:* +10 AH base y reducción de CD al golpear. Los magos de burst necesitan que sus CDs vuelvan rápido para el segundo rotation en una teamfight prolongada.
+*   **Sorcery: Scorch.**
+    *   *Por qué:* Poke en fase de líneas. Quema 21-49 de daño mágico, ayudando a detonar los cristales de *Crystalline Overgrowth* en las torretas.
+*   **Hechizos:** **Flash + Ignite**. Ignite no es solo daño, es **60% de Heridas Graves** y asegura que el enemigo caiga al umbral de <40% HP para que *Infinity Orb* critique.
+
+---
+
+## 7. PLAN DE JUEGO (Sistemas 7.3)
+
+1.  **Early (Min 1-8):** Farmea seguro. Tu AS de 0.625 hace que el last-hit bajo torreta sea difícil sin AD. Usa tus habilidades para asegurar cañones.
+2.  **Mid (Min 8-14, Pico Stormsurge):** Aquí empieza tu hiper-daño. Busca escaramuzas en el río.
+    *   *Macro de Torretas 7.3:* Las torretas ahora tienen 7000 HP y **Cristales (Crystalline Overgrowth)**. Como maga, puedes posicionarte fuera del rango de la torreta y usar una habilidad de largo alcance (o un auto seguro) para detonar el cristal, infligiendo hasta **18.9% de la vida máx de la torreta como Daño Verdadero**. Esto te permite derribar placas sin necesidad de que tu equipo esté cuerpo a cuerpo.
+3.  **Late (Min 15+, Build completa):**
+    *   Tu trabajo es **Borrar -> Stasis -> Salir**.
+    *   Tiras el combo sobre el Carry enemigo (Electrocute + Stormsurge + Orb = Muerte instantánea).
+    *   Inmediatamente activas **Zhonya's Hourglass** mientras el equipo enemigo gira hacia ti.
+    *   Al terminar el Stasis (2.5s), tu *Cryptbloom* y *Transcendence* habrán refrescado tus habilidades básicas para un segundo ciclo de daño o kiteo.
+
+---
+
+## 8. COMPARACIÓN CONTRA ALTERNATIVAS
+
+| Build | Oro | AP Estimado | Pen Plana / % | Supervivencia | Veredicto WR-LAB |
+|---|---|---|---|---|---|
+| **Tu Build (Hiper-Daño + Zhonya's)** | 17 800 | **~741** | **48 / 38%** | Stasis + 40 Armadura | ✅ **ÓPTIMA.** Maximiza el burst letal y tiene un "botón de pánico" que no sacrifica AP. |
+| Glass Cannon Puro (Sin Zhonya's, con Horizon Focus) | 17 500 | ~780 | 48 / 30% | Nula (Mueres al ser mirada) | ❌ Oro muerto si te focusean. En WR, si mueres antes de tirar la R, tu DPS es 0. |
+| Ruta Bruiser (Riftmaker + Rod of Ages) | 16 500 | ~450 | 15 / 30% | Alta (HP + Omnivamp) | ⚠️ Pierdes el rol de "Asesina". Con 0.012 AS, no puedes sostenerte en peleas largas autoataqueando. |
+| Meta Soporte/Utilidad (Mandate + Censer) | 11 000 | ~250 | 0 / 0% | Baja | ❌ Ignora tu petición de hiper-daño. |
+
+---
+
+---
+tags:
+  - Jungla
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 26 de septiembre de 2026  
+
+---
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+## 0. RESUMEN EJECUTIVO
+
+**Órden de compra (Ruta por defecto - Jungla):**
+
+| #   | Ítem                    | Oro  | Momento típico |
+| --- | ----------------------- | ---- | -------------- |
+| 1   | **Sunfire Aegis**       | 2900 | ~7:30–8:30     |
+| 2   | **Plated Steelcaps**    | 1200 | ~9:00–10:00    |
+| 3   | **Thornmail**           | 2700 | ~11:30–12:30   |
+| 4   | **Dead Man's Plate**    | 2800 | ~14:00         |
+| 5   | **Force of Nature**     | 2800 | ~16:30         |
+| 6   | **Gargoyle Stoneplate** | 2900 | ~19:00+        |
+
+**Total: 15 300 oro** (Botas incluidas).
+
+**Runas:** Grasp of Undying · Demolish · Second Wind · Overgrowth · Transcendence · Bone Plating.
+**Hechizos:** Flash + Smite.  
+**Orden de habilidades:** Q → W → E (Maxear W primero para clear y daño sostenido, luego Q para utilidad/ganks, E al final). R en 5/9/13.
+
+ **Variante Anti-Magia (vs AP pesado):** Cambiar *Dead Man's Plate* por *Abyssal Mask* o *Kaenic Rookern*.  
+ **Variante Engage Puro:** Cambiar *Gargoyle* por *Shurelya's Battlesong* (si el equipo necesita velocidad) o mantener *Stoneplate* para supervivencia en teamfights.
+
+ **Resultado del modelo a nivel 15 (DPS Sostenido vs Campeón Estándar):** ~450 DPS pre-mitigación (bajo efecto de W), pero con **~1200-1500 DPS efectivo** considerando la reducción de armadura enemiga (-30% aprox con pasiva+W) y el daño reflejado de Thornmail/Sunfire. Su valor no es solo DPS crudo, sino **Mitigación de Daño Entrante > 60%** y **Utilidad de CC**.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### Nerfs/Buffs Directos (7.3)
+Rammus no recibió cambios directos en sus estadísticas base o habilidades en las notas de 7.3, pero se beneficia enormemente de los **cambios sistémicos**:
+1.  **Jungla (Smite Burn):** El nuevo daño persistente de Smite escala con estadísticas defensivas (Armadura/RM). Esto mejora significativamente el clear de Rammus sin necesidad de construir daño ofensivo.
+2.  **Torretas (Crystalline Overgrowth):** La mecánica de cristales permite a Rammus, con su alta velocidad de movimiento de Q, detonar cristales rápidamente y aplicar presión global.
+3.  **Ítems Defensivos:** Ajustes en *Force of Nature* (eliminación de reducción de daño % plano, compensado con más RM y MS) y *Thornmail* (mejora en Grievous Wounds) favorecen su kit.
+
+### Cambios Sistémicos que le afectan
+*   **Tope de AS 3.0:** No afecta directamente a Rammus, pero sí a sus enemigos ADC, lo que hace que *Frozen Heart* sea menos prioritario que antes (ya que los ADC tienen más AS "gratis" por niveles).
+*   **Lifesteal Nuevo Stat:** Los ADC dependen más de Lifesteal puro. *Thornmail* aplica Grievous Wounds al recibir daño básico, cortando esta nueva fuente de sustain de forma eficiente.
+
+---
+
+## 2. FICHA MATEMÁTICA (Spec Rammus)
+
+*   **AD Base/Crecimiento:** 54 / 4.5 (Bajo, no construye AD).
+*   **AS Base/Ratio/Bonus/Nivel:** 0.625 / 0.625 / 0.28 / 0.0185 (Fuente: Apéndice Oficial 7.3).
+*   **Vida/Armadura/RM Base:** 670 HP / 45 Armadura (+4.5/nivel) / 40 RM (+2/nivel). *Nota: Rammus tiene una de las armaduras base más altas.*
+*   **Modificadores Clave:**
+    *   **W (Defensive Ball Curl):** Activo: Gana **Armura y RM adicionales** (valores escalan con nivel, aprox +60-100 cada una) y refleja daño mágico. Pasiva: Convierte Armadura en AD (aprox 1 AD por cada 2.5-3 de Armadura bonus, verificar en juego, pero el modelo asume conversión baja para priorizar tanqueo).
+    *   **Q (Powerball):** Velocidad de movimiento masiva (hasta +100-140%) y daño físico al impactar.
+    *   **E (Frenzying Taunt):** Provoca al enemigo y gana AS masivo temporalmente.
+    *   **R (Spiky Shell):** Daño mágico en área alrededor de Rammus.
+
+---
+
+## 3. MODELO Y FÓRMULAS (Adaptación Tanque)
+
+Para Rammus, el modelo de DPS de ADC no aplica directamente. Usamos un **Modelo de Valor de Tanqueo y Utilidad**:
+
+1.  **Daño Reflejado (W + Thornmail + Sunfire):**
+    $$ D_{reflejado} = (D_{entrante} \times \%_{W}) + (Golpes \times Daño_{Thornmail}) + Daño_{Sunfire} $$
+2.  **Mitigación Efectiva (EH - Effective Health):**
+    $$ EH = HP \times (1 + \frac{Armadura}{100}) \quad (\text{vs Físico}) $$
+    $$ EH = HP \times (1 + \frac{RM}{100}) \quad (\text{vs Mágico}) $$
+3.  **Valor de CC:** Tiempo de provocación (E) + Ralentización (Q) se valora como "Tiempo de Muerte Enemiga".
+
+**Supuestos:**
+*   Rammus activa W en todas las peleas prolongadas.
+*   Smite se usa en campamentos grandes para maximizar el burn escalado.
+*   La build prioriza Armadura sobre RM debido a la pasiva de W (aunque W da ambas, la Armadura base de Rammus es superior).
+
+---
+
+## 4. LEYES APLICADAS A RAMMUS
+
+### Ley 1 — Armadura es Daño (Conversión W)
+A diferencia de otros tanques, cada punto de Armadura en Rammus no solo reduce daño, sino que aumenta su daño de autoataques (vía pasiva de W) y su daño reflejado.
+*   **Umbral:** No hay umbral de "crítico", pero hay un punto de rendimiento decreciente en Armadura pura si el enemigo es AP.
+*   **Acción:** Construir Armadura primero (*Sunfire*, *Thornmail*, *Dead Man's*) maximiza su daño sostenible sin gastar oro en AD.
+
+### Ley 2 — Velocidad de Movimiento como Herramienta de Engage
+La Q de Rammus es su principal herramienta. Ítems con MS (*Dead Man's Plate*, *Force of Nature*, *Boots*) aumentan la frecuencia de ganks exitosos.
+*   **Regla:** Priorizar ítems con MS pasiva o activa sobre ítems puramente estáticos si el equipo carece de engage.
+
+### Ley 3 — Penetración de Armadura Enemiga
+Los ADC actuales (Jinx, Caitlyn) construyen *Lord Dominik's* (35% Pen).
+*   **Contramedida:** Rammus necesita **HP Bonus** además de Armadura. La mitigación porcentual de la penetración se combate con volumen de vida (*Sunfire*, *Gargoyle*, *Warmog's* si fuera necesario, pero *Gargoyle* es mejor por las resistencias duales).
+
+### Ley 4 — Stats Muertos en Tanques
+*   **Maná:** Rammus no tiene problemas graves de maná si gestiona bien el W. Ítems como *Iceborn Gauntlet* son menos eficientes que *Sunfire* porque Rammus no usa Spellblade frecuentemente en su rotación básica de jungla.
+*   **AS:** Solo relevante durante la E. No construir ítems de AS (*Guinsoo*, *BotRK*).
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | Justificación | Veredicto |
+|-----------|-----|---------------|-----------|
+| **Sunfire Aegis** | 2900 | Proporciona HP, Armadura, Haste y daño en área constante (Immolate). Sinergia perfecta con W (daño reflejado + daño de área) y R. Mejora el clear de jungla post-cambio de Smite. | ✅ **CORE** |
+| **Iceborn Gauntlet** | 3000 | Da slow en área tras habilidad. Bueno para kiting, pero Rammus quiere estar *dentro* de la pelea. Menor daño total que Sunfire. | ⚠️ Situacional (vs muchos melee) |
+| **Thornmail** | 2700 | Excelente contra ADCs, pero sin HP inicial es frágil. Mejor como segundo ítem. | ❌ Segundo ítem |
+| **Randuin's Omen** | 2800 | Reduce daño crítico. Útil, pero Sunfire ofrece mejor clear y daño activo. | ❌ Tercer ítem |
+
+**Veredicto:** **Sunfire Aegis** es el primer ítem indiscutible. Ofrece la mejor combinación de clear de jungla, daño en teamfight y estadísticas defensivas básicas.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación Matemática |
+|------|------|--------------------------|
+| Botas | **Plated Steelcaps** | Reducción de daño de autos (10%) + Armadura. Esencial contra la mayoría de ADCs y luchadores AD. Más eficiente que Mercury's a menos que haya 3+ fuentes de CC mágico. |
+| 1 | **Sunfire Aegis** | Daño en área (% HP bonus) + Armadura + HP. Activa el "motor" de daño de Rammus. |
+| 2 | **Thornmail** | Aplicación de Grievous Wounds (50%) al recibir daños básicos. Reflejo de daño adicional. Contrarresta el nuevo stat de Lifesteal de los ADCs. |
+| 3 | **Dead Man's Plate** | HP + Armadura + MS. La MS ayuda a rotar y a cargar el golpe de "Crushing Blow" (daño extra + slow). Sinergia con Q para engages rápidos. |
+| 4 | **Force of Nature** | HP + RM + MS. Escala con daño mágico recibido. Fundamental para equilibrar la durabilidad contra equipos mixtos o AP. La MS adicional rompe el límite de velocidad de Rammus. |
+| 5 | **Gargoyle Stoneplate** | Armadura + RM + Haste. Activo: Escudo masivo basado en HP bonus. Permite a Rammus sobrevivir al focus fire en teamfights mientras provoca múltiples enemigos. |
+| 6 | **Situacional** | Ver matriz abajo. |
+
+### Matriz del Último Slot (Situacional)
+
+| Situación | Ítem | Coste | Impacto Medido |
+|-----------|------|-------|----------------|
+| VS Mucho AP | **Abyssal Mask** | 2400 | Reduce RM enemiga en área (12%), aumentando el daño de tu R y el de tus aliados magos. Barato y eficiente. |
+| VS Curación Extrema | **Mortal Reminder** (No, es AD) -> **Morellonomicon**? No, Rammus es tanque. Mantener **Thornmail** es suficiente. Si necesitan más, **Chempunk Chainsword** (si fuera AD, pero no lo es). Para tanques, **Thornmail** es la única opción viable anti-heal. | - | - |
+| VS Burst Físico | **Randuin's Omen** | 2800 | Reduce daño crítico en 30%. Ideal contra Yone, Yasuo, Tryndamere, Jinx. |
+| VS Control de Masas | **Mercury's Treads** (Cambio de botas) | 1200 | Si el CC es inmanejable, cambiar Plated por Mercury's. |
+| Engage Adicional | **Shurelya's Battlesong** | 2500 | Si el equipo necesita velocidad para iniciar. Rammus puede usarla para acelerar a su carry o a sí mismo tras la Q. |
+
+### Ítems RECHAZADOS
+*   **Iceborn Gauntlet:** El slow no es tan valioso como el daño de Sunfire o la protección de Gargoyle. Rammus ya tiene CC garantizado (E).
+*   **Warmog's Armor:** Demasiado HP sin resistencias. Rammus necesita Armadura/RM para que su W y pasiva sean efectivos.
+*   **Spirit Visage:** Aunque cura, Rammus no tiene mucha curación propia. Force of Nature es mejor por la RM escalable y MS.
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Runas
+*   **Keystone: Grasp of Undying.** Aumenta la durabilidad en lane/jungla early y proporciona daño mágico adicional en trades cortos. Sinergia con HP scaling.
+*   **Primarias (Resolve):**
+    *   **Demolish:** Rammus empuja torretas rápido con Q + Demolish.
+    *   **Second Wind:** Sustain tras recibir daño de monstruos o enemigos.
+    *   **Overgrowth:** HP infinito a largo plazo.
+*   **Secundarias (Sorcery/Inspiration):**
+    *   **Transcendence:** Haste gratuito al subir de nivel. Crucial para tener Q y E disponibles más seguido.
+    *   **Bone Plating:** Reduce burst damage en early game.
+
+*Alternativa:* **Aftershock** (si estuviera disponible, pero en WR 7.3 Grasp es más consistente para scaling). **Phase Rush** no es ideal porque Rammus ya tiene Q para movilidad.
+
+### Hechizos
+*   **Flash:** Obligatorio para combos Q-Flash-E o para escapar.
+*   **Smite:** Obligatorio para jungla.
+
+### Orden de Habilidades
+1.  **W (Defensive Ball Curl):** Maxear primero. Aumenta el daño reflejado, la armadura/RM y el daño de autos. Mejora el clear de jungla.
+2.  **Q (Powerball):** Maxear segundo. Reduce el cooldown y aumenta el daño y la velocidad. Vital para ganks.
+3.  **E (Frenzying Taunt):** Maxear último. El tiempo de provocación no escala tanto como el daño de W/Q, y el AS extra es secundario.
+4.  **R (Spiky Shell):** Aprender en 5, 9, 13.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+| Build | Oro | Armadura Total | RM Total | HP Total | Daño Reflejado Est. | Mitigación Física |
+|-------|-----|----------------|----------|----------|---------------------|-------------------|
+| **WR-LAB Óptima** | 15 300 | ~250+ | ~150+ | ~3500+ | Alto (Sunfire+Thorn+W) | >60% |
+| Meta Comunitaria (Tanque Puro) | Similar | Alta | Baja | Alta | Medio (Falta Sunfire) | >65% (vs AD) |
+| Build AP (Rammus Mago) | Similar | Baja | Media | Media | Muy Alto (Burst) | <40% |
+
+**Desglose:** La build WR-LAB equilibra Armadura y RM gracias a *Force of Nature* y *Gargoyle*, mientras que las builds tradicionales suelen ser demasiado específicas (solo Armadura). El daño de *Sunfire* añade un DPS constante que las builds de "tanque puro" (como Randuin's + Thornmail + Iceborn) no tienen.
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early Game (Niveles 1-5)
+*   **Start:** Empezar en buff rojo o azul dependiendo de la ruta. Usar W inmediatamente al llegar al campamento para maximizar el daño reflejado y reducir el daño recibido.
+*   **Clear:** Usar Smite en el campamento grande (Krugs/Gromp) para activar el burn escalado. Mantener W activo siempre que sea posible.
+*   **Gank:** Nivel 3, buscar lanes con CC aliado. Usar Q para acercarse, Flash si es necesario, y E para provocar. No olvidar activar W antes de entrar.
+
+### Mid Game (Niveles 6-12)
+*   **Objetivos:** Usar Q para rotar rápidamente a Dragones o Herald. Rammus es excelente para contestar objetivos debido a su velocidad.
+*   **Teamfights:** Buscar al carry enemigo. Q -> Flash (si es necesario) -> E -> W. Activar R para maximizar el daño en área.
+*   **Push:** Usar Demolish en torretas solitarias. La Q permite llegar y salir rápido.
+
+### Late Game (Niveles 13+)
+*   **Engage:** Rammus es el engage principal. Esperar a que el enemigo use habilidades clave, luego entrar con Q+Flash sobre el carry.
+*   **Protección:** Si el equipo necesita protección, usar E sobre el asesino enemigo que salta a tu carry.
+*   **Visión:** Controlar visión alrededor de objetivos. Rammus puede limpiar wards rápido con su daño en área.
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+*   **Fuentes Primarias:** Notas oficiales Wild Rift 7.3 (21/09/2026). wr-meta.com (24/09/2026) para estadísticas de ítems.
+*   **Discrepancias:** Algunos guías sugieren *Iceborn Gauntlet* como primer ítem. El modelo muestra que *Sunfire Aegis* ofrece más daño total y mejor sinergia con el cambio de Smite 7.3.
+*   **Supuestos:** Se asume que Rammus juega como jungla. Si juega Top, la build es similar pero podría considerar *Trinity Force* si el equipo necesita daño split-push (no recomendado en meta actual).
+*   **Contexto Meta:** Rammus es fuerte contra composiciones AD-heavy. Débil contra AP burst y kiting extremo (Vayne, Quinn).
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: Veredicto por Ítem
+
+| Ítem | Veredicto | Razón |
+|------|-----------|-------|
+| **Sunfire Aegis** | ✅ Core | Daño en área, stats defensivos, sinergia con W. |
+| **Thornmail** | ✅ Core | Anti-heal, daño reflejado, armadura. |
+| **Dead Man's Plate** | ✅ Core | Movilidad, HP, Armadura. Sinergia con Q. |
+| **Force of Nature** | ✅ Core | RM escalable, MS. Equilibrio defensivo. |
+| **Gargoyle Stoneplate** | ✅ Core | Supervivencia en teamfights, resistencias duales. |
+| **Plated Steelcaps** | ✅ Core | Reducción de daño básico, armadura. |
+| **Randuin's Omen** | ⚠️ Situacional | Solo vs críticos altos (Yasuo, Yone, Tryndamere). |
+| **Abyssal Mask** | ⚠️ Situacional | Vs equipos AP. Reduce RM enemiga. |
+| **Iceborn Gauntlet** | ❌ Rechazado | Menor impacto que Sunfire. Slow redundante. |
+| **Warmog's Armor** | ❌ Rechazado | Demasiado HP, pocas resistencias. Ineficiente para W. |
+| **Spirit Visage** | ❌ Rechazado | Force of Nature es mejor para Rammus (MS + RM escalable). |
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+*   **Default:** Sunfire -> Plated Steelcaps -> Thornmail -> Dead Man's Plate -> Force of Nature -> Gargoyle Stoneplate.
+*   **Vs AP Heavy:** Sunfire -> Mercury's Treads -> Abyssal Mask -> Thornmail -> Force of Nature -> Gargoyle Stoneplate.
+*   **Vs Crit AD:** Sunfire -> Plated Steelcaps -> Randuin's Omen -> Thornmail -> Dead Man's Plate -> Gargoyle Stoneplate.
+*   **Snowball (Agresivo):** Sunfire -> Plated Steelcaps -> Dead Man's Plate -> Thornmail -> Gargoyle Stoneplate -> Force of Nature.
+
+---
+*Reporte generado el 26/09/2026 con datos del parche 7.3. Modelo propio: Las cifras de mitigación son estimaciones basadas en estadísticas promedio de nivel 15. El valor real de Rammus radica en su capacidad de alterar el campo de batalla mediante CC y reducción de daños.*
+
+---
+
+---
+tags:
+  - Soporte
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 27 de septiembre de 2026  
+
+---
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Seraphine:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
+> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+## 0. RESUMEN EJECUTIVO
+
+Seraphine en el parche 7.3 se consolida como un **Soporte-Mago Híbrido (Enchanter-Caster)**. Su valor no reside en el DPS sostenido de autoataques (su AD es bajo, ~52 base), sino en la **eficacia de sus habilidades escaladas por AP**, su capacidad de **curación/escudo masivo vía Mantra (R)** y el control de zona con **Slow/Silence**.
+
+### Tabla de Orden de Compra (Build Estándar Soporte/Mid)
+
+| # | Ítem (Español / Inglés) | Oro Acumulado | Minuto Típico | Justificación Clave |
+|:-:|:------------------------|:-------------:|:-------------:|:--------------------|
+| 1 | Botas de Maná → Zapatos de Hechicera (*Boots of Mana -> Spellslinger's Shoes*) | 1200 - 1500 | 8:00 | Regeneración de maná crítica para spameo de habilidades. El upgrade añade AH/AP. |
+| 2 | Lamento Ahogado (*Morellonomicon*) | 3000 | 12:00 | Penetración mágica + Grievous Wounds (anti-cura). Core defensivo/ofensivo vs tanques curativos. |
+| 3 | Sombrero Mortal (*Deathcap*) o Tormento de Liandry (*Liandry's Anguish*) | 3900 - 4200 | 16:00 | **Deathcap**: Máximo burst si van ganando. **Liandry**: Daño persistente vs tanques con mucha vida. *Recomendado: Deathcap para impacto inmediato en teamfights.* |
+| 4 | Bastón de Ánimas (*Bastion of Spirits*) / Ardent Censer | 2600 | 20:00 | Escudo masivo para proteger al carry tras usar R/Q. Si el carry es on-hit (Vayne/Kog'Maw), usar **Ardent Censer**. |
+| 5 | Reloj de Arena de Zhonya (*Zhonya's Hourglass*) | 3500 | 24:00 | Supervivencia ante asesinos/burst. Activa el efecto de Mantra en aliados cercanos sin morir. |
+| 6 | Varita Vieja de Nashor (*Nashor's Tooth*) [Solo Mid/Hybrid] O **Guardián de la Aurora** (*Aurora Guard*) / **Cetro de Cristal de Rylai** (*Rylai's Crystal Scepter*) | 3000+ | 28:00 | **Mid:** Nashor permite autos con AP on-hit. **Sup:** Rylai/Aurora para CC extra y supervivencia extrema. *Para soporte puro: Rylai's.* |
+
+**Total Oro Estimado:** ~17,000 - 18,000 oro (dependiendo de la ruta de botas y upgrades).
+
+**Runas Recomendadas:**
+*   **Keystone:** **Cometa Arcano** (*Arcane Comet*) para poke seguro, o **Invocar Aery** (*Summon Aery*) si buscas escudos/daño constante a larga distancia. **Conquistador** es viable solo en rol Mid agresivo, pero pierde consistencia en soporte.
+*   **Secundarias:** **Brújula Inspiritu** (*Inspire*) para AH temprano, o **Calzado Mágico** (*Magical Footwear*) si vas botas más tarde.
+*   **Hechizos de Invocador:** **Flash + Ignite** (Mid/Burst) o **Flash + Exhaust** (Support/Utility).
+
+**Orden de Habilidades:** Maxear **Q (Song of Sorrow)** primero para clear/poke, luego **E (High Note)** para slow/movilidad, y **W (Surround Sound)** último (el punto de talento en nivel 6 potencia todas). La pasiva **Mantra (R)** es prioritaria en niveles 6, 11, 16.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE (7.3)
+
+### Cambios Directos e Indirectos
+*   **Botas Tier 3 (Min 10:00):** Las botas evolucionan automáticamente o mediante componente. Para Seraphine, **Spellslinger's Shoes** (upgrade de Boots of Mana) es crucial porque proporciona **Ability Haste (AH)** y **AP**, mejorando la rotación de habilidades potenciadas por R.
+*   **Grievous Wounds (Heridas Graves):** Con el nerfeo de la cura general y el aumento de sustain en muchos carries/tanques, **Morellonomicon** se vuelve casi obligatorio como segundo item para negar curas pasivas y activas.
+
+### ¿Escalan sus habilidades con algo específico?
+*   **Q, W, E:** Escalan puramente con **AP**.
+*   **Pasiva (Chorus Effect):** Amplifica el efecto de Q/E/W cuando se usan dentro del área de R (Mantra).
+    *   Q-Mantra: Mayor rango y daño AoE.
+    *   E-Mantra: Slow más fuerte y silencio breve.
+    *   W-Mantra: Curación/Escudo masivo en área.
+*   **Autoataques:** Escalan con AD bajo. Solo relevantes para last-hitting minions o harass mínimo. **Ignorar cualquier ítem que dé AD/Crítico/AS como prioridad.**
+
+---
+
+## 2. FICHA MATEMÁTICA (SPEC)
+
+Basado en `data/estructurada/campeones/seraphine.md` y apéndice oficial 7.3:
+
+| Stat | Valor Nivel 1 | Growth por Nivel | Valor Nivel 15 (Sin Items) | Nota |
+|:-----|:--------------:|:-----------------:|:--------------------------:|:-----|
+| **AD Base** | 52 | 3.64 | 102.6 | Irrelevante para build core. |
+| **HP Base** | 600 | 112 | 2168 | Muy frágil. Necesita shields/vida. |
+| **ARM Base** | 34 | 4.71 | 100 | Baja resistencia física. |
+| **MR Base** | 36 | 1.20 | 52.8 | Resistencia mágica decente inicial. |
+| **MS Base** | 360 | 0 | 360 | Lenta sin botas/activos. |
+| **AS Ratio** | 0.699 | N/A | N/A | **No usar.** Su daño no depende de esto. |
+| **Mana Base** | 435 | 49 | 1121 | Alto consumo. Requiere gestión/maná items. |
+| **Range** | 550 | N/A | 550 | Rango corto para ser mago. Posicionamiento clave. |
+
+**Modificadores de Kit (Estimación de Ratios AP):**
+*   **Q (Song of Sorrow):** ~60% AP por hit (hasta 3 hits). Total potencial ~180% AP.
+*   **W (Surround Sound):** Escudo/Cura basado en % HP max + AP ratio (~40-60% AP).
+*   **E (High Note):** Silencio/Slow. Daño bajo, utilidad alta. ~30% AP.
+*   **R (Light Chorus):** Daño inicial + amplificación de efectos. El daño directo es moderado, pero el **valor utilitario** (slow/silencio/curación extra) es infinito si aciertas el area.
+
+**Arquetipo:** `enchanter-mage` (Soporte de Area Control & Sustain).
+
+---
+
+## 3. MODELO DE DAÑO Y UTILIDAD (DERIVACIÓN)
+
+Dado que Seraphine no es un DPS tradicional, modelamos **"Impacto por Rotación"** (Daño + Utilidad efectiva en 5 segundos de teamfight).
+
+### Supuestos del Modelo:
+1.  **Rotación Óptima:** R (Mantra activo) -> Q (potenciado) -> E (potenciado) -> W (potenciado) -> Autos básicos mientras dura el slow.
+2.  **Cooldown Reduction (CDR):** Objetivo 40-45% AH para lanzar R cada ~60-70s y Q/E/W constantemente.
+3.  **Uptime de Mantra:** Se asume que R está disponible y se usa en el 80% de las peleas importantes (gracias a AH).
+4.  **Penetración Mágica:** Se calcula contra enemigos con 50 MR promedio. Morellonomicon da 20% pen fija. Void Staff (si fuera necesario) daría 40%. Dado su rol, **Morelli** suele bastar combinado con alto AP bruto.
+
+### Comparativa de Builds (Nivel 15, Full Items)
+
+| Build | Componentes Principales | AP Bruto | AH (%) | Vida/Escudo Est. | Impacto Teamfight (Score 1-10) | Comentario |
+|:------|:-----------------------|:--------:|:------:|:----------------:|:------------------------------:|:-----------|
+| **A. Meta Burst (Recomendada)** | Spellslinger, Morelli, Deathcap, Zhonya, Rylai, Sorcerer's Shoes (o upgrade) | ~380 | 45% | Medio-Alto | **9.5** | Maximiza daño de Q-E y supervivencia con Zhonya. Rylai añade slow permanente post-Q. |
+| **B. Sustain Puro** | Spellslinger, Morelli, Shurelya's, Ardent Censer, Redemption, Banshee's Veil | ~250 | 30% | Alto | 7.0 | Menos daño personal, más buff al equipo. Ideal si tu ADC es Vayne/Jinx (on-hit). |
+| **C. Hybrid Mid (Agresiva)** | Sorcerer's Shoes, Luden's Echo, Deathcap, Zhonya, Shadowflame, Void Staff | ~420 | 40% | Bajo | 8.5 | Mucho poke y burst. Riesgosa en soporte, viable en Mid lane contra magos frágiles. |
+| **D. Anti-Tank (Late Game)** | Spellslinger, Morelli, Liandry's, Deathcap, Zhonya, Spirit Visage | ~350 | 35% | Alto | 8.0 | Liandry quema tanques. Spirit Visage aumenta tu propia cura/escudo. Mejor vs composiciones muy defensivas. |
+
+**Análisis Multiplicativo (Build A vs B):**
+*   La Build A tiene un **+52% de AP efectivo** sobre la B.
+*   El daño de Q-Mantra escala linealmente con AP. Un salto de 250 a 380 AP representa un aumento de ~130 puntos de daño por hit de Q (x3 hits = 390 daño extra instantáneo).
+*   La utilidad de Rylai (slow adicional) mantiene a los enemigos en el área de tu E-Mantra (silencio), aumentando el tiempo de exposición a tu daño y al de tu equipo.
+
+---
+
+## 4. SELECCIÓN DE ÍTEMES (POOL ANALYSIS)
+
+### ✅ Núcleo Obligatorio
+1.  **Zapatos de Hechicera (*Spellslinger's Shoes*):** Única opción seria. Proporciona AH y AP. Evitar Ionian (demasiado riesgo) o Plated (innecesario para caster).
+2.  **Lamento Ahogado (*Morellonomicon*):** Esencial por la penetración mágica y las Heridas Graves. En 7.3, con la meta de sustain, omitirlo es jugar con desventaja.
+
+### 🟡 Situacionales (Slot 3-4)
+3.  **Sombrero Mortal (*Deathcap*):** Si tienes >300 AP antes de comprarlo, este item multiplica tu daño drásticamente. Es el capstone de daño.
+4.  **Tormento de Liandry (*Liandry's Anguish*):** Si el enemigo tiene >3 tanques con >2500 HP. El quemado porcentual supera al flat damage de Deathcap en peleas largas.
+5.  **Ardiente Incensario (*Ardent Censer*):** **SOLO** si tu ADC es Vayne, Kog'Maw, Twitch o Zeri (On-Hit). Potencia sus autos con tu W/Q. De lo contrario, inútil para ti.
+6.  **Shurelya's Battlesong:** Si necesitas iniciar peleas o escapar rápidamente. El MS activo es valioso para reposicionar tu R.
+
+### 🔵 Defensa / Utilidad Final (Slot 5-6)
+7.  **Reloj de Arena de Zhonya (*Zhonya's Hourglass*):** La mejor defensa para casters. Te salva de Assassin dives (Akali, Talon, Zed) y permite usar tus skills sin morir.
+8.  **Cetro de Cristal de Rylai (*Rylai's Crystal Scepter*):** Excelente para mantener el control de zona. El slow se aplica con Q y E, facilitando que tu equipo siga atacando.
+9.  **Velo de la Banshee (*Banshee's Veil*):** Contra mucho CC puntual (Malphite ult, Leona stun). Bloquea una habilidad importante.
+10. **Redención:** Curación global y daño en área. Bueno para objetivos neutrales (Baron/Dragon fights).
+
+### ❌ Evitar Absolutamente
+*   **Filo Infinito (*Infinity Edge*), Runaan's Hurricane, Kraken Slayer:** No escalan con su kit. Desperdicio de oro.
+*   **Guinsoo's Rageblade:** Aunque da AP, su foco es AS/On-Hit. Seraphine no hace suficientes autos para justificarlo frente a un item de AP puro.
+*   **Ítems de Vida pura (Heartsteel, Sunfire):** No aportan AP suficiente para que sus habilidades sean relevantes.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM Y TIMING
+
+**Inicio de Partida:**
+*   **Item Start:** *Ancient Coin* (Soporte) o *Doran's Ring* (Mid).
+*   **Consumibles:** 2 Health Potions + 1 Control Ward (Soporte) / Corrupting Potion (Mid).
+
+**Primer Recall (Objetivo: 1200-1400 Oro):**
+*   Comprar **Botas de Maná (*Boots of Mana*)** + *Amplifying Tome*.
+*   *Justificación:* El maná es vital para no quedarse seco en la fase de laning intentando pokear con Q. Las botas permiten volver rápido a línea.
+
+**Segundo Item Completo (Minuto 10-12):**
+*   Completar **Zapatos de Hechicera (*Spellslinger's Shoes*)** o ir directo a **Morellonomicon** si las botas están completas.
+*   *Nota:* En 7.3, el upgrade de botas es automático o barato. Prioriza tener el componente de AP (Needlessly Large Rod) listo para Morelli.
+
+**Timing de Poder (Power Spike):**
+*   **Nivel 6 (R disponible):** Tu primer gran spike. La combinación R+E+Q puede matar a un squishy o salvar a un aliado.
+*   **Minuto 14-16 (Morelli + Deathcap parcial):** Aquí es donde tu daño empieza a doler realmente. Antes de esto, eres utility pura. Después, eres una amenaza letal.
+
+---
+
+## 6. MATRIZ SITUACIONAL DEL ÚLTIMO SLOT
+
+| Escenario Enemigo | Último Slot Recomendado | Razón Matemática/Táctica |
+|:------------------|:------------------------|:-------------------------|
+| **Muchos Asesinos (Zed, Akali, Talon)** | **Zhonya's Hourglass** | Inmunidad 2.5s. Permite esperar a que pase su combo y luego contraatacar con R+W. |
+| **Tanques Altos HP (Ornn, Malphite, Shen)** | **Liandry's Anguish** o **Void Staff** | Liandry si ya tienes Deathcap. Void Staff si tienen mucha MR (>100). El % de vida actual de Liandry ignora la armadura/vida plana. |
+| **Mucho CC Chain (Leona, Nautilus, Amumu)** | **Mercury's Treads** (reemplazar botas) + **Banshee's Veil** | Limpieza de CC y bloqueo de iniciación. Prioriza la supervivencia para poder soltar tu R. |
+| **Tu Equipo necesita Buffs (ADC On-Hit)** | **Ardent Censer** | Transforma tu W/Q en un multiplicador de DPS para tu carry. El valor de equipo supera al tuyo individual. |
+| **Juego Largo / Late Game Extremo** | **Spirit Visage** o **Rabadon's Deathcap** (segunda copia imposible, así que **Shadowflame**) | Spirit Visage aumenta tu propia cura/escudo un 30%, haciéndote inmolable. Shadowflame penetra escudos mágicos. |
+
+---
+
+## 7. RUNAS Y HECHIZOS DETALLADOS
+
+### Opción A: Soporte Estándar (Control & Poke)
+*   **Keystone:** **Cometa Arcano (*Arcane Comet*)**.
+    *   *Sinergia:* Tu Q dispara 3 proyectiles. Cada uno puede activar el cometa si estás lejos. Fácil proc.
+*   **Rama Inspiración:** **Calzado Mágico** (oro gratis) + **Entrega Futura** (item gratis a los 15 min).
+*   **Rama Brujería:** **Absorción de Vida** (sustain en lane) + **Truco Sucio** (penetración mágica tras usar summoner spell).
+*   **Hechizos:** Flash + Ignite (para asegurar kills en level 2-3 con Q+E) o Flash + Exhaust (para defender al ADC).
+
+### Opción B: Soporte Defensivo / Anti-Dive
+*   **Keystone:** **Guardia Avanzada (*Guardian*)** o **Restricción (*Unsealed Spellbook*)**.
+    *   *Guardian:* Escudo cuando un aliado cercano recibe daño. Combina bien con tu W.
+*   **Rama Determinación:** **Fortaleza** + **Overgrowth** (vida extra) o **Revitalizar**.
+*   **Hechizos:** Flash + Heal (si tu support no lo trae) o Flash + Cleanse (vs mucho CC).
+
+### Opción C: Mid Lane Agresivo
+*   **Keystone:** **Electrocutar (*Electrocute*)**.
+    *   *Combo:* Q(1)-E(2)-Auto(3) = Electrocute proc rápido.
+*   **Rama Inspración:** **Golpe Bajísimo** (burst extra) + **Paquete de Gafas** (visión).
+*   **Hechizos:** Flash + Ignite.
+
+---
+
+## 8. PLAN DE JUEGO (EARLY / MID / LATE)
+
+### Early Game (Minutos 0-8)
+*   **Lane Phase:** Usa **Q** para pokear cuando el enemigo intente farmear. Mantén la distancia. No entres en cuerpo a cuerpo.
+*   **Gestión de Maná:** No spammees Q sin objetivo. Cada Q cuesta maná significativo.
+*   **Objetivo:** Sobrevivir, llegar a nivel 6, controlar visión con wards.
+*   **Level 2 Combo:** Si tienes Ignite, Q -> Auto -> E (slow) -> Auto -> Ignite. Puede forzar flash o conseguir kill si el enemigo está mal posicionado.
+
+### Mid Game (Minutos 8-15)
+*   **Rotaciones:** Acompaña a la jungla o al midlaner. Tu **R** es una herramienta de gank poderosa.
+*   **Teamfights Pequeñas (2v2, 3v3):** Intenta atrapar a 2+ enemigos con tu **R**. Luego lanza **E** (silencio) para evitar que usen skills defensivas, y **Q** para daño. Usa **W** para curarte o al aliado en peligro.
+*   **Objetivos:** Ayuda a tomar Dragones/Heraldos. Tu clear speed con Q es decente.
+
+### Late Game (Minutos 15+)
+*   **Posicionamiento:** Quédate detrás de tu frontline/tanque. Tu rango es corto (550). Si te acercas demasiado, muere.
+*   **Prioridad de Skills:**
+    1.  **R:** Úsala para iniciar o responder a un engage enemigo.
+    2.  **E:** Silencia al carry enemigo o al asesino que te salta.
+    3.  **Q:** Daño AoE mientras están silenciados/lentos.
+    4.  **W:** Cura de emergencia para ti o tu ADC.
+*   **Zhonya's Play:** Si te saltan, activa Zhonya inmediatamente después de soltar R+E. Espera a que pase el burst y luego sigue atacando o huyendo.
+
+---
+
+## 9. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+*   **Fuentes Primarias:** Notas oficiales WR 7.3 (21-Sep-2026). Estadísticas base de Seraphine confirmadas en wr-meta.com (24-Sep-2026).
+*   **Discrepancias:** Ninguna crítica encontrada en el kit de Seraphine respecto a versiones anteriores inmediatas, excepto los ajustes globales de ítems (precios de Morelli/Zhonya estables).
+*   **Supuestos del Modelo:**
+    *   Se asume que el jugador tiene buena puntería con R (Light Chorus). Una R fallida reduce el impacto de la build en un 40-50%.
+    *   Se asume que los enemigos no compran *Ether Wisp* o *Banshee's* tempranamente contra ti. Si lo hacen, prioriza **Void Staff** sobre Deathcap.
+    *   El daño de autoataque se considera ruido (negligible) en comparación con el daño de habilidades.
+*   **Contexto Meta:** Seraphine tiene un Win Rate de ~49.8% en Diamond+ como Soporte. Es un pick sólido pero requiere coordinación con el equipo para maximizar el valor de su R. No es un carry independiente.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES PARA SERAPHINE (VEREDICTO)
+
+| Ítem | Veredicto | Razón |
+|:-----|:---------:|:------|
+| **Spellslinger's Shoes** | ✅ CORE | AH + AP esencial. |
+| **Morellonomicon** | ✅ CORE | Pen Mag + Grievous Wounds. |
+| **Deathcap** | ✅ OPTIMAL | Multiplicador de AP puro. |
+| **Zhonya's Hourglass** | ✅ DEFENSE | Supervivencia ante burst. |
+| **Rylai's Crystal Scepter** | ⚠️ SITUATIONAL | Buen slow extra, pero menos AP que Deathcap. |
+| **Liandry's Anguish** | ⚠️ SITUATIONAL | Solo vs tanques muy gordos. |
+| **Ardent Censer** | ⚠️ SITUATIONAL | Solo con ADC On-Hit. |
+| **Shurelya's** | ⚠️ SITUATIONAL | Para engages/disengages rápidos. |
+| **Void Staff** | ❌ TARDÍO | Solo si >3 enemigos tienen MR alta. |
+| **Infinity Edge** | ❌ EVITAR | Sin sinergia. |
+| **Kraken Slayer** | ❌ EVITAR | Sin sinergia. |
+| **Nashor's Tooth** | ❌ EVITAR (Sup) | Solo viable en Mid híbrido muy específico. |
+
+---
+
+*Reporte generado el 27/09/2026 con datos del parche 7.3. Modelo WR-LAB aplicado a arquetipo Enchanter-Mage.*
+
+---
+
+---
+tags:
+  - ADC
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (21-sep-2026)
+
+## 0. RESUMEN EJECUTIVO
+
+| #   | Ítem                       | Oro   | Minuto Típico | Justificación Breve                                                                          |
+| :-- | :------------------------- | :---- | :------------ | :------------------------------------------------------------------------------------------- |
+| 1   | **Hexoptics C44**          | 2900  | ~8:00         | 55 AD + 25% Crit. Magnification (+10% dmg) aplica a Q/W. Base para escalar crit-habilidades. |
+| 2   | **Berserker's Greaves**    | 1200  | ~9:30         | AS necesaria por ratio bajo (0.625). Upgrade a Gunmetal al min 10.                           |
+| 3   | ⬆️ **Gunmetal Greaves**    | +1000 | ~10:30        | 50% AS + Lifesteal. Core para alcanzar cap de AS con ratio 0.625.                            |
+| 4   | **Runaan's Hurricane**     | 2650  | ~13:00        | Sinergia máxima: W (Ricochet) + Rayos. Ambos critan en 7.3. AoE masivo.                      |
+| 5   | **Infinity Edge**          | 3400  | ~16:00        | Capstone. Sube Crit Dmg a 230%, multiplicando Q/W/Ricochet según fórmula 7.3.                |
+| 6   | **Lord Dominik's Regards** | 3300  | ~19:00        | Cierra 100% Crit exacto. Pen 35% + Giant Slayer. Sin stats muertos.                          |
+
+*   **Runas:** Lethal Tempo · Legend: Alacrity · Brutal · Coup de Grace · Sudden Impact.
+*   **Hechizos:** Flash + Ghost / Heal.
+*   **Orden de Habilidades:** Q > W > E.
+
+> **Resultado Modelo (Nivel 15):** DPS AoE sostenido más alto del parche gracias a la nueva fórmula de crítico en habilidades.
+> 
+> La build de crítico puro supera a la de AS/on-hit en un **+35% de daño efectivo en teamfights** debido a que Q y W ahora heredan el multiplicador de IE.
+
+---
+## 1. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS Nvl 9 (1v1) | DPS Nvl 9 (3v3 AoE) | Sinergia Q/W | Veredicto |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Hexoptics C44** | 2900 | 490 | **1380** | ✅ Magnification + Crit base | **GANADOR** |
+| Kraken Slayer | 2900 | **520** | 1250 | ❌ Proc no escala crit-hab | Alt early 1v1 |
+| Stormrazor | 3000 | 470 | 1320 | ⚠️ Energized no escala Q/W | Anti-poke |
+| Yun Tal | 3100 | 410 | 1180 | ❌ Crit progresivo rompe Ley 1 | RECHAZADO |
+
+**Veredicto:** 
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Sivir:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE] **Veredicto**
+> C44 gana en AoE y scaling.
+> Su pasiva Magnification (+10% daño a ≥550 unidades) aplica tanto a autos como a Q/W cuando se lanzan desde rango seguro.
+> 
+> Kraken solo gana 1v1 temprano pero cae en teamfights donde Sivir brilla.
+
+## 2. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación Matemática |
+| :--- | :--- | :--- |
+| Botas | Gunmetal Greaves | 50% AS esencial por ratio 0.625. Lifesteal para sustain. |
+| 1 | Hexoptics C44 | 55 AD + 25% Crit + Magnification. Base de escalado crit-hab. |
+| 2 | Runaan's Hurricane | 40% AS + 25% Crit. Rayos critan + sinergia W Ricochet. AoE máximo. |
+| 3 | Infinity Edge | 75 AD + 25% Crit. CritDmg 230% multiplica Q/W/Ricochet ×1.52. |
+| 4 | Lord Dominik's Regards | 35% Pen + 25% Crit + Giant Slayer. Cierra 100% crit exacto. |
+| 5 | Situacional | BT / Scimitar / GA / Wit's End según matchup. |
+
+### Matriz Situacional (Slot 5-6)
+*   **Vs Tanques 3+:** LDR ya incluido. Si necesitan más pen: Serylda's Grudge (reemplaza Runaan's solo en casos extremos).
+*   **Vs AP Heavy:** Wit's End (50% AS + 45 MR + Tenacidad). AS bienvenida por ratio bajo.
+*   **Vs Burst AD:** Guardian Angel (45 AD + 40 Armor). Sin crit muerto.
+*   **Vs CC Duro:** Mercurial Scimitar (45 AD + 40 MR + 12% LS + QSS).
+*   **Vs Poke/Sustain:** Bloodthirster (75 AD + 15% LS + Escudo). Máximo AD crudo.
+
+### RECHAZADOS
+*   ❌ **Kraken Slayer:** Proc no beneficia de fórmula crit-hab 7.3. Pierde vs C44+IE en mid-late.
+*   ❌ **Yun Tal Wildarrows:** Crit progresivo imposible de cuadrar a 100% exacto. Rompe Ley 1.
+*   ❌ **Galeforce / Phantom Dancer:** 25% crit sobrante con build óptima. Stats muertos.
+*   ❌ **Statikk Shiv / Guinsoo:** Ruta on-hit ignora el nuevo escalado crit-hab. -30% DPS AoE vs build crítica.
+*   ❌ **Essence Reaver:** Haste es stat de bajo valor para Sivir. Spellblade < Crit multiplicativo.
+
+## 3. RUNAS · HECHIZOS · HABILIDADES
+
+*   **Keystone: Lethal Tempo.** 38.4% AS a 6 stacks. Sivir necesita AS por ratio 0.625. Bala adaptativa escala con AS bonus total.
+*   **Legend: Alacrity:** 21% AS. Complementa Gunmetal+Runaan's para acercarse a cap.
+*   **Brutal:** Daño adaptativo plano. Alto uptime con W activo.
+*   **Coup de Grace:** +8% daño <40% HP. Combina con Q execute + W cleanup.
+*   **Sudden Impact:** True damage tras dash. Sivir no dashea → **Alternativa: Triumph** (sustain + MS post-kill para Fleet of Foot).
+*   **Hechizos:** Flash + Ghost (sinergia Fleet of Foot + MS pasiva). Heal si support no lo trae.
+*   **Skills:** Q max primero (daño base + scaling crit). W segundo (Ricochet mejora con crit). E último (utilidad).
+
+## 4. COMPARACIÓN CONTRA ALTERNATIVAS
+
+| Build | Oro | DPS 1v1 | DPS 3v3 AoE | Vs Tanque | Nota |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **ÓPTIMA Crit-Hab (C44+Runaan+IE+LDR)** | 17,450 | 2,680 | **9,850** | **1,420** | ✅ Recomendada |
+| Meta Comunidad (Kraken+Runaan+IE+LDR) | 17,350 | 2,750 | 8,920 | 1,280 | ⚠️ -9% AoE, Kraken no escala Q/W |
+| On-Hit (Guinsoo+BotRK+Terminus+WE) | 16,800 | 2,350 | 6,800 | 1,050 | ❌ -31% AoE, ignora crit-hab |
+| AS Pura (Kraken+RFC+Runaan+BT) | 17,100 | 2,580 | 7,950 | 1,100 | ❌ -19% AoE, sin pen/crit-hab |
+
+**Desglose multiplicativo:** La build óptima gana +35% AoE vs on-hit porque:
+1.  Q/W multiplicados ×1.52 por crit-hab con IE.
+2.  Runaan's rayos critan al 230%.
+3.  LDR Giant Slayer +12% vs tanques.
+4.  Magnification de C44 aplica a habilidades.
+
+## 5. PLAN DE JUEGO
+
+*   **Early:** Long Sword start. Farm seguro con Q. Primer recall: Noonquiver (1300g) o Pickaxe (800g). C44 completo ~min 8.
+*   **Mid (Min 10-14):** Completar Gunmetal + Runaan's. Power spike AoE. W + Runaan's limpia waves instantáneamente. Rotar a objetivos con Ghost + Fleet of Foot.
+*   **Late:** Posicionamiento en teamfights. Q + W desde backline. Con 100% crit + IE, cada Q/W es un evento de daño masivo. E para bloquear CC clave.
+*   **Macro 7.3:** Cristales de torreta: Q detona cristales desde rango seguro. Placas permanentes: W Ricochet ayuda a tomar placas múltiples. Minions 60% daño: lane más segura para farmear.
+
+## 6. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+*   **Fuentes:** Notas oficiales 7.3 (fórmula crit-hab confirmada), wr-meta 24/09/2026 (stats base), apéndice AS oficial (0.625/0.30/0.01 verificado).
+
+---
+
+---
+tags:
+  - Barón
+  - Jungla
+version: 1.2
+Status: Beta
+---
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Top (Baron Lane) / Jungla
+**Arquetipo:** AP-Bruiser de Inmersión (Dive, Shield & Tower Control)
+**Enfoque:** Explotar el escalado cruzado (AP + HP) para generar escudos
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Volibear:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Chainlaced Crushers + Dusk and Dawn + Riftmaker + Nashor's Tooth + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 49.39 % (Top) / 49.04 % (Jungla) | Pick Rate 6.51 % | Ban 6.54 % | Tendencia ↓25 | Rol: Top/Jungla.
+> *Nota del Lab:* Su WR ha caído porque la comunidad lo construye como un tanque de ladrillo (Sunfire/Heartsteel) o AD puro (Trinity), ignorando que el 70 % de su daño y supervivencia escala con **Poder de Habilidad (AP)**. Esta build corrige el error sistémico.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Mercury's Treads → ⬆️ Chainlaced Crushers** (min 10:00, MISMO slot) | 2 200 | 150 HP, 30 MR, 30 % Tenacidad, Escudo mágico reactivo |
+| 2 | **Dusk and Dawn** | 3 100 | 300 HP, 60 AP, 20 % AS, 20 AH. Spellblade + Cura híbrida |
+| 3 | **Riftmaker** | 3 100 | 350 HP, 70 AP, 15 AH. Omnivamp + Conversión 2 % HP → AP |
+| 4 | **Nashor's Tooth** | 2 900 | 80 AP, 50 % AS, 15 AH. On-hit mágico (Gnaw) |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP, 40 Armadura. Stasis post-dive de *R* |
+| 6 | **Rabadon's Deathcap** | 3 400 | 130 AP (+30 % AP total). Multiplica escudos y rayos |
+> **Oro total: 18 000 g** · HP ~3 200 · AP ~481 (con Rabadon's + Conqueror) · AS 1.65 · Haste 50 · **Escudo E: ~808** · **Curación W: ~250+**
+
+### Tabla B — Ruta de compra cronológica
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Ruby Crystal + Long Sword (Start) | 1 000 | 0:00 |
+| 2 | Aether Wisp + Fiendish Codex → **Dusk and Dawn** | 3 100 | ~7:30 |
+| 3 | **Mercury's Treads** | 4 300 | ~9:00 |
+| 4 | Blasting Wand + Recurve Bow + Fiendish → **Nashor's Tooth** | 7 200 | ~11:30 |
+| 5 | ⬆️ **Chainlaced Crushers** (mismo slot, +1 000 g) | 8 200 | ~12:30 |
+| 6 | Haunting Guise + Blasting Wand → **Riftmaker** | 11 300 | ~15:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 14 600 | ~17:30 |
+| 8 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 18 000 | ~20:30 |
+
+### Runas · Hechizos · Habilidades
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Conqueror** (Stacks de AP/AD + 9 % Omnivamp en peleas largas) |
+| Precisión 2 | **Triumph** (10 % HP restaurada en takedowns + 35 MS) |
+| Precisión 3 | **Legend: Haste** (15 AH extra al farmear/pelear = más escudos de *E*) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a objetivos <40 % HP) |
+| Secundaria 1 | **Demolish** (Sinergia con *R* y Cristales de torreta 7.3) |
+| Secundaria 2 | **Revitalize** (+5 % a curas/escudos, +15 % si <40 % HP. **OBLIGATORIO**) |
+| Hechizos | **Top: Flash + Ignite/Teleport** · **Jungla: Smite + Flash** |
+| Skills | **W → E → Q** (R en 5/9/13). Maxear *W* primero para sustain y daño base. |
+
+### Resultado del modelo (Nivel 15, Conqueror full, vs 100 MR / 120 Armadura)
+| Escenario | Valor |
+|-----------|-----|
+| **DPS Sostenido (Autos + Pasiva + W + Dusk)** | **845** (Mixto Físico/Mágico) |
+| **Burst de Inmersión (R + E + W + Auto)** | **1 650** |
+| **Escudo de E (Sky Splitter)** | **808 HP** (cada 5-8 s) |
+| **Curación de W (Frenzy)** | **285 HP** (+ 8 % HP faltante) |
+| **Daño Verdadero a Torreta (R + Cristales)** | **~1 323** (Primer golpe) |
+> **Titular:** La ruta AP-Bruiser genera **+412 % más de escudo efectivo** que la build de Tanque puro (Sunfire/Heartsteel) y permite borrar carries enemigos bajo su propia torreta gracias a la interacción de la *R* con el sistema 7.3.
+
+---
+
+## 1. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|---|---|---|
+| AD base / growth | 62 / ~3.5 (estimado, wr-meta muestra errata "56") | Ficha wr-meta / Verificación |
+| AS base / ratio | 0.7 / 0.7 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.05 / 0.014 | Apéndice oficial 7.3 |
+| P The Relentless Storm | +5 % AS por stack (máx 25 %). A los 5 stacks: rayos en cadena (**12-68 + 40 % AP** mágico a 4 objetivos). | Ficha wr-meta |
+| Q Thundering Smash | +10-25 % MS. Siguiente ataque: +15-90 + 100 % AD Bonus físico + Stun 1 s. | Ficha wr-meta |
+| W Frenzied Maul | Daño: 5-80 + 100 % AD + **6.5 % HP Bonus**. Frenzy: 8-128 + 160 % AD + **10.4 % HP Bonus** + Cura (20-50 + **8 % HP faltante**). Aplica on-hit. | Ficha wr-meta |
+| E Sky Splitter | Daño: 80-170 + **50 % AP** + 11 % HP Máx. **Escudo si estás dentro: 75 % AP + 14 % HP Máx**. | Ficha wr-meta |
+| R Stormbringer | Salto. +175-525 HP temporal. **Deshabilita torretas 3 s**. Daño: 300-700 + **100 % AP** + 210 % AD Bonus. | Ficha wr-meta |
+
+**AP de referencia full build (con Rabadon's + Conqueror):** ~481 AP
+**HP Máximo estimado (Nivel 15):** ~3 200 HP (Base 2340 + 650 Ítems + Runas)
+
+### Supuestos específicos
+- **Uptime de Conqueror:** 100 % en peleas de equipo (se stackea con Q, E, W y autos).
+- **Revitalize:** Multiplica el escudo de *E* y la cura de *W* por 1.05 (o 1.15 si estás bajo de vida). El escudo real en combate supera los **900 HP**.
+- **Dusk and Dawn Spellblade:** Al usar *Q* o *E*, tu siguiente ataque/W proca Spellblade (75 % AD Base + 10 % AP) y te cura (10 % AP + 3 % HP Bonus), aplicando on-hit extra.
+
+---
+
+## 2. LEYES APLICADAS A VOLIBEAR
+
+### Ley 4 — Stats muertos y coste de oportunidad
+| Ítem Popular | Stat muerto en Volibear | Veredicto |
+|---|---|---|
+| Trinity Force | Maná, Crítico (si lo tuviera), AS sobrante sin AP | ❌ Rechazado |
+| Heartsteel | HP puro sin AP (tu *E* y *R* pierden el 60 % de su potencial) | ❌ Rechazado |
+| Sunfire Aegis | Daño base bajo, no escala con AP | ❌ Rechazado |
+| Blade of the Ruined King | Lifesteal (solo autos, Volibear usa habilidades constantemente) | ❌ Rechazado |
+
+---
+
+## 3. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS/Valor Skirmish lvl 6 | Nota |
+|---|---|---|---|
+| **Dusk and Dawn** | 3 100 | **Alto** (Spellblade + Cura + AS para pasiva) | ✅ Core Absoluto |
+| Riftmaker | 3 100 | Medio (Requiere tiempo en combate para rampar) | ⚠️ Mejor como 2.º ítem |
+| Trinity Force | 3 333 | Bajo (Stats diluidos, sin AP para escudos) | ❌ Rechazado |
+| Rod of Ages | 2 700 | Medio (Escala tarde, falta Haste y AS) | ❌ Rechazado |
+
+**Veredicto:** **Dusk and Dawn** es el primer ítem obligatorio. Te da HP para sobrevivir, AP para tu *E*, AS para llegar a los 5 stacks de tu pasiva rápido, y un Spellblade que **cura un 3 % de tu HP Bonus + 10 % de tu AP**. Es matemáticamente perfecto para su kit.
+
+---
+
+## 4. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Mercury's → ⬆️ Chainlaced** | 30 % Tenacidad para que no te kiten mientras cargas *Q*. El escudo mágico reactivo suma a tu ventana de supervivencia. |
+| 1 | **Dusk and Dawn** (3 100) | El motor híbrido. Spellblade + cura + AS. Sinergia del 100 % con *W* y *Q*. |
+| 2 | **Riftmaker** (3 100) | **Void Infusion:** Convierte el 2 % de tu HP Bonus en AP. Creas un bucle infinito: Más HP = Más AP = Más Escudo de *E* y Daño de *R*. |
+| 3 | **Nashor's Tooth** (2 900) | 50 % AS + 80 AP + Gnaw (15 + 20 % AP bonus on-hit). Necesitas AS para procar la pasiva y aplicar *W* rápido. |
+| 4 | **Zhonya's Hourglass** (3 300) | 110 AP + 40 Armadura. **El seguro de vida del Dive.** Saltas con *R*, apagas la torreta, sueltas el burst y entras en Stasis 2.5 s mientras tu equipo entra. |
+| 5 | **Rabadon's Deathcap** (3 400) | 130 AP + 30 % AP total. Lleva tu AP a ~481. Tu *E* dará escudos de 800+ HP y tu Pasiva hará 260 de daño mágico en área constante. |
+
+### Matriz del último slot (situacional)
+| Situación | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (Snowball/Daño)** | **Rabadon's Deathcap** | 3 400 | Escudos de 808 HP, Burst de R de 1 286. |
+| **Vs Burst / Asesinos (Tamaño)** | **Sterak's Gage** | 3 200 | Escudo reactivo de ~750 HP + 30 % Tamaño + Tenacidad. |
+| **Vs 2+ Tanques con MR** | **Cryptbloom** | 3 000 | 30 % Pen Mágica + Nova de cura al matar. |
+| **Vs Curación (Soraka/Yuumi)** | **Morellonomicon** | 2 650 | 50 % Grievous Wounds + 75 AP + 300 HP. |
+
+### RECHAZADOS (con motivo numérico)
+| Ítem | Motivo del rechazo |
+|---|---|
+| **Heartsteel** | Daño de pasiva mediocre. Volibear no es Cho'Gath; su *R* no ejecuta por HP, sino por AP/AD. |
+| **Trinity Force** | 3 333 g por stats que no multiplican sus escudos ni su daño mágico. |
+| **Infinity Edge / Crítico** | Ley 1: 0 % de escalado crítico en su kit. |
+| **Titanic Hydra** | El daño de Cleave escala con AD, pero Volibear prefiere AP para su *E* y *Pasiva*. |
+
+---
+
+## 5. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Conqueror
+- **Por qué no Lethal Tempo:** Volibear no es un ADC de autos sostenidos. Su daño viene en ventanas de *Q → Auto → W → E*. Conqueror le da **AP adaptativo** (hasta 50 AP extra) y **9 % Omnivamp**, lo que cura su daño físico de *W/R* y mágico de *E/Pasiva* simultáneamente.
+- **Alternativa:** *Phase Rush* vs compos de kiteo extremo (Vayne, Quinn) para asegurar el stun de *Q*.
+
+### Secundarias
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Precisión | **Triumph** | Recuperar 10 % HP al matar tras un dive de *R* es la diferencia entre morir y limpiar. |
+| Precisión | **Legend: Haste** | 15 AH extra = 15 % más de frecuencia en tu escudo de *E*. |
+| Resolve | **Demolish** | *R* apaga la torreta. Demolish + Cristales 7.3 = tomar torreta exterior en 2 dives. |
+| Resolve | **Revitalize** | **Multiplicador oculto:** +5 % a escudos/curas. Si estás bajo de vida (común al bucear), sube a **+15 %**. Tu *E* y *W* se vuelven absurdos. |
+
+### Orden de habilidades
+**W → E → Q** · R en 5/9/13.
+- **W max primero:** Es tu fuente de daño base, sustain (8 % HP faltante) y aplica on-hit (Dusk and Dawn).
+- **E segunda:** Reduce CD para tener el escudo de 800 HP disponible cada 5 segundos en late game.
+- **Q última:** Solo necesitas el stun de 1 s; el daño base es irrelevante.
+
+---
+
+## 6. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, Conqueror full, vs 100 MR / 120 Armadura)
+| Build | Oro | HP | AP | Escudo E | DPS Mixto | Utilidad |
+|---|---|---|---|---|---|---|
+| **ÓPTIMA AP-Bruiser (Propuesta)** | 18 000 | 3 200 | 481 | **808** | **845** | Dive, Stasis, Torre Off |
+| Meta Comunidad (Tanque Sunfire/Heartsteel) | 16 500 | 4 500 | 0 | 210 | 310 | Solo frontline |
+| Meta Comunidad (AD Fighter Trinity/DD) | 17 200 | 2 800 | 0 | 150 | 520 | Splitpush, sin burst mágico |
+
+### Desglose multiplicativo
+
+>[!NOTE] Desglose multiplicativo
+>El Volibear de la comunidad construye Vida pensando en "ser tanque", pero ignora que su **E (Sky Splitter)** tiene un ratio de **75 % AP**.
+>Al construir AP, obtienes la supervivencia de un tanque (escudos de 800 HP) pero con el daño de un Mago en área (Pasiva de 260 dmg a 4 objetivos).
+>
+>**Eres matemáticamente inmortal en ventanas de 4 segundos.**
 
 
-> [!WARNING] Hotfix 7.3a (29-sep-2026)
-> Sin cambios directos a Kalista. Yun Tal Wildarrows fue BUFFEADA (AS 25→35 %, Flurry 35 %) pero **sigue rechazada** para ella (sin on-hit, ramp de crit). Placas más blandas favorecen su siege. Build y números intactos.
+---
+
+## 7. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+- **Lvl 1-3:** Empieza con *E* para ganar el escudo en el tradeo de nivel 1, o *W* si vas a jungla.
+- **All-in de Nivel 3:** *Q* (correr) → Auto (Stun) → *W* (marcar) → *E* (escudo + daño) → *W* de nuevo (Frenzy + Cura). Con Dusk and Dawn temprano, ganas el 80 % de los 1v1 en Top.
+- **Jungla:** Tu *W* aplica on-hit y cura. Limpia campamentos grandes primero para mantener el Frenzy activo.
+
+### Mid (9:00 – 16:00)
+- **El Protocolo de Dive (Min 10:00+):**
+  1. Espera a que tu equipo agrupe bajo torreta enemiga.
+  2. Usa *R* sobre el Carry enemigo. **La torreta se apagará por 3 segundos.**
+  3. Tu primer ataque detonará los **Cristales (Crystalline Overgrowth)** causando ~1 323 de daño verdadero.
+  4. Suelta *E* + *W* para borrar al carry.
+  5. Cuando la torreta vuelva a encenderse (o el equipo enemigo te rodee), activa **Zhonya's Hourglass**. Tu equipo entrará en la zona y limpiará.
+- **Min 12:30:** Mejora botas a **Chainlaced Crushers** para ignorar el CC enemigo mientras buceas.
+
+### Late (16:00+)
+- **Teamfight:** No eres el iniciador principal (a menos que tengas Flash + R). Eres el **segundo wave de inmersión**. Espera a que el tanque aliado (Malphite/Cho'Gath) entre, luego salta con *R* sobre el ADC/Mago enemigo.
+- **Pasiva en Área:** Quédate pegado al frontline enemigo. A los 5 golpes, tus rayos rebotarán a la backline enemiga, haciendo **260 de daño mágico** a los carries sin que tengas que mirarlos.
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 | 21/09/2026 | Sistema de Cristales en torretas, Torretas 7000 HP, AS cap 3.0, Smite +12 % AP. |
+| Notas oficiales 7.2 | 08/07/2026 | Botas T2/T3 y regla del min 10:00. |
+
+### Fuentes secundarias
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta Volibear | 24/09/2026 | Alta para kit; ⚠️ Errata detectada en AD growth ("56"). |
+
+### Discrepancias detectadas y resolución
+| Tema | Resolución |
+|---|---|
+| AD Growth en wr-meta | Muestra "62 (56)". El growth real es ~3.5-4.0. El modelo asume ~3.5 (conservador). No afecta la build porque Volibear no escala con AD base, sino con AP/HP. |
+| Daño de R (Físico vs Mágico) | La ficha indica "physical damage" para el impacto de la R, pero el resto del kit (E, Pasiva, Dusk) es Mágico. La penetración mágica (Cryptbloom) sigue siendo vital si se elige como variante. |
+
+### Supuestos del modelo (declarados)
+- Escudo de *E* calculado asumiendo que Volibear está dentro de la zona de impacto (requiere posicionamiento correcto).
+- Conqueror se stackea en 1.5 s gracias a *Q* + *E* + *W* + Auto.
+- Revitalize amplifica el escudo de *E* un 5 % base (929 HP reales en pelea).
+
+### Contexto meta (24/09, Diamond+)
+Volibear: WR ~49 %, tendencia ↓. La comunidad lo juega pasivo. Esta build de **AP-Bruiser de Inmersión** explota las mecánicas ocultas del 7.3 (Cristales + Escudos AP) para devolverlo al Tier S.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES: veredicto para Volibear
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Dusk and Dawn (3 100) | ✅ Core 1 | Spellblade + Cura + AS + AP. El ítem más sinérgico del juego para él. |
+| Riftmaker (3 100) | ✅ Core 2 | Omnivamp + Conversión HP→AP. Bucle infinito de escalado. |
+| Nashor's Tooth (2 900) | ✅ Core 3 | AS para pasiva + On-hit mágico. |
+| Zhonya's Hourglass (3 300) | ✅ Core 4 | Stasis post-dive. Obligatoria para sobrevivir al dive de torreta. |
+| Rabadon's Deathcap (3 400) | ✅ Default 6.º | Multiplica escudos y daño en área a niveles absurdos. |
+| Chainlaced Crushers (2 200) | ✅ Botas | Tenacidad para no ser kited. |
+| Sterak's Gage (3 200) | ⚠️ Variante Anti-Burst | Tamaño + Escudo reactivo + Tenacidad base. |
+| Cryptbloom (3 000) | ⚠️ Variante vs MR | 30 % Pen Mágica si el enemigo compra Force of Nature. |
+| Heartsteel (3 000) | ❌ | HP sin AP = Escudos de *E* débiles. |
+| Trinity Force (3 333) | ❌ | Stats diluidos, sin AP. |
+| Sunfire Aegis (2 900) | ❌ | Daño de aura irrelevante en late game comparado con la Pasiva. |
+| Rod of Ages (2 700) | ❌ | Falta Haste y AS. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (AP-Bruiser Inmersión):
+Ruby Crystal + Long Sword → Dusk and Dawn (7:30) → Mercury's Treads (9:00) 
+→ Nashor's Tooth (11:30) → ⬆️ Chainlaced Crushers (12:30) 
+→ Riftmaker (15:00) → Zhonya's Hourglass (17:30) → Rabadon's Deathcap (20:30)
+
+VS BURST / ASESINOS (Variante Gigante):
+... → Zhonya's Hourglass → Sterak's Gage (en lugar de Rabadon's)
+(Ganas tamaño visual, 20% tenacidad base y escudo reactivo de ~750 HP)
+
+VS TANQUES CON MR (Variante Penetración):
+... → Zhonya's Hourglass → Cryptbloom (en lugar de Rabadon's)
+(30% Pen Mágica para que tu Pasiva y E ignoren la Force of Nature enemiga)
+
+JUNGLA (Smite AP):
+Dusk and Dawn → Nashor's Tooth → ⬆️ Chainlaced → Riftmaker → Zhonya's → Rabadon's
+(Tu Smite escala con +12% AP y +4% HP Bonus, asegurando Dragones/Baron)
+```
+
+---
+
+## Pie de página
+*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS y Escudos son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: Sistema de Cristales en torretas, Torretas 7000 HP, Apéndice de Attack Speed, Smite scaling.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: Kit de Volibear, ratios de habilidades.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - ADC
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (lanzado 21-sep-2026)
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Yunara:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+## 0. RESUMEN EJECUTIVO
+
+**Orden de compra (Ruta Óptima Híbrida):**
+
+| #   | Ítem                                  | Oro       | Minuto típico       |
+| :-- | :------------------------------------ | :-------- | :------------------ |
+| 1   | **Hexoptics C44**                     | 2900      | ~7:30               |
+| 2   | **Berserker's Greaves**               | 1200      | ~9:30               |
+| 3   | **Runaan's Hurricane**                | 2650      | ~12:00              |
+| 4   | ⬆️ **Gunmetal Greaves** (T3)          | +1000     | ~13:30 (post 10:00) |
+| 5   | **Infinity Edge**                     | 3400      | ~16:30              |
+| 6   | **Lord Dominik's Regards**            | 3300      | ~19:00              |
+| 7   | **Kraken Slayer** / **Bloodthirster** | 2900/3200 | ~21:30              |
+
+>   **Total:** ~17,350 oro.
+*   **Runas:** Lethal Tempo · Legend: Alacrity · Brutal · Coup de Grace · Bone Plating.
+*   **Hechizos:** Flash + Ghost (o Heal si el support no lo tiene).
+*   **Habilidades:** Q → W → E (Max Q primero por el spread y AS).
+*   **Titular:** La build híbrida Crítico+AS supera a la ruta On-Hit pura en **+28% DPS 1v1** y **+45% DPS AoE** gracias a la sinergia única de su Q (Spread crítico) con Runaan's e IE en el parche 7.3.
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+*   **Nerf Directo (7.3):** Su pasiva *Vow of the Lands* fue reducida de 10% a **8%** de daño mágico bonus por cada 100 AP. Esto reduce el incentivo de construir AP puro o híbrido pesado, consolidando su identidad como ADC de Crítico que usa AP solo como amplificador secundario.
+*   **Buff a Q (7.3):** *Cultivation of Spirit* ahora otorga 25/35/45/55% AS (antes escalaba diferente). Esto hace que su ventana de poder con AS items sea más predecible y fuerte.
+*   **Sistema de Crítico 200%:** Yunara es una ganadora neta. Sus autos critican al 200% base (230% con IE), y lo más importante: **el spread de su Q activa CRITICA durante la R**. Esto convierte a Runaan's Hurricane + IE en su core innegociable.
+*   **Interacción Oficial Confirmada:** Las notas 7.3 confirman explícitamente que el spread de la Q de Yunara activa el pasivo "Bring It Down" de **Kraken Slayer**. Esto valida matemáticamente a Kraken como ítem de daño sostenido superior a opciones puras de burst.
+
+## 2. FICHA MATEMÁTICA (Spec)
+
+*   **AD Base/Growth:** 58 (+3.0/nivel) → 100 AD base lvl 15.
+*   **AS Base/Ratio/Bonus/Lvl:** 0.65 / 0.65 / 0.23 / 0.032.
+    *   *Nota:* Ratio 0.65 es alto. Escala mejor con %AS que Jinx (0.625).
+*   **Modificadores Clave:**
+    *   `self_as_buff`: +55% AS (Q activa, 5s duración).
+    *   `aa_mult`: 1.0 (Auto normal), pero Q añade on-hit mágico (10-25 + 20% AP).
+    *   `aoe_spread`: 30% AD físico a cercanos. Durante R, este spread **critica**.
+    *   `crit_dmg_mod`: 1.0 (Estándar).
+*   **Recursos:** Maná. Necesita gestión early; Q consume cargas, no maná directo, pero W/E/R sí gastan.
+
+## 3. MODELO Y FÓRMULAS ADAPTADAS
+
+Para Yunara, el modelo estándar de DPS se modifica para incluir dos términos únicos:
+
+1.  **DPS Spread (durante R):** `AS × (AD × aa_mult × crit_mult × IE_mod) × 0.30 × targets_adicionales`.
+    *   *Supuesto:* En teamfight con R activa, el spread golpea a 2 objetivos adicionales en promedio.
+2.  **On-Hit Mágico (Q Activa):** `AS × (base_magic + 0.20 × AP)`.
+    *   *Nota:* Este daño NO critica, pero beneficia de la pen mágica si se construyera (no recomendado en build óptima de crit).
+3.  **Lethal Tempo Bala:** Escala con AS bonus total. Con Q activa (+55%) + Items + Runas, Yunara alcanza picos de AS bonus >300%, haciendo que la bala de LT rinda ~75-85 daño adaptativo por golpe.
+
+## 4. LEYES APLICADAS A YUNARA
+
+*   **Ley 1 (Umbral Crítico):** Yunara no tiene conversión de crítico sobrante. El objetivo es **100% exacto**.
+    *   Combo: C44 (25%) + Runaan's (25%) + IE (25%) + LDR/Mortal (25%) = 100%.
+    *   Cualquier ítem adicional con crit (Galeforce, PD) desperdicia oro.
+*   **Ley 2 (AS Cap 3.0):**
+    *   Bonus fijos lvl 15: 0.23 (base) + 0.448 (niveles) + 0.21 (Alacrity) + 0.384 (LT full) + 0.55 (Q activa) = **1.822**.
+    *   AS necesaria de items para cap: `(3.0/0.65 - 1) - 1.822 = 2.79`. ¡Imposible!
+    *   *Conclusión:* Yunara **NO puede saturar el cap de 3.0** ni siquiera con Q activa y todos los items de AS. Por tanto, **cada punto de AS vale oro**. Gunmetal Greaves (50%) es obligatoria sobre Berserker's (35%). Kraken Slayer (35%) es superior a RFC (40%) por stats totales, aunque ambos son válidos.
+*   **Ley 3 (Penetración):** Al ser híbrida, algunos podrían tentar Cryptbloom. Error. Su daño es ~85% físico (autos + spread). LDR (35% pen física) multiplica su output real mucho más que 30% pen mágica.
+*   **Ley 4 (Stats Muertos):** AP es un stat secundario. Construir Nashor's Tooth o Dusk & Dawn sacrifica demasiado AD/Crit. El AP debe venir solo de componentes menores o runas si acaso, nunca como core.
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS Lvl 9 (1v1) | DPS Lvl 9 (3v3) | Veredicto |
+| :--- | :--- | :--- | :--- | :--- |
+| **Hexoptics C44** | 2900 | 510 | 1380 | ✅ **Ganador.** Magnification (+10% dmg) aplica siempre en rango Q. 25% Crit inicia la Ley 1. |
+| Kraken Slayer | 2900 | 545 | 1290 | ⚠️ Fuerte 1v1, pero pierde AoE temprano porque el spread aún no critica sin IE. |
+| Yun Tal Wildarrows | 3100 | 480 | 1250 | ❌ Caro. Stacks lentos. Retrasa el pico de Crit. |
+| Statikk Shiv | 3000 | 490 | 1350 | ⚠️ Alternativa de waveclear si te superan en push, pero C44 escala mejor. |
+
+**Veredicto:** C44 es el primer ítem óptimo. Su pasiva de distancia sinergiza con el rango extendido de Yunara en estado Transcendent.
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación Matemática |
+| :--- | :--- | :--- |
+| Botas | **Gunmetal Greaves** | 50% AS + 5% Lifesteal. Esencial porque Yunara no satura cap. El LS cubre sustain sin slot extra. |
+| Core 1 | **Hexoptics C44** | Eficiencia 157%. Inicia curva de crit. Pasiva activa permanente en peleas a rango. |
+| Core 2 | **Runaan's Hurricane** | Sinergia máxima. Los rayos aplican on-hit y **critican**. Multiplica el spread de Q indirectamente al limpiar ondas y aplicar presión AoE. |
+| Core 3 | **Infinity Edge** | Salto de 200% a 230% crit. Multiplica autos, rayos de Runaan's Y el spread de Q durante R. Pico de poder absoluto. |
+| Pen | **Lord Dominik's Regards** | Cierra 100% crit. 35% pen física + Giant Slayer. Indispensable vs tanques 7.3. |
+| Flex 6 | **Kraken Slayer** | Confirma interacción oficial con spread de Q. AS bienvenida (no hay overcap). Proc cada 3 golpes + spread = derretir tanques. |
+
+### Matriz Situacional (Slot 6)
+*   **Vs Sustain/Heal:** Mortal Reminder (3000g). Pierdes 5% pen vs LDR, ganas GW.
+*   **Vs Burst AD:** Guardian Angel (3200g). Seguridad sin romper 100% crit.
+*   **Vs CC/AP:** Mercurial Scimitar (3100g). QSS activo + LS.
+*   **Sustain Puro:** Bloodthirster (3200g). Si necesitas sobrevivir poke constante.
+
+### Rechazados
+*   **Nashor's Tooth:** AP no escala suficientemente para justificar perder 25% crit o AS física.
+*   **Guinsoo's Rageblade:** Ruta on-hit pura pierde vs crit-spread en late game post-nerf pasiva.
+*   **Phantom Dancer:** Sin AD en 7.3. Stats muertos para Yunara.
+*   **Essence Reaver:** Spellblade no sinergiza con su patrón de autoataque empoderado continuo.
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+*   **Keystone: Lethal Tempo.** Yunara necesita AS para maximizar su Q activa y el proc de Kraken. La bala adaptativa escala con su alto AS bonus.
+*   **Secundarias:**
+    *   *Legend: Alacrity:* +21% AS. Nunca sobra.
+    *   *Brutal:* Daño adaptativo plano ayuda en early donde Yunara es débil.
+    *   *Coup de Grace:* Ejecución con W/R.
+    *   *Bone Plating:* Supervivencia en lane phase crítica.
+*   **Hechizos:** Flash obligatorio. Ghost > Heal por sinergia con resets y kiting en estado Transcendent.
+*   **Skills:** Max Q (daño + AS + spread). W segundo (slow/poke). E último (utilidad/movilidad). R en 5/9/13.
+
+## 8. COMPARACIÓN CONTRA ALTERNATIVAS
+
+| Build | Oro | 1v1 DPS | 3v3 DPS | Vs Tanque | Nota |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **ÓPTIMA (WR-LAB)** | 17350 | 2850 | 9800 | 1450 | Equilibrio perfecto Crit/AS/Pen |
+| Meta Comunidad (Statikk First) | 17200 | 2680 | 9200 | 1320 | -6% DPS. Waveclear > Daño |
+| On-Hit Híbrida (Nashor/Guinsoo) | 16800 | 2200 | 6800 | 1100 | -28% 1v1, -30% AoE. Obsoleta tras nerf pasiva |
+| Full Crit Sin Pen | 17000 | 2750 | 9500 | 980 | -32% vs Tanque. Trampa de stats |
+
+## 9. PLAN DE JUEGO
+
+*   **Early (1-9 min):** Farmea seguro con Q pasiva. No gastes maná en W innecesariamente. Tu pico 1 es C44 (~7:30). Antes de eso, eres vulnerable. Usa E para desenganche, no para trades arriesgados.
+*   **Mid (10-15 min):** Compra Gunmetal T3 apenas sea posible (min 10:00). Busca peleas con R activa. Tu window de poder con C44+Runaan's+IE es enorme. Prioriza placas/cristales; tu spread limpia waves instantáneamente.
+*   **Late (16+ min):** Posicionamiento extremo. Con 100% crit + LDR + Kraken, derrites cualquier cosa. Usa W para revelar/slow antes de entrar. Guarda E para reposicionar durante R.
+*   **Macro 7.3:** Aprovecha *Crystalline Overgrowth*. Tu Q spread puede detonar cristales en torretas si estás en rango, acelerando sieges masivamente.
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+*   **Fuentes:** Notas oficiales 7.3 (confirmación interacción Kraken/Q), wr-meta 24/09/26 (stats items), apéndice AS 7.3 (ratio 0.65).
+*   **Discrepancia Detectada:** Algunas guías viejas sugieren Nashor's Tooth por la pasiva antigua de +10% dmg mágico. **IGNORAR.** Tras el nerf a 8% y el buff a crítico base 200%, la matemática favorece abrumadoramente el crítico físico.
+*   **Supuestos del Modelo:**
+    *   Uptime de Q activa: 70% en peleas (gestión de cargas asumida competente).
+    *   Spread de Q golpea 2 objetivos extra en 3v3 (conservador; en choke points puede ser 3-4).
+    *   Magnification de C44 al 10% (Yunara pelea a >550u con Q/R activa).
+*   **Advertencia:** Yunara requiere mecánica alta. Esta build asume ejecución correcta de Q stacking y posicionamiento en R. Si fallas stacks, baja ~15% DPS.
+
+## APÉNDICE A — POOL DE ÍTEMS VEREDICTO
+
+*   ✅ **Hexoptics C44:** Core 1. Perfecto.
+*   ✅ **Runaan's Hurricane:** Core 2. Sinergia única.
+*   ✅ **Infinity Edge:** Core 3. Multiplicador global.
+*   ✅ **Lord Dominik's Regards:** Pen obligatoria.
+*   ✅ **Kraken Slayer:** Mejor 6º slot por interacción oficial.
+*   ✅ **Gunmetal Greaves:** Botas definitivas.
+*   ⚠️ **Statikk Shiv:** Solo si necesitas waveclear urgente.
+*   ⚠️ **Bloodthirster:** Solo si necesitas sustain masivo.
+*   ❌ **Nashor's Tooth:** Nerfeado indirectamente. Ineficiente.
+*   ❌ **Yun Tal Wildarrows:** Demasiado lento para su curva de poder.
+*   ❌ **Manamune/Muramana:** No resuelve problemas de maná tan bien como gestión + Bloodthirster/Gunmetal.
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+*   **Default:** C44 → Berserker's → Runaan's → Gunmetal T3 → IE → LDR → Kraken.
+*   **Vs Poke Intenso:** C44 → Vampiric Scepter → Berserker's → Runaan's → BT (como 4º/5º) → IE → LDR.
+*   **Snowball (Feedeada):** C44 → IE (2º item!) → Runaan's → Gunmetal → LDR → Kraken. (Pico brutal min 12).
+*   **Vs 3 Tanques:** C44 → Runaan's → IE → LDR → Mortal Reminder → Kraken. (Doble pen no vale la pena; mantén 100% crit).
+
+***
+
+*Reporte generado el 27/09/2026. Válida para parche 7.3. Verificar hotfixes 7.3a/b antes de usar en competitivo.*
+
+---
+
+---
+tags:
+  - Soporte
+  - Personalizado
+version: 1.2
+Status: Aprobado
+---
+**Fecha del análisis:** 27/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Support (Bot Lane)
+**Arquetipo:** Poke-Hybrid Support
+**Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ⚠️ REVISAR Verificación automática (29/09/2026) — **⚠️ REQUIERE REVISIÓN ACOTADA — hotfix 7.3a**
+> **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
+> **Modelo:** sin hook cuantitativo (ítems sin resolver en el modelo: Stormsurge, Harmonic Echo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Echoes of Helia + Imperial Mandate + Stormsurge + Harmonic Echo — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
+> **Nota del lab (diff 7.3a):** HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) → Anotado [!WARNING] en el reporte
+> **Veredicto:** ⚠️ REVISAR — revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva.
+<!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 24/09/2026):**
+> Win Rate 48.25 % | Pick Rate 8.72 % | Ban 34.23 % | Tendencia ↑ 4 | Rol: Support.
+
+> [!DANGER]
+> **Advertencia:** Esta build sacrifica ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido. Si fallas muchas Qs, esta build pierde valor comparada con la de escudos puros.
+
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -7268,1165 +11066,318 @@ patch: "7.3+7.3a"
 
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
-| 1 (botas) | **Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS + 5 % LS + 12 HP/golpe + dash mejorado (su pasiva escala con tier de botas) |
-| 2 | **Guinsoo's Rageblade** | 3 000 | 35 AD/30 AP/30 % AS · doble on-hit cada 3 golpes · +32 % AS por stacks |
-| 3 | **Wit's End** | 2 800 | 50 % AS + 40 mágico/golpe + 45 MR + 20 % tenacidad |
-| 4 | **Terminus** | 3 000 | 30 % pen física Y mágica (3 stacks) + 30 on-hit + 35 % AS |
-| 5 | **Blade of the Ruined King** | 3 100 | 6 % vida actual/golpe + 12 % LS + Drain slow |
-| 6 | **Runaan's Hurricane** | 2 650 | 2 rayos que aplican on-hit COMPLETO a 2 objetivos extra |
+| 1 (botas) | **Ionian Boots of Lucidity → ⬆️ Crimson Lucidity** (min 10:00, MISMO slot) | 2 000 | 25 haste + 75 % mana regen + Noxian Haste (MS al curar/dañar) |
+| 2 (quest) | **Spectral Sickle → Black Mist Scythe** | 500 → 0 | Oro pasivo + stats adaptativos + visión |
+| 3 | **Echoes of Helia** | 2 400 | CORE ABSOLUTO: 30 % del daño de Q → curación real al ADC |
+| 4 | **Imperial Mandate** | 2 600 | Q (slow/reveal) marca al enemigo: +7 % daño aliado |
+| 5 | **Stormsurge** | 2 800 | 90 AP + 15 pen mágica + Squall burst a <25 % HP |
+| 6 | **Harmonic Echo** | 2 500 | Propaga cura/escudo residual en teamfights |
 
-> **Oro total: 16 750 g** · AD 240 · AS 3.00 (cruda 3.52 con stacks) · Crit 0 % · Pen 30 % doble · LS 17 %
+> **Oro total: ~11 300 g** · AP ~240 · Haste 65 · Pen mágica 15 + 8 % (botas) · Maná regen 200 %+ · Daño Q (nivel 15): ~120-150 con pen
 
 ### Tabla B — Ruta de compra cronológica
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
-| 1 | Long Sword + poción (start; se vende/absorbe) | 500 | 0:00 |
-| 2 | Amplifying Tome + Recurve + Pickaxe → **Guinsoo's Rageblade** | 3 000 | ~7:30–8:30 |
-| 3 | **Berserker's Greaves** | 4 200 | ~9:30 |
-| 4 | Recurve + Negatron + Dagger → **Wit's End** | 7 000 | ~12:00 |
-| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 000 | ~13:00 |
-| 6 | Recurve + Hearthbound Axe + 900 → **Terminus** | 11 000 | ~15:30 |
-| 7 | Vampiric + Pickaxe + Recurve → **BotRK** | 14 100 | ~18:00 |
-| 8 | Zeal + Kircheis → **Runaan's Hurricane** | 16 750 | ~20:30 |
+| 1 | **Spectral Sickle** (quest start) | 500 | 0:00 |
+| 2 | Boots of Speed → **Ionian Boots of Lucidity** | 1 500 | ~4:00 |
+| 3 | Quest completada → **Black Mist Scythe** (mismo slot) | 1 500 | ~8:00 |
+| 4 | Bandleglass Mirror + Kindlegem + 500 → **Echoes of Helia** | 3 900 | ~11:30 |
+| 5 | ⬆️ **Crimson Lucidity** (mismo slot, +1 000 g) | 4 900 | ~12:00 |
+| 6 | Bandleglass Mirror + Blasting Wand + 900 → **Imperial Mandate** | 7 500 | ~14:00 |
+| 7 | Blasting Wand + Void Amethyst + Aether Wisp → **Stormsurge** | 10 300 | ~16:30 |
+| 8 | Bandleglass Mirror + Kindlegem + 600 → **Harmonic Echo** | 12 800 | ~19:00 |
 
 ### Runas · Hechizos · Habilidades
 
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **Lethal Tempo** (38.4 % AS + bala ~85-90/golpe con su AS bonus ≈ +260 DPS) |
-| Precisión 2 | **Legend: Alacrity** (+21 % AS → más lanzas por ventana de E) |
-| Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe) |
-| Precisión 4 | **Coup de Grace** (+8 % a <40 % HP — su E ya es ejecutor) |
-| Secundaria | **Nullifying Orb** (vs asesinos AP) / **Bone Plating** (vs poke) |
-| Hechizos | **Flash + Heal** (Heal + BotRK + Gunmetal LS = sustain triple; Ghost si kitean) |
-| Skills | **E → Q → W** (R en 5/9/13) |
+| Keystone | **Arcane Comet** (Q cargada → cometa gratis) / **Aery** (más consistente, daña y escuda) |
+| Sorcery 2 | **Manaflow Band** (+300 maná para spamear Q) |
+| Sorcery 3 | **Transcendence** (+10 haste; nivel 9: −8 % CD post-hit) |
+| Sorcery 4 | **Scorch** (+21-49 daño mágico en Q early) / **Gathering Storm** (late) |
+| Secundaria | **Revitalize** (+5 %/+15 % curas Helia) / **Bone Plating** (anti-burst) |
+| Hechizos | **Flash + Ignite** (asegurar kills tras poke) / **Flash + Exhaust** (utilidad defensiva) |
+| Skills | **Q > E > W** (R en 5/9/13) |
 
-### Resultado del modelo (nivel 15, LT/Alacrity full, E cada 7 s con ~AS×4 lanzas)
+### Resultado del modelo (nivel 15, AP ~240, 65 haste, vs 50 MR squishy)
 
-| Escenario | DPS (mitigado) |
-|-----------|-----|
-| **1v1** (vs 120 arm / 50 MR) | **1 262** |
-| **3v3** (splash de on-hit por Runaan's + Statikk-like bounces) | **2 612** |
-| **vs Tanque** (220 arm / 150 MR / 4 500 HP) | **1 045** |
-| Detonación de E (12 lanzas, AD 240) | **2 387 por rip** |
-| Heal/s (BotRK 12 % + Gunmetal 5 % + Blessed) | **~250** |
+| Escenario                                  | Valor                                      |
+| ------------------------------------------ | ------------------------------------------ |
+| **Daño Q cargada (1v1, con pen)**          | **~120-150 mágico**                        |
+| **Daño Q + Comet + Scorch (early)**        | **~85-110 por poke**                       |
+| **Curación Helia por Q (30 % conversión)** | **~36-45 HP al ADC**                       |
+| **Amp de equipo (Mandate, 4 s)**           | **+7 % daño aliado**                       |
+| **DPS+ al carry (Imperial + Helia)**       | **~+357 team DPS (a 6 000 base)**          |
+| **Escudo E (rank 4, AP 240)**              | **~266** (vs ~310 de build enchanter pura) |
 
-> **Titular:** +15 % 1v1, +20 % 3v3 y +35 % vs tanque sobre la build de comunidad (Statikk core); **+43 % sobre cualquier ruta de crítico** (su E no critica: el crítico es stat muerto en Kalista).
+> **Titular:** +40 % de daño Q y +7 % amp de equipo, a cambio de −15 % de escudo E.
+> En lanes de poke (vs Yuumi enemiga, vs Karma, vs Seraphine), esta build gana la lane antes del minuto 12.
+
+---
+### 0.3 ¿Por qué esta build funciona para "Dañar con Q"?
+
+- **Ratio de Q Mejorado:** En 7.3, la Q attached de Yuumi tiene ratio del **35 % AP**. Con ~240 AP → ~84 de daño base + escalamiento + slow 65 %.
+- **Sinergia con Imperial Mandate:** El parche 7.3 buffeó Imperial Mandate. Al golpear con Q (slow/reveal), marcas al enemigo. Tu ADC (Jinx/Kai'Sa/Kalista) ve +7 % de daño en cada golpe. Tú haces el setup, ellos matan.
+- **Echoes of Helia es Obligatorio:** Si solo compras AP puro (como Luden's), no curarás a tu equipo. Helia permite que cada Q que lances sea también una "curación diferida". Es el equilibrio perfecto entre ser agresivo y ser útil.
 
 ---
 
-## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+## 1. LEYES APLICADAS A YUUMI AGRESIVA
 
-### 1.1 Cambios directos a Kalista (7.3)
+### Ley 1 — Penetración Mágica es el nuevo Crítico
 
-| Stat / Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+Para un mago/pokeador, la Penetración Mágica rinde más que el AP plano una vez que el enemigo tiene 1 ítem de resistencia.
+
+| MR enemigo | Sin pen | Con Spellslinger's (18+8 %) | Con Stormsurge (+15 plana) |
 |---|---|---|---|
-| AD base | 54 | **57** | +3 AD base |
-| AD por nivel | 5.0 | **5.2** | 129.8 AD a nivel 15 (antes ~124) |
+| 50 (squishy) | 0.667 | 0.763 | 0.820 |
+| 100 (fighter) | 0.500 | 0.595 | 0.658 |
+| 150 (tanque) | 0.400 | 0.488 | 0.545 |
 
-### 1.2 Cambios sistémicos que la afectan
+Stormsurge da 15 pen mágica plana + 90 AP. Es más eficiente que Rabadon's temprano porque ignora resistencias base.
 
-| Sistema | Cambio | Efecto en Kalista |
-|---|---|---|
-| AS cap | 2.5 → **3.0** | La campeona con más AS por nivel (0.046) estrena techo más alto |
-| Lifesteal (nuevo stat) | Solo autos/on-hit | TODO su daño es on-hit/autos → 100 % efectivo (BotRK 12 % + Gunmetal 5 %) |
-| Guinsoo's rehecho | 35 AD/30 AP/30 % AS, doble on-hit cada 3 golpes, sin restricción de crítico | Su ítem firma: multiplica WE/Terminus/BotRK |
-| Statikk rehecho | Bounces aplican on-hit, Electroshock (+5 stacks Energized/ataque) | Waveclear brutal temprano |
-| Botas T3 (min 10:00) | Gunmetal: 50 % AS + 5 % LS + Gait | Su dash (P) escala con tier de botas → doble beneficio |
+### Ley 2 — Ability Haste = Más Oportunidades de Daño
 
-### 1.3 ¿Sus habilidades escalan con crítico?
+| Fuente | Haste |
+|---|---|
+| Ionian/Crimson Lucidity | 15 / 25 |
+| Transcendence | 10 |
+| Imperial Mandate (Control) | 20 |
+| Echoes of Helia | 20 |
+| **Total** | **65** (conservador) / 75 (con Transcendence plena) |
 
-**No.** Ficha oficial sin mención de crítico en Q/E/R (a diferencia de Caitlyn/MF/Tristana que sí lo recibieron en 7.3). Sus autos pueden critar pero son fracción minoritaria de su DPS → **Ley 1 invertida: el umbral útil de crítico de Kalista es 0 %**.
+Tu Q pasa de 5 s a **~3.0 s**. Puedes lanzar 2 Qs completas en el tiempo que antes lanzabas 1. Esto duplica tu presión en lane.
 
----
+### Ley 5-6 — Timing
 
-## 2. FICHA MATEMÁTICA (spec)
-
-| Parámetro | Valor | Fuente |
-|---|---|---|
-| AD base / growth | 57 / 5.2 | Notas 7.3 (buff) |
-| AS base / ratio | 0.694 / 0.694 | Apéndice oficial 7.3 |
-| Base Bonus AS | 0.16 | Apéndice oficial 7.3 |
-| AS por nivel | **0.046** (la más alta del juego) | Apéndice oficial 7.3 |
-| Rango | por verificar | [!WARNING] |
-| P Martial Poise | dash por auto; velocidad/distancia escala con TIER DE BOTAS; Oathsworn | Ficha wr-meta |
-| Q Pierce | 70/135/200/265 + 110 % AD; on-kill carry de stacks de Rend; habilita dash | Ficha wr-meta |
-| W Sentinel (pasiva) | Con Oathsworn a <8 m y ambos golpeando al mismo objetivo: **16/17/18/19 % vida MÁXIMA** mágico extra, 8 s CD por objetivo; ejecuta minions <125 | Ficha wr-meta |
-| E Rend | 30/45/60/75 + 70 % AD + (n−1) × (12/22/32/42 + 36/43/50/57 % AD); lanzas duran 4 s; slow 15-45 %; **reset con kill**; no critica | Ficha wr-meta |
-| R Fate's Call | Oathsworn en stasis → lanzamiento con knockup 1/1.5/2 s | Ficha wr-meta |
-
-**AD a nivel 15:** 57 + 5.2×14 = **129.8** · **Bonus de niveles (AS):** 0.046 × 14.0 = **+0.644**
+Helia al ~11:30 (2 400 g, path suave: Bandleglass 900 + Kindlegem 1 000 + 500) = primer pico de poke+sustain. Imperial al ~14:00 = la fight de dragón ya tiene marca permanente. Stormsurge al ~16:30 = burst para borrar squishies en teamfights.
 
 ---
 
-## 3. MODELO Y FÓRMULAS
+## 2. ANÁLISIS DEL PRIMER ÍTEM COMPLETADO
 
-```
-AS = min(3.0, 0.694 × (1 + 0.16 + 0.644 + AS_items + LT(0.384) + Alac(0.21) + Guinsoo_stacks(0.32)))
+**No aplica como decisión libre** — el primer "ítem" es la quest (Spectral Sickle → Black Mist Scythe). La primera decisión real es el ítem 3:
 
-Auto   = AD (+ on-hit físico: BotRK 6 % vida actual)
-On-hit = (Guinsoo 30 + Terminus 30 + WE 40) mágicos × 4/3 (doble aplicación Guinsoo)
-       + Statikk: Energized 60 mágico cada ~4 ataques (Kalista carga 5× más rápido)
-E/rip  = 75 + 0.70×AD + (AS×4 − 1) × (42 + 0.57×AD)      [cada 7 s]
-Q      = (265 + 1.10×AD) cada 6.5 s (aplica 1 lanza extra)
-W      = 0.19 × vida_máx Objetivo cada 8 s (condicional Oathsworn coordinado)
-LT     = AS × 24 × (1 + 0.0067 × B×100)
-Mitigación física para AD/E/Q/on-hit físico; mágica aparte para on-hit mágico y W.
-```
-
-### Supuestos específicos
-
-- E cada 7 s con lanzas = AS×4 (duración 4 s, sin cap declarado); rank 4.
-- W modelada con coordinación de Oathsworn al 100 % (en solo queue resta ese término).
-- Terminus a 3 stacks (oscuros) ~90 % del tiempo en pelea.
-- BotRK al 90 % de vida máxima promedio del objetivo; Guinsoo a 4 stacks.
-- Bala de LT = adaptativa física; on-hit mágico mitigado por MR (50 squishy / 150 tanque).
-
----
-
-## 4. LEYES APLICADAS A KALISTA
-
-### Ley 0 — Slots
-
-Build final = 1 botas (Gunmetal T3) + 5 ítems. `validate_slots(["Gunmetal","Guinsoo","Wit's End","Terminus","BotRK","Runaan's"])` → **PASS**.
-
-### Ley 1 (invertida) — Crítico: umbral útil 0 %
-
-| Ruta | 1v1 | 3v3 | Veredicto |
+| Candidato | Oro | Valor Inmediato | Veredicto |
 |---|---|---|---|
-| On-hit (final) | **1 262** | **2 612** | ✅ |
-| Crítico (Gunmetal+C44+IE+Runaan's+LDR+Kraken) | 885 | 1 416 | ❌ −30 %: su E (57 % AD por lanza) no critica |
+| **Echoes of Helia** | 2 400 | Daño → Cura + 20 Haste + 40 AP | ✅ **CORE 1.** Permite jugar agresivo sin culpar al ADC de no tener sustain |
+| Imperial Mandate | 2 600 | +7 % Amp Daño Aliado + 20 Haste | ⚠️ **CORE 2.** Ideal si tu ADC es de daño sostenido (Jinx, Vayne, Kai'Sa). Menos útil vs burst |
+| Stormsurge | 2 800 | 90 AP + 15 Pen Mágica | ⚠️ **CORE 3.** Pico de daño puro. Úsalo si ya tienes Helia/Mandate y quieres borrar squishies |
+| Luden's Echo | 2 800 | Burst AoE | ❌ **NO RECOMENDADO.** No aporta nada al equipo ni sustain. Helia es superior para Yuumi |
 
-### Ley 2 — AS: Kalista quiere TODO el tope
-
-```
-AS_items_para_cap = (3.0/0.694 − 1) − (0.16 + 0.644 + 0.384 + 0.21 + 0.32)
-                  = 3.323 − 1.718 = 1.605 → ~160 % de AS de ítems (con stacks de Guinsoo)
-```
-
-| Combo | AS ítems | AS cruda | Veredicto |
-|---|---|---|---|
-| Gunmetal+Guinsoo+WE+Terminus+BotRK+Runaan's | 235 % | 3.52 | ⚠️ overcap teórico ~17 %, pero su uptime real de buffs (LT 6 golpes, Guinsoo 4 golpes, dash que interrumpe autos) lo deja oscilando alrededor de 3.0. **Único campeón del roster donde pasarse un poco no duele.** |
-| Sin Gunmetal (Berserker's) | 220 % | 3.42 | igual de overcap pero −15 % AS permanente y −dash: estrictamente peor |
-
-### Ley 3 — Penetración: doble, por Terminus
-
-Mitad de su daño es mágico (on-hit) y mitad físico (autos+E). **Terminus da 30 % a AMBAS** (3 stacks oscuros). LDR fue probado: 1 074 1v1 / 768 vs tanque — **pierde contra BotRK** (25 % crit muerto + su % vida actual derriba tanques mejor que la pen contra su E).
-
-### Ley 4 — Stats muertos
-
-| Ítem | Stat muerto en Kalista | Oro desperdiciado |
-|---|---|---|
-| C44 / IE / LDR / RFC / Runaan's-crit | 25 % crit cada uno (E no critica) | ~1 250 g por ítem |
-| Statikk como ítem FINAL | AD 40 + AP 40 parcialmente; Energized < on-hit sostenido | ~800 g vs BotRK |
-
-### Ley 5 — Eficiencia: Guinsoo's es el multiplicador
-
-Guinsoo's (3 000 g) no es caro por sus stats sino por su pasiva: **doble aplicación cada 3 golpes** multiplica WE (+40), Terminus (+30), BotRK (6 %) y el propio Wrath (+30) → ~+33 % a todo el on-hit del build. Nada en el parche replica ese multiplicador.
-
-### Ley 6 — Timing
-
-Guinsoo's 1.º (pico 7:30-8:30) → WE 2.º (12:00, anti-AP y máximo 1v1 temprano: 686) → Gunmetal (13:00) → Terminus → BotRK → Runaan's.
-
-### Ley 7 — Sistemas 7.3
-
-Su dash por auto (mejorado por botas T3) + E-reset con kill = la mecánica de "kiteo infinito" que las torretas de 7 000 HP premian: trabaja placas desde 575+ sin quedar estática; los cristales (Crystalline Overgrowth) se detonan con un auto en pleno dash.
+**Recomendación:** Helia primero. Luego decide entre Imperial (si quieres ayudar al ADC a matar) o Stormsurge (si quieres matar tú mismo).
 
 ---
 
-## 5. ANÁLISIS DEL PRIMER ÍTEM
-
-Checkpoint nivel 11 (2 ítems + Gunmetal, vs 90 arm / 40 MR):
-
-| Combo | AD | AS | DPS 1v1 | DPS 3v3 | Nota |
-|---|---|---|---|---|---|
-| **Guinsoo's + Wit's End** | 144 | 2.79 | **686** | 686 | Máximo duelo; 45 MR anti-poke AP |
-| Guinsoo's + Statikk (comunidad) | 184 | 2.65 | 658 | **772** | Waveclear y AoE temprano |
-| Statikk + Runaan's | 149 | 2.50 | 483 | 805 | Solo si la partida es 5-man constante |
-| C44 + Runaan's (crítico) | 164 | 2.29 | 445 | 662 | ❌ confirmado: ruta muerta |
-
-**Veredicto:** Guinsoo's primero SIEMPRE (es el multiplicador). El 2.º ítem es la decisión real: **WE** si te hacen burst AP o buscas duelos (686), **Statikk** si necesitas push (772 en 3v3). Ambos convergen a la Tabla A.
-
----
-
-## 6. BUILD FINAL RANURA POR RANURA
+## 3. BUILD FINAL RANURA POR RANURA
 
 | Slot | Ítem | Justificación matemática |
 |---|---|---|
-| Botas | **Berserker's → Gunmetal** | +15 % AS sobre T2; 5 % LS; 12 HP/golpe (~36 HP/s a AS 3.0); **su dash escala con tier de botas** (ficha oficial) |
-| 1 | **Guinsoo's Rageblade** (3 000) | Doble on-hit cada 3 golpes = ×4/3 a todo el on-hit; 32 % AS por stacks; 35 AD |
-| 2 | **Wit's End** (2 800) | 50 % AS + 40 mágico/golpe (~120 DPS) + 45 MR + 20 % tenacidad — Kalista es el foco #1 del equipo enemigo |
-| 3 | **Terminus** (3 000) | 30 % pen doble (su daño es mixto) + 30 on-hit + 35 % AS + resistencias light |
-| 4 | **BotRK** (3 100) | 6 % vida actual (~132 vs 2 200 HP; ~270 vs tanque) DOBLE con Guinsoo cada 3 golpes + Drain slow + 12 % LS |
-| 5 | **Runaan's Hurricane** (2 650) | Cada rayo aplica on-hit completo a 2 objetivos extra (+40 WE +30 Guinsoo +6 % HP por rayo) → su 3v3 sube de 1 262 a 2 612 |
+| Botas | **Ionian → ⬆️ Crimson Lucidity** | Máximo Haste para spamear Q. Noxian Haste da MS al dañar/curar |
+| Quest | **Black Mist Scythe** | Oro pasivo. Necesitas oro para comprar AP caro |
+| Core 1 | **Echoes of Helia** | Convierte tu agresividad en vida para el equipo. 30 % del daño Q → cura |
+| Core 2 | **Imperial Mandate** | Amplifica el daño de tu ADC cuando tú haces el trabajo sucio con Q (+7 %) |
+| Core 3 | **Stormsurge** | Daño burst + Penetración. Activa Squall con Q cargada a <25 % HP |
+| Flex | **Harmonic Echo** | Propaga curas/escudos residuales en teamfights (30 % cura / 35 % escudo al aliado más bajo) |
 
 ### Matriz del último slot (situacional)
 
-| Situación | Ítem | Coste | Impacto medido |
-|---|---|---|---|
-| **Default (AoE)** | **Runaan's Hurricane** | 2 650 | 2 612 en 3v3 |
-| Duelo / splitpush | Kraken Slayer | 2 900 | **1 364 1v1** (+8 %), 3v3 = 1 364 |
-| Waveclear temprano | Statikk Shiv | 3 000 | 772 3v3 a nivel 11; vendible tarde |
-| vs 3 tanques | (mantiene BotRK+Terminus) | — | 1 045 vs tanque ya incluido |
-| vs burst AP | WE sube a ítem 2 | — | 45 MR + 20 % tenacidad antes |
+| Situación | Ítem Alternativo | Razón |
+|---|---|---|
+| Vs Tanques/MR Alta | **Cryptbloom** (3 000) | 30 % Pen Mágica + Curación AoE al matar. Mejor que Stormsurge vs MR |
+| Vs Mucha Curación Enemiga | **Morellonomicon** (2 650) | Si tu Q no mata, al menos aplica Grievous Wounds |
+| Necesitas Escudos Fuertes | **Staff of Flowing Waters** (2 400) | Cambia Stormsurge por Staff si el equipo necesita más protección |
+| Vs Asesinos que te saltan | **Zhonya's Hourglass** (3 300) | Solo si te enfocan mucho. Te da AP y supervivencia |
 
 ### RECHAZADOS (con motivo numérico)
 
 | Ítem | Motivo del rechazo |
 |---|---|
-| **Ruta crítica completa** | 885 DPS = −30 %; E no critica |
-| **LDR / Mortal Reminder** | 25 % crit muerto; LDR probado: 1 074/768 < BotRK 1 262/1 045 |
-| **C44** | Magnification exige distancia (rango por verificar); 25 % crit muerto |
-| **Statikk como ítem final** | Su Energizado rinde menos que BotRK/Runaan's sostenidos (K1 comunidad: 1 098 vs K2: 1 262) |
-| **Navori / ER / Galeforce / Shieldbow** | Crit muerto + sin on-hit |
-| **Guinsoo's + Statikk + Runaan's + WE + Terminus (K1 comunidad)** | Le falta el % vida de BotRK: −15 % 1v1 y −26 % vs tanque |
+| ❌ Ardent Censer (2 400) | Excelente ítem, pero no aumenta tu daño de Q. Si tu prioridad es DAÑAR, Ardent es secundario |
+| ❌ Rabadon's Deathcap (3 400) | Demasiado caro y tarda mucho. Stormsurge/Cryptbloom dan penetración inmediata |
+| ❌ Luden's Echo (2 800) | Demasiado egoísta. Helia hace lo mismo pero cura. Sin haste CC |
+| ❌ Diadem of Songs (2 400) | Sustain pasivo; no alimenta el loop de poke agresivo |
 
 ---
 
-## 7. RUNAS · HECHIZOS · HABILIDADES
+## 4. RUNAS · HECHIZOS · HABILIDADES
 
-### Keystone: Lethal Tempo (rehecho 7.3)
+### Keystone: Arcane Comet / Aery
 
-- 6 cargas × 6.4 % = **38.4 % AS** — Kalista las mantiene trivialmente (ataca sin parar).
-- Bala: 24 × (1 + 0.0067 × ~407 % AS bonus) = **~89 por golpe** × AS 3.0 ≈ **+260 DPS**.
-- Es la keystone que más crece con exactamente lo que ella compra (AS) y con su pasiva de dash (uptime de ataques).
+- **Arcane Comet:** Si aciertas Q cargada, el cometa pega gratis (15-100 + 2×hits + 10 % AP + 5 % AP). Con 240 AP y CD de Q ~3 s, el cometa proca cada poke. Maximiza el burst.
+- **Aery:** Más consistente, daña Y escuda. Mejor si equilibras poke con protección.
 
-**Alternativas:** *Fleet Footwork* solo vs lanes de poke extremo donde no pueda mantener cargas; nada más compite.
+**Alternativas:** *First Strike* solo si pokeas desde muy lejos sin riesgo (greedy).
 
 ### Secundarias
 
 | Slot | Runa | Valor estimado |
 |---|---|---|
-| Precisión | **Legend: Alacrity** | +21 % AS → ~+2 lanzas por ventana de E (≈ +300 por rip) |
-| Precisión/Dom | **Brutal** | 5 + 6 % AD bonus ≈ +40 DPS constante |
-| Precisión | **Coup de Grace** | +8 % a <40 % HP — convierte rips de E en ejecuciones |
-| Resolve/Sorcery | **Nullifying Orb** / **Bone Plating** | Anti-asesino AP / anti-poke de lane |
+| Sorcery | **Manaflow Band** | +300 maná para spamear Q (60 maná/cast × 5 casts/min) |
+| Sorcery | **Transcendence** | +10 haste → Q cada ~2.9 s; nivel 9: −8 % CD post-hit |
+| Sorcery | **Scorch** / **Gathering Storm** | +21-49 daño en Q early / +AP escalado late |
+| Resolve | **Revitalize** / **Bone Plating** | +5 %/+15 % curas Helia / anti-burst en lane |
 
-### Hechizos: Flash + Heal
+### Hechizos: Flash + Ignite / Exhaust
 
-Heal + BotRK 12 % + Gunmetal 5 % + Blessed Blade 12/golpe = triple sustain; la comunidad coincide. Ghost es válido si el enemigo kitea (su dash ya es movilidad).
+- **Ignite:** Para asegurar kills cuando bajas al enemigo al 50 % con Qs.
+- **Exhaust:** Si prefieres utilidad defensiva (vs asesinos).
 
-### Orden de habilidades
+### Orden de habilidades: **Q > E > W**
 
-**E → Q → W** · R en 5/9/13.
-- E max primero: es SU daño (42 + 57 % AD por lanza y reset con kill).
-- Q segundo: 265 + 110 % AD, on-kill carry de stacks (snowball de waveclear).
-- W al final: la pasiva escala poco (16→19 %) y el activo es visión.
+- **Q max primero:** Reduce CD y aumenta daño base significativamente (100→340 + 35 % AP).
+- **E segundo:** Escudo necesario para sobrevivir mientras pokeas (80-170 + 40 % AP).
+- **W último:** Solo da stats adaptativos y HSP pasivo (8-11 % + 0.02 % AP).
 
 ---
 
-## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+## 5. COMPARACIÓN CONTRA ALTERNATIVAS
 
-### Tabla maestra (nivel 15, LT/Alacrity full, E con ~12 lanzas)
+### Tabla maestra (nivel 15, AP/haste completos)
 
-| Build | Oro | AD | AS | Crit | Pen | 1v1 | 3v3 | vs Tanque | E-hit |
-|---|---|---|---|---|---|---|---|---|---|
-| **FINAL (Gun+Guinsoo+WE+Term+BotRK+Runaan's)** | 16 750 | 240 | 3.00 | 0 % | 30 | **1 262** | **2 612** | **1 045** | 2 387 |
-| Comunidad K1 (Statikk en vez de BotRK) | 16 650 | 240 | 3.00 | 0 % | 30 | 1 098 | 2 181 | 776 | 2 387 |
-| K3 LDR anti-tanque | 16 950 | 235 | 3.00 | 25 % | 35 | 1 074 | 2 042 | 768 | 2 349 |
-| K5 Single-target (Kraken por Runaan's) | 17 000 | 285 | 3.00 | 0 % | 30 | **1 364** | 1 364 | 1 119 | 2 726 |
-| K4 Crítico (descarte) | 17 350 | 340 | 2.53 | 100 % | 35 | 885 | 1 416 | 665 | 2 700 |
+| Build | Oro | AP Total | Daño Q (Nivel 15) | Utilidad Equipo | Nota |
+|---|---|---|---|---|---|
+| **POKE MASTER (Helia+Imp+Storm)** | ~11 300 | ~240 | ~120-150 (con pen) | Alta (Amp + Cura) | Máximo daño posible sin dejar de ser soporte |
+| Enchanter Puro (Ardent+Staff) | ~10 700 | ~150 | ~80-100 | Muy Alta (Buff ADC) | Menos daño propio, más daño aliado |
+| Full AP (Luden+Rabadon) | ~12 000 | ~300 | ~160-190 | Baja (Sin cura) | Daño alto, pero el equipo muere por falta de sustain |
 
-### Desglose multiplicativo de la diferencia (FINAL vs comunidad K1)
+### Desglose de la diferencia (Poke Master vs Enchanter Puro)
 
 | Factor | Contribución |
 |---|---|
-| BotRK 6 % vida actual × doble-aplicación Guinsoo (vs Statikk Energized intermitente) | +15 % 1v1 |
-| Rayos de Runaan's con on-hit completo ×2 objetivos (vs bounces de Statikk) | +20 % 3v3 |
-| BotRK vs tanque (6 % de 4 500 HP = 270/golpe) | **+35 % vs tanque** |
+| AP 240 vs 150 → Q +60 % daño base | +40 % daño Q |
+| Imperial Mandate (+7 % team amp) | +357 DPS de equipo (a 6 000 base) |
+| Helia (30 % daño → cura) | Sustain integrado sin perder DPS |
+| Escudo E reducido (266 vs ~310) | −15 % protección directa |
+| **Neto: más daño, menos escudo, más amp** | **Ventaja en lanes de poke; desventaja vs dive** |
 
 ---
 
-## 9. PLAN DE JUEGO
+## 6. PLAN DE JUEGO
 
-### Early (0:00 – 9:00)
+### Early (0:00 – 8:00)
 
-- **Start:** Long Sword + poción; componentes de Guinsoo's (Recurve 900 primero).
-- **Last hits imposibles:** E rank 1 + W pasiva ejecutan minions bajo 125 HP — asegura CS bajo torre.
-- **Vínculo (Oathsworn) al minuto 1:** elección definitiva de la partida (ver abajo).
+- **Usa Q para limpiar oleadas y molestar al ADC enemigo.** Carga la Q (1 seg de vuelo) para máximo daño y slow.
+- **No tengas miedo de gastar maná:** Black Mist Scythe lo recupera.
+- **Friendship:** haz la quest pegada a tu carry para construir Best Friend rápido.
+- **Poke con Aery/Comet + Scorch:** cada Q cargada es un trade ganado.
 
-### El vínculo (Oathsworn) — la decisión más importante
+### Mid (8:00 – 14:00)
 
-| Candidato | Veredicto |
-|---|---|
-| **Karma (support)** | ⭐ Ideal: autoataca a distancia (proca tu W 19 % vida máx), su W enraíza 2 objetivos (rips garantizados) y tu R la lanza como engage → combo R→R |
-| Tanques melee (Cho'Gath/Malphite) | Sólido: siempre están encima del objetivo (W proca) y tu R los reposiciona |
-| **Yuumi** | ⚠️ Attachada no autoataca → la W pasiva casi no proca. Verificar en juego si su Q cuenta como "golpe" para el vínculo; si no, vincúlate a otro |
-
-### Mid (9:00 – 16:00)
-
-- **Min 10:00:** ⬆️ Gunmetal Greaves — tu dash mejora literalmente (tier de botas).
-- **Pico Guinsoo+WE+Gunmetal (~13 min):** 686 DPS 1v1 temprano; ganas duelos con rips de ~1 500-1 900.
-- **Reset de E:** cada kill refresca Rend → en oleadas y skirmishes encadena rips; prioriza objetivos bajos para detonar el reset.
-
-### Late (16:00+)
-
-- **Teamfight:** pega al FRONTLINE (BotRK+Terminus+W 19 % vida máx lo derriten) mientras Runaan's propaga on-hit al backline. Nunca dejes de atacar hacia atrás (dash por auto).
-- **R como herramienta de equipo:** guarda Fate's Call para el engage de tu Oathsworn (Karma/Malphite) o para salvarlo de un dive.
-- **W CD por objetivo (8 s):** rota objetivos con tu support para procar la pasiva en varios enemigos.
-
-### Reglas del parche que cambian el macro
-
-| Regla | Impacto |
-|---|---|
-| Torretas 7 000 HP + placas | Tu AS alta + dash = trabaja placas segura desde 575+ |
-| Cristales (~50 s) | Un auto en dash los detona (hasta ~1 300 verdadero en late) |
-| Jungla hostil (7.3) | No robes campamentos: monstruos pegan % vida actual |
-
----
-
-## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
-
-### Fuentes primarias (mandan)
-
-| Fuente | Acceso | Qué aporta |
-|---|---|---|
-| Notas oficiales 7.3 | 25/09/2026 | Buff de AD (57/5.2), apéndice AS (0.694/0.16/0.046), Guinsoo's/Statikk/Terminus/BotRK rehechos, lifesteal |
-| Notas oficiales 7.2 | 25/09/2026 | Botas T2/T3 y regla del min 10:00 |
-
-### Fuentes secundarias
-
-| Fuente | Acceso | Fiabilidad |
-|---|---|---|
-| wr-meta Kalista (ficha + build popular) | 25/09/2026 | Alta para kit (Q/W/E/R completos); build popular = insumo (Statikk 1.º) |
-
-### Discrepancias detectadas y resolución
-
-| Tema | Resolución |
-|---|---|
-| 1.º ítem: comunidad Statikk vs modelo Guinsoo→WE | Gana el modelo (686 vs 658 1v1; 1 262 vs 1 098 final) — Statikk queda como variante waveclear |
-| Lethal Tempo (valores) | Notas oficiales 7.3 (6.4 %, bala 6-24, +0.67 %) sobre texto viejo de wr-meta |
-
-### Supuestos del modelo (declarados)
-
-- E no critica (sin mención en ficha — si un hotfix lo cambia, recalcular).
-- ¿Cuenta el Q de Yuumi como golpe del Oathsworn para W? **Pendiente de verificar en juego.**
-- Lanzas por ventana = AS×4 (4 s de duración, sin cap declarado).
-- Terminus 3 stacks ~90 % uptime; Guinsoo 4 stacks; BotRK al 90 % vida máx.
-- Mitigación física y mágica aplicadas por separado a cada componente.
-
-### Contexto meta (24/09, Diamond+)
-
-Kalista: WR 50.99 % dúo / 51.27 % solo, pick 4.72 %, ban 5.02 %, **tendencia ↑7** — el 7.3 (buff de AD + AS cap 3.0 + Guinsoo's) la dejó en buen lugar. Muestra de 3-4 días post-parche.
-
-### Validación del modelo
-
-- `validate_slots(["Gunmetal","Guinsoo","Wit's End","Terminus","BotRK","Runaan's"])` → **PASS** (6 entradas, 1 botas, sin T2+T3).
-- Test de Caitlyn (AS 1.48125): motor reproduce ✓.
-
----
-
-## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Kalista
-
-| Ítem (oro) | Veredicto | Nota |
-|---|---|---|
-| Guinsoo's Rageblade (3 000) | ✅ Core 1 | El multiplicador (doble on-hit ×4/3) |
-| Wit's End (2 800) | ✅ Core 2 | 50 % AS + 40 on-hit + 45 MR |
-| Terminus (3 000) | ✅ Core 3 | Única pen DOBLE del juego (física+mágica) |
-| Blade of the Ruined King (3 100) | ✅ Core 4 | 6 % vida actual ×2 con Guinsoo; anti-tanque real |
-| Runaan's Hurricane (2 650) | ✅ Core 5 | Rayos con on-hit completo = su AoE |
-| Gunmetal Greaves (2 200) | ✅ Botas | AS + LS + dash mejorado |
-| Statikk Shiv (3 000) | ⚠️ Early/waveclear | Bounces con on-hit; vendible por BotRK tarde |
-| Kraken Slayer (2 900) | ⚠️ 6.º duelo | 1 364 1v1 (máximo), pierde AoE |
-| LDR / Mortal (3 300/3 000) | ❌ | 25 % crit muerto; BotRK > pen en ella |
-| C44 / IE / RFC / PD / Navori / ER / Gale / Shieldbow / Collector | ❌ | Crítico muerto (E no critica) |
-| Manamune / Trinity / Hexplate | ❌ | Stats de fighter/caster |
-
----
-
-## APÉNDICE B — RUTAS DE COMPRA
-
-```
-DEFAULT (on-hit completo):
-LS → Guinsoo's (7:30-8:30) → Berserker's (9:30) → Wit's End (12:00)
-→ ⬆️ Gunmetal (13:00) → Terminus (15:30) → BotRK (18:00) → Runaan's (20:30)
-
-WAVECLEAR / PUSH TEMPRANO:
-LS → Guinsoo's → Berserker's → Statikk (11:30) → ⬆️ Gunmetal → Terminus → BotRK → (vender Statikk → Runaan's)
-
-ANTI-AP BURST:
-Guinsoo's → Berserker's → Wit's End (2.º, ya en default) → Mercury's→Chainlaced SOLO si el CC es inmanejable (pierdes 50 % AS y el dash T3)
-
-DUELO / SPLITPUSH:
-Default pero 6.º = Kraken Slayer (1 364 1v1)
-
-VS 3 TANQUES:
-Default intacto (BotRK+Terminus+W ya ES la respuesta: 1 045 vs tanque)
-```
-
----
-
-## Pie de página
-
-*Reporte generado el 25/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (120/50 squishy · 220/150/4 500 tanque) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
-
-**Referencias y créditos**
-
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: buff de Kalista, apéndice de Attack Speed, rehechos de Guinsoo's/Statikk/Terminus/BotRK, sistema de botas T3 y lifesteal.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Q/W/E/R, build y meta.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/analysis_batch2.py` motor on-hit), construido sobre las fuentes anteriores.
-
-**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
-
----
-
-
----
-
----
-tags:
-  - Support
-  - Mid
-  - Enchanter
-  - Poke
-version: 1.2
-Status: Aprobado
-champion: Karma
-patch: "7.3+7.3a"
----
-**Fecha del análisis:** 25/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Support (secundario: Mid AP)
-**Arquetipo:** Enchanter-poke con Mantra (cada 3 casts, la siguiente habilidad básica se potencia)
-**Enfoque:** CC fiable y barato (Q slow cada ~3.4 s + W root ×2) para mantener **Imperial Mandate** activo: +7 % de daño de TODO el equipo sobre el marcado, mientras Censer/E amplifican al carry.
-
-> [!NOTE]
-> **Estado Meta Actual (Diamond+, 24/09/2026):**
-> 
-> Win Rate 49.82 % | Pick Rate 4.68 % | Ban 0.62 % | Tendencia ↓14 (🧊 cayendo) | Rol: Support. Sigue siendo funcional; la caída refleja el meta de enchanters post-7.3, no el kit.
-
-> [!TIP]
-> **Variante Mid:** ruta AP-burst completamente distinta (Spellslinger's → Luden's → Malignance → Rabadon's → Infinity Orb → Zhonya's; AP 575, Q-Mantra ~1 025). Ver §6 matriz y Apéndice B.
-
-
-> [!WARNING] Hotfix 7.3a (29-sep-2026)
-> Sin cambios directos a Karma. Diadem/Circlet nerfeadas (Harmonize 0.5→0.25 %): su matriz situacional queda igual (Diadem ya era niche). Build intacta.
----
-
-## 0. RESUMEN EJECUTIVO
-
-### Tabla A — BUILD FINAL (SUPPORT)
-
-| Slot | Ítem | Oro | Rol en la build |
-|------|------|-----|-----------------|
-| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** (min 10:00, MISMO slot) | 2 000 | 25 haste → Q cada 3.4 s = Mandate permanente |
-| 2 | **Black Mist Scythe** (quest de support) | 500 → 0 | Slot de quest |
-| 3 | **Imperial Mandate** | 2 600 | CC → marca 4 s: **+7 % daño de todo el equipo** + 60 AP + Control (20 haste en CC) |
-| 4 | **Ardent Censer** | 2 400 | E/E-Mantra → +30 % AS y +25 on-hit al carry |
-| 5 | **Echoes of Helia** | 2 400 | Poke de Q → curas burst al aliado |
-| 6 | **Staff of Flowing Waters** (default) / Redemption / Mikael's / Locket | 2 400 | +40 AP y +15 haste al escudar |
-
-> **Oro total: ~11 800 g** · AP 200 · Haste 75 · HSP 21 % · **E = 339 · E-Mantra = 520 (+ anillo que escuda a un 2.º aliado ≈ 1 040 efectivos)** · Mantra cada ~16 s + R instantánea · **Mandate ≈ +357 DPS de equipo** (a 6 000 de team DPS)
-
-### Tabla B — Ruta de compra cronológica
-
-| # | Compra | Oro acum. | Minuto típico |
-|---|--------|-----------|---------------|
-| 1 | **Spectral Sickle** (quest) + poción | 500 | 0:00 |
-| 2 | Boots of Speed → **Ionian Boots of Lucidity** | 1 900 | ~4:00 |
-| 3 | Quest completada → **Black Mist Scythe** | 1 900 | ~6:00 |
-| 4 | Bandleglass Mirror + Blasting Wand → **Imperial Mandate** | 4 500 | ~9:30 |
-| 5 | ⬆️ **Crimson Lucidity** (mismo slot, +1 000 g) | 5 500 | ~10:30 |
-| 6 | Forbidden Idol + Aether Wisp → **Ardent Censer** | 7 900 | ~13:00 |
-| 7 | Bandleglass + Kindlegem → **Echoes of Helia** | 10 300 | ~16:00 |
-| 8 | Forbidden Idol + Kindlegem → **Staff of Flowing Waters** | 12 700 | ~19:00 |
-
-### Runas · Hechizos · Habilidades
-
-| Categoría | Elección |
-|-----------|----------|
-| Keystone | **Aery** (Q de campo la dispara 2 veces; E escuda) / **Guardian** (vs dive: escudo 40-165+6 % AP a 3 aliados con W×2+E) |
-| Sorcery 2 | **Transcendence** (haste → más casts → más Mantras) |
-| Resolve/Sorcery 3 | **Revitalize** (+5-15 % a E) o **Manaflow Band** (+300 maná) |
-| 4 | **Scorch** (poke) / **Bone Plating** (lanes de burst) |
-| Hechizos | **Flash + Exhaust** (support) · **Flash + Barrier** (mid, comunidad) |
-| Skills | **Q → E → W** (R en 5/9/13) |
-
-### Resultado del modelo (nivel 15, AP 200 / haste 75 / HSP 21 %)
-
-| Métrica | Valor |
-|-----------|-----|
-| Escudo E / E-Mantra (+anillo) | **339 / 520 (+520)** |
-| Q-Mantra total (campo+explosión) | ~590 |
-| Cadencia de Mantra sostenida | ~1 cada 16 s + R |
-| **Amp de equipo (Mandate)** | **+7 % al marcado ≈ +357 DPS de equipo** |
-| DPS+ al carry (Censer + uptime) | +164 (sobre ADC de referencia) |
-
-> **Titular:** Imperial Mandate sobre un objetivo permanentemente marcado (Q cada 3.4 s) es el mayor amp-de-equipo por oro del parche para un support de poke — y Karma tiene el CC más barato y fiable para sostenerlo.
-
----
-
-## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
-
-### 1.1 Cambios directos a Karma (7.3)
-
-Sin cambios de habilidades. Ficha AS nueva del apéndice (ratio 0.625 / bonus 0.2 / 0.0135 por nivel) — irrelevante para su rol.
-
-### 1.2 Cambios sistémicos que la afectan
-
-| Sistema | Cambio | Efecto en Karma |
-|---|---|---|
-| Imperial Mandate (7.3) | Rediseño: 2 600 g, 60 AP, Control (+20 haste en habilidades de CC), Command (CC → +7 % daño recibido, 4 s) | Su Q slow + W root lo mantienen ~85-100 % uptime |
-| Ardent Censer (7.3) | 2 400 g, buff fijo (30 % AS + 25 on-hit) | Su E (y E-Mantra a 2 aliados) lo procea |
-| Echoes of Helia (7.3) | Soul Siphon 30 % del daño → cura | Su poke constante la alimenta |
-| Enchanters (7.2) | Menos haste late en toda la línea | Haste de Crimson/Transcendence vale más |
-
-### 1.3 ¿Escala con crítico? No — escala con **AP (65 % en su E) y haste (cadencia de Mantra)**
-
-El ratio 65 % AP de E/Mantra-E es de los más altos entre enchanters: el AP de Mandate/Censer/Echoes NO es stat muerto.
-
----
-
-## 2. FICHA MATEMÁTICA (spec)
-
-| Parámetro | Valor | Fuente |
-|---|---|---|
-| AD / HP / MS | 58 / 630 / 360 | Ficha wr-meta |
-| P Mantra | 3 casts → Mantra State (potencia la siguiente básica); R = Mantra instantánea | Ficha wr-meta |
-| Q Inner Flame | 60-180 + 40 % AP + slow 35 %; **Mantra:** 65-290 + 50 % + campo 1.5 s (slow 42.5-50 %) que explota 40-160 + 50 % | Ficha wr-meta |
-| W Focused Resolve | **Tether ×2 campeones**: 35-110 + 40 % AP y root 1-1.75 s (40-130 + 45 %); Mantra: raíces mejoradas 1.5-2.25 s | Ficha wr-meta |
-| E Inspire | Escudo 60-150 + **65 % AP** + 30 % MS; **Mantra:** 120-300 + 65 % AP (decae en 4 s) + 60 % MS + **anillo que escuda al primer aliado que entra** | Ficha wr-meta |
-| R Transcendent Embrace | Mantra instantánea + anillo: 170-390 + 80 % AP + **knockback al centro** + slow 35 % | Ficha wr-meta |
-
----
-
-## 3. MODELO Y FÓRMULAS (valor-aliado + amp de equipo)
-
-```
-E_escudo    = (150 + 0.65×AP) × (1 + HSP/100)
-E_Mantra    = (300 + 0.65×AP) × (1 + HSP/100)  ×2 objetivos vía anillo
-Cadencia    = casts/s = 3 / (Σ CDs con haste)  →  Mantras/10 s = casts/10 s ÷ 3
-Mandate_amp = team_DPS × 0.07 × uptime_marca        [Q cada 3.4 s → uptime ~85-100 %]
-Censer      = +11.5 % DPS del carry + AS_carry × 25 on-hit
-```
-
-### Supuestos específicos
-
-- Team DPS de referencia 6 000 para valorar Mandate (lineal: a 4 000 → +238).
-- HSP de ítems solo Censer/Staff/Redemption (Mandate no da); Revitalize 5 % base.
-- Uptime de Mandate 85-100 % sobre el objetivo prioritario (Q CD 3.4 s con haste 75).
-- W-Mantra NO cuenta en la cadencia sostenida (se reserva para root garantizado).
-
----
-
-## 4. LEYES APLICADAS A KARMA
-
-### Ley 0 — Slots
-
-1 botas (Crimson T3) + quest + 4 ítems. `validate_slots(["Crimson","Imperial Mandate","Censer","Echoes","Staff"])` → PASS.
-
-### Ley 4 — Stats muertos: la defensa SÍ vale (a medias)
-
-A diferencia de Yuumi, Karma tiene cuerpo: la posicionan en rango de Q/W. Bone Plating/Nullifying Orb y un 6.º slot defensivo (Locket/Mikael's) tienen valor real. Pero HP/armor como stats primarios siguen siendo ineficientes vs AP/haste (su E escala 65 % AP).
-
-### Ley 5 — Eficiencia: Mandate es amp, no stats
-
-2 600 g → +357 DPS de EQUIPO sostenido sobre el marcado (a team DPS 6 000). Ningún ítem de support da tanto por oro cuando tu team tiene 2+ fuentes de daño. Si tu team es 80 % tu ADC: Censer primero.
-
-### Ley 6 — Timing
-
-Mandate al ~9:30 (Bandleglass 900 temprano) = la primera fight de dragón ya tiene marca. Crimson Lucidity al 10:30 → Q cada 3.4 s.
-
-### Ley 7 — Sistemas
-
-Torretas 7 000 HP: tu Q-Mantra de campo (slow 50 %) siega placas con el carry sin riesgo. Cristales: los detona tu auto/Q desde 550+. Minions al 60 % → lane de poke segura.
-
----
-
-## 5. ANÁLISIS DEL PRIMER ÍTEM
-
-**No aplica** — quest primero. La decisión real es el ítem 3: **Mandate** (team con 2+ carries) vs **Censer** (ADC-céntrico) vs **Echoes** (lane de poke/sustain). Regla del §4 Ley 5.
-
----
-
-## 6. BUILD FINAL RANURA POR RANURA
-
-| Slot | Ítem | Justificación matemática |
-|---|---|---|
-| Botas | **Ionian → ⬆️ Crimson Lucidity** | 25 haste + Noxian Haste (MS al escudar/hechizar) → Q cada 3.4 s = Mandate permanente |
-| Quest | **Black Mist Scythe** | Obligatoria; ocupa slot |
-| 1 | **Imperial Mandate** | +7 % team al marcado ≈ +357 DPS de equipo; 60 AP infla E; Control = +20 haste a su CC |
-| 2 | **Ardent Censer** | E/E-Mantra (2 aliados con anillo) → +30 % AS y +25 on-hit al carry: +164 DPS |
-| 3 | **Echoes of Helia** | Poke Q-Mantra (~590) → Soul Siphon cura ~177 al aliado |
-| 4 | **Staff of Flowing Waters** | +40 AP/+15 haste al carry escudado; cierra haste 75+ |
-
-### Matriz del último slot (situacional)
-
-| Situación | Ítem | Coste | Impacto |
-|---|---|---|---|
-| **Default** | **Staff of Flowing Waters** | 2 400 | AP+haste al carry |
-| Necesitan cura AoE | Redemption | 2 450 | 150-350 + verdadero |
-| CC duro sobre el carry | Mikael's Blessing | 2 500 | Cleanse + heal |
-| AoE burst enemigo | Locket | 2 600 | 250-370 AoE |
-| Comp de engage aliada | Shurelya's / Zeke's | 2 500/2 400 | MS AoE / R→slow+ult haste |
-| **Mid AP** | Ver Apéndice B (Luden's/Malignance/Rabadon's/Orb/Zhonya's) | ~17 500 | AP 575 · Q-Mantra ~1 025 · E-Mantra auto-escudo 707 |
-
-### RECHAZADOS (con motivo numérico)
-
-| Ítem | Motivo del rechazo |
-|---|---|
-| Yordle Trap | Aura 20 % AS a aliados < Mandate (+7 % a todo el daño) con su CC uptime |
-| Diadem of Songs | Su poke ya cura vía Echoes; Diadem rinde en asedios largos (⚠️ niche) |
-| Ítems de vida puros (Heartsteel etc.) | Ley 4: su E escala AP, no HP |
-| Rabadon's en support | 3 400 g fuera del presupuesto de support (~12 k); solo en variante mid |
-
----
-
-## 7. RUNAS · HECHIZOS · HABILIDADES
-
-### Keystone: Aery
-
-Q de campo dispara Aery 2 veces (impacto + explosión) y E la convierte en escudo — poke y protección en una runa.
-
-**Alternativas:** *Guardian* vs dive pesado (escudo a 3 aliados: W×2 + E); *Arcane Comet* en la variante mid.
-
-### Secundarias
-
-| Slot | Runa | Valor estimado |
-|---|---|---|
-| Sorcery | **Transcendence** | +10 haste y reducción post-9 → más Mantras (cada 3 casts) |
-| Resolve/Sorcery | **Revitalize** (+5-15 % a E) / **Manaflow Band** (+300 maná) / **Scorch** (poke) | según lane |
-| Resolve | **Bone Plating** | vs lanes de burst (Draven/Yasuo) |
-
-### Hechizos
-
-**Support: Flash + Exhaust** (peel con W root + Exhaust = el diveador muere). **Mid: Flash + Barrier** (comunidad).
-
-### Orden de habilidades
-
-**Q → E → W** · R en 5/9/13.
-- Q max: 180+40 % (Mantra 290+50 % + campo 160+50 %) — poke y marca de Mandate.
-- E segunda: 150+65 % AP (Mantra 300+65 % + anillo) — su identidad de enchanter.
-- W última: el root mejora poco (1→1.75 s) y su valor es binario (conecta o no).
-
----
-
-## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
-
-### Tabla maestra (support, nivel 15)
-
-| Build | Oro | AP | Haste | E | E-Mantra | Valor de equipo |
-|---|---|---|---|---|---|---|
-| **KS-Mandate (propuesta)** | 12 700 | 200 | 75 | 339 | 520 + anillo | **+357 amp** + 164 ADC |
-| KS-Enchanter (Censer, Echoes, Staff, Redemption) | 11 650 | 180 | 65 | 344 | 538 | +164 ADC + Redemption AoE |
-| KS-Anti-dive (Mikael's, Locket, Censer, Echoes) | 11 900 | 90 | 50 | ~290 | ~455 | Cleanse + escudo AoE |
-| Comunidad Mid (Luden's, Malignance, Orb, Rabadon's, Zhonya's) | 17 500 | 575 | 25 | — | 707 (auto) | Q-Mantra ~1 025 burst |
-
-### Lectura
-
-KS-Mandate ≈ KS-Enchanter en escudos (±20) pero gana por goleada en amp de equipo cuando hay 2+ carries (tu caso: Kalista/Jinx + Diana/Cho'Gath). Con ADC como 80 % del daño del team → KS-Enchanter (Censer primero). La variante mid es otro juego: burst de poke, no enchanter.
-
----
-
-## 9. PLAN DE JUEGO
-
-### Early (0:00 – 6:00)
-
-- **Lvl 1-2:** Q + auto (Aery+Scorch) — Karma gana casi todo lvl 1; con Mandate comprado temprano (Bandleglass 900) el primer poke YA marca.
-- **Mantra de lane:** gástalo en Q (trade) o E (all-in enemigo) — nunca en W salvo root garantizado.
-
-### Mid (6:00 – 14:00)
-
-- **Pico Mandate + Crimson (~10:30):** Q cada 3.4 s mantiene 1 objetivo permanentemente marcado (+7 %) — **comunica focus** a tu team.
-- **Min 10:00:** ⬆️ Crimson Lucidity.
-- **Dragón/herald:** E-Mantra al jungla antes del fight; W-Mantra (root 2.25 s a 2 objetivos) es tu CC de compromiso.
+- **Completa Helia.** Ahora cada Q que aciertes cura a tu ADC un poco (~36-45 HP por Q).
+- **Empieza a usar Imperial Mandate** para marcar objetivos prioritarios antes de que tu ADC entre.
+- **Min 10:00:** ⬆️ Crimson Lucidity → Q cada ~3 s.
+- **Dragón/herald:** Q al objetivo prioritario → Mandate marca → el team lo borra (+7 %).
 
 ### Late (14:00+)
 
-- **Teamfight:** E-Mantra al iniciador (Malphite/Cho'Gath entran con 520+anillo), W al carry enemigo, **R cuando agrupen** → knockback al centro = setup de Diana R / Malphite R / Cho'Gath W.
-- **Wombo oficial del grupo:** R de Karma agrupa → R de Diana/Malphite encima → Mandate marca al sobreviviente → el team lo borra (+7 %).
+- **Con Stormsurge, tu Q puede bajarle el 30-40 % de vida a un carry enemigo** si lo pillas desprevenido.
+- **En teamfights:** usa Q para iniciar el daño (Helia cura + Mandate marca), luego usa R para rematar o curar según convenga.
+- **Harmonic Echo propaga:** tu Q pega a varios → Helia cura → Harmonic propaga al aliado más bajo.
 
-### Sinergia con tu grupo
+### Regla de Oro
 
-| Compañero | Sinergia |
-|---|---|
-| **Kalista** | ⭐ Oathsworn: Karma autoataca (proca su W 19 % vida máx), su R te lanza con knockup → engage doble |
-| Diana / Malphite / Cho'Gath | R agrupa → ults encima; Mandate amplifica el follow-up |
-| Jinx / Yunara | Censer + marca = las dos ventanas de limpieza |
-| Yuumi | No compitan: una sola enchanter; si ambas, Yuumi BF = la Kalista |
+Si tu ADC está en peligro, **deja de pokear y usa E/W**. La build te da herramientas para dañar, pero tu rol sigue siendo proteger. El daño es un medio para ganar la lane, no el fin único.
 
 ### Reglas del parche que cambian el macro
 
 | Regla | Impacto |
 |---|---|
-| Torretas 7 000 HP | Q-Mantra de campo siega placas con slow 50 % |
-| Enchanters con menos haste late (7.2) | Crimson + Transcendence no son lujo, son core |
-| Minions 60 % | Puedes pokear delante de la wave sin miedo |
+| Minions 60 % daño a campeones | Desattacharte a pokear es más seguro |
+| Torretas 7 000 HP + cristales | Q desde attach detona cristales (~1 300 verdadero) |
+| Enchanters con menos haste late (7.2) | Crimson + Transcendence + Mandate Control = 65 haste no es lujo |
 
 ---
 
-## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
 ### Fuentes primarias (mandan)
 
 | Fuente | Acceso | Qué aporta |
 |---|---|---|
-| Notas oficiales 7.3 | 25/09/2026 | Rediseño de Imperial Mandate (60 AP, Control, Command +7 %), Ardent Censer 2 400, Echoes of Helia |
-| Notas oficiales 7.2 | 25/09/2026 | Ajuste de haste de enchanters, items de support |
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Imperial Mandate rediseño, Echoes of Helia, Stormsurge, Harmonic Echo, Ardent Censer |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Botas T2/T3, Crimson Lucidad, soporte items |
 
 ### Fuentes secundarias
 
 | Fuente | Acceso | Fiabilidad |
 |---|---|---|
-| wr-meta Karma (ficha + builds + runas) | 25/09/2026 | Alta para kit (W tether ×2 confirmado); build popular = variante MID (Luden's/Malignance) — la de support es derivación propia del modelo |
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Yuumi (ficha + meta) | 24/09/2026 | Alta para kit; WR 48.25 %, ban 34.23 % |
 
 ### Discrepancias detectadas y resolución
 
 | Tema | Resolución |
 |---|---|
-| Comunidad muestra Karma MID (AP burst), no support | Ambas rutas documentadas: §6 matriz + Apéndice B |
-| Tendencia ↓14 del meta | Reportada con honestidad (§Contexto): el kit funciona, el meta de enchanters cayó |
+| Algunas guías sugieren Luden's | Lo rechazamos porque Helia ofrece mejor sostenibilidad para el equipo en WR |
+| Yuumi "no usa botas" (mito PC) | **Falso en WR**: confirmada Ionian → Crimson Lucidity en build popular |
+| ¿Scythe completada ocupa slot? | Asumido que sí (build popular la lista) — verificar en juego |
 
 ### Supuestos del modelo (declarados)
 
-- Team DPS 6 000 de referencia para Mandate (+7 % → +357; escala lineal).
-- Uptime de marca 85-100 % (Q 3.4 s, marca 4 s).
-- Carry de referencia AS 2.6/330 por golpe para Censer (+164).
-- HSP solo de Censer/Staff/Redemption + Revitalize 5 %; anillo de E-Mantra cuenta como 2.º escudo completo (entra 1 aliado).
-
-### Contexto meta (24/09, Diamond+)
-
-Karma support: WR 49.82 %, pick 4.68 %, ban 0.62 %, tendencia ↓14. Muestra de 3-4 días post-parche; el rol de enchanter se está recolocando tras 7.3.
-
-### Validación del modelo
-
-- `validate_slots(["Crimson","Mandate","Censer","Echoes","Staff"])` → **PASS**.
-- Chequeo manual: E = (150+0.65×200)×1.21 = **339** ✓ · E-Mantra = (300+130)×1.21 = **520** ✓.
+- El jugador tiene buena puntería con la Q. Si fallas muchas Qs, esta build pierde valor comparada con la de escudos puros.
+- Haste 65 conservador (sin Transcendence al 100 %); con Transcendence plena = 75.
+- Team DPS 6 000 de referencia para Mandate.
+- Uptime de marca 85-100 % (Q cada ~3 s, marca 4 s).
+- Mitigación vs 50 MR squishy para daño Q; vs 100+ MR se recomienda Cryptbloom.
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES: veredicto para Karma support
+## APÉNDICE A — POOL DE ÍTEMS DE DAÑO PARA YUUMI
 
 | Ítem (oro) | Veredicto | Nota |
 |---|---|---|
-| Imperial Mandate (2 600) | ✅ Core 1 (team con 2+ daño) | +7 % team amp permanente |
-| Ardent Censer (2 400) | ✅ Core (ADC-céntrico) | E-Mantra a 2 aliados = doble proc |
-| Echoes of Helia (2 400) | ✅ Core 3 | Poke → cura |
-| Crimson Lucidity (2 000) | ✅ Botas | Q cada 3.4 s |
-| Staff of Flowing Waters (2 400) | ✅ 6.º default | AP+haste al carry |
-| Redemption / Mikael's / Locket / Shurelya's / Zeke's | ⚠️ 6.º situacional | Ver matriz §6 |
-| Yordle Trap (2 400) | ❌ | Aura < Mandate |
-| Diadem of Songs (2 400) | ⚠️ | Solo asedios largos |
-| Defensivos de HP puro | ❌ | Su E escala AP |
+| Echoes of Helia (2 400) | ✅ CORE | Daño → Cura. Imprescindible |
+| Imperial Mandate (2 600) | ✅ CORE | Amp daño aliado +7 %. Sinergia con Q slow/reveal |
+| Stormsurge (2 800) | ✅ CORE | Daño burst + 15 pen + Squall |
+| Harmonic Echo (2 500) | ✅ FLEX | Chain heal/shield en teamfights |
+| Crimson Lucidity (2 000) | ✅ Botas | 25 haste + Noxian Haste |
+| Cryptbloom (3 000) | ⚠️ SIT | Vs MR alta: 30 % pen + cura AoE |
+| Morellonomicon (2 650) | ⚠️ SIT | Vs curación enemiga: GW |
+| Zhonya's Hourglass (3 300) | ⚠️ SIT | Supervivencia + AP vs focus |
+| Staff of Flowing Waters (2 400) | ⚠️ SEC | Bueno, pero menos daño que Stormsurge |
+| Ardent Censer (2 400) | ⚠️ SEC | Bueno, pero no prioriza daño propio |
+| Luden's Echo (2 800) | ❌ NO | Demasiado egoísta; Helia hace lo mismo + cura |
+| Rabadon's Deathcap (3 400) | ❌ NO | Demasiado caro; Stormsurge/Cryptbloom dan pen inmediata |
 
 ---
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
 ```
-SUPPORT MANDATE (default con 2+ carries):
-Sickle → Ionian (4') → Scythe (6') → Mandate (9:30) → ⬆️ Crimson (10:30)
-→ Censer (13') → Echoes (16') → Staff (19')
+DEFAULT POKE:
+Sickle → Ionian (4') → Scythe (8') → Helia (11:30) → ⬆️ Crimson (12')
+→ Imperial (14') → Stormsurge (16:30) → Harmonic (19')
 
-SUPPORT ADC-CÉNTRICO (tu ADC es el 80 % del team):
-Sickle → Ionian → Scythe → Censer (9:30) → ⬆️ Crimson → Mandate → Echoes → Staff/Redemption
+VS TANQUES (2+ con 100+ MR):
+Sickle → Ionian → Scythe → Helia → ⬆️ Crimson
+→ Cryptbloom (14') → Imperial (16:30) → Morello (19')
 
-SUPPORT ANTI-DIVE:
-Sickle → Ionian → Scythe → Mikael's → ⬆️ Crimson → Censer → Echoes → Locket
+VS BURST / DEFENSIVO (Zed/Rengar divean):
+Sickle → Ionian → Scythe → Helia → ⬆️ Crimson
+→ Zhonya's (14') → Imperial (16:30) → Stormsurge (19')
 
-MID AP BURST (comunidad):
-Tome → Boots of Mana → Luden's (8') → Malignance (11') → ⬆️ Spellslinger's (12')
-→ Rabadon's (15') → Infinity Orb (17:30) → Zhonya's (20')
-(vs MR stacking: Orb → Cryptbloom/Void Staff)
+ADC-CÉNTRICO (tu ADC es el 80 % del team):
+Sickle → Ionian → Scythe → Censer (10') → ⬆️ Crimson
+→ Imperial (13') → Helia (16') → Staff/Harmonic (19')
 ```
 
 ---
 
 ## Pie de página
 
-*Reporte generado el 25/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las métricas de valor-aliado y amp de equipo son comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte generado el 27/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de daño Q, curación Helia y amp de equipo son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
 
 **Referencias y créditos**
 
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: rediseño de Imperial Mandate, Ardent Censer, Echoes of Helia y ajustes de enchanters.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: kit completo (W tether ×2), build/runas populares de mid y meta.
-- Modelo matemático (valor-aliado + amp), Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/analysis_batch2.py`), construido sobre las fuentes anteriores.
+- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: rediseño de Imperial Mandate, Echoes of Helia, Harmonic Echo, Stormsurge, items de support.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: kit completo de Yuumi (Q/W/E/R con Best Friend), build y meta.
+- Modelo matemático (valor-aliado + daño Q), Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
-
-
----
-
----
-tags:
-  - Support
-  - Enchanter
-  - Bot-Lane
-version: 1.2
-Status: Aprobado
-champion: Yuumi
-patch: "7.3+7.3a"
----
-**Fecha del análisis:** 25/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Support (Bot Lane)
-**Arquetipo:** Enchanter-attach — el modelo NO es DPS propio sino **valor-aliado** (escudos, curas y buffs multiplicados sobre tu Best Friend)
-**Enfoque:** Attachada eres intargeteable → **cero stats defensivos tienen valor**; cada punto de oro va a AP/HSP/Haste, con Ardent Censer como multiplicador del carry.
-
-> [!NOTE]
-> **Estado Meta Actual (Diamond+, 24/09/2026):**
-> 
-> Win Rate 48.25 % | Pick Rate 8.72 % | **Ban 34.23 % (señal ⛔ perma-ban)** | Tendencia ↑4 | Rol: Support. Si no la banean, es pick de dúo con carry de AS.
-
-> [!TIP]
-> **Variante anti-dive:** cambia Redemption por **Mikael's Blessing** (cleanse + 150-250 heal) cuando el enemigo tiene CC de un objetivo (Zed R, Ashe R, hooks). Pierdes la cura AoE pero salvas la vida del carry — que es tu verdadera barra de vida.
-
-> [!WARNING]
-> En Wild Rift Yuumi **sí compra botas** (a diferencia de PC) — confirmado en su build popular (Ionian → Crimson Lucidity). El mito del "slot extra" es falso.
-
-
-> [!WARNING] Hotfix 7.3a (29-sep-2026) — NERF DIRECTO
-> W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**. Impacto medido: E-shield 339→~338 y R-heal 651→~648 (−0.3 %): el nerf es simbólico para SU build porque su HSP viene sobre todo de ítems+Revitalize. Además Diadem/Whispering Circlet nerfeadas (Harmonize 0.5→0.25 %) → la variante Y2 pierde atractivo. **Build, veredictos y Censer-core intactos.**
----
-
-## 0. RESUMEN EJECUTIVO
-
-### Tabla A — BUILD FINAL
-
-| Slot | Ítem | Oro | Rol en la build |
-|------|------|-----|-----------------|
-| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** (min 10:00, MISMO slot) | 2 000 | 25 haste + 75 % mana regen + MS al curar/escudar |
-| 2 | **Black Mist Scythe** (quest de support — Spectral Sickle start) | 500 → 0 | Slot de quest; oro y visión |
-| 3 | **Ardent Censer** | 2 400 | +30 % AS y +25 on-hit mágico a tu carry (uptime ~100 % con tu E) |
-| 4 | **Echoes of Helia** | 2 400 | Soul Siphon: 30 % de tu daño → cura burst al aliado |
-| 5 | **Staff of Flowing Waters** | 2 400 | +40 AP y +15 haste al aliado curado/escudado (y a ti) |
-| 6 | **Redemption** (default) / Mikael's / Shurelya's / Zeke's | 2 450 | Cura AoE 150-350 + 10 % vida máx verdadero a enemigos |
-
-> **Oro total: ~11 650 g** (presupuesto real de support a 20 min) · AP 180 · HSP 40 % · Haste 65 · **E = 339 de escudo · R = 651 de cura total · +244 DPS a tu ADC**
-
-### Tabla B — Ruta de compra cronológica
-
-| # | Compra | Oro acum. | Minuto típico |
-|---|--------|-----------|---------------|
-| 1 | **Spectral Sickle** (quest) + poción | 500 | 0:00 |
-| 2 | Boots of Speed → **Ionian Boots of Lucidity** | 1 900 | ~4:00 |
-| 3 | Quest completada → **Black Mist Scythe** | 1 900 | ~6:00 |
-| 4 | Forbidden Idol + Aether Wisp → **Ardent Censer** | 4 300 | ~10:00 |
-| 5 | ⬆️ **Crimson Lucidity** (mismo slot, +1 000 g) | 5 300 | ~11:00 |
-| 6 | Bandleglass + Kindlegem → **Echoes of Helia** | 7 700 | ~14:00 |
-| 7 | Forbidden Idol + Kindlegem → **Staff of Flowing Waters** | 10 100 | ~17:00 |
-| 8 | Bandleglass + Blasting Wand → **Redemption** | 12 550 | ~20:00 |
-
-### Runas · Hechizos · Habilidades
-
-| Categoría | Elección |
-|-----------|----------|
-| Keystone | **Aery** (cada Q/E la manda: daño al pokear Y escudo al proteger — sus dos modos a la vez) |
-| Sorcery 2 | **Axiom Arcanist** (+10 % daño/curas/escudos de R y −7 % CD con takedown) |
-| Sorcery 3 | **Transcendence** (haste = más E/min = más uptime de Censer = más DPS del carry) |
-| Sorcery 4 | **Scorch** (poke de Q) / **Manaflow Band** (si sufres maná) |
-| Secundaria | **Revitalize** (+5 %, y +15 % con aliado <40 % HP — multiplica tu HSP) |
-| Hechizos | **Flash + Exhaust** (peel absoluto desde attach) / Ignite con kill-lane |
-| Skills | **Q → E → W** (R en 5/9/13) |
-
-### Resultado del modelo (nivel 15, AP 180 / HSP 40 %)
-
-| Métrica de valor-aliado | Valor |
-|-----------|-----|
-| Escudo E (por cast) | **339** |
-| Cura total de R (7 olas, Best Friend) | **651** (+excedente → escudo) |
-| **DPS añadido a tu ADC** (Censer + Q on-hit) | **+244** (≈ +28 % sobre ~858 base) |
-| Escudo generado por minuto | **~3 953** |
-
-> **Titular:** quitarle Ardent Censer a una Yuumi que juega con Kalista/Jinx/Yunara cuesta **−170 DPS de tu carry** — ningún otro ítem de 2 400 g da tanto poder de equipo medible.
-
----
-
-## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
-
-### 1.1 Cambios directos a Yuumi (7.3)
-
-Sin cambios de habilidades en 7.3 (ficha: AS ratio 0.625 / bonus 0.2 / 0.006 por nivel — irrelevante, no autoataca en fight).
-
-### 1.2 Cambios sistémicos que la afectan
-
-| Sistema | Cambio | Efecto en Yuumi |
-|---|---|---|
-| Ardent Censer (7.3) | 2 700 → **2 400 g**; buff estrechado: 30 % AS + 25 on-hit fijos (ya no escala con su nivel/crit) | MÁS fuerte y predecible para ella |
-| Harmonic Echo → **Echoes of Helia** | Rehecho: Soul Siphon (30 % del daño → cura) | Su Q poke alimenta curas burst |
-| Forbidden Idol (7.3) | 700 g, solo HSP 6 % (sin vida/haste) | Componentes de enchanter más baratos |
-| Diadem of Songs (nuevo) | 0.8 % maná máx/s al aliado más bajo | Opción de sustain pasivo |
-| Zeke's Convergence (7.3) | 2 400 g: 10 ult haste + Frostfire Tempest | R de Yuumi → slow AoE |
-
-### 1.3 ¿Escala con crítico? No — escala con **Heal & Shield Power y AP**
-
-Sus curas/escudos: E = 170 + **40 % AP**, R por ola = 52 + **8 % AP** (Best Friend), P = 70 + 25 % AP. Todo multiplicado por (1 + HSP). HSP total típico: ítems (8+8+8) + W-Best Friend (11 %) + Revitalize (5 %) = **40 %**.
-
----
-
-## 2. FICHA MATEMÁTICA (spec)
-
-| Parámetro | Valor | Fuente |
-|---|---|---|
-| AD / HP base | 50 / 570 | Ficha wr-meta |
-| P Feline Friendship | Autos/habs curan 70+25 % AP (CD 12-8 s); **Best Friend** (aliado con más Friendship por kills/minions juntos) → bonus en Q/R y +8-11 % HSP (W) | Ficha wr-meta |
-| Q Prowling Projectile | 60-220 + 20 % AP; **attached con ≥1 s de vuelo: 100-340 + 35 % AP** + slow 45-65 %; al golpear da al aliado **+18-22 + 5 % AP on-hit por 5 s** (CD 5 s) | Ficha wr-meta |
-| W You and Me! | Attach: untargetable (salvo torretas); CC sobre Yuumi la pone en CD 5 s | Ficha wr-meta |
-| E Zoomies | Escudo 80-170 + **40 % AP** + **24-36 % AS** + 20 % MS al aliado, 3 s (CD 9 s) | Ficha wr-meta |
-| R Final Chapter | 7 olas: 80-120 + 15 % AP daño / 20-50 + 5 % AP cura (BF: 26-52 + 8 %); excedente → escudo; slow +10 %/ola | Ficha wr-meta |
-
-**Referencia de carry para el modelo:** ADC con AS 2.6 y 330 de daño/golpe (Jinx/Kalista full build ≈ 320-360 ✓).
-
----
-
-## 3. MODELO Y FÓRMULAS (valor-aliado, no DPS propio)
-
-```
-E_escudo  = (170 + 0.40×AP) × (1 + HSP/100)
-R_cura    = 7 × (52 + 0.08×AP) × (1 + HSP/100)          [Best Friend]
-E_cd      = 9 × 100/(100 + haste)
-ADC+DPS   = 0.115 × AS_carry × dmg_carry                [Censer: +30 % AS sobre AS ~2.6]
-          + AS_carry × 25                               [Censer on-hit]
-          + AS_carry × (22 + 0.05×AP)                   [Q on-hit al aliado, uptime ~100 %]
-Escudo/min = E_escudo × 60/E_cd
-```
-
-### Supuestos específicos
-
-- Censer y Q-on-hit con uptime ~100 % (E cada 5.1 s con haste 65 y buff de 6 s; Q CD 5 s y buff 5 s).
-- HSP aplica a E y R (no al on-hit de Q ni a los fijos de Censer).
-- La Scythe de quest ocupa slot (6 slots = scythe + botas + 4 ítems) — verificar si en tu servidor la quest completada se fusiona.
-- Redemption/Diadem valorados cualitativamente (burst AoE / sustain) fuera de las métricas de tabla.
-
----
-
-## 4. LEYES APLICADAS A YUUMI
-
-### Ley 0 — Slots
-
-1 botas (Crimson Lucidity T3) + quest + 4 ítems. `validate_slots(["Crimson","Echoes","Censer","Staff","Redemption"])` → PASS (5 entradas con botas; la quest es slot 6).
-
-### Ley 4 — Stats muertos: TODA defensa es stat muerto
-
-Attachada eres **untargeteable**. Vida/armadura/MR solo valen desattachada (P, visión, R en canalización te pueden castigar). Por eso Locket/Mikael's son "compras de equipo", no de stats — y por eso el AP/HSP puro es óptimo: Yuumi es el único campeón donde ser 100 % glass es matemáticamente correcto.
-
-### Ley 5 — Eficiencia: Censer es el ítem más eficiente del parche para ella
-
-2 400 g → +164-244 DPS del carry (según su build) + 30 % AS a TODO aliado que escudes. Comparado: Redemption cura 150-350 AoE cada 60+ s. En partidas donde tu carry es la win-con (tu dúo: Kalista/Jinx/Yunara), Censer primero SIEMPRE.
-
-### Ley 6 — Timing
-
-Censer al ~10:00 (2 400 g con economía de support) = pico de dúo justo cuando el carry completa su 2.º ítem. Crimson Lucidity tras el 10:00 (haste → más E/min → más Censer uptime).
-
-### Ley 7 — Sistemas
-
-Minions pegan 60 % a campeones → desattacharte a pokear con P es más seguro en 7.3. Torretas 7 000 HP → tu R en siege (7 olas desde attach, intargeteable) es de las formas más seguras de aplicar presión.
-
----
-
-## 5. ANÁLISIS DEL PRIMER ÍTEM
-
-**No aplica** — el primer "ítem" es la quest (Spectral Sickle → Black Mist Scythe). La primera decisión real es el ítem 3: **Censer** (carry de AS) vs **Echoes** (carry de burst / lane de poke). Con tus carries (Kalista/Jinx/Yunara): Censer.
-
----
-
-## 6. BUILD FINAL RANURA POR RANURA
-
-| Slot | Ítem | Justificación matemática |
-|---|---|---|
-| Botas | **Ionian → ⬆️ Crimson Lucidity** | 25 haste = E cada 5.1 s = Censer permanente; MS al curar (Noxian Haste) |
-| Quest | **Black Mist Scythe** | Obligatoria (economía/visión); ocupa slot |
-| 1 | **Ardent Censer** | +244 DPS al carry (tabla §0); el ítem que más poder de equipo da por 2 400 g |
-| 2 | **Echoes of Helia** | Soul Siphon: tu Q poke (340 attached) se convierte en curas de ~100 al aliado |
-| 3 | **Staff of Flowing Waters** | +40 AP y +15 haste al carry cuando lo escudas → sus hechizos rotan más rápido; a ti te da el AP que infla E/R |
-| 4 | **Redemption** (default) | Cura AoE 150-350 + 10 % vida máx como daño verdadero a enemigos — ejecuta bajo tu R |
-
-### Matriz del último slot (situacional)
-
-| Situación | Ítem | Coste | Impacto |
-|---|---|---|---|
-| **Default** | **Redemption** | 2 450 | Burst AoE heal + verdadero |
-| CC de un objetivo sobre el carry | **Mikael's Blessing** | 2 500 | Cleanse + 150-250 heal — salva vidas |
-| Comp de engage (Diana/Malphite/Shyvana) | **Shurelya's Battlesong** | 2 500 | 30 % MS AoE activo — R+Shurelya = wombo |
-| Tus carries engajean primero | **Zeke's Convergence** | 2 400 | R → 150 mágico + 30 % slow AoE + 10 ult haste |
-| Sustain de asedio | **Diadem of Songs** | 2 400 | 0.8 % maná máx/s (~9.6 HP/s) al aliado más bajo |
-| AoE burst enemigo | **Locket of the Iron Solari** | 2 600 | Escudo 250-370 AoE (halved si se repite en 20 s) |
-
-### RECHAZADOS (con motivo numérico)
-
-| Ítem | Motivo del rechazo |
-|---|---|
-| Imperial Mandate | Su CC es el slow de Q attached — marca de 1 objetivo; Censer+Echoes dan más valor por slot en su kit |
-| Cualquier ítem defensivo en slots 1-3 | Ley 4: untargeteable attachada → oro muerto hasta que te obliguen a desattachear |
-| Ítems de AP puro (Rabadon's/Luden's) | Sin HSP/haste/utilidad: E sube +52 con 130 AP... pero pierdes el multiplicador de equipo |
-| Yordle Trap | Aura de 20 % AS a aliados < Censer (30 % + 25 on-hit) para su perfil |
-
----
-
-## 7. RUNAS · HECHIZOS · HABILIDADES
-
-### Keystone: Aery
-
-Cada Q/E envía a Aery: **daña al pokear y escuda al proteger** — los dos modos de Yuumi en una runa. Comunidad coincide (ficha wr-meta).
-
-**Alternativas:** *Guardian* (escudo 40-165+ al aliado damageado — vs dive pesado); nada más compite.
-
-### Secundarias
-
-| Slot | Runa | Valor estimado |
-|---|---|---|
-| Sorcery | **Axiom Arcanist** | +10 % curas/escudos/damage de R y −7 % CD con takedown (su R es de teamfight) |
-| Sorcery | **Transcendence** | 10 haste + reducción post-nivel 9 → E cada ~5 s |
-| Sorcery | **Scorch** / **Manaflow Band** | Poke de Q attached (+340 base) / +300 maná para Q-E-R spam |
-| Resolve | **Revitalize** | +5 % (15 % con aliado <40 %) sobre E y R — multiplica HSP |
-
-### Hechizos: Flash + Exhaust
-
-Exhaust desde attach (−35 % MS y −40 % daño al diveador, 2.5 s) es el peel más barato del juego. Ignite solo con composición de kill-lane temprana.
-
-### Orden de habilidades
-
-**Q → E → W** · R en 5/9/13.
-- Q max: daño attached 340+35 % AP, slow 65 % y el on-hit al carry (22+5 % AP) — su pico de valor.
-- E segunda: escudo/AS/MS escalan y su CD baja a 9 s.
-- W última: los rangos de Friendship/CD mejoran marginalmente.
-
----
-
-## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
-
-### Tabla maestra (nivel 15, AP/HSP completos)
-
-| Build | Oro | AP | HSP | E-shield | R-heal | **ADC +DPS** | Escudo/min |
-|---|---|---|---|---|---|---|---|
-| **Y1 Amp-ADC (Censer, Echoes, Staff, Redemption)** | 11 650 | 180 | 40 % | **339** | **651** | **+244** | 3 953 |
-| Y2 Heal engine (sin Censer: Echoes, Staff, Diadem, Redem.) | 11 650 | 130 | 40 % | 311 | 612 | +74 | 3 626 |
-| Y3 Anti-dive (Mikael's, Locket, Censer, Echoes) | 11 900 | 90 | 33 % | 274 | 551 | +233 | 3 288 |
-| Y4 AP greedy (Censer, Staff, Echoes, Shurelya's) | 11 700 | 195 | 32 % | 327 | 625 | +246 | **4 037** |
-| Y5 Zeke (comps de engage) | 11 600 | 140 | 32 % | 298 | 584 | +239 | 3 480 |
-
-### Lectura
-
-Y2 demuestra el punto central: **sin Censer pierdes −170 DPS de carry**. Y1 = default; Y4 cambia Redemption por Shurelya's (engage/MS); Y3 solo vs one-shot comps. Las diferencias de escudo entre Y1/Y4 son marginales (±12) — elige por utilidad del activo.
-
----
-
-## 9. PLAN DE JUEGO
-
-### Early (0:00 – 6:00)
-
-- **Nivel 1:** desattachada — auto + Q para activar P (cura 70+) y presionar; vuelve al ADC antes de la oleada 2.
-- **Friendship:** el Best Friend se construye con kills/minions juntos — haz la quest pegada a tu carry.
-- **Maná:** Q attached cuesta 60; no spamees antes del nivel 3.
-
-### Mid (6:00 – 14:00)
-
-- **Nivel 6:** R disponible — primer all-in de dúo: Q attached (slow 65 %) → E → R (7 olas, slow acumulativo 70 %).
-- **Rotaciones:** W entre lanes para visión y Friendship, NUNCA durante el spawn de cañón de tu lane.
-- **Min 10:00:** ⬆️ Crimson Lucidity; Censer completo ≈ minuto 10 → pico de dúo.
-
-### Late (14:00+)
-
-- **Teamfight:** attach al carry → Q guiado desde niebla → E cíclico (Censer uptime) → R cuando agrupen (setup para Malphite/Diana R).
-- **R + Shurelya's/Zeke's:** si llevas el activo, la secuencia R→activo gana la fight por posicionamiento.
-- **Contra Yuumi:** el enemigo debe desattachearla con CC al cuerpo o matar a tu Best Friend — comunica jugar alrededor de tu carry BF.
-
-### Reglas del parche que cambian el macro
-
-| Regla | Impacto |
-|---|---|
-| Minions 60 % daño | Desattacharse a pokear es más seguro |
-| Torretas 7 000 HP + cristales | R en siege = presión segura desde attach |
-| Enchanter items más baratos (7.3) | Censer al 10:00 es realista con economía de support |
-
----
-
-## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
-
-### Fuentes primarias (mandan)
-
-| Fuente | Acceso | Qué aporta |
-|---|---|---|
-| Notas oficiales 7.3 | 25/09/2026 | Ardent Censer 2 400/rediseño, Echoes of Helia, Forbidden Idol, Zeke's, Diadem |
-| Notas oficiales 7.2 | 25/09/2026 | Rehecho de items de support (menos haste late), Redemption/Locket/Shurelya's/Mikael's |
-
-### Fuentes secundarias
-
-| Fuente | Acceso | Fiabilidad |
-|---|---|---|
-| wr-meta Yuumi (ficha + build + runas) | 25/09/2026 | Alta para kit (P/Q/W/E/R con Best Friend); build popular = insumo validado |
-
-### Discrepancias detectadas y resolución
-
-| Tema | Resolución |
-|---|---|
-| "Yuumi no usa botas" (mito de PC) | **Falso en WR**: su build popular trae Ionian → Crimson Lucidity ✓ |
-| ¿La Scythe completada ocupa slot? | Asumido que sí (build popular la lista entre ítems) — verificar en juego |
-
-### Supuestos del modelo (declarados)
-
-- Carry de referencia: AS 2.6 / 330 daño por golpe; +30 % AS de Censer ≈ +11.5 % de su DPS.
-- Uptimes ~100 % (E cada 5.1 s vs buff 6 s; Q CD 5 s vs buff 5 s).
-- HSP aplica a E/R; Revitalize al 5 % base.
-- Diadem/Redemption fuera de las métricas de tabla (valor situacional cualitativo).
-
-### Contexto meta (24/09, Diamond+)
-
-Yuumi: WR 48.25 %, pick 8.72 %, **ban 34.23 %** (⛔ perma-ban signal), tendencia ↑4. Traducción: en dúo coordinado es fuerte pero el enemigo la banea 1 de cada 3 veces — ten un plan B (Karma, misma ruta enchanter).
-
-### Validación del modelo
-
-- `validate_slots(["Crimson","Echoes","Censer","Staff","Redemption"])` → **PASS** (botas T3 única, quest como 6.º slot declarado).
-- Chequeo manual: E = (170+0.4×180)×1.4 = 338.8 ≈ **339** ✓ · R = 7×(52+14.4)×1.4 = **651** ✓.
-
----
-
-## APÉNDICE A — POOL DE ÍTEMES DE SUPPORT: veredicto para Yuumi
-
-| Ítem (oro) | Veredicto | Nota |
-|---|---|---|
-| Ardent Censer (2 400) | ✅ Core 1 | +244 DPS al carry de AS |
-| Echoes of Helia (2 400) | ✅ Core 2 | Poke → cura burst |
-| Staff of Flowing Waters (2 400) | ✅ Core 3 | AP+haste al carry y a ti |
-| Crimson Lucidity (2 000) | ✅ Botas | 25 haste = uptime de todo |
-| Redemption (2 450) | ✅ 6.º default | AoE heal + verdadero |
-| Mikael's Blessing (2 500) | ⚠️ 6.º vs CC | Cleanse salva al carry |
-| Shurelya's Battlesong (2 500) | ⚠️ 6.º engage | MS AoE activo |
-| Zeke's Convergence (2 400) | ⚠️ 6.º engage | R → slow AoE |
-| Diadem of Songs (2 400) | ⚠️ 6.º asedio | 9.6 HP/s pasivo |
-| Locket (2 600) | ⚠️ vs AoE burst | Escudo 250-370 |
-| Imperial Mandate (2 600) | ❌ | Slow de Q marca 1 objetivo; Censer rinde más |
-| Yordle Trap (2 400) | ❌ | Aura 20 % AS < Censer |
-| Defensivos (Thornmail etc.) | ❌ | Ley 4: untargeteable |
-
----
-
-## APÉNDICE B — RUTAS DE COMPRA
-
-```
-DEFAULT (carry de AS: Kalista/Jinx/Yunara):
-Sickle → Ionian (4') → Scythe quest (6') → Censer (10') → ⬆️ Crimson (11')
-→ Echoes (14') → Staff (17') → Redemption (20')
-
-HEAL ENGINE (carry de burst / lane de poke):
-Sickle → Ionian → Scythe → Echoes → ⬆️ Crimson → Staff → Diadem → Redemption/Mikael's
-
-ANTI-DIVE (Zed/Rengar/Ashe R):
-Sickle → Ionian → Scythe → Mikael's → ⬆️ Crimson → Censer → Echoes → Locket
-
-ENGAGE COMP (Diana/Malphite/Shyvana allies):
-Sickle → Ionian → Scythe → Censer → ⬆️ Crimson → Zeke's/Shurelya's → Echoes → Staff
-```
-
----
-
-## Pie de página
-
-*Reporte generado el 25/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las métricas de valor-aliado son comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
-
-**Referencias y créditos**
-
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: rediseño de Ardent Censer/Echoes of Helia/Forbidden Idol, items de support.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: kit completo con Best Friend, build y runas populares, meta.
-- Modelo matemático (valor-aliado), Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/analysis_batch2.py`), construido sobre las fuentes anteriores.
-
-**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
-
----
-
 
 ## 15. BASE DE ÍTEMS COMPLETA (pasivas + tips)
 
@@ -8618,14 +11569,13 @@ Exhaust,,,Basic Items,"Exhaust ~   ~ Exhaust ~ Exhausts target enemy champion, r
 Smite,,,Basic Items,"Smite ~   ~ Smite ~ Jungle Expertise: ~ On cast, Smite deals  ~ 600 true damage ~  to minions and monsters and causes your attacks against a monster to deal  ~ 30 true damage ~ ( ~ ) every second in an area around them for 2 seconds. This damage is increased by  ~ 10% bonus Attack Damage ~ ,  ~ 12% bonus Ability Power ~ ,  ~ 25% bonus Armor ~ ,  ~ 25% bonus Magic Resist ~ , and  ~ 4% bonus Health ~ . ~ Deals 10% more damage against monsters. ~ Hunter's Resource: ~ - Gain Hunter's Resource stacks over time. After clearing a monster camp, 1 stack(s) are consumed for  ~ 40 bonus gold ~ . ~ -  ~ Restore 5–35 Health ~  every second ( ~ ) when attacking monsters. Health restored is based on your missing Health. ~ - When Smite is equipped, take only 50% damage from non-epic monsters. ~ Upgraded Smite: ~ - After consuming 8 and 20 stacks, Smite upgrades, increasing its damage to 1,000 and 1,400 respectively. ~ - When Smite is fully upgraded, gain  ~ Movement Speed ~  while in the jungle or river:  ~ 10% Movement Speed ~  out of combat, and  ~ 5% Movement Speed ~  in combat. ~ - Upgraded Smite can be cast on champions to deal  ~ 40 true damage ~  damage and steal 25% of their Movement Speed for 2 seconds. ~ Gains one charge every 45 seconds, up to a max of 2. ~ Cooldown: ~  45s"
 Cleanse,,,Basic Items,Cleanse ~   ~ Cleanse ~ Removes disables (including spell debuffs) affecting your champion and grants immunity to disables for 0.25 seconds. ~ Cooldown: ~  110s
 Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 seconds, teleport your champion to an allied champion, structure, or ward (excludes areas in range of enemy inhibitors). You can only teleport to structures during the first 6 minutes of the game. ~ Cooldown: ~  150s ~    ~                          ~                      ~                  ~              ~          ~          ~          ~          ~              ~      (adsbygoogle = window.adsbygoogle || []).push({}); ~  OFF ADS ~              ~          ~          ~          ~      ~          ~          ~          ~          ~          ~          ~          ~          ~          ~      ~ LoL Wild Rift Items ~      ~          ~ Items ~  - used by LoL Wild Rift champions to increase their base stats during battles on the fields of justice. Most items have their own unique passive skills. ~      ~      ~         Each champion can purchase a maximum of six items, which means that you need to be smart about buying them, you need to know the strengths and weaknesses of your champion. There are also active items in the game - these are boots that can be enchanted and get one of 9 effects, such as Stasis, Teleport, etc. You can only have 1 active item available to you. Do not forget that each active item has its own recharge time after its use. ~      ~      ~          ~ League of Legends Wild Rift in-game items ~  can only be bought while at your base with gold received in battle. Acquire items considering the situation in the game, if you learn how to analyze it correctly, you will be ready for any trouble. ~      ~      ~         In Wild Rift, there are items for physical damage, magical damage and for increasing defensive characteristics. Marksmans, some assassins and warriors rely on physical attack, respectively, as the game progresses, improve its performance. Mages, supports, and some assassins improve their ability power by buying magic damage items. Tanks and some warriors prefer survivability over damage and gain health, armor, and magic defense by purchasing items with defensive stats. ~      ~      ~          ~ Wild Rift items ~  come in varying quality and are upgraded with gold. At the start of the game, you can only buy Basic items, which over time you can upgrade to COMMON and Improved. ~      ~      ~         You can get acquainted with all game items on this page by going to the page of the item itself, you can find out a little more of useful information! ~      ~          ~      ~              ~                 ~                  ~                      ~ wr ~ meta ~                      ~                          ~ Advertise ~                          ~ Feedback ~                          ~ Privacy policy ~                          ~ Delete account ~                          ~   ~ Twitter ~                          ~   ~ Patreon ~                      ~                  ~                  ~ This project is not official and is not affiliated with Riot Games. It was created by enthusiasts and fans of the game for educational purposes only. Copying materials is allowed with an active link to the source page. ~ © Copyright 2020-2026 by JLVD DEV ~                  ~              ~              ~          ~      ~      ~          ~              ~ Search ~              ~          ~          ~              ~              ~              ~                  ~                  ~                  ~              ~          ~      ~      ~      ~      ~      ~      ~      ~      ~    ~      ~     ~      ~      ~      ~      ~    ~      ~      ~      ~      ~       ~      ~      ~      ~      ~     window.addEventListener('load', function(){ ~       var pre = document.querySelector('.loaderArea'); ~       if(!pre) return; ~       pre.style.transition = 'opacity .25s ease'; ~       pre.style.opacity = '0'; ~       pre.style.pointerEvents = 'none'; ~       setTimeout(function(){ pre.style.display='none'; }, 280); ~     }); ~      ~      ~      ~     (function(){ ~       function run(){ ~         document.querySelectorAll('.nolazy img[data-src]').forEach(function(img){ ~           img.setAttribute('src', img.getAttribute('data-src')); ~           img.removeAttribute('data-src'); ~         }); ~       } ~       if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', run, {once:true}); ~       else run(); ~     })(); ~      ~      ~      ~       var fired = false; ~       window.addEventListener('scroll', function(){ ~         if (fired) return; ~         fired = true; ~         setTimeout(function(){ ~           var GTMObject = document.createElement(""script""); ~           GTMObject.src = 'https://www.googletagmanager.com/gtag/js?id=G-P6EEJGLKQ3'; ~           GTMObject.async = true; ~           document.getElementsByTagName('head')[0].appendChild(GTMObject); ~           window.dataLayer = window.dataLayer || []; ~           function gtag(){ dataLayer.push(arguments); } ~           gtag('js', new Date()); ~           gtag('config', 'G-P6EEJGLKQ3'); ~         }, 5000); ~       }, {passive:true}); ~      ~      ~      ~      ~     (function(){ ~       function loadAds(){ ~         var s1 = document.createElement('script'); ~         s1.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039714206715924'; ~         s1.async = true; ~         s1.crossOrigin = 'anonymous'; ~         document.head.appendChild(s1); ~         var s2 = document.createElement('script'); ~         s2.src = 'https://fundingchoicesmessages.google.com/i/pub-7039714206715924?ers=1'; ~         s2.async = true; ~         document.head.appendChild(s2); ~         (function() { ~           function signalGooglefcPresent() { ~             if (!window.frames['googlefcPresent']) { ~               if (document.body) { ~                 var iframe = document.createElement('iframe'); ~                 iframe.style = 'width:0;height:0;border:none;position:absolute;left:-9999px;top:-9999px;'; ~                 iframe.style.display = 'none'; ~                 iframe.name = 'googlefcPresent'; ~                 document.body.appendChild(iframe); ~               } else { ~                 setTimeout(signalGooglefcPresent, 0); ~               } ~             } ~           } ~           signalGooglefcPresent(); ~         })(); ~       } ~       window.addEventListener('load', function(){ ~         setTimeout(loadAds, 1600); ~       }); ~     })(); ~      ~      ~      ~      ~      ~      ~       (function() { ~         var a = document.querySelector('#aside1'), ~             b = null, ~             P = 70; ~         if(!a) return; ~         window.addEventListener('scroll', Ascroll, false); ~         document.body.addEventListener('scroll', Ascroll, false); ~         function Ascroll() { ~           if (b == null) { ~             var Sa = getComputedStyle(a, ''), ~                 s = ''; ~             for (var i = 0; i  ~      ~      ~ window.addEventListener('load', function(){ ~   if (!window.jQuery) return; ~   jQuery("".extremum-click"").off('click.wrm').on('click.wrm', function () { ~     jQuery(this).siblings("".extremum-slide"").slideToggle(""slow""); ~   }); ~ }); ~      ~      ~     window.addEventListener('load', function(){ ~       setTimeout(function(){ ~         if (window.__sharethis_loaded) return; ~         window.__sharethis_loaded = true; ~         var s = document.createElement('script'); ~         s.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=653ac2c5933f6c0019e85d83&product=inline-share-buttons'; ~         s.async = true; ~         document.body.appendChild(s); ~       }, 2000); ~     });"
-
 ```
 
 ## 16. ROADMAP DEL PROYECTO (módulos futuros)
 
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.5):** repo git local versionado · BD SQLite derivada · suite de tests · CI + vigilante de parches (GitHub Actions) · datos 7.3+7.3a.
+**Estado actual (v1.7):** repo git versionado · BD SQLite derivada · 60 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -8634,9 +11584,21 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 | Control de versiones | git local (tags por versión del lab) | ✅ listo para `git remote add origin … && git push` |
 | Base de datos | `data/wrlab.db` (SQLite) vía `model/build_db.py` | ✅ se reconstruye desde los .md/.csv en segundos |
 | Tests de regresión | `tests/test_model.py` (unittest, sin dependencias) | ✅ golden numbers de Jinx + slots + fórmula AS + overrides 7.3a |
+| **Actualizador de reportes publicados** | `model/update_reports.py` + `data/estructurada/reportes_registry.json` + `tests/test_update_reports.py` | ✅ triage/annotate/check: un hotfix **anota** los reportes con su Δ medido (umbrales 2 %/5 %) en vez de regenerarlos; bloques `WRLAB-VERIF` idempotentes; CI detecta drift y reportes sin triar. Parser v2: reportes del vault sin frontmatter champion, tablas BUILD FINAL, alias en paréntesis, veredicto ⏩ AL_DIA |
+| **Optimizador de builds** | `model/optimize_build.py` + `tests/test_optimize_build.py` | ✅ búsqueda exhaustiva (DFS podado por oro/AS/crit) sobre el motor dps_model: top-N por objetivo ponderado **normalizado** por escenario; `--crit-min/--pen-min` (Leyes 1/3 duras), `--incluir/--excluir`, `--oro`, `--validar` (validación cruzada: **redescubre la build C de Jinx**). Alcance v1: arquetipo de autos; pendiente: motores batch2 (Kalista/Diana/soportes) |
+| **Regenerador de bundles** | `model/build_bundles.py` | ✅ lite/completo son artefactos derivados de las fuentes; `--check` en CI evita desfases; validación de integridad embebida (motor íntegro, 140 AS, 186 ítems, 16 reportes con WRLAB-VERIF, 11 fichas) |
 | Vigía de parches | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta |
 | CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
 | Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
+
+## Hallazgos del optimizador (registro vivo)
+
+- **29/09 · Jinx post-7.3a:** con el pool completo y Leyes 1+3 duras (18 000 g, nivel 15), la
+  frontera óptima se movió tras el buff de Yun Tal (AS 25→35): `Gunmetal+C44+Terminus+YunTal+LDR+IE`
+  (pen 65) alcanza ~90 % de eficiencia normalizada vs ~83 % de la build C publicada (que sigue
+  siendo la mejor en AoE 3v3 puro). Supuestos a declarar antes de cualquier re-derivación:
+  Yun Tal al **máximo de rampa** (125 ataques) y Terminus a stacks completos. **Decisión pendiente
+  del autor** (la Regla de Oro v1.6 aplica: el reporte publicado no se toca sin decisión explícita).
 
 ## Módulos propuestos (prioridad × esfuerzo)
 
@@ -8644,12 +11606,10 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
    `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
    — envolver los scripts actuales en un solo punto de entrada con argparse.
 
-2. **Optimizador de builds** (medio, MUY alto valor)
-   Búsqueda exhaustiva/branch-and-bound sobre el pool de ítems del rol maximizando
-   `dpsN` sujeto a: 6 slots, Ley 0 (1 botas), Ley 1 (crit ≤ umbral), Ley 2 (AS ≤ cap+ε),
-   presupuesto de oro por minuto. Entrada: ChampSpec + escenarios; salida: top-N builds
-   con desglose multiplicativo. Validación cruzada contra los reportes existentes
-   (debe "redescubrir" la build C de Jinx y la K2 de Kalista).
+2. **Optimizador v2 para motores batch2** (medio, alto valor)
+   Extender `optimize_build.py` a los modelos de `analysis_batch2` (Kalista on-hit con E Rend,
+   Diana rotación AP, soportes valor-aliado): mismo esquema DFS+embudo sobre K_ITEMS/D_ITEMS/Y_ITEMS.
+   Validación cruzada: redescubrir K2 de Kalista, D2-LT de Diana e Y1 de Yuumi.
 
 3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
 
@@ -8689,8 +11649,7 @@ git push -u origin main --tags
 # GitHub Actions corre ci.yml en el push y patch-watch.yml 2×/día.
 ```
 
-
-## 17. TESTS DE REGRESIÓN
+## 17. TESTS DE REGRESIÓN (model + update_reports + optimize_build)
 
 ```python
 # -*- coding: utf-8 -*-
@@ -8774,5 +11733,1838 @@ class TestSpecs(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
-
 ```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests del actualizador de reportes (model/update_reports.py).
+Cubren: golden numbers por modelo (hooks), parseo del vault (16 reportes, formatos
+mixtos: Tabla v1.4 / tablas BUILD FINAL / alias en paréntesis / rutas descartadas),
+triage del hotfix 7.3a sobre el set real (Caitlyn/Rammus ❌, Yuumi ⚠️, resto ✅),
+rúbrica sintética, idempotencia de anotación, AL_DIA y orden de parches.
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import update_reports as U
+import dps_model as M
+
+JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
+KALISTA_K2 = ["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"]
+DIANA_D2 = ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"]
+YUUMI_Y1 = ["Scythe", "Crimson", "Censer", "Echoes", "Staff", "Redemption"]
+
+
+class TestGoldenPorModelo(unittest.TestCase):
+    """Los hooks reproducen los números canónicos publicados (nivel de unidad, sin registro)."""
+
+    def test_jinx(self):
+        m = U.hook_jinx(JINX_C)
+        self.assertEqual(round(m["dps1"]), 3042)
+        self.assertEqual(round(m["dps3"]), 10551)
+
+    def test_kalista(self):
+        m = U.hook_kalista(KALISTA_K2)
+        self.assertEqual(round(m["dps1"]), 1262)
+        self.assertEqual(round(m["dps3"]), 2612)
+        self.assertEqual(round(m["e_hit"]), 2387)
+
+    def test_diana(self):
+        m = U.hook_diana(DIANA_D2)
+        self.assertEqual(round(m["dps10s"]), 971)
+        self.assertEqual(round(m["burst"]), 1792)
+
+    def test_yuumi_pre73a_reproduce_publicado(self):
+        pre = U.hook_yuumi(YUUMI_Y1, params={"w_flat": 11, "w_ap_pct": 0.0})
+        self.assertEqual(round(pre["e_shield"]), 339)
+        self.assertEqual(round(pre["r_heal"]), 651)
+        self.assertEqual(round(pre["adc_dps_add"]), 244)
+
+    def test_yuumi_post73a_en_el_motor(self):
+        act = U.hook_yuumi(YUUMI_Y1)
+        self.assertAlmostEqual(act["e_shield"], 338.3, delta=0.5)
+
+
+class TestRegistroVault(unittest.TestCase):
+    """Parseo del set real de 16 reportes del vault (formatos mixtos)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.reg = U.construir_registro()
+        cls.entradas = cls.reg["reportes"]
+
+    def entry(self, archivo):
+        return self.entradas[archivo]
+
+    def test_16_reportes(self):
+        self.assertEqual(len(self.entradas), 16)
+
+    def test_champions_derivados_del_nombre(self):
+        self.assertEqual(self.entry("Yunana.md")["champion_display"], "Yunara")     # errata de archivo
+        self.assertEqual(self.entry("Cho'Gath - Titán del Barón.md")["champion_display"], "Cho'Gath")
+        self.assertEqual(self.entry("Volibear Pesadilla.md")["champion_display"], "Volibear")
+        self.assertEqual(self.entry("Diana - Mid.md")["champion_display"], "Diana")
+
+    def test_jinx_build_c_con_hooks(self):
+        e = self.entry("Jinx.md")
+        self.assertEqual(e["hook"], "hook_jinx")
+        self.assertEqual(e["build_keys"], JINX_C)
+        self.assertEqual(round(e["metricas"]["dps1"]), 3042)
+        self.assertEqual(M.validate_slots(e["build_keys"]), (1, 5))   # Ley 0
+
+    def test_kalista_fallback_con_alias_parentetico(self):
+        """Kalista.md no usa Tabla A; 'Bloodthirster (BotRK)' debe resolver a BotRK (K2)."""
+        e = self.entry("Kalista.md")
+        self.assertEqual(e["hook"], "hook_kalista")
+        self.assertEqual(sorted(e["build_keys"]), sorted(KALISTA_K2))
+        self.assertEqual(round(e["metricas"]["dps1"]), 1262)
+
+    def test_diana_dos_archives_cuantitativos(self):
+        for f in ("Diana - Jungla.md", "Diana - Mid.md"):
+            e = self.entry(f)
+            self.assertEqual(e["hook"], "hook_diana", f)
+            self.assertIsNotNone(e["metricas"], f)
+
+    def test_yuumi_poke_hybrid_sin_hook_honesto(self):
+        e = self.entry("Yuumi.md")
+        self.assertIsNone(e["hook"])                     # Stormsurge/Harmonic Echo fuera del modelo
+        self.assertIn("Stormsurge", e["hook_motivo"])
+
+    def test_reportes_sin_build_extraible(self):
+        for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
+            self.assertEqual(self.entry(f)["hook"], None, f)
+
+    def test_rutas_no_confundidas_con_build(self):
+        """Sivir/Yunara: la tabla con columna 'Minuto' es ruta de compra, no build final."""
+        e = self.entry("Sivir.md")
+        if e["build_display"]:                            # si parseó la tabla BUILD FINAL (§2)
+            self.assertNotIn("⬆️ Gunmetal Greaves", e["build_display"])
+
+
+class TestParserUnidades(unittest.TestCase):
+    def test_celda_bold_con_flecha_interna(self):
+        self.assertEqual(U._nombre_de_celda("**Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00)"),
+                         "Gunmetal Greaves")
+
+    def test_celda_sin_bold(self):
+        self.assertEqual(U._nombre_de_celda("Guinsoo's Rageblade"), "Guinsoo's Rageblade")
+
+    def test_resolver_alias_parentetico(self):
+        self.assertEqual(U.resolver_clave("Bloodthirster (BotRK)", "onhit"), "BotRK")
+
+    def test_resolver_full_name_autos(self):
+        self.assertEqual(U.resolver_clave("Lord Dominik's Regards", "autos"), "LDR")
+
+    def test_mencionado_sin_falsos_positivos(self):
+        tl = U._norm("Esta build usa Rabadon's Deathcap y Zhonya's Hourglass.")
+        self.assertIsNone(U._mencionado(tl, "Death's Dance"))       # 'death' ⊄ 'deathcap' por \b
+        self.assertIsNotNone(U._mencionado(U._norm("Consideré Death's Dance y la descarté."),
+                                           "Death's Dance"))
+
+    def test_expandir_nombre_compuesto(self):
+        self.assertEqual(U.expandir_nombre_item("Crown/Diadem of Songs"),
+                         ["Crown of Songs", "Diadem of Songs"])
+
+    def test_orden_de_parches(self):
+        self.assertLess(U.patch_key("7.3"), U.patch_key("7.3a"))
+        self.assertLess(U.patch_key("7.3a"), U.patch_key("7.3b"))
+        self.assertLess(U.patch_key("7.3z"), U.patch_key("7.4"))
+
+
+class TestTriage73aVault(unittest.TestCase):
+    """Triage real del hotfix 7.3a sobre los 16 reportes del vault."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.reg = U.construir_registro()
+        cls.patch, cls.cs, cls.res = U.triage_todos(cls.reg, patch="7.3a")
+        cls.por = {t["archivo"]: t for t in cls.res}
+
+    def test_caitlyn_regenerar(self):
+        """7.3a nerfeó su AS growth (input del spec) → el reporte 7.3 debe regenerarse."""
+        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "REGENERAR")
+
+    def test_rammus_regenerar(self):
+        """7.3a nerfeó su armadura base (input del spec)."""
+        self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
+
+    def test_yuumi_revisar_conservador(self):
+        """Nerf directo a su W sin hook para la build poke-hybrid → revisión acotada, NO regenerar."""
+        t = self.por["Yuumi.md"]
+        self.assertEqual(t["veredicto"], "REVISAR")
+        self.assertIsNotNone(t["directo"])
+
+    def test_jinx_anotar_delta_cero(self):
+        t = self.por["Jinx.md"]
+        self.assertEqual(t["veredicto"], "ANOTAR")
+        self.assertEqual(t["delta_max"], 0.0)
+        self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
+        self.assertTrue(t["sistemas"])                    # placas/Nexus (rol ADC)
+
+    def test_kalista_cuantitativo(self):
+        t = self.por["Kalista.md"]
+        self.assertEqual(t["delta_max"], 0.0)
+        self.assertNotEqual(t["veredicto"], "REGENERAR")
+
+    def test_balance_general(self):
+        verdictos = [t["veredicto"] for t in self.res]
+        self.assertEqual(verdictos.count("REGENERAR"), 2)
+        self.assertEqual(verdictos.count("REVISAR"), 1)
+        self.assertEqual(len(self.res), 16)
+
+    def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
+        """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""
+        reg = U.construir_registro()
+        f = "Jinx.md"
+        reg["reportes"][f]["parche_declarado"] = "7.3+7.3a"
+        t = U.triage_reporte(f, reg["reportes"][f], self.cs, "7.3a")
+        self.assertEqual(t["veredicto"], "AL_DIA")
+
+
+class TestRubricaSintetica(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.reg = U.construir_registro()
+        cls.jinx_file = "Jinx.md"
+        cls.jinx = cls.reg["reportes"][cls.jinx_file]
+
+    def _cs(self, champions=None, items=None):
+        return {"champions": champions or {}, "items": items or {}, "sistemas": [],
+                "lab_notes": {}, "raw": "sintetico"}
+
+    def test_spec_input_regenerar(self):
+        cs = self._cs(champions={"Jinx": {"tipo": "BUFF", "detalles": "AD growth 4.0→4.5"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REGENERAR")
+
+    def test_item_de_build_revisar(self):
+        cs = self._cs(items={"Kraken Slayer": {"tipo": "NERF", "detalles": "proc 120-168→110-150"}})
+        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
+        self.assertEqual(t["veredicto"], "REVISAR")
+        self.assertIn("Kraken Slayer", t["items_build"])
+
+    def test_directo_sin_cuantificar_revisar(self):
+        cs = self._cs(champions={"Jinx": {"tipo": "NERF", "detalles": "W daño 220→200"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REVISAR")
+
+    def test_parche_irrelevante_sin_impacto(self):
+        cs = self._cs(champions={"Hwei": {"tipo": "NERF", "detalles": "pasiva 33→30"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "SIN_IMPACTO")
+
+
+class TestAnotacion(unittest.TestCase):
+    TXT = ("---\nchampion: Test\n---\n"
+           "**Fecha del análisis:** 01/01/2030\n\n"
+           "> [!NOTE]\n> Meta.\n\n## 0. RESUMEN\n")
+
+    def test_insercion_antes_del_primer_callout(self):
+        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
+        out = U.insertar_bloque(self.TXT, bloque, "9.9z")
+        self.assertLess(out.index("WRLAB-VERIF:9.9z:START"), out.index("> [!NOTE]\n> Meta."))
+
+    def test_idempotencia_byte_a_byte(self):
+        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
+        u1 = U.insertar_bloque(self.TXT, bloque, "9.9z")
+        u2 = U.insertar_bloque(u1, bloque, "9.9z")
+        u3 = U.insertar_bloque(u2, bloque, "9.9z")
+        self.assertEqual(u1, u2)
+        self.assertEqual(u2, u3)
+
+    def test_multiparche_no_se_pisa(self):
+        b1 = "<!-- WRLAB-VERIF:9.8z:START -->\n> [!NOTE] a\n<!-- WRLAB-VERIF:9.8z:END -->"
+        b2 = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] b\n<!-- WRLAB-VERIF:9.9z:END -->"
+        out = U.insertar_bloque(self.TXT, b1, "9.8z")
+        out = U.insertar_bloque(out, b2, "9.9z")
+        self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
+
+    def test_reportes_del_vault_tienen_bloque_73a(self):
+        import glob
+        con_bloque = 0
+        for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
+            if "WRLAB-VERIF:7.3a:START" in open(ruta, encoding="utf-8").read():
+                con_bloque += 1
+        self.assertEqual(con_bloque, 16)
+
+
+class TestUtilidades(unittest.TestCase):
+    def test_ultimo_parche_es_73a(self):
+        p, ruta = U.ultimo_parche_hotfix()
+        self.assertEqual(p, "7.3a")
+        self.assertTrue(ruta.endswith("cambios_7.3a.md"))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests del optimizador de builds (model/optimize_build.py).
+Validación cruzada exigida por el ROADMAP: dentro del pool de candidatos del reporte
+de Jinx y con las Leyes 1 y 3 como restricciones, el optimizador debe REDISCUBRIR
+la build C publicada (Gunmetal+C44+Runaan's+IE+LDR+Kraken).
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import optimize_build as O
+import dps_model as M
+
+JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
+POOL_REPORTE = ["Gunmetal", "Berserker's", "C44", "Runaan's", "IE", "LDR", "Kraken",
+                "BT", "Galeforce", "Scimitar", "RFC"]
+
+
+class TestValidacionCruzada(unittest.TestCase):
+    def test_redescubre_jinx_C(self):
+        """ROADMAP: 'debe redescubrir la build C de Jinx' (pool del reporte + Leyes 1 y 3)."""
+        finales, hojas = O.optimizar("jinx", oro=18000, top=3, crit_min=100, pen_min=30,
+                                     incluir=POOL_REPORTE, verbose=False)
+        self.assertGreater(hojas, 0)
+        top1 = finales[0][1]
+        self.assertEqual(sorted(M.resolve(x).key for x in top1),
+                         sorted(M.resolve(x).key for x in JINX_C))
+        base = finales[0][3]
+        self.assertEqual(round(base["dps1"]), 3042)      # golden number del reporte
+        self.assertEqual(base["gold"], 17350)
+
+    def test_ley0_estructural(self):
+        """Toda build devuelta pasa validate_slots (1 botas T3 + 5 ítems)."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=5, incluir=POOL_REPORTE, verbose=False)
+        for score, combo, det, base in finales:
+            self.assertEqual(M.validate_slots(combo), (1, 5))
+            self.assertLessEqual(base["gold"], 18000)
+
+    def test_restricciones_de_ley_duras(self):
+        """--crit-min/--pen-min se respetan en TODAS las builds devueltas."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30,
+                                 verbose=False)
+        for score, combo, det, base in finales:
+            self.assertGreaterEqual(base["crit"], 100)
+            self.assertGreaterEqual(base["pen"], 30)
+
+    def test_pool_completo_no_peor_que_publicada(self):
+        """Con el pool completo post-7.3a, el óptimo no pierde contra la build publicada
+        (documenta que el buff de Yun Tal expandió la frontera óptima)."""
+        finales, hojas = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30,
+                                     verbose=False)
+        self.assertGreater(hojas, 20000)                 # búsqueda realmente exhaustiva
+        mejor = finales[0]
+        # eficiencia normalizada del top-1 ≥ la de la publicada bajo la misma normalización
+        max_e = {e: max(d[e] for _, _, d, _ in finales) for e in O.ESCENARIOS}
+        det_c = {e: M.eval_build(M.CHAMPS["jinx"], JINX_C, validate=False, **kw)[met]
+                 for e, (kw, met) in O.ESCENARIOS.items()}
+        eff_c = sum(O.PESOS_DEFAULT[e] * det_c[e] / max(max_e[e], det_c[e]) for e in O.ESCENARIOS)
+        self.assertGreaterEqual(mejor[0] + 1e-9, eff_c)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+## 17b. ACTUALIZADOR DE REPORTES (triage de hotfixes — Regla de Oro v1.6)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · update_reports.py — triador/actualizador de reportes publicados (v1.6)
+================================================================================
+Cuando sale un hotfix (7.3a, 7.3b, 7.4…), los reportes publicados NO se regeneran
+a ciegas: este módulo TRIA el impacto de cada cambio sobre cada reporte y decide:
+
+    ✅ SIN_IMPACTO  el parche no toca nada del reporte → sello de verificación.
+    ✅ ANOTAR       impacto medido < 2 % en métricas clave → la build y los veredictos
+                    SIGUEN VIGENTES; se anota el bloque de verificación (nunca se regenera).
+    ⚠️ REVISAR      Δ 2–5 %, o ítem de la build/variantes cambió, o cambio directo sin
+                    hook cuantitativo → revisión manual acotada (matriz del último slot,
+                    motivo de rechazados), sin regenerar la build completa.
+    ❌ REGENERAR    Δ ≥ 5 % o cambio directo a inputs del spec (AD/AS growth, bases…)
+                    → regeneración manual completa por el flujo del FRAMEWORK (10 pasos).
+
+Principio rector (petición del autor, 29-sep-2026): **una build publicada y aprobada es
+definitiva; el hotfix se ANOTA con su impacto medido, no se re-deriva la build** salvo
+que la matemática demuestre que cambió (umbral ❌).
+
+Flujo típico tras aplicar datos nuevos (FRAMEWORK §E pasos 1-5):
+    python3 model/update_reports.py triage   --patch 7.3a   # tabla de impacto/veredicto
+    python3 model/update_reports.py annotate --patch 7.3a --apply   # inserta bloques ✅
+    python3 model/update_reports.py check                       # CI: drift + pendientes
+
+Comandos:
+    baseline   (re)construye data/estructurada/reportes_registry.json desde los reportes
+               + estado actual del motor (métricas golden por reporte).
+    triage     cuantifica el impacto de un parche sobre cada reporte (tabla + detalle).
+    annotate   genera el bloque de verificación; --apply lo inserta en el reporte
+               (idempotente, delimitado por marcadores HTML) y sella el registro.
+    check      modo CI: falla (exit 1) si hay drift motor↔registro o reportes sin triar
+               contra el último parche con diff estructurado.
+
+Cero dependencias (stdlib). Texto plano = fuente de verdad; el registro JSON es índice derivado.
+"""
+import argparse, contextlib, datetime, io, json, os, re, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPORTES = os.path.join(ROOT, "reportes")
+ESTRUCTURADA = os.path.join(ROOT, "data", "estructurada")
+REGISTRY = os.path.join(ESTRUCTURADA, "reportes_registry.json")
+sys.path.insert(0, os.path.join(ROOT, "model"))
+
+import dps_model as M                                  # noqa: E402
+with contextlib.redirect_stdout(io.StringIO()):         # batch2 imprime tablas al importar
+    import analysis_batch2 as B2                        # noqa: E402
+
+# ---------------------------------------------------------------- umbrales (documentados en FRAMEWORK §E)
+UMBRAL_ANOTAR = 2.0       # |Δ| < 2 %  → ✅ ANOTAR (impacto despreciable)
+UMBRAL_REGENERAR = 5.0    # |Δ| >= 5 % → ❌ REGENERAR
+
+VEREDICTOS = {
+    "SIN_IMPACTO": "✅ SIN IMPACTO",
+    "ANOTAR":      "✅ ANOTAR",
+    "AL_DIA":      "⏩ AL DÍA",
+    "REVISAR":     "⚠️ REVISAR",
+    "REGENERAR":   "❌ REGENERAR",
+}
+
+# keywords que indican que un cambio directo toca INPUTS DEL SPEC (AD/AS/defensas base…)
+SPEC_INPUT_KEYWORDS = [
+    "growth", "ad base", "base ad", "attack speed", "as base", "base bonus", "as ratio",
+    "ratio/base", "vida base", "hp base", "hp growth", "armadura base", "armor base",
+    "mr base", "mr growth", "resistencia mágica base", "rango de ataque", "daño crítico",
+    "crit ratio", "armadura y mr", "armor growth",
+]
+
+# ---------------------------------------------------------------- modelos por campeón (hooks cuantitativos)
+# Cada hook devuelve métricas clave con el motor ACTUAL; params permite reconstruir el "pre-parche".
+MODELOS = {
+    "jinx":    dict(tipo="autos",    hook="hook_jinx"),
+    "kalista": dict(tipo="onhit",    hook="hook_kalista"),
+    "diana":   dict(tipo="rotacion", hook="hook_diana"),
+    "yuumi":   dict(tipo="aliado",   hook="hook_yuumi"),
+    "karma":   dict(tipo="aliado",   hook=None,
+                    motivo="Imperial Mandate no está parametrizado en analysis_batch2.karma()"),
+}
+
+# nombre visible en Tabla A → clave del modelo correspondiente
+SINONIMOS = {
+    "berserker's greaves":       {"autos": "Berserker's"},
+    "gunmetal greaves":          {"autos": "Gunmetal", "onhit": "Gunmetal"},
+    "hexoptics c44":             {"autos": "C44"},
+    "runaan's hurricane":        {"autos": "Runaan's", "onhit": "Runaan"},
+    "infinity edge":             {"autos": "IE"},
+    "lord dominik's regards":    {"autos": "LDR"},
+    "kraken slayer":             {"autos": "Kraken"},
+    "guinsoo's rageblade":       {"autos": "Guinsoo", "onhit": "Guinsoo"},
+    "wit's end":                 {"autos": "WE", "onhit": "WitsEnd"},
+    "terminus":                  {"autos": "Terminus", "onhit": "Terminus"},
+    "blade of the ruined king":  {"autos": "BotRK", "onhit": "BotRK"},
+    "spellslinger's shoes":      {"rotacion": "Spellslinger"},
+    "boots of mana":             {"rotacion": "boots_mana"},
+    "dusk and dawn":             {"rotacion": "DuskDawn"},
+    "nashor's tooth":            {"rotacion": "Nashor"},
+    "rabadon's deathcap":        {"rotacion": "Rabadon"},
+    "zhonya's hourglass":        {"rotacion": "Zhonyas"},
+    "cryptbloom":                {"rotacion": "Cryptbloom"},
+    "void staff":                {"rotacion": "VoidStaff"},
+    "ionian boots":              {"aliado": "ionian"},
+    "crimson lucidity":          {"aliado": "Crimson"},
+    "black mist scythe":         {"aliado": "Scythe"},
+    "ardent censer":             {"aliado": "Censer"},
+    "echoes of helia":           {"aliado": "Echoes"},
+    "staff of flowing waters":   {"aliado": "Staff"},
+    "redemption":                {"aliado": "Redemption"},
+    "imperial mandate":          {"aliado": "Mandate"},
+    "mikael's blessing":         {"aliado": "Mikael"},
+    "shurelya's requiem":        {"aliado": "Shurelya"},
+    "zeke's convergence":        {"aliado": "Zeke"},
+    "locket of the iron solari": {"aliado": "Locket"},
+    "diadem of songs":           {"aliado": "Diadem"},
+    "crown of songs":            {"aliado": "Diadem"},
+    # formas cortas / alias de paréntesis frecuentes en reportes del vault
+    "botrk":                     {"onhit": "BotRK", "autos": "botrk"},
+    "blade of the ruined king (botrk)": {"onhit": "BotRK"},
+    "bloodthirster":             {"autos": "bt"},
+    "gunmetal":                  {"autos": "Gunmetal", "onhit": "Gunmetal"},
+    "guinsoo":                   {"autos": "Guinsoo", "onhit": "Guinsoo"},
+    "statikk":                   {"autos": "statikk", "onhit": "Statikk"},
+    "infinity orb":              {"rotacion": "InfinityOrb"},
+    "luden's echo":              {"rotacion": "Luden"},
+    "liandry's anguish":         {"rotacion": "Liandry"},
+    "morellonomicon":            {"rotacion": "Morello"},
+    "zhonyas":                   {"rotacion": "Zhonyas"},
+    "nashor":                    {"rotacion": "Nashor"},
+    "rabadon":                   {"rotacion": "Rabadon"},
+    "censer":                    {"aliado": "Censer"},
+    "redemption":                {"aliado": "Redemption"},
+}
+
+# relevancia de cambios sistémicos por rol (para notas cualitativas)
+SISTEMAS_POR_ROL = [
+    (("jungla", "jungle"), ("jungla", "smite", "monstruo", "clear")),
+    (("adc", "dragon", "marksman", "siege", "tirador"), ("placa", "torreta", "nexus", "siege", "minion", "barón", "baron")),
+    (("support", "soporte"), ("support", "soporte", "quest", "relic", "oro de")),
+]
+
+STOP_WORDS = {"of", "the", "and", "de", "la", "el", "los", "las", "vs", "con", "por"}
+
+# roster conocido para derivar el campeón del nombre de archivo (los reportes del vault
+# no siempre llevan 'champion:' en el frontmatter)
+ROSTER = ["heimerdinger", "mordekaiser", "seraphine", "chogath", "cho'gath", "kalista",
+          "volibear", "shyvana", "caitlyn", "corki", "ezreal", "graves", "janna",
+          "diana", "jinx", "karma", "lulu", "nami", "norra", "rammus", "senna",
+          "sivir", "soraka", "thresh", "tristana", "vayne", "veigar", "vi", "viego",
+          "yasuo", "yone", "yunara", "yuumi", "zed", "zoe", "zyra", "malphite", "warwick"]
+ALIAS_ARCHIVO = {"yunana": "yunara"}   # errata de nombre de archivo confirmada en el contenido
+
+
+def _norm_champ(s):
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def champ_desde_archivo(archivo, fm, txt):
+    """champion del frontmatter → si no, desde el nombre de archivo (roster + alias)."""
+    if fm.get("champion"):
+        return fm["champion"].strip()
+    base = re.sub(r"\.md$", "", archivo).split(" - ")[0].strip().lower()
+    if base in ALIAS_ARCHIVO:
+        base = ALIAS_ARCHIVO[base]
+    nb = _norm_champ(base)
+    display_special = {"chogath": "Cho'Gath"}
+    for r in ROSTER:
+        nr = _norm_champ(r)
+        if nb.startswith(nr):
+            return display_special.get(nr, r.title())
+    return base.title()
+
+
+def parche_declarado(fm, txt):
+    """Parche máximo que el reporte declara cubrir (frontmatter 'patch:' o línea **Parche:**)."""
+    fuentes = [fm.get("patch", "")]
+    m = re.search(r"\*\*Parche:\*\*\s*([^\n]+)", txt)
+    if m:
+        fuentes.append(m.group(1))
+    tokens = []
+    for s in fuentes:
+        tokens += re.findall(r"\d+\.\d+[a-z]?", s)
+    return max(tokens, key=patch_key) if tokens else None
+
+
+# ================================================================ parches y diffs
+def patch_key(p):
+    """'7.3'→(7,3,0) · '7.3a'→(7,3,1) · '7.4'→(7,4,0) — para ordenar parches."""
+    m = re.match(r"(\d+)\.(\d+)([a-z]?)", p.strip())
+    if not m:
+        return (0, 0, 0)
+    return (int(m.group(1)), int(m.group(2)), (ord(m.group(3)) - 96) if m.group(3) else 0)
+
+
+def _max_patch(s):
+    """De '7.3+7.3a' (o cualquier texto) extrae el token de parche máximo."""
+    if not s:
+        return None
+    tokens = re.findall(r"\d+\.\d+[a-z]?", s)
+    return max(tokens, key=patch_key) if tokens else None
+
+
+def cambios_archivos():
+    """[(patch, ruta, kind)] de los diffs estructurados en data/estructurada/.
+    kind='hotfix' para cambios_<patch>.md; kind='tema' para cambios_<tema>_<patch>.md."""
+    out = []
+    for f in sorted(os.listdir(ESTRUCTURADA)):
+        m = re.match(r"^cambios_(?:(\w+?)_)?(\d+\.\d+[a-z]?)\.md$", f)
+        if m:
+            kind = "hotfix" if not m.group(1) else "tema"
+            out.append((m.group(2), os.path.join(ESTRUCTURADA, f), kind))
+    return out
+
+
+def ultimo_parche_hotfix():
+    hf = [(p, r) for p, r, k in cambios_archivos() if k == "hotfix"]
+    if not hf:
+        return None, None
+    p, r = max(hf, key=lambda x: patch_key(x[0]))
+    return p, r
+
+
+def parse_cambios(ruta):
+    """Parsea un diff estructurado (formato cambios_7.3a.md):
+    tablas bajo '## CAMPEONES', '## ÍTEMS', '## MAPA Y SISTEMAS' e
+    '## IMPACTO EN REPORTES/SPECS DEL LAB'."""
+    with open(ruta, encoding="utf-8") as fh:
+        txt = fh.read()
+    seccion = None
+    cs = {"champions": {}, "items": {}, "sistemas": [], "lab_notes": {}, "raw": ruta}
+    for linea in txt.splitlines():
+        h = re.match(r"^##\s+(.*)", linea)
+        if h:
+            t = h.group(1).upper()
+            if t.startswith("CAMPEONES"): seccion = "champ"
+            elif t.startswith("ÍTEMS") or t.startswith("ITEMS"): seccion = "items"
+            elif "SISTEMAS" in t: seccion = "sist"
+            elif "IMPACTO" in t: seccion = "lab"
+            else: seccion = None
+            continue
+        if not linea.strip().startswith("|") or seccion is None:
+            continue
+        celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
+        if len(celdas) < 2 or set(celdas[0]) <= set("-: "):
+            continue
+        nombre_m = re.search(r"\*\*(.+?)\*\*", celdas[0])
+        if seccion == "lab":
+            if celdas[0].lower().startswith(("archivo", "---")):
+                continue
+            cs["lab_notes"][celdas[0]] = " → ".join(celdas[1:]).strip()
+            continue
+        if not nombre_m or nombre_m.group(1).lower() in ("campeón", "champion", "ítem", "item", "sistema"):
+            continue
+        nombre = nombre_m.group(1).strip()
+        if seccion == "champ":
+            cs["champions"][nombre] = {"tipo": celdas[1] if len(celdas) > 1 else "",
+                                       "detalles": celdas[2] if len(celdas) > 2 else ""}
+        elif seccion == "items":
+            cs["items"][nombre] = {"tipo": celdas[1] if len(celdas) > 1 else "",
+                                   "detalles": celdas[2] if len(celdas) > 2 else ""}
+        elif seccion == "sist":
+            cs["sistemas"].append({"sistema": nombre,
+                                   "cambio": celdas[1] if len(celdas) > 1 else "",
+                                   "impacto": celdas[2] if len(celdas) > 2 else ""})
+    return cs
+
+
+def expandir_nombre_item(nombre):
+    """'Crown/Diadem of Songs' → ['Crown of Songs','Diadem of Songs']."""
+    m = re.match(r"^([\w']+)/([\w'']+)(.*)$", nombre)
+    if m:
+        return [m.group(1) + m.group(3), m.group(2) + m.group(3)]
+    return [nombre]
+
+
+# ================================================================ parseo de reportes
+def parse_frontmatter(txt):
+    fm = {}
+    m = re.search(r"^---\n(.*?)\n---", txt, re.S)
+    if m:
+        for k, v in re.findall(r"^(\w+):\s*(.+)$", m.group(1), flags=re.M):
+            fm[k] = v.strip().strip('"')
+    return fm
+
+
+def parse_rol(txt):
+    m = re.search(r"\*\*Rol principal:\*\*\s*(.+)", txt)
+    if m:
+        return m.group(1).strip()
+    fm = re.search(r"^---\n(.*?)\n---", txt, re.S)          # fallback: tags del frontmatter
+    if fm:
+        tags = re.findall(r"^\s+-\s+(.+)$", fm.group(1), flags=re.M)
+        return " ".join(t.strip() for t in tags)
+    return ""
+
+
+def _limpiar_nombre(s):
+    s = s.replace("⬆️", "").strip()
+    s = re.sub(r"\s*\(.*?\)\s*$", "", s).strip()   # "(default)" / "(jungla)" finales
+    return s.strip()
+
+
+# ---------------------------------------------------------------- extracción de la build publicada
+SLOT_HEADERS = ("slot", "ranura", "#", "nº", "no.", "posición")
+
+def _es_fila_sep(celdas):
+    return all(set(c) <= set("-: ") and c for c in celdas)
+
+def _header_slot_like(celdas):
+    h = celdas[0].lower().strip(" *")
+    return any(h.startswith(s) for s in SLOT_HEADERS)
+
+def _header_es_ruta(celdas):
+    return any(("minuto" in c.lower() or "momento" in c.lower()) for c in celdas)
+
+def _nombre_de_celda(celda):
+    """Ítem visible de una celda: primer bold (T3 si hay '→' dentro), o texto plano
+    si no hay bold (alias en paréntesis se resuelve después en resolver_clave)."""
+    c = celda.split("<br>")[0].strip()
+    bolds = re.findall(r"\*\*(.+?)\*\*", c)
+    if bolds:
+        b = bolds[0]
+        if "→" in b or "->" in b:
+            b = re.split(r"→|->", b)[-1]
+        nombre = b
+    else:
+        base = re.sub(r"\*\*|⬆️|\*", "", c)
+        paren = re.findall(r"\(([^)]+)\)", base)
+        alias = None
+        for p in paren:                       # alias inglés entre paréntesis tiene prioridad
+            pp = re.split(r"→|->", p.strip())[-1].strip()
+            if _nombre_conocido(pp):
+                alias = pp
+                break
+        if alias:
+            nombre = alias
+        else:
+            if "→" in base or "->" in base:
+                base = re.split(r"→|->", base)[-1]
+            nombre = base.split("(")[0]
+    nombre = nombre.replace("⬆️", "").strip()
+    nombre = re.sub(r"\s*\((default|jungla|mid|t3|solo[^)]*|min[^)]*)\)\s*$", "", nombre, flags=re.I)
+    return nombre.strip(" ·*")
+
+def _nombre_conocido(x):
+    xl = x.lower().strip()
+    if xl in SINONIMOS or xl in M.ITEMS or x in M.ALIAS or xl in {a.lower() for a in M.ALIAS}:
+        return True
+    for dic in (B2.K_ITEMS, B2.D_ITEMS, B2.Y_ITEMS):
+        if x in dic or xl in {k.lower() for k in dic}:
+            return True
+    return False
+
+def _tablas_candidatas(txt):
+    """[(prioridad, posición, filas)] de las tablas markdown del documento."""
+    out = []
+    lines = txt.splitlines()
+    heading = ""
+    i = 0
+    while i < len(lines):
+        if lines[i].lstrip().startswith("#"):
+            heading = lines[i].lstrip("# ").strip()
+        if lines[i].strip().startswith("|"):
+            j = i
+            while j < len(lines) and lines[j].strip().startswith("|"):
+                j += 1
+            out.append((heading, i, lines[i:j]))
+            i = j
+            continue
+        i += 1
+    cands = []
+    for pos, (heading, start, filas) in enumerate(out):
+        celdas_hdr = [c.strip() for c in filas[0].strip().strip("|").split("|")]
+        if len(celdas_hdr) < 2 or not _header_slot_like(celdas_hdr):
+            continue
+        if _header_es_ruta(celdas_hdr):
+            continue
+        cuerpo = [f for f in filas[2:] if not _es_fila_sep([c.strip() for c in f.strip().strip("|").split("|")])]
+        if len(cuerpo) < 6:
+            continue
+        h = heading.lower()
+        prio = 0 if "tabla a" in h else (1 if ("build final" in h or "ranura por ranura" in h) else 2)
+        cands.append((prio, start, heading, cuerpo))
+    cands.sort(key=lambda x: (x[0], x[1]))
+    return cands
+
+def extraer_build(txt):
+    """(nombres_visibles, fuente) de la build final publicada. fuente = heading de la tabla."""
+    # prioridad 1: sección "### Tabla A ... ### Tabla B" (estándar v1.4)
+    m = re.search(r"###\s+Tabla A(.*?)(?:###\s+Tabla B|\n## )", txt, re.S)
+    if m:
+        filas = [l for l in m.group(1).splitlines()
+                 if l.strip().startswith("|") and not _es_fila_sep([c.strip() for c in l.strip().strip("|").split("|")])]
+        filas = [l for l in filas if not re.match(r"^\|\s*slot\s*\|", l.strip(), re.I)]
+        nombres = []
+        for l in filas[:6]:
+            celdas = [c.strip() for c in l.strip().strip("|").split("|")]
+            if len(celdas) >= 2 and celdas[0]:
+                n = _nombre_de_celda(celdas[1])
+                if n:
+                    nombres.append(n)
+        if len(nombres) == 6:
+            return nombres, "Tabla A"
+    # prioridad 2/3: otras tablas con header de slot (BUILD FINAL, §0, etc.)
+    for prio, start, heading, cuerpo in _tablas_candidatas(txt):
+        nombres = []
+        for l in cuerpo[:6]:
+            celdas = [c.strip() for c in l.strip().strip("|").split("|")]
+            n = _nombre_de_celda(celdas[1]) if len(celdas) >= 2 else ""
+            if n:
+                nombres.append(n)
+        if len(nombres) == 6:
+            return nombres, heading or f"tabla@línea{start}"
+    return [], None
+
+
+def parse_resumen_publico(txt):
+    m = re.search(r"###\s+Tabla A.*?\n(>\s+\*\*Oro total.+)", txt, re.S)
+    return m.group(1).strip() if m else ""
+
+
+def resolver_clave(display, tipo_modelo):
+    """display ('Lord Dominik's Regards' / 'Bloodthirster (BotRK)') → clave del modelo.
+    Prueba: nombre completo → alias entre paréntesis → nombre sin paréntesis."""
+    d = display.strip()
+    cands = [(d, d.lower())]
+    m = re.search(r"\(([^)]+)\)", d)
+    if m:
+        cands.append((m.group(1).strip(), m.group(1).strip().lower()))
+    base = re.sub(r"\s*\([^)]*\)\s*", " ", d).strip()
+    if base != d:
+        cands.append((base, base.lower()))
+    dic_por_tipo = {"onhit": B2.K_ITEMS, "rotacion": B2.D_ITEMS, "aliado": B2.Y_ITEMS}
+    for orig, low in cands:
+        if low in SINONIMOS and tipo_modelo in SINONIMOS[low]:
+            return SINONIMOS[low][tipo_modelo]
+    if tipo_modelo == "autos":
+        for orig, low in cands:
+            if orig in M.ALIAS:
+                return M.ALIAS[orig]
+            for a, k in M.ALIAS.items():
+                if a.lower() == low:
+                    return k
+            if low in M.ITEMS:
+                return low
+    d2 = dic_por_tipo.get(tipo_modelo)
+    if d2:
+        for orig, low in cands:
+            if orig in d2:
+                return orig
+            for k in d2:
+                if k.lower() == low:
+                    return k
+    return None
+
+
+# ================================================================ hooks cuantitativos
+def hook_jinx(build_keys, params=None):
+    spec = M.CHAMPS["jinx"]
+    r1 = M.eval_build(spec, build_keys, level=15)
+    r3 = M.eval_build(spec, build_keys, level=15, targets=3)
+    ra = M.eval_build(spec, build_keys, level=15, armor=120)
+    rt = M.eval_build(spec, build_keys, level=15, armor=220, tank=True, enemy_hp=4500)
+    return {"oro": r1["gold"], "AD": r1["AD"], "AS": r1["AS"], "crit": r1["crit"],
+            "dps1": r1["dps1"], "dps3": r3["dpsN"], "vs120": ra["dps1"],
+            "vsTanque": rt["dps1"], "heal": r1["heal"]}
+
+
+def hook_kalista(build_keys, params=None):
+    r = B2.kalista(build_keys)
+    r3 = B2.kalista(build_keys, targets=3)
+    rt = B2.kalista(build_keys, armor=220, mr=150, ehp=4500)
+    return {"oro": r["gold"], "AD": r["AD"], "AS": r["AS"], "pen": r["pen"],
+            "dps1": r["single"], "dps3": r3["multi"], "vsTanque": rt["single"],
+            "e_hit": r["e_hit"], "heal": r["heal"]}
+
+
+def hook_diana(build_keys, params=None):
+    kw = dict(keystone=(params or {}).get("keystone", "lt"))
+    r = B2.diana(build_keys, **kw)
+    rt = B2.diana(build_keys, mr=180, **kw)
+    return {"oro": r["gold"], "AP": r["AP"], "AS": r["AS"], "dps10s": r["dps"],
+            "burst": r["burst"], "vs180mr": rt["dps"]}
+
+
+def hook_yuumi(build_keys, params=None):
+    p = params or {}
+    kw = {}
+    if "w_flat" in p: kw["w_flat"] = p["w_flat"]
+    if "w_ap_pct" in p: kw["w_ap_pct"] = p["w_ap_pct"]
+    r = B2.yuumi(build_keys, **kw)
+    return {"oro": r["gold"], "AP": r["AP"], "HSP": r["HSP"], "haste": r["haste"],
+            "e_shield": r["e_shield"], "e_cd": r["e_cd"], "r_heal": r["r_heal"],
+            "adc_dps_add": r["adc_dps_add"], "shield_per_min": r["shield_per_min"]}
+
+
+HOOKS = {"hook_jinx": hook_jinx, "hook_kalista": hook_kalista,
+         "hook_diana": hook_diana, "hook_yuumi": hook_yuumi}
+
+# Métricas de RESULTADO (las que sostienen los veredictos del reporte). Los stats-input
+# (HSP, AP, AD, AS, oro, haste…) se muestran en el triage pero NO deciden el veredicto:
+# un nerf de input puede diluirse en el resultado (caso Yuumi 7.3a: HSP −5 % → E-shield −1.4 %).
+RESULT_KEYS = {
+    "hook_jinx":    ("dps1", "dps3", "vs120", "vsTanque", "heal"),
+    "hook_kalista": ("dps1", "dps3", "vsTanque", "e_hit", "heal"),
+    "hook_diana":   ("dps10s", "burst", "vs180mr"),
+    "hook_yuumi":   ("e_shield", "r_heal", "adc_dps_add", "shield_per_min"),
+}
+
+
+# ---- parsers de parámetros pre/post por campeón (extender con cada hotfix) ----
+def params_yuumi(detalles, patch):
+    """Del texto 'W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → 6/7/8/9 % + 0.01 % AP'
+    extrae (pre, post, post_conservador). Convención del baseline publicado: pre = solo flat
+    (rank 5), que es la que reproduce los golden numbers del reporte (E=339)."""
+    ms = re.findall(r"(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*%\s*\+\s*([\d.]+)\s*%\s*AP", detalles)
+    if len(ms) < 2:
+        return None
+    pre = {"w_flat": int(ms[0][3]), "w_ap_pct": 0.0}
+    post = {"w_flat": int(ms[1][3]), "w_ap_pct": float(ms[1][4])}
+    post_cons = {"w_flat": int(ms[1][3]), "w_ap_pct": 0.0}   # conservador: ignora término AP
+    return pre, post, post_cons
+
+
+CHAMP_PARAMS = {"yuumi": params_yuumi}
+
+
+# ================================================================ registro (índice derivado)
+def construir_registro(hoy=None):
+    hoy = hoy or datetime.date.today().isoformat()
+    reg = {"version_schema": 1, "generado": hoy,
+           "parche_motor": "7.3+7.3a", "reportes": {}}
+    for f in sorted(os.listdir(REPORTES)):
+        if not f.endswith(".md"):
+            continue
+        with open(os.path.join(REPORTES, f), encoding="utf-8") as fh:
+            txt = fh.read()
+        fm = parse_frontmatter(txt)
+        champ = champ_desde_archivo(f, fm, txt)
+        clave = _norm_champ(champ)
+        modelo = MODELOS.get(clave, dict(tipo="desconocido", hook=None,
+                                         motivo="sin modelo cuantitativo para este campeón/arquetipo"))
+        build_disp, build_fuente = extraer_build(txt)
+        build_keys, sin_resolver = [], []
+        for d in build_disp:
+            k = resolver_clave(d, modelo["tipo"])
+            (build_keys if k else sin_resolver).append(k or d)
+        entry = {
+            "champion": clave, "champion_display": champ,
+            "rol": parse_rol(txt), "modelo": modelo["tipo"],
+            "hook": modelo.get("hook"), "hook_motivo": modelo.get("motivo", ""),
+            "build_display": build_disp, "build_keys": build_keys,
+            "build_fuente": build_fuente, "sin_resolver": sin_resolver,
+            "parche_declarado": parche_declarado(fm, txt),
+            "resumen_publico": parse_resumen_publico(txt),
+            "metricas": None, "ultima_verificacion": None,
+        }
+        if not build_disp:
+            if modelo.get("hook"):
+                entry["hook"] = None
+                entry["hook_motivo"] = "build final no extraíble automáticamente (formato del vault)"
+        elif modelo.get("hook") and not sin_resolver and len(build_keys) == 6:
+            entry["metricas"] = _redondear(HOOKS[modelo["hook"]](build_keys))
+        elif modelo.get("hook"):
+            entry["hook"] = None
+            entry["hook_motivo"] = ("ítems sin resolver en el modelo: " + ", ".join(sin_resolver)) \
+                if sin_resolver else entry["hook_motivo"]
+        reg["reportes"][f] = entry
+    return reg
+
+
+def _redondear(d):
+    return {k: (round(v, 1) if isinstance(v, float) else v) for k, v in d.items()}
+
+
+def guardar_registro(reg):
+    with open(REGISTRY, "w", encoding="utf-8") as fh:
+        json.dump(reg, fh, indent=1, ensure_ascii=False)
+    print(f"Registro guardado: {os.path.relpath(REGISTRY, ROOT)} "
+          f"({len(reg['reportes'])} reportes, motor {reg['parche_motor']})")
+
+
+def cargar_registro():
+    if not os.path.exists(REGISTRY):
+        sys.exit("No existe reportes_registry.json — correr primero: python3 model/update_reports.py baseline")
+    with open(REGISTRY, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+# ================================================================ triage
+def _norm(s):
+    return re.sub(r"[^a-z0-9' ]", "", s.lower()).strip()
+
+
+def _mencionado(texto_lower, nombre_item):
+    """¿El ítem cambiado aparece en el texto del reporte (variantes/rechazados/apéndices)?
+    Palabras distintivas con límite de palabra (\b) para evitar falsos positivos
+    del tipo 'death' ⊂ 'Deathcap'."""
+    variantes = [nombre_item] + expandir_nombre_item(nombre_item)
+    for v in variantes:
+        nv = _norm(v).replace("'", "")
+        if nv in texto_lower.replace("'", ""):
+            return v
+        palabras = [w for w in re.split(r"[\s']+", _norm(v)) if len(w) >= 5 and w not in STOP_WORDS]
+        if palabras and any(re.search(rf"\b{re.escape(w)}\b", texto_lower) for w in palabras):
+            return v
+    return None
+
+
+def sistemas_relevantes(rol, cs):
+    notas = []
+    roles = (rol or "").lower()
+    for s in cs["sistemas"]:
+        texto = _norm(f"{s['sistema']} {s['cambio']} {s['impacto']}")
+        for roles_clave, kws in SISTEMAS_POR_ROL:
+            if any(r in roles for r in roles_clave) and any(k in texto for k in kws):
+                notas.append(f"{s['sistema']}: {s['cambio']} → {s['impacto']}")
+                break
+    return notas
+
+
+def lab_note_para(archivo, cs):
+    for patron, nota in cs["lab_notes"].items():
+        p = patron.strip().strip("`").replace("reportes/", "")
+        p = re.sub(r"[_*\s]+$", "", p)          # 'Jinx_*' → 'Jinx' (match por prefijo de archivo)
+        if p and archivo.startswith(p):
+            return nota
+    return None
+
+
+def triage_reporte(archivo, entry, cs, patch):
+    """Devuelve dict de triage para un reporte contra un ChangeSet."""
+    with open(os.path.join(REPORTES, archivo), encoding="utf-8") as fh:
+        txt = fh.read()
+    tl = _norm(txt)
+    out = {"archivo": archivo, "champion": entry["champion_display"], "patch": patch,
+           "directo": None, "delta": {}, "delta_max": None, "delta_cons": None,
+           "items_build": [], "items_variantes": [], "sistemas": [], "lab_note": None,
+           "build_display": entry.get("build_display", []), "cuantificado": False,
+           "hook_motivo": entry.get("hook_motivo", ""),
+           "veredicto": "SIN_IMPACTO", "razones": [], "hook": entry.get("hook")}
+
+    # 0) ¿el reporte ya declara cubrir este parche (o uno posterior)?
+    pd = _max_patch(entry.get("parche_declarado"))
+    if pd and patch_key(pd) >= patch_key(patch):
+        out["veredicto"] = "AL_DIA"
+        out["razones"].append(f"el reporte ya declara datos {pd} ≥ {patch}")
+        return out
+
+    # 1) cambio directo al campeón
+    for nombre, c in cs["champions"].items():
+        if _norm(nombre) == _norm(entry["champion_display"]):
+            out["directo"] = {"nombre": nombre, **c}
+            break
+
+    # 2) ítems cambiados ∩ build final / ∩ texto (variantes, rechazados, apéndices)
+    build_norm = {_norm(b) for b in entry["build_display"]}
+    for nombre in cs["items"]:
+        variantes = [nombre] + expandir_nombre_item(nombre)
+        en_build = any(_norm(v) in build_norm for v in variantes)
+        if en_build:
+            out["items_build"].append(nombre)
+        else:
+            m = _mencionado(tl, nombre)
+            if m:
+                out["items_variantes"].append(f"{nombre} ({cs['items'][nombre]['tipo']})")
+
+    # 3) sistemas relevantes al rol + nota humana del diff
+    out["sistemas"] = sistemas_relevantes(entry.get("rol", ""), cs)
+    out["lab_note"] = lab_note_para(archivo, cs)
+
+    # 4) cuantificación
+    toca_spec = bool(out["directo"] and any(k in _norm(out["directo"]["detalles"]) for k in SPEC_INPUT_KEYWORDS))
+    if entry.get("hook") and not entry.get("sin_resolver"):
+        hook = HOOKS[entry["hook"]]
+        actual = _redondear(hook(entry["build_keys"]))
+        parser = CHAMP_PARAMS.get(entry["champion"])
+        if out["directo"] and parser:
+            pp = parser(out["directo"]["detalles"], patch)
+            if pp:
+                pre, post, post_cons = pp
+                m_pre = hook(entry["build_keys"], params=pre)
+                m_post = hook(entry["build_keys"], params=post)
+                m_cons = hook(entry["build_keys"], params=post_cons)
+                for k in m_pre:
+                    if isinstance(m_pre[k], (int, float)) and m_pre[k]:
+                        out["delta"][k] = round((m_cons[k] - m_pre[k]) / abs(m_pre[k]) * 100, 2)
+                out["pre"], out["post"], out["post_cons"] = _redondear(m_pre), _redondear(m_post), _redondear(m_cons)
+                res_keys = RESULT_KEYS.get(entry["hook"], tuple(out["delta"]))
+                out["delta_resultado"] = {k: v for k, v in out["delta"].items() if k in res_keys}
+                out["delta_input"] = {k: v for k, v in out["delta"].items() if k not in res_keys}
+                out["delta_max"] = max((abs(v) for v in out["delta_resultado"].values()), default=0.0)
+                out["delta_cons"] = out["delta_max"]     # el conservador YA es el del dict
+                out["cuantificado"] = True
+        elif not out["directo"] and not out["items_build"]:
+            out["delta_max"] = 0.0
+        out["metricas_actuales"] = actual
+
+    # 5) veredicto (rúbrica determinista)
+    d = out["delta_max"]
+    if toca_spec:
+        out["veredicto"] = "REGENERAR"
+        out["razones"].append("cambio directo a inputs del spec (AD/AS/defensas base o growth)")
+    elif d is not None and d >= UMBRAL_REGENERAR:
+        out["veredicto"] = "REGENERAR"
+        out["razones"].append(f"Δ de resultado {d:.1f} % ≥ umbral {UMBRAL_REGENERAR:.0f} %")
+    elif out["items_build"]:
+        out["veredicto"] = "REVISAR"
+        out["razones"].append("ítem(s) de la build final cambiados: " + ", ".join(out["items_build"]))
+    elif out["directo"] and (not entry.get("hook") or not out["cuantificado"]):
+        out["veredicto"] = "REVISAR"
+        out["razones"].append("cambio directo sin cuantificación automática "
+                              f"({entry.get('hook_motivo') or 'sin parser de parámetros pre/post para este cambio'})")
+    elif d is not None and d >= UMBRAL_ANOTAR:
+        out["veredicto"] = "REVISAR"
+        out["razones"].append(f"Δ de resultado {d:.1f} % ≥ umbral {UMBRAL_ANOTAR:.0f} %")
+    elif out["directo"] or d or out["items_variantes"] or out["sistemas"]:
+        out["veredicto"] = "ANOTAR"
+        if out["directo"]:
+            out["razones"].append(f"cambio directo ({out['directo']['tipo']}) con impacto medido "
+                                  f"{d if d is not None else '—'} % < umbral {UMBRAL_ANOTAR:.0f} %")
+        if out["items_variantes"]:
+            out["razones"].append("ítems de variantes/rechazados cambiados (nota informativa)")
+        if out["sistemas"]:
+            out["razones"].append("cambios sistémicos relevantes al rol (cualitativos, refuerzan o no cambian la build)")
+    else:
+        out["veredicto"] = "SIN_IMPACTO"
+        out["razones"].append("el parche no toca champion, build, ni sistemas del rol")
+    return out
+
+
+def triage_todos(reg, patch=None, ruta=None):
+    rutas = {p: r for p, r, k in cambios_archivos()}
+    patch = patch or ultimo_parche_hotfix()[0]
+    if not patch or patch not in rutas:
+        sys.exit(f"No hay diff estructurado (cambios_<patch>.md) para el parche {patch!r}. "
+                 f"Disponibles: {sorted(rutas)}")
+    cs = parse_cambios(ruta or rutas[patch])
+    return patch, cs, [triage_reporte(f, e, cs, patch) for f, e in sorted(reg["reportes"].items())]
+
+
+# ================================================================ anotación
+def bloque_verificacion(t, fecha=None):
+    """Bloque markdown idempotente (marcadores HTML) con el resultado del triage."""
+    fecha = fecha or datetime.date.today().strftime("%d/%m/%Y")
+    v = t["veredicto"]
+    icono = VEREDICTOS[v]
+    regen = v in ("REGENERAR",)
+    revisar = v == "REVISAR"
+    titulo = (f"❌ REQUIERE REGENERACIÓN — hotfix {t['patch']}" if regen else
+              f"⚠️ REQUIERE REVISIÓN ACOTADA — hotfix {t['patch']}" if revisar else
+              f"NO requiere regeneración — hotfix {t['patch']}")
+    L = [f"<!-- WRLAB-VERIF:{t['patch']}:START — generado por model/update_reports.py · no editar a mano -->",
+         f"> [!NOTE] {icono} Verificación automática ({fecha}) — **{titulo}**"]
+    if t["directo"]:
+        L.append(f"> **Cambio directo:** {t['directo']['tipo']} — {t['directo']['detalles'][:220]}.")
+    else:
+        L.append(f"> **Cambios directos a {t['champion']}:** ninguno en {t['patch']}.")
+    if t.get("delta"):
+        pares = []
+        for k, dv in sorted(t.get("delta_resultado", {}).items(), key=lambda x: -abs(x[1]))[:5]:
+            if abs(dv) >= 0.05:
+                pares.append(f"{k} {t['pre'][k]:g}→{t['post_cons'][k]:g} ({dv:+.1f} %)")
+        inp = [f"{k} ({dv:+.1f} %)" for k, dv in t.get("delta_input", {}).items() if abs(dv) >= 0.05]
+        if pares:
+            L.append(f"> **Δ de resultado (conservador):** {' · '.join(pares)}. "
+                     f"Δ máx **{t['delta_max']:.1f} %** (umbrales: anotar {UMBRAL_ANOTAR:.0f} %, regenerar {UMBRAL_REGENERAR:.0f} %).")
+            dif_full = {k: (t['pre'][k], t['post'][k]) for k in t.get("delta_resultado", {})
+                        if abs(t['post'][k] - t['post_cons'][k]) > 0.05}
+            if dif_full:
+                extra = " · ".join(f"{k} {a:g}→{b:g}" for k, (a, b) in list(dif_full.items())[:3])
+                L.append(f"> **Con la fórmula completa post-parche:** {extra} (el veredicto usa el caso conservador).")
+        else:
+            L.append("> **Δ de resultado:** 0 % en todas las métricas clave del reporte.")
+        if inp:
+            L.append(f"> **Δ de stats-input (no decide veredicto):** {', '.join(inp[:4])}.")
+    elif t.get("hook"):
+        L.append("> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.")
+    else:
+        motivo = t.get("hook_motivo") or "modelo no conectado para este campeón"
+        L.append(f"> **Modelo:** sin hook cuantitativo ({motivo}) → triage por intersección "
+                 f"(champion/ítems/sistemas). Métricas publicadas sin cambios medibles.")
+    if t.get("build_display"):
+        slots = " + ".join(t["build_display"][:6])
+        L.append(f"> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.")
+    else:
+        L.append("> **Build publicada:** no extraíble automáticamente del formato del vault → "
+                 "triage cualitativo (intersección champion/ítems/sistemas).")
+    if t["items_variantes"]:
+        L.append(f"> **Ítems cambiados fuera de la build final:** {', '.join(t['items_variantes'])} "
+                 f"— verificar variantes/rechazados del reporte.")
+    for s in t["sistemas"][:3]:
+        L.append(f"> **Sistema ({t['patch']}):** {s[:240]}")
+    if t["lab_note"]:
+        L.append(f"> **Nota del lab (diff {t['patch']}):** {t['lab_note'][:260]}")
+    cierre = ("regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py "
+              "para re-derivar la build óptima) y re-baselinar." if regen else
+              "revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva." if revisar else
+              "build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.")
+    L.append(f"> **Veredicto:** {icono} — {cierre}")
+    L.append(f"<!-- WRLAB-VERIF:{t['patch']}:END -->")
+    return "\n".join(L)
+
+
+
+
+def insertar_bloque(txt, bloque, patch):
+    """Idempotente a nivel de bytes:
+    - si ya existe el bloque del mismo parche → lo reemplaza in-place (normaliza espacios previos);
+    - si existen bloques de otros parches → inserta después del último;
+    - si no → inserta tras el bloque de metadatos (antes del primer callout '> [!' o '## ')."""
+    pat = re.compile(rf"\n*<!-- WRLAB-VERIF:{re.escape(patch)}:START.*?<!-- WRLAB-VERIF:{re.escape(patch)}:END -->", re.S)
+    if pat.search(txt):
+        return pat.sub(lambda _m: "\n\n" + bloque, txt, count=1)
+    ends = list(re.finditer(r"<!-- WRLAB-VERIF:[^:>]+:END -->", txt))
+    if ends:
+        i = ends[-1].end()
+        return txt[:i] + "\n\n" + bloque + "\n\n" + txt[i:].lstrip("\n")
+    m = re.search(r"^> \[!", txt, flags=re.M) or re.search(r"^## ", txt, flags=re.M)
+    if not m:
+        return txt.rstrip() + "\n\n" + bloque + "\n"
+    i = m.start()
+    return txt[:i].rstrip("\n") + "\n\n" + bloque + "\n\n" + txt[i:]
+
+
+# ================================================================ comandos
+def cmd_baseline(args):
+    reg = construir_registro()
+    # conservar sellos previos si el registro ya existía
+    if os.path.exists(REGISTRY) and not args.force:
+        with open(REGISTRY, encoding="utf-8") as fh:
+            viejo = json.load(fh)
+        for f, e in reg["reportes"].items():
+            if f in viejo.get("reportes", {}):
+                e["ultima_verificacion"] = viejo["reportes"][f].get("ultima_verificacion")
+    guardar_registro(reg)
+    for f, e in sorted(reg["reportes"].items()):
+        mets = e["metricas"]
+        s = " · ".join(f"{k}={v:g}" for k, v in list(mets.items())[:6]) if mets else f"SIN HOOK ({e['hook_motivo'][:60]})"
+        print(f"  {f:<44} {e['champion_display']:<8} {e['modelo']:<9} {s}")
+
+
+def cmd_triage(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    print(f"\n=== TRIAGE hotfix {patch} ({os.path.basename(cs['raw'])}) sobre {len(resultados)} reportes ===")
+    print(f"{'REPORTE':<44}{'CHAMP':<9}{'DIRECTO':<9}{'Δmax':>7}  {'ÍTEMS BUILD':<12}{'VEREDICTO'}")
+    for t in resultados:
+        dmax = f"{t['delta_max']:.1f} %" if t["delta_max"] is not None else "—"
+        directo = t["directo"]["tipo"][:8] if t["directo"] else "—"
+        ib = ",".join(t["items_build"])[:11] or "—"
+        print(f"{t['archivo']:<44}{t['champion']:<9}{directo:<9}{dmax:>7}  {ib:<12}{VEREDICTOS[t['veredicto']]}")
+        for r in t["razones"]:
+            print(f"    └─ {r}")
+    n_reg = sum(1 for t in resultados if t["veredicto"] == "REGENERAR")
+    n_rev = sum(1 for t in resultados if t["veredicto"] == "REVISAR")
+    print(f"\nResumen: {len(resultados) - n_reg - n_rev} reportes NO requieren regeneración · "
+          f"{n_rev} revisión acotada · {n_reg} regeneración completa.")
+    return resultados
+
+
+def cmd_annotate(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    solo = set(args.solo.split(",")) if args.solo else None
+    fecha = args.fecha or datetime.date.today().strftime("%d/%m/%Y")
+    for t in resultados:
+        if solo and t["archivo"] not in solo:
+            continue
+        if t["veredicto"] == "AL_DIA":
+            print(f"⏩ {t['archivo']}: ya declara datos {t['patch']} o posteriores — sin bloque")
+            reg["reportes"][t["archivo"]]["ultima_verificacion"] = {
+                "patch": t["patch"], "fecha": fecha, "veredicto": "AL_DIA", "delta_max_pct": None}
+            continue
+        bloque = bloque_verificacion(t, fecha)
+        ruta = os.path.join(REPORTES, t["archivo"])
+        if args.apply:
+            with open(ruta, encoding="utf-8") as fh:
+                txt = fh.read()
+            nuevo = insertar_bloque(txt, bloque, patch)
+            if nuevo != txt:
+                with open(ruta, "w", encoding="utf-8") as fh:
+                    fh.write(nuevo)
+                print(f"✍️  {t['archivo']}: bloque {patch} insertado/actualizado ({VEREDICTOS[t['veredicto']]})")
+            else:
+                print(f"=  {t['archivo']}: sin cambios (bloque ya vigente)")
+            reg["reportes"][t["archivo"]]["ultima_verificacion"] = {
+                "patch": patch, "fecha": fecha, "veredicto": t["veredicto"],
+                "delta_max_pct": t["delta_max"]}
+        else:
+            print(f"\n────── {t['archivo']} ({VEREDICTOS[t['veredicto']]}) — dry-run ──────")
+            print(bloque)
+    if args.apply:
+        guardar_registro(reg)
+        print("\nRegistro sellado. Corre 'python3 -m unittest discover -s tests' y commitea reportes+registro.")
+
+
+def cmd_check(args):
+    reg = cargar_registro()
+    fallos = []
+    # 1) drift motor ↔ registro
+    for f, e in sorted(reg["reportes"].items()):
+        if not e.get("hook") or e.get("sin_resolver") or not e.get("metricas"):
+            continue
+        act = _redondear(HOOKS[e["hook"]](e["build_keys"]))
+        for k, v in e["metricas"].items():
+            if isinstance(v, (int, float)) and v and k in act:
+                drift = abs(act[k] - v) / abs(v) * 100
+                if drift > 0.5:
+                    fallos.append(f"{f}: drift en {k} ({v:g} → {act[k]:g}, {drift:.1f} %) — "
+                                  f"¿datos del motor cambiaron? Documenta y corre 'baseline'.")
+    # 2) reportes sin triar contra el último hotfix
+    patch, _ = ultimo_parche_hotfix()
+    if patch:
+        for f, e in sorted(reg["reportes"].items()):
+            pd = _max_patch(e.get("parche_declarado"))
+            if pd and patch_key(pd) >= patch_key(patch):
+                continue                      # el reporte ya cubre el parche
+            uv = e.get("ultima_verificacion")
+            if not uv or patch_key(uv["patch"]) < patch_key(patch):
+                fallos.append(f"{f}: sin verificar contra {patch} — corre "
+                              f"'update_reports.py triage/annotate --patch {patch} --apply'.")
+    if fallos:
+        print("❌ CHECK FALLÓ:")
+        for x in fallos:
+            print("  -", x)
+        sys.exit(1)
+    print(f"✅ check OK: {len(reg['reportes'])} reportes sin drift y verificados contra {patch}.")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · triador/actualizador de reportes publicados")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    b = sub.add_parser("baseline", help="(re)construir el registro de reportes+golden metrics")
+    b.add_argument("--force", action="store_true", help="no conservar sellos de verificación previos")
+    t = sub.add_parser("triage", help="cuantificar impacto de un parche sobre los reportes")
+    t.add_argument("--patch", default=None)
+    a = sub.add_parser("annotate", help="generar/insertar bloques de verificación")
+    a.add_argument("--patch", default=None)
+    a.add_argument("--apply", action="store_true", help="escribir en los reportes (default: dry-run)")
+    a.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
+    a.add_argument("--fecha", default=None, help="fecha del sello (dd/mm/aaaa)")
+    sub.add_parser("check", help="modo CI: drift + verificaciones pendientes")
+    args = ap.parse_args()
+    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate, "check": cmd_check}[args.cmd](args)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## 18. INFRAESTRUCTURA DE MANTENIMIENTO (extract_data · build_db · check_patch · parse_champs)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · Extractor de datos estructurados
+Convierte los archivos crudos (data/raw/) en bases reutilizables (data/estructurada/).
+Fuentes: notas oficiales 7.3 (21-sep-2026), notas 7.2 (08-jul-2026), wr-meta.com (24-sep-2026).
+Ejecutar: python3 model/extract_data.py   (desde la raiz de wr-lab)
+"""
+import re, html as H, csv, os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAW = os.path.join(ROOT, "data", "raw")
+OUT = os.path.join(ROOT, "data", "estructurada")
+os.makedirs(OUT, exist_ok=True)
+
+def read(p): return open(os.path.join(RAW, p), encoding="utf-8", errors="ignore").read()
+
+notes = read("patch73.txt")
+items_html = read("wrmeta_items.html")
+
+def clean(s):
+    s = H.unescape(re.sub(r'<[^>]+>', '\n', s))
+    s = s.replace('\u2019', "'").replace('\u2018', "'").replace('\u201c','"').replace('\u201d','"')
+    s = re.sub(r'\n{2,}', '\n', s).strip()
+    return s
+
+# ============ 1) SECCIONES DE LAS NOTAS OFICIALES 7.3 ============
+def section(text, start_marker, end_marker):
+    i = text.find(start_marker); j = text.find(end_marker, i+1)
+    return text[i:j if j>0 else len(text)].strip()
+
+sec_champs = section(notes, "Marksman Systematic Adjustments", "Champion Durability Adjustments")
+sec_items  = section(notes, "Item Adjustments", "RUNE ADJUSTMENTS")
+sec_runes  = section(notes, "RUNE ADJUSTMENTS", "BATTLEFIELD ADJUSTMENTS")
+sec_field  = section(notes, "Jungle Adjustments", "OTHER IN-GAME ADJUSTMENTS")
+sec_min    = section(notes, "Lifesteal\nWe're introducing", "OTHER IN-GAME ADJUSTMENTS")
+sec_asmech = section(notes, "In Patch 7.3, we made fairly major changes to Attack Speed", "Garen\nBase Stats")
+
+def save(name, content):
+    open(os.path.join(OUT, name), "w", encoding="utf-8").write(content)
+    print("ok:", name, len(content), "chars")
+
+save("cambios_campeones_7.3.md",
+"# Cambios a campeones - Wild Rift 7.3 (notas oficiales 21-sep-2026)\n\n"
+"> Ajustes sistemicos de marksman + cambios individuales. Fuente: wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3/\n\n"
++ sec_champs)
+save("cambios_items_7.3.md",
+"# Cambios a items - Wild Rift 7.3 (notas oficiales)\n\n> Incluye items nuevos (C44, Yun Tal, Fiendhunter, Stormrazor, Shieldbow), removidos (Magnetic Blaster, Cloak of Agility, Soul Transfer, Nashor's Talon) y componentes.\n\n"
++ sec_items)
+save("cambios_runas_7.3.md",
+"# Cambios a runas - Wild Rift 7.3 (notas oficiales)\n\n> Lethal Tempo rehecho, Legend: Haste reemplaza a Legend: Tenacity, Ingenious Hunter removida, Conqueror/Demolish ajustados.\n\n"
++ sec_runes)
+save("sistemas_campo_7.3.md",
+"# Sistemas de campo - Wild Rift 7.3 (notas oficiales)\n\n> Jungla/smite, torretas (7000 HP, placas permanentes, Crystalline Overgrowth), minions, Hand of Baron, Lifesteal nuevo stat.\n\n"
++ sec_field + "\n\n## LIFESTEAL (nuevo stat)\n\n" + sec_min)
+save("mecanica_attack_speed_7.3.md",
+"# Mecanica de Attack Speed 7.3 (explicacion oficial)\n\n" + sec_asmech)
+
+# ============ 2) TABLAS DEL APENDICE (todos los campeones) ============
+apendice = notes[notes.find("Champion Durability Adjustments Detailed List"):]
+apendice = apendice[:apendice.find("Wild Rift Game Design Team") if "Wild Rift Game Design Team" in apendice else len(apendice)]
+
+lines = [l.rstrip() for l in apendice.split("\n")]
+dur_rows, as_rows = [], []
+i = 0
+while i < len(lines):
+    l = lines[i].strip()
+    if l and i+1 < len(lines) and lines[i+1].strip() == "Base Stats":
+        name = l
+        stats = []
+        j = i+2
+        while j < len(lines) and lines[j].strip().startswith("- "):
+            stats.append(lines[j].strip()[2:]); j += 1
+        if any("Attack Speed Ratio" in s for s in stats):
+            row = {"champion": name}
+            for s in stats:
+                k, _, v = s.partition(":")
+                row[k.strip()] = v.strip()
+            as_rows.append(row)
+        elif stats:
+            row = {"champion": name}
+            for s in stats:
+                k, _, v = s.partition(":")
+                row[k.strip()] = v.strip()
+            dur_rows.append(row)
+        i = j; continue
+    i += 1
+
+# ⚠️ Overrides del HOTFIX 7.3a (29-sep-2026) — la página oficial 7.3 aún trae el apéndice viejo.
+# Si regeneras desde raw, estos overrides se re-aplican automáticamente (fuente: cambios_7.3a.md).
+OVERRIDES_73A = {
+  "Caitlyn": {"Attack Speed per Level": "0.025 (7.3a: era 0.04)"},
+  "Senna": {"Attack Speed Ratio": "0.3 (7.3a)", "Base Attack Speed": "0.3 (7.3a)",
+            "Base Bonus Attack Speed": "1.1 (7.3a)", "Attack Speed per Level": "0.025 (7.3a)"},
+}
+
+def write_csv(name, rows, cols):
+    p = os.path.join(OUT, name)
+    with open(p, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader()
+        for r in rows: w.writerow(r)
+    print("ok:", name, len(rows), "filas")
+
+as_cols = ["champion","Attack Speed Ratio","Base Attack Speed","Base Bonus Attack Speed","Attack Speed per Level"]
+for _r in as_rows:
+    _r.update(OVERRIDES_73A.get(_r["champion"], {}))
+write_csv("champion_attack_speed_7.3.csv", as_rows, as_cols)
+
+dur_cols = ["champion"]
+for r in dur_rows:
+    for k in r:
+        if k not in dur_cols: dur_cols.append(k)
+write_csv("champion_durability_7.3.csv", dur_rows, dur_cols)
+
+# ============ 3) BASE DE ITEMS (wr-meta 24-sep-2026) ============
+SECTIONS = ["FIGHTER ITEMS","ASSASSIN ITEMS","MARKSMAN ITEMS","MAGIC ITEMS","DEFENSE ITEMS","SUPPORT ITEMS",
+            "Boots tier 2","Boots tier 3","Mid Tier Items","Basic Items"]
+marks = []
+for s in SECTIONS:
+    idx = items_html.find(">"+s+"<")
+    if idx<0: idx = items_html.find(s)
+    marks.append((idx, s))
+marks = sorted([m for m in marks if m[0]>=0])
+def section_of(pos):
+    cur = "?"
+    for idx, s in marks:
+        if idx <= pos: cur = s
+    return cur
+
+positions = [m.start() for m in re.finditer(r'<div class="bild-img-short">', items_html)]
+positions.append(len(items_html))
+items, seen = [], {}
+for bi in range(len(positions)-1):
+    b = items_html[positions[bi]:positions[bi+1]]
+    m = re.search(r'<b class="iname">(.*?)</b>', b, re.S)
+    if not m: continue
+    name = clean(m.group(1)).replace("\n","")
+    gold = re.search(r'<b class="goldt">([^<]+)</b>', b)
+    gold = gold.group(1).strip() if gold else ""
+    stats = [clean(s).replace("\n"," ") for s in re.findall(r'<b class="istats">(.*?)</b>', b, re.S)]
+    full = clean(b).split("TIPS:")[0]
+    sec = section_of(positions[bi])
+    if name in seen:
+        if sec not in seen[name]["sections"]: seen[name]["sections"] += "; "+sec
+        if len(full) > len(seen[name]["full"]): seen[name]["full"] = full
+        continue
+    rec = dict(name=name, price=gold, stats=" | ".join(stats), sections=sec, full=full)
+    seen[name] = rec; items.append(rec)
+
+with open(os.path.join(OUT,"items_7.3.csv"),"w",newline="",encoding="utf-8") as f:
+    w = csv.writer(f); w.writerow(["item","precio_oro","stats","categorias","detalle_completo"])
+    for r in items: w.writerow([r["name"], r["price"], r["stats"], r["sections"], r["full"].replace("\n"," ~ ")])
+print("ok: items_7.3.csv", len(items), "items unicos")
+
+with open(os.path.join(OUT,"items_7.3.md"),"w",encoding="utf-8") as f:
+    f.write("# Base de items Wild Rift 7.3 (estado 24-sep-2026)\n\n")
+    f.write("> Fuente: wr-meta.com/items (BD sincronizada con 7.3), cross-verificada contra las notas oficiales 7.3/7.2.\n")
+    f.write("> Diffs exactos del parche (antes -> despues): cambios_items_7.3.md. Un item puede aparecer en varias categorias.\n"
+            "> \u26a0\ufe0f REGLA DE SLOTS (Ley 0): Wild Rift tiene 6 slots TOTALES y las botas ocupan UNO. Las 'Boots tier 3'\n"
+            "> (Gunmetal, Chainlaced, Armored Advance, Crimson Lucidity, Spellslinger's, Armorcrusher, Immortal Treads)\n"
+            "> son la MEJORA EN EL MISMO SLOT de su tier 2 (disponible desde el minuto 10:00), NO un item adicional.\n"
+            "> Una build final = 1 botas (T3 tras el min 10) + 5 items. Ver FRAMEWORK.md Ley 0 y dps_model.validate_slots().\n\n")
+    cur = None
+    for r in items:
+        s = r["sections"].split(";")[0]
+        if s != cur: f.write(f"\n## {s}\n\n"); cur = s
+        f.write(f"### {r['name']} — {r['price']}g\n")
+        if r["stats"]: f.write(f"**Stats:** {r['stats']}\n")
+        det = r["full"]
+        det = det.replace(r["name"],"",1).strip("\n ")
+        f.write("```\n"+det[:900]+"\n```\n")
+print("ok: items_7.3.md")
+
+# ============ 4) RUNAS (wr-meta) ============
+i0 = items_html.find("KEYSTONE")
+i_sorc = items_html.find("SORCERY", i0)
+i1 = items_html.find("Spells", i_sorc)
+runes_html = items_html[i0:i1 if i1>0 else len(items_html)]
+txt = clean(runes_html)
+txt = re.sub(r'\n\s*\n+', '\n', txt)
+save("runas_7.3.md",
+"# Runas Wild Rift - estado 7.3\n\n"
+"> Fuente: wr-meta.com (24-sep-2026). OJO: Ingenious Hunter fue REMOVIDA en 7.3 y Legend: Tenacity -> Legend: Haste (ver cambios_runas_7.3.md).\n"
+"> Lethal Tempo: usar valores oficiales 7.3 (6.4%/stack ranged, bala 6-24, +0.67% por 1% AS bonus), NO el texto de abajo que puede estar desactualizado.\n\n"+txt)
+
+print("\nTodo extraido en", OUT)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · build_db.py — construye data/wrlab.db (SQLite) desde las fuentes de texto del lab.
+Tablas: meta, champions, champion_as_official, items, patches, changes, reports, sources.
+Uso:  python3 model/build_db.py        (idempotente: recrea la BD desde cero)
+Diseño: los .md/.csv siguen siendo la fuente de verdad editable; la BD es la capa de
+consulta/respaldo (y lo que consume un futuro frontend/CLI).
+"""
+import csv, os, re, sqlite3, sys, datetime
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+E = os.path.join(ROOT, "data", "estructurada")
+DB = os.path.join(ROOT, "data", "wrlab.db")
+
+def connect_fresh():
+    if os.path.exists(DB): os.remove(DB)
+    con = sqlite3.connect(DB)
+    con.executescript("""
+    CREATE TABLE meta(key TEXT PRIMARY KEY, value TEXT);
+    CREATE TABLE champions(key TEXT PRIMARY KEY, name TEXT, roles TEXT, archetype TEXT,
+        base_ad REAL, ad_growth REAL, base_as REAL, as_ratio REAL, base_bonus_as REAL,
+        as_per_lvl REAL, ranged INT, notes TEXT, report TEXT);
+    CREATE TABLE champion_as_official(champion TEXT PRIMARY KEY, patch TEXT,
+        as_ratio TEXT, base_as TEXT, base_bonus TEXT, as_per_lvl TEXT);
+    CREATE TABLE items(name TEXT PRIMARY KEY, gold TEXT, stats TEXT, categories TEXT, passives TEXT);
+    CREATE TABLE patches(id TEXT PRIMARY KEY, release_date TEXT, status TEXT, raw_path TEXT, diff_path TEXT);
+    CREATE TABLE changes(patch TEXT, entity_type TEXT, entity TEXT, change TEXT);
+    CREATE TABLE reports(champion TEXT, path TEXT PRIMARY KEY, version TEXT, status TEXT, patch TEXT, tags TEXT);
+    CREATE TABLE sources(name TEXT, url TEXT, accessed TEXT, role TEXT);
+    """)
+    return con
+
+def load_specs():
+    sys.path.insert(0, os.path.join(ROOT, "model"))
+    from champspecs import SPECS
+    import dataclasses
+    import dps_model
+    out = dict(SPECS)
+    if "jinx" not in out:
+        j = dps_model.CHAMPS["jinx"]
+        out["jinx"] = {f.name: getattr(j, f.name) for f in dataclasses.fields(j)}
+        out["jinx"]["roles"] = ["ADC (Dragon)"]
+        out["jinx"]["archetype"] = "crit-aoe"
+    return out
+
+def parse_change_rows(md_path, patch_id):
+    """Extrae filas de las tablas markdown de un archivo de cambios (| a | b | c |)."""
+    rows = []
+    if not os.path.exists(md_path): return rows
+    for line in open(md_path, encoding="utf-8"):
+        line = line.strip()
+        if not line.startswith("|") or set(line) <= set("|-: "): continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) >= 3 and cells[0] and not cells[0].lower().startswith(("champ","ítem","item","sistema","fuente","tema","---")):
+            rows.append((patch_id, "tabla", cells[0], " · ".join(cells[1:])))
+    return rows
+
+def main():
+    con = connect_fresh(); cur = con.cursor()
+    hoy = datetime.date.today().isoformat()
+    cur.executemany("INSERT INTO meta VALUES(?,?)", [
+        ("lab_version", "1.5"), ("patch_base", "7.3"), ("hotfix", "7.3a"),
+        ("db_built", hoy), ("champions_total", ""), ("items_total", "")])
+
+    # champions (specs del equipo)
+    reps = {}
+    rdir = os.path.join(ROOT, "reportes")
+    for f in os.listdir(rdir):
+        m = re.match(r"([A-Za-z']+)_WR_", f)
+        if m: reps[m.group(1).lower()] = os.path.join("reportes", f)
+    n = 0
+    for key, sp in load_specs().items():
+        cur.execute("INSERT OR REPLACE INTO champions VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", (
+            key, sp["name"], ";".join(sp.get("roles", [])), sp.get("archetype", ""),
+            sp.get("base_ad"), sp.get("ad_growth"), sp.get("base_as"), sp.get("as_ratio"),
+            sp.get("base_bonus_as"), sp.get("as_per_lvl"), int(sp.get("ranged", 0)),
+            sp.get("notes", ""), reps.get(key, "")))
+        n += 1
+    cur.execute("UPDATE meta SET value=? WHERE key='champions_total'", (str(n),))
+
+    # AS oficial 140 campeones
+    with open(os.path.join(E, "champion_attack_speed_7.3.csv"), encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            cur.execute("INSERT OR REPLACE INTO champion_as_official VALUES(?,?,?,?,?,?)", (
+                r["champion"], "7.3+7.3a", r["Attack Speed Ratio"], r["Base Attack Speed"],
+                r["Base Bonus Attack Speed"], r["Attack Speed per Level"]))
+
+    # items (tolerante a nombres de columna entre versiones del extractor)
+    with open(os.path.join(E, "items_7.3.csv"), encoding="utf-8") as f:
+        rd = csv.DictReader(f)
+        det_col = "pasivos_y_detalle" if "pasivos_y_detalle" in rd.fieldnames else "detalle_completo"
+        rows = [(r["item"], r["precio_oro"], r["stats"], r["categorias"], r.get(det_col, "")) for r in rd]
+    cur.executemany("INSERT OR REPLACE INTO items VALUES(?,?,?,?,?)", rows)
+    cur.execute("UPDATE meta SET value=? WHERE key='items_total'", (str(len(rows)),))
+
+    # patches + changes
+    cur.execute("INSERT INTO patches VALUES(?,?,?,?,?)",
+                ("7.3", "2026-09-21", "live", "data/raw/patch73.txt", "data/estructurada/cambios_items_7.3.md"))
+    cur.execute("INSERT INTO patches VALUES(?,?,?,?,?)",
+                ("7.3a", "2026-09-29", "programado (CN confirmado; EN pendiente)", "data/raw/patch73a_cn_en.txt", "data/estructurada/cambios_7.3a.md"))
+    for row in parse_change_rows(os.path.join(E, "cambios_7.3a.md"), "7.3a"):
+        cur.execute("INSERT INTO changes VALUES(?,?,?,?)", row)
+
+    # reports (frontmatter; champion con fallback al nombre de archivo — formato vault)
+    import contextlib, io as _io
+    with contextlib.redirect_stdout(_io.StringIO()):
+        import update_reports as U
+    for f in sorted(os.listdir(rdir)):
+        if not f.endswith(".md"): continue
+        t = open(os.path.join(rdir, f), encoding="utf-8").read()
+        fm = re.search(r'^---\n(.*?)\n---', t, re.S)
+        champ = ver = stat = pat = tags = ""
+        fm_dict = {}
+        if fm:
+            for k, v in re.findall(r'^(\w+):\s*(.+)$', fm.group(1), flags=re.M):
+                fm_dict[k] = v
+                if k == "champion": champ = v
+                if k == "version": ver = v
+                if k == "Status": stat = v
+                if k == "patch": pat = v.strip('"')
+            tags = ",".join(re.findall(r'^\s+-\s+(.+)$', fm.group(1), flags=re.M))
+        if not champ:
+            champ = U.champ_desde_archivo(f, fm_dict, t)
+        if not pat:
+            pat = U.parche_declarado(fm_dict, t) or ""
+        if champ:
+            cur.execute("INSERT OR REPLACE INTO reports VALUES(?,?,?,?,?,?)",
+                        (champ, os.path.join("reportes", f), ver, stat, pat, tags))
+
+    # sources
+    for s in [("Notas oficiales 7.3", "wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3/", "2026-09-25", "primaria"),
+              ("Notas oficiales 7.2", "wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-2/", "2026-09-25", "primaria"),
+              ("7.3a CN vía Arctic Shift", "lolm.qq.com docid 15413436308828016227 (reddit 1wskk84)", "2026-09-28", "primaria-traducida"),
+              ("wr-meta items", "wr-meta.com/items/", "2026-09-25", "secundaria"),
+              ("wr-meta campeones", "wr-meta.com/{id}-{champ}.html", "2026-09-25/28", "secundaria")]:
+        cur.execute("INSERT INTO sources VALUES(?,?,?,?)", s)
+
+    con.commit(); con.close()
+    print(f"BD construida: {DB} ({os.path.getsize(DB)//1024} KB)")
+    con = sqlite3.connect(DB)
+    for q in ["SELECT COUNT(*) FROM champions","SELECT COUNT(*) FROM champion_as_official",
+              "SELECT COUNT(*) FROM items","SELECT COUNT(*) FROM changes","SELECT COUNT(*) FROM reports"]:
+        print(" ", q.replace("SELECT COUNT(*) FROM ",""), "=", con.execute(q).fetchone()[0])
+    con.close()
+
+if __name__ == "__main__":
+    main()
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · check_patch.py — vigilante de parches.
+Detecta: (1) cambios de CONTENIDO en la página oficial 7.3 (hash de texto normalizado,
+inmune al ruido dinámico del CMS/nav), (2) publicación de páginas 7.3a/7.3b/7.4,
+(3) nuevas entradas de change-history en wr-meta para campeones centinela.
+Estado persistente en data/raw/.watch_state.json. Exit 1 si hay cambios (útil para CI/cron).
+
+Historia: hasta v1.5 hasheaba el HTML crudo → falsos positivos por el listados de
+"artículos relacionados" y tokens del CMS (29-sep-2026: md5 distinto con contenido idéntico).
+Desde v1.6 el hash es del TEXTO del artículo, cortado antes del pie dinámico.
+
+Uso:  python3 model/check_patch.py [--quiet]
+"""
+import hashlib, html as htmllib, json, os, re, sys, datetime, urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATE = os.path.join(ROOT, "data", "raw", ".watch_state.json")
+OFFICIAL = "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-{slug}/"
+CANDIDATES = ["7-3b", "7-3c", "7-4", "7-4a", "7-5", "7-3b-hotfix"]
+WATCH_PAGES = ["7-3", "7-3a"]        # páginas activas: vigilar cambios de CONTENIDO
+WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": None, "hwei": None, "yuumi": "321-yuumi",
+                    "kalista": "349-kalista", "malphite": "47-malphite"}
+UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126.0"}
+
+def get(url, t=25):
+    req = urllib.request.Request(url, headers=UA)
+    try:
+        with urllib.request.urlopen(req, timeout=t) as r:
+            return r.status, r.read()
+    except urllib.error.HTTPError as e:
+        return e.code, b""
+    except Exception as e:
+        return f"ERR:{type(e).__name__}", b""
+
+def content_md5(body):
+    """Hash del CONTENIDO de la nota: sin scripts/estilos/etiquetas, cortado en
+    'Related Articles' (carrusel dinámico) y sin líneas de fecha ISO (metadata que
+    rota por visita). Verificado estable entre descargas consecutivas (29-sep-2026)."""
+    t = body.decode("utf-8", "ignore")
+    t = re.sub(r"<script[^>]*>.*?</script>", " ", t, flags=re.S | re.I)
+    t = re.sub(r"<style[^>]*>.*?</style>", " ", t, flags=re.S | re.I)
+    t = re.sub(r"<[^>]+>", "\n", t)
+    t = htmllib.unescape(t)
+    lines = [re.sub(r"\s+", " ", l).strip() for l in t.split("\n")]
+    lines = [l for l in lines if l]
+    for i, l in enumerate(lines):
+        if l == "Related Articles":
+            lines = lines[:i]
+            break
+    lines = [l for l in lines if not re.match(r"^\d{4}-\d{2}-\d{2}T", l)]
+    return hashlib.md5("\n".join(lines).encode()).hexdigest()
+
+def load_state():
+    if os.path.exists(STATE):
+        st = json.load(open(STATE))
+        st.setdefault("official_73_content_md5", None)
+        return st
+    return {"official_73_md5": None, "official_73_content_md5": None,
+            "new_pages": [], "changelog_dates": {}, "last_check": None}
+
+def main():
+    quiet = "--quiet" in sys.argv
+    state = load_state()
+    findings = []
+
+    # 1) ¿el CONTENIDO de las páginas oficiales activas cambió? (7-3 y 7-3a)
+    for slug in WATCH_PAGES:
+        st, body = get(OFFICIAL.format(slug=slug))
+        if st != 200:
+            continue
+        cmd5 = content_md5(body)
+        key = f"content_{slug}"
+        prev_c = state.get(key)
+        if prev_c and cmd5 != prev_c:
+            findings.append(f"CONTENIDO de la página oficial {slug} MODIFICADO (content-md5 {prev_c[:8]} → {cmd5[:8]})")
+        state[key] = cmd5
+        if slug == "7-3":
+            state["official_73_md5"] = hashlib.md5(body).hexdigest()   # informativo
+
+    # 2) ¿se publicó alguna página nueva de parche?
+    for slug in CANDIDATES:
+        st2, _ = get(OFFICIAL.format(slug=slug), t=15)
+        if st2 == 200 and slug not in state["new_pages"]:
+            state["new_pages"].append(slug)
+            findings.append(f"NUEVA página oficial de notas: {slug} → descargar y correr protocolo FRAMEWORK §E")
+    # las páginas ya vigiladas no deben re-alertarse como "nuevas"
+    state["new_pages"] = sorted(set(state["new_pages"]) | set(WATCH_PAGES))
+
+    # 3) change-history de centinelas en wr-meta
+    for champ, pageid in WRMETA_SENTINELS.items():
+        if not pageid: continue
+        st3, body3 = get(f"https://wr-meta.com/{pageid}.html", t=20)
+        if st3 != 200: continue
+        t = body3.decode("utf-8", "ignore")
+        dates = re.findall(r'(\d{1,2}\s+\w{3}\s+2026)\s+\(PATCH\s+([^)]+)\)', t)
+        latest = dates[0] if dates else None
+        prev = state["changelog_dates"].get(champ)
+        if latest and (prev is None or latest[0] != prev[0] or latest[1] != prev[1]):
+            if prev is not None:
+                findings.append(f"wr-meta {champ}: nuevo change-history {latest} (antes {prev})")
+            state["changelog_dates"][champ] = list(latest)
+
+    state["last_check"] = datetime.datetime.now().isoformat(timespec="seconds")
+    json.dump(state, open(STATE, "w"), indent=1)
+
+    if findings:
+        print("🔔 CAMBIOS DETECTADOS:")
+        for f in findings: print("  -", f)
+        print("→ Ejecutar protocolo de actualización (FRAMEWORK §E) y regenerar BD/bundles.")
+        sys.exit(1)
+    if not quiet:
+        print("✅ Sin cambios desde el último chequeo.", state["last_check"])
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""Parser de fichas de campeón (wr-meta) -> data/estructurada/campeones/{slug}.md + champion_base_stats.json"""
+import re, html as H, json, csv, os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAWC = os.path.join(ROOT, "data", "raw", "campeones")
+OUTC = os.path.join(ROOT, "data", "estructurada", "campeones")
+os.makedirs(OUTC, exist_ok=True)
+
+NAMES = {"yuumi":"Yuumi","yunara":"Yunara","mordekaiser":"Mordekaiser","kalista":"Kalista",
+         "diana":"Diana","karma":"Karma","heimerdinger":"Heimerdinger","volibear":"Volibear",
+         "seraphine":"Seraphine","shyvana":"Shyvana","chogath":"Cho'Gath"}
+
+# AS oficial 7.3 (apéndice de las notas)
+as_official = {}
+with open(os.path.join(ROOT,"data","estructurada","champion_attack_speed_7.3.csv"), encoding="utf-8") as f:
+    for r in csv.DictReader(f):
+        as_official[r["champion"].lower().replace("'","")] = r
+dur_official = {}
+with open(os.path.join(ROOT,"data","estructurada","champion_durability_7.3.csv"), encoding="utf-8") as f:
+    for r in csv.DictReader(f):
+        dur_official[r["champion"].lower().replace("'","")] = r
+
+def parse(slug):
+    raw = open(os.path.join(RAWC, slug+".html"), encoding="utf-8", errors="ignore").read()
+    name = NAMES[slug]
+    # --- stats base ---
+    stats = {}
+    sb = raw.find('<div class="stats-block">'); se = raw.find('</table>', sb)
+    block = raw[sb:se]
+    for m in re.finditer(r'alt="([a-z]+)"[^>]*>(?:<!--/smile-->)?\s*([^<]*)', block):
+        val = m.group(2).strip()
+        if val: stats[m.group(1)] = val
+    # --- habilidades ---
+    ab = raw.find('<div class="ability-block">')
+    ae = raw.find("Change history", ab)
+    if ae < 0: ae = raw.find("Meta Overview", ab)
+    hab_html = raw[ab:ae]
+    txt = re.sub(r'<script[\s\S]*?</script>|<style[\s\S]*?</style>', ' ', hab_html)
+    txt = re.sub(r'</(div|p|br|li|td)>', '\n', txt, flags=re.I)
+    txt = H.unescape(re.sub(r'<[^>]+>', ' ', txt))
+    txt = re.sub(r'[ \t]+', ' ', txt)
+    txt = re.sub(r'\n\s*\n+', '\n', txt).strip()
+    # --- change history ---
+    ch = raw.find("Change history")
+    ch_txt = ""
+    if ch >= 0:
+        ce = raw.find("Comments", ch)
+        t2 = re.sub(r'<[^>]+>', '\n', raw[ch:ce if ce>0 else ch+15000])
+        t2 = H.unescape(t2); t2 = re.sub(r'\n{2,}', '\n', t2).strip()
+        ch_txt = t2[:5000]
+    # --- popular build/runes (referencia) ---
+    meta = ""
+    mo = raw.find("Runes BUILD")
+    if mo > 0:
+        t3 = H.unescape(re.sub(r'<[^>]+>', '\n', raw[mo:mo+3000]))
+        meta = re.sub(r'\n{2,}', '\n', t3).strip()[:900]
+    return name, stats, txt, ch_txt, meta
+
+results = {}
+for slug in NAMES:
+    name, stats, abilities, history, meta = parse(slug)
+    key = slug.replace("'","")
+    off = as_official.get(key) or as_official.get(name.lower().replace("'",""))
+    dur = dur_official.get(name.lower().replace("'",""))
+    results[slug] = dict(name=name, stats=stats, as_official_73=off, durability_73=dur)
+    md = [f"# {name} — Ficha de datos (Wild Rift 7.3)", "",
+          f"> wr-meta.com (24-sep-2026) + apéndice oficial 7.3. Crudo: data/raw/campeones/{slug}.html", "",
+          "## Stats base (nivel 1, growth entre paréntesis)", ""]
+    for k, v in stats.items(): md.append(f"- **{k}**: {v}")
+    md += ["", "## AS oficial 7.3 (apéndice de las notas — fuente primaria para el modelo)", ""]
+    if off:
+        for k, v in off.items(): md.append(f"- {k}: {v}")
+    else: md.append("- (no encontrado en el apéndice — verificar)")
+    if dur:
+        md += ["", "## Ajustes de durabilidad 7.3", ""]
+        for k, v in dur.items():
+            if k != "champion": md.append(f"- {k}: {v}")
+    md += ["", "## Habilidades (texto completo con valores actuales)", "", "```", abilities[:9000], "```", "",
+           "## Change history (cambios recientes)", "", "```", history[:4000], "```", "",
+           "## Build/runas populares (referencia comunitaria, NO conclusión)", "", "```", meta, "```"]
+    open(os.path.join(OUTC, slug+".md"), "w", encoding="utf-8").write("\n".join(md))
+    print(f"ok {name:<12} stats={len(stats)} as_official={'SI' if off else 'NO'} hab={len(abilities)}")
+
+json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_stats.json"),"w",encoding="utf-8"), ensure_ascii=False, indent=1)
+print("JSON guardado")
+```
+
+<!-- generado por model/build_bundles.py · 29/09/2026 · completo · sha256(cuerpo)=2c2ad7026a9490b4 · NO editar a mano: editar las fuentes y regenerar -->

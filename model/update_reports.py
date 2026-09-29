@@ -53,6 +53,7 @@ UMBRAL_REGENERAR = 5.0    # |Δ| >= 5 % → ❌ REGENERAR
 VEREDICTOS = {
     "SIN_IMPACTO": "✅ SIN IMPACTO",
     "ANOTAR":      "✅ ANOTAR",
+    "AL_DIA":      "⏩ AL DÍA",
     "REVISAR":     "⚠️ REVISAR",
     "REGENERAR":   "❌ REGENERAR",
 }
@@ -111,6 +112,22 @@ SINONIMOS = {
     "locket of the iron solari": {"aliado": "Locket"},
     "diadem of songs":           {"aliado": "Diadem"},
     "crown of songs":            {"aliado": "Diadem"},
+    # formas cortas / alias de paréntesis frecuentes en reportes del vault
+    "botrk":                     {"onhit": "BotRK", "autos": "botrk"},
+    "blade of the ruined king (botrk)": {"onhit": "BotRK"},
+    "bloodthirster":             {"autos": "bt"},
+    "gunmetal":                  {"autos": "Gunmetal", "onhit": "Gunmetal"},
+    "guinsoo":                   {"autos": "Guinsoo", "onhit": "Guinsoo"},
+    "statikk":                   {"autos": "statikk", "onhit": "Statikk"},
+    "infinity orb":              {"rotacion": "InfinityOrb"},
+    "luden's echo":              {"rotacion": "Luden"},
+    "liandry's anguish":         {"rotacion": "Liandry"},
+    "morellonomicon":            {"rotacion": "Morello"},
+    "zhonyas":                   {"rotacion": "Zhonyas"},
+    "nashor":                    {"rotacion": "Nashor"},
+    "rabadon":                   {"rotacion": "Rabadon"},
+    "censer":                    {"aliado": "Censer"},
+    "redemption":                {"aliado": "Redemption"},
 }
 
 # relevancia de cambios sistémicos por rol (para notas cualitativas)
@@ -122,6 +139,47 @@ SISTEMAS_POR_ROL = [
 
 STOP_WORDS = {"of", "the", "and", "de", "la", "el", "los", "las", "vs", "con", "por"}
 
+# roster conocido para derivar el campeón del nombre de archivo (los reportes del vault
+# no siempre llevan 'champion:' en el frontmatter)
+ROSTER = ["heimerdinger", "mordekaiser", "seraphine", "chogath", "cho'gath", "kalista",
+          "volibear", "shyvana", "caitlyn", "corki", "ezreal", "graves", "janna",
+          "diana", "jinx", "karma", "lulu", "nami", "norra", "rammus", "senna",
+          "sivir", "soraka", "thresh", "tristana", "vayne", "veigar", "vi", "viego",
+          "yasuo", "yone", "yunara", "yuumi", "zed", "zoe", "zyra", "malphite", "warwick"]
+ALIAS_ARCHIVO = {"yunana": "yunara"}   # errata de nombre de archivo confirmada en el contenido
+
+
+def _norm_champ(s):
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def champ_desde_archivo(archivo, fm, txt):
+    """champion del frontmatter → si no, desde el nombre de archivo (roster + alias)."""
+    if fm.get("champion"):
+        return fm["champion"].strip()
+    base = re.sub(r"\.md$", "", archivo).split(" - ")[0].strip().lower()
+    if base in ALIAS_ARCHIVO:
+        base = ALIAS_ARCHIVO[base]
+    nb = _norm_champ(base)
+    display_special = {"chogath": "Cho'Gath"}
+    for r in ROSTER:
+        nr = _norm_champ(r)
+        if nb.startswith(nr):
+            return display_special.get(nr, r.title())
+    return base.title()
+
+
+def parche_declarado(fm, txt):
+    """Parche máximo que el reporte declara cubrir (frontmatter 'patch:' o línea **Parche:**)."""
+    fuentes = [fm.get("patch", "")]
+    m = re.search(r"\*\*Parche:\*\*\s*([^\n]+)", txt)
+    if m:
+        fuentes.append(m.group(1))
+    tokens = []
+    for s in fuentes:
+        tokens += re.findall(r"\d+\.\d+[a-z]?", s)
+    return max(tokens, key=patch_key) if tokens else None
+
 
 # ================================================================ parches y diffs
 def patch_key(p):
@@ -130,6 +188,14 @@ def patch_key(p):
     if not m:
         return (0, 0, 0)
     return (int(m.group(1)), int(m.group(2)), (ord(m.group(3)) - 96) if m.group(3) else 0)
+
+
+def _max_patch(s):
+    """De '7.3+7.3a' (o cualquier texto) extrae el token de parche máximo."""
+    if not s:
+        return None
+    tokens = re.findall(r"\d+\.\d+[a-z]?", s)
+    return max(tokens, key=patch_key) if tokens else None
 
 
 def cambios_archivos():
@@ -217,7 +283,13 @@ def parse_frontmatter(txt):
 
 def parse_rol(txt):
     m = re.search(r"\*\*Rol principal:\*\*\s*(.+)", txt)
-    return m.group(1).strip() if m else ""
+    if m:
+        return m.group(1).strip()
+    fm = re.search(r"^---\n(.*?)\n---", txt, re.S)          # fallback: tags del frontmatter
+    if fm:
+        tags = re.findall(r"^\s+-\s+(.+)$", fm.group(1), flags=re.M)
+        return " ".join(t.strip() for t in tags)
+    return ""
 
 
 def _limpiar_nombre(s):
@@ -226,31 +298,118 @@ def _limpiar_nombre(s):
     return s.strip()
 
 
-def parse_tabla_a(txt):
-    """Devuelve los 6 nombres visibles de la build final (Tabla A, estándar v1.4).
-    En la fila de botas toma la forma T3 (la que va después de '→')."""
-    m = re.search(r"###\s+Tabla A(.*?)###\s+Tabla B", txt, re.S)
-    if not m:
-        raise ValueError("Tabla A no encontrada")
-    items = []
-    for linea in m.group(1).splitlines():
-        if not linea.strip().startswith("|"):
-            continue
-        celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
-        if len(celdas) < 2 or set(celdas[0]) <= set("-: ") or celdas[0].lower().startswith("slot"):
-            continue
-        slot, celda = celdas[0], celdas[1]
-        bolds = re.findall(r"\*\*(.+?)\*\*", celda)
-        if not bolds:
-            continue
-        if "botas" in slot.lower():
-            nombre = bolds[-1].split("→")[-1] if "→" in bolds[-1] else bolds[-1]
-            if len(bolds) > 1:
-                nombre = bolds[-1]
+# ---------------------------------------------------------------- extracción de la build publicada
+SLOT_HEADERS = ("slot", "ranura", "#", "nº", "no.", "posición")
+
+def _es_fila_sep(celdas):
+    return all(set(c) <= set("-: ") and c for c in celdas)
+
+def _header_slot_like(celdas):
+    h = celdas[0].lower().strip(" *")
+    return any(h.startswith(s) for s in SLOT_HEADERS)
+
+def _header_es_ruta(celdas):
+    return any(("minuto" in c.lower() or "momento" in c.lower()) for c in celdas)
+
+def _nombre_de_celda(celda):
+    """Ítem visible de una celda: primer bold (T3 si hay '→' dentro), o texto plano
+    si no hay bold (alias en paréntesis se resuelve después en resolver_clave)."""
+    c = celda.split("<br>")[0].strip()
+    bolds = re.findall(r"\*\*(.+?)\*\*", c)
+    if bolds:
+        b = bolds[0]
+        if "→" in b or "->" in b:
+            b = re.split(r"→|->", b)[-1]
+        nombre = b
+    else:
+        base = re.sub(r"\*\*|⬆️|\*", "", c)
+        paren = re.findall(r"\(([^)]+)\)", base)
+        alias = None
+        for p in paren:                       # alias inglés entre paréntesis tiene prioridad
+            pp = re.split(r"→|->", p.strip())[-1].strip()
+            if _nombre_conocido(pp):
+                alias = pp
+                break
+        if alias:
+            nombre = alias
         else:
-            nombre = bolds[0].split("→")[0]
-        items.append(_limpiar_nombre(nombre))
-    return items
+            if "→" in base or "->" in base:
+                base = re.split(r"→|->", base)[-1]
+            nombre = base.split("(")[0]
+    nombre = nombre.replace("⬆️", "").strip()
+    nombre = re.sub(r"\s*\((default|jungla|mid|t3|solo[^)]*|min[^)]*)\)\s*$", "", nombre, flags=re.I)
+    return nombre.strip(" ·*")
+
+def _nombre_conocido(x):
+    xl = x.lower().strip()
+    if xl in SINONIMOS or xl in M.ITEMS or x in M.ALIAS or xl in {a.lower() for a in M.ALIAS}:
+        return True
+    for dic in (B2.K_ITEMS, B2.D_ITEMS, B2.Y_ITEMS):
+        if x in dic or xl in {k.lower() for k in dic}:
+            return True
+    return False
+
+def _tablas_candidatas(txt):
+    """[(prioridad, posición, filas)] de las tablas markdown del documento."""
+    out = []
+    lines = txt.splitlines()
+    heading = ""
+    i = 0
+    while i < len(lines):
+        if lines[i].lstrip().startswith("#"):
+            heading = lines[i].lstrip("# ").strip()
+        if lines[i].strip().startswith("|"):
+            j = i
+            while j < len(lines) and lines[j].strip().startswith("|"):
+                j += 1
+            out.append((heading, i, lines[i:j]))
+            i = j
+            continue
+        i += 1
+    cands = []
+    for pos, (heading, start, filas) in enumerate(out):
+        celdas_hdr = [c.strip() for c in filas[0].strip().strip("|").split("|")]
+        if len(celdas_hdr) < 2 or not _header_slot_like(celdas_hdr):
+            continue
+        if _header_es_ruta(celdas_hdr):
+            continue
+        cuerpo = [f for f in filas[2:] if not _es_fila_sep([c.strip() for c in f.strip().strip("|").split("|")])]
+        if len(cuerpo) < 6:
+            continue
+        h = heading.lower()
+        prio = 0 if "tabla a" in h else (1 if ("build final" in h or "ranura por ranura" in h) else 2)
+        cands.append((prio, start, heading, cuerpo))
+    cands.sort(key=lambda x: (x[0], x[1]))
+    return cands
+
+def extraer_build(txt):
+    """(nombres_visibles, fuente) de la build final publicada. fuente = heading de la tabla."""
+    # prioridad 1: sección "### Tabla A ... ### Tabla B" (estándar v1.4)
+    m = re.search(r"###\s+Tabla A(.*?)(?:###\s+Tabla B|\n## )", txt, re.S)
+    if m:
+        filas = [l for l in m.group(1).splitlines()
+                 if l.strip().startswith("|") and not _es_fila_sep([c.strip() for c in l.strip().strip("|").split("|")])]
+        filas = [l for l in filas if not re.match(r"^\|\s*slot\s*\|", l.strip(), re.I)]
+        nombres = []
+        for l in filas[:6]:
+            celdas = [c.strip() for c in l.strip().strip("|").split("|")]
+            if len(celdas) >= 2 and celdas[0]:
+                n = _nombre_de_celda(celdas[1])
+                if n:
+                    nombres.append(n)
+        if len(nombres) == 6:
+            return nombres, "Tabla A"
+    # prioridad 2/3: otras tablas con header de slot (BUILD FINAL, §0, etc.)
+    for prio, start, heading, cuerpo in _tablas_candidatas(txt):
+        nombres = []
+        for l in cuerpo[:6]:
+            celdas = [c.strip() for c in l.strip().strip("|").split("|")]
+            n = _nombre_de_celda(celdas[1]) if len(celdas) >= 2 else ""
+            if n:
+                nombres.append(n)
+        if len(nombres) == 6:
+            return nombres, heading or f"tabla@línea{start}"
+    return [], None
 
 
 def parse_resumen_publico(txt):
@@ -259,19 +418,37 @@ def parse_resumen_publico(txt):
 
 
 def resolver_clave(display, tipo_modelo):
-    """display ('Lord Dominik's Regards') → clave del modelo ('LDR'/'ldr'…)."""
-    d = display.lower()
-    if d in SINONIMOS and tipo_modelo in SINONIMOS[d]:
-        return SINONIMOS[d][tipo_modelo]
-    if tipo_modelo == "autos":                       # reintento con el alias del motor
-        for alias, key in M.ALIAS.items():
-            if alias.lower() == d:
-                return alias
-        if d in M.ITEMS:
-            return d
-    for dic in (getattr(B2, "K_ITEMS", {}), getattr(B2, "D_ITEMS", {}), getattr(B2, "Y_ITEMS", {})):
-        if display in dic:
-            return display
+    """display ('Lord Dominik's Regards' / 'Bloodthirster (BotRK)') → clave del modelo.
+    Prueba: nombre completo → alias entre paréntesis → nombre sin paréntesis."""
+    d = display.strip()
+    cands = [(d, d.lower())]
+    m = re.search(r"\(([^)]+)\)", d)
+    if m:
+        cands.append((m.group(1).strip(), m.group(1).strip().lower()))
+    base = re.sub(r"\s*\([^)]*\)\s*", " ", d).strip()
+    if base != d:
+        cands.append((base, base.lower()))
+    dic_por_tipo = {"onhit": B2.K_ITEMS, "rotacion": B2.D_ITEMS, "aliado": B2.Y_ITEMS}
+    for orig, low in cands:
+        if low in SINONIMOS and tipo_modelo in SINONIMOS[low]:
+            return SINONIMOS[low][tipo_modelo]
+    if tipo_modelo == "autos":
+        for orig, low in cands:
+            if orig in M.ALIAS:
+                return M.ALIAS[orig]
+            for a, k in M.ALIAS.items():
+                if a.lower() == low:
+                    return k
+            if low in M.ITEMS:
+                return low
+    d2 = dic_por_tipo.get(tipo_modelo)
+    if d2:
+        for orig, low in cands:
+            if orig in d2:
+                return orig
+            for k in d2:
+                if k.lower() == low:
+                    return k
     return None
 
 
@@ -357,14 +534,11 @@ def construir_registro(hoy=None):
         with open(os.path.join(REPORTES, f), encoding="utf-8") as fh:
             txt = fh.read()
         fm = parse_frontmatter(txt)
-        champ = fm.get("champion", "").strip()
-        if not champ:
-            print(f"  [aviso] {f}: sin champion en frontmatter — omitido")
-            continue
-        clave = champ.lower().replace("'", "").replace(" ", "")
+        champ = champ_desde_archivo(f, fm, txt)
+        clave = _norm_champ(champ)
         modelo = MODELOS.get(clave, dict(tipo="desconocido", hook=None,
-                                         motivo="campeón sin modelo registrado en update_reports.MODELOS"))
-        build_disp = parse_tabla_a(txt)
+                                         motivo="sin modelo cuantitativo para este campeón/arquetipo"))
+        build_disp, build_fuente = extraer_build(txt)
         build_keys, sin_resolver = [], []
         for d in build_disp:
             k = resolver_clave(d, modelo["tipo"])
@@ -374,14 +548,21 @@ def construir_registro(hoy=None):
             "rol": parse_rol(txt), "modelo": modelo["tipo"],
             "hook": modelo.get("hook"), "hook_motivo": modelo.get("motivo", ""),
             "build_display": build_disp, "build_keys": build_keys,
-            "sin_resolver": sin_resolver,
+            "build_fuente": build_fuente, "sin_resolver": sin_resolver,
+            "parche_declarado": parche_declarado(fm, txt),
             "resumen_publico": parse_resumen_publico(txt),
             "metricas": None, "ultima_verificacion": None,
         }
-        if modelo.get("hook") and not sin_resolver:
+        if not build_disp:
+            if modelo.get("hook"):
+                entry["hook"] = None
+                entry["hook_motivo"] = "build final no extraíble automáticamente (formato del vault)"
+        elif modelo.get("hook") and not sin_resolver and len(build_keys) == 6:
             entry["metricas"] = _redondear(HOOKS[modelo["hook"]](build_keys))
         elif modelo.get("hook"):
-            entry["hook_motivo"] = "ítems sin resolver: " + ", ".join(sin_resolver)
+            entry["hook"] = None
+            entry["hook_motivo"] = ("ítems sin resolver en el modelo: " + ", ".join(sin_resolver)) \
+                if sin_resolver else entry["hook_motivo"]
         reg["reportes"][f] = entry
     return reg
 
@@ -410,13 +591,16 @@ def _norm(s):
 
 
 def _mencionado(texto_lower, nombre_item):
-    """¿El ítem cambiado aparece en el texto del reporte (variantes/rechazados/apéndices)?"""
+    """¿El ítem cambiado aparece en el texto del reporte (variantes/rechazados/apéndices)?
+    Palabras distintivas con límite de palabra (\b) para evitar falsos positivos
+    del tipo 'death' ⊂ 'Deathcap'."""
     variantes = [nombre_item] + expandir_nombre_item(nombre_item)
     for v in variantes:
-        if _norm(v) in texto_lower:
+        nv = _norm(v).replace("'", "")
+        if nv in texto_lower.replace("'", ""):
             return v
         palabras = [w for w in re.split(r"[\s']+", _norm(v)) if len(w) >= 5 and w not in STOP_WORDS]
-        if palabras and any(w in texto_lower for w in palabras):
+        if palabras and any(re.search(rf"\b{re.escape(w)}\b", texto_lower) for w in palabras):
             return v
     return None
 
@@ -436,7 +620,7 @@ def sistemas_relevantes(rol, cs):
 def lab_note_para(archivo, cs):
     for patron, nota in cs["lab_notes"].items():
         p = patron.strip().strip("`").replace("reportes/", "")
-        p = re.sub(r"\*+$", "", p)
+        p = re.sub(r"[_*\s]+$", "", p)          # 'Jinx_*' → 'Jinx' (match por prefijo de archivo)
         if p and archivo.startswith(p):
             return nota
     return None
@@ -453,6 +637,13 @@ def triage_reporte(archivo, entry, cs, patch):
            "build_display": entry.get("build_display", []), "cuantificado": False,
            "hook_motivo": entry.get("hook_motivo", ""),
            "veredicto": "SIN_IMPACTO", "razones": [], "hook": entry.get("hook")}
+
+    # 0) ¿el reporte ya declara cubrir este parche (o uno posterior)?
+    pd = _max_patch(entry.get("parche_declarado"))
+    if pd and patch_key(pd) >= patch_key(patch):
+        out["veredicto"] = "AL_DIA"
+        out["razones"].append(f"el reporte ya declara datos {pd} ≥ {patch}")
+        return out
 
     # 1) cambio directo al campeón
     for nombre, c in cs["champions"].items():
@@ -587,8 +778,12 @@ def bloque_verificacion(t, fecha=None):
         motivo = t.get("hook_motivo") or "modelo no conectado para este campeón"
         L.append(f"> **Modelo:** sin hook cuantitativo ({motivo}) → triage por intersección "
                  f"(champion/ítems/sistemas). Métricas publicadas sin cambios medibles.")
-    slots = " + ".join(t.get("build_display", [])[:6])
-    L.append(f"> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.")
+    if t.get("build_display"):
+        slots = " + ".join(t["build_display"][:6])
+        L.append(f"> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.")
+    else:
+        L.append("> **Build publicada:** no extraíble automáticamente del formato del vault → "
+                 "triage cualitativo (intersección champion/ítems/sistemas).")
     if t["items_variantes"]:
         L.append(f"> **Ítems cambiados fuera de la build final:** {', '.join(t['items_variantes'])} "
                  f"— verificar variantes/rechazados del reporte.")
@@ -596,7 +791,8 @@ def bloque_verificacion(t, fecha=None):
         L.append(f"> **Sistema ({t['patch']}):** {s[:240]}")
     if t["lab_note"]:
         L.append(f"> **Nota del lab (diff {t['patch']}):** {t['lab_note'][:260]}")
-    cierre = ("regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar." if regen else
+    cierre = ("regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py "
+              "para re-derivar la build óptima) y re-baselinar." if regen else
               "revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva." if revisar else
               "build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.")
     L.append(f"> **Veredicto:** {icono} — {cierre}")
@@ -669,6 +865,11 @@ def cmd_annotate(args):
     for t in resultados:
         if solo and t["archivo"] not in solo:
             continue
+        if t["veredicto"] == "AL_DIA":
+            print(f"⏩ {t['archivo']}: ya declara datos {t['patch']} o posteriores — sin bloque")
+            reg["reportes"][t["archivo"]]["ultima_verificacion"] = {
+                "patch": t["patch"], "fecha": fecha, "veredicto": "AL_DIA", "delta_max_pct": None}
+            continue
         bloque = bloque_verificacion(t, fecha)
         ruta = os.path.join(REPORTES, t["archivo"])
         if args.apply:
@@ -710,6 +911,9 @@ def cmd_check(args):
     patch, _ = ultimo_parche_hotfix()
     if patch:
         for f, e in sorted(reg["reportes"].items()):
+            pd = _max_patch(e.get("parche_declarado"))
+            if pd and patch_key(pd) >= patch_key(patch):
+                continue                      # el reporte ya cubre el parche
             uv = e.get("ultima_verificacion")
             if not uv or patch_key(uv["patch"]) < patch_key(patch):
                 fallos.append(f"{f}: sin verificar contra {patch} — corre "

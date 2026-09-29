@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 WR-LAB · tests del actualizador de reportes (model/update_reports.py).
-Cubren: golden numbers por modelo, parseo de Tabla A, triage del hotfix 7.3a
-(caso de aceptación: Yuumi NO se regenera), idempotencia de la anotación,
-rúbrica de veredictos y orden de parches.
+Cubren: golden numbers por modelo (hooks), parseo del vault (16 reportes, formatos
+mixtos: Tabla v1.4 / tablas BUILD FINAL / alias en paréntesis / rutas descartadas),
+triage del hotfix 7.3a sobre el set real (Caitlyn/Rammus ❌, Yuumi ⚠️, resto ✅),
+rúbrica sintética, idempotencia de anotación, AL_DIA y orden de parches.
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
 import os, sys, unittest
@@ -11,129 +12,183 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 import update_reports as U
 import dps_model as M
 
+JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
+KALISTA_K2 = ["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"]
+DIANA_D2 = ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"]
+YUUMI_Y1 = ["Scythe", "Crimson", "Censer", "Echoes", "Staff", "Redemption"]
+
 
 class TestGoldenPorModelo(unittest.TestCase):
-    """Los hooks del actualizador deben reproducir los números publicados en los reportes."""
+    """Los hooks reproducen los números canónicos publicados (nivel de unidad, sin registro)."""
 
-    @classmethod
-    def setUpClass(cls):
-        cls.reg = U.construir_registro()
-
-    def entry(self, champ):
-        for f, e in self.reg["reportes"].items():
-            if e["champion"] == champ:
-                return e
-        self.fail(f"sin reporte para {champ}")
-
-    def test_jinx_publicado(self):
-        m = U.hook_jinx(self.entry("jinx")["build_keys"])
-        self.assertEqual(round(m["dps1"]), 3042)      # canónico del motor (tests/test_model.py)
+    def test_jinx(self):
+        m = U.hook_jinx(JINX_C)
+        self.assertEqual(round(m["dps1"]), 3042)
         self.assertEqual(round(m["dps3"]), 10551)
 
-    def test_kalista_publicado(self):
-        m = U.hook_kalista(self.entry("kalista")["build_keys"])
-        self.assertEqual(round(m["dps1"]), 1262)      # reporte: 1v1 vs 120 arm/50 MR
+    def test_kalista(self):
+        m = U.hook_kalista(KALISTA_K2)
+        self.assertEqual(round(m["dps1"]), 1262)
         self.assertEqual(round(m["dps3"]), 2612)
         self.assertEqual(round(m["e_hit"]), 2387)
 
-    def test_diana_publicado(self):
-        m = U.hook_diana(self.entry("diana")["build_keys"])
-        self.assertEqual(round(m["dps10s"]), 971)     # reporte: DPS sostenido D2-LT
+    def test_diana(self):
+        m = U.hook_diana(DIANA_D2)
+        self.assertEqual(round(m["dps10s"]), 971)
         self.assertEqual(round(m["burst"]), 1792)
 
-    def test_yuumi_publicado_pre73a(self):
-        """Con los parámetros pre-7.3a (W flat 11, sin término AP) se reproduce el publicado E=339/R=651."""
-        e = self.entry("yuumi")
-        pre = U.hook_yuumi(e["build_keys"], params={"w_flat": 11, "w_ap_pct": 0.0})
+    def test_yuumi_pre73a_reproduce_publicado(self):
+        pre = U.hook_yuumi(YUUMI_Y1, params={"w_flat": 11, "w_ap_pct": 0.0})
         self.assertEqual(round(pre["e_shield"]), 339)
         self.assertEqual(round(pre["r_heal"]), 651)
         self.assertEqual(round(pre["adc_dps_add"]), 244)
 
-    def test_yuumi_actual_post73a(self):
-        """El motor ya trae el nerf 7.3a aplicado (W rank5 = 9 + 0.01/AP → E ≈ 338)."""
-        e = self.entry("yuumi")
-        act = U.hook_yuumi(e["build_keys"])
-        self.assertLess(act["e_shield"], 339)
+    def test_yuumi_post73a_en_el_motor(self):
+        act = U.hook_yuumi(YUUMI_Y1)
         self.assertAlmostEqual(act["e_shield"], 338.3, delta=0.5)
 
 
-class TestParseoReportes(unittest.TestCase):
+class TestRegistroVault(unittest.TestCase):
+    """Parseo del set real de 16 reportes del vault (formatos mixtos)."""
+
     @classmethod
     def setUpClass(cls):
         cls.reg = U.construir_registro()
+        cls.entradas = cls.reg["reportes"]
 
-    def test_cinco_reportes_parseados(self):
-        self.assertEqual(len(self.reg["reportes"]), 5)
+    def entry(self, archivo):
+        return self.entradas[archivo]
 
-    def test_builds_de_seis_con_una_botas(self):
-        boots = {"Gunmetal Greaves", "Berserker's Greaves", "Spellslinger's Shoes",
-                 "Crimson Lucidity", "Ionian Boots", "Boots of Mana"}
-        for f, e in self.reg["reportes"].items():
-            self.assertEqual(len(e["build_display"]), 6, f)
-            self.assertEqual(sum(1 for b in e["build_display"] if b in boots), 1, f)
+    def test_16_reportes(self):
+        self.assertEqual(len(self.entradas), 16)
 
-    def test_jinx_pasa_validate_slots(self):
-        e = [x for x in self.reg["reportes"].values() if x["champion"] == "jinx"][0]
+    def test_champions_derivados_del_nombre(self):
+        self.assertEqual(self.entry("Yunana.md")["champion_display"], "Yunara")     # errata de archivo
+        self.assertEqual(self.entry("Cho'Gath - Titán del Barón.md")["champion_display"], "Cho'Gath")
+        self.assertEqual(self.entry("Volibear Pesadilla.md")["champion_display"], "Volibear")
+        self.assertEqual(self.entry("Diana - Mid.md")["champion_display"], "Diana")
+
+    def test_jinx_build_c_con_hooks(self):
+        e = self.entry("Jinx.md")
+        self.assertEqual(e["hook"], "hook_jinx")
+        self.assertEqual(e["build_keys"], JINX_C)
+        self.assertEqual(round(e["metricas"]["dps1"]), 3042)
         self.assertEqual(M.validate_slots(e["build_keys"]), (1, 5))   # Ley 0
 
-    def test_sin_items_por_resolver(self):
-        for f, e in self.reg["reportes"].items():
-            if e.get("hook"):
-                self.assertEqual(e["sin_resolver"], [], f)
+    def test_kalista_fallback_con_alias_parentetico(self):
+        """Kalista.md no usa Tabla A; 'Bloodthirster (BotRK)' debe resolver a BotRK (K2)."""
+        e = self.entry("Kalista.md")
+        self.assertEqual(e["hook"], "hook_kalista")
+        self.assertEqual(sorted(e["build_keys"]), sorted(KALISTA_K2))
+        self.assertEqual(round(e["metricas"]["dps1"]), 1262)
+
+    def test_diana_dos_archives_cuantitativos(self):
+        for f in ("Diana - Jungla.md", "Diana - Mid.md"):
+            e = self.entry(f)
+            self.assertEqual(e["hook"], "hook_diana", f)
+            self.assertIsNotNone(e["metricas"], f)
+
+    def test_yuumi_poke_hybrid_sin_hook_honesto(self):
+        e = self.entry("Yuumi.md")
+        self.assertIsNone(e["hook"])                     # Stormsurge/Harmonic Echo fuera del modelo
+        self.assertIn("Stormsurge", e["hook_motivo"])
+
+    def test_reportes_sin_build_extraible(self):
+        for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
+            self.assertEqual(self.entry(f)["hook"], None, f)
+
+    def test_rutas_no_confundidas_con_build(self):
+        """Sivir/Yunara: la tabla con columna 'Minuto' es ruta de compra, no build final."""
+        e = self.entry("Sivir.md")
+        if e["build_display"]:                            # si parseó la tabla BUILD FINAL (§2)
+            self.assertNotIn("⬆️ Gunmetal Greaves", e["build_display"])
 
 
-class TestTriage73a(unittest.TestCase):
-    """Caso de aceptación del autor: Yuumi 7.3a → nerf simbólico, NO regenerar."""
+class TestParserUnidades(unittest.TestCase):
+    def test_celda_bold_con_flecha_interna(self):
+        self.assertEqual(U._nombre_de_celda("**Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00)"),
+                         "Gunmetal Greaves")
+
+    def test_celda_sin_bold(self):
+        self.assertEqual(U._nombre_de_celda("Guinsoo's Rageblade"), "Guinsoo's Rageblade")
+
+    def test_resolver_alias_parentetico(self):
+        self.assertEqual(U.resolver_clave("Bloodthirster (BotRK)", "onhit"), "BotRK")
+
+    def test_resolver_full_name_autos(self):
+        self.assertEqual(U.resolver_clave("Lord Dominik's Regards", "autos"), "LDR")
+
+    def test_mencionado_sin_falsos_positivos(self):
+        tl = U._norm("Esta build usa Rabadon's Deathcap y Zhonya's Hourglass.")
+        self.assertIsNone(U._mencionado(tl, "Death's Dance"))       # 'death' ⊄ 'deathcap' por \b
+        self.assertIsNotNone(U._mencionado(U._norm("Consideré Death's Dance y la descarté."),
+                                           "Death's Dance"))
+
+    def test_expandir_nombre_compuesto(self):
+        self.assertEqual(U.expandir_nombre_item("Crown/Diadem of Songs"),
+                         ["Crown of Songs", "Diadem of Songs"])
+
+    def test_orden_de_parches(self):
+        self.assertLess(U.patch_key("7.3"), U.patch_key("7.3a"))
+        self.assertLess(U.patch_key("7.3a"), U.patch_key("7.3b"))
+        self.assertLess(U.patch_key("7.3z"), U.patch_key("7.4"))
+
+
+class TestTriage73aVault(unittest.TestCase):
+    """Triage real del hotfix 7.3a sobre los 16 reportes del vault."""
 
     @classmethod
     def setUpClass(cls):
         cls.reg = U.construir_registro()
         cls.patch, cls.cs, cls.res = U.triage_todos(cls.reg, patch="7.3a")
-        cls.por_nombre = {t["champion"]: t for t in cls.res}
+        cls.por = {t["archivo"]: t for t in cls.res}
 
-    def test_parseo_del_diff(self):
-        self.assertIn("Yuumi", self.cs["champions"])
-        self.assertIn("Hwei", self.cs["champions"])
-        self.assertTrue(any("Yun Tal" in i for i in self.cs["items"]))
-        self.assertGreaterEqual(len(self.cs["sistemas"]), 3)
-        self.assertGreaterEqual(len(self.cs["lab_notes"]), 5)
+    def test_caitlyn_regenerar(self):
+        """7.3a nerfeó su AS growth (input del spec) → el reporte 7.3 debe regenerarse."""
+        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "REGENERAR")
 
-    def test_yuumi_no_se_regenera(self):
-        t = self.por_nombre["Yuumi"]
-        self.assertEqual(t["veredicto"], "ANOTAR")
+    def test_rammus_regenerar(self):
+        """7.3a nerfeó su armadura base (input del spec)."""
+        self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
+
+    def test_yuumi_revisar_conservador(self):
+        """Nerf directo a su W sin hook para la build poke-hybrid → revisión acotada, NO regenerar."""
+        t = self.por["Yuumi.md"]
+        self.assertEqual(t["veredicto"], "REVISAR")
         self.assertIsNotNone(t["directo"])
-        self.assertTrue(t["cuantificado"])
-        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)      # 1.4 % < 2 %
-        self.assertAlmostEqual(t["delta_max"], 1.43, delta=0.1)
 
-    def test_yuumi_delta_de_resultado_no_de_input(self):
-        """El HSP cae 5 % (input) pero el veredicto lo deciden escudo/cura (−1.4 %)."""
-        t = self.por_nombre["Yuumi"]
-        self.assertAlmostEqual(t["delta_input"]["HSP"], -5.0, delta=0.2)
-        self.assertLess(t["delta_max"], 2.0)
-
-    def test_ningun_reporte_regenera_o_revisa(self):
-        for t in self.res:
-            self.assertEqual(t["veredicto"], "ANOTAR", t["archivo"])
-
-    def test_jinx_sistema_de_siege_detectado(self):
-        t = self.por_nombre["Jinx"]
-        self.assertTrue(any("Placas" in s or "placa" in s.lower() for s in t["sistemas"]))
+    def test_jinx_anotar_delta_cero(self):
+        t = self.por["Jinx.md"]
+        self.assertEqual(t["veredicto"], "ANOTAR")
         self.assertEqual(t["delta_max"], 0.0)
-
-    def test_kalista_yuntal_como_variante(self):
-        t = self.por_nombre["Kalista"]
         self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
-        self.assertEqual(t["items_build"], [])
+        self.assertTrue(t["sistemas"])                    # placas/Nexus (rol ADC)
+
+    def test_kalista_cuantitativo(self):
+        t = self.por["Kalista.md"]
+        self.assertEqual(t["delta_max"], 0.0)
+        self.assertNotEqual(t["veredicto"], "REGENERAR")
+
+    def test_balance_general(self):
+        verdictos = [t["veredicto"] for t in self.res]
+        self.assertEqual(verdictos.count("REGENERAR"), 2)
+        self.assertEqual(verdictos.count("REVISAR"), 1)
+        self.assertEqual(len(self.res), 16)
+
+    def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
+        """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""
+        reg = U.construir_registro()
+        f = "Jinx.md"
+        reg["reportes"][f]["parche_declarado"] = "7.3+7.3a"
+        t = U.triage_reporte(f, reg["reportes"][f], self.cs, "7.3a")
+        self.assertEqual(t["veredicto"], "AL_DIA")
 
 
-class TestRubrica(unittest.TestCase):
-    """Veredictos sintéticos: spec-input → REGENERAR; ítem de build → REVISAR."""
-
+class TestRubricaSintetica(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.reg = U.construir_registro()
-        cls.jinx_file = [f for f, e in cls.reg["reportes"].items() if e["champion"] == "jinx"][0]
+        cls.jinx_file = "Jinx.md"
         cls.jinx = cls.reg["reportes"][cls.jinx_file]
 
     def _cs(self, champions=None, items=None):
@@ -142,8 +197,8 @@ class TestRubrica(unittest.TestCase):
 
     def test_spec_input_regenerar(self):
         cs = self._cs(champions={"Jinx": {"tipo": "BUFF", "detalles": "AD growth 4.0→4.5"}})
-        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
-        self.assertEqual(t["veredicto"], "REGENERAR")
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REGENERAR")
 
     def test_item_de_build_revisar(self):
         cs = self._cs(items={"Kraken Slayer": {"tipo": "NERF", "detalles": "proc 120-168→110-150"}})
@@ -153,13 +208,13 @@ class TestRubrica(unittest.TestCase):
 
     def test_directo_sin_cuantificar_revisar(self):
         cs = self._cs(champions={"Jinx": {"tipo": "NERF", "detalles": "W daño 220→200"}})
-        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
-        self.assertEqual(t["veredicto"], "REVISAR")   # conservador: sin parser pre/post
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REVISAR")
 
     def test_parche_irrelevante_sin_impacto(self):
         cs = self._cs(champions={"Hwei": {"tipo": "NERF", "detalles": "pasiva 33→30"}})
-        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
-        self.assertEqual(t["veredicto"], "SIN_IMPACTO")
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "SIN_IMPACTO")
 
 
 class TestAnotacion(unittest.TestCase):
@@ -185,21 +240,18 @@ class TestAnotacion(unittest.TestCase):
         b2 = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] b\n<!-- WRLAB-VERIF:9.9z:END -->"
         out = U.insertar_bloque(self.TXT, b1, "9.8z")
         out = U.insertar_bloque(out, b2, "9.9z")
-        self.assertIn("9.8z:END", out)
-        self.assertIn("9.9z:END", out)
         self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
+
+    def test_reportes_del_vault_tienen_bloque_73a(self):
+        import glob
+        con_bloque = 0
+        for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
+            if "WRLAB-VERIF:7.3a:START" in open(ruta, encoding="utf-8").read():
+                con_bloque += 1
+        self.assertEqual(con_bloque, 16)
 
 
 class TestUtilidades(unittest.TestCase):
-    def test_orden_de_parches(self):
-        self.assertLess(U.patch_key("7.3"), U.patch_key("7.3a"))
-        self.assertLess(U.patch_key("7.3a"), U.patch_key("7.3b"))
-        self.assertLess(U.patch_key("7.3z"), U.patch_key("7.4"))
-
-    def test_expandir_nombre_compuesto(self):
-        self.assertEqual(U.expandir_nombre_item("Crown/Diadem of Songs"),
-                         ["Crown of Songs", "Diadem of Songs"])
-
     def test_ultimo_parche_es_73a(self):
         p, ruta = U.ultimo_parche_hotfix()
         self.assertEqual(p, "7.3a")

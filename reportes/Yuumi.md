@@ -11,6 +11,16 @@ Status: Aprobado
 **Arquetipo:** Poke-Hybrid Support
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ⚠️ REVISAR Verificación automática (29/09/2026) — **⚠️ REQUIERE REVISIÓN ACOTADA — hotfix 7.3a**
+> **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
+> **Modelo:** sin hook cuantitativo (ítems sin resolver en el modelo: Stormsurge, Harmonic Echo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Echoes of Helia + Imperial Mandate + Stormsurge + Harmonic Echo — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
+> **Nota del lab (diff 7.3a):** HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) → Anotado [!WARNING] en el reporte
+> **Veredicto:** ⚠️ REVISAR — revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > Win Rate 48.25 % | Pick Rate 8.72 % | Ban 34.23 % | Tendencia ↑ 4 | Rol: Support.

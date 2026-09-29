@@ -17,7 +17,8 @@ import hashlib, html as htmllib, json, os, re, sys, datetime, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "data", "raw", ".watch_state.json")
 OFFICIAL = "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-{slug}/"
-CANDIDATES = ["7-3a", "7-3-a", "7-3b", "7-3c", "7-4", "7-4a", "7-5", "7-3b-hotfix"]
+CANDIDATES = ["7-3b", "7-3c", "7-4", "7-4a", "7-5", "7-3b-hotfix"]
+WATCH_PAGES = ["7-3", "7-3a"]        # páginas activas: vigilar cambios de CONTENIDO
 WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": None, "hwei": None, "yuumi": "321-yuumi",
                     "kalista": "349-kalista", "malphite": "47-malphite"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126.0"}
@@ -33,20 +34,22 @@ def get(url, t=25):
         return f"ERR:{type(e).__name__}", b""
 
 def content_md5(body):
-    """Hash del CONTENIDO de la nota: sin scripts/estilos/etiquetas, normalizado y
-    cortado antes del pie dinámico (las tarjetas de artículos relacionados empiezan
-    con fechas ISO 'YYYY-MM-DDT…' y rotan en cada visita)."""
+    """Hash del CONTENIDO de la nota: sin scripts/estilos/etiquetas, cortado en
+    'Related Articles' (carrusel dinámico) y sin líneas de fecha ISO (metadata que
+    rota por visita). Verificado estable entre descargas consecutivas (29-sep-2026)."""
     t = body.decode("utf-8", "ignore")
     t = re.sub(r"<script[^>]*>.*?</script>", " ", t, flags=re.S | re.I)
     t = re.sub(r"<style[^>]*>.*?</style>", " ", t, flags=re.S | re.I)
     t = re.sub(r"<[^>]+>", "\n", t)
     t = htmllib.unescape(t)
     lines = [re.sub(r"\s+", " ", l).strip() for l in t.split("\n")]
+    lines = [l for l in lines if l]
     for i, l in enumerate(lines):
-        if re.match(r"^\d{4}-\d{2}-\d{2}T", l):   # inicio del carrusel dinámico
+        if l == "Related Articles":
             lines = lines[:i]
             break
-    return hashlib.md5("\n".join(l for l in lines if l).encode()).hexdigest()
+    lines = [l for l in lines if not re.match(r"^\d{4}-\d{2}-\d{2}T", l)]
+    return hashlib.md5("\n".join(lines).encode()).hexdigest()
 
 def load_state():
     if os.path.exists(STATE):
@@ -61,16 +64,19 @@ def main():
     state = load_state()
     findings = []
 
-    # 1) ¿el CONTENIDO de la página oficial 7.3 cambió? (raw md5 = solo informativo)
-    st, body = get(OFFICIAL.format(slug="7-3"))
-    if st == 200:
-        md5 = hashlib.md5(body).hexdigest()
+    # 1) ¿el CONTENIDO de las páginas oficiales activas cambió? (7-3 y 7-3a)
+    for slug in WATCH_PAGES:
+        st, body = get(OFFICIAL.format(slug=slug))
+        if st != 200:
+            continue
         cmd5 = content_md5(body)
-        prev_c = state.get("official_73_content_md5")
+        key = f"content_{slug}"
+        prev_c = state.get(key)
         if prev_c and cmd5 != prev_c:
-            findings.append(f"CONTENIDO de la página oficial 7.3 MODIFICADO (content-md5 {prev_c[:8]} → {cmd5[:8]})")
-        state["official_73_md5"] = md5
-        state["official_73_content_md5"] = cmd5
+            findings.append(f"CONTENIDO de la página oficial {slug} MODIFICADO (content-md5 {prev_c[:8]} → {cmd5[:8]})")
+        state[key] = cmd5
+        if slug == "7-3":
+            state["official_73_md5"] = hashlib.md5(body).hexdigest()   # informativo
 
     # 2) ¿se publicó alguna página nueva de parche?
     for slug in CANDIDATES:
@@ -78,6 +84,8 @@ def main():
         if st2 == 200 and slug not in state["new_pages"]:
             state["new_pages"].append(slug)
             findings.append(f"NUEVA página oficial de notas: {slug} → descargar y correr protocolo FRAMEWORK §E")
+    # las páginas ya vigiladas no deben re-alertarse como "nuevas"
+    state["new_pages"] = sorted(set(state["new_pages"]) | set(WATCH_PAGES))
 
     # 3) change-history de centinelas en wr-meta
     for champ, pageid in WRMETA_SENTINELS.items():

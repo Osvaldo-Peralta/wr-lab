@@ -19,7 +19,8 @@
 3. **Leer sus cambios de 7.3.** ¿Sus habilidades ahora escalan con crítico (Caitlyn, MF, Tristana, Xayah, Akshan, Viego…)?
    Eso sube el valor de IE y del crítico por encima del modelo de solo autos. ¿Lo nerfearon/buffearon? (Jinx: AD growth y R.)
 4. **Definir el arquetipo** (§C) y las 3–5 rutas candidatas serias (no todas las posibles).
-5. **Enumerar builds como listas de ítems** (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
+5. **Enumerar builds como listas de ítems** (apoyo: `model/optimize_build.py <champ>` las busca
+   de forma exhaustiva bajo Leyes 0-1-2-3 y presupuesto) (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
    en la lista va la botas T3, nunca T2+T3 a la vez; `validate_slots()` corre automáticamente)
    y correr `compare(spec, builds)` en los 4 escenarios estándar: 1v1, 3v3, vs 120 armadura, vs tanque (220 arm + ≥1200 HP bonus + 4500 HP para %-vida).
 6. **Aplicar las Leyes** (§B) para podar: stats muertos (crítico >umbral, AS sobre el tope, haste inútil),
@@ -162,7 +163,9 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    python3 model/update_reports.py annotate --patch <X.Xx> --apply
 #    → ✅ ANOTAR/SIN_IMPACTO: la build publicada NO se toca (bloque de verificación insertado).
 #    → ⚠️ REVISAR: revisión manual acotada (matriz último slot, rechazados, variantes).
-#    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A) y `baseline` de nuevo.
+#    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
+#      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
+#      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
 # 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
 ```
 
