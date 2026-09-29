@@ -9,17 +9,23 @@
 > ## 🎨 ESTÁNDAR VISUAL DE REPORTES (v1.4 — obligatorio)
 > Todo reporte generado DEBE seguir `metodologia/TEMPLATE_REPORTE.md` al pie de la letra:
 > frontmatter YAML (tags/version/Status/champion/patch) · bloque de metadatos en negritas ·
-> callouts `> [!NOTE]` (meta real con WR/pick/ban) y `> [!TIP]`/`> [!DANGER]` según aplique ·
+> callouts `> [!NOTE]` (meta real con WR/pick/ban) y `> [!TIP]`/`> [!DANGER]`/`> [!WARNING]` según aplique ·
 > §0 con **Tabla A (6 slots exactos)** + **Tabla B (ruta cronológica con componentes y oro acumulado)** ·
 > secciones `## N. MAYÚSCULAS` 0-10 + APÉNDICE A/B + **Pie de página** (referencias Riot/wr-meta/WR-LAB + aviso legal) ·
 > números con espacio de miles (`2 900`, `17 350 g`) y `%` con espacio (`25 %`) · veredictos ✅/⚠️/❌ siempre con número.
 > Referencia canónica: el reporte de Jinx incluido en este bundle.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3 · 28/09/2026
+> ## 🔥 ESTADO DE DATOS: parche 7.3 **+ hotfix 7.3a** (despliegue 29-sep-2026)
+> Los cambios de 7.3a (nerfs a Hwei/Malphite/Caitlyn/Senna/Yuumi/Rammus/Syndra; buffs a Samira/Tristana/
+> Draven/Viego; Yun Tal AS 35 %; Diadem/Circlet nerf; Death's Dance 3 300; Smite burn −; Nexus 4 000;
+> placas −resist) están en §3b y YA aplicados a specs, motor y apéndices de este bundle.
+> Fuente: notas oficiales CN traducidas — re-verificar contra la nota EN cuando Riot la publique.
+
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 28/09/2026
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
 > siguiendo el ESTÁNDAR VISUAL v1.4 de TEMPLATE_REPORTE.md".
-> Versión completa (reportes del equipo, fichas, diffs del parche): WR-LAB_completo.md
+> Versión completa (reportes del equipo, fichas, diffs): WR-LAB_completo.md
 
 ## 1. METODOLOGÍA (Ley 0 + las 7 Leyes + flujo)
 
@@ -156,8 +162,10 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
    AS permanente; Opening Barrage (post-R) ≠ DPS sostenido. Modelar el uptime real, no el mejor caso.
 4. **Declarar supuestos** en cada reporte (ver plantilla §10) y marcar estimaciones blandas (frecuencia de Energized,
    missing HP de Kraken, uptime de LT).
-5. **Validar el modelo contra un caso conocido** antes de publicar números (p.ej. el ejemplo oficial de Caitlyn
-   en `mecanica_attack_speed_7.3.md`: AS 1.48 a nivel 15 con Alacrity+Berserker's — reproduce ese cálculo como test).
+5. **Validar el modelo contra un caso conocido** antes de publicar números. Test oficial de Caitlyn
+   (`mecanica_attack_speed_7.3.md`): AS 1.48125 a nivel 15 con Alacrity+Berserker's usando growth 0.04.
+   ⚠️ El hotfix 7.3a bajó su AS growth a 0.025 → el esperado post-7.3a es **1.35**. El test del lab
+   (`tests/test_model.py`) valida AMBOS (fórmula correcta + override 7.3a aplicado).
 6. **Ni las notas oficiales son inmunes a erratas**: el apéndice de AS de 7.3 lista a Caitlyn con bonus 0.2 mientras
    su sección y el ejemplo de la fórmula usan 0.28 (ver FUENTES.md). Cuando dos secciones oficiales se contradicen:
    priorizar la sección específica del campeón, marcar el dato como "verificar en juego" y registrarlo en FUENTES.md.
@@ -183,7 +191,7 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 Cualquier hotfix 7.3a/b obliga al paso 1–5 antes de publicar un reporte nuevo.
 
 
-## 1b. APÉNDICE: ESCALADO DE TAMAÑO (Cho'Gath/Malphite/Shyvana)
+## 1b. APÉNDICE: ESCALADO DE TAMAÑO (Cho'Gath/Malphite/Shyvana) — actualizado a 7.3a
 
 # APÉNDICE — ESCALADO DE TAMAÑO (SIZE) en Wild Rift 7.3
 ### Cho'Gath · Malphite · Shyvana — qué es real, qué es fantasía y cómo se construye
@@ -237,18 +245,23 @@ Su R Feast convierte CADA stack en un compuesto de 5 stats. Con R rank 3 (+160 H
 
 Meta actual: **WR 52.17 %, ban 21.89 %** — el tanque más respetado del parche. Su kit convierte armadura en TODO:
 - Base armor **49 (+5/nivel) = 119 a nivel 15** (la más alta de tu roster).
-- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **20 % armadura** (primer golpe: 40-100 + 40 % AD + **40 % armadura**).
-- **E:** 60-210 + 45 % AP + **45 % armadura** AoE + **slow de AS 35-50 %** (anti-ADC duro: −50 % AS a una Jinx/Kalista enemiga = −40 % de su DPS).
+- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **15 % armadura (7.3a; era 20 %)** (primer golpe: 40-100 + 40 % AD + **40 % armadura**).
+- **E:** 60-210 + 45 % AP + **40 % armadura (7.3a; era 45 %)** AoE + **slow de AS 35-50 %** (anti-ADC duro: −50 % AS a una Jinx/Kalista enemiga = −40 % de su DPS).
 - **Iceborn Gauntlet:** el campo de hielo **crece con tu armadura** (AoE de slow permanente).
 - P Granite Shield: **11 % de vida máx** como escudo fuera de combate (con 3500 HP = 385 gratis cada 6 s).
 
 **Números de la ruta armor-stack (nivel 15):**
 
-| Etapa | Armadura | E (mágico AoE) | W primer golpe | Escudo pasiva |
-|---|---|---|---|---|
-| Iceborn+Thornmail+Armored Advance | ~274 | 333 | 210 | 276 |
-| + W rank 4 (+40 % bonus armor) | ~336 | 361 | 234 | 276 |
-| + Gargoyle/Twinguard situacional | ~386 | **384** | **254** | 276+ |
+| Etapa | Armadura | E (mágico AoE) | W golpe sostenido | W primer golpe | Escudo pasiva |
+|---|---|---|---|---|---|
+| Iceborn+Thornmail+Armored Advance | ~274 | 320 | 91 | 210 | 276 |
+| + W rank 4 (+40 % bonus armor) | ~336 | 344 | 100 | 234 | 276 |
+| + Gargoyle/Twinguard situacional | ~386 | **364** | **108** | **254** | 276+ |
+
+> [!WARNING]
+> **7.3a (29-sep-2026) nerfeó a Malphite:** ratio de armadura de W 20→15 %, de E 45→40 % y R CD 75/70/65→85/80/75 s.
+> La tabla de arriba YA refleja el hotfix. Su identidad armor-stack sobrevive (sigue siendo el tanque con más ban),
+> pero su pico de daño y la frecuencia de su wombo bajaron ~5-8 % / +10 s de CD.
 
 **El tamaño en Malphite:** solo viene de ítems (Gargoyle activo + Twinguard + Sterak's si va fighter). NO tiene tamaño innato — su fantasía de "gigante" es 100 % armadura. Build comunidad validada: **Iceborn → Plated/Mercury's T3 → Thornmail → Zeke's → Gargoyle** (runas Grasp+Demolish+Second Wind+Overgrowth). Ajustes del modelo: vs comps AD puras, **Armored Advance** sobre Thornmail 2.º; Twinguard como 6.º capstone (con su uptime de combate permanente es el ítem de tamaño más consistente del juego). Zeke's potencia a tus carries AP (Diana/Yunara) con su R.
 
@@ -537,6 +550,12 @@ patch: "7.3"
 
 **Última actualización del lab:** 25 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026)
 
+## Hotfix 7.3a (29-sep-2026)
+
+| Fuente | Acceso | Qué aporta | Fiabilidad |
+|---|---|---|---|
+| Notas oficiales CN (lolm.qq.com docid 15413436308828016227) vía traducción comunitaria r/wildrift (thread 1wskk84), recuperada por Arctic Shift API | 28/09/2026 (`data/raw/patch73a_cn_en.txt`, diff completo en `data/estructurada/cambios_7.3a.md`) | Nerfs: Hwei, Rammus, Malphite, Caitlyn, Senna (ajuste), Syndra, Yuumi · Buffs: Samira, Tristana, Draven, Viego · Yun Tal buff · Diadem/Circlet/Whispering nerf · Death's Dance 3300 · Smite burn −, Nexus 4000, placas −resist · ARAM | Alta (texto oficial CN traducido; números con formato >>> coherentes). **Pendiente: re-verificar contra la nota EN cuando Riot la publique** y contra wr-meta cuando indexe (aún no lo hace al 28/09) |
+
 ## Fuentes primarias (MANDAN sobre cualquier otra)
 
 | Fuente | URL | Acceso | Qué aporta |
@@ -588,6 +607,72 @@ data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
                            └→ runas_7.3.md
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
 ```
+
+
+## 3b. HOTFIX 7.3a — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
+
+# HOTFIX 7.3a — Cambios completos (despliegue: 29-sep-2026, 09:30–12:00 CN)
+
+> **Fuente:** notas oficiales del servidor chino (lolm.qq.com, docid 15413436308828016227) vía traducción
+> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`). El sitio oficial EN aún no publica
+> página propia de 7.3a (verificado 28/09: 404); la página de notas 7.3 no fue modificada.
+> **Estado en el lab:** datos aplicados donde aplica; pendientes de re-verificación contra la nota EN oficial
+> cuando se publique (protocolo §E de FRAMEWORK).
+
+## RESUMEN DE INTENCIÓN (traducción del intro oficial)
+
+"Ajustes de balance a campeones e ítems selectos — reforzando a los de bajo rendimiento y devolviendo a
+niveles razonables las elecciones dominantes. Ralentización moderada del ritmo de clear de jungla early-mid
+y menor resistencia contra split-push/siege continuo. Ajustes a Augments y campeones de ARAM por feedback."
+
+## CAMPEONES
+
+| Campeón | Tipo | Cambios |
+|---|---|---|
+| **Hwei** | NERF | Pasiva: 33–333 + 33 % AP → **40–285 + 30 % AP** · (1-1) Fire: 50/90/130/170 + 75 % AP → **50/85/120/155 + 70 % AP** · (1-2) amp por vida faltante: 150/200/250/300 % → **100/150/200/250 %** · (4) detonación: 250/350/450 + 75 % → **200/300/400 + 70 % AP** |
+| **Samira** | BUFF | HP growth 128→**136** · armor growth 5→**5.5** · MR growth 1.4→**2** · pasiva melee ratios ~×1.65 · Flair 110→**125 % AD** · R por tiro 40→**50 % AD** |
+| **Rammus** | NERF | Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %** |
+| **Malphite** ⚠️lab | NERF | W ratio de armadura 20→**15 %** · E ratio de armadura 45→**40 %** · R CD 75/70/65→**85/80/75 s** |
+| **Tristana** | BUFF | Q AS 50/75/100/125→**60/80/100/120 %** · W CD 22/20/18/16→**20/18/16/14** · E base 80/100/120/140→**80/110/140/170**, ratio 100→**120 %**, amp crit 40→**50 %**, amp daño crit 40→**50 %** |
+| **Draven** | BUFF | Q 80-110→**90-120 % AD** · W AS 20-35→**25-40 %** · R 130→**150 % AD** |
+| **Caitlyn** ⚠️apéndice | NERF | **AS growth 0.04→0.025** · Headshot ratio 60–100→**60–90 % AD** |
+| **Senna** ⚠️apéndice | AJUSTE | AS ratio/base 0.4→**0.3** · Base Bonus AS 0.6→**1.1** · AS growth 0.05→**0.025** · la AS bonus reduce menos el wind-up |
+| **Syndra** | NERF | Nodos de pasiva 40/60/80/100/120→**50/75/100/125/150** · W ratio 60→**50 %** · slow fijo **25 %** |
+| **Swain** | AJUSTE | Pasiva heal 3–4.5 %+0.5 % AP→**4.5–6 % + 0.2 % AP** · E return ratio 25→**40 % AP** |
+| **Yuumi** ⚠️lab | NERF | W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP** |
+| **Viego** | BUFF | Q pasiva 2-5→**3-6 %** · crit ratio 80→**85 %** · R crit scaling 50→**70 %** |
+
+## ÍTEMS
+
+| Ítem | Tipo | Cambios |
+|---|---|---|
+| **Yun Tal Wildarrows** ⚠️lab | BUFF | AS 25→**35 %** · Flurry: +25→**35 % AS**, CD 20→**25 s** |
+| **Whispering Circlet** | NERF | Harmonize HSP: 0.5→**0.25 % del maná máx** |
+| **Crown/Diadem of Songs** ⚠️lab | NERF | Harmonize HSP: 0.5→**0.25 % del maná máx** ("deja de ser BiS de enchanter; vuelve opcional-situacional") |
+| **Death's Dance** | NERF | Coste 3 200→**3 300 g** |
+
+## MAPA Y SISTEMAS
+
+| Sistema | Cambio | Impacto en el lab |
+|---|---|---|
+| **Smite burn vs monstruos** | 30–198/s → **22–162/s** | Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 % |
+| **Nexus** | 5 500 → **4 000 HP** | Partidas terminan antes tras inhibidores |
+| **Placas de torreta** | Al perder placa: +30→**+20** arm/MR y 20→**10 s** | **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized |
+| ARAM (Augments + Fiddle/Nasus) | varios | Fuera del alcance SR del lab |
+
+## IMPACTO EN REPORTES/SPECS DEL LAB (estado 28/09)
+
+| Archivo | Impacto | Acción |
+|---|---|---|
+| `reportes/Yuumi_*` | HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) | Anotado [!WARNING] en el reporte |
+| `metodologia/ESCALADO_DE_TAMANIO.md` | Malphite: E con 336 armor pasa de 361→**344**; W golpe 117→**100**; R cada 85 s | Tabla corregida + nota |
+| `champion_attack_speed_7.3.csv` | Filas Caitlyn (0.04→0.025 por nivel) y Senna (0.3/0.3/1.1/0.025) | Corregidas con marca 7.3a |
+| `model/dps_model.py` ITEMS | Yun Tal AS 25→35; Death's Dance 3300 | Aplicado |
+| `reportes/Kalista_*` | Yun Tal buffeada sigue RECHAZADA para Kalista (sin on-hit, ramp de crit); para **Yunara** (reporte externo) es buff relevante → re-verificar ese reporte | Anotado |
+| `reportes/Diana_*` | Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) | Anotado |
+| `reportes/Jinx_*` | Placas más blandas + Nexus 4000 → siege Jinx MEJORA; ningún cambio directo a Jinx | Anotado |
+| Reportes externos (Yunara/Cho'Gath/Shyvana hechos en otro chat) | Yunara: Yun Tal buff + placas (revisar 1.er ítem) · Cho'Gath: smite nerf jungla · Shyvana: smite nerf | Marcar para revisión en su próxima regeneración |
+| FRAMEWORK test de Caitlyn | El ejemplo oficial (1.48125) usaba growth 0.04 (pre-7.3a); con 0.025 el resultado esperado a lvl15 con Alacrity+Berserker's es **1.35** | Test actualizado con ambos valores |
 
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
@@ -1181,7 +1266,7 @@ Cooldown:
  8s
 Nimbus Cloak
 
-## 6. SISTEMAS DE CAMPO 7.3
+## 6. SISTEMAS DE CAMPO 7.3 (+ ajustes 7.3a: Smite burn, Nexus, placas — ver §3b)
 
 # Sistemas de campo - Wild Rift 7.3 (notas oficiales)
 
@@ -1373,7 +1458,7 @@ We’re introducing Lifesteal, a new vamp stat that applies only to basic attack
 
 
 
-## 7. TABLA OFICIAL DE ATTACK SPEED — 140 CAMPEONES (apéndice 7.3)
+## 7. TABLA OFICIAL DE ATTACK SPEED — 140 CAMPEONES (7.3, con overrides 7.3a marcados)
 
 ```csv
 champion,Attack Speed Ratio,Base Attack Speed,Base Bonus Attack Speed,Attack Speed per Level
@@ -1485,14 +1570,14 @@ Sivir,0.625,0.625,0.3,0.01
 Milio,0.625,0.625,0.2,0.022
 Lissandra,0.625,0.625,0.2,0.01
 Kog'Maw,0.665,0.665,0.2,0.03
-Caitlyn,0.625,0.625,0.2,0.04
+Caitlyn,0.625,0.625,0.2,0.025 (7.3a: era 0.04)
 Rell,0.625,0.625,0.2,0.01
 Skarner,0.625,0.625,0.28,0.005
 Shen,0.651,0.651,0.23,0.0367
 Brand,0.625,0.625,0.2,0.0185
 Renekton,0.665,0.665,0.2,0.024
 Veigar,0.625,0.625,0.2,0.014
-Senna,0.4,0.4,0.6,0.05
+Senna,0.3 (7.3a),0.3 (7.3a),1.1 (7.3a),0.025 (7.3a)
 Pyke,0.667,0.667,0.13,0.021
 Sion,0.679,0.679,0.18,0.006
 Swain,0.625,0.625,0.2,0.012
@@ -1576,7 +1661,7 @@ Ornn,720 → 690,,,,120 → 132
 Nocturne,,,,,120 → 134
 ```
 
-## 8. BASE DE ÍTEMS 7.3 (compacta — OJO: Boots tier 3 = MISMO slot que su tier 2)
+## 8. BASE DE ÍTEMS 7.3 (compacta — OJO: Boots tier 3 = MISMO slot que su tier 2; Yun Tal y Death's Dance ya con valores 7.3a en el motor)
 
 | Ítem | Oro | Stats | Categorías |
 |---|---|---|---|
@@ -1768,12 +1853,12 @@ Nocturne,,,,,120 → 134
 | Teleport |  |  | Basic Items |
 
 
-## 9. SPECS PRECARGADAS (13 campeones)
+## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
 
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · Specs precargadas — lista de campeones del equipo (25-sep-2026, parche 7.3)
+WR-LAB · Specs precargadas — lista de campeones del equipo (28-sep-2026, parche 7.3 + hotfix 7.3a)
 ====================================================================================
 Datos: stats base de wr-meta.com (fichas en data/estructurada/campeones/*.md),
 AS oficial del apéndice 7.3 (data/estructurada/champion_attack_speed_7.3.csv),
@@ -1888,6 +1973,7 @@ SPECS = {
            "Análisis por VALOR ALIADO: Heal&Shield Power × uptime de E/Q, maná. Attachada = intargeteable → CERO stats defensivos valen. "
            "Items 7.3 clave: Ardent Censer (2400g, +30% AS y +25 on-hit al aliado = +244 DPS a un ADC típico), "
            "Echoes of Helia, Staff of Flowing Waters, Redemption/Mikael's/Diadem. Best Friend: +8-11% HSP y bonus en Q/R. "
+           "⚠️ 7.3a NERF: W Best Friend HSP 8-11+0.02%AP → 6-9+0.01%AP (E-shield ~339→338, build intacta). "
            "REPORTE COMPLETO: reportes/Yuumi_WR_7.3_Build_Optimizada.md"),
     model_terms_pending=["E heal/shield por punto de HSP", "Q daño poke", "economía de maná", "mejor portador (ADC aliado)"]),
 
@@ -1957,7 +2043,8 @@ CONVENIOS / SUPUESTOS (idénticos al reporte de Jinx):
     - Kraken promedia missing_hp% configurable (default 50%).
     - Magnification de C44 solo aplica si el campeón ataca a >=550 de rango (flag en spec).
 
-FUENTES DE NÚMEROS: notas oficiales 7.3/7.2 + wr-meta.com 24-sep-2026 (ver data/FUENTES.md).
+FUENTES DE NÚMEROS: notas oficiales 7.3/7.2 + wr-meta.com 24-sep-2026 + HOTFIX 7.3a (29-sep-2026,
+ver data/estructurada/cambios_7.3a.md). Items marcados "7.3a" ya incluyen el hotfix.
 """
 from dataclasses import dataclass, field
 
@@ -2046,7 +2133,7 @@ ITEMS = {i.key: i for i in [
     I("pd",        2650, a_s=40, crit=25, ms=7, comment="stacks 6%AS+1%MS x5; ya NO da AD en 7.3"),
     I("navori",    2650, a_s=40, crit=25, ms=4, comment="ataques -15% CDs básicos (validar mecánica)"),
     I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0, comment="Spellblade 135% AD base + 0-80 por crit (1.5s ICD)"),
-    I("yuntal",    3100, ad=50, a_s=25, crit=25, comment="crit 0->25% en 125 ataques; Flurry +25%AS 6s"),
+    I("yuntal",    3100, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques"),
     I("manamune",  2900, ad=40, ah=15, comment="+2% mana como AD; Shock 1.5% mana (Muramana)"),
     # --- on-hit ---
     I("witsend",   2800, a_s=50, mr=45, onhit_flat=40, comment="+20% tenacidad"),
@@ -2058,7 +2145,7 @@ ITEMS = {i.key: i for i in [
     I("scimitar",  3100, ad=45, mr=40, ls=12, comment="activo Quicksilver (CC cleanse)"),
     I("ga",        3200, ad=45, armor=40, comment="revivir"),
     I("maw",       3000, ad=55, mr=45, ah=10, comment="escudo vs daño mágico"),
-    I("deathsdance",3200, ad=50, armor=45, ah=15, comment="Defy/Cauterize"),
+    I("deathsdance",3300, ad=50, armor=45, ah=15, comment="7.3a: coste 3200->3300; Defy/Cauterize"),
     # --- botas (T1 / T2 / T3) ---
     # REGLA DE SLOTS: Wild Rift tiene 6 slots TOTALES y las botas ocupan UNO.
     # Las T3 son MEJORA EN EL MISMO SLOT de su T2 (disponibles desde el min 10:00), NO un ítem extra.
@@ -6184,7 +6271,7 @@ Revitalize
       
 ```
 
-## 14. REPORTES COMPLETOS (estándar v1.4: Jinx, Kalista, Diana, Yuumi, Karma)
+## 14. REPORTES COMPLETOS (estándar v1.4, anotados 7.3a: Jinx, Kalista, Diana, Yuumi, Karma)
 
 ---
 
@@ -6194,10 +6281,10 @@ tags:
   - Mid
   - Assassin
   - AP-Híbrido
-version: 1.1
+version: 1.2
 Status: Aprobado
 champion: Diana
-patch: "7.3"
+patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 25/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -6213,6 +6300,9 @@ patch: "7.3"
 > [!TIP]
 > **Variante one-shot:** si tu comp necesita borrar squishies (ej. vs Yuumi-carry), cambia Nashor's/D&D por **Luden's + Infinity Orb + Stormsurge**: burst 2 152 (vs 1 792) a costa de −39 % de DPS sostenido (593 vs 971).
 
+
+> [!WARNING] Hotfix 7.3a (29-sep-2026)
+> Sin cambios directos a Diana, pero el **burn de Smite vs monstruos bajó (30-198 → 22-162/s)**: clear de jungla early más lento → refuerza la ruta Nashor's-primero y exige escudo de W activo en campamentos. Build y números intactos.
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -6618,10 +6708,10 @@ tags:
   - Marksman
   - Crítico
   - Bot-Lane
-version: 1.3
+version: 1.4
 Status: Aprobado
 champion: Jinx
-patch: "7.3"
+patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -6637,6 +6727,9 @@ patch: "7.3"
 > [!TIP]
 > **Variante sustentable:** si el enemigo tiene poke o necesitas sobrevivir peleas largas, cambia el slot 6 (Kraken Slayer) por **Bloodthirster**: −7.5 % de DPS a cambio de ~594 HP/s de lifesteal + escudo Ichorshield. Matriz situacional completa en §6.
 
+
+> [!WARNING] Hotfix 7.3a (29-sep-2026)
+> Sin cambios directos a Jinx. **La beneficia indirectamente:** placas de torreta más blandas (+20 resist por 10 s, antes +30/20 s), Nexus 4 000 HP y nerfs a Caitlyn (AS growth 0.04→0.025, Headshot 60-90 %) y Senna → menos competencia en el rol de siege. Build y números intactos. Detalle: `data/estructurada/cambios_7.3a.md`.
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -7142,10 +7235,10 @@ tags:
   - Marksman
   - On-hit
   - Bot-Lane
-version: 1.1
+version: 1.2
 Status: Aprobado
 champion: Kalista
-patch: "7.3"
+patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 25/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -7164,6 +7257,9 @@ patch: "7.3"
 > [!WARNING]
 > Rango de ataque no publicado en la fuente (verificar en juego). No afecta conclusiones: ninguna pasiva de esta build exige ≥550 de distancia.
 
+
+> [!WARNING] Hotfix 7.3a (29-sep-2026)
+> Sin cambios directos a Kalista. Yun Tal Wildarrows fue BUFFEADA (AS 25→35 %, Flurry 35 %) pero **sigue rechazada** para ella (sin on-hit, ramp de crit). Placas más blandas favorecen su siege. Build y números intactos.
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -7584,10 +7680,10 @@ tags:
   - Mid
   - Enchanter
   - Poke
-version: 1.1
+version: 1.2
 Status: Aprobado
 champion: Karma
-patch: "7.3"
+patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 25/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -7603,6 +7699,9 @@ patch: "7.3"
 > [!TIP]
 > **Variante Mid:** ruta AP-burst completamente distinta (Spellslinger's → Luden's → Malignance → Rabadon's → Infinity Orb → Zhonya's; AP 575, Q-Mantra ~1 025). Ver §6 matriz y Apéndice B.
 
+
+> [!WARNING] Hotfix 7.3a (29-sep-2026)
+> Sin cambios directos a Karma. Diadem/Circlet nerfeadas (Harmonize 0.5→0.25 %): su matriz situacional queda igual (Diadem ya era niche). Build intacta.
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -7956,10 +8055,10 @@ tags:
   - Support
   - Enchanter
   - Bot-Lane
-version: 1.1
+version: 1.2
 Status: Aprobado
 champion: Yuumi
-patch: "7.3"
+patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 25/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -7978,6 +8077,9 @@ patch: "7.3"
 > [!WARNING]
 > En Wild Rift Yuumi **sí compra botas** (a diferencia de PC) — confirmado en su build popular (Ionian → Crimson Lucidity). El mito del "slot extra" es falso.
 
+
+> [!WARNING] Hotfix 7.3a (29-sep-2026) — NERF DIRECTO
+> W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**. Impacto medido: E-shield 339→~338 y R-heal 651→~648 (−0.3 %): el nerf es simbólico para SU build porque su HSP viene sobre todo de ítems+Revitalize. Además Diadem/Whispering Circlet nerfeadas (Harmonize 0.5→0.25 %) → la variante Y2 pierde atractivo. **Build, veredictos y Censer-core intactos.**
 ---
 
 ## 0. RESUMEN EJECUTIVO
@@ -8516,5 +8618,161 @@ Exhaust,,,Basic Items,"Exhaust ~   ~ Exhaust ~ Exhausts target enemy champion, r
 Smite,,,Basic Items,"Smite ~   ~ Smite ~ Jungle Expertise: ~ On cast, Smite deals  ~ 600 true damage ~  to minions and monsters and causes your attacks against a monster to deal  ~ 30 true damage ~ ( ~ ) every second in an area around them for 2 seconds. This damage is increased by  ~ 10% bonus Attack Damage ~ ,  ~ 12% bonus Ability Power ~ ,  ~ 25% bonus Armor ~ ,  ~ 25% bonus Magic Resist ~ , and  ~ 4% bonus Health ~ . ~ Deals 10% more damage against monsters. ~ Hunter's Resource: ~ - Gain Hunter's Resource stacks over time. After clearing a monster camp, 1 stack(s) are consumed for  ~ 40 bonus gold ~ . ~ -  ~ Restore 5–35 Health ~  every second ( ~ ) when attacking monsters. Health restored is based on your missing Health. ~ - When Smite is equipped, take only 50% damage from non-epic monsters. ~ Upgraded Smite: ~ - After consuming 8 and 20 stacks, Smite upgrades, increasing its damage to 1,000 and 1,400 respectively. ~ - When Smite is fully upgraded, gain  ~ Movement Speed ~  while in the jungle or river:  ~ 10% Movement Speed ~  out of combat, and  ~ 5% Movement Speed ~  in combat. ~ - Upgraded Smite can be cast on champions to deal  ~ 40 true damage ~  damage and steal 25% of their Movement Speed for 2 seconds. ~ Gains one charge every 45 seconds, up to a max of 2. ~ Cooldown: ~  45s"
 Cleanse,,,Basic Items,Cleanse ~   ~ Cleanse ~ Removes disables (including spell debuffs) affecting your champion and grants immunity to disables for 0.25 seconds. ~ Cooldown: ~  110s
 Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 seconds, teleport your champion to an allied champion, structure, or ward (excludes areas in range of enemy inhibitors). You can only teleport to structures during the first 6 minutes of the game. ~ Cooldown: ~  150s ~    ~                          ~                      ~                  ~              ~          ~          ~          ~          ~              ~      (adsbygoogle = window.adsbygoogle || []).push({}); ~  OFF ADS ~              ~          ~          ~          ~      ~          ~          ~          ~          ~          ~          ~          ~          ~          ~      ~ LoL Wild Rift Items ~      ~          ~ Items ~  - used by LoL Wild Rift champions to increase their base stats during battles on the fields of justice. Most items have their own unique passive skills. ~      ~      ~         Each champion can purchase a maximum of six items, which means that you need to be smart about buying them, you need to know the strengths and weaknesses of your champion. There are also active items in the game - these are boots that can be enchanted and get one of 9 effects, such as Stasis, Teleport, etc. You can only have 1 active item available to you. Do not forget that each active item has its own recharge time after its use. ~      ~      ~          ~ League of Legends Wild Rift in-game items ~  can only be bought while at your base with gold received in battle. Acquire items considering the situation in the game, if you learn how to analyze it correctly, you will be ready for any trouble. ~      ~      ~         In Wild Rift, there are items for physical damage, magical damage and for increasing defensive characteristics. Marksmans, some assassins and warriors rely on physical attack, respectively, as the game progresses, improve its performance. Mages, supports, and some assassins improve their ability power by buying magic damage items. Tanks and some warriors prefer survivability over damage and gain health, armor, and magic defense by purchasing items with defensive stats. ~      ~      ~          ~ Wild Rift items ~  come in varying quality and are upgraded with gold. At the start of the game, you can only buy Basic items, which over time you can upgrade to COMMON and Improved. ~      ~      ~         You can get acquainted with all game items on this page by going to the page of the item itself, you can find out a little more of useful information! ~      ~          ~      ~              ~                 ~                  ~                      ~ wr ~ meta ~                      ~                          ~ Advertise ~                          ~ Feedback ~                          ~ Privacy policy ~                          ~ Delete account ~                          ~   ~ Twitter ~                          ~   ~ Patreon ~                      ~                  ~                  ~ This project is not official and is not affiliated with Riot Games. It was created by enthusiasts and fans of the game for educational purposes only. Copying materials is allowed with an active link to the source page. ~ © Copyright 2020-2026 by JLVD DEV ~                  ~              ~              ~          ~      ~      ~          ~              ~ Search ~              ~          ~          ~              ~              ~              ~                  ~                  ~                  ~              ~          ~      ~      ~      ~      ~      ~      ~      ~      ~    ~      ~     ~      ~      ~      ~      ~    ~      ~      ~      ~      ~       ~      ~      ~      ~      ~     window.addEventListener('load', function(){ ~       var pre = document.querySelector('.loaderArea'); ~       if(!pre) return; ~       pre.style.transition = 'opacity .25s ease'; ~       pre.style.opacity = '0'; ~       pre.style.pointerEvents = 'none'; ~       setTimeout(function(){ pre.style.display='none'; }, 280); ~     }); ~      ~      ~      ~     (function(){ ~       function run(){ ~         document.querySelectorAll('.nolazy img[data-src]').forEach(function(img){ ~           img.setAttribute('src', img.getAttribute('data-src')); ~           img.removeAttribute('data-src'); ~         }); ~       } ~       if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', run, {once:true}); ~       else run(); ~     })(); ~      ~      ~      ~       var fired = false; ~       window.addEventListener('scroll', function(){ ~         if (fired) return; ~         fired = true; ~         setTimeout(function(){ ~           var GTMObject = document.createElement(""script""); ~           GTMObject.src = 'https://www.googletagmanager.com/gtag/js?id=G-P6EEJGLKQ3'; ~           GTMObject.async = true; ~           document.getElementsByTagName('head')[0].appendChild(GTMObject); ~           window.dataLayer = window.dataLayer || []; ~           function gtag(){ dataLayer.push(arguments); } ~           gtag('js', new Date()); ~           gtag('config', 'G-P6EEJGLKQ3'); ~         }, 5000); ~       }, {passive:true}); ~      ~      ~      ~      ~     (function(){ ~       function loadAds(){ ~         var s1 = document.createElement('script'); ~         s1.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7039714206715924'; ~         s1.async = true; ~         s1.crossOrigin = 'anonymous'; ~         document.head.appendChild(s1); ~         var s2 = document.createElement('script'); ~         s2.src = 'https://fundingchoicesmessages.google.com/i/pub-7039714206715924?ers=1'; ~         s2.async = true; ~         document.head.appendChild(s2); ~         (function() { ~           function signalGooglefcPresent() { ~             if (!window.frames['googlefcPresent']) { ~               if (document.body) { ~                 var iframe = document.createElement('iframe'); ~                 iframe.style = 'width:0;height:0;border:none;position:absolute;left:-9999px;top:-9999px;'; ~                 iframe.style.display = 'none'; ~                 iframe.name = 'googlefcPresent'; ~                 document.body.appendChild(iframe); ~               } else { ~                 setTimeout(signalGooglefcPresent, 0); ~               } ~             } ~           } ~           signalGooglefcPresent(); ~         })(); ~       } ~       window.addEventListener('load', function(){ ~         setTimeout(loadAds, 1600); ~       }); ~     })(); ~      ~      ~      ~      ~      ~      ~       (function() { ~         var a = document.querySelector('#aside1'), ~             b = null, ~             P = 70; ~         if(!a) return; ~         window.addEventListener('scroll', Ascroll, false); ~         document.body.addEventListener('scroll', Ascroll, false); ~         function Ascroll() { ~           if (b == null) { ~             var Sa = getComputedStyle(a, ''), ~                 s = ''; ~             for (var i = 0; i  ~      ~      ~ window.addEventListener('load', function(){ ~   if (!window.jQuery) return; ~   jQuery("".extremum-click"").off('click.wrm').on('click.wrm', function () { ~     jQuery(this).siblings("".extremum-slide"").slideToggle(""slow""); ~   }); ~ }); ~      ~      ~     window.addEventListener('load', function(){ ~       setTimeout(function(){ ~         if (window.__sharethis_loaded) return; ~         window.__sharethis_loaded = true; ~         var s = document.createElement('script'); ~         s.src = 'https://platform-api.sharethis.com/js/sharethis.js#property=653ac2c5933f6c0019e85d83&product=inline-share-buttons'; ~         s.async = true; ~         document.body.appendChild(s); ~       }, 2000); ~     });"
+
+```
+
+## 16. ROADMAP DEL PROYECTO (módulos futuros)
+
+# ROADMAP — WR-LAB como proyecto de software
+
+**Estado actual (v1.5):** repo git local versionado · BD SQLite derivada · suite de tests · CI + vigilante de parches (GitHub Actions) · datos 7.3+7.3a.
+
+## Ya disponible
+
+| Capacidad | Dónde | Estado |
+|---|---|---|
+| Control de versiones | git local (tags por versión del lab) | ✅ listo para `git remote add origin … && git push` |
+| Base de datos | `data/wrlab.db` (SQLite) vía `model/build_db.py` | ✅ se reconstruye desde los .md/.csv en segundos |
+| Tests de regresión | `tests/test_model.py` (unittest, sin dependencias) | ✅ golden numbers de Jinx + slots + fórmula AS + overrides 7.3a |
+| Vigía de parches | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta |
+| CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
+| Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
+
+## Módulos propuestos (prioridad × esfuerzo)
+
+1. **`wrlab` CLI unificado** (bajo esfuerzo, alto valor)
+   `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
+   — envolver los scripts actuales en un solo punto de entrada con argparse.
+
+2. **Optimizador de builds** (medio, MUY alto valor)
+   Búsqueda exhaustiva/branch-and-bound sobre el pool de ítems del rol maximizando
+   `dpsN` sujeto a: 6 slots, Ley 0 (1 botas), Ley 1 (crit ≤ umbral), Ley 2 (AS ≤ cap+ε),
+   presupuesto de oro por minuto. Entrada: ChampSpec + escenarios; salida: top-N builds
+   con desglose multiplicativo. Validación cruzada contra los reportes existentes
+   (debe "redescubrir" la build C de Jinx y la K2 de Kalista).
+
+3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
+
+4. **Sincronizador con el sitio Quartz** (bajo-medio)
+   `wrlab sync-vault <ruta-del-vault>`: copia reportes + fichas con frontmatter, genera
+   índice `Guias.md`, respeta la nomenclatura del vault y hace commit en ese repo.
+   Publicar = `git push` del vault (su workflow de Pages ya funciona).
+
+5. **Simulador de timings de oro** (medio) — curva de oro de ADC/support/jungla por minuto
+   (datos 7.3: minions, placas con decaimiento, jungle eco) para fechar los picos de cada
+   ruta con precisión en vez de "~13:00".
+
+6. **Matriz de matchups** (alto) — EHP/DPS efectivo cruzado entre builds (p.ej. "¿mi Jinx
+   full contra un Chainlaced+Randuin?"), usando las tablas de mitigación ya existentes.
+
+7. **Backup externo de la BD** (bajo) — el repo en GitHub YA es el backup (texto + db commiteada);
+   opcional: export nocturno de `wrlab.db` a release assets vía Actions.
+
+## Decisiones de arquitectura (por qué así)
+
+- **Texto plano como fuente de verdad, SQLite como índice:** los .md/.csv viajan en los bundles
+  portables (cualquier chat/IA los consume sin tooling); la BD da consultas rápidas y es reconstruible.
+  Nunca al revés (una BD opaca rompería la portabilidad que ya resolvimos).
+- **Sin dependencias de terceros:** todo stdlib (urllib, sqlite3, unittest, csv). Cero `pip install`,
+  cero superficie de rotura. `requirements.txt` existe pero está vacío a propósito.
+- **Golden tests:** los números canónicos de los reportes están fijados en tests; cualquier cambio de
+  datos que los mueva falla en CI y obliga a documentar el porqué (como el override 7.3a de Caitlyn).
+- **El vigía no actualiza solo:** detecta y avisa (exit 1 + step summary). La actualización real sigue
+  el protocolo FRAMEWORK §E porque requiere criterio (discrepancias, overrides, re-validación).
+
+## Para ponerlo en GitHub (una vez, ~3 minutos)
+
+```bash
+# en tu máquina, dentro de la carpeta wr-lab descargada/copiada:
+git remote add origin https://github.com/Osvaldo-Peralta/wr-lab.git   # repo nuevo, privado o público
+git push -u origin main --tags
+# GitHub Actions corre ci.yml en el push y patch-watch.yml 2×/día.
+```
+
+
+## 17. TESTS DE REGRESIÓN
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests — suite de regresión del modelo (unittest, sin dependencias).
+Ejecutar:  python3 -m unittest discover -s tests -v     (desde la raíz del lab)
+"""
+import os, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import dps_model as M
+
+class TestAttackSpeedFormula(unittest.TestCase):
+    def test_caitlyn_oficial_pre73a(self):
+        """Ejemplo oficial de las notas 7.3: Caitlyn lvl15 + Alacrity 18% + Berserker's = 1.48125."""
+        c = M.ChampSpec(name="Caitlyn", base_ad=60, ad_growth=4.2, base_as=0.625,
+                        as_ratio=0.625, base_bonus_as=0.28, as_per_lvl=0.04)
+        B = c.base_bonus_as + M.lvl_as_bonus(c, 15) + 0.18 + 0.35
+        self.assertAlmostEqual(c.base_as + c.as_ratio * B, 1.48125, places=5)
+
+    def test_caitlyn_post73a(self):
+        """7.3a bajó su growth a 0.025 → esperado 1.35 en las mismas condiciones."""
+        c = M.ChampSpec(name="Caitlyn", base_ad=60, ad_growth=4.2, base_as=0.625,
+                        as_ratio=0.625, base_bonus_as=0.28, as_per_lvl=0.025)
+        B = c.base_bonus_as + M.lvl_as_bonus(c, 15) + 0.18 + 0.35
+        self.assertAlmostEqual(c.base_as + c.as_ratio * B, 1.35, places=4)
+
+    def test_as_cap(self):
+        """El tope 3.0 se aplica y Get Excited se reporta por separado."""
+        j = M.CHAMPS["jinx"]
+        _, raw, _ = M.as_total(j, ["Gunmetal", "Runaan's", "RFC", "Kraken"])
+        self.assertGreater(raw, M.AS_CAP)
+
+class TestValidateSlots(unittest.TestCase):
+    def test_build_valida(self):
+        self.assertEqual(M.validate_slots(["Gunmetal","C44","Runaan's","IE","LDR","Kraken"]), (1, 5))
+
+    def test_bug_doble_botas(self):
+        """El bug histórico: Berserker's + Gunmetal como ítems separados."""
+        with self.assertRaises(ValueError):
+            M.validate_slots(["Statikk Shiv","Berserker's","Gunmetal","Guinsoo","BotRK","Terminus"])
+
+    def test_siete_slots(self):
+        with self.assertRaises(ValueError):
+            M.validate_slots(["Berserker's","Gunmetal","C44","Runaan's","IE","LDR","Kraken"])
+
+    def test_final_sin_botas(self):
+        with self.assertRaises(ValueError):
+            M.validate_slots(["C44","Runaan's","IE","LDR","Kraken","BT"])
+
+    def test_checkpoint_parcial_ok(self):
+        M.validate_slots(["Berserker's","C44","Runaan's"], final=False)  # no debe lanzar
+
+class TestGoldenNumbers(unittest.TestCase):
+    """Números canónicos del reporte de Jinx (no deben driftar sin razón documentada)."""
+    def test_jinx_build_C(self):
+        r = M.eval_build(M.CHAMPS["jinx"], ["Gunmetal","C44","Runaan's","IE","LDR","Kraken"])
+        self.assertEqual(round(r["dps1"]), 3042)
+        self.assertEqual(round(r["crit"]), 100)
+        self.assertAlmostEqual(r["AS"], 2.83, places=2)
+
+    def test_jinx_build_usuario(self):
+        r = M.eval_build(M.CHAMPS["jinx"], ["Berserker's","Kraken","RFC","Runaan's","IE","BT"])
+        self.assertEqual(round(r["dps1"]), 2556)
+
+    def test_73a_yuntal_buff_aplicado(self):
+        self.assertEqual(M.ITEMS["yuntal"].a_s, 35)   # 7.3a: 25 → 35
+
+    def test_73a_deathsdance_coste(self):
+        self.assertEqual(M.ITEMS["deathsdance"].gold, 3300)  # 7.3a: 3200 → 3300
+
+class TestSpecs(unittest.TestCase):
+    def test_roster_completo(self):
+        esperados = {"jinx","kalista","diana","yuumi","karma","yunara","volibear","shyvana",
+                     "chogath","mordekaiser","seraphine","heimerdinger","malphite"}
+        self.assertTrue(esperados <= set(M.CHAMPS.keys()))
+
+    def test_kalista_as_oficial(self):
+        k = M.CHAMPS["kalista"]
+        self.assertAlmostEqual(k.as_per_lvl, 0.046)
+        self.assertAlmostEqual(k.base_ad + k.ad_growth*14, 129.8, places=1)
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
 
 ```
