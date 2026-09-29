@@ -1,0 +1,16 @@
+# Mecanica de Attack Speed 7.3 (explicacion oficial)
+
+In Patch 7.3, we made fairly major changes to Attack Speed, so we also want to take this opportunity to fully explain how Attack Speed works. Attack Speed is the stat that determines how often a unit can perform basic attacks. For a champion, Attack Speed can mainly be broken down into the following types:
+- Base Attack Speed
+- Base Attack Speed is a champion's starting Attack Speed and usually also determines that champion's Attack Speed Ratio.
+- Attack Speed Ratio
+- Attack Speed Ratio determines how efficiently a champion converts bonus Attack Speed into actual Attack Speed. It converts the bonus Attack Speed a champion gains into real Attack Speed based on a percentage. In most cases, a champion's Attack Speed Ratio is equal to their Base Attack Speed.
+- Base Bonus Attack Speed
+- Base Bonus Attack Speed is the bonus Attack Speed a champion has as soon as the match begins, and it does not scale with champion level. This means a champion's Attack Speed at level 1 is determined jointly by their Base Attack Speed and Base Bonus Attack Speed.
+- Attack Speed per Level
+- Attack Speed per Level is the Attack Speed a champion gains as they level up, and it is also treated as bonus Attack Speed in these calculations. (By contrast, other per-level stats, such as Attack Damage per Level, are not treated as bonus Attack Damage and are instead calculated as part of base Attack Damage.) Although Attack Speed per Level is a fixed value, the amount of bonus Attack Speed a champion gains each level is not equal. Bonus Attack Speed gained from leveling each level = Attack Speed per Level ×(0.7 + 0.04 × current level). For example, when a champion levels from 1 to 2, the bonus Attack Speed gained is equal to 74% of their Attack Speed per Level. By max level, the total bonus Attack Speed a champion gains from leveling = 1400% × Attack Speed per Level.
+Next, we'll take a closer look at how Attack Speed is calculated. Let's start with a few formulas:
+- Total Attack Speed = Base Attack Speed + Attack Speed Ratio × Bonus Attack Speed Bonus Attack Speed = Base Bonus Attack Speed + bonus Attack Speed gained from leveling + bonus Attack Speed gained from other sources such as items, runes, and abilities
+Let's use Caitlyn as an example and plug the numbers into the formulas:  
+- For Caitlyn, both her Base Attack Speed and Attack Speed Ratio are 0.625, her Base Bonus Attack Speed is 0.28, and her Attack Speed per Level is 0.04.
+- At level 1, without any extra items or runes, Caitlyn's only bonus Attack Speed comes from her Base Bonus Attack Speed. So Caitlyn's Attack Speed = Base Attack Speed + Attack Speed Ratio × Base Bonus Attack Speed = 0.625 + 0.625 × 0.28 = 0.8 Assume Caitlyn is at max level, has a fully stacked rune - Legend: Alacrity (granting 18% bonus Attack Speed), and has equipped Berserker's Greaves (granting 35% bonus Attack Speed). Her Attack Speed can then be calculated as follows: 0.625 + 0.625 × (0.28 + 0.04 × 14 + 0.18 + 0.35) = 1.48125. On the stats panel, Attack Speed is displayed with two decimal places: 1.48

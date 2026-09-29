@@ -1,0 +1,333 @@
+#[source](https://lolm.qq.com/v2/news-page.html?docid=15413436308828016227)
+
+League of Legends: Wild Rift – Patch 7.3a Notes ( translated from Chinese)
+
+Welcome to Patch 7.3a! In this update, we are making balance adjustments to select champions and items—supplementing underperforming champions with combat strength while bringing overly dominant choices back to reasonable levels. At the same time, we are moderately slowing down early-to-mid game jungle clear pacing and lowering resistance against continuous split-pushing and sieging. In addition, based on community feedback, we have adjusted several Augment cards and champions in ARAM (Rune ARAM) to further refine your gameplay experience.
+
+Update Schedule: September 29, 09:30 – 12:00 Reminder: Content will be rolled out continuously during this update.
+
+Champion Adjustments
+
+Hwei (Nerfed)
+
+Hwei is inherently designed to require a high degree of mastery, but his current upward performance has exceeded our expectations. Since his win rate will likely rise further as players master his kit, we are reducing his overall damage across the board.
+
+Passive - Signature of the Visionary
+
+Damage: 33–333 (based on level) + 33% AP >>> 40–285 (based on level) + 30% AP
+
+(1-1) Subject: Disaster - Devastating Fire
+
+Damage: 50/90/130/170 + 75% AP + 4%/5%/6%/7% max HP >>> 50/85/120/155 + 70% AP + 4%/5%/6%/7% max HP
+
+(1-2) Subject: Disaster - Severing Bolt
+
+Missing health damage amp: 150%/200%/250%/300% >>> 100%/150%/200%/250%
+
+(4) Spiraling Despair
+
+Detonation Damage: 250/350/450 + 75% AP >>> 200/300/400 + 70% AP
+
+Samira (Buffed)
+
+Samira has been underperforming across all skill tiers. Compared to other critical strike marksmen, her burst output has not stood out, and she frequently struggles to find enough survivability when diving in. We are granting her across-the-board buffs.
+
+Base Stats
+
+Health Growth: 128 >>> 136
+
+Armor Growth: 5 >>> 5.5
+
+Magic Resist Growth: 1.4 >>> 2
+
+Passive - Daredevil Impulse
+
+Melee Damage Minimum AD Ratio: 3.5%–10.5% (based on level) >>> 5.8%–17% (based on level)
+
+Melee Damage Maximum AD Ratio: 7%–21% (based on level) >>> 11.6%–34% (based on level)
+
+(1) Flair
+
+AD Ratio: 110% >>> 125%
+
+(4) Inferno Trigger
+
+AD Ratio per shot: 40% >>> 50%
+
+Rammus (Nerfed)
+
+Under the updated jungle system, Rammus clears camps far ahead of the competition. We are clipping his early armor to reign in his early clear speed and dueling prowess without hindering his late-game teamfight utility.
+
+Base Stats
+
+Base Armor: 45 >>> 40
+
+(2) Spiked Shell / Defensive Ball Curl
+
+Bonus Armor: 45%/50%/55%/60% >>> 30%/40%/50%/60%
+
+Malphite (Nerfed)
+
+Malphite is dominating across multiple roles. We are toning down his damage scaling and pick-making potential to better align him with his core tank identity.
+
+(2) Thunderclap
+
+Armor Damage Ratio: 20% >>> 15%
+
+(3) Ground Slam
+
+Armor Damage Ratio: 45% >>> 40%
+
+(4) Unstoppable Force
+
+Cooldown: 75/70/65s >>> 85/80/75s
+
+Tristana (Buffed)
+
+Tristana has fallen behind the rest of the crit marksmen pack. We are enhancing both her burst and sustained damage potential.
+
+(1) Rapid Fire
+
+Attack Speed: 50/75/100/125% >>> 60/80/100/120%
+
+(2) Rocket Jump
+
+Cooldown: 22/20/18/16s >>> 20/18/16/14s
+
+(3) Explosive Charge
+
+​Base Damage: 80/100/120/140 → 80/110/140/170 
+
+​Bonus AD Ratio: 100% → 120% 
+
+​Crit Chance Amp: 40% → 50% (100% Crit Chance now increases bomb damage by +50% instead of +40%) 
+
+​Bonus Crit Damage Amp: 40% → 50% (extra crit multiplier, e.g. from Infinity Edge, scales more efficiently) 
+
+Draven (Buffed)
+
+Draven has been underwhelming overall due to a lack of burst and earlier preemptive nerfs. We are reverting some of his raw damage output.
+
+(1) Spinning Axe
+
+Bonus AD Ratio: 80/90/100/110% >>> 90/100/110/120%
+
+(2) Blood Rush
+
+Attack Speed: 20/25/30/35% >>> 25/30/35/40%
+
+(4) Whirling Death
+
+Bonus AD Ratio: 130% >>> 150%
+
+Caitlyn (Nerfed)
+
+Caitlyn has been overperforming, dealing relentless damage without requiring any Attack Speed investment. We are curtailing her extended combat power alongside a minor shave to her burst.
+
+Base Stats
+
+Attack Speed Growth: 0.04 >>> 0.025
+
+Passive - Headshot
+
+AD Ratio: 60%–100% (based on level) >>> 60%–90% (based on level)
+
+Senna (Adjusted)
+
+Removing Senna's attack speed cap made her stand out too heavily across all skill tiers. We are re-tuning her attack speed scaling curve.
+
+Base Stats
+
+Attack Speed Ratio: 0.4 >>> 0.3
+
+Base Attack Speed: 0.4 >>> 0.3
+
+Base Bonus Attack Speed: 0.6 >>> 1.1
+
+Attack Speed Growth: 0.05 >>> 0.025
+
+Bonus Attack Speed now grants reduced wind-up animation reduction on basic attacks.
+
+Syndra (Nerfed)
+
+Following prior damage buffs, Syndra's power spikes ramp up too quickly. We are pacing out her passive breakpoints and trimming her damage and utility.
+
+Passive - Transcendent
+
+Splinter threshold nodes: 40/60/80/100/120 >>> 50/75/100/125/150
+
+(2) Force of Will
+
+AP Ratio: 60% >>> 50%
+
+Slow: 20%/25%/30%/35% >>> 25% at all ranks
+
+Swain (Adjusted)
+
+Swain's sustained brawling power feels inadequate against high-burst teams. We are compensating his sustain and back-loaded damage.
+
+Passive - Ravenous Flock
+
+Heal on Soul Fragment: 3%–4.5% (based on level) + 0.5% AP >>> 4.5%–6% + 0.2% AP
+
+(3) Nevermove
+
+Return Damage AP Ratio: 25% >>> 40%
+
+Yuumi (Nerfed)
+
+Recent support item changes traded bonus health for active/passive potency. Because lost health does not impact Yuumi while attached, she benefited unconditionally from the extra power. We are pulling back her shielding/healing output.
+
+(2) You and Me!
+
+Heal & Shield Power: 8%/9%/10%/11% + 0.02% AP >>> 6%/7%/8%/9% + 0.01% AP
+
+Viego (Buffed)
+
+Viego did not benefit sufficiently from recent crit item revisions and has fallen behind. We are improving his crit-scaling coefficients.
+
+(1) Blade of the Ruined King
+
+Passive Damage: 2%/3%/4%/5% >>> 3%/4%/5%/6%
+
+Crit Damage Ratio Scaling: 80% >>> 85%
+
+(4) Heartbreaker
+
+Crit Scaling Ratio: 50% >>> 70%
+
+Gameplay & Item Adjustments
+
+Yun Tal Wildarrows (Buffed)
+
+Yun Tal Wildarrows lacks competitive punch compared to alternative first-item rushes. We are upgrading both its baseline stats and unique passive trigger.
+
+Base Stats
+
+Attack Speed: 25% >>> 35%
+
+Flurry (Passive):
+
+Attack Speed: 25% >>> 35%
+
+Cooldown: 20s >>> 25s
+
+Whispering Circlet (Nerfed)
+
+Adjusted in line with Crown of Song as its intermediate build component.
+
+Harmonize:
+
+Heal & Shield Power: 0.5% >>> 0.25%
+
+Crown of Song (Nerfed)
+
+Crown of Song currently outshines competing support options. We want it to be a deliberate, situational choice rather than the default best-in-slot item for enchanters.
+
+Harmonize:
+
+Heal & Shield Power: 0.5% >>> 0.25%
+
+Death's Dance (Nerfed)
+
+Death's Dance offers too much defensive and offensive value for its gold cost. Rather than nerfing its iconic survivability stats on bruisers, we are increasing its purchase cost.
+
+Total Cost: 3200 >>> 3300 Gold
+
+Map & System Changes
+
+Smite
+
+Smite's clear amplification is overly dominant, especially in early-to-mid pathing. We are dialing back its base burn damage against monsters while preserving full scaling once items come online.
+
+Burn Damage against Monsters: 30–198 per second (based on level) >>> 22–162 per second (based on level)
+
+Nexus
+
+Turret plating already serves as a strong safeguard against fast pushes, allowing us to roll back the previous health buff to the Nexus.
+
+Max Health: 5500 >>> 4000
+
+Turret Plating
+
+The bonus defensive stats granted upon losing a plate were stalling sieges too drastically. We are tuning down the durability spike and duration to make sustained pushes more rewarding.
+
+Resistances Gained upon Plate Loss: 30 Armor & Magic Resist >>> 20 Armor & Magic Resist
+
+Resistance Buff Duration: 20s >>> 10s
+
+Game Mode Adjustments: Rune ARAM
+
+Thank you for your extensive feedback following the release of Rune ARAM—especially to our test server pioneers! This hotfix addresses several gameplay pain points, and we will continue monitoring balance.
+
+For Heartsteel cards: Rhythmic Hunt had excessive variance against full-melee versus ranged comps, so we extended the trigger range, lowered stack scaling, and sharpened visual effects. Infinite Encore, when selected as a 5th card after accumulating four previous Heartsteel cards, offered leftover reroll charges that could no longer be spent; it now directly grants those unspent reroll stacks upfront.
+
+For Mirage Blade, while it enabled creative builds, each distinct ability now has a 1-second cooldown per target to maintain healthy counterplay (Blitzcrank can still chain-electrocute). In addition, several cards that were over-nerfed on the test server have received partial rollbacks, though they remain weaker than their previous-patch baselines.
+
+Augment Card Balance
+
+Rhythmic Hunt
+
+Trigger Range: 7 >>> 11
+
+Bonus Heartsteel Stacks per application: 12 >>> 8
+
+Improved visual effect readability.
+
+Infinite Encore
+
+When acquired in round 5 or later, immediately grants 180 stacks (equivalent to using 6 rerolls).
+
+Fleeting Gale
+
+Attack Range: 8 >>> 9
+
+Everlasting Life
+
+Shield Ratio: 150% >>> 200%
+
+Mirage Blade
+
+Each distinct ability now has a 1-second cooldown against the same target.
+
+Duet
+
+Per-target Cooldown: 5s >>> 2s
+
+Crown of Metal
+
+Stats gained after casting Ultimate: 35 AD, 70 AP, 50 Armor, 50 MR >>> 30 AD, 60 AP, 40 Armor, 40 MR
+
+Hextech Grenade
+
+Secondary damage amplification: 20% >>> 30%
+
+Darkin Beacon
+
+Damage tracking metric: Post-mitigation damage >>> Pre-mitigation damage
+
+Stack 'Em Up
+
+Damage per stack: 8 >>> 12
+
+Bonus damage cooldown now scales with Ability Haste; stacking itself has no cooldown.
+
+Accelerated Sorcery
+
+Stack Cap: 100 >>> 66
+
+Apex of Excellence
+
+Crit Rate Cap: 50% >>> 44.44%
+
+Excess Crit Conversion Rate: 150% >>> 444%
+
+Max Conversion Cap: 305% >>> 400%
+
+Note: Players can now reach the maximum Crit Damage cap without purchasing Infinity Edge.
+
+Champion Balance (ARAM)
+
+Fiddlesticks: Damage Received: 90% >>> 85%
+
+Nasus: Damage Received: 100% >>> 90%.

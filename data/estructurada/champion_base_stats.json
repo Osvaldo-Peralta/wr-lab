@@ -1,0 +1,256 @@
+{
+ "yuumi": {
+  "name": "Yuumi",
+  "stats": {
+   "attackdamage": "50 (3.64)",
+   "heal": "570 (104)",
+   "healthregeneration": "11 (0.7)",
+   "attackspeed": "0.8 (0.004)",
+   "mana": "435 (49)",
+   "mpreg": "15 (1.3)",
+   "movementspeed": "340 (0)",
+   "armor": "40 (3.9)",
+   "magicresistance": "35 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Yuumi",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.2",
+   "Attack Speed per Level": "0.006"
+  },
+  "durability_73": null
+ },
+ "yunara": {
+  "name": "Yunara",
+  "stats": {
+   "attackdamage": "58 (3)",
+   "heal": "600 (128)",
+   "healthregeneration": "6 (0.58)",
+   "attackspeed": "0.8 (0.021)",
+   "mana": "345 (33)",
+   "mpreg": "9 (0.72)",
+   "movementspeed": "335 (0)",
+   "armor": "35 (4.5)",
+   "magicresistance": "30 (1.43)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Yunara",
+   "Attack Speed Ratio": "0.65",
+   "Base Attack Speed": "0.65",
+   "Base Bonus Attack Speed": "0.23",
+   "Attack Speed per Level": "0.032"
+  },
+  "durability_73": null
+ },
+ "mordekaiser": {
+  "name": "Mordekaiser",
+  "stats": {
+   "attackdamage": "54 (3.5)",
+   "heal": "660 (120)",
+   "healthregeneration": "8 (1)",
+   "attackspeed": "0.7 (0.005)",
+   "mana": "0 (0)",
+   "mpreg": "0 (0)",
+   "movementspeed": "340 (0)",
+   "armor": "46 (4)",
+   "magicresistance": "40 (2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Mordekaiser",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.17",
+   "Attack Speed per Level": "0.008"
+  },
+  "durability_73": null
+ },
+ "kalista": {
+  "name": "Kalista",
+  "stats": {
+   "attackdamage": "57 (5.2)",
+   "heal": "630 (128)",
+   "healthregeneration": "6 (0.64)",
+   "attackspeed": "0.8 (0.032)",
+   "mana": "340 (50)",
+   "mpreg": "10 (0.86)",
+   "movementspeed": "335 (0)",
+   "armor": "34 (4.5)",
+   "magicresistance": "32 (1.4)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Kalista",
+   "Attack Speed Ratio": "0.694",
+   "Base Attack Speed": "0.694",
+   "Base Bonus Attack Speed": "0.16",
+   "Attack Speed per Level": "0.046"
+  },
+  "durability_73": null
+ },
+ "diana": {
+  "name": "Diana",
+  "stats": {
+   "attackdamage": "52 (3.64)",
+   "heal": "630 (140)",
+   "healthregeneration": "9 (0.9)",
+   "attackspeed": "0.8 (0.006)",
+   "mana": "435 (41)",
+   "mpreg": "12 (1.14)",
+   "movementspeed": "355 (0)",
+   "armor": "40 (5)",
+   "magicresistance": "38 (2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Diana",
+   "Attack Speed Ratio": "0.694",
+   "Base Attack Speed": "0.694",
+   "Base Bonus Attack Speed": "0.15",
+   "Attack Speed per Level": "0.008"
+  },
+  "durability_73": null
+ },
+ "karma": {
+  "name": "Karma",
+  "stats": {
+   "attackdamage": "58 (3.64)",
+   "heal": "630 (128)",
+   "healthregeneration": "9 (0.71)",
+   "attackspeed": "0.8 (0.008)",
+   "mana": "390 (57)",
+   "mpreg": "21 (1.14)",
+   "movementspeed": "360 (0)",
+   "armor": "37 (5)",
+   "magicresistance": "36 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Karma",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.2",
+   "Attack Speed per Level": "0.0135"
+  },
+  "durability_73": null
+ },
+ "heimerdinger": {
+  "name": "Heimerdinger",
+  "stats": {
+   "attackdamage": "54 (3.5)",
+   "heal": "600 (120)",
+   "healthregeneration": "8 (0.65)",
+   "attackspeed": "0.8 (0.006)",
+   "mana": "420 (60)",
+   "mpreg": "12 (1.22)",
+   "movementspeed": "355 (0)",
+   "armor": "34 (5)",
+   "magicresistance": "40 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Heimerdinger",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.2",
+   "Attack Speed per Level": "0.01"
+  },
+  "durability_73": null
+ },
+ "volibear": {
+  "name": "Volibear",
+  "stats": {
+   "attackdamage": "62 (56)",
+   "heal": "660 (120)",
+   "healthregeneration": "9 (0.86)",
+   "attackspeed": "0.7 (0.010)",
+   "mana": "390 (65)",
+   "mpreg": "12 (0.71)",
+   "movementspeed": "350 (0)",
+   "armor": "46 (4.71)",
+   "magicresistance": "38 (2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Volibear",
+   "Attack Speed Ratio": "0.7",
+   "Base Attack Speed": "0.7",
+   "Base Bonus Attack Speed": "0.05",
+   "Attack Speed per Level": "0.014"
+  },
+  "durability_73": null
+ },
+ "seraphine": {
+  "name": "Seraphine",
+  "stats": {
+   "attackdamage": "52 (3.64)",
+   "heal": "600 (112)",
+   "healthregeneration": "8 (0.57)",
+   "attackspeed": "0.8 (0.012)",
+   "mana": "435 (49)",
+   "mpreg": "16 (1.14)",
+   "movementspeed": "360 (0)",
+   "armor": "34 (4.71)",
+   "magicresistance": "36 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Seraphine",
+   "Attack Speed Ratio": "0.699",
+   "Base Attack Speed": "0.669",
+   "Base Bonus Attack Speed": "0.12",
+   "Attack Speed per Level": "0.017"
+  },
+  "durability_73": null
+ },
+ "shyvana": {
+  "name": "Shyvana",
+  "stats": {
+   "attackdamage": "62 (4.6)",
+   "heal": "660 (120)",
+   "healthregeneration": "9 (0.9)",
+   "attackspeed": "0.8 (0.008)",
+   "mana": "0 (0)",
+   "mpreg": "0 (0)",
+   "movementspeed": "350 (0)",
+   "armor": "46 (5)",
+   "magicresistance": "38 (2)",
+   "criticalstrike": "200% (0)",
+   "fury": "0 (0)"
+  },
+  "as_official_73": {
+   "champion": "Shyvana",
+   "Attack Speed Ratio": "0.638",
+   "Base Attack Speed": "0.638",
+   "Base Bonus Attack Speed": "0.25",
+   "Attack Speed per Level": "0.012"
+  },
+  "durability_73": null
+ },
+ "chogath": {
+  "name": "Cho'Gath",
+  "stats": {
+   "attackdamage": "62 (4)",
+   "heal": "690 (128)",
+   "healthregeneration": "8 (0.86)",
+   "attackspeed": "0.8 (0.005)",
+   "mana": "380 (50)",
+   "mpreg": "13 (0.79)",
+   "movementspeed": "350 (0)",
+   "armor": "46 (4.5)",
+   "magicresistance": "40 (2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Cho'Gath",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.28",
+   "Attack Speed per Level": "0.008"
+  },
+  "durability_73": null
+ }
+}

@@ -1,0 +1,3722 @@
+
+Wild Rift: JINX - Pro Build Guide (Items, Runes, Counters, Abilities, Combos)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+wr
+meta
+ 
+ 
+ 
+ Ranked
+ 
+ 
+ 
+ Tier List
+ 
+ Analytics
+ 
+ Prediction
+ 
+ Statistics
+ 
+ Top Meta
+ 
+ Timing Map
+ 
+ 
+ 
+ 
+ Champions
+ 
+ 
+ 
+Assassins
+ 
+Fighters
+ 
+Mages
+ 
+Marksmans
+ 
+Supports
+ 
+Tanks
+ 
+ 
+ 
+ 
+ Equipments
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Authorization
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Remember me
+ 
+ 
+ 
+Sign in
+ 
+ 
+ 
+Create an account
+ 
+Restore password
+ 
+ 
+Sign in with
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Wild Rift: 
+JINX
+ Build Guide (7.3)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BUFFED 
+ 
+ 
+ 
+ 
+ 
+ 
+237
+ 
+21
+ 
+ 
+ 
+258
+ 
+ 
+ 
+ 
+ 226 831
+ 
+ Yesterday, 14:56
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Damage
+ 
+ 
+ 
+ 
+ 
+ 
+Toughness
+ 
+ 
+ 
+ 
+ 
+ 
+Utility
+ 
+ 
+ 
+ 
+ 
+ 
+Difficulty
+ 
+ 
+ 
+ 
+League of Legends: Wild Rift JINX
+, role - 
+Marksman
+. Use the guidelines to take your 
+JINX Wild Rift
+ champion play style to the next level. Study in detail the build of items, runes, spells, skills that need to be developed in the first place. In order to find out what position 
+JINX
+ is in the rating table, go to the - 
+Tier List page
+. 
+ 
+ 58 (4)
+ 630 (120)
+ 8 (0.6)
+ 0.8 (0.013)
+ 345 (49)
+ 12 (1.4)
+ 335 (0)
+ 35 (5)
+ 30 (1.4)
+ 200% (0)
+ 
+ 
+ 
+ 
+ 
+ 
+P
+ 
+ 
+ 
+(PASSIVE)
+ GET EXCITED!
+ 
+Scoring a takedown on an enemy champion, epic monster, or structure that Jinx has damaged within the last 3 seconds grants her:
+140%
+ decaying 
+Movement Speed.
+25% bonus Attack Speed.
+Restores 
+10% of missing Mana.
+​
+​These effects last 6 seconds.
+While 
+Excited
+, Jinx can exceed the 
+Attack Speed
+ cap.
+ 
+ 
+ 
+ 
+ 
+ 
+Q
+ 
+ 
+ 
+(Q)
+ SWITCHEROO!
+ 
+ 1s 
+ 20 
+ 
+ 
+ 
+Swaps weapons.
+Fishbones, the Rocket Launcher:
+ Attacks 
+cost Mana
+ but gain 
+80/95/110/125 range
+ and explode to deal 112% damage to the target and enemies around it.
+Pow-Pow, the Minigun:
+ Attacks grant bonus 
+Attack Speed
+ for 2.5 seconds. This effect stacks up to 3 times for a total bonus of 
+35/60/85/110%
+.
+Pow-Pow's stacks fall off one at a time and will only benefit the first attack fired from 
+Fishbones
+.
+ 
+ 
+ 
+ 
+ 
+ 
+W
+ 
+ 
+ 
+(W)
+ ZAP!
+ 
+ 8/7/6/5s 
+ 50/60/70/80 
+ 
+ 
+ 
+Fires a shock blast that deals 
+103 physical damage
+ (10/80/150/220 + 
+160%
+ 
+) to the first enemy hit, granting vision of it and 
+slowing it by 30/40/50/60%
+ for 2 seconds.
+ 
+ 
+ 
+ 
+ 
+ 
+E
+ 
+ 
+ 
+(E)
+ FLAME CHOMPERS!
+ 
+ 15/13/11/9s 
+ 70 
+ 
+ 
+ 
+Tosses out three chompers that arm after a brief delay.
+Chompers explode on contact with enemy champions, interrupting their dashes and 
+rooting
+ them for 
+1.45/1.55/1.65/1.75 seconds
+. Enemies hit by the explosion take 
+70 magic damage
+ (70/140/210/280 + 
+100%
+ 
+).
+Chompers last for 5 seconds and will explode automatically if no champion triggers them.
+ 
+ 
+ 
+ 
+ 
+ 
+R
+ 
+ 
+ 
+(R)
+ SUPER MEGA DEATH ROCKET!
+ 
+ 50/45/40s 
+ 100 
+ 
+ 
+ 
+Fires a mega-rocket that gains damage and speed over the first second it travels.
+The rocket explodes on the first enemy champion hit, dealing 
+25 to 250 physical damage
+ (25/35/45 + 
+12% bonus
+ 
+ to 250/350/450 + 
+120% bonus
+ 
+) plus 
+25/30/35%
+ of their 
+missing health
+. Nearby enemies take 80% damage.
+Deals a max of 500/650/800 damage to epic monsters.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JINX 
+Meta Overview
+ — Ranks & Performance Analytics
+This meta overview presents JINX’s ranked performance across different roles and skill tiers. The data includes tier placement, win rate, pick rate, ban rate, and short-term trends, allowing you to evaluate her current strength and draft priority. Statistics are synced with rank buckets and role selection, helping you understand where JINX performs best and how her impact changes in the evolving Wild Rift meta.
+ 
+ 
+ 
+ 
+Diamond +
+Master +
+Challenger
+Legendary
+ 
+Updated: 
+24 SEP 2026 UTC 00:00
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+DUO
+ 
+ 
+ 
+Confidence High
+ 
+ 
+ 
+ 
+Win:
+ 
+49.82%
+ 
+Pick:
+ 
+10.97%
+ 
+Ban:
+ 
+0.53%
+ 
+Trend:
+ 
+↑ 1
+ 
+ 
+ 
+Reason:
+ 
+?
+ 
+Positive trend
+ 
+ 
+Signals:
+ 
+?
+ 
+👥 Popular
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+DUO
+ 
+Last 7 days analytics
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Tier List
+Compare Сhampions
+Build
+Counters
+Counter Items
+Tips
+Con
+Game Plan
+Power Spikes
+Adc JINX Build items and runes
+The information below will help you get familiar with the game on the Adc Line JINX. We have prepared a items builds, runes, summoner spells and ability order for a comfortable game. Situational options for replacing items and runes are also available to you.
+ 
+ 
+ 
+Key items
+ 
+ 
+TIPS:
+ Start your build with 
+ 
+Long Sword
+. Next, you should pay attention to whether your mobility champion is enough, our further actions will depend on this. If it is hard for you to dodge the enemy's skills or you want to roam on neighboring lines, then it is better to buy 
+ 
+Boots of Speed
+ at an early stage.
+ 
+ 
+Start
+ 
+ 
+ 
+ 
+ 
+ 
+Long Sword
+ 
+ 
+Long Sword
+ +12 Attack Damage
+ 
+500
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Core
+ 
+ 
+ 
+ 
+ 
+ 
+Hexoptics C44
+ 
+ 
+Hexoptics C44
+Increases attack range and damage
+ +55 Attack Damage
+ +25% Critical Rate
+Magnification:
+ Deal 0–10% increased damage with attacks, based on how far away the enemy is (max damage at 550 range).
+Arcane Aim:
+ When a champion you damaged within 3 seconds dies, gain 
+100
+ additional 
+Attack Range
+ for 8 seconds.
+ 
+2900
+ 
+ 
+ 
+Hexoptics C44 TIPS:
+ This item combines high Attack Damage and Critical Strike Chance, making basic attacks especially powerful from long range. The farther away the target is, the more damage your attacks deal, while participating in a champion takedown temporarily increases your Attack Range. An excellent choice for marksmen who prefer to maintain a safe distance and deal high damage from afar.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Berserker's Greaves
+ 
+ 
+Berserker's Greaves
+Attack Speed
+ +35% Attack Speed
+ +45 Move Speed
+Blessed Blade:
+ Attacks restore 10 Health on hit.
+ 
+1200
+ 
+ 
+ 
+Berserker's Greaves TIPS:
+ These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rapid attack cadence, and constant sustain in fights.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Runaan's Hurricane
+ 
+ 
+Runaan's Hurricane
+Ranged Attacks hit 3 targets
+ +40% Attack Speed
+ +25% Critical Rate
+ +4% Move Speed
+Wind's Fury:
+ Attacks strike 2 additional nearby enemies, each dealing 
+55% AD
+. These strikes can 
+Critically Strike
+ and trigger 
+on-hit
+ effects.
+This item cannot only be used by melee champions.
+ 
+2650
+ 
+ 
+ 
+Runaan's Hurricane TIPS:
+ This item combines Attack Speed, Critical Strike Chance, and mobility, significantly improving basic attacks against multiple targets. Each attack also strikes nearby enemies, and these additional hits can Critically Strike and trigger on-hit effects. An excellent choice for auto-attack and on-hit focused champions, especially in team fights against multiple targets.
+ 
+ 
+ 
+ 
+ 
+ 
+Boots
+ 
+ 
+ 
+ 
+ 
+ 
+Berserker's Greaves
+ 
+ 
+Berserker's Greaves
+Attack Speed
+ +35% Attack Speed
+ +45 Move Speed
+Blessed Blade:
+ Attacks restore 10 Health on hit.
+ 
+1200
+ 
+ 
+ 
+Berserker's Greaves TIPS:
+ These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rapid attack cadence, and constant sustain in fights.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gunmetal Greaves
+ 
+ 
+Gunmetal Greaves
+Increases Attack Speed and Movement Speed
+ +50% Attack Speed
+ +45 Move Speed
+ +5% Lifesteal
+Noxian Gait:
+ Attacks against enemy champions grant 
+Movement Speed
+ (
+10%
+ for melee champions / 
+7%
+ for ranged champions) decaying over 2 seconds.
+Blessed Blade:
+ Attacks 
+restore 12 Health
+ on hit.
+ 
+2200
+ 
+ 
+ 
+Gunmetal Greaves TIPS:
+ These boots significantly increase Attack Speed while also providing Movement Speed and Lifesteal, making them well suited for champions who rely on frequent basic attacks. Attacking enemy champions temporarily increases Movement Speed, making it easier to chase and reposition, while each hit also restores Health. An excellent choice for auto-attackers who need mobility and consistent sustain in combat.
+ 
+ 
+T3
+ 
+ 
+ 
+ 
+TIPS:
+ Finally, for your items, you should build 
+ 
+Hexoptics C44
+ (Increases attack range and damage) as your first item, followed by 
+ 
+Berserker's Greaves
+ (Grants Attack Speed) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is 
+ 
+Runaan's Hurricane
+ (Ranged Attacks hit 3 targets).
+ 
+ Maybe now it's time to think about upgrading your boot, invest in 
+ 
+Gunmetal Greaves
+ (Increases Attack Speed and Movement Speed).
+ 
+ The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
+ 
+ 
+ 
+Example build
+ 
+ 
+ 
+ 
+ 
+ 
+Hexoptics C44
+ 
+ 
+Hexoptics C44
+Increases attack range and damage
+ +55 Attack Damage
+ +25% Critical Rate
+Magnification:
+ Deal 0–10% increased damage with attacks, based on how far away the enemy is (max damage at 550 range).
+Arcane Aim:
+ When a champion you damaged within 3 seconds dies, gain 
+100
+ additional 
+Attack Range
+ for 8 seconds.
+ 
+2900
+ 
+ 
+ 
+Hexoptics C44 TIPS:
+ This item combines high Attack Damage and Critical Strike Chance, making basic attacks especially powerful from long range. The farther away the target is, the more damage your attacks deal, while participating in a champion takedown temporarily increases your Attack Range. An excellent choice for marksmen who prefer to maintain a safe distance and deal high damage from afar.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Berserker's Greaves
+ 
+ 
+Berserker's Greaves
+Attack Speed
+ +35% Attack Speed
+ +45 Move Speed
+Blessed Blade:
+ Attacks restore 10 Health on hit.
+ 
+1200
+ 
+ 
+ 
+Berserker's Greaves TIPS:
+ These boots grant a significant boost to attack speed and movement speed, while empowering your basic attacks with on‑hit life steal. — A great pick for marksmen and auto‑attack bruisers who need mobility, rapid attack cadence, and constant sustain in fights.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Runaan's Hurricane
+ 
+ 
+Runaan's Hurricane
+Ranged Attacks hit 3 targets
+ +40% Attack Speed
+ +25% Critical Rate
+ +4% Move Speed
+Wind's Fury:
+ Attacks strike 2 additional nearby enemies, each dealing 
+55% AD
+. These strikes can 
+Critically Strike
+ and trigger 
+on-hit
+ effects.
+This item cannot only be used by melee champions.
+ 
+2650
+ 
+ 
+ 
+Runaan's Hurricane TIPS:
+ This item combines Attack Speed, Critical Strike Chance, and mobility, significantly improving basic attacks against multiple targets. Each attack also strikes nearby enemies, and these additional hits can Critically Strike and trigger on-hit effects. An excellent choice for auto-attack and on-hit focused champions, especially in team fights against multiple targets.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Infinity Edge
+ 
+ 
+Infinity Edge
+Increases Critical Strike Damage
+ +75 Attack Damage
+ +25% Critical Rate
+Infinity:
+ Critical Strikes deal 
+230% damage
+ instead of 
+200%
+.
+ 
+3400
+ 
+ 
+ 
+Infinity Edge TIPS:
+ This item significantly increases Attack Damage and Critical Strike Chance while also increasing the damage dealt by Critical Strikes. An excellent choice for marksmen and other AD champions focused on Critical Strike builds, especially in the later stages of the game when a high Critical Strike Chance allows you to make the most of its damage amplification.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Dominik’s Regards
+ 
+ 
+Dominik’s Regards
+Armor Pen and bonus damage
+ +35 Attack Damage
+ +35% Armor Penetration
+ +25% Critical Rate
+Giant Slayer:
+ Deal bonus damage based on the enemy champion's 
+bonus Health
+, up to 12% bonus damage when the enemy champion has 
+1.200 bonus Health
+.
+ 
+3300
+ 
+ 
+ 
+Dominik’s Regards TIPS:
+ This item combines Attack Damage, percentage Armor Penetration, and Critical Strike Chance, allowing you to effectively deal with durable enemies. Your damage is further increased against champions with large amounts of bonus Health. An excellent choice for marksmen and other AD champions against tanks and fighters who stack Armor and Health.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Galeforce
+ 
+ 
+Galeforce
+Grants a dash and damage bonus
+ +60 Attack Damage
+ +25% Critical Rate
+ +4% Move Speed
+Cloudburst (Active):
+ Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal 
+physical damage
+ equal to 
+40-125
+ (
+) plus 
+35% bonus
+. (60s Cooldown)
+ 
+3100
+ 
+ 
+ 
+Galeforce TIPS:
+ This item greatly improves the mobility of marksmen and AD champions by granting a dash that also fires projectiles at the lowest-health nearby target. It is perfect for both finishing off weakened enemies and repositioning during fights, allowing you to dodge key abilities or quickly close the gap. An excellent choice for champions who value mobility, safety, and strong burst potential.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Situational items
+ 
+Buy items that will effectively counter your opponents, help you and your allies.
+ Use this section to find out which items will be useful to you in a particular situation.
+ 
+ 
+ 
+ 
+ Сhange
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gain Lifesteal and convert excess healing into a shield
+ 
+ 
+ 
+ 
+ 
+ 
+Infinity Edge
+ 
+ 
+Infinity Edge
+Increases Critical Strike Damage
+ +75 Attack Damage
+ +25% Critical Rate
+Infinity:
+ Critical Strikes deal 
+230% damage
+ instead of 
+200%
+.
+ 
+3400
+ 
+ 
+ 
+Infinity Edge TIPS:
+ This item significantly increases Attack Damage and Critical Strike Chance while also increasing the damage dealt by Critical Strikes. An excellent choice for marksmen and other AD champions focused on Critical Strike builds, especially in the later stages of the game when a high Critical Strike Chance allows you to make the most of its damage amplification.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Bloodthirster
+ 
+ 
+Bloodthirster
+Gain Lifesteal and convert excess healing into a shield
+ +75 Attack Damage
+ +15% Lifesteal
+Ichorshield:
+ Convert excess healing from your 
+Lifesteal
+ to a 
+shield
+ that absorbs up to 
+165–345
+ damage.
+ 
+3200
+ 
+ 
+ 
+Bloodthirster TIPS:
+ This item significantly increases physical damage and Lifesteal, providing strong health recovery from attacks. Excess healing from Lifesteal is converted into a protective shield, allowing you to build additional protection before entering a fight. An excellent choice for marksmen and other AD champions who need high damage, sustained combat power, and extra survivability.
+ 
+ 
+ 
+ 
+ 
+ 
+Bloodthirster
+ — This item significantly increases physical damage and Lifesteal, providing strong health recovery from attacks. Excess healing from Lifesteal is converted into a protective shield, allowing you to build additional protection before entering a fight. An excellent choice for marksmen and other AD champions who need high damage, sustained combat power, and extra survivability.
+ 
+ 
+ 
+ 
+ 
+Gain a shield when Health is low
+ 
+ 
+ 
+ 
+ 
+ 
+Infinity Edge
+ 
+ 
+Infinity Edge
+Increases Critical Strike Damage
+ +75 Attack Damage
+ +25% Critical Rate
+Infinity:
+ Critical Strikes deal 
+230% damage
+ instead of 
+200%
+.
+ 
+3400
+ 
+ 
+ 
+Infinity Edge TIPS:
+ This item significantly increases Attack Damage and Critical Strike Chance while also increasing the damage dealt by Critical Strikes. An excellent choice for marksmen and other AD champions focused on Critical Strike builds, especially in the later stages of the game when a high Critical Strike Chance allows you to make the most of its damage amplification.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Immortal Shieldbow
+ 
+ 
+Immortal Shieldbow
+Gain a shield when Health is low
+ +55 Attack Damage
+ +25% Critical Rate
+Lifeline:
+ Damage that puts you under 
+35% Health
+ grants a 
+shield
+ for 3s. The 
+shield
+ absorbs 
+350–650
+ damage for melee champions and 
+300–550
+ damage for ranged champions. (70s cooldown)
+ 
+3000
+ 
+ 
+ 
+Immortal Shieldbow TIPS:
+ This item combines high Attack Damage and Critical Strike Chance with additional protection in dangerous situations. When your Health drops to a critical level, it automatically grants a shield that helps you survive incoming damage and continue fighting. An excellent choice for marksmen and other AD champions who need extra protection against burst damage without sacrificing significant offensive power.
+ 
+ 
+ 
+ 
+ 
+ 
+Immortal Shieldbow
+ — This item combines high Attack Damage and Critical Strike Chance with additional protection in dangerous situations. When your Health drops to a critical level, it automatically grants a shield that helps you survive incoming damage and continue fighting. An excellent choice for marksmen and other AD champions who need extra protection against burst damage without sacrificing significant offensive power.
+ 
+ 
+ 
+ 
+ 
+Movement speed and attack speed
+ 
+ 
+ 
+ 
+ 
+ 
+Infinity Edge
+ 
+ 
+Infinity Edge
+Increases Critical Strike Damage
+ +75 Attack Damage
+ +25% Critical Rate
+Infinity:
+ Critical Strikes deal 
+230% damage
+ instead of 
+200%
+.
+ 
+3400
+ 
+ 
+ 
+Infinity Edge TIPS:
+ This item significantly increases Attack Damage and Critical Strike Chance while also increasing the damage dealt by Critical Strikes. An excellent choice for marksmen and other AD champions focused on Critical Strike builds, especially in the later stages of the game when a high Critical Strike Chance allows you to make the most of its damage amplification.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Phantom Dancer
+ 
+ 
+Phantom Dancer
+Movement speed and attack speed
+ +25% Critical Rate
+ +40% Attack Speed
+ +7% Movement Speed
+Spectral Waltz:
+ 
+On hit
+, your attacks against a champion grant 
+6% Attack Speed
+ and 
+1% Movement Speed
+ for 6 second(s). Bonuses stack up to 5 times.
+ 
+2650
+ 
+ 
+ 
+Phantom Dancer TIPS:
+ This item combines Critical Strike Chance, high Attack Speed, and mobility, improving your effectiveness in extended fights. Attacking enemy champions gradually increases your Attack Speed and Movement Speed, allowing you to attack faster, chase targets more effectively, and reposition during combat. An excellent choice for marksmen and other champions focused on sustained basic attack damage.
+ 
+ 
+ 
+ 
+ 
+ 
+Phantom Dancer
+ — This item combines Critical Strike Chance, high Attack Speed, and mobility, improving your effectiveness in extended fights. Attacking enemy champions gradually increases your Attack Speed and Movement Speed, allowing you to attack faster, chase targets more effectively, and reposition during combat. An excellent choice for marksmen and other champions focused on sustained basic attack damage.
+ 
+ 
+ 
+ 
+ 
+Armor Penetration (%) and reduced enemy healing
+ 
+ 
+ 
+ 
+ 
+ 
+Dominik’s Regards
+ 
+ 
+Dominik’s Regards
+Armor Pen and bonus damage
+ +35 Attack Damage
+ +35% Armor Penetration
+ +25% Critical Rate
+Giant Slayer:
+ Deal bonus damage based on the enemy champion's 
+bonus Health
+, up to 12% bonus damage when the enemy champion has 
+1.200 bonus Health
+.
+ 
+3300
+ 
+ 
+ 
+Dominik’s Regards TIPS:
+ This item combines Attack Damage, percentage Armor Penetration, and Critical Strike Chance, allowing you to effectively deal with durable enemies. Your damage is further increased against champions with large amounts of bonus Health. An excellent choice for marksmen and other AD champions against tanks and fighters who stack Armor and Health.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Mortal Reminder
+ 
+ 
+Mortal Reminder
+Armor Penetration (%) and reduced enemy healing
+ +35 Attack Damage
+ +30% Armor Penetration
+ +25% Critical Rate
+Sepsis:
+ Dealing 
+physical damage
+ to enemy champions applies 
+50% Grievous Wounds
+ for 3 seconds.
+Grievous Wounds
+ reduces the effectiveness of Healing and Regeneration effects.
+ 
+3000
+ 
+ 
+ 
+Mortal Reminder TIPS:
+ This item combines Attack Damage, percentage Armor Penetration, and Critical Strike Chance, allowing you to effectively deal with armored enemies. Dealing physical damage to enemy champions applies Grievous Wounds, reducing the effectiveness of their healing and health regeneration. An excellent choice against teams with high Armor, healing, and regeneration.
+ 
+ 
+ 
+ 
+ 
+ 
+Mortal Reminder
+ — This item combines Attack Damage, percentage Armor Penetration, and Critical Strike Chance, allowing you to effectively deal with armored enemies. Dealing physical damage to enemy champions applies Grievous Wounds, reducing the effectiveness of their healing and health regeneration. An excellent choice against teams with high Armor, healing, and regeneration.
+ 
+ 
+ 
+ 
+ 
+Dispels crowd control
+ 
+ 
+ 
+ 
+ 
+ 
+Galeforce
+ 
+ 
+Galeforce
+Grants a dash and damage bonus
+ +60 Attack Damage
+ +25% Critical Rate
+ +4% Move Speed
+Cloudburst (Active):
+ Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal 
+physical damage
+ equal to 
+40-125
+ (
+) plus 
+35% bonus
+. (60s Cooldown)
+ 
+3100
+ 
+ 
+ 
+Galeforce TIPS:
+ This item greatly improves the mobility of marksmen and AD champions by granting a dash that also fires projectiles at the lowest-health nearby target. It is perfect for both finishing off weakened enemies and repositioning during fights, allowing you to dodge key abilities or quickly close the gap. An excellent choice for champions who value mobility, safety, and strong burst potential.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Mercurial Scimitar
+ 
+ 
+Mercurial Scimitar
+Dispels crowd control
+ +45 Attack Damage
+ +12% Lifesteal
+ +40 Magic Resistance
+Quicksilver Sash (Active):
+ Removes all 
+crowd control
+ debuffs from you and grants immunity to 
+crowd control
+ for 0.25s.
+Perseverance (Passive):
+ When the 
+Quicksilver
+ effects ends, grant 
+30% Tenacity
+ and 
+30% Slow Resist
+ for 1.5 seconds. (60s Cooldown)
+Cannot be used during knock up or knock back effects.
+ 
+3100
+ 
+ 
+ 
+Mercurial Scimitar TIPS:
+ This item is designed to counter crowd control. Its active removes most disabling effects and briefly grants immunity to follow-up control, while the passive provides additional resistance to crowd control and slows once the effect ends. It is an excellent choice for marksmen, fighters, and assassins who need to maintain their mobility and keep dealing damage against heavy-CC team compositions.
+ 
+ 
+ 
+ 
+ 
+ 
+Mercurial Scimitar
+ — This item is designed to counter crowd control. Its active removes most disabling effects and briefly grants immunity to follow-up control, while the passive provides additional resistance to crowd control and slows once the effect ends. It is an excellent choice for marksmen, fighters, and assassins who need to maintain their mobility and keep dealing damage against heavy-CC team compositions.
+ 
+ 
+ 
+ 
+ 
+Increases attack range and damage
+ 
+ 
+ 
+ 
+ 
+ 
+Galeforce
+ 
+ 
+Galeforce
+Grants a dash and damage bonus
+ +60 Attack Damage
+ +25% Critical Rate
+ +4% Move Speed
+Cloudburst (Active):
+ Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal 
+physical damage
+ equal to 
+40-125
+ (
+) plus 
+35% bonus
+. (60s Cooldown)
+ 
+3100
+ 
+ 
+ 
+Galeforce TIPS:
+ This item greatly improves the mobility of marksmen and AD champions by granting a dash that also fires projectiles at the lowest-health nearby target. It is perfect for both finishing off weakened enemies and repositioning during fights, allowing you to dodge key abilities or quickly close the gap. An excellent choice for champions who value mobility, safety, and strong burst potential.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Rapid Firecannon
+ 
+ 
+Rapid Firecannon
+Increases attack range and damage
+ +25% Critical Rate
+ +40% Attack Speed
+ +4% Move Speed
+Sharpshooter:
+ Moving and attacking generates an 
+Energized Attack
+ with 35% bonus Attack Range (max 150 range) that deals 
+80 bonus magic damage
+.
+ 
+2650
+ 
+ 
+ 
+Rapid Firecannon TIPS:
+ This item combines Critical Strike Chance, Attack Speed, and mobility, improving the effectiveness of basic attacks. Moving and attacking charges an empowered attack that gains increased range and deals bonus magic damage. An excellent choice for marksmen who want to safely land their first hit from greater distance while maintaining high mobility in combat.
+ 
+ 
+ 
+ 
+ 
+ 
+Rapid Firecannon
+ — This item combines Critical Strike Chance, Attack Speed, and mobility, improving the effectiveness of basic attacks. Moving and attacking charges an empowered attack that gains increased range and deals bonus magic damage. An excellent choice for marksmen who want to safely land their first hit from greater distance while maintaining high mobility in combat.
+ 
+ 
+ 
+ 
+ 
+Revives at death
+ 
+ 
+ 
+ 
+ 
+ 
+Galeforce
+ 
+ 
+Galeforce
+Grants a dash and damage bonus
+ +60 Attack Damage
+ +25% Critical Rate
+ +4% Move Speed
+Cloudburst (Active):
+ Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal 
+physical damage
+ equal to 
+40-125
+ (
+) plus 
+35% bonus
+. (60s Cooldown)
+ 
+3100
+ 
+ 
+ 
+Galeforce TIPS:
+ This item greatly improves the mobility of marksmen and AD champions by granting a dash that also fires projectiles at the lowest-health nearby target. It is perfect for both finishing off weakened enemies and repositioning during fights, allowing you to dodge key abilities or quickly close the gap. An excellent choice for champions who value mobility, safety, and strong burst potential.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Guardian Angel
+ 
+ 
+Guardian Angel
+Revives at death
+ +45 Attack Damage
+ +40 Armor
+Resurrect:
+ Upon taking lethal damage, restores 
+50% Health
+ and 
+100% Mana
+ after 4 seconds of stasis. (180s Cooldown)
+ 
+3200
+ 
+ 
+ 
+Guardian Angel TIPS:
+ This item is perfect for champions who need a second chance in teamfights. It is especially effective against champions with high burst damage, such as Zed, Syndra, or Zoe, as well as against strong diving champions like Camille, Kha'Zix, or Lee Sin. The Resurrection effect allows you to return to the fight after taking lethal damage, restoring health and mana, giving you a chance to continue fighting and assist your team even in critical moments.
+ 
+ 
+ 
+ 
+ 
+ 
+Guardian Angel
+ — This item is perfect for champions who need a second chance in teamfights. It is especially effective against champions with high burst damage, such as Zed, Syndra, or Zoe, as well as against strong diving champions like Camille, Kha'Zix, or Lee Sin. The Resurrection effect allows you to return to the fight after taking lethal damage, restoring health and mana, giving you a chance to continue fighting and assist your team even in critical moments.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Summoner Spells
+ 
+If you want to use this JINX Adc build, you should take 
+ 
+Flash
+ (Teleport a short distance) and 
+ 
+Ghost
+ (Gain a large burst of movement speed) as your Summoner Spells.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Flash
+ 
+ 
+Flash
+Teleport a short distance forward or towards the aimed direction.
+Cooldown:
+ 150s
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ghost
+ 
+ 
+Ghost
+Gain a large burst of 
+movement speed
+, that decays to 
+25% bonus movement speed
+ for 8 seconds. With each takedown, Ghost's duration is extended by 6 seconds, refreshing its effects, up to the original amount.
+Cooldown:
+ 90s
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Runes BUILD
+ 
+For runes, you should pick 
+ 
+Lethal Tempo
+ (Stack Attack Speed with each consecutive attack. At max stacks, gain additional Attack Speed and deal bonus damage with your attacks) as your keystone, followed by 
+ 
+Brutal
+ (Attacks deal bonus damage to enemy champions.), 
+ 
+Coup de Grace
+ (Increases damage dealt to enemy champions with low Health.) and 
+ 
+Legend: Alacrity
+ (Gains Attack Speed.) in the primary tree, as well as 
+ 
+Bone Plating
+ (Reduces incoming damage.) in the secondary tree. Below you can see possible options for replacing runes.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Lethal Tempo
+Attack Speed
+Gain Attack Speed when attacking enemy champions. Stacks up to 6 times. At max stacks deal bonus damage with your attacks.
+Each stack 
+Attack Speed
+ by 
+6%
+ (
+4.8%
+ for ranged champions) for 6 seconds.
+Max stacks bonus:
+ Attacks against non-turrets fire a bullet on hit, dealing 
+9–30 adaptive damage
+ (
+6–20
+ for ranged champions). Every 1% bonus 
+Attack Speed
+ you have increases the damage by 0.5% (0.33% for ranged champions).
+ 
+ 
+ 
+ 
+ 
+ 
+Lethal Tempo
+ 
+Attack Speed
+ 
+Stack Attack Speed with each consecutive attack. At max stacks, gain additional Attack Speed and deal bonus damage with your attacks
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Brutal
+Attacks deal on-hit damage
+Attacks deal (
+5
+ + 
+6% bonus 
++ 
+3% 
+) bonus 
+adaptive
+ damage to enemy champions.
+ 
+ 
+ 
+ 
+ 
+ 
+Brutal
+ 
+Attacks deal on-hit damage
+ 
+Attacks deal bonus damage to enemy champions.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Coup de Grace
+Increase damage to low Health enemies
+Your attacks deal 8% bonus 
+adaptive
+ damage to enemy champions with less than 
+40% Health
+.
+ 
+ 
+ 
+ 
+ 
+ 
+Coup de Grace
+ 
+Increase damage to low Health enemies
+ 
+Increases damage dealt to enemy champions with low Health.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Legend: Alacrity
+Increase bonus Attack Speed
+Gains 
+3% Attack Speed
+. Takedown monsters, enemy champions, or minions to gain up to an additional 
+18% Attack Speed
+.
+ 
+ 
+ 
+ 
+ 
+ 
+Legend: Alacrity
+ 
+Increase bonus Attack Speed
+ 
+Gains Attack Speed.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Bone Plating
+Anti-Burst Damage
+When taking damage from a champion, the current and next 3 champion abilities or attacks against you and within 1.5s deal 
+30-60
+ (
+) less damage.
+Cooldown:
+ 40s
+ 
+ 
+ 
+ 
+ 
+ 
+Bone Plating
+ 
+Anti-Burst Damage
+ 
+Reduces incoming damage.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Situational Runes
+ 
+ 
+ 
+ Сhange
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Deal more damage to high Health enemies
+ 
+ 
+ 
+ 
+ 
+Coup de Grace
+Coup de Grace
+Increase damage to low Health enemies
+Your attacks deal 8% bonus 
+adaptive
+ damage to enemy champions with less than 
+40% Health
+.
+ 
+ 
+ 
+ 
+ 
+ 
+Cut Down
+Cut Down
+Deal more damage to high Health enemies
+Your attacks deal 6.57% bonus 
+adaptive
+ damage to enemy champions with more than 60% Health.
+ 
+ 
+ 
+ 
+ 
+Cut Down
+ — This rune increases damage against high-health targets, helping you deal with tanky enemies more effectively. It is ideal for champions who rely on consistent damage output, especially against tanks and durable fighters. It works best on marksmen and some fighters where efficiently shredding high-health targets is important.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Skills Order
+ 
+For the skill order, you want to stick with 
+(Q)
+ 
+ 
+(W)
+ 
+ 
+(E)
+. You can learn more about abilities order at all levels by studying the diagram below.
+ 
+ 
+ 
+ 
+(Q)
+ SWITCHEROO!
+ 
+ 1s 
+ 20 
+ 
+ 
+ 
+Swaps weapons.
+Fishbones, the Rocket Launcher:
+ Attacks 
+cost Mana
+ but gain 
+80/95/110/125 range
+ and explode to deal 112% damage to the target and enemies around it.
+Pow-Pow, the Minigun:
+ Attacks grant bonus 
+Attack Speed
+ for 2.5 seconds. This effect stacks up to 3 times for a total bonus of 
+35/60/85/110%
+.
+Pow-Pow's stacks fall off one at a time and will only benefit the first attack fired from 
+Fishbones
+.
+ 
+ 
+ 
+(Q)
+ SWITCHEROO!
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(W)
+ ZAP!
+ 
+ 8/7/6/5s 
+ 50/60/70/80 
+ 
+ 
+ 
+Fires a shock blast that deals 
+103 physical damage
+ (10/80/150/220 + 
+160%
+ 
+) to the first enemy hit, granting vision of it and 
+slowing it by 30/40/50/60%
+ for 2 seconds.
+ 
+ 
+ 
+(W)
+ ZAP!
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(E)
+ FLAME CHOMPERS!
+ 
+ 15/13/11/9s 
+ 70 
+ 
+ 
+ 
+Tosses out three chompers that arm after a brief delay.
+Chompers explode on contact with enemy champions, interrupting their dashes and 
+rooting
+ them for 
+1.45/1.55/1.65/1.75 seconds
+. Enemies hit by the explosion take 
+70 magic damage
+ (70/140/210/280 + 
+100%
+ 
+).
+Chompers last for 5 seconds and will explode automatically if no champion triggers them.
+ 
+ 
+ 
+(E)
+ FLAME CHOMPERS!
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(R)
+ SUPER MEGA DEATH ROCKET!
+ 
+ 50/45/40s 
+ 100 
+ 
+ 
+ 
+Fires a mega-rocket that gains damage and speed over the first second it travels.
+The rocket explodes on the first enemy champion hit, dealing 
+25 to 250 physical damage
+ (25/35/45 + 
+12% bonus
+ 
+ to 250/350/450 + 
+120% bonus
+ 
+) plus 
+25/30/35%
+ of their 
+missing health
+. Nearby enemies take 80% damage.
+Deals a max of 500/650/800 damage to epic monsters.
+ 
+ 
+ 
+(R)
+ SUPER MEGA DEATH ROCKET!
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Adc JINX Counters
+We have prepared lists of champions that can really annoy you during a match with the game on the Adc JINX. We have also prepared a list of champions with whom you will be comfortable being on the same team. These lists are relative and depend greatly on your level of play, the skills of your allies and opponents. Do not forget that each situation is individual!
+ 
+ 
+ 
+ 
+ 
+ Threats
+ 
+ 
+ 
+Extreme 
+[6]
+ 
+Major 
+[11]
+ 
+Even 
+[15]
+ 
+Minor 
+[6]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ASHE
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+AMUMU
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+VAYNE
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+TWITCH
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+LEONA
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+RAKAN
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Synergies
+ 
+ 
+ 
+Ideal 
+[5]
+ 
+Strong 
+[10]
+ 
+Ok 
+[11]
+ 
+Low 
+[8]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+NAMI
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+LEONA
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BLITZCRANK
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+LULU
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BRAUM
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+Adc JINX Counter Items
+We have prepared a list of items and spells that will help counter Adc JINX in a given situation. Buy items wisely, only if it is really necessary for a specific situation!
+ 
+ 
+ 
+ 
+ 
+ 
+ Armor
+ Items that reduce Auto Attacks (AA) / Physical Damage.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Plated Steelcaps
+ 
+ 
+Plated Steelcaps
+Reduces damage from champion attacks
+ +150 Max Health
+ +20 Armor
+ +45 Move Speed
+Block:
+ Reduces damage from champion attacks by 10%.
+ 
+1200
+ 
+ 
+ 
+Plated Steelcaps TIPS:
+ These boots provide reliable protection against champions who rely heavily on basic attacks. They increase your Health and Armor, while the passive further reduces damage taken from enemy champion attacks. An excellent choice against marksmen, AD fighters, and other auto-attack-focused champions.
+ 
+ 
+ 
+ 
+ 
+ 
+Randuin's Omen
+ 
+ 
+Randuin's Omen
+Counters Critical Strike Damage
+ +400 Max Health
+ +75 Armor
+Resilience:
+ 
+Critically Struck
+ deal 30% less damage to you.
+Countercurrent:
+ Gain 1 stacks of 
+Countercurrent
+ when Critically Struck by 
+physical damage
+. Each stuck grants 
+5% Movement Speed
+ and 5% slow resist. Max 4 stacks.
+ 
+2800
+ 
+ 
+ 
+Randuin's Omen TIPS:
+ This item is built to counter crit-heavy builds. It provides a large health pool and armor while reducing damage from critical strikes, making you much tougher in head-on engagements. When you are critically struck, you gain stacks that boost your movement and slow resistance, helping you hold position and control fight spacing. — Perfect for tanks and bruisers who need to stand up to high-crit auto-attackers and survive extended teamfights.
+ 
+ 
+ 
+ 
+ 
+ 
+Thornmail
+ 
+ 
+Thornmail
+Reflects damage and reduces enemy healing
+ +200 Max Health
+ +75 Armor
+Thorns:
+ When struck by an attack, deal 
+20
+ + 
+6% bonus Armor
+ + 
+1% bonus Health
+ 
+magic damage
+ to the attacker.
+Entwine:
+ Apply 
+50% Grievous Wounds
+ to enemy champions for 3 second(s) when stuck by their attacks or dealing damage to them.
+Grievous Wounds
+ reduces the effectiveness of Healing and Regeneration effects.
+ 
+2700
+ 
+ 
+ 
+Thornmail TIPS:
+ This item reflects a portion of incoming physical damage back to attackers as magic damage and applies an effect that reduces enemy healing effectiveness. A strong pick versus teams with heavy auto-attack damage and sustain — ideal for tanks and bruisers who need to absorb focus and cut down opponent healing.
+ 
+ 
+ 
+ 
+ 
+ 
+Dead Man's Plate
+ 
+ 
+Dead Man's Plate
+Increases Movement Speed
+ +350 Max Health
+ +70 Armor
+ +4% Movement Speed
+Momentum:
+ Moving builds 
+Momentum
+, granting up to 
+40 Move Speed
+ at 
+100 stacks
+. Attacking removes all 
+Momentum
+. Stacks decay when movement is impaired.
+Crushing Blow:
+ Attacks deal up to 
+100 bonus magic damage
+ based on 
+Momentum
+ removed. Melee attacks with max Momentum 
+slows by 75%
+ for 1 second.
+ 
+2800
+ 
+ 
+ 
+Dead Man's Plate TIPS:
+ This item provides a substantial boost to health and armor, and its “Momentum” passive builds movement speed as you move—up to a cap—until you land an attack, which then triggers “Crushing Blow”, dealing bonus magic damage based on the momentum removed and slowing enemies at full stacks. This makes it an excellent choice for tanks and bruisers who need extra mobility to engage quickly and sustain through fights. Tips: ideal for champions who need to close distance and absorb damage; pairs extremely well with Spellblade items (e.g., Divine Sunderer) for additional burst damage on engage.
+ 
+ 
+ 
+ 
+ 
+ 
+Frozen Heart
+ 
+ 
+Frozen Heart
+Reduces enemy Attack Speed
+ +80 Armor
+ +400 Max Mana
+ +20 Ability Haste
+Winter's Caress:
+ Reduce the 
+Attack Speed
+ of enemy champions within 650 units of you by 
+25%
+.
+ 
+2550
+ 
+ 
+ 
+Frozen Heart TIPS:
+ This item combines a large amount of Armor, additional Mana, and Ability Haste, providing strong protection against physical damage. Nearby enemy champions have their Attack Speed reduced, making it especially effective against marksmen and other opponents who rely heavily on frequent basic attacks. An excellent choice for tanks and fighters against attack-focused team compositions.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Reduce 
+ Attack Speed
+ Items that reduce JINX Attack Speed.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Warden's Mail
+ 
+ 
+Warden's Mail
+Reduces enemy's Attack Speed
+ +35 Armor
+Cold Steel:
+ Reduce the 
+Attack Speed
+ of enemies by 
+15%
+ for 1.5 seconds when struck by an attack.
+ 
+1050
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Frozen Heart
+ 
+ 
+Frozen Heart
+Reduces enemy Attack Speed
+ +80 Armor
+ +400 Max Mana
+ +20 Ability Haste
+Winter's Caress:
+ Reduce the 
+Attack Speed
+ of enemy champions within 650 units of you by 
+25%
+.
+ 
+2550
+ 
+ 
+ 
+Frozen Heart TIPS:
+ This item combines a large amount of Armor, additional Mana, and Ability Haste, providing strong protection against physical damage. Nearby enemy champions have their Attack Speed reduced, making it especially effective against marksmen and other opponents who rely heavily on frequent basic attacks. An excellent choice for tanks and fighters against attack-focused team compositions.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Cleanse or Block Spells
+ Items with ability or property to cleanse or block negative spells.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Quicksilver Sash
+ 
+ 
+Quicksilver Sash
+Dispels crowd control
+Quicksilver (Active):
+ Removes all crowd control effects currently affecting you, and become immune to crowd control effects for 0.25 seconds.
+Perseverance (Passive):
+ When the 
+Quicksilver
+ effects ends, grant 
+30% Tenacity
+ and 
+30% Slow Resist
+ for 1.5 seconds. (60s Cooldown)
+Cannot be used during knock up or knock back effects.
+ 
+1100
+ 
+ 
+ 
+Quicksilver Sash TIPS:
+ This enchant instantly removes most crowd control effects and briefly grants immunity to further disables. Once the effect ends, it provides increased resistance to crowd control and slows, helping you escape dangerous situations or continue fighting without interruption. It is an excellent choice against teams with heavy crowd control, allowing you to stay mobile and effective in crucial moments.
+ 
+ 
+ 
+ 
+ 
+ 
+Seeker's Armguard
+ 
+ 
+Seeker's Armguard
+Turn invulnerable
+ +20 Armor
+ +35 Ability Power
+Stasis (Active):
+ Become invulnerable and untargetable for 2.5 seconds, but unable to move, attack, cast abilities or use items. (120s Cooldown)
+ 
+1200
+ 
+ 
+ 
+Seeker's Armguard TIPS:
+ This item combines Ability Power with extra defense, but its defining feature is the ability to become temporarily invulnerable. Its active effect lets you completely avoid lethal damage, dodge crucial enemy abilities, or buy time for your cooldowns to return. It is an excellent choice for mages and AP assassins who need to survive burst damage and outplay opponents in critical teamfights.
+ 
+ 
+ 
+ 
+ 
+ 
+Zhonya's Hourglass
+ 
+ 
+Zhonya's Hourglass
+Turn invulnerable
+ +40 Armor
+ +110 Ability Power
+Stasis (Active):
+ Become invulnerable and untargetable for 2.5 seconds, but unable to move, attack, cast abilities or use items. (90s Cooldown)
+ 
+3300
+ 
+ 
+ 
+Zhonya's Hourglass TIPS:
+ This item combines high Ability Power with extra armor, while its defining feature is the ability to become completely invulnerable for a short time. Its active effect allows you to survive lethal damage, avoid crucial enemy abilities, or buy time for your cooldowns to recover. It is an excellent choice for mages and AP assassins who need to outlive enemy focus and turn the tide of a teamfight.
+ 
+ 
+ 
+ 
+ 
+ 
+Mercurial Scimitar
+ 
+ 
+Mercurial Scimitar
+Dispels crowd control
+ +45 Attack Damage
+ +12% Lifesteal
+ +40 Magic Resistance
+Quicksilver Sash (Active):
+ Removes all 
+crowd control
+ debuffs from you and grants immunity to 
+crowd control
+ for 0.25s.
+Perseverance (Passive):
+ When the 
+Quicksilver
+ effects ends, grant 
+30% Tenacity
+ and 
+30% Slow Resist
+ for 1.5 seconds. (60s Cooldown)
+Cannot be used during knock up or knock back effects.
+ 
+3100
+ 
+ 
+ 
+Mercurial Scimitar TIPS:
+ This item is designed to counter crowd control. Its active removes most disabling effects and briefly grants immunity to follow-up control, while the passive provides additional resistance to crowd control and slows once the effect ends. It is an excellent choice for marksmen, fighters, and assassins who need to maintain their mobility and keep dealing damage against heavy-CC team compositions.
+ 
+ 
+ 
+ 
+ 
+ 
+Edge of Night
+ 
+ 
+Edge of Night
+Blocks an enemy ability
+ +250 Max Health
+ +50 Attack Damage
+Gouge:
+ 
+ +12 Armor Penetration.
+Annul:
+ Grants a spell shield that blocks the next hostile ability. This spell shield refreshes upon leaving combat with enemy champions. (35 second cooldown)
+ 
+3000
+ 
+ 
+ 
+Edge of Night TIPS:
+ This item is perfect for champions who need a mix of offense and defense. It provides bonuses to maximum health and attack damage, along with increased armor penetration to help you shred through enemy defenses. The "Annul" effect grants you a spell shield, blocking the next enemy ability. This spell shield refreshes when leaving combat with enemy champions, making the item a great choice for champions who need protection from crowd control and to engage in fights, such as Ashe, Lux, or Morgana.
+ 
+ 
+ 
+ 
+ 
+ 
+Cleanse
+ 
+ 
+Cleanse
+Removes disables (including spell debuffs) affecting your champion and grants immunity to disables for 0.25 seconds.
+Cooldown:
+ 110s
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Reduces 
+ Mobility
+ Items that can decrease JINX mobility.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Exhaust
+ 
+ 
+Exhaust
+Exhausts target enemy champion, reducing their 
+Movement Speed by 35%
+ and their damage dealt by 40% for 2.5 seconds.
+Cooldown:
+ 100s
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Serylda’s Grudge
+ 
+ 
+Serylda’s Grudge
+Armor Penetration (%) and apply slows
+ +50 Attack Damage
+ +35% Armor Penetration
+ +15 Ability Haste
+Icy:
+ Damaging active abilities and 
+empowered
+ attacks 
+slow
+ enemies below 
+60%
+ current Health by 
+30% Movement Speed
+ for 1 second.
+ 
+3100
+ 
+ 
+ 
+Serylda’s Grudge TIPS:
+ This item significantly increases physical damage through percentage Armor Penetration while allowing you to use abilities more frequently. Damaging wounded enemies with active abilities or empowered attacks also slows them, making it easier to chase or keep targets at a distance. An excellent choice for AD champions who rely on abilities and need effective Armor Penetration combined with additional control.
+ 
+ 
+ 
+ 
+ 
+ 
+Rylai's Crystal Scepter
+ 
+ 
+Rylai's Crystal Scepter
+Abilities apply slows
+ +350 Max Health
+ +65 Ability Power
+Icy:
+ Damaging abilities and 
+empowered attacks
+ 
+slow enemies
+ by 30% for 0.75 second.
+ 
+2700
+ 
+ 
+ 
+Rylai's Crystal Scepter TIPS:
+ This item enhances your crowd control by causing your abilities and empowered attacks to slow enemies with every hit. The bonus health improves your durability, while the consistent slow makes it much easier to land follow-up abilities, chase fleeing targets, and support your teammates. It is an excellent choice for damage-over-time mages and champions who rely on keeping enemies within the range of their abilities.
+ 
+ 
+ 
+ 
+ 
+ 
+Iceborn Gauntlet
+ 
+ 
+Iceborn Gauntlet
+Attacks create a slowing field
+ +300 Max Health
+ +50 Armor
+ +250 Max Mana
+ +30 Ability Haste
+Spellblade:
+ Using an ability causes your next attack within 10 seconds to deal 
+bonus physical damage
+ equal to (
+100% base AD 
+ + 
+25% Bonus Armor 
+) in an area and creates an icy field for 2 seconds that slows by 30%. 
+Armor
+ increases the size of the icy field. (1.5s Cooldown)
+Damage is reduced vs structures.
+ 
+3000
+ 
+ 
+ 
+Iceborn Gauntlet TIPS:
+ This item greatly boosts your health, armor, mana, and ability haste, making you much tankier. After casting an ability, your next attack in an area deals bonus physical damage and creates an icy field that slows enemies inside by 30%. The field’s size scales with your armor. This makes the item a great choice for champions who want to combine high survivability with crowd control and extra AOE damage.
+ 
+ 
+ 
+ 
+ 
+ 
+Stridebreaker
+ 
+ 
+Stridebreaker
+Slows enemies nearby after a short dash
+ +400 Max Health
+ +40 Attack Damage
+ +25% Attack Speed
+Breaking Shockwave (Active):
+ Activate to dash a short distance, dealing 
+100% AD
+ as 
+Physical Damage
+ to nearby enemies and 
+slowing them by 40%
+ for 3s (25s cooldown)
+Stride (Passive):
+ Gain 
+20 Movement Speed
+ for 2 second(s) when you deal 
+physical damage
+.
+ 
+3100
+ 
+ 
+ 
+Stridebreaker TIPS:
+ This item combines mobility, damage, and crowd control, making it easier to stick to your targets. Its active lets you dash a short distance, damage nearby enemies, and heavily slow them, while the passive grants bonus movement speed whenever you deal physical damage. It is an excellent choice for fighters and bruisers who want to engage quickly, chase down opponents, and keep enemies within melee range.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gain a Shield
+ Gives you a shield that increases your chances of survival against JINX.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sterak's Gage
+ 
+ 
+Sterak's Gage
+Taking damage triggers a shield
+ +400 Max Health
+ +20% Tenacity
+Heavy Handed:
+ 
++50% base Attack Damage
+ as 
+bonus Attack Damage
+.
+Lifeline:
+ Damage that puts you under 
+35%
+ Health
+ grants a 
+shield
+ that equal to 
+75% of your bonus health
+ that decays over 5 seconds (70s Cooldown).
+Sterak's Fury:
+ Triggering Lifeline increases size and grants 
+30% Tenacity
+ for 8 seconds.
+ 
+3200
+ 
+ 
+ 
+Sterak's Gage TIPS:
+ This item combines a large amount of Health, crowd control resistance, and additional Attack Damage based on the champion's base Attack Damage. When your Health drops to a critical level, it grants a powerful shield that scales with bonus Health and temporarily provides even more Tenacity. An excellent choice for fighters and other AD champions who need additional survivability in extended and intense fights.
+ 
+ 
+ 
+ 
+ 
+ 
+Locket of the Iron Solari
+ 
+ 
+Locket of the Iron Solari
+Team shield
+ +200 Max Health
+ +30 Armor
+ +30 Magic Resistance
+ +10 Ability Haste
+Locket (Active): 
+ Grants a 
+shield
+ to yourself and nearby allied champions that each 
+absorbs 250-370
+ damage for 2.5 seconds. (60s Cooldown)
+This effect is reduced by 50% if the target has been affected by another Locket in the last 20 seconds.
+ 
+2600
+ 
+ 
+ 
+Locket of the Iron Solari TIPS:
+ This item provides powerful team-wide protection during fights. Its active grants a shield to you and nearby allies, helping your team survive burst damage and reducing the impact of enemy engages. It is an excellent choice for tanks and supports who stay close to their teammates and want to maximize their team's survivability in teamfights.
+ 
+ 
+ 
+ 
+ 
+ 
+Gargoyle Stoneplate
+ 
+ 
+Gargoyle Stoneplate
+Shield
+ +200 Max Health
+ +45 Armor
+ +45 Magic Resistance
+ +10 Ability Haste
+Stoneplate (Active):
+ Gain a base 
+shield
+ that absorbs damage equal to 
+100
+ plus 
+90% bonus
+and gain size, decayng over 2.5s. (60s Cooldown)
+ 
+2900
+ 
+ 
+ 
+Gargoyle Stoneplate TIPS:
+ This item greatly increases your survivability during teamfights. Its active grants a powerful shield that scales with your bonus Health, allowing you to withstand heavy focus fire and remain on the frontline longer. It is an excellent choice for tanks and bruisers who need to absorb large amounts of damage while protecting their team.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Adc JINX Tips
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+Adc JINX Strengths and Weaknesses
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+Adc JINX Strategy and Tactics
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+Adc JINX Power Spikes
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+Wild Rift JINX Ability and Tips
+ 
+ 
+ 
+GET EXCITED!
+ 
+P
+ 
+ 
+SWITCHEROO!
+ 
+Q
+ 
+ 
+ZAP!
+ 
+W
+ 
+ 
+FLAME CHOMPERS!
+ 
+E
+ 
+ 
+SUPER MEGA DEATH ROCKET!
+ 
+R
+ 
+ 
+ 
+ 
+ 
+ 
+(PASSIVE)
+ GET EXCITED!
+ 
+ 
+ 
+Scoring a takedown on an enemy champion, epic monster, or structure that Jinx has damaged within the last 3 seconds grants her:
+140%
+ decaying 
+Movement Speed.
+25% bonus Attack Speed.
+Restores 
+10% of missing Mana.
+​
+​These effects last 6 seconds.
+While 
+Excited
+, Jinx can exceed the 
+Attack Speed
+ cap.
+ 
+ 
+ Ability Tips
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ Video
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Q)
+ SWITCHEROO!
+ 
+ 
+ 
+ 
+ 1s 
+ 20 
+ 
+ 
+ 
+Swaps weapons.
+Fishbones, the Rocket Launcher:
+ Attacks 
+cost Mana
+ but gain 
+80/95/110/125 range
+ and explode to deal 112% damage to the target and enemies around it.
+Pow-Pow, the Minigun:
+ Attacks grant bonus 
+Attack Speed
+ for 2.5 seconds. This effect stacks up to 3 times for a total bonus of 
+35/60/85/110%
+.
+Pow-Pow's stacks fall off one at a time and will only benefit the first attack fired from 
+Fishbones
+.
+ 
+ 
+ 
+ Ability Tips
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ Video
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(W)
+ ZAP!
+ 
+ 
+ 
+ 
+ 8/7/6/5s 
+ 50/60/70/80 
+ 
+ 
+ 
+Fires a shock blast that deals 
+103 physical damage
+ (10/80/150/220 + 
+160%
+ 
+) to the first enemy hit, granting vision of it and 
+slowing it by 30/40/50/60%
+ for 2 seconds.
+ 
+ 
+ 
+ Ability Tips
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ Video
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(E)
+ FLAME CHOMPERS!
+ 
+ 
+ 
+ 
+ 15/13/11/9s 
+ 70 
+ 
+ 
+ 
+Tosses out three chompers that arm after a brief delay.
+Chompers explode on contact with enemy champions, interrupting their dashes and 
+rooting
+ them for 
+1.45/1.55/1.65/1.75 seconds
+. Enemies hit by the explosion take 
+70 magic damage
+ (70/140/210/280 + 
+100%
+ 
+).
+Chompers last for 5 seconds and will explode automatically if no champion triggers them.
+ 
+ 
+ 
+ Ability Tips
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ Video
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(R)
+ SUPER MEGA DEATH ROCKET!
+ 
+ 
+ 
+ 
+ 50/45/40s 
+ 100 
+ 
+ 
+ 
+Fires a mega-rocket that gains damage and speed over the first second it travels.
+The rocket explodes on the first enemy champion hit, dealing 
+25 to 250 physical damage
+ (25/35/45 + 
+12% bonus
+ 
+ to 250/350/450 + 
+120% bonus
+ 
+) plus 
+25/30/35%
+ of their 
+missing health
+. Nearby enemies take 80% damage.
+Deals a max of 500/650/800 damage to epic monsters.
+ 
+ 
+ 
+ Ability Tips
+ 
+ 
+ 
+ 
+Only for 
+Premium
+ members.
+Join our community and unlock the all premium content!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ Video
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Wild Rift JINX Skills Combo
+🥇HARD
+🥈MEDIUM
+🥉EASY
+ 
+ 
+ 
+Jinx Flash All-In
+ 
+ Execution
+ 
+ 
+ 
+ 
+R
+ 
+ 
+ 
+ 
+F
+ 
+ 
+ 
+ 
+E
+ 
+ 
+ 
+ 
+W
+ 
+ 
+ 
+ 
+AA
+ 
+ 
+ 
+ 
+AA
+Use this combo to quickly CC and burst a target.
+Use 
+(R)
+ SUPER MEGA DEATH ROCKET!
+, then 
+FLASH
+ mid animation to shorten the cast time, buffer your 
+(E)
+ FLAME CHOMPERS!
+ and 
+(W)
+ ZAP!
+. This will hide the subsequent abilities cast animation and projectiles, make it difficult for the enemy to react. Finish with more 
+AA's
+.
+ Combo Video
+ 
+Join our community and unlock the all Combos + Video!
+Our has already collected more than 1000+ different skill combinations for all LoL Wild Rift champions!
+ Unlock all
+ 
+ 
+Join our community and unlock the all Combos + Video!
+Our has already collected more than 1000+ different skill combinations for all LoL Wild Rift champions!
+ Unlock all
+ 
+ 
+ 
+ 
+Join our community and unlock the all Combos + Video!
+Our has already collected more than 1000+ different skill combinations for all LoL Wild Rift champions!
+ Unlock all
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+JINX Change history
+ NERFED 22 SEP 2026 (PATCH 7.3)
+BASE STATS
+Critical Strike Damage: 175% → 
+200%
+.
+Attack Speed cap: 2.5 → 
+3 attacks per second
+.
+Attack Speed Ratio: 
+0.625
+.
+Base Attack Speed: 
+0.625
+.
+Base Bonus Attack Speed: 
+0.3
+.
+Attack Speed per Level: 
+0.02
+.
+Attack Damage per Level: 4.5 → 
+4
+.
+(R)
+ SUPER MEGA DEATH ROCKET!
+Cooldown: 50/45/40s → 
+60/50/40s
+.
+Damage: 25/35/45 + 15% bonus Attack Damage to 250/350/450 + 150% bonus Attack Damage → 
+25/35/45 + 12% bonus Attack Damage to 250/350/450 + 120% bonus Attack Damage
+.
+ BUFFED 13 AUG 2026 (PATCH 7.2C)
+BASE STATS
+Base Attack Damage: 54 → 58.
+(PASSIVE)
+ GET EXCITED!
+Attack Speed: 12% → 25%.
+ BUFFED 18 DEC 2025 (PATCH 6.3F)
+(Q)
+ SWITCHEROO!
+Fishbones (Rocket Launcher) Damage: 110% Attack Damage → 
+112% Attack Damage
+.
+ BUFFED 14 AUG 2025 (PATCH 6.2C)
+BASE STATS
+Attack Damage per level: 4 → 
+4.5
+.
+Attack Speed per level: 1.7% → 
+2.2%
+.
+ REWORKED 17 JUL 2025 (PATCH 6.2)
+(PASSIVE)
+ GET EXCITED!
+[New]
+ When Get Excited is triggered, restore 10% of missing mana.
+ NERFED 30 APR 2025 (PATCH 6.0A)
+BASE STATS
+Base Attack Damage: 58 → 
+54
+.
+(E)
+ FLAME CHOMPERS!
+Cooldown: 16/14/12/10s → 
+15/13/11/9s
+.
+ BUFFED 23 JAN 2025 (PATCH 6.0B)
+(Q)
+ SWITCHEROO!
+Mana consumption for each attack of Fishbones, the Rocket Launcher: 30 → 
+20
+.
+Damage of Fishbones, the Rocket Launcher: 107% → 
+110%
+.
+ ADJUSTED 09 JAN 2025 (PATCH 6.0)
+BASE STATS
+Base Health: 610 → 
+630
+.
+Health per level: 105 → 
+120
+.
+Armor per level: 4.3 → 
+5
+.
+Magic Resist per level: 0.8 → 
+1.4
+.
+ NERFED 22 NOV 2023 (PATCH 4.4B)
+(PASSIVE)
+ GET EXCITED!
+Bonus Movement Speed: 150% → 
+140%
+.
+Bonus Attack Speed: 15% → 
+12%
+.
+(Q)
+ SWITCHEROO!
+Bonus Attack Speed of Pow-Pow (minigun) at max stacks: 30/60/90/120% → 
+35/60/85/110%
+.
+Damage of Fishbones (rocket launcher) on target: 110% → 
+107%
+.
+ ADJUSTED 25 MAY 2023 (PATCH 4.2)
+BASE STATS
+Base movement speed 
++10.
+Crit damage rate：200% → 
+175%.
+Attack range: 550 → 
+575.
+Base attack speed: 20% → 
+30%.
+Attack speed per level: 0.7% → 
+1.7%.
+Attack Damage per level: 3.6 → 
+4.
+(Q)
+ SWITCHEROO!
+Bonus attack range: 75/100/125/150 → 
+80/95/110/125.
+(E)
+ FLAME CHOMPERS!
+Optimized the smart casting effect. When using smart casting, it will automatically cast spells to the nearest enemy.
+ BUFFED 16 MAR 2023 (PATCH 4.1)
+(W)
+ ZAP!
+Wind up before casting: Decreases with ability levels → 
+Decreases with attack speed (fastest when the attack speed bonus reaches 140%).
+(E)
+ FLAME CHOMPERS!
+Cooldown: 19/16/13/10s → 
+16/14/12/10s.
+Root duration: 1.3/1.45/1.6/1.75s → 
+1.45/1.55/1.65/1.75s.
+ NERFED 30 JUN 2021 (PATCH 2.3B)
+(R)
+ SUPER MEGA DEATH ROCKET!
+Maximum damage on epic monsters: 500/650/800.
+ NERFED 06 DEC 2020 (PATCH 1.1)
+BASE STATS
+Mana regen: 15 → 
+12.
+ See More
+ 
+ 
+ Comments (0)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1+2+5=
+ 
+ 
+ 
+ 
+Send
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Hide
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ OFF ADS
+ 
+ 
+ 
+ 
+ 
+ 
+ OFF ADS
+ 
+ 
+ 
+ 
+ 
+wr
+meta
+ 
+ 
+Advertise
+ 
+Feedback
+ 
+Privacy policy
+ 
+Delete account
+ 
+ 
+Twitter
+ 
+ 
+Patreon
+ 
+ 
+ 
+This project is not official and is not affiliated with Riot Games. It was created by enthusiasts and fans of the game for educational purposes only. Copying materials is allowed with an active link to the source page.
+© Copyright 2020-2026 by JLVD DEV
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Search
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,2 @@
+# WR-LAB no requiere dependencias de terceros (solo stdlib de Python >=3.9).
+# Este archivo existe a proposito vacio: no anadir dependencias sin actualizar ROADMAP.md.

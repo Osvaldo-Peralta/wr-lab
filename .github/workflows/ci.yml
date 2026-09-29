@@ -1,0 +1,47 @@
+name: WR-LAB CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Suite de regresión del modelo
+        run: python3 -m unittest discover -s tests -v
+      - name: Reconstruir BD (integridad)
+        run: python3 model/build_db.py
+      - name: Validar bundles regenerables
+        run: |
+          python3 - <<'EOF'
+          import os
+          for f in ["WR-LAB_lite.md","WR-LAB_completo.md"]:
+              assert os.path.exists(f), f
+              assert os.path.getsize(f) > 50_000, f"{f} demasiado pequeño"
+          print("bundles OK")
+          EOF
+
+  patch-watch:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Vigilar parches nuevos
+        id: watch
+        continue-on-error: true
+        run: python3 model/check_patch.py
+      - name: Reportar
+        if: steps.watch.outcome == 'failure'
+        run: |
+          echo "## 🔔 Cambios de parche detectados" >> $GITHUB_STEP_SUMMARY
+          echo "Ejecutar protocolo FRAMEWORK §E: descargar notas, extract_data.py, overrides, tests, bundles." >> $GITHUB_STEP_SUMMARY

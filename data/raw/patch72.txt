@@ -1,0 +1,1035 @@
+Wild Rift Patch Notes 7.2 
+Wild Rift Patch Notes 7.2
+Welcome to Patch 7.2, one of our biggest gameplay updates!
+Game UpdatesWild Rift Game Design Team
+2026-07-08T09:00:00.000Z
+Welcome to Patch 7.2!
+Patch 7.2 is one of our biggest updates yet. This release introduces the newest marksman, Yunara, alongside a visual update for Ahri, bringing the Nine-Tailed Fox to life with refreshed visuals. Beyond our newest champion and Ahri's refresh, this patch delivers sweeping gameplay updates, including major overhauls to the boot, Enchantment, mage item, rune, and bounty systems, plus Ranked improvements, champion balance changes, and a host of quality-of-life updates.
+You'll also find the start of Ranked Season S22, a new Wild Pass, Battlefest Season S6, the refreshed Ionia: Summer Rift, and plenty more to discover.
+We'll see you on the Rift!
+Reminder: content will be released throughout the patch. 
+NEW
+YUNARA, THE UNBROKEN FAITH 
+Unwavering in her devotion to Ionia, Yunara has spent centuries cloistered away in the spirit realm honing her skills with the Aion Er’na, a legendary Kinkou relic. Despite all she has sacrificed, Yunara’s vow to rid the land of disharmony and strife remains unbroken, as does her faith. But the world that now awaits her—and the shadow of an ancient threat risen once more—will test every ounce of her resolve.
+Yunara will be released on July 09 at 00:01 UTC. 
+AHRI
+Ahri has received a full Art & Sustainability Update (ASU), refreshing her visuals while preserving her iconic look. This update includes a rebuilt model and rig, more natural tail animations, smoother visual effects, and improved animations throughout her kit.
+We've also updated the visuals of Ahri's existing skins based on player feedback, bringing them in line with modern quality standards.
+NEW SEASON 
+Ranked Season S22 begins on July 10, 2026 at 03:00 UTC, featuring the season-exclusive skin Glorious Eminence Renekton. The season is expected to end in September 2026. Check the Ranked queue in-game for the latest schedule.
+Ranked will also be getting a major update this season. Fortitude and Rising Star have been removed and replaced with a new Ranked Energy system. Earn additional Ranked Energy based on your in-game performance, with bonuses for achievements like MVP, S/A Ratings, and other standout plays. Ranked Energy contributes directly to your rank progression, rewarding strong performances in real time. To learn more about the Ranked update check our latest Patch Preview and Article.
+ Glorious Eminence Renekton will be released on July 10 at 03:00 UTC.
+NEW WILD PASS 
+The cameras are rolling, the spotlight is on, and it's time for your next blockbuster. The Movie Director Wild Pass premieres on July 9, 2026 at 00:00 UTC, starring Movie Director Ryze and Ascended Movie Director Ryze. Lights, camera... domination!
+Movie Director Ryze will be released on July 9 at 00:00 UTC. 
+ Cosmic Sting Skarner will be released on July 9 at 00:00 UTC. 
+Content Updates
+New personalization rewards: Battle Ensign – Movie Director Ryze and the exclusive emote "None But the Best."
+Returning Wild Pass skins can now be selected directly from Wild Pass rewards, letting you choose between the current featured skin or a returning Wild Pass skin.
+Returning Wild Pass skins:
+Dream Raider Kha'Zix
+Ascended Dream Raider Kha'Zix
+Superhero Jayce
+Ascended Superhero Jayce
+Returning Mini Wild Pass skins:
+Elderwood Xayah
+Elderwood Xayah (Indigo)
+Elderwood Rakan
+Elderwood Rakan (Turquoise)
+ Cosmic Sting Skarner Mini Wild Pass
+When the credits roll on the Movie Director Wild Pass, the Scorpio Deity Mini Wild Pass takes center stage on August 27, 2026 at 08:00 UTC, featuring Scorpio Deity Skarner and Scorpio Deity Ancient Wisdom Skarner. The Mini Wild Pass includes its own progression, missions, and exclusive rewards.
+A new Mini Wild Pass Return Track featuring Battlecast Nasus has been added. Progress is shared with the current Wild Pass, allowing you to unlock rewards from both tracks simultaneously.
+Wild Stars
+Wild Stars are shared between the Wild Pass and Mini Wild Pass while both are active. Any unused Wild Stars will expire once the Mini Wild Pass ends.
+COLLECTED LEGENDS 
+Collected Legends Season 7 arrives with an exclusive grand reward! Join the latest season to unlock three Cyber Pop Zoe chromas, new Companion Younglings, and Companion evolution materials.
+CHAMPION ADJUSTMENTS 
+ADJUSTMENTS TO MAGE SUMMON BUFFS 
+Some summoned units weren't inheriting their champion’s Magic Penetration, causing them to lose effectiveness as matches progressed. We've updated these summons to properly inherit Magic Penetration, improving their scaling and overall consistency. 
+P.S. Heimerdinger's turrets have always been ahead of the curve, they've been inheriting Magic Penetration all along. 
+ZYRA
+Garden of Thorns
+Plant’s damage’s Ability Power ratio: 15% → 10%
+[New] Plants now inherit Zyra’s Magic Penetration and Magic Penetration percentage when dealing damage.
+ANNIE
+Summon: Tibbers
+[New] Attacks of Tibbers now inherit Annie’s Magic Penetration and Magic Penetration percentage.
+BONUS ARMOR PENETRATION ADJUSTMENTS 
+K'Sante and Yasuo previously gained percentage Armor Penetration after casting their ultimates, making them too effective against nearly every target. We've updated this to Bonus Armor Penetration, which only applies to bonus Armor. This keeps their power against tankier champions while reducing their damage against squishier targets.
+YASUO
+Way of the Wanderer
+Shield: 115 ~ 600 (Based on Critical Rate and level) → 125 - 680 (Based on level)
+Shield generation is slower in the early game and faster in the late game. (roughly +-10%)
+Wind Wall
+Cooldown: 18/18/18/18s → 22/20/18/16s
+Sweeping Blade
+Number of repeat-thrust damage amplification stacks: 2 → 3 (Maximum damage amplification remains 75%)
+Last Breath
+Bonus: 40% Armor Penetration percentage → 55% Bonus Armor Penetration percentage
+K'Sante
+All Out
+Bonus: 50% Armor Penetration percentage → 50% Bonus Armor Penetration percentage
+OTHER CHAMPION ADJUSTMENTS
+KAI'SA
+Kai'Sa's ultimate is meant to be a versatile tool for both offense and defense, but it's often used primarily for its shield. We're increasing its landing area, giving Kai'Sa more freedom to reposition, kite, and outplay enemies after dashing to a target.
+Killer Instinct
+Maximum selectable landing range around the target: 4 → 5.5
+KAYN
+Umbral Trespass is getting a quality-of-life update to improve its flexibility, making it a more reliable tool for both engaging and escaping.
+Umbral Trespass
+Reduced the recovery lockout after exiting a target, allowing Kayn/Rhaast to respond to player inputs more quickly. 
+Maximum exit distance: Kayn, Darkin: 4 → 4.5
+Shadow Assassin: 6 → 6.5
+NORRA
+Norra's second ability has been frustrating to play against, leaving opponents with little room to react after she returns from another dimension. We're adding limits to the ability to create more opportunities to dodge her follow-up attacks.
+Journey to Nowhere
+Banish Duration: 2.25s →  1.5s
+After banishment ends, the target is slowed by 80% for 0.75s.
+SYNDRA
+Syndra's third ability had a pre-empowered cast range that didn't properly match the range of her second ability, causing combos to fail unexpectedly. We've adjusted its range to make her combos more consistent.
+Scatter the Weak
+Knockback range for Dark Spheres: 7.2 → 7.5
+ORIANNA
+Orianna's ultimate has struggled to keep up with more mobile opponents, making it feel less reliable than intended. We're increasing its range to improve consistency and better match its intended power.
+Command: Shockwave
+Range: 3  → 3.25
+FIDDLESTICKS
+Fiddlesticks' Fear has been less consistent than intended. We've shortened the grace period on his first ability after he becomes visible and fixed an issue that could cause enemies to be Feared unexpectedly, making the effect more predictable for both Fiddlesticks and his opponents.
+Terrify
+Slightly narrowed the window during which Fiddlesticks can still Fear enemies after entering their vision.
+Fixed an issue where Fiddlesticks could occasionally still apply Fear while revealed or in combat.
+VARUS
+Varus' ultimate is getting a quality-of-life update. Blight stacks will now build up at a rate that better matches the root duration, making the effect clearer and more consistent for both Varus and his opponents.
+Chain of Corruption
+Time required to fully stack Blight on the target: 3s → 1.5s
+ZED
+With Stasis Enchant no longer universally available, Zed has much more freedom to find picks. To keep that in check, we're making it riskier for him to engage by reducing how safely he can return with his ultimate.
+Death Mark
+After the ultimate lands, there is now a 0.5s window during which the return cast cannot be used.
+Cooldown: 85/65/45 → 85/70/55
+DARIUS
+This axe-wielding general has long faced an awkward lane pattern: if he doesn't use abilities to clear waves, he gets pushed in; if he does, he struggles to stack his passive quickly. We're changing that so his laning experience feels smoother.
+Crippling Strike
+Killing the target refunds 50% of the cooldown and 100% of the Mana cost of (2).
+LEE SIN
+Lee Sin's assassin builds have been too effective against squishier targets. We're shifting his power away from burst damage and toward a more fighter-oriented playstyle, while keeping a close eye on his overall performance.
+Sonic Wave / Resonating Strike
+Base damage: 55/90/125/160 + 100% bonus Attack Damage → 60/100/140/180 + 90% bonus Attack Damage
+Tempest
+Damage: 90/140/190/240 + 125% bonus Attack Damage → 35/70/105/140 + 90% Attack Damage
+Dragon's Rage
+Damage: 100/250/400 + 180% bonus Attack Damage + 10/13/16% Target's Max Health  → 125/350/575 + 190% bonus Attack Damage + 12/15/18% Target's bonus Health
+ITEM ADJUSTMENTS 
+Active Enchantment Item Change
+Active Enchantments have long been one of the most impactful systems in Wild Rift, but they've also become one of the hardest to balance. While they create exciting outplay moments, they also flatten champion matchups by giving nearly every champion access to the same powerful defensive or utility tools. To address this, we're fundamentally changing how Active Enchantments work. Instead of being purchasable by every champion, active effects are now tied to champion classes. This gives each class more distinct strengths and weaknesses while opening up greater item build diversity, since players will no longer be expected to purchase the same Enchantments every game. As with any system update of this scale, we'll be closely monitoring performance across all classes and make follow-up adjustments where needed. To ease the transition, we've also buffed several defensive items for physical damage dealers to help compensate for the loss of defensive Enchantments.
+Stridebreaker 
+We want Stridebreaker to serve as a close-range engage tool built specifically for juggernauts.
+Base Stats:
+Price: 3100
+Build Path: Jaurim's Fist(1200) + Phage(1000) + Dagger (500) + 400
+Attack Damage: 40
+Max Health: 400
+Attack Speed: 15%
+Breaking Shockwave (Active):
+Dash a short distance forward and deal physical damage equal to 100% Attack Damage to nearby enemies. Enemies hit are slowed by 40% for 3s. (25s cooldown)
+Stride:
+Dealing physical damage grants 20 Movement Speed for 2s.
+Goredrinker 
+Goredrinker will give fighters stronger sustain while making it harder for tanks to abuse.
+Base Stats:
+Price: 3100
+Build Path: Jaurim's Fist(1200) + Phage(1000) + Ring of Revelation(300) + 500
+Attack Damage: 40
+Max Health: 350
+Ability Haste: 15
+Omnivamp: 8%
+Thirsting Slash (Active):
+Deal physical damage equal to 175% Attack Damage to nearby enemies. Restore Health equal to 20% Attack Damage + 10% missing Health for each enemy hit. (12s cooldown)
+Quicksilver Sash 
+Quicksilver Sash and Mercurial Scimitar give marksmen and some fighters access to crowd control cleansing.
+Base Stats:
+Price: 1100
+Build Path: Null-Magic Mantle (500) + 600
+Magic Resist: 30
+Quicksilver (Active):
+Remove all crowd control effects from your champion and become immune to all crowd control for 0.25s. Afterwards, gain 30% Tenacity and 30% slow resist for 1.5s. (60s cooldown)
+Mercurial Scimitar 
+Base Stats:
+Price: 3100
+Build Path: Quicksilver Enchant (1100) + Vampiric Scepter (1200) + Long Sword (500) + 300
+Attack Damage: 45
+Magic Resist: 40
+Physical Vamp: 10%
+Quicksilver (Active):
+Remove all crowd control effects from your champion and become immune to all crowd control for 0.25s. Afterwards, gain 30% Tenacity and 30% slow resist for 1.5s. (60s cooldown)
+Galeforce 
+Galeforce gives crit-based marksmen both offensive and defensive flexibility.
+Base Stats:
+Price: 3100
+Build Path: B. F. Sword(1500) + Zeal(1400) + 200
+Attack Damage: 50
+Attack Speed: 15%
+Critical Rate: 25%
+Movement Speed: 5%
+Cloudburst (Active):
+Dash in the target direction and fire 3 projectiles at the lowest-Health enemy near the destination, dealing a total of 40-125 (based on level) + 35% bonus Attack Damage physical damage. (60s cooldown)
+Hextech Rocketbelt 
+Hextech Rocketbelt fits mages that want to play aggressively and force forward.
+Base Stats:
+Price: 2700
+Build Path: Hextech Alternator (1100) + Amplifying Tome (500) + Kindlegem (1000) + 100
+Ability Power: 70
+Max Health: 250
+Ability Haste: 20
+Protobelt (Active):
+Dash toward the target direction and unleash 7 magic bolts, dealing 100 + 10% Ability Power magic damage to enemies hit. (30s cooldown)
+If a champion or monster is hit by more than one missile, each additional missile only deals 10% damage.
+Seeker's Armguard 
+Seeker's Armguard and Zhonya's Hourglass give mages tools to withstand burst damage.
+Base Stats:
+Price: 1400
+Build Path: Blasting Wand (800) + Cloth Armor (500) + 100
+Ability Power: 35
+Armor: 20
+Stasis (Active):
+Become immune to damage and untargetable for 2.5s, but you cannot move, attack, cast abilities, or use items again during this time. (120s cooldown)
+Zhonya's Hourglass 
+Base Stats:
+Price: 3300
+Build Path: Seeker's Armguard(1400) + Needlessly Large Rod(1400) + 500
+Ability Power: 110
+Armor: 40
+Stasis (Active):
+Become immune to damage and untargetable for 2.5s, but you cannot move, attack, cast abilities, or use items again during this time. (120s cooldown)
+Gargoyle Stoneplate
+Provides tanks with explosive defensive power.
+Base Stats:
+Price: 2900
+Build Path: Chain Vest(900) + Negatron Cloak(900) + Ruby Crystal(500) + 600
+Armor: 45
+Magic Resist: 45
+Max Health: 200
+Ability Haste: 10
+Stoneplate (Active):
+Gain a shield equal to 100 + 90% bonus Health that rapidly decays over 2.5s. (60s cooldown)
+Redemption 
+Redemption has struggled to find a clear home and often lacked satisfying feedback, so we're bringing back the older version. It provides teams with a burst AoE heal and leans toward enchanter-style stats.
+Base Stats:
+Price: 2600
+Build Path: Fiendish Codex (900) + Forbidden Idol (900) + 800
+Max Health: 150
+Ability Power: 50
+Ability Haste: 15
+Heal and Shield Power: 5%
+Base Mana Regen: 50%
+Salvation (Active):
+Select a large area. After 2.5s, call down a beam of light that heals allied champions for 150-350 Health (scaling with ally level) and burns enemy champions for true damage equal to 10% of their max Health. (60s cooldown)
+This item can be activated while dead.
+Locket of the Iron Solari 
+Locket of the Iron Solari provides a burst AoE shield for the team and leans toward tank-oriented stats.
+Base Stats:
+Price: 2600
+Build Path: Kindlegem(1000) + Cloth Armor(500) + Null-Magic Mantle(500) + 600
+Max Health: 200
+Armor: 30
+Magic Resist: 30
+Ability Haste: 10
+Locket (Active):
+Grant yourself and nearby allies a shield that absorbs 250-370 damage for 2.5s. (60s cooldown)
+If that target has received this effect within the last 20s, the shield value is halved.
+Shurelya's Battlesong 
+Shurelya's Battlesong gives the team a burst of AoE Movement Speed.
+Base Stats:
+Price: 2600
+Build Path: Aether Wisp(950) + Amplifying Tome(500) + Ring of Revelation(300) + 850
+Ability Power: 35
+Ability Haste: 20
+Base Mana Regen: 50%
+Movement Speed: 5%
+Inspiring Speech (Active):
+Grant nearby allies 30% Movement Speed for 4s. (60s cooldown)
+Mikael's Blessing 
+Mikael's Blessing gives supports a way to protect allies from crowd control.
+Base Stats:
+Price: 2500
+Build Path: Forbidden Idol(900) + Kindlegem(1000) + 600
+Max Health: 300
+Ability Haste: 15
+Heal and Shield Power: 6%
+Base Mana Regen: 50%
+Cleanse (Active):
+Remove all crowd control effects from the target champion and make them immune to all crowd control except suppression and airborne effects for 0.2s. Also heals the target for 150-250 Health. (90s cooldown)
+Glorious Enchant [Removed] 
+Veil Enchant [Removed] 
+Dream Maker [Removed] 
+BOOTS ADJUSTMENTS
+We're continuing our overhaul of the boot system. While last patch laid the groundwork, boots still weren't meeting our goals for item progression and build satisfaction.Tier 2 Boots have been updated with streamlined recipes and more specialized stats, making early purchases smoother while restoring classic effects like Mercury's Treads' Tenacity. Rather than serving as universally efficient stat sticks, each pair of boots is now better suited to specific combat situations and champion classes. We're also introducing Tier 3 Boots, giving champions a meaningful late-game upgrade path with powerful new passive effects. To keep early-game pacing intact, Tier 3 Boots can only be upgraded later in the match.
+Boots of Mana 
+Base Stats:
+Price: 900 → 1200
+Build Path: Boots of Speed(400) + 500 → Boots of Speed(400) + Amplifying Tome(500) + 300
+Ability Power: 15 → 25
+Mana Regen: 100% → 75%
+Mercury's Treads 
+Base Stats:
+Price: 900 → 1200
+Build Path: Boots of Speed (400) + 500 → Boots of Speed (400) + Ruby Crystal (500) + 300
+Max Health: 200 → 150
+Health Regen: 50% → 0
+Magic Resist: 20 → 25
+Tenacity: 0 → 15%
+Berserker's Greaves 
+Base Stats:
+Price: 900 → 1200
+Build Path: Boots of Speed(400) + 500 → Boots of Speed(400) + Dagger(500) + 300
+Attack Speed: 25% → 30%
+Plated Steelcaps 
+Base Stats:
+Price: 900 → 1200
+Build Path: Boots of Speed (400) + 500 → Boots of Speed (400) + Ruby Crystal (500) + 300
+Health Regen: 50% →0
+Armor: 20 → 25
+[New] Block:
+Basic attacks from champions deal 6% reduced damage to you.
+Gluttonous Greaves 
+Base Stats:
+Price: 900 →1000
+Build Path: Boots of Speed(400) + 500 → Boots of Speed(400) + 600
+Attack Damage: 10→ 0
+[New] Balanced of Power:
+Gain 12 Attack Damage or 20 Ability Power.
+[New] Convertion:
+Gain 5% Omnivamp + 0.5% Omnivamp for each takedown participation, up to an additional 5% and a maximum of 10% Omnivamp.
+Boots of Dynamism 
+Base Stats:
+Price: 900 →1200
+Build Path: Boots of Speed (400) + 500 → Boots of Speed (400) + Long Sword (500) + 300
+Attack Damage: 10 → 15
+Armor Penetration: 8 → 10
+Ionian Boots of Lucidity 
+Base Stats:
+Price: 900 → 1000
+Build Path: Boots of Speed(400) + 500 → Boots of Speed(400) + Ring of Revelation(300) + 300
+Max Health: 100 → 0
+Tier 3 Boots Purchase Regulations
+Once the game time reaches 10:00, you can upgrade their boots into the corresponding Tier 3 version.
+Spellslinger's Shoes (Boots of Mana Upgrade) [New] 
+Base Stats:
+Price: 2200
+Build Path: Boots of Mana(1200) + 1000
+Ability Power: 40
+Mana Regen: 100%
+Magic Penetration: 18
+Magic Penetration Rate: 8%
+Big Bully:
+Basic attacks and active abilities deal an additional 22 true damage to minions.
+Chainlaced Crushers (Mercury's Treads Upgrade) [New] 
+Base Stats:
+Price: 2200
+Build Path: Mercury's Treads(1200) + 1000
+Max Health: 150
+Magic Resist: 35
+Tenacity: 30%
+Noxian Persistence:
+Taking magic damage from champions grants a magic shield equal to 20 - 140 (based on level) + 5% of your max Health (12-second cooldown).
+Gunmetal Greaves (Berserker's Greaves Upgrade) [New] 
+Base Stats:
+Price: 2200
+Build Path: Berserker's Greaves(1200) + 1000
+Attack Speed: 50%
+Physical Vamp: 5%
+Blessed blade:
+Basic attacks restore 12 Health on hit.
+Noxian Gait:
+When your basic attacks hit champions, gain 15% (melee) / 10% (ranged) burst Movement Speed for 2 seconds.
+Armored Advance (Plated Steelcaps Upgrade) [New] 
+Base Stats:
+Price: 2200
+Build Path: Plated Steelcaps(1200) + 1000
+Max Health: 150
+Armor: 35
+Block:
+Basic attacks from champions deal 10% reduced damage to you.
+Noxian Endurance:
+Taking physical damage from champions grants a physical shield equal to 20 - 140 (based on level) + 5% of your max Health. (12-second cooldown)
+Immortal Treads (Gluttonous Greaves Upgrade) [New] 
+Base Stats:
+Price: 2000
+Build Path: Gluttonous Greaves(1000) + 1000
+Balanced of Power:
+Gain 12 Attack Damage or 20 Ability Power.
+Convertion:
+Gain 5% Omnivamp + 0.5% Omnivamp for each takedown participation, up to an additional 5% and a maximum of 10% Omnivamp.
+Now and Forever:
+While above 50% Health, deal 5% bonus damage. While below 50% Health, gain 12% increased Healing and Shielding.
+Armorcrusher Boots (Boots of Dynamism upgrade) [New] 
+Base Stats:
+Price: 2200
+Build Path: Boots of Dynamism(1200) + 1000
+Attack Damage: 25
+Armor Penetration: 12
+Armor Penetration percentage: 6%
+Cloudwalker:
+Gain 20 out-of-combat Movement Speed.
+Crimson Lucidity (Ionian Boots of Lucidity upgrade) [New] 
+Base Stats:
+Price: 2000
+Build Path: Ionian Boots of Lucidity(1000) + 1000
+Mana Regen: 75%
+Ability Haste: 25
+Summoned:
+Gain 20% Summoner Spell Haste.
+Noxian Haste:
+After damaging an enemy champion with an ability, shielding or healing an allied champion, or casting a Summoner Spell, gain 10% (melee) / 8% (ranged) Movement Speed for 4 seconds. The same ability can only trigger this once every 4 seconds.
+MAGE ITEM UPDATES
+We're giving the mage item system a comprehensive update to strengthen class identity and expand build diversity.Traditional mages have become too reliant on stacking Magic Penetration, making them scale similarly to marksmen while limiting their early and mid-game impact. To address this, we're reworking Magic Penetration and updating mage item stats, while improving first-item options like Malignance and Luden's Echo so mages can become stronger playmakers earlier in the game. We're also refining the identity and build paths of mage items while introducing several new ones. Burst-focused builds will offer higher damage at the cost of Ability Haste, while spell-focused builds will trade raw burst for more frequent spellcasting. These changes are intended to create clearer strengths, weaknesses, and choices across mage builds.
+All Tier 3 Mage Items Adjustments 
+Tier 3 mage item Magic Penetration: 7% → 0
+Penetration has now been consolidated into Void Amethyst, Spellslinger's Shoes, Void Staff, Cryptbloom, and Bloodletter's Curse.
+Amplifying Tome
+Base Stats:
+Ability Power: 25 → 20
+Lost Chapter 
+Base Stats:
+Price: 900 → 1200
+Build Path: Amplifying Tome (500) + 400 → Amplifying Tome (500) + Ring of Revelation (300) + 400
+Ability Power: 30 → 35
+Ability Haste: 0 → 10
+ [New] Enlighten:
+Upon leveling up, restore a total of 20% max Mana over 3 seconds.
+Hextech Alternator 
+Base Stats:
+Price: 1400 → 1100
+Build Path: Amplifying Tome(500) + Ruby Crystal(500) + 400 → Amplifying Tome(500) + 600
+Ability Power: 25 → 45
+Max Health: 150 → 0
+Fiendish Codex 
+Base Stats:
+Price: 1000 → 900
+Ability Power: 35 → 25
+Needlessly Large Rod 
+Base Stats:
+Price: 1500 →1400
+Build Path: Amplifying Tome(500) + Amplifying Tome(500) + 500 → Amplifying Tome(500) + 900
+Ability Power: 60 → 65
+Haunting Guise 
+Base Stats:
+Price: 900 → 1300
+Build Path: Amplifying Tome (500) + 400 →Amplifying Tome (500) + Ruby Crystal (500) + 300
+Max Health: 100 → 200
+ [New] Madness:
+While fighting enemy champions, deal 2% additional damage each second, up to 6%.
+Fated Ashes 
+Base Stats:
+Price: 900
+Build Path: Amplifying Tome (500) + 400
+Ability Power: 40
+ Inflame:
+Damaging abilities deal an additional 15 magic damage over 3 seconds.
+Deals an additional 45 magic damage to monsters.
+Blackfire Torch 
+We're positioning Blackfire Torch as a premier first item for champions who rely on frequent spellcasting. It offers high Ability Haste while scaling its Ability Power over the course of a fight, making it an excellent choice for burn-focused champions like Brand and Lillia.
+Base Stats:
+Price: 2800
+Build Path: Lost Chapter(1200) + Fated Ashes(900) + 700
+Ability Power: 80
+Max Mana: 500
+Ability Haste: 20
+Baleful Blaze:
+Damaging abilities deal an additional 20 + 2% Ability Power magic damage per second for 3 seconds. Against monsters, they deal 40 + 2% Ability Power magic damage per second.
+Blackfire:
+Each enemy champion, epic monster, and large monster affected by your Black Flame grants you 4% Ability Power.
+Rod of Ages 
+We've updated Rod of Ages to better fulfill its role as a scaling Mana item. It now provides more Mana while trading some Ability Power and Health, making it a stronger choice for traditional mages and Mana-hungry champions like Ryze and Kassadin.
+Base Stats:
+Price: 2800 →2700
+Ability Power: 60 → 50
+Max Health: 250 → 350
+Mana: 300 → 400
+Veteran:
+Stats granted per stack:Max Health: 25 → 15 (500→ 300)
+Mana: 10 → 30 (400 → 700)
+Ability Power: 6 → 4 (120 → 100)
+Dusk and Dawn 
+Dusk and Dawn gives AP fighters an item that better supports their intended playstyle. With double-trigger on-hit damage and stats tailored for extended fights, it rewards weaving basic attacks between abilities while providing the sustained combat power this subclass has been missing.
+Base Stats:
+Price: 3100
+Build Path: Sheen (800) + Blasting Wand (800) + Kindlegem (1000) + 500
+Ability Power: 70
+Max Health: 350
+Ability Haste: 20
+Attack Speed: 25%
+Spellblade:
+After casting an ability, your next attack deals an additional on-hit effect equal to 75% base Attack Damage + 10% Ability Power as magic damage and applies one extra on-hit effect to the target. (1.5-second cooldown)
+Infinity Orb 
+Infinity Orb is doubling down on its role as a burst item. We're making its execute effect even more rewarding for burst mages and assassins, while removing its Movement Speed and takedown area damage to reduce its overall utility.
+Base Stats:
+Price: 2900 → 3100
+Build Path: Aether Wisp(950) + Prophet's Pendant(1000) + 950 → Hextech Alternator(1100) + Needlessly Large Rod(1400) + 600
+Ability Power: 80 → 110
+5% Movement Speed → removed
+Thunderfall:
+Removed
+Stormsurge 
+Stormsurge is now a stronger early-to-mid-game option for burst mages. It provides flat Magic Penetration while enhancing roaming potential and rewarding quick eliminations through its Squall passive.
+Base Stats:
+Price: 2900
+Build Path: Hextech Alternator (1100) + Aether Wisp (950) + 850
+Ability Power: 90
+Magic Penetration: 15
+Movement Speed: 6%
+Stormraider:
+When you deal damage equal to 25% of a champion's max Health within 2.5 seconds, inflict Squall on them and gain 25% Movement Speed for 2.5 seconds. (25-second cooldown)
+Squall:
+After 2 seconds, deal 125 + 10% Ability Power magic damage. If the target dies before Squall triggers, it instead deals the same amount of damage to nearby enemies and grants 25 gold.
+Void Amethyst 
+Base Stats:
+Price: 1000
+Build Path: Amplifying Tome(500) + 500
+Ability Power: 20
+Magic Penetration percentage: 10%
+Void Staff 
+Void Staff remains the premier late-game Magic Penetration item for mages. It's the go-to choice for breaking through high Magic Resist and maximizing your damage against tankier targets.
+Base Stats:
+Price: 3000
+Build Path: Void Amethyst (1000) + Needlessly Large Rod (1400) + 600
+Ability Power: 95
+Magic Penetration percentage: 40%
+Cryptbloom 
+Cryptbloom offers percent Magic Penetration alongside Ability Haste, making it a strong choice when enemies aren't heavily stacking Magic Resist. Its supportive passive also adds extra value for teamfights.
+Base Stats:
+Price: 3000
+Build Path: Void Amethyst (1000) + Fiendish Codex (900) + Amplifying Tome (500) + 600
+Magic Penetration Rate: 30%
+Ability Haste: 20
+Life from Death:
+Whenever an enemy champion dies within 3 seconds of taking damage from you, create a nova at their location that heals allied champions for 100 + 20% Ability Power Health. (60-second cooldown)
+Bloodletter's Curse 
+Bloodletter's Curse is the premier Magic Penetration item for burn-focused champions. Its Magic Resist shred stacks quickly through burn effects, amplifying both your damage and your team's.
+Base Stats:
+Price: 2900
+Build Path: Haunting Guise (1300) + Fiendish Codex (900) + 700
+Ability Power: 65
+Max Health: 350
+Ability Haste: 15
+Vile Decay:
+When abilities or passives deal magic damage to champions, reduce their Magic Resist by 7.5% for 6 seconds, stacking up to 30%.
+Banshee's Veil 
+We've folded Crown of the Shattered Queen's effect into Banshee's Veil to simplify the item system and better define each item's role. Banshee's Veil is now the go-to defensive option against burst mages, combining a spell shield with Magic Resist for greater survivability in teamfights.
+Base Stats:
+Price: 3000
+Build Path: Verdant Barrier(1600) + Blasting Wand(800) + 600
+Ability Power: 105
+Magic Resist: 40
+Annul:
+Grants a spell shield that blocks the next enemy ability. (30-second cooldown)
+Verdant Barrier 
+As a component of Banshee's Veil, we want you to access the benefit of a spell shield earlier.
+Base Stats:
+Price: 1600
+Build Path: Amplifying Tome(500) + Null-Magic Mantle(500) + 600
+Ability Power: 40
+Magic Resist: 25
+Annul:
+Grants a spell shield that blocks the next enemy ability. (30-second cooldown)
+Liandry's Torment 
+We've updated Liandry's Torment to be a stronger option throughout the game instead of a purely late-game purchase. Its passive has been adjusted to provide more consistent value, making it a solid early pickup for sustained damage.
+Base Stats:
+Build Path: Haunting Guise (900) + Blasting Wand (800) + Ruby Crystal (500) + 800 → Haunting Guise (1300) + Fated Ashes (900) + 800
+Ability Power: 75 →70
+Max Health: 250 → 300
+Torment:
+Max Health Damage: 0.6% - 3%(based on level) → 2%
+[New] Madness:
+While fighting enemy champions, deal 2% additional damage each second, up to 6%.
+Cosmic Drive 
+We're updating Cosmic Drive to better support a wider range of mages. While it will still offer the highest Movement Speed among mage items, we're trading some raw speed for longer-lasting mobility and added Health, making it a stronger option for kiting and sustained-damage playstyles.
+Base Stats:
+Price: 2800 → 3000
+Build Path: Aether Wisp(950) + Fiendish Codex(1000) + 850 → Aether Wisp(950) + Fiendish Codex(900) + Kindlegem(1000) + 150
+Ability Power: 75→70
+Max Health: 0 → 300
+Ability Haste: 30 → 25
+Spellweaving:
+Dealing magic damage or true damage to champions grants 30 bonus Movement Speed for 4 seconds.
+Riftmaker 
+We're sharpening Riftmaker's identity as an AP fighter item. It now offers stronger sustained-fight power through extended combat, with Omnivamp and damage amplification that also synergize well with true damage champions like Gwen.
+Base Stats:
+Price: 3200 →3100
+Build Path: Hextech Alternator (1400) + Fiendish Codex (1000) + 800 → Haunting Guise (1300) + Fiendish Codex (900) + 900
+Ability Power: 80 → 70
+Max Health: 150 → 350
+Void Corruption:
+While fighting enemy champions, deal 2% additional damage each second, up to 8%. At maximum strength, gain Omnivamp equal to 10% (melee) / 6% (ranged).
+Void Infusion:
+Gain Ability Power equal to 2% of your bonus Health.
+Archangel's Staff 
+We're smoothing out Archangel's Staff's power curve. It now offers stronger baseline stats as a Legendary item while reducing some of its fully stacked power, with slightly slower stacking to create more consistent scaling throughout the game.
+Base Stats:
+Price: 2950→3000
+Build Path: Tear of the Goddess(900) + Lost Chapter(900) + Ring of Revelation(400) + 750 → Tear of the Goddess(500) + Lost Chapter(1200) + Fiendish Codex(900) + 400
+Ability Power: 35 → 60
+Ability Haste: 20 → 25
+Mana Charge: 
+Bonus Max Mana: 18 → 14
+Seraph's Embrace 
+Base Stats:
+Ability Power: 35 → 60
+Ability Haste: 20 → 25
+Awe:
+Ability Power conversion from max Mana: 3% → 2%
+Lifeline:
+Shield conversion from max Mana: 15% → 20%
+Cooldown: 90s → 70s
+Rabadon's Deathcap 
+As part of the mage item update, we've adjusted Rabadon's Deathcap's Ability Power and changed its amplification to a fixed value, making its late-game power more consistent and easier to balance.
+Base Stats:
+Ability Power: 100 → 130
+Overkill:
+Ability Power ratio: 20%-45% (based on level) → 30%
+Oceanid's Trident 
+Base Stats:
+Build Path: Haunting Guise(1300) + Blasting Wand(800) + 900 → Fiendish Codex(900) + Blasting Wand(800) + Ruby Crystal(500) + 400
+Ability Power: 75 → 80
+Ability Haste: 0 → 10
+Luden’s Echo 
+We want Luden's Echo to offer more early-game strength for burst mages, and we have also reworked its complex charge mechanic.
+Base Stats:
+Price: 2900 →2800
+Build Path: Lost Chapter (900) + Blasting Wand (800) + Ring of Revelation (400) + 800 →Lost Chapter (1200) + Hextech Alternator (1100) + 500
+Ability Power: 85→ 100
+Max Mana: 300 → 500
+Ability Haste: 20 → 10
+Discordic Echo:
+Cooldown mechanic: Charge-based (generated by movement and casting) → Fixed 10 seconds
+Malignance 
+Base Stats:
+Price: 2800 → 2700
+Build Path: Lost Chapter(900) + Fiendish Codex(900) + Ring of Revelation(400) + 600 → Lost Chapter(1200) + Blasting Wand(800) + 700
+Ability Power: 80 → 90
+Max Mana: 400 → 500
+Ability Haste: 20 → 15
+Lich Bane 
+Base Stats:
+Ability Power: 80 → 100
+Spellblade:
+Ability Power ratio of magic damage: 50% → 45%
+Rylai's Crystal Scepter 
+Base Stats:
+Build Path: Giant's Belt(1000) + Blasting Wand(800) + 900 → Giant's Belt(1000) + Blasting Wand(800) + Amplifying Tome(500) + 400
+Max Health: 300 → 350
+Horizon Focus 
+Base Stats:
+Price: 2900 → 2700
+Build Path: Fiendish Codex (1000) + Blasting Wand (800) + Ring of Revelation (400) + 700 → Fiendish Codex (900) + Fiendish Codex (900) + Amplifying Tome (500) + 400
+Ability Haste: 20 → 25
+Hypershot:
+Bonus Damage: 9% → 10%
+Morellonomicon 
+Base Stats:
+Price: 2600 → 2650
+Build Path: Oblivion Orb(900) + Fiendish Codex(900) + 800→ Kindlegem(1000) + Oblivion Orb(900) + Amplifying Tome(500) + 250
+Max Health: 150 → 300
+Ability Haste: 20→ 15
+Prophet's Pendant [Removed] 
+We believe flat penetration is too valuable in the early game to be available on a mid-tier item, so we are removing it. In its place, Hextech Alternator can serve as the burst-oriented mid-tier option.
+Bandle Fantasy [Removed] 
+Bandle Fantasy does not have a clear role. Its effect overlaps with Luden's Echo, it has low usage, and it does not occupy a defined niche in the new mage item ecosystem, so we decided to remove it.
+Psychic Projector [Removed] 
+We're removing Psychic Projector as part of the mage item update. It provided too much durability by combining high Armor and Magic Resist in a single item. Mage fighters can now turn to Riftmaker for sustained combat, while Zhonya's Hourglass and Banshee's Veil serve as the dedicated Armor and Magic Resist defensive options.
+Crown of the Shattered Queen [Removed] 
+We're removing Crown of the Shattered Queen and folding its effect into Banshee's Veil. This simplifies the mage item system while giving Banshee's Veil a clearer defensive identity.
+Awakened Soulstealer [Removed] 
+We're removing Awakened Soulstealer as part of the mage item update. Its combination of Magic Penetration, Ability Haste, and a high-impact passive gave burst mages too many strengths in a single item, making it a poor fit for the new mage item ecosystem.
+Support Item Adjustments
+We're updating enchanter items to reduce the excessive amounts of Ability Haste available in the late game, making near-constant shielding and healing less reliable. At the same time, we're giving some underused support items a boost to improve build diversity.
+Ring of Revelation 
+Price: 400 → 300
+Ability Haste: 10 → 5
+Harmonic Echo 
+Base Stats:
+Price: 2600 → 2800
+Ability Haste: 10 → 15
+Heal and Shield Power: 8% → 5%
+Harmonic Echo:
+Healing and Shield Power: 150% → 130%
+Base healing: 120-180 (based on level) → 100-160 (based on level)
+Forbidden Idol 
+Base Stats:
+Ability Haste: 10 → 5
+Ardent Censer 
+Base Stats:
+Ability Power: 35 → 45
+Ability Haste: 20 → 10
+Censer:
+Now also triggers when healing a target at full Health.
+Bonus Attack Speed: 15%-40% (based on level) →15%-34% (based on level)
+Bonus damage: 16-30 (based on level) → 16-22 (based on level) 
+Staff of Flowing Waters 
+Base Stats:
+Price: 2600 → 2500
+Ability Power: 45 → 50
+Ability Haste: 20 → 15
+Rapids:
+Now also triggers when healing a target at full Health.
+Ability Haste gained: 10 →15
+Ability Power gained: 20-40 (based on level) →30-50 (based on level)
+Imperial Mandate 
+Base Stats:
+Ability Power: 40 →50
+Frozen Heart 
+Base Stats:
+Price: 2700 → 2650
+Mana: 200 → 250
+Ability Haste: 25 → 20
+Yordle Trap 
+The gold provided by the trap was simply too high. Tank supports with a lead could snowball far too quickly and become nearly unkillable, so this is also part of our broader effort to pull back item power.
+Base Stats:
+Price: 2500 → 2600
+Catcher:
+Self Movement Speed bonus: 30% → 10%
+Gold gained: 200-240→100-140
+Redemption 
+Has been moved into the active item Redemption.
+Other Items 
+Tear of the Goddess 
+We believe Tear of the Goddess should be available as a starting item. For champions that need to stack it, starting the game with Sapphire Crystal may not provide the stats they need, while a 900-gold Tear of the Goddess may not be directly purchasable on the first recall. We are therefore lowering its price and slightly reducing its stacking speed.
+Base Stats:
+Price: 900 → 500
+Mana: 300 → 200
+Ability Haste: 10 → 5
+Mana Charge:
+Max Mana gained per stack: 7 → 6
+Tear of the Goddess is now a basic item.
+Guardian Angel 
+With defensive Enchantments removed for many classes, we're expanding defensive item options. Guardian Angel has long been too expensive and inefficient to justify its cost, so we're giving it a broad buff to make it a more appealing choice for fighters and marksmen.
+Base Stats:
+Price: 3400 → 3200
+Attack Damage: 40 → 45
+Resurrect:
+Mana restored on revive: 30% → 100%
+Cooldown: 210s → 180s
+Sterak's Gage 
+Lifeline items are receiving a broad round of adjustments so their cooldowns better match the pace of combat.
+Lifeline:
+Cooldown: 90s → 75s
+Maw of Malmortius 
+Lifeline:
+Cooldown: 90s → 75s
+Mantle of the Twelfth Hour 
+Lifeline:
+Cooldown: 90s → 75s
+Edge of Night 
+Base Stats:
+Price: 3150 → 3000
+Force of Nature 
+Absorb:
+Damage reduction at max stack: 25% → 20%
+Serylda's Grudge 
+Frostbite:
+Damage: 10 + 2-30 (based on level) + 40% bonus Attack Damage → 5 + 1-15 (based on level) + 15% bonus Attack Damage
+Essence Reaver 
+Base Stats:
+Attack Damage: 35 → 40
+Spellblade:
+Damage: 90% base Attack Damage → 70% base Attack Damage
+Maximum stored stacks: 3 → 2 
+Blade of the Ruined King 
+Base Stats:
+Attack Damage: 25 → 40
+Ruined Strikes
+Current Health damage for ranged champions: 8.5% → 7%
+Sunfire Aegis 
+Damage per stack: 11% → 5%
+Max stacks: 4 → 6 
+Thornmail 
+Thorns
+Damage ratio based on Bonus Health: 2% → 1%
+Sapphire Crystal [Removed] 
+RUNES 
+We're reducing the overall power of runes so champions and items play a bigger role in defining gameplay. Runes have become too impactful, often covering intended weaknesses or providing too much power with little tradeoff. This patch includes broad nerfs across most runes, bringing the system back to its intended role as a complement to your champion and build rather than the defining source of their strength.
+Electrocute 
+Damage: 40-194 (based on level) + 35% bonus Attack Damage + 20% Ability Power → 40-210 (based on level) + 10% bonus Attack Damage + 5% Ability Power
+Dark Harvest 
+Damage: 40 + 10* Number of Souls + 25% bonus Attack Damage + 15% Ability Power → 35 + 11* Number of Souls + 10% bonus Attack Damage + 5% Ability Power
+Empowerment 
+Damage: 60–200 (based on level) → 40–165 (based on level)
+Damage Amplification: 9% → 8% 
+Lethal Tempo 
+Melee Attack Speed: 8%–16% (based on level) → 6%–14% (based on level)
+Ranged Attack Speed: 3%–10% (based on level) → 3.5%–8% (based on level)
+Attack Range: 50 (melee) / 75 (ranged) → 25 (melee) / 50 (ranged)
+Fleet Footwork 
+Healing: 15–85 (based on level) + 30% bonus Attack Damage + 30% Ability Power →15–110 (based on level) + 15% bonus Attack Damage + 10% Ability Power
+Attack Speed: 100% → 40% 
+Conqueror 
+Attack Damage per Stack: 3–7 (based on level)→ 3–5 (based on level)
+Ability Power per Stack: 4–11 (based on level) → 4–8 (based on level) 
+Grasp of the Undying 
+Damage: 1.5% max Health →3.3% max Health
+Heal: 2.5% max Health → 1.3% max Health
+Guardian 
+Cooldown: 40-20s -> 55-25s
+Shield: 45-180 (based on level) + 5% bonus Health + 15% Ability Power -> 40-165 (based on level) + 6% bonus Health + 15% Ability Power
+Aery 
+Bonus Damage: 20% bonus Attack Damage + 10% Ability Power →10% bonus Attack Damage + 5% Ability Power
+Shield: 30-140(based on level) + 40% bonus Attack Damage + 20% Ability Power → 25-120(based on level) + 10% bonus Attack Damage + 5% Ability Power
+Arcane Comet 
+Damage: 18-95 (based on level) + 3* hit count + 35% bonus Attack Damage + 20% Ability Power → 15-100 (based on level) + 2* hit count + 10% bonus Attack Damage + 5% Ability Power
+Phase Rush 
+Ranged Movement Speed bonus: 30%-50% (based on level) >>> 20%-35% (based on level)
+Ability Haste: 25 → 10
+Slow Resist: 75% → 60%
+Cooldown: 12s→ 21-7s(based on level)
+First Strike 
+Gold gain ratio: 100% (melee)/85% (ranged) → 60% (melee)/45% (ranged)
+Ice Overlord 
+Movement Speed: 1.5%bonus Health + 20% → 1%bonus Health + 15%
+Armor and Magic Resistance: 35 + 80% bonus Armor + 80% bonus Magic Resistance → 35 + 75% bonus Armor + 75% bonus Magic Resist
+Damage: 25-125(based on level) + 5% bonus Health → 15 -100(based on level) + 5% bonus Health
+Domination 
+Sudden Impact 
+Damage: 10-80 (based on level) →15-65 (based on level)
+Bonus damage at level 5: 10 → 5
+Bonus damage at level 9: 20 → 5
+Eyeball Collection 
+Per-stack bonus: 2 Attack Damage/4 Ability Power → 1.5 Attack Damage/3 Ability Power
+Zombie Ward 
+Per-stack bonus: 4 Attack Damage/8 Ability Power → 3 Attack Damage/6 Ability Power
+Empowered Attack 
+Damage: 35-50 (based on level) → 20-60 (based on level)
+Chain Assault 
+Damage: 20-35 (based on level) + 5% bonus Attack Damage + 2.5% Ability Power →12-38 (based on level) + 3% bonus Attack Damage + 1.5% Ability Power
+Tyrant 
+Damage: 30-50 (based on level) + 7.5% bonus Attack Damage + 3.5% Ability Power → 20-70 (based on level) + 6% bonus Attack Damage + 3% Ability Power
+Sorcery 
+Transcendence 
+Ability Haste at level 1: 6 → 5
+Ability Haste at level 5: 6 → 5
+Cooldown refund on hit: 10% → 8%
+Hexflash 
+Cooldown: 25s → 18s
+[New] Entering combat with enemy champions to trigger a 6-second cooldown.
+Botanist 
+With the removal of the Soulflowers beneath towers, we are updating Botanist accordingly and redistributing that gold into the other plants.
+[Removed] Picking up the Soulflowers grants an additional 100% gold.
+Gold gained from breaking fruits: 25 → 30
+Resolve 
+Unshakeable 
+Bonus Armor and bonus Magic Resist: 4% + 3%* number of nearby enemy champions → 3% + 2%* number of nearby enemy champions 
+Second Wind 
+Empowered Heal: 6 + 2% missing Health → 3 + 1.5% missing Health
+Bone Plating 
+Cooldown: 30s→ 40s
+Overgrowth 
+Minions required per growth: 2 → 3
+Monsters required per growth: 1 → 3
+Courage of the Colossus 
+Cooldown: 10s → 18s
+Font of Life 
+Ally heal amount: 3% max Health + 15% Ability Power → 1.5% max Health + 5% Ability Power
+Cooldown: 20s → 15s
+Perseverance 
+Armor / Magic Resistance: 15-25 → 10-15
+Precision 
+Legend: Alacrity 
+Max Attack Speed: 20% → 18%
+Brutal 
+Damage: 6 + 8% bonus Attack Damage → 5 + 6% bonus Attack Damage + 3% Ability Power
+Battle Zeal
+Damage Amplification: 2% → 1.4%
+Cut Down
+Damage Amplification: 8% → 6.57%
+Battlefield Adjustments 
+Bounty System Update 
+We're updating the bounty system to better reflect a champion's actual gold advantage. Instead of relying primarily on kill and death streaks, bounties will now take all major gold sources into account, including assists and minion farming, making them a more accurate measure of a champion's lead. We're also introducing dynamic bounty scaling. Teams with larger gold leads will grant bigger shutdown rewards, while champions on a team that's behind will no longer award bounties. This should create fairer comeback opportunities and reduce excessive snowballing.
+Overview： 
+Champion bounties are no longer based on consecutive kills or deaths, and instead are determined by gold gained and lost.
+Champion bounties now accumulate more precisely. For example, a champion can now have a +1 gold bounty.
+Bonus bounties will only be displayed on the scoreboard once they exceed 100 gold. Bonus bounties below 100 gold will continue to accumulate.
+Bounties are updated only after leaving combat.
+Gold granted by champion abilities (such as Twisted Fate, Draven, and Pyke) and by items or runes (such as First Strike and The Collector) is not included in bounty calculations.
+Positive Bounty： 
+Positive bounties refer to the bonus gold awarded to the killer when a champion is slain (unchanged).
+Positive bounties are no longer based on consecutive kills.
+While a champion has a positive bounty, every 3 gold earned through kills and assists adds 1 gold to their bounty. Gold earned from takedowns does not increase the killer's bounty.
+While a champion has a positive bounty, every 20 gold earned from minions, jungle monsters, support items, Smite, and similar sources adds 1 gold to their bounty.
+A champion's positive bounty is reset when they are taken down .
+A single takedown can award up to 700 bonus gold. Any excess bounty will continue to accumulate and will be displayed after the champion respawns.
+Takedown payouts are now dynamically adjusted based on the relative lead or deficit between the two teams. If the champion's team is even or behind, 100% of the takedown bounty is suppressed; if the champion's team has a slight lead, 90% of the takedown bounty is suppressed; if the champion's team has a moderate lead, 60% of the takedown bounty is awarded; if the champion's team has a significant lead, 90% of the takedown bounty is awarded; if the champion's team has a decisive lead, the full takedown bounty is awarded.
+Neutral： 
+Neutral means that when a champion is taken down, the killer receives the base gold, unaffected by bounty. 
+While a champion is in the Neutral state, every 3 gold earned through kills and assists accumulates 1 gold.
+While a champion is in the Neutral state, every 20 gold earned through minions, jungle monsters, support items, Smite, etc. accumulates 1 gold.
+While a champion is in the Neutral state, for every 3.5 gold granted to the killer or assister upon death, the champion's base bounty is reduced by 1 gold.
+Negative Bounty： 
+Negative Bounty means that when a champion is killed, the killer receives reduced base gold (unchanged).
+Negative Bounty is no longer based on consecutive deaths.
+Negative Bounty is no longer reset after getting a takedown.
+While a champion is in the Negative Bounty state, every 3 gold earned through kills and assists increases their bounty by 1 gold. Takedown gold is included when calculating bounty.
+While a champion is in the Negative Bounty state, every 7 gold earned through minions, jungle monsters, support items, Smite, etc. accumulates 1 bounty.
+While a champion is in the Negative Bounty state, for every 3.5 gold granted to the killer or person who got an assist upon death, the champion's base bounty is reduced by 1 gold. 
+Battlefield Tempo Adjustments 
+We're aligning major system changes with key map objectives to create clearer game phases and a more consistent match flow. As Turret Plates fall and major objectives spawn, you'll also see corresponding changes to minion waves, turrets, and lane pressure, making each stage of the game easier to recognize and play around.
+The corresponding changes are as follows (unless otherwise specified, the maximum value of each scaling effect remains unchanged):
+Time for Cannon Minions and Siege Minions to reach their maximum bonus damage against minions: 12:00 → 11:00 
+Time for Super Minions to reach their maximum bonus damage against other minions: 20 minutes → 19 minutes
+Time for all turrets to reach their maximum Attack Damage: 20 minutes → 19 minutes
+Maximum bonus Attack Damage gained by all turrets: 125 → 130
+Time when the Base’s Shield begins to decay: 12 minutes → 11 minutes
+Time for the Base to reach its maximum Attack Damage: 20 minutes → 18 minutes 30 seconds
+End time of the reduced damage dealt by Baron lane minions to minions: 7 minutes → 6 minutes
+Spawn time of the first Scryer's Bloom in the base: 7 minutes → 6 minutes
+Other Adjustments 
+Ahri VGU 
+As one of Wild Rift's most iconic champions, Ahri has received a visual update built with our latest art and technology. This refresh brings the Nine-Tailed Fox to life with higher visual fidelity while preserving the charm that has made her a fan favorite for years.
+A total of 12 skins, including Ahri's base skin, along with 7 chromas and 1 Wild Pass upgrade, will receive a visual update.
+The update spans four major areas: model rebuild, skeleton rework, VFX overhaul, and animation refinement.
+[Removed] Soulflowers 
+Soulflowers were originally introduced to help players recover from a losing lane, but they haven't delivered the impact we intended. Their value has often felt too low for players who are behind while also creating frustration for those with a lead. We're simplifying the system and will continue improving the laning experience through more direct comeback mechanics, allowing players to focus more on combat and strategy.
+Item data Tracking System 
+We've added item data tracking so you can clearly see the value their items provide throughout a match.
+[New] During or after a match, players can tap an item in their inventory to view the value generated by that item.
+End-of-Match system Improvements 
+We've updated the post-death screen with a more detailed combat recap. It now provides a clearer breakdown of damage sources, damage types, and other key combat information, making it easier to adapt your playstyle and item builds throughout the match.
+Champion Select Screen Optimization 
+Champion Select in Draft Pick now features Skin Showcase Animations. Selecting a champion will play the chosen skin's unique animation, highlighting its personality and visual style before the match begins.
+You can tap the champion display at any time to skip the animation. After it finishes, the screen returns to the standard champion view, where Pose and Chroma previews remain available.
+This feature is enabled by default on supported devices and can be toggled in Settings → General. Availability is based on device performance.
+In-Game Shop interface Improvements 
+We've optimized the in-game shop interface to make item descriptions clearer and display more information on a single page, reducing the need for excessive scrolling. 
+Damage Amplification Mechanic Update 
+We're making true damage interactions more consistent across the game. Effects from items and runes that grant percentage-based damage amplification or damage reduction will now also apply to true damage.
+Seasonal Rift Update 
+[Map Update] Ionia: Summer Rift
+Summer has arrived on the Ionia Rift! The snow has melted, waterfalls and rivers are flowing once again, and the landscape is alive with blooming lotus flowers, swaying vegetation, and vibrant wildlife. Updated lighting and warm seasonal colors bring a fresh new look to the Rift, creating a more lively and immersive summer experience. We hope you enjoy exploring the refreshed Ionia Rift all season long.
+Vision Score System 
+We're introducing the new Vision Score system to help you better track your impact on vision control throughout each match. Earn Vision Score by placing and clearing wards, then use it to gauge your contribution and identify opportunities to improve.
+[New] Players can now view their Vision Score in real time on the in-game scoreboard.
+Champion Displacement Interrupt Rule Update 
+New Crowd Control Type: Knockdown 
+This type of Crowd Control is specifically designed to interrupt dashes and forced movement. Dash interruption is no longer tied to crowd control effects such as stuns, helping to avoid interaction issues in certain situations. We've updated the crowd control effects of the following champions so they now correctly interrupt enemy dashes:Ahri – (3) Charm
+Veigar – (3) Event Horizon
+Amumu – (4) Curse of the Sad Mummy
+Jinx – (3) Flame Chompers!
+Lissandra – (4) Frozen Tomb
+Vex – (Passive) Doom 'n Gloom
+Viktor – (2) Gravity Field
+Warwick – (4) Infinite Duress
+Yone – (4) Fate Sealed
+Poppy – (2) Steadfast Presence
+Battlefest S6 
+Battlefest Season S6 begins on July 10, 2026 at 03:00 UTC, bringing a fresh season of chaotic fun and new rewards! Unlock the all-new Purple Garlic Lulu skin and its exclusive pose as you progress through the reward track. This season also introduces the Battlefest All-Access Chest, giving you another chance to obtain previous Battlefest grand rewards. 
+New Gameplay 
+Unbound Frenzy Champion Expansion
+Jump in and try the newest Unbound Frenzy mutations! The T-Hex, Aurelion Sol, Swain, and Yone are officially joining Unbound Frenzy!
+Gameplay Adjustments 
+AAA ARAM
+Thank you to everyone who played AAA ARAM and shared feedback, especially those who participated on the test server. Your reports and suggestions helped us improve class and Augment balance while identifying numerous issues ahead of launch. As AAA ARAM rolls out to all players, we'll continue monitoring the mode and making long-term improvements based on your feedback. We hope you'll keep sharing your experiences as we refine the mode together.
+Welcome to the Elemental Season of AAA ARAM!
+New Augments 
+We have added six Augments in the Elemental series, hoping each class can gain a more interesting gameplay experience while also giving players more opportunities to create powerful cross-series combinations.
+In addition, we've added the Abstract-series Augments, along with more powerful standalone Augments. For example, Conjurer's Strike triggers a crowd control effect when you summon a unit with Health, allowing champions like Zyra to benefit from it. Ultimately, we hope this gives champions with different strengths more opportunities to shine. 
+What about the old Augments? 
+We've reworked some classic Augments. For example, Whale can now unlock more interesting items; Celestial Body grants an additional Augment selection reroll when it is chosen by the team's only frontliner; and some Augments, such as Eureka, now feature a new Enhancement mechanic. When you obtain these Augments, they will randomly receive 1–10 Empowerment levels. The higher the Empowerment level, the stronger the Augment's stats. At the same time, we've also adjusted the values of some classic Augments in hopes of creating more opportunities for counterplay. 
+Item Adjustments 
+Void Staff
+This item's effects have been synchronized with the Ranked version.
+Stormsurge
+This item's effects have been synchronized with the Ranked version.
+Blackfire Torch
+This item's effects have been synchronized with the Ranked version.
+Psychic Projector
+We want Mage Tank players to gain more value from the bonus Health and Ability Power they get through Augments or other gameplay mechanics, strengthening their ability to dominate in Adventure Modes. This item remains available in Howling Abyss, Unbound Frenzy, and Arena, with slight adjustments to its stats.
+Awakened Soulstealer
+We want players to be able to obtain some Ability Haste from items more easily to support Ability Haste-focused builds: This item remains available in Howling Abyss, Turbocharged Rift, Unbound Frenzy, and Arena, with slight adjustments to its stats.
+Redemption
+We want support players to trigger their healing effects more easily, allowing them to focus on building their Augments and engaging in combat through other gameplay mechanics. When they want to provide healing to activate certain Augment effects, all they need to do is stay close to their teammates. This item retains its previous effects and stats in Howling Abyss, Turbocharged Rift, Unbound Frenzy, and Arena.
+Repulsor Enchant
+This item has been removed.
+Shadow Strike
+This item has been removed.
+SYSTEM 
+NEW 
+HONORARY MEDAL SYSTEM
+Achievements have been reworked into the new Honorary Medal system. Each medal has its own unique unlock requirements, with some hidden medals waiting to be discovered. Once earned, medals are permanently yours, and you can display up to six on your profile to show off your accomplishments.
+“Omnichamp”
+We're introducing the new Omnichamp system to better support players looking to master a wide variety of champions. Progress through the system to earn exclusive Honor icons as you expand your champion pool. You can find Omnichamp in the former Master of Versatility interface.
+VIOLATION PENALTY
+To align with the new “Ranked Energy - Rank” progression system, the rules for violation penalties in Ranked are being updated as well. The specific changes are as follows:
+Violation Energy Deduction 
+Players found committing Ranked violations will lose Ranked Energy based on the severity of the offense. If the penalty would cause an immediate loss of Marks, the excess will instead be stored as Pending Ranked Energy Deduction.
+Pending Ranked Energy Deduction has a maximum limit. Once that limit is reached, any additional penalties will directly reduce Ranked Energy.
+Pending Energy Deduction 
+If you have Pending Ranked Energy Deduction, any Ranked Energy earned from Ranked wins will first be used to repay the outstanding amount. Once the pending deduction has been fully cleared, you'll begin earning Ranked Energy normally again.
+Appeals and View 
+If you disagree with a violation ruling, you may submit an appeal through reputation system → Player Behavior Missions → Player Behavior Score Appeal Portal. If the appeal succeeds, the system will return the deducted Ranked Energy and clear the corresponding pending Ranked Energy Deduction. 
+Enter the mode selection screen → Ranked → Tap the Ranked Energy bar to view your current pending Ranked Energy deduction balance and its change history for the past 30 days. 
+Auto-uninstallation System
+We are adding auto-uninstallation for around-game champions and skin-related resources such as models and High-Tier Pose videos. When the game client's disk usage reaches a certain threshold, the system will start the auto-uninstallation process.
+Highlights Auto-uninstallation Feature
+To reduce storage usage, the maximum number of saved highlight videos has been reduced from 100 to 50. If you exceed the new limit after updating, you'll be prompted to delete videos the first time you log in. You can remove them manually, or the system will automatically delete the oldest highlights on your next login.
+SYSTEM ADJUSTMENTS
+RANKED RULES FOR SOVEREIGN AND ABOVE 
+At Sovereign and above, every 40 Marks is considered one major rank. In full parties, the rank difference can span up to 2 major tiers. For all other ranked parties, the rank difference can span up to 1 major tier.
+CACHE CLEANUP 
+We optimized the cache clearing function in Settings so you can manually delete certain cache files generated while the game client is running, helping solve excessive disk usage by the client. 
+LOADOUT SYSTEM 
+The Loadout system now includes an ARAM loadout, supporting separate editing for items, Augments, and summoner spells.
+FRIENDSHIP STORE
+The Friendship Chest now includes Cottontail Lillia skin drops.
+MATCHMAKING CHAMPION SCORE CAP
+The obtainable Champion Score cap in Matchmade mode has been adjusted.
+RANKED REWARD 
+In line with the Ranked revamp, a small number of item-card rewards in Ranked rewards have been adjusted.
+STELLACORE STATS 
+The obtainable cap for Ranked Legendary Stellacore has been increased from 8 per season to 10.
+BUTTON UI SKIN FEATURE OPTIMIZATION 
+Button UI Skins now support additional compatible skins. Head to Collection → In-Game Personalization → Button UI Skins, then tap Compatible Skins to view and unlock new customization options.
+Bug Fixes
+Fixed an issue where using certain abilities while auto-pathing would interrupt auto-pathing for the following champions. We will continue monitoring and improving other champions with the same problem.Garen (1) & (2) abilities 
+Sona (1), (2) & (3) abilities
+Miss Fortune (2) ability
+Blitzcrank (2) ability
+Fixed an issue where Seraphine's ultimate follow-up timing was too slow after casting her (2) ability or empowered (2) ability.
+Fixed an issue where Fiddlesticks' passive could still apply Fear while visible or in combat.
+Fixed an issue where the Attack Damage bonus from Darius's passive would disappear after his death.
+Fixed an issue where Lillia and Brand could not correctly trigger the slow from Rylai's Crystal Scepter.
+Related Articles
+Game Updates
+2026-09-21T09:00:00.000Z
+Wild Rift Patch Notes 7.3
+Patch 7.3 brings Hwei, a major marksman overhaul, jungle updates, Ranked changes, new items, and more!
+Game Updates
+2026-09-09T09:00:00.000Z
+Wild Rift Patch Notes 7.2e
+Balance changes are here with updates to Vi, Swain, Janna, Nautilus, Malphite, and more!
+Game Updates
+2026-08-26T09:00:00.000Z
+Wild Rift Patch Notes 7.2d
+Patch 7.2d brings balance updates to champions and items across the Rift.
+Game Updates
+2026-08-12T09:00:00.000Z
+Wild Rift Patch Notes 7.2c
+Patch 7.2c brings champion and item balance updates, stronger Dragons, and changes to keep things from getting too frozen in Baron Lane.
+Game Updates
+2026-07-29T09:00:00.000Z
+Wild Rift Patch Notes 7.2b
+Patch 7.2b is here with balance changes to champions, items, runes, and gameplay systems.
+Game Updates
+2026-07-15T09:00:00.000Z
+Wild Rift Patch Notes 7.2a
+Patch 7.2a is here with balance adjustments to champions, items, and boots, targeting overperforming picks while giving underperformers a boost.
+Game Updates
+2026-07-08T09:00:00.000Z
+Wild Rift Patch Notes 7.2
+Welcome to Patch 7.2, one of our biggest gameplay updates!
+Game Updates
+2026-06-24T09:00:00.000Z
+Wild Rift Patch Notes 7.1h
+Welcome to the last balance patch of 7.1!
+Game Updates
+2026-06-10T09:00:00.000Z
+Wild Rift Patch Notes 7.1g
+The sands are shifting… Skarner has arrived on the Rift!
+ 

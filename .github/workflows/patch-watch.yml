@@ -1,0 +1,35 @@
+name: WR-LAB Patch Watch (cron)
+
+on:
+  schedule:
+    - cron: "0 8 * * *"     # 08:00 UTC diario
+    - cron: "0 20 * * *"    # 20:00 UTC diario
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Chequear fuentes de parche
+        id: watch
+        continue-on-error: true
+        run: python3 model/check_patch.py
+      - name: Persistir estado del vigilante
+        run: |
+          git config user.name "wrlab-bot"
+          git config user.email "wrlab-bot@users.noreply.github.com"
+          git add data/raw/.watch_state.json || true
+          git diff --cached --quiet || git commit -m "chore: patch-watch state $(date -u +%F)" && git push
+      - name: Alerta en summary
+        if: steps.watch.outcome == 'failure'
+        run: |
+          echo "## 🔔 PARCHE NUEVO DETECTADO" >> $GITHUB_STEP_SUMMARY
+          echo "Revisar data/raw/.watch_state.json y ejecutar protocolo FRAMEWORK §E." >> $GITHUB_STEP_SUMMARY
+          echo "Considera crear un issue manualmente con los hallazgos del log." >> $GITHUB_STEP_SUMMARY
