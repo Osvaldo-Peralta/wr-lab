@@ -200,11 +200,16 @@ Y_ITEMS = {
  'Zeke':       dict(g=2400, hp=300, armor=25, mr=25, ah=10, zeke=1),
  'YordleTrap': dict(g=2400, hp=200, armor=20, mr=20, ah=15, trap=1),
 }
-def yuumi(items, revitalize=True, bf=True, adc_as_base=2.6, adc_dmg_per_hit=330):
+def yuumi(items, revitalize=True, bf=True, adc_as_base=2.6, adc_dmg_per_hit=330,
+          w_flat=None, w_ap_pct=0.01):
+    # 7.3a NERF: W Best Friend HSP 8/9/10/11 % + 0.02 %/AP → 6/7/8/9 % + 0.01 %/AP (rank 5).
+    # w_flat=None → valor del parche vigente (9 attach / 6 sin attach). Para reproducir el
+    # baseline publicado pre-7.3a (E=339): w_flat=11, w_ap_pct=0.0 (ver update_reports.params_yuumi).
     its = [Y_ITEMS[i] for i in items]
     gold = sum(i['g'] for i in its)
     ap = sum(i.get('ap',0) for i in its)
-    hsp = sum(i.get('hsp',0) for i in its) + (11 if bf else 8) + (5 if revitalize else 0)
+    if w_flat is None: w_flat = 9 if bf else 6
+    hsp = sum(i.get('hsp',0) for i in its) + w_flat + w_ap_pct*ap + (5 if revitalize else 0)
     haste = sum(i.get('ah',0) for i in its)
     # E shield rank4: 170+0.4AP, multiplicado por (1+HSP%)
     e_shield = (170+0.4*ap)*(1+hsp/100)

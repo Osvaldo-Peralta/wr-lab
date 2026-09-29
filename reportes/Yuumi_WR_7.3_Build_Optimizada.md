@@ -14,6 +14,18 @@ patch: "7.3+7.3a"
 **Arquetipo:** Enchanter-attach — el modelo NO es DPS propio sino **valor-aliado** (escudos, curas y buffs multiplicados sobre tu Best Friend)
 **Enfoque:** Attachada eres intargeteable → **cero stats defensivos tienen valor**; cada punto de oro va a AP/HSP/Haste, con Ardent Censer como multiplicador del carry.
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
+> **Δ de resultado (conservador):** e_shield 338.8→334 (-1.4 %) · r_heal 650.7→641.4 (-1.4 %) · shield_per_min 3952.7→3896.2 (-1.4 %). Δ máx **1.4 %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Con la fórmula completa post-parche:** e_shield 338.8→338.3 · r_heal 650.7→649.8 · shield_per_min 3952.7→3947 (el veredicto usa el caso conservador).
+> **Δ de stats-input (no decide veredicto):** HSP (-5.0 %).
+> **Build publicada (6 slots, Ley 0):** Crimson Lucidity + Black Mist Scythe + Ardent Censer + Echoes of Helia + Staff of Flowing Waters + Redemption — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Whispering Circlet (NERF), Crown/Diadem of Songs (NERF) — verificar variantes/rechazados del reporte.
+> **Nota del lab (diff 7.3a):** HSP de W: −2 pts y mitad del término AP → E-shield 339→~338 (−0.3 %), R-heal 651→~648. **Build y veredictos intactos** (Censer sigue siendo el rey) → Anotado [!WARNING] en el reporte
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > 

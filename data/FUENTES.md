@@ -1,6 +1,14 @@
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 25 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026)
+**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+
+## Registro de verificaciones de parche
+
+| Fecha | Verificación | Resultado | Evidencia |
+|---|---|---|---|
+| 29/09/2026 | ¿Hotfix nuevo tras 7.3a? (`check_patch.py` + inspección manual) | **NO.** Sin páginas 7.3b/7.4 (404 en todos los slugs); changelogs wr-meta de centinelas sin cambios (22-sep, 7.3); la página oficial 7.3 tiene **contenido idéntico** al snapshot del 28-sep — el md5 crudo difería solo por ruido dinámico (carrusel de "artículos relacionados" y token `mappersVersion` del CMS). Cero menciones de hotfix/7.3a/7.3b/7.4 en la página EN | `data/raw/patch73_0929.html` (diff vs `patch73_0928.html`: 1 línea de metadata CMS; texto del artículo: 2 497 líneas idénticas) |
+| 29/09/2026 | Falso positivo del vigía | `check_patch.py` v1.6: el hash pasa a ser de **contenido normalizado** (texto del artículo cortado antes del pie dinámico), no del HTML crudo | `.watch_state.json` con `official_73_content_md5` |
+| 29/09/2026 | Reportes publicados vs 7.3a | `update_reports.py triage --patch 7.3a`: 5/5 ✅ ANOTAR (ninguno requiere regeneración). Yuumi: Δ resultado −1.4 % (E-shield/R-heal) pese a HSP −5 % (input) | Bloques `WRLAB-VERIF:7.3a` en los 5 reportes + `reportes_registry.json` |
 
 ## Hotfix 7.3a (29-sep-2026)
 

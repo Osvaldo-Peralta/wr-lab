@@ -1,0 +1,743 @@
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · update_reports.py — triador/actualizador de reportes publicados (v1.6)
+================================================================================
+Cuando sale un hotfix (7.3a, 7.3b, 7.4…), los reportes publicados NO se regeneran
+a ciegas: este módulo TRIA el impacto de cada cambio sobre cada reporte y decide:
+
+    ✅ SIN_IMPACTO  el parche no toca nada del reporte → sello de verificación.
+    ✅ ANOTAR       impacto medido < 2 % en métricas clave → la build y los veredictos
+                    SIGUEN VIGENTES; se anota el bloque de verificación (nunca se regenera).
+    ⚠️ REVISAR      Δ 2–5 %, o ítem de la build/variantes cambió, o cambio directo sin
+                    hook cuantitativo → revisión manual acotada (matriz del último slot,
+                    motivo de rechazados), sin regenerar la build completa.
+    ❌ REGENERAR    Δ ≥ 5 % o cambio directo a inputs del spec (AD/AS growth, bases…)
+                    → regeneración manual completa por el flujo del FRAMEWORK (10 pasos).
+
+Principio rector (petición del autor, 29-sep-2026): **una build publicada y aprobada es
+definitiva; el hotfix se ANOTA con su impacto medido, no se re-deriva la build** salvo
+que la matemática demuestre que cambió (umbral ❌).
+
+Flujo típico tras aplicar datos nuevos (FRAMEWORK §E pasos 1-5):
+    python3 model/update_reports.py triage   --patch 7.3a   # tabla de impacto/veredicto
+    python3 model/update_reports.py annotate --patch 7.3a --apply   # inserta bloques ✅
+    python3 model/update_reports.py check                       # CI: drift + pendientes
+
+Comandos:
+    baseline   (re)construye data/estructurada/reportes_registry.json desde los reportes
+               + estado actual del motor (métricas golden por reporte).
+    triage     cuantifica el impacto de un parche sobre cada reporte (tabla + detalle).
+    annotate   genera el bloque de verificación; --apply lo inserta en el reporte
+               (idempotente, delimitado por marcadores HTML) y sella el registro.
+    check      modo CI: falla (exit 1) si hay drift motor↔registro o reportes sin triar
+               contra el último parche con diff estructurado.
+
+Cero dependencias (stdlib). Texto plano = fuente de verdad; el registro JSON es índice derivado.
+"""
+import argparse, contextlib, datetime, io, json, os, re, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPORTES = os.path.join(ROOT, "reportes")
+ESTRUCTURADA = os.path.join(ROOT, "data", "estructurada")
+REGISTRY = os.path.join(ESTRUCTURADA, "reportes_registry.json")
+sys.path.insert(0, os.path.join(ROOT, "model"))
+
+import dps_model as M                                  # noqa: E402
+with contextlib.redirect_stdout(io.StringIO()):         # batch2 imprime tablas al importar
+    import analysis_batch2 as B2                        # noqa: E402
+
+# ---------------------------------------------------------------- umbrales (documentados en FRAMEWORK §E)
+UMBRAL_ANOTAR = 2.0       # |Δ| < 2 %  → ✅ ANOTAR (impacto despreciable)
+UMBRAL_REGENERAR = 5.0    # |Δ| >= 5 % → ❌ REGENERAR
+
+VEREDICTOS = {
+    "SIN_IMPACTO": "✅ SIN IMPACTO",
+    "ANOTAR":      "✅ ANOTAR",
+    "REVISAR":     "⚠️ REVISAR",
+    "REGENERAR":   "❌ REGENERAR",
+}
+
+# keywords que indican que un cambio directo toca INPUTS DEL SPEC (AD/AS/defensas base…)
+SPEC_INPUT_KEYWORDS = [
+    "growth", "ad base", "base ad", "attack speed", "as base", "base bonus", "as ratio",
+    "ratio/base", "vida base", "hp base", "hp growth", "armadura base", "armor base",
+    "mr base", "mr growth", "resistencia mágica base", "rango de ataque", "daño crítico",
+    "crit ratio", "armadura y mr", "armor growth",
+]
+
+# ---------------------------------------------------------------- modelos por campeón (hooks cuantitativos)
+# Cada hook devuelve métricas clave con el motor ACTUAL; params permite reconstruir el "pre-parche".
+MODELOS = {
+    "jinx":    dict(tipo="autos",    hook="hook_jinx"),
+    "kalista": dict(tipo="onhit",    hook="hook_kalista"),
+    "diana":   dict(tipo="rotacion", hook="hook_diana"),
+    "yuumi":   dict(tipo="aliado",   hook="hook_yuumi"),
+    "karma":   dict(tipo="aliado",   hook=None,
+                    motivo="Imperial Mandate no está parametrizado en analysis_batch2.karma()"),
+}
+
+# nombre visible en Tabla A → clave del modelo correspondiente
+SINONIMOS = {
+    "berserker's greaves":       {"autos": "Berserker's"},
+    "gunmetal greaves":          {"autos": "Gunmetal", "onhit": "Gunmetal"},
+    "hexoptics c44":             {"autos": "C44"},
+    "runaan's hurricane":        {"autos": "Runaan's", "onhit": "Runaan"},
+    "infinity edge":             {"autos": "IE"},
+    "lord dominik's regards":    {"autos": "LDR"},
+    "kraken slayer":             {"autos": "Kraken"},
+    "guinsoo's rageblade":       {"autos": "Guinsoo", "onhit": "Guinsoo"},
+    "wit's end":                 {"autos": "WE", "onhit": "WitsEnd"},
+    "terminus":                  {"autos": "Terminus", "onhit": "Terminus"},
+    "blade of the ruined king":  {"autos": "BotRK", "onhit": "BotRK"},
+    "spellslinger's shoes":      {"rotacion": "Spellslinger"},
+    "boots of mana":             {"rotacion": "boots_mana"},
+    "dusk and dawn":             {"rotacion": "DuskDawn"},
+    "nashor's tooth":            {"rotacion": "Nashor"},
+    "rabadon's deathcap":        {"rotacion": "Rabadon"},
+    "zhonya's hourglass":        {"rotacion": "Zhonyas"},
+    "cryptbloom":                {"rotacion": "Cryptbloom"},
+    "void staff":                {"rotacion": "VoidStaff"},
+    "ionian boots":              {"aliado": "ionian"},
+    "crimson lucidity":          {"aliado": "Crimson"},
+    "black mist scythe":         {"aliado": "Scythe"},
+    "ardent censer":             {"aliado": "Censer"},
+    "echoes of helia":           {"aliado": "Echoes"},
+    "staff of flowing waters":   {"aliado": "Staff"},
+    "redemption":                {"aliado": "Redemption"},
+    "imperial mandate":          {"aliado": "Mandate"},
+    "mikael's blessing":         {"aliado": "Mikael"},
+    "shurelya's requiem":        {"aliado": "Shurelya"},
+    "zeke's convergence":        {"aliado": "Zeke"},
+    "locket of the iron solari": {"aliado": "Locket"},
+    "diadem of songs":           {"aliado": "Diadem"},
+    "crown of songs":            {"aliado": "Diadem"},
+}
+
+# relevancia de cambios sistémicos por rol (para notas cualitativas)
+SISTEMAS_POR_ROL = [
+    (("jungla", "jungle"), ("jungla", "smite", "monstruo", "clear")),
+    (("adc", "dragon", "marksman", "siege", "tirador"), ("placa", "torreta", "nexus", "siege", "minion", "barón", "baron")),
+    (("support", "soporte"), ("support", "soporte", "quest", "relic", "oro de")),
+]
+
+STOP_WORDS = {"of", "the", "and", "de", "la", "el", "los", "las", "vs", "con", "por"}
+
+
+# ================================================================ parches y diffs
+def patch_key(p):
+    """'7.3'→(7,3,0) · '7.3a'→(7,3,1) · '7.4'→(7,4,0) — para ordenar parches."""
+    m = re.match(r"(\d+)\.(\d+)([a-z]?)", p.strip())
+    if not m:
+        return (0, 0, 0)
+    return (int(m.group(1)), int(m.group(2)), (ord(m.group(3)) - 96) if m.group(3) else 0)
+
+
+def cambios_archivos():
+    """[(patch, ruta, kind)] de los diffs estructurados en data/estructurada/.
+    kind='hotfix' para cambios_<patch>.md; kind='tema' para cambios_<tema>_<patch>.md."""
+    out = []
+    for f in sorted(os.listdir(ESTRUCTURADA)):
+        m = re.match(r"^cambios_(?:(\w+?)_)?(\d+\.\d+[a-z]?)\.md$", f)
+        if m:
+            kind = "hotfix" if not m.group(1) else "tema"
+            out.append((m.group(2), os.path.join(ESTRUCTURADA, f), kind))
+    return out
+
+
+def ultimo_parche_hotfix():
+    hf = [(p, r) for p, r, k in cambios_archivos() if k == "hotfix"]
+    if not hf:
+        return None, None
+    p, r = max(hf, key=lambda x: patch_key(x[0]))
+    return p, r
+
+
+def parse_cambios(ruta):
+    """Parsea un diff estructurado (formato cambios_7.3a.md):
+    tablas bajo '## CAMPEONES', '## ÍTEMS', '## MAPA Y SISTEMAS' e
+    '## IMPACTO EN REPORTES/SPECS DEL LAB'."""
+    with open(ruta, encoding="utf-8") as fh:
+        txt = fh.read()
+    seccion = None
+    cs = {"champions": {}, "items": {}, "sistemas": [], "lab_notes": {}, "raw": ruta}
+    for linea in txt.splitlines():
+        h = re.match(r"^##\s+(.*)", linea)
+        if h:
+            t = h.group(1).upper()
+            if t.startswith("CAMPEONES"): seccion = "champ"
+            elif t.startswith("ÍTEMS") or t.startswith("ITEMS"): seccion = "items"
+            elif "SISTEMAS" in t: seccion = "sist"
+            elif "IMPACTO" in t: seccion = "lab"
+            else: seccion = None
+            continue
+        if not linea.strip().startswith("|") or seccion is None:
+            continue
+        celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
+        if len(celdas) < 2 or set(celdas[0]) <= set("-: "):
+            continue
+        nombre_m = re.search(r"\*\*(.+?)\*\*", celdas[0])
+        if seccion == "lab":
+            if celdas[0].lower().startswith(("archivo", "---")):
+                continue
+            cs["lab_notes"][celdas[0]] = " → ".join(celdas[1:]).strip()
+            continue
+        if not nombre_m or nombre_m.group(1).lower() in ("campeón", "champion", "ítem", "item", "sistema"):
+            continue
+        nombre = nombre_m.group(1).strip()
+        if seccion == "champ":
+            cs["champions"][nombre] = {"tipo": celdas[1] if len(celdas) > 1 else "",
+                                       "detalles": celdas[2] if len(celdas) > 2 else ""}
+        elif seccion == "items":
+            cs["items"][nombre] = {"tipo": celdas[1] if len(celdas) > 1 else "",
+                                   "detalles": celdas[2] if len(celdas) > 2 else ""}
+        elif seccion == "sist":
+            cs["sistemas"].append({"sistema": nombre,
+                                   "cambio": celdas[1] if len(celdas) > 1 else "",
+                                   "impacto": celdas[2] if len(celdas) > 2 else ""})
+    return cs
+
+
+def expandir_nombre_item(nombre):
+    """'Crown/Diadem of Songs' → ['Crown of Songs','Diadem of Songs']."""
+    m = re.match(r"^([\w']+)/([\w'']+)(.*)$", nombre)
+    if m:
+        return [m.group(1) + m.group(3), m.group(2) + m.group(3)]
+    return [nombre]
+
+
+# ================================================================ parseo de reportes
+def parse_frontmatter(txt):
+    fm = {}
+    m = re.search(r"^---\n(.*?)\n---", txt, re.S)
+    if m:
+        for k, v in re.findall(r"^(\w+):\s*(.+)$", m.group(1), flags=re.M):
+            fm[k] = v.strip().strip('"')
+    return fm
+
+
+def parse_rol(txt):
+    m = re.search(r"\*\*Rol principal:\*\*\s*(.+)", txt)
+    return m.group(1).strip() if m else ""
+
+
+def _limpiar_nombre(s):
+    s = s.replace("⬆️", "").strip()
+    s = re.sub(r"\s*\(.*?\)\s*$", "", s).strip()   # "(default)" / "(jungla)" finales
+    return s.strip()
+
+
+def parse_tabla_a(txt):
+    """Devuelve los 6 nombres visibles de la build final (Tabla A, estándar v1.4).
+    En la fila de botas toma la forma T3 (la que va después de '→')."""
+    m = re.search(r"###\s+Tabla A(.*?)###\s+Tabla B", txt, re.S)
+    if not m:
+        raise ValueError("Tabla A no encontrada")
+    items = []
+    for linea in m.group(1).splitlines():
+        if not linea.strip().startswith("|"):
+            continue
+        celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
+        if len(celdas) < 2 or set(celdas[0]) <= set("-: ") or celdas[0].lower().startswith("slot"):
+            continue
+        slot, celda = celdas[0], celdas[1]
+        bolds = re.findall(r"\*\*(.+?)\*\*", celda)
+        if not bolds:
+            continue
+        if "botas" in slot.lower():
+            nombre = bolds[-1].split("→")[-1] if "→" in bolds[-1] else bolds[-1]
+            if len(bolds) > 1:
+                nombre = bolds[-1]
+        else:
+            nombre = bolds[0].split("→")[0]
+        items.append(_limpiar_nombre(nombre))
+    return items
+
+
+def parse_resumen_publico(txt):
+    m = re.search(r"###\s+Tabla A.*?\n(>\s+\*\*Oro total.+)", txt, re.S)
+    return m.group(1).strip() if m else ""
+
+
+def resolver_clave(display, tipo_modelo):
+    """display ('Lord Dominik's Regards') → clave del modelo ('LDR'/'ldr'…)."""
+    d = display.lower()
+    if d in SINONIMOS and tipo_modelo in SINONIMOS[d]:
+        return SINONIMOS[d][tipo_modelo]
+    if tipo_modelo == "autos":                       # reintento con el alias del motor
+        for alias, key in M.ALIAS.items():
+            if alias.lower() == d:
+                return alias
+        if d in M.ITEMS:
+            return d
+    for dic in (getattr(B2, "K_ITEMS", {}), getattr(B2, "D_ITEMS", {}), getattr(B2, "Y_ITEMS", {})):
+        if display in dic:
+            return display
+    return None
+
+
+# ================================================================ hooks cuantitativos
+def hook_jinx(build_keys, params=None):
+    spec = M.CHAMPS["jinx"]
+    r1 = M.eval_build(spec, build_keys, level=15)
+    r3 = M.eval_build(spec, build_keys, level=15, targets=3)
+    ra = M.eval_build(spec, build_keys, level=15, armor=120)
+    rt = M.eval_build(spec, build_keys, level=15, armor=220, tank=True, enemy_hp=4500)
+    return {"oro": r1["gold"], "AD": r1["AD"], "AS": r1["AS"], "crit": r1["crit"],
+            "dps1": r1["dps1"], "dps3": r3["dpsN"], "vs120": ra["dps1"],
+            "vsTanque": rt["dps1"], "heal": r1["heal"]}
+
+
+def hook_kalista(build_keys, params=None):
+    r = B2.kalista(build_keys)
+    r3 = B2.kalista(build_keys, targets=3)
+    rt = B2.kalista(build_keys, armor=220, mr=150, ehp=4500)
+    return {"oro": r["gold"], "AD": r["AD"], "AS": r["AS"], "pen": r["pen"],
+            "dps1": r["single"], "dps3": r3["multi"], "vsTanque": rt["single"],
+            "e_hit": r["e_hit"], "heal": r["heal"]}
+
+
+def hook_diana(build_keys, params=None):
+    kw = dict(keystone=(params or {}).get("keystone", "lt"))
+    r = B2.diana(build_keys, **kw)
+    rt = B2.diana(build_keys, mr=180, **kw)
+    return {"oro": r["gold"], "AP": r["AP"], "AS": r["AS"], "dps10s": r["dps"],
+            "burst": r["burst"], "vs180mr": rt["dps"]}
+
+
+def hook_yuumi(build_keys, params=None):
+    p = params or {}
+    kw = {}
+    if "w_flat" in p: kw["w_flat"] = p["w_flat"]
+    if "w_ap_pct" in p: kw["w_ap_pct"] = p["w_ap_pct"]
+    r = B2.yuumi(build_keys, **kw)
+    return {"oro": r["gold"], "AP": r["AP"], "HSP": r["HSP"], "haste": r["haste"],
+            "e_shield": r["e_shield"], "e_cd": r["e_cd"], "r_heal": r["r_heal"],
+            "adc_dps_add": r["adc_dps_add"], "shield_per_min": r["shield_per_min"]}
+
+
+HOOKS = {"hook_jinx": hook_jinx, "hook_kalista": hook_kalista,
+         "hook_diana": hook_diana, "hook_yuumi": hook_yuumi}
+
+# Métricas de RESULTADO (las que sostienen los veredictos del reporte). Los stats-input
+# (HSP, AP, AD, AS, oro, haste…) se muestran en el triage pero NO deciden el veredicto:
+# un nerf de input puede diluirse en el resultado (caso Yuumi 7.3a: HSP −5 % → E-shield −1.4 %).
+RESULT_KEYS = {
+    "hook_jinx":    ("dps1", "dps3", "vs120", "vsTanque", "heal"),
+    "hook_kalista": ("dps1", "dps3", "vsTanque", "e_hit", "heal"),
+    "hook_diana":   ("dps10s", "burst", "vs180mr"),
+    "hook_yuumi":   ("e_shield", "r_heal", "adc_dps_add", "shield_per_min"),
+}
+
+
+# ---- parsers de parámetros pre/post por campeón (extender con cada hotfix) ----
+def params_yuumi(detalles, patch):
+    """Del texto 'W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → 6/7/8/9 % + 0.01 % AP'
+    extrae (pre, post, post_conservador). Convención del baseline publicado: pre = solo flat
+    (rank 5), que es la que reproduce los golden numbers del reporte (E=339)."""
+    ms = re.findall(r"(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*%\s*\+\s*([\d.]+)\s*%\s*AP", detalles)
+    if len(ms) < 2:
+        return None
+    pre = {"w_flat": int(ms[0][3]), "w_ap_pct": 0.0}
+    post = {"w_flat": int(ms[1][3]), "w_ap_pct": float(ms[1][4])}
+    post_cons = {"w_flat": int(ms[1][3]), "w_ap_pct": 0.0}   # conservador: ignora término AP
+    return pre, post, post_cons
+
+
+CHAMP_PARAMS = {"yuumi": params_yuumi}
+
+
+# ================================================================ registro (índice derivado)
+def construir_registro(hoy=None):
+    hoy = hoy or datetime.date.today().isoformat()
+    reg = {"version_schema": 1, "generado": hoy,
+           "parche_motor": "7.3+7.3a", "reportes": {}}
+    for f in sorted(os.listdir(REPORTES)):
+        if not f.endswith(".md"):
+            continue
+        with open(os.path.join(REPORTES, f), encoding="utf-8") as fh:
+            txt = fh.read()
+        fm = parse_frontmatter(txt)
+        champ = fm.get("champion", "").strip()
+        if not champ:
+            print(f"  [aviso] {f}: sin champion en frontmatter — omitido")
+            continue
+        clave = champ.lower().replace("'", "").replace(" ", "")
+        modelo = MODELOS.get(clave, dict(tipo="desconocido", hook=None,
+                                         motivo="campeón sin modelo registrado en update_reports.MODELOS"))
+        build_disp = parse_tabla_a(txt)
+        build_keys, sin_resolver = [], []
+        for d in build_disp:
+            k = resolver_clave(d, modelo["tipo"])
+            (build_keys if k else sin_resolver).append(k or d)
+        entry = {
+            "champion": clave, "champion_display": champ,
+            "rol": parse_rol(txt), "modelo": modelo["tipo"],
+            "hook": modelo.get("hook"), "hook_motivo": modelo.get("motivo", ""),
+            "build_display": build_disp, "build_keys": build_keys,
+            "sin_resolver": sin_resolver,
+            "resumen_publico": parse_resumen_publico(txt),
+            "metricas": None, "ultima_verificacion": None,
+        }
+        if modelo.get("hook") and not sin_resolver:
+            entry["metricas"] = _redondear(HOOKS[modelo["hook"]](build_keys))
+        elif modelo.get("hook"):
+            entry["hook_motivo"] = "ítems sin resolver: " + ", ".join(sin_resolver)
+        reg["reportes"][f] = entry
+    return reg
+
+
+def _redondear(d):
+    return {k: (round(v, 1) if isinstance(v, float) else v) for k, v in d.items()}
+
+
+def guardar_registro(reg):
+    with open(REGISTRY, "w", encoding="utf-8") as fh:
+        json.dump(reg, fh, indent=1, ensure_ascii=False)
+    print(f"Registro guardado: {os.path.relpath(REGISTRY, ROOT)} "
+          f"({len(reg['reportes'])} reportes, motor {reg['parche_motor']})")
+
+
+def cargar_registro():
+    if not os.path.exists(REGISTRY):
+        sys.exit("No existe reportes_registry.json — correr primero: python3 model/update_reports.py baseline")
+    with open(REGISTRY, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+# ================================================================ triage
+def _norm(s):
+    return re.sub(r"[^a-z0-9' ]", "", s.lower()).strip()
+
+
+def _mencionado(texto_lower, nombre_item):
+    """¿El ítem cambiado aparece en el texto del reporte (variantes/rechazados/apéndices)?"""
+    variantes = [nombre_item] + expandir_nombre_item(nombre_item)
+    for v in variantes:
+        if _norm(v) in texto_lower:
+            return v
+        palabras = [w for w in re.split(r"[\s']+", _norm(v)) if len(w) >= 5 and w not in STOP_WORDS]
+        if palabras and any(w in texto_lower for w in palabras):
+            return v
+    return None
+
+
+def sistemas_relevantes(rol, cs):
+    notas = []
+    roles = (rol or "").lower()
+    for s in cs["sistemas"]:
+        texto = _norm(f"{s['sistema']} {s['cambio']} {s['impacto']}")
+        for roles_clave, kws in SISTEMAS_POR_ROL:
+            if any(r in roles for r in roles_clave) and any(k in texto for k in kws):
+                notas.append(f"{s['sistema']}: {s['cambio']} → {s['impacto']}")
+                break
+    return notas
+
+
+def lab_note_para(archivo, cs):
+    for patron, nota in cs["lab_notes"].items():
+        p = patron.strip().strip("`").replace("reportes/", "")
+        p = re.sub(r"\*+$", "", p)
+        if p and archivo.startswith(p):
+            return nota
+    return None
+
+
+def triage_reporte(archivo, entry, cs, patch):
+    """Devuelve dict de triage para un reporte contra un ChangeSet."""
+    with open(os.path.join(REPORTES, archivo), encoding="utf-8") as fh:
+        txt = fh.read()
+    tl = _norm(txt)
+    out = {"archivo": archivo, "champion": entry["champion_display"], "patch": patch,
+           "directo": None, "delta": {}, "delta_max": None, "delta_cons": None,
+           "items_build": [], "items_variantes": [], "sistemas": [], "lab_note": None,
+           "build_display": entry.get("build_display", []), "cuantificado": False,
+           "hook_motivo": entry.get("hook_motivo", ""),
+           "veredicto": "SIN_IMPACTO", "razones": [], "hook": entry.get("hook")}
+
+    # 1) cambio directo al campeón
+    for nombre, c in cs["champions"].items():
+        if _norm(nombre) == _norm(entry["champion_display"]):
+            out["directo"] = {"nombre": nombre, **c}
+            break
+
+    # 2) ítems cambiados ∩ build final / ∩ texto (variantes, rechazados, apéndices)
+    build_norm = {_norm(b) for b in entry["build_display"]}
+    for nombre in cs["items"]:
+        variantes = [nombre] + expandir_nombre_item(nombre)
+        en_build = any(_norm(v) in build_norm for v in variantes)
+        if en_build:
+            out["items_build"].append(nombre)
+        else:
+            m = _mencionado(tl, nombre)
+            if m:
+                out["items_variantes"].append(f"{nombre} ({cs['items'][nombre]['tipo']})")
+
+    # 3) sistemas relevantes al rol + nota humana del diff
+    out["sistemas"] = sistemas_relevantes(entry.get("rol", ""), cs)
+    out["lab_note"] = lab_note_para(archivo, cs)
+
+    # 4) cuantificación
+    toca_spec = bool(out["directo"] and any(k in _norm(out["directo"]["detalles"]) for k in SPEC_INPUT_KEYWORDS))
+    if entry.get("hook") and not entry.get("sin_resolver"):
+        hook = HOOKS[entry["hook"]]
+        actual = _redondear(hook(entry["build_keys"]))
+        parser = CHAMP_PARAMS.get(entry["champion"])
+        if out["directo"] and parser:
+            pp = parser(out["directo"]["detalles"], patch)
+            if pp:
+                pre, post, post_cons = pp
+                m_pre = hook(entry["build_keys"], params=pre)
+                m_post = hook(entry["build_keys"], params=post)
+                m_cons = hook(entry["build_keys"], params=post_cons)
+                for k in m_pre:
+                    if isinstance(m_pre[k], (int, float)) and m_pre[k]:
+                        out["delta"][k] = round((m_cons[k] - m_pre[k]) / abs(m_pre[k]) * 100, 2)
+                out["pre"], out["post"], out["post_cons"] = _redondear(m_pre), _redondear(m_post), _redondear(m_cons)
+                res_keys = RESULT_KEYS.get(entry["hook"], tuple(out["delta"]))
+                out["delta_resultado"] = {k: v for k, v in out["delta"].items() if k in res_keys}
+                out["delta_input"] = {k: v for k, v in out["delta"].items() if k not in res_keys}
+                out["delta_max"] = max((abs(v) for v in out["delta_resultado"].values()), default=0.0)
+                out["delta_cons"] = out["delta_max"]     # el conservador YA es el del dict
+                out["cuantificado"] = True
+        elif not out["directo"] and not out["items_build"]:
+            out["delta_max"] = 0.0
+        out["metricas_actuales"] = actual
+
+    # 5) veredicto (rúbrica determinista)
+    d = out["delta_max"]
+    if toca_spec:
+        out["veredicto"] = "REGENERAR"
+        out["razones"].append("cambio directo a inputs del spec (AD/AS/defensas base o growth)")
+    elif d is not None and d >= UMBRAL_REGENERAR:
+        out["veredicto"] = "REGENERAR"
+        out["razones"].append(f"Δ de resultado {d:.1f} % ≥ umbral {UMBRAL_REGENERAR:.0f} %")
+    elif out["items_build"]:
+        out["veredicto"] = "REVISAR"
+        out["razones"].append("ítem(s) de la build final cambiados: " + ", ".join(out["items_build"]))
+    elif out["directo"] and (not entry.get("hook") or not out["cuantificado"]):
+        out["veredicto"] = "REVISAR"
+        out["razones"].append("cambio directo sin cuantificación automática "
+                              f"({entry.get('hook_motivo') or 'sin parser de parámetros pre/post para este cambio'})")
+    elif d is not None and d >= UMBRAL_ANOTAR:
+        out["veredicto"] = "REVISAR"
+        out["razones"].append(f"Δ de resultado {d:.1f} % ≥ umbral {UMBRAL_ANOTAR:.0f} %")
+    elif out["directo"] or d or out["items_variantes"] or out["sistemas"]:
+        out["veredicto"] = "ANOTAR"
+        if out["directo"]:
+            out["razones"].append(f"cambio directo ({out['directo']['tipo']}) con impacto medido "
+                                  f"{d if d is not None else '—'} % < umbral {UMBRAL_ANOTAR:.0f} %")
+        if out["items_variantes"]:
+            out["razones"].append("ítems de variantes/rechazados cambiados (nota informativa)")
+        if out["sistemas"]:
+            out["razones"].append("cambios sistémicos relevantes al rol (cualitativos, refuerzan o no cambian la build)")
+    else:
+        out["veredicto"] = "SIN_IMPACTO"
+        out["razones"].append("el parche no toca champion, build, ni sistemas del rol")
+    return out
+
+
+def triage_todos(reg, patch=None, ruta=None):
+    rutas = {p: r for p, r, k in cambios_archivos()}
+    patch = patch or ultimo_parche_hotfix()[0]
+    if not patch or patch not in rutas:
+        sys.exit(f"No hay diff estructurado (cambios_<patch>.md) para el parche {patch!r}. "
+                 f"Disponibles: {sorted(rutas)}")
+    cs = parse_cambios(ruta or rutas[patch])
+    return patch, cs, [triage_reporte(f, e, cs, patch) for f, e in sorted(reg["reportes"].items())]
+
+
+# ================================================================ anotación
+def bloque_verificacion(t, fecha=None):
+    """Bloque markdown idempotente (marcadores HTML) con el resultado del triage."""
+    fecha = fecha or datetime.date.today().strftime("%d/%m/%Y")
+    v = t["veredicto"]
+    icono = VEREDICTOS[v]
+    regen = v in ("REGENERAR",)
+    revisar = v == "REVISAR"
+    titulo = (f"❌ REQUIERE REGENERACIÓN — hotfix {t['patch']}" if regen else
+              f"⚠️ REQUIERE REVISIÓN ACOTADA — hotfix {t['patch']}" if revisar else
+              f"NO requiere regeneración — hotfix {t['patch']}")
+    L = [f"<!-- WRLAB-VERIF:{t['patch']}:START — generado por model/update_reports.py · no editar a mano -->",
+         f"> [!NOTE] {icono} Verificación automática ({fecha}) — **{titulo}**"]
+    if t["directo"]:
+        L.append(f"> **Cambio directo:** {t['directo']['tipo']} — {t['directo']['detalles'][:220]}.")
+    else:
+        L.append(f"> **Cambios directos a {t['champion']}:** ninguno en {t['patch']}.")
+    if t.get("delta"):
+        pares = []
+        for k, dv in sorted(t.get("delta_resultado", {}).items(), key=lambda x: -abs(x[1]))[:5]:
+            if abs(dv) >= 0.05:
+                pares.append(f"{k} {t['pre'][k]:g}→{t['post_cons'][k]:g} ({dv:+.1f} %)")
+        inp = [f"{k} ({dv:+.1f} %)" for k, dv in t.get("delta_input", {}).items() if abs(dv) >= 0.05]
+        if pares:
+            L.append(f"> **Δ de resultado (conservador):** {' · '.join(pares)}. "
+                     f"Δ máx **{t['delta_max']:.1f} %** (umbrales: anotar {UMBRAL_ANOTAR:.0f} %, regenerar {UMBRAL_REGENERAR:.0f} %).")
+            dif_full = {k: (t['pre'][k], t['post'][k]) for k in t.get("delta_resultado", {})
+                        if abs(t['post'][k] - t['post_cons'][k]) > 0.05}
+            if dif_full:
+                extra = " · ".join(f"{k} {a:g}→{b:g}" for k, (a, b) in list(dif_full.items())[:3])
+                L.append(f"> **Con la fórmula completa post-parche:** {extra} (el veredicto usa el caso conservador).")
+        else:
+            L.append("> **Δ de resultado:** 0 % en todas las métricas clave del reporte.")
+        if inp:
+            L.append(f"> **Δ de stats-input (no decide veredicto):** {', '.join(inp[:4])}.")
+    elif t.get("hook"):
+        L.append("> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.")
+    else:
+        motivo = t.get("hook_motivo") or "modelo no conectado para este campeón"
+        L.append(f"> **Modelo:** sin hook cuantitativo ({motivo}) → triage por intersección "
+                 f"(champion/ítems/sistemas). Métricas publicadas sin cambios medibles.")
+    slots = " + ".join(t.get("build_display", [])[:6])
+    L.append(f"> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.")
+    if t["items_variantes"]:
+        L.append(f"> **Ítems cambiados fuera de la build final:** {', '.join(t['items_variantes'])} "
+                 f"— verificar variantes/rechazados del reporte.")
+    for s in t["sistemas"][:3]:
+        L.append(f"> **Sistema ({t['patch']}):** {s[:240]}")
+    if t["lab_note"]:
+        L.append(f"> **Nota del lab (diff {t['patch']}):** {t['lab_note'][:260]}")
+    cierre = ("regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar." if regen else
+              "revisión manual acotada (matriz último slot / rechazados); la build NO se re-deriva." if revisar else
+              "build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.")
+    L.append(f"> **Veredicto:** {icono} — {cierre}")
+    L.append(f"<!-- WRLAB-VERIF:{t['patch']}:END -->")
+    return "\n".join(L)
+
+
+
+
+def insertar_bloque(txt, bloque, patch):
+    """Idempotente a nivel de bytes:
+    - si ya existe el bloque del mismo parche → lo reemplaza in-place (normaliza espacios previos);
+    - si existen bloques de otros parches → inserta después del último;
+    - si no → inserta tras el bloque de metadatos (antes del primer callout '> [!' o '## ')."""
+    pat = re.compile(rf"\n*<!-- WRLAB-VERIF:{re.escape(patch)}:START.*?<!-- WRLAB-VERIF:{re.escape(patch)}:END -->", re.S)
+    if pat.search(txt):
+        return pat.sub(lambda _m: "\n\n" + bloque, txt, count=1)
+    ends = list(re.finditer(r"<!-- WRLAB-VERIF:[^:>]+:END -->", txt))
+    if ends:
+        i = ends[-1].end()
+        return txt[:i] + "\n\n" + bloque + "\n\n" + txt[i:].lstrip("\n")
+    m = re.search(r"^> \[!", txt, flags=re.M) or re.search(r"^## ", txt, flags=re.M)
+    if not m:
+        return txt.rstrip() + "\n\n" + bloque + "\n"
+    i = m.start()
+    return txt[:i].rstrip("\n") + "\n\n" + bloque + "\n\n" + txt[i:]
+
+
+# ================================================================ comandos
+def cmd_baseline(args):
+    reg = construir_registro()
+    # conservar sellos previos si el registro ya existía
+    if os.path.exists(REGISTRY) and not args.force:
+        with open(REGISTRY, encoding="utf-8") as fh:
+            viejo = json.load(fh)
+        for f, e in reg["reportes"].items():
+            if f in viejo.get("reportes", {}):
+                e["ultima_verificacion"] = viejo["reportes"][f].get("ultima_verificacion")
+    guardar_registro(reg)
+    for f, e in sorted(reg["reportes"].items()):
+        mets = e["metricas"]
+        s = " · ".join(f"{k}={v:g}" for k, v in list(mets.items())[:6]) if mets else f"SIN HOOK ({e['hook_motivo'][:60]})"
+        print(f"  {f:<44} {e['champion_display']:<8} {e['modelo']:<9} {s}")
+
+
+def cmd_triage(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    print(f"\n=== TRIAGE hotfix {patch} ({os.path.basename(cs['raw'])}) sobre {len(resultados)} reportes ===")
+    print(f"{'REPORTE':<44}{'CHAMP':<9}{'DIRECTO':<9}{'Δmax':>7}  {'ÍTEMS BUILD':<12}{'VEREDICTO'}")
+    for t in resultados:
+        dmax = f"{t['delta_max']:.1f} %" if t["delta_max"] is not None else "—"
+        directo = t["directo"]["tipo"][:8] if t["directo"] else "—"
+        ib = ",".join(t["items_build"])[:11] or "—"
+        print(f"{t['archivo']:<44}{t['champion']:<9}{directo:<9}{dmax:>7}  {ib:<12}{VEREDICTOS[t['veredicto']]}")
+        for r in t["razones"]:
+            print(f"    └─ {r}")
+    n_reg = sum(1 for t in resultados if t["veredicto"] == "REGENERAR")
+    n_rev = sum(1 for t in resultados if t["veredicto"] == "REVISAR")
+    print(f"\nResumen: {len(resultados) - n_reg - n_rev} reportes NO requieren regeneración · "
+          f"{n_rev} revisión acotada · {n_reg} regeneración completa.")
+    return resultados
+
+
+def cmd_annotate(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    solo = set(args.solo.split(",")) if args.solo else None
+    fecha = args.fecha or datetime.date.today().strftime("%d/%m/%Y")
+    for t in resultados:
+        if solo and t["archivo"] not in solo:
+            continue
+        bloque = bloque_verificacion(t, fecha)
+        ruta = os.path.join(REPORTES, t["archivo"])
+        if args.apply:
+            with open(ruta, encoding="utf-8") as fh:
+                txt = fh.read()
+            nuevo = insertar_bloque(txt, bloque, patch)
+            if nuevo != txt:
+                with open(ruta, "w", encoding="utf-8") as fh:
+                    fh.write(nuevo)
+                print(f"✍️  {t['archivo']}: bloque {patch} insertado/actualizado ({VEREDICTOS[t['veredicto']]})")
+            else:
+                print(f"=  {t['archivo']}: sin cambios (bloque ya vigente)")
+            reg["reportes"][t["archivo"]]["ultima_verificacion"] = {
+                "patch": patch, "fecha": fecha, "veredicto": t["veredicto"],
+                "delta_max_pct": t["delta_max"]}
+        else:
+            print(f"\n────── {t['archivo']} ({VEREDICTOS[t['veredicto']]}) — dry-run ──────")
+            print(bloque)
+    if args.apply:
+        guardar_registro(reg)
+        print("\nRegistro sellado. Corre 'python3 -m unittest discover -s tests' y commitea reportes+registro.")
+
+
+def cmd_check(args):
+    reg = cargar_registro()
+    fallos = []
+    # 1) drift motor ↔ registro
+    for f, e in sorted(reg["reportes"].items()):
+        if not e.get("hook") or e.get("sin_resolver") or not e.get("metricas"):
+            continue
+        act = _redondear(HOOKS[e["hook"]](e["build_keys"]))
+        for k, v in e["metricas"].items():
+            if isinstance(v, (int, float)) and v and k in act:
+                drift = abs(act[k] - v) / abs(v) * 100
+                if drift > 0.5:
+                    fallos.append(f"{f}: drift en {k} ({v:g} → {act[k]:g}, {drift:.1f} %) — "
+                                  f"¿datos del motor cambiaron? Documenta y corre 'baseline'.")
+    # 2) reportes sin triar contra el último hotfix
+    patch, _ = ultimo_parche_hotfix()
+    if patch:
+        for f, e in sorted(reg["reportes"].items()):
+            uv = e.get("ultima_verificacion")
+            if not uv or patch_key(uv["patch"]) < patch_key(patch):
+                fallos.append(f"{f}: sin verificar contra {patch} — corre "
+                              f"'update_reports.py triage/annotate --patch {patch} --apply'.")
+    if fallos:
+        print("❌ CHECK FALLÓ:")
+        for x in fallos:
+            print("  -", x)
+        sys.exit(1)
+    print(f"✅ check OK: {len(reg['reportes'])} reportes sin drift y verificados contra {patch}.")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · triador/actualizador de reportes publicados")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    b = sub.add_parser("baseline", help="(re)construir el registro de reportes+golden metrics")
+    b.add_argument("--force", action="store_true", help="no conservar sellos de verificación previos")
+    t = sub.add_parser("triage", help="cuantificar impacto de un parche sobre los reportes")
+    t.add_argument("--patch", default=None)
+    a = sub.add_parser("annotate", help="generar/insertar bloques de verificación")
+    a.add_argument("--patch", default=None)
+    a.add_argument("--apply", action="store_true", help="escribir en los reportes (default: dry-run)")
+    a.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
+    a.add_argument("--fecha", default=None, help="fecha del sello (dd/mm/aaaa)")
+    sub.add_parser("check", help="modo CI: drift + verificaciones pendientes")
+    args = ap.parse_args()
+    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate, "check": cmd_check}[args.cmd](args)
+
+
+if __name__ == "__main__":
+    main()

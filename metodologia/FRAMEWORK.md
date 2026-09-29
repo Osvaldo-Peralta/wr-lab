@@ -154,7 +154,24 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    y actualizar: constantes en dps_model.py (CRIT_DMG, AS_CAP, LT…), precios/stats de ITEMS,
 #    specs de campeones tocados.
 # 5. Anotar en data/FUENTES.md: fecha, parche, discrepancias detectadas.
+# 6. Escribir el diff estructurado data/estructurada/cambios_<patch>.md
+#    (mismo formato que cambios_7.3a.md: tablas CAMPEONES / ÍTEMS / MAPA Y SISTEMAS /
+#    IMPACTO EN REPORTES — de esta tabla se alimenta update_reports.py).
+# 7. TRIAR los reportes publicados en vez de regenerarlos a ciegas:
+#    python3 model/update_reports.py triage   --patch <X.Xx>
+#    python3 model/update_reports.py annotate --patch <X.Xx> --apply
+#    → ✅ ANOTAR/SIN_IMPACTO: la build publicada NO se toca (bloque de verificación insertado).
+#    → ⚠️ REVISAR: revisión manual acotada (matriz último slot, rechazados, variantes).
+#    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A) y `baseline` de nuevo.
+# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
 ```
 
-**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) tal como estaba publicado al 25-sep-2026.
-Cualquier hotfix 7.3a/b obliga al paso 1–5 antes de publicar un reporte nuevo.
+**Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se
+**anota con su impacto medido** (`update_reports.py`), no se re-deriva la build — salvo que
+el triage dé ❌ REGENERAR (Δ de resultado ≥ 5 % o cambio a inputs del spec). Umbrales:
+Δ < 2 % ✅ ANOTAR · 2–5 % ⚠️ REVISAR · ≥ 5 % ❌ REGENERAR. El Δ se mide sobre métricas de
+**resultado** (DPS/escudos/curas), no sobre stats-input (un HSP −5 % puede diluirse a −1.4 %
+de escudo: caso Yuumi 7.3a).
+
+**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026).
+Cualquier hotfix 7.3b/7.4 obliga a los pasos 1–8 antes de publicar un reporte nuevo.
