@@ -18,6 +18,10 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Reconstruir BD (integridad)
         run: python3 model/build_db.py
+      - name: Bundles sincronizados con las fuentes
+        run: python3 model/build_bundles.py --check
+      - name: Reportes verificados contra el último hotfix
+        run: python3 model/update_reports.py check
       - name: Validar bundles regenerables
         run: |
           python3 - <<'EOF'

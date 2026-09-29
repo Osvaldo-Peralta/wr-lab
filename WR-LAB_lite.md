@@ -6,6 +6,13 @@
 > ítems es un ERROR (deja la build con 5 slots reales y pierde un ítem completo).
 > Toda lista de build debe pasar `dps_model.validate_slots()` (6 entradas, exactamente 1 botas, nunca T2+T3 juntas).
 
+> ## 🧭 REGLA DE ORO — LOS REPORTES PUBLICADOS NO SE REGENERAN (v1.6)
+> Una build publicada y aprobada es **definitiva**. Cuando sale un hotfix se TRIA con
+> `model/update_reports.py` (Δ sobre métricas de RESULTADO): **<2 % ✅ se anota** el bloque
+> `WRLAB-VERIF` y la build sigue vigente · 2-5 % ⚠️ revisión acotada · **≥5 % o cambio a inputs
+> del spec ❌ regenerar** (flujo FRAMEWORK de 10 pasos, con apoyo de `model/optimize_build.py`).
+> Los reportes del bundle llevan su bloque de verificación: respétalo, no re-derives builds ✅.
+
 > ## 🎨 ESTÁNDAR VISUAL DE REPORTES (v1.4 — obligatorio)
 > Todo reporte generado DEBE seguir `metodologia/TEMPLATE_REPORTE.md` al pie de la letra:
 > frontmatter YAML (tags/version/Status/champion/patch) · bloque de metadatos en negritas ·
@@ -13,19 +20,22 @@
 > §0 con **Tabla A (6 slots exactos)** + **Tabla B (ruta cronológica con componentes y oro acumulado)** ·
 > secciones `## N. MAYÚSCULAS` 0-10 + APÉNDICE A/B + **Pie de página** (referencias Riot/wr-meta/WR-LAB + aviso legal) ·
 > números con espacio de miles (`2 900`, `17 350 g`) y `%` con espacio (`25 %`) · veredictos ✅/⚠️/❌ siempre con número.
-> Referencia canónica: el reporte de Jinx incluido en este bundle.
+> Bloque de verificación de hotfix (§A.8): gestionado por tooling, no editar a mano.
 
-> ## 🔥 ESTADO DE DATOS: parche 7.3 **+ hotfix 7.3a** (despliegue 29-sep-2026)
+> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
 > Los cambios de 7.3a (nerfs a Hwei/Malphite/Caitlyn/Senna/Yuumi/Rammus/Syndra; buffs a Samira/Tristana/
 > Draven/Viego; Yun Tal AS 35 %; Diadem/Circlet nerf; Death's Dance 3 300; Smite burn −; Nexus 4 000;
 > placas −resist) están en §3b y YA aplicados a specs, motor y apéndices de este bundle.
-> Fuente: notas oficiales CN traducidas — re-verificar contra la nota EN cuando Riot la publique.
+> **✅ Verificado contra la nota EN oficial de 7.3a** (publicada 29-sep-2026): todos los números del
+> diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
+> Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 28/09/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 29/09/2026
+
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
 > siguiendo el ESTÁNDAR VISUAL v1.4 de TEMPLATE_REPORTE.md".
-> Versión completa (reportes del equipo, fichas, diffs): WR-LAB_completo.md
+> Versión completa (reportes del vault, fichas, diffs, infraestructura): WR-LAB_completo.md
 
 ## 1. METODOLOGÍA (Ley 0 + las 7 Leyes + flujo)
 
@@ -50,7 +60,8 @@
 3. **Leer sus cambios de 7.3.** ¿Sus habilidades ahora escalan con crítico (Caitlyn, MF, Tristana, Xayah, Akshan, Viego…)?
    Eso sube el valor de IE y del crítico por encima del modelo de solo autos. ¿Lo nerfearon/buffearon? (Jinx: AD growth y R.)
 4. **Definir el arquetipo** (§C) y las 3–5 rutas candidatas serias (no todas las posibles).
-5. **Enumerar builds como listas de ítems** (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
+5. **Enumerar builds como listas de ítems** (apoyo: `model/optimize_build.py <champ>` las busca
+   de forma exhaustiva bajo Leyes 0-1-2-3 y presupuesto) (SIEMPRE 6 slots totales: 1 botas + 5 ítems — ver Ley 0;
    en la lista va la botas T3, nunca T2+T3 a la vez; `validate_slots()` corre automáticamente)
    y correr `compare(spec, builds)` en los 4 escenarios estándar: 1v1, 3v3, vs 120 armadura, vs tanque (220 arm + ≥1200 HP bonus + 4500 HP para %-vida).
 6. **Aplicar las Leyes** (§B) para podar: stats muertos (crítico >umbral, AS sobre el tope, haste inútil),
@@ -185,11 +196,29 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    y actualizar: constantes en dps_model.py (CRIT_DMG, AS_CAP, LT…), precios/stats de ITEMS,
 #    specs de campeones tocados.
 # 5. Anotar en data/FUENTES.md: fecha, parche, discrepancias detectadas.
+# 6. Escribir el diff estructurado data/estructurada/cambios_<patch>.md
+#    (mismo formato que cambios_7.3a.md: tablas CAMPEONES / ÍTEMS / MAPA Y SISTEMAS /
+#    IMPACTO EN REPORTES — de esta tabla se alimenta update_reports.py).
+# 7. TRIAR los reportes publicados en vez de regenerarlos a ciegas:
+#    python3 model/update_reports.py triage   --patch <X.Xx>
+#    python3 model/update_reports.py annotate --patch <X.Xx> --apply
+#    → ✅ ANOTAR/SIN_IMPACTO: la build publicada NO se toca (bloque de verificación insertado).
+#    → ⚠️ REVISAR: revisión manual acotada (matriz último slot, rechazados, variantes).
+#    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
+#      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
+#      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
+# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
 ```
 
-**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) tal como estaba publicado al 25-sep-2026.
-Cualquier hotfix 7.3a/b obliga al paso 1–5 antes de publicar un reporte nuevo.
+**Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se
+**anota con su impacto medido** (`update_reports.py`), no se re-deriva la build — salvo que
+el triage dé ❌ REGENERAR (Δ de resultado ≥ 5 % o cambio a inputs del spec). Umbrales:
+Δ < 2 % ✅ ANOTAR · 2–5 % ⚠️ REVISAR · ≥ 5 % ❌ REGENERAR. El Δ se mide sobre métricas de
+**resultado** (DPS/escudos/curas), no sobre stats-input (un HSP −5 % puede diluirse a −1.4 %
+de escudo: caso Yuumi 7.3a).
 
+**Caducidad:** los números de este lab son válidos para 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026).
+Cualquier hotfix 7.3b/7.4 obliga a los pasos 1–8 antes de publicar un reporte nuevo.
 
 ## 1b. APÉNDICE: ESCALADO DE TAMAÑO (Cho'Gath/Malphite/Shyvana) — actualizado a 7.3a
 
@@ -284,7 +313,6 @@ Cuando pidas el reporte de Cho'Gath, Malphite o Shyvana, el análisis añadirá:
 
 Grep de "size/tamaño" sobre los 186 ítems de `items_7.3.csv` y las 12 fichas de campeones · notas oficiales 7.3 (Mantle: HP 200→600 y Twinguard: +300 HP base, rework de resistencias) · fichas wr-meta de Cho'Gath (R Feast completo), Malphite (W/E ratios de armadura) y Shyvana. Discrepancia registrada: el texto "Gains 9 Armor (25/30/35/40 %)" de la W de Malphite es ambiguo (¿9 + % del bonus o % del total?) — modelado como % del bonus (conservador), verificar en juego.
 
-
 ## 2. TEMPLATE + GUÍA DE ESTILO (estándar visual obligatorio v1.4)
 
 # TEMPLATE + GUÍA DE ESTILO — Reportes WR-LAB (estándar v1.4)
@@ -376,6 +404,28 @@ original del autor apoyado en WR-LAB.
 
 ### A.7 Nomenclatura de archivo (vault/sitio)
 `{Campeón} — Wild Rift Build Optimizada.md` (título H1 NO se repite en el cuerpo si el frontmatter lleva `champion:`; el H1 lo pone Quartz). Para el lab: `reportes/{Campeón}_WR_{patch}_Build_Optimizada.md`.
+
+### A.8 Bloque de verificación automática de hotfix (gestionado por tooling)
+Cuando un hotfix toca (o podría tocar) un reporte publicado, `model/update_reports.py annotate --apply`
+inserta/actualiza un bloque **entre marcadores HTML** justo después del bloque de metadatos:
+
+```markdown
+<!-- WRLAB-VERIF:{patch}:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] {✅|⚠️|❌} Verificación automática ({fecha}) — **{NO requiere regeneración|…} — hotfix {patch}**
+> **Cambio directo:** {tipo y detalle, o "ninguno"}.
+> **Δ de resultado (conservador):** {métrica pre→post (±%)} · Δ máx **{x} %** (umbrales: anotar 2 %, regenerar 5 %).
+> **Build publicada (6 slots, Ley 0):** {slots} — **sin cambios**.
+> {ítems de variantes/rechazados cambiados · sistemas relevantes al rol · nota del lab}
+> **Veredicto:** {✅ ANOTAR|⚠️ REVISAR|❌ REGENERAR} — {consecuencia}.
+<!-- WRLAB-VERIF:{patch}:END -->
+```
+
+Reglas: (1) el contenido entre marcadores **no se edita a mano** — se regenera con el tooling;
+(2) un bloque por parche verificado (los históricos se conservan encima del nuevo);
+(3) el veredicto usa **métricas de resultado** (DPS/escudo/cura), no stats-input;
+(4) ❌ REGENERAR es el único veredicto que autoriza re-derivar la build (flujo §A del FRAMEWORK
++ `update_reports.py baseline` al terminar). Los callouts manuales `> [!WARNING] Hotfix…` previos
+a v1.6 pueden convivir, pero la constancia canónica es el bloque automático.
 
 ---
 
@@ -543,18 +593,30 @@ patch: "7.3"
 - [ ] Hotfix verificado (¿7.3a/b?) antes de pasar a Status: Aprobado.
 - [ ] Pie de página con referencias Riot/wr-meta/WR-LAB + aviso legal.
 
-
 ## 3. FUENTES Y REGLAS DE VERIFICACIÓN
 
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 25 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026)
+**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+
+## Registro de verificaciones de parche
+
+| Fecha | Verificación | Resultado | Evidencia |
+|---|---|---|---|
+| 29/09/2026 | ¿Hotfix nuevo tras 7.3a? (`check_patch.py` + inspección manual) | **NO.** Sin páginas 7.3b/7.4 (404 en todos los slugs); changelogs wr-meta de centinelas sin cambios (22-sep, 7.3); la página oficial 7.3 tiene **contenido idéntico** al snapshot del 28-sep — el md5 crudo difería solo por ruido dinámico (carrusel de "artículos relacionados" y token `mappersVersion` del CMS). Cero menciones de hotfix/7.3a/7.3b/7.4 en la página EN | `data/raw/patch73_0929.html` (diff vs `patch73_0928.html`: 1 línea de metadata CMS; texto del artículo: 2 497 líneas idénticas) |
+| 29/09/2026 | Falso positivo del vigía | `check_patch.py` v1.6: el hash pasa a ser de **contenido normalizado** (texto del artículo cortado antes del pie dinámico), no del HTML crudo | `.watch_state.json` con `official_73_content_md5` |
+| 29/09/2026 | Reportes publicados vs 7.3a (set original de 5) | `update_reports.py triage --patch 7.3a`: 5/5 ✅ ANOTAR (ninguno requiere regeneración). Yuumi: Δ resultado −1.4 % (E-shield/R-heal) pese a HSP −5 % (input) | Commit v1.6 (bloques `WRLAB-VERIF:7.3a` + `reportes_registry.json`) |
+| 29/09/2026 | Vault externo integrado (16 reportes sustituyen a los 5 del lab, commit 163d9bc) | Re-triage 7.3a del vault: **Caitlyn ❌ y Rammus ❌ REGENERAR** (7.3a tocó inputs de su spec: AS growth / armadura base — sus reportes declaran datos 7.3), **Yuumi ⚠️ REVISAR** (nerf W sin hook para la build poke-híbrida: Stormsurge/Harmonic Echo fuera del modelo), 13 ✅ ANOTAR/SIN IMPACTO | Bloques `WRLAB-VERIF:7.3a` en los 16 reportes + registro |
+| 29/09/2026 | Validación cruzada del optimizador (`optimize_build.py`) | ✅ **Redescubre la build C de Jinx** dentro del pool de candidatos del reporte (Leyes 1+3 duras, 3 042 dps1). Pool completo post-7.3a: `Gunmetal+C44+Terminus+YunTal+LDR+IE` supera a C ~7 % en eficiencia ponderada normalizada (supuestos: Yun Tal a rampa máxima 125 ataques, Terminus a stacks) — **hallazgo registrado, reporte publicado intacto** (Regla de Oro) | ROADMAP.md §Hallazgos del optimizador |
+| 29/09/2026 | **Nota EN oficial de 7.3a publicada** (detectada por check_patch.py en vivo) | Descargada y verificada número por número contra `cambios_7.3a.md` (traducción CN): **todo coincide** — specs/motor/tests del lab quedan confirmados contra fuente primaria. Discrepancia menor registrada: Crown of Songs (ver §Discrepancias). wr-meta indexó changelogs "30 SEP 2026 (7.3A)" en Yuumi/Malphite | `data/raw/patch73a_en.html/.txt` |
+| 29/09/2026 | Bundles regenerables | `WR-LAB_lite.md` (176 KB) y `WR-LAB_completo.md` (836 KB) regenerados desde las fuentes con los 16 reportes del vault + módulos nuevos (optimizador §10c, batch2 §10b, actualizador §17b, infra §18); CI verifica sincronía (`build_bundles.py --check`) | `model/build_bundles.py` |
 
 ## Hotfix 7.3a (29-sep-2026)
 
 | Fuente | Acceso | Qué aporta | Fiabilidad |
 |---|---|---|---|
-| Notas oficiales CN (lolm.qq.com docid 15413436308828016227) vía traducción comunitaria r/wildrift (thread 1wskk84), recuperada por Arctic Shift API | 28/09/2026 (`data/raw/patch73a_cn_en.txt`, diff completo en `data/estructurada/cambios_7.3a.md`) | Nerfs: Hwei, Rammus, Malphite, Caitlyn, Senna (ajuste), Syndra, Yuumi · Buffs: Samira, Tristana, Draven, Viego · Yun Tal buff · Diadem/Circlet/Whispering nerf · Death's Dance 3300 · Smite burn −, Nexus 4000, placas −resist · ARAM | Alta (texto oficial CN traducido; números con formato >>> coherentes). **Pendiente: re-verificar contra la nota EN cuando Riot la publique** y contra wr-meta cuando indexe (aún no lo hace al 28/09) |
+| **Notas oficiales EN 7.3a (FUENTE PRIMARIA)** — wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3a/ | 29/09/2026 (`data/raw/patch73a_en.html/.txt`) | Confirmación oficial de todos los valores: Hwei, Samira, Rammus, Malphite, Tristana, Draven, Caitlyn, Senna, Syndra, Swain, Yuumi, Viego · Yun Tal (AS 35, Flurry 35/CD 25) · Whispering Circlet + **Diadem of Songs** (Harmony 0.25 %) · Death's Dance 3300 · Smite 22-162 · Nexus 4000 · placas +20/10 s · AAA ARAM | **Definitiva** — verificación número por número contra la traducción CN: ✅ todo coincide |
+| Notas oficiales CN (lolm.qq.com docid 15413436308828016227) vía traducción comunitaria r/wildrift (thread 1wskk84), recuperada por Arctic Shift API | 28/09/2026 (`data/raw/patch73a_cn_en.txt`, diff completo en `data/estructurada/cambios_7.3a.md`) | Nerfs: Hwei, Rammus, Malphite, Caitlyn, Senna (ajuste), Syndra, Yuumi · Buffs: Samira, Tristana, Draven, Viego · Yun Tal buff · Diadem/Circlet/Whispering nerf · Death's Dance 3300 · Smite burn −, Nexus 4000, placas −resist · ARAM | Alta — **✅ re-verificada contra la nota EN oficial el 29/09/2026**: números idénticos; única desviación: EN lista solo Diadem of Songs (la CN decía Crown/Diadem). wr-meta ya indexa changelogs 7.3A (30-sep) |
 
 ## Fuentes primarias (MANDAN sobre cualquier otra)
 
@@ -588,6 +650,7 @@ patch: "7.3"
 | Noxian Gait (Gunmetal) | Notas 7.2: 15 %/10 % MS | wr-meta post-7.3: 10 %/7 % | wr-meta (posterior al reajuste global de MS 5→4 %) |
 | Ingenious Hunter | wr-meta la lista | Notas 7.3: **REMOVIDA** | Removida |
 | Berserker's Greaves AS | Notas 7.2: 30 % | wr-meta + ejemplo oficial Caitlyn 7.3: **35 %** | 35 % |
+| 7.3a: Crown of Songs (Harmony) | Traducción CN: "Crown/Diadem of Songs" nerfeadas | Nota EN oficial: solo **Diadem of Songs** + Whispering Circlet | Mandan las notas EN: el nerf listado es de Diadem; si Crown of Songs comparte la pasiva Harmony, heredaría el valor en juego — verificar en tienda antes de publicar análisis de enchanter que use Crown |
 | ⚠️ Caitlyn Base Bonus AS | Notas 7.3 §CAITLYN y ejemplo de la fórmula: **0.28** | Apéndice final de las mismas notas: **0.2** | **Inconsistencia interna de Riot.** Usar 0.28 (sección del campeón + ejemplo oficial) y verificar en el panel del juego antes de publicar cualquier análisis de Caitlyn. El CSV `champion_attack_speed_7.3.csv` replica el apéndice (0.2) — corregir manualmente si se confirma 0.28 |
 
 **Regla permanente:** notas oficiales > BD comunitaria sincronizada > guías/comunidad. Toda discrepancia nueva se anota aquí.
@@ -608,16 +671,18 @@ data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
 ```
 
-
 ## 3b. HOTFIX 7.3a — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
 
 # HOTFIX 7.3a — Cambios completos (despliegue: 29-sep-2026, 09:30–12:00 CN)
 
 > **Fuente:** notas oficiales del servidor chino (lolm.qq.com, docid 15413436308828016227) vía traducción
-> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`). El sitio oficial EN aún no publica
-> página propia de 7.3a (verificado 28/09: 404); la página de notas 7.3 no fue modificada.
-> **Estado en el lab:** datos aplicados donde aplica; pendientes de re-verificación contra la nota EN oficial
-> cuando se publique (protocolo §E de FRAMEWORK).
+> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`).
+> **✅ VERIFICADO contra la nota EN oficial** (wildrift.leagueoflegends.com/…/wild-rift-patch-notes-7-3a/,
+> publicada el 29-sep-2026, archivada en `data/raw/patch73a_en.html/.txt`): todos los números de campeones,
+> ítems y sistemas coinciden con esta tabla. Única discrepancia: la nota EN lista solo **Diadem of Songs**
+> (0.5→0.25 %) además de Whispering Circlet; la traducción CN decía "Crown/Diadem" — mandan las notas EN
+> (ver FUENTES.md). Typo de la fuente EN: "0.01%a Ability Power" = 0.01 % AP.
+> **Estado en el lab:** datos aplicados en specs, motor, apéndices y tests (v1.5+).
 
 ## RESUMEN DE INTENCIÓN (traducción del intro oficial)
 
@@ -673,7 +738,6 @@ y menor resistencia contra split-push/siege continuo. Ajustes a Augments y campe
 | `reportes/Jinx_*` | Placas más blandas + Nexus 4000 → siege Jinx MEJORA; ningún cambio directo a Jinx | Anotado |
 | Reportes externos (Yunara/Cho'Gath/Shyvana hechos en otro chat) | Yunara: Yun Tal buff + placas (revisar 1.er ítem) · Cho'Gath: smite nerf jungla · Shyvana: smite nerf | Marcar para revisión en su próxima regeneración |
 | FRAMEWORK test de Caitlyn | El ejemplo oficial (1.48125) usaba growth 0.04 (pre-7.3a); con 0.025 el resultado esperado a lvl15 con Alacrity+Berserker's es **1.35** | Test actualizado con ambos valores |
-
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
@@ -1456,8 +1520,6 @@ We’re introducing Lifesteal, a new vamp stat that applies only to basic attack
 
 ## LIFESTEAL (nuevo stat)
 
-
-
 ## 7. TABLA OFICIAL DE ATTACK SPEED — 140 CAMPEONES (7.3, con overrides 7.3a marcados)
 
 ```csv
@@ -1665,170 +1727,170 @@ Nocturne,,,,,120 → 134
 
 | Ítem | Oro | Stats | Categorías |
 |---|---|---|---|
-| Chempunk Chainsword | 2800 | +400 Max Health / +45 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Manamune | 2900 | +40 Attack Damage / +500 Max Mana / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Muramana |  | +40 Attack Damage / +1200 Max Mana / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Eclipse | 3000 | +65 Attack Damage / +20 Ability Haste | FIGHTER ITEMS |
-| Sundered Sky | 3000 | +350 Max Health / +40 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Experimental Hexplate | 3000 | +400 Max Health / +35 Attack Damage / +20% Attack Speed | FIGHTER ITEMS |
-| Maw of Malmortius | 3000 | +55 Attack Damage / +45 Magic Resistance / +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Black Cleaver | 3000 | +400 Max Health / +40 Attack Damage / +20 Ability Haste | FIGHTER ITEMS |
-| Titanic Hydra | 3000 | +450 Max Health / +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
-| Stridebreaker | 3100 | +400 Max Health / +40 Attack Damage / +25% Attack Speed | FIGHTER ITEMS |
-| Goredrinker | 3100 | +350 Max Health / +40 Attack Damage / +15 Ability Haste | FIGHTER ITEMS |
-| Mercurial Scimitar | 3100 | +45 Attack Damage / +12% Lifesteal / +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Blade of the Ruined King | 3100 | +40 Attack Damage / +35% Attack Speed / +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Serylda's Grudge | 3100 | +50 Attack Damage / +35% Armor Penetration / +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
-| Spear of Shojin | 3100 | +450 Max Health / +40 Attack Damage | FIGHTER ITEMS |
-| Hullbreaker | 3100 | +400 Max Health / +50 Attack Damage | FIGHTER ITEMS |
-| Overlord's Bloodmail | 3200 | +450 Max Health / +30 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
-| Guardian Angel | 3200 | +45 Attack Damage / +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
-| Bloodthirster | 3200 | +75 Attack Damage / +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Sterak's Gage | 3200 | +400 Max Health / +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
-| Death's Dance | 3200 | +50 Attack Damage / +45 Armor / +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
-| Trinity Force | 3333 | +333 Max Health / +36 Attack Damage / +30% Attack Speed / +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Divine Sunderer | 3400 | +425 Max Health / +25 Attack Damage / +25 Ability Haste | FIGHTER ITEMS |
-| Serpent's Fang | 2800 | +50 Attack Damage / +10 Ability Haste | ASSASSIN ITEMS |
-| Youmuu's Ghostblade | 3000 | +55 Attack Damage / +15 Armor Penetration / +15 Ability Haste / +4% Move Speed | ASSASSIN ITEMS |
-| Duskblade of Draktharr | 3000 | +55 Attack Damage / +10 Ability Haste | ASSASSIN ITEMS |
-| Edge of Night | 3000 | +250 Max Health / +50 Attack Damage | ASSASSIN ITEMS |
-| The Collector | 3000 | +50 Attack Damage / +10 Armor Penetration / +25% Critical Rate | ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Fiendhunter Bolts | 2650 | +25% Critical Rate / +45% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Rapid Firecannon | 2650 | +25% Critical Rate / +40% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Runaan's Hurricane | 2650 | +40% Attack Speed / +25% Critical Rate / +4% Move Speed | MARKSMAN ITEMS |
-| Phantom Dancer | 2650 | +25% Critical Rate / +40% Attack Speed / +7% Movement Speed | MARKSMAN ITEMS |
-| Navori Quickblades | 2650 | +25% Critical Rate / +40% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Wit's End | 2800 | +50% Attack Speed / +45 Magic Resistance / +20% Tenacity | MARKSMAN ITEMS |
-| Hexoptics C44 | 2900 | +55 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Kraken Slayer | 2900 | +45 Attack Damage / +35% Attack Speed / +4% Move Speed | MARKSMAN ITEMS |
-| Nashor's Tooth | 2900 | +50% Attack Speed / +80 Ability Power / +15 Ability Haste | MARKSMAN ITEMS; MAGIC ITEMS |
-| Statikk Shiv | 3000 | +40 Attack Damage / +30% Attack Speed / +40 Ability Power / +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
-| Guinsoo's Rageblade | 3000 | +35 Attack Damage / +30% Attack Speed / +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
-| Mortal Reminder | 3000 | +35 Attack Damage / +30% Armor Penetration / +25% Critical Rate | MARKSMAN ITEMS |
-| Essence Reaver | 3000 | +50 Attack Damage / +25% Critical Rate / +20 Ability Haste | MARKSMAN ITEMS |
-| Immortal Shieldbow | 3000 | +55 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Terminus | 3000 | +35 Attack Damage / +35% Attack Speed | MARKSMAN ITEMS |
-| Stormrazor | 3000 | +50 Attack Damage / +25% Critical Rate / +20% Attack Speed | MARKSMAN ITEMS |
-| Yun Tal Wildarrows | 3100 | +50 Attack Damage / +25% Attack Speed | MARKSMAN ITEMS |
-| Galeforce | 3100 | +60 Attack Damage / +25% Critical Rate / +4% Move Speed | MARKSMAN ITEMS |
-| Dominik's Regards | 3300 | +35 Attack Damage / +35% Armor Penetration / +25% Critical Rate | MARKSMAN ITEMS |
-| Infinity Edge | 3400 | +75 Attack Damage / +25% Critical Rate | MARKSMAN ITEMS |
-| Whispering Circlet | 2400 | +200 Max Health / +500 Max Mana / +50% Mana Regen / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Diadem of Songs |  | +200 Max Health / +1200 Max Mana / +50% Mana Regen / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Redemption | 2450 | +40 Ability Power / +50% Mana Regen / +10 Ability Haste / +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Imperial Mandate | 2600 | +60 Ability Power / +50% Mana Regen / +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Oceanid's Trident | 2600 | +200 Max Health / +80 Ability Power / +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Morellonomicon | 2650 | +300 Max Health / +75 Ability Power / +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Hextech Roketbelt | 2700 | +250 Max Health / +70 Ability Power / +20 Ability Haste | MAGIC ITEMS |
-| Rylai's Crystal Scepter | 2700 | +350 Max Health / +65 Ability Power | MAGIC ITEMS |
-| Rod of Ages | 2700 | +350 Max Health / +50 Ability Power / +400 Max Mana | MAGIC ITEMS |
-| Horizon Focus | 2700 | +80 Ability Power / +25 Ability Haste | MAGIC ITEMS |
-| Malignance | 2700 | +90 Ability Power / +500 Max Mana / +15 Ability Haste | MAGIC ITEMS |
-| Stormsurge | 2800 | +90 Ability Power / +15 Magic Penetration / +6% Move Speed | MAGIC ITEMS |
-| Blackfire Torch | 2800 | +80 Ability Power / +500 Maximum Mana / +20 Ability Haste | MAGIC ITEMS |
-| Luden's Echo | 2800 | +100 Ability Power / +500 Max Mana / +10 Ability Haste | MAGIC ITEMS |
-| Lich Bane | 2800 | +100 Ability Power / +10 Ability Haste / +5% Move Speed | MAGIC ITEMS |
-| Bloodletter's Curse | 2900 | +350 Maximum Health / +65 Ability Power / +15 Ability Haste | MAGIC ITEMS |
-| Banshee's Veil | 3000 | +105 Ability Power / +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
-| Cryptbloom | 3000 | +75 Ability Power / +30% Magic Penetration / +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Liandry's Torment | 3000 | +300 Max Health / +70 Ability Power | MAGIC ITEMS |
-| Archangel's Staff | 3000 | +60 Ability Power / +500 Max Mana / +25 Ability Haste | MAGIC ITEMS |
-| Seraph's Embrace |  | +60 Ability Power / +1200 Max Mana / +25 Ability Haste | MAGIC ITEMS |
-| Cosmic Drive | 3000 | +300 Max Health / +70 Ability Power / +25 Ability Haste / +4% Move Speed | MAGIC ITEMS |
-| Dusk and Dawn | 3100 | +300 Maximum Health / +20% Attack Speed / +60 Ability Power / +20 Ability Haste | MAGIC ITEMS |
-| Infinity Orb | 3100 | +110 Ability Power / +15 Magic Penetration | MAGIC ITEMS |
-| Riftmaker | 3100 | +350 Max Health / +70 Ability Power / +15 Ability Haste | MAGIC ITEMS |
-| Zhonya's Hourglass | 3300 | +40 Armor / +110 Ability Power | MAGIC ITEMS; DEFENSE ITEMS |
+| Chempunk Chainsword | 2800 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Manamune | 2900 | +40 Attack Damage  /  +500 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Muramana |  | +40 Attack Damage  /  +1200 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Eclipse | 3000 | +65 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Sundered Sky | 3000 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Experimental Hexplate | 3000 | +400 Max Health  /  +35 Attack Damage  /  +20% Attack Speed | FIGHTER ITEMS |
+| Maw of Malmortius | 3000 | +55 Attack Damage  /  +45 Magic Resistance  /  +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Black Cleaver | 3000 | +400 Max Health  /  +40 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Titanic Hydra | 3000 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
+| Stridebreaker | 3100 | +400 Max Health  /  +40 Attack Damage  /  +25% Attack Speed | FIGHTER ITEMS |
+| Goredrinker | 3100 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Mercurial Scimitar | 3100 | +45 Attack Damage  /  +12% Lifesteal  /  +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +35% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Serylda's Grudge | 3100 | +50 Attack Damage  /  +35% Armor Penetration  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
+| Spear of Shojin | 3100 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS |
+| Hullbreaker | 3100 | +400 Max Health  /  +50 Attack Damage | FIGHTER ITEMS |
+| Overlord's Bloodmail | 3200 | +450 Max Health  /  +30 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
+| Guardian Angel | 3200 | +45 Attack Damage  /  +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
+| Bloodthirster | 3200 | +75 Attack Damage  /  +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Sterak's Gage | 3200 | +400 Max Health  /  +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
+| Death's Dance | 3200 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
+| Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Divine Sunderer | 3400 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
+| Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
+| Youmuu's Ghostblade | 3000 | +55 Attack Damage  /  +15 Armor Penetration  /  +15 Ability Haste  /  +4% Move Speed | ASSASSIN ITEMS |
+| Duskblade of Draktharr | 3000 | +55 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
+| Edge of Night | 3000 | +250 Max Health  /  +50 Attack Damage | ASSASSIN ITEMS |
+| The Collector | 3000 | +50 Attack Damage  /  +10 Armor Penetration  /  +25% Critical Rate | ASSASSIN ITEMS; MARKSMAN ITEMS |
+| Fiendhunter Bolts | 2650 | +25% Critical Rate  /  +45% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Rapid Firecannon | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Runaan's Hurricane | 2650 | +40% Attack Speed  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
+| Phantom Dancer | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +7% Movement Speed | MARKSMAN ITEMS |
+| Navori Quickblades | 2650 | +25% Critical Rate  /  +40% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Wit's End | 2800 | +50% Attack Speed  /  +45 Magic Resistance  /  +20% Tenacity | MARKSMAN ITEMS |
+| Hexoptics C44 | 2900 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Kraken Slayer | 2900 | +45 Attack Damage  /  +35% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
+| Nashor's Tooth | 2900 | +50% Attack Speed  /  +80 Ability Power  /  +15 Ability Haste | MARKSMAN ITEMS; MAGIC ITEMS |
+| Statikk Shiv | 3000 | +40 Attack Damage  /  +30% Attack Speed  /  +40 Ability Power  /  +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
+| Guinsoo's Rageblade | 3000 | +35 Attack Damage  /  +30% Attack Speed  /  +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
+| Mortal Reminder | 3000 | +35 Attack Damage  /  +30% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Essence Reaver | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20 Ability Haste | MARKSMAN ITEMS |
+| Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
+| Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
+| Yun Tal Wildarrows | 3100 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
+| Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
+| Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
+| Whispering Circlet | 2400 | +200 Max Health  /  +500 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Diadem of Songs |  | +200 Max Health  /  +1200 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Redemption | 2450 | +40 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Imperial Mandate | 2600 | +60 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Oceanid's Trident | 2600 | +200 Max Health  /  +80 Ability Power  /  +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Morellonomicon | 2650 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Hextech Roketbelt | 2700 | +250 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Rylai's Crystal Scepter | 2700 | +350 Max Health  /  +65 Ability Power | MAGIC ITEMS |
+| Rod of Ages | 2700 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
+| Horizon Focus | 2700 | +80 Ability Power  /  +25 Ability Haste | MAGIC ITEMS |
+| Malignance | 2700 | +90 Ability Power  /  +500 Max Mana  /  +15 Ability Haste | MAGIC ITEMS |
+| Stormsurge | 2800 | +90 Ability Power  /  +15 Magic Penetration  /  +6% Move Speed | MAGIC ITEMS |
+| Blackfire Torch | 2800 | +80 Ability Power  /  +500 Maximum Mana  /  +20 Ability Haste | MAGIC ITEMS |
+| Luden's Echo | 2800 | +100 Ability Power  /  +500 Max Mana  /  +10 Ability Haste | MAGIC ITEMS |
+| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +5% Move Speed | MAGIC ITEMS |
+| Bloodletter's Curse | 2900 | +350 Maximum Health  /  +65 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
+| Banshee's Veil | 3000 | +105 Ability Power  /  +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
+| Cryptbloom | 3000 | +75 Ability Power  /  +30% Magic Penetration  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Liandry's Torment | 3000 | +300 Max Health  /  +70 Ability Power | MAGIC ITEMS |
+| Archangel's Staff | 3000 | +60 Ability Power  /  +500 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
+| Seraph's Embrace |  | +60 Ability Power  /  +1200 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
+| Cosmic Drive | 3000 | +300 Max Health  /  +70 Ability Power  /  +25 Ability Haste  /  +4% Move Speed | MAGIC ITEMS |
+| Dusk and Dawn | 3100 | +300 Maximum Health  /  +20% Attack Speed  /  +60 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Infinity Orb | 3100 | +110 Ability Power  /  +15 Magic Penetration | MAGIC ITEMS |
+| Riftmaker | 3100 | +350 Max Health  /  +70 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
+| Zhonya's Hourglass | 3300 | +40 Armor  /  +110 Ability Power | MAGIC ITEMS; DEFENSE ITEMS |
 | Rabadon's Deathcap | 3400 | +130 Ability Power | MAGIC ITEMS |
-| Abyssal Mask | 2400 | +350 Max Health / +45 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Zeke's Convergence | 2400 | +300 Max Health / +25 Armor / +25 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Yordle Trap | 2400 | +200 Max Health / +20 Armor / +20 Magic Resistance / +15 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Knight's Vow | 2450 | +200 Max Health / +100% Health Regen / +40 Armor / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Frozen Heart | 2550 | +80 Armor / +400 Max Mana / +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Mantle of the Twelfth Hour | 2550 | +600 Max Health / +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Locket of the Iron Solari | 2600 | +200 Max Health / +30 Armor / +30 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Winter's Approach | 2600 | +500 Max Health / +500 Max Mana / +15 Ability Haste | DEFENSE ITEMS |
-| Fimbulwinter |  | +500 Max Health / +1200 Max Mana / +15 Ability Haste | DEFENSE ITEMS |
-| Radiant Virtue | 2650 | +300 Max Health / +30 Armor / +30 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Thornmail | 2700 | +200 Max Health / +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
-| Dawnshroud | 2700 | +250 Max Health / +50 Armor / +30 Magic Resistance | DEFENSE ITEMS; SUPPORT ITEMS |
-| Hollow Radiance | 2800 | +400 Max Health / +40 Magic Resistance / +15 Ability Haste | DEFENSE ITEMS |
-| Randuin's Omen | 2800 | +400 Max Health / +75 Armor | DEFENSE ITEMS |
-| Dead Man's Plate | 2800 | +350 Max Health / +70 Armor / +4% Movement Speed | DEFENSE ITEMS |
-| Force of Nature | 2800 | +400 Max Health / +60 Magic Resistance / +5% Move Speed | DEFENSE ITEMS |
-| Heartsteel | 3000 | +700 Max Health / +150% Health Regen / +20 Ability Haste | DEFENSE ITEMS |
-| Kaenic Rookern | 2800 | +350 Max Health / +100% Health Regen / +85 Magic Resistance | DEFENSE ITEMS |
-| Warmog's Armor | 2850 | +700 Max Health / +100% Health Regen / +20 Ability Haste | DEFENSE ITEMS |
-| Gargoyle Stoneplate | 2900 | +200 Max Health / +45 Armor / +45 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS |
-| Sunfire Aegis | 2900 | +350 Max Health / +40 Armor / +15 Ability Haste | DEFENSE ITEMS |
-| Unending Despair | 3000 | +300 Max Health / +40 Armor / +40 Magic Resistance / +10 Ability Haste | DEFENSE ITEMS |
-| Iceborn Gauntlet | 3000 | +300 Max Health / +50 Armor / +250 Max Mana / +30 Ability Haste | DEFENSE ITEMS |
-| Amaranth's Twinguard | 3200 | +300 Max Health / +50 Armor / +50 Magic Resistance | DEFENSE ITEMS |
+| Abyssal Mask | 2400 | +350 Max Health  /  +45 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Zeke's Convergence | 2400 | +300 Max Health  /  +25 Armor  /  +25 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Yordle Trap | 2400 | +200 Max Health  /  +20 Armor  /  +20 Magic Resistance  /  +15 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Knight's Vow | 2450 | +200 Max Health  /  +100% Health Regen  /  +40 Armor  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Frozen Heart | 2550 | +80 Armor  /  +400 Max Mana  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Mantle of the Twelfth Hour | 2550 | +600 Max Health  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Locket of the Iron Solari | 2600 | +200 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Winter's Approach | 2600 | +500 Max Health  /  +500 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
+| Fimbulwinter |  | +500 Max Health  /  +1200 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
+| Radiant Virtue | 2650 | +300 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Thornmail | 2700 | +200 Max Health  /  +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
+| Dawnshroud | 2700 | +250 Max Health  /  +50 Armor  /  +30 Magic Resistance | DEFENSE ITEMS; SUPPORT ITEMS |
+| Hollow Radiance | 2800 | +400 Max Health  /  +40 Magic Resistance  /  +15 Ability Haste | DEFENSE ITEMS |
+| Randuin's Omen | 2800 | +400 Max Health  /  +75 Armor | DEFENSE ITEMS |
+| Dead Man's Plate | 2800 | +350 Max Health  /  +70 Armor  /  +4% Movement Speed | DEFENSE ITEMS |
+| Force of Nature | 2800 | +400 Max Health  /  +60 Magic Resistance  /  +5% Move Speed | DEFENSE ITEMS |
+| Heartsteel | 3000 | +700 Max Health  /  +150% Health Regen  /  +20 Ability Haste | DEFENSE ITEMS |
+| Kaenic Rookern | 2800 | +350 Max Health  /  +100% Health Regen  /  +85 Magic Resistance | DEFENSE ITEMS |
+| Warmog's Armor | 2850 | +700 Max Health  /  +100% Health Regen  /  +20 Ability Haste | DEFENSE ITEMS |
+| Gargoyle Stoneplate | 2900 | +200 Max Health  /  +45 Armor  /  +45 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS |
+| Sunfire Aegis | 2900 | +350 Max Health  /  +40 Armor  /  +15 Ability Haste | DEFENSE ITEMS |
+| Unending Despair | 3000 | +300 Max Health  /  +40 Armor  /  +40 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS |
+| Iceborn Gauntlet | 3000 | +300 Max Health  /  +50 Armor  /  +250 Max Mana  /  +30 Ability Haste | DEFENSE ITEMS |
+| Amaranth's Twinguard | 3200 | +300 Max Health  /  +50 Armor  /  +50 Magic Resistance | DEFENSE ITEMS |
 | Black Mist Scythe | 0 | +10 Ability Haste | SUPPORT ITEMS |
-| Bulwark of the Mountain | 0 | +175 Max Health / +10 Ability Haste | SUPPORT ITEMS |
-| Echoes of Helia | 2400 | +200 Max Health / +40 Ability Power / +50% Mana Regen / +20 Ability Haste | SUPPORT ITEMS |
-| Ardent Censer | 2400 | +50 Ability Power / +50% Mana Regen / +8% Heal and Shield Strength / +4% Move Speed. | SUPPORT ITEMS |
-| Staff of Flowing Waters | 2400 | +50 Ability Power / +50% Mana Regen / +10 Ability Haste / +8% Heal and Shield Strength | SUPPORT ITEMS |
-| Mikael's Blessing | 2500 | +300 Max Health / +50% Mana Regen / +15 Ability Haste / +9% Heal and Shield Strength | SUPPORT ITEMS |
-| Shurelya's Battlesong | 2500 | +55 Ability Power / +50% Mana Regeneration / +20 Ability Haste / +4% Move Speed | SUPPORT ITEMS |
-| Harmonic Echo | 2500 | +200 Max Health / +40 Ability Power / +50% Mana Regen / +20 Ability Haste | SUPPORT ITEMS |
+| Bulwark of the Mountain | 0 | +175 Max Health  /  +10 Ability Haste | SUPPORT ITEMS |
+| Echoes of Helia | 2400 | +200 Max Health  /  +40 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | SUPPORT ITEMS |
+| Ardent Censer | 2400 | +50 Ability Power  /  +50% Mana Regen  /  +8% Heal and Shield Strength  /  +4% Move Speed. | SUPPORT ITEMS |
+| Staff of Flowing Waters | 2400 | +50 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | SUPPORT ITEMS |
+| Mikael's Blessing | 2500 | +300 Max Health  /  +50% Mana Regen  /  +15 Ability Haste  /  +9% Heal and Shield Strength | SUPPORT ITEMS |
+| Shurelya's Battlesong | 2500 | +55 Ability Power  /  +50% Mana Regeneration  /  +20 Ability Haste  /  +4% Move Speed | SUPPORT ITEMS |
+| Harmonic Echo | 2500 | +200 Max Health  /  +40 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | SUPPORT ITEMS |
 | Gluttonous Greaves | 1000 | +45 Move Speed | Boots tier 2 |
-| Berserker's Greaves | 1200 | +35% Attack Speed / +45 Move Speed | Boots tier 2 |
-| Mercury's Treads | 1200 | +150 Max Health / +25 Magic Resistance / +30 Tenacity / +45 Move Speed | Boots tier 2 |
-| Plated Steelcaps | 1200 | +150 Max Health / +20 Armor / +45 Move Speed | Boots tier 2 |
-| Ionian Boots of Lucidity | 1000 | +50% Mana Regen / +15 Ability Haste / +45 Move Speed | Boots tier 2 |
-| Boots of Mana | 1200 | +25 Ability Power / +8 Magic Penetration / +75% Mana Regeneration / +45 Move Speed | Boots tier 2 |
-| Boots of Dynamism | 1200 | +15 Attack Damage / +10 Armor Penetration / +45 Move Speed | Boots tier 2 |
+| Berserker's Greaves | 1200 | +35% Attack Speed  /  +45 Move Speed | Boots tier 2 |
+| Mercury's Treads | 1200 | +150 Max Health  /  +25 Magic Resistance  /  +30 Tenacity  /  +45 Move Speed | Boots tier 2 |
+| Plated Steelcaps | 1200 | +150 Max Health  /  +20 Armor  /  +45 Move Speed | Boots tier 2 |
+| Ionian Boots of Lucidity | 1000 | +50% Mana Regen  /  +15 Ability Haste  /  +45 Move Speed | Boots tier 2 |
+| Boots of Mana | 1200 | +25 Ability Power  /  +8 Magic Penetration  /  +75% Mana Regeneration  /  +45 Move Speed | Boots tier 2 |
+| Boots of Dynamism | 1200 | +15 Attack Damage  /  +10 Armor Penetration  /  +45 Move Speed | Boots tier 2 |
 | Immortal Treds | 2000 | +45 Move Speed | Boots tier 3 |
-| Gunmetal Greaves | 2200 | +50% Attack Speed / +45 Move Speed / +5% Lifesteal | Boots tier 3 |
-| Chainlaced Crushers | 2200 | +150 Max Health / +30 Magic Resistance / +30% Tenacity / +45 Move Speed | Boots tier 3 |
-| Armored Advance | 2200 | +150 Max Health / +30 Armor / +45 Move Speed | Boots tier 3 |
-| Crimson Lucidity | 2000 | +75% Mana Regeneration / +25 Ability Haste / +45 Move Speed | Boots tier 3 |
-| Spellslinger's Shoes | 2200 | +35 Ability Power / +18 Magic Penetration / +8% Magic Penetration / +100% Mana Regeneration / +45 Move Speed | Boots tier 3 |
-| Armorcrusher Boots | 2200 | +25 Attack Damage / +12 Armor Penetration / +6% Armor Penetration / +45 Move Speed | Boots tier 3 |
+| Gunmetal Greaves | 2200 | +50% Attack Speed  /  +45 Move Speed  /  +5% Lifesteal | Boots tier 3 |
+| Chainlaced Crushers | 2200 | +150 Max Health  /  +30 Magic Resistance  /  +30% Tenacity  /  +45 Move Speed | Boots tier 3 |
+| Armored Advance | 2200 | +150 Max Health  /  +30 Armor  /  +45 Move Speed | Boots tier 3 |
+| Crimson Lucidity | 2000 | +75% Mana Regeneration  /  +25 Ability Haste  /  +45 Move Speed | Boots tier 3 |
+| Spellslinger's Shoes | 2200 | +35 Ability Power  /  +18 Magic Penetration  /  +8% Magic Penetration  /  +100% Mana Regeneration  /  +45 Move Speed | Boots tier 3 |
+| Armorcrusher Boots | 2200 | +25 Attack Damage  /  +12 Armor Penetration  /  +6% Armor Penetration  /  +45 Move Speed | Boots tier 3 |
 | Quicksilver Sash | 1100 |  | Mid Tier Items |
-| Seeker's Armguard | 1200 | +20 Armor / +35 Ability Power | Mid Tier Items |
-| Vampiric Scepter | 1200 | +20 Attack Damage / +8% Lifesteal | Mid Tier Items |
-| Zeal | 1400 | +15% Critical Rate / +15% Attack Speed | Mid Tier Items |
+| Seeker's Armguard | 1200 | +20 Armor  /  +35 Ability Power | Mid Tier Items |
+| Vampiric Scepter | 1200 | +20 Attack Damage  /  +8% Lifesteal | Mid Tier Items |
+| Zeal | 1400 | +15% Critical Rate  /  +15% Attack Speed | Mid Tier Items |
 | Kircheis Shard | 800 | +20% Attack Speed | Mid Tier Items |
 | Serrated Dirk | 1000 | +20 Attack Damage | Mid Tier Items |
 | Recurve Bow | 900 | +20% Attack Speed | Mid Tier Items |
 | B. F. Sword | 1500 | +40 Attack Damage | Mid Tier Items |
-| Last Whisper | 1200 | +15 Attack Damage / +15% Armor Penetration | Mid Tier Items |
+| Last Whisper | 1200 | +15 Attack Damage  /  +15% Armor Penetration | Mid Tier Items |
 | Executioner's Calling | 800 | +15 Attack Damage | Mid Tier Items |
-| Phage | 1000 | +150 Max Health / +15 Attack Damage | Mid Tier Items |
-| Caulfield's Warhammer | 1200 | +25 Attack Damage / +10 Ability Haste | Mid Tier Items |
-| Jaurim's Fist | 1100 | +175 Max Health / +15 Attack Damage | Mid Tier Items |
-| Aether Wisp | 950 | +35 Ability Power / +4% Move Speed | Mid Tier Items |
-| Lost Chapter | 1200 | +35 Ability Power / +200 Max Mana / +10 Ability Haste | Mid Tier Items |
-| Fiendish Codex | 900 | +25 Ability Power / +10 Ability Haste | Mid Tier Items |
+| Phage | 1000 | +150 Max Health  /  +15 Attack Damage | Mid Tier Items |
+| Caulfield's Warhammer | 1200 | +25 Attack Damage  /  +10 Ability Haste | Mid Tier Items |
+| Jaurim's Fist | 1100 | +175 Max Health  /  +15 Attack Damage | Mid Tier Items |
+| Aether Wisp | 950 | +35 Ability Power  /  +4% Move Speed | Mid Tier Items |
+| Lost Chapter | 1200 | +35 Ability Power  /  +200 Max Mana  /  +10 Ability Haste | Mid Tier Items |
+| Fiendish Codex | 900 | +25 Ability Power  /  +10 Ability Haste | Mid Tier Items |
 | Blasting Wand | 900 | +40 Ability Power | Mid Tier Items |
 | Needlessly Large Rod | 1400 | +65 Ability Power | Mid Tier Items |
-| Haunting Guise | 1300 | +200 Max Health / +30 Ability Power | Mid Tier Items |
+| Haunting Guise | 1300 | +200 Max Health  /  +30 Ability Power | Mid Tier Items |
 | Sheen | 800 | +10 Ability Haste | Mid Tier Items |
 | Oblivion Orb | 800 | +35 Ability Power | Mid Tier Items |
-| Bami's Cinder | 1200 | +250 Max Health / +5 Ability Haste | Mid Tier Items |
-| Spectre's Cowl | 1100 | +175 Max Health / +20 Magic Resistance | Mid Tier Items |
-| Kindlegem | 1000 | +175 Max Health / +10 Ability Haste | Mid Tier Items |
+| Bami's Cinder | 1200 | +250 Max Health  /  +5 Ability Haste | Mid Tier Items |
+| Spectre's Cowl | 1100 | +175 Max Health  /  +20 Magic Resistance | Mid Tier Items |
+| Kindlegem | 1000 | +175 Max Health  /  +10 Ability Haste | Mid Tier Items |
 | Giant's Belt | 1000 | +300 Max Health | Mid Tier Items |
 | Warden's Mail | 1050 | +35 Armor | Mid Tier Items |
-| Catalyst of Aeons | 1100 | +200 Max Health / +300 Max Mana | Mid Tier Items |
+| Catalyst of Aeons | 1100 | +200 Max Health  /  +300 Max Mana | Mid Tier Items |
 | Chain Vest | 900 | +40 Armor | Mid Tier Items |
 | Bramble Vest | 1000 | +30 Armor | Mid Tier Items |
-| Hexdrinker | 1200 | +20 Attack Damage / +20 Magic Resistance | Mid Tier Items |
+| Hexdrinker | 1200 | +20 Attack Damage  /  +20 Magic Resistance | Mid Tier Items |
 | Negatron Cloak | 900 | +40 Magic Resistance | Mid Tier Items |
-| Glacial Shroud | 1000 | +20 Armor / +150 Max Mana / +10 Ability Haste | Mid Tier Items |
-| Winged Moonplate | 900 | +150 Max Health / +4% Move Speed | Mid Tier Items |
-| Noonquiver | 1300 | +20 Attack Damage / +15% Critical Rate | Mid Tier Items |
+| Glacial Shroud | 1000 | +20 Armor  /  +150 Max Mana  /  +10 Ability Haste | Mid Tier Items |
+| Winged Moonplate | 900 | +150 Max Health  /  +4% Move Speed | Mid Tier Items |
+| Noonquiver | 1300 | +20 Attack Damage  /  +15% Critical Rate | Mid Tier Items |
 | Hextech Alternator | 1100 | +45 Ability Power | Mid Tier Items |
-| Mejai's Soulstealer | 1800 | +70 Max Health / +25 Ability Power | Mid Tier Items |
-| Forbidden Idol | 700 | +25% Mana Regen / +6% Heal and Shield Strength | Mid Tier Items |
+| Mejai's Soulstealer | 1800 | +70 Max Health  /  +25 Ability Power | Mid Tier Items |
+| Forbidden Idol | 700 | +25% Mana Regen  /  +6% Heal and Shield Strength | Mid Tier Items |
 | Fated Ashes | 900 | +40 Ability Power | Mid Tier Items |
-| Void Amethyst | 1000 | +20 Ability Power / +10% Magic Penetration | Mid Tier Items |
-| Verdant Barrier | 1600 | +40 Ability Power / +25 Magic Resistance | Mid Tier Items |
+| Void Amethyst | 1000 | +20 Ability Power  /  +10% Magic Penetration | Mid Tier Items |
+| Verdant Barrier | 1600 | +40 Ability Power  /  +25 Magic Resistance | Mid Tier Items |
 | Pickaxe | 800 | +20 Attack Damage | Mid Tier Items |
-| Heartbound Axe | 1200 | +20 Attack Damage / +15% Attack Speed | Mid Tier Items |
-| Bandleglass Mirror | 900 | +20 Ability Power / +50% Mana Regen / +10 Ability Haste | Mid Tier Items |
+| Heartbound Axe | 1200 | +20 Attack Damage  /  +15% Attack Speed | Mid Tier Items |
+| Bandleglass Mirror | 900 | +20 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste | Mid Tier Items |
 | Boots of Speed | 400 | +25 Move Speed. | Basic Items |
 | Long Sword | 500 | +12 Attack Damage | Basic Items |
 | Brawler's Gloves | 500 | +10% Critical Rate | Basic Items |
@@ -1851,7 +1913,6 @@ Nocturne,,,,,120 → 134
 | Smite |  |  | Basic Items |
 | Cleanse |  |  | Basic Items |
 | Teleport |  |  | Basic Items |
-
 
 ## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
 
@@ -2014,7 +2075,6 @@ ROLE_VARIANTS = {
     "volibear_jungla":dict(base="volibear", summoners="Smite+Flash", runes="Lethal Tempo/Conqueror"),
     "volibear_top":  dict(base="volibear", summoners="Flash+Ignite/TP", runes="Conqueror/Grasp"),
 }
-
 ```
 
 ## 10. MOTOR DE DPS (con validate_slots — ver Ley 0)
@@ -2361,5 +2421,609 @@ if __name__ == "__main__":
     need = (AS_CAP/spec.base_as - 1) - (spec.base_bonus_as + lvl_as_bonus(spec,15) + LT_RANGED_STACK*6 + ALACRITY_FULL + spec.self_as_buff)
     print(f"AS de ítems necesaria para cap 3.0 exacto: {need*100:.1f}%  | build C cruda: {raw:.3f}")
     print(f"Con Get Excited (+{spec.passive_burst_as:.0%}): {spec.base_as*(1+B+spec.passive_burst_as):.3f} (rompe el cap por pasiva)")
-
 ```
+
+## 10b. MOTOR SECUNDARIO — modelos batch (Kalista on-hit, Diana rotación, Yuumi/Karma valor-aliado, TAMAÑO)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · Análisis batch 2: Kalista (on-hit), Diana (AP rotación), Yuumi/Karma (soportes)
++ cálculos del apéndice de TAMAÑO (Cho'Gath/Malphite/Shyvana). Parche 7.3.
+Todas las fuentes: data/estructurada/*. Supuestos declarados en cada bloque.
+"""
+CAP = 3.0
+
+def as_kalista(items_as, lt=0.384, alac=0.21, guinsoo_stacks=False):
+    B = 0.16 + 0.644 + items_as + lt + alac + (0.32 if guinsoo_stacks else 0)
+    return min(0.694*(1+B), CAP), 0.694*(1+B), B
+
+def mit_phys(dmg, armor, pen=0): return dmg * 100/(100+max(0, armor*(1-pen/100)))
+def mit_magic(dmg, mr, pen_pct=0, pen_flat=0): return dmg * 100/(100+max(0, mr*(1-pen_pct/100)-pen_flat))
+
+# ══════════════════════════════ KALISTA ══════════════════════════════
+# E Rend no critica (sin mención de crit en ficha). W = 19% max HP / 8s por objetivo (condicional Oathsworn).
+# Guinsoo: cada 3er ataque aplica on-hit 1 vez额外 -> flat on-hit x4/3. Terminus dark: 30% pen (3 hits).
+# Statikk: Energized cada ~4 ataques (Kalista gana 5 stacks/ataque), 60 mágico + bounces con on-hit.
+K_ITEMS = {
+ 'Gunmetal':   dict(g=2200, ad=0,  as_=50, ls=5),
+ 'Statikk':    dict(g=3000, ad=40, as_=30, ap=40, energized=60),
+ 'Guinsoo':    dict(g=3000, ad=35, as_=30, ap=30, wrath=30, double=True),
+ 'Terminus':   dict(g=3000, ad=35, as_=35, shadow=30, pen=30),
+ 'Runaan':     dict(g=2650, ad=0,  as_=40, bolts=2),
+ 'WitsEnd':    dict(g=2800, ad=0,  as_=50, onhit=40, mr=45),
+ 'BotRK':      dict(g=3100, ad=40, as_=30, pct=6, ls=12),
+ 'LDR':        dict(g=3300, ad=35, crit=25, pen=35, gs=12),
+ 'C44':        dict(g=2900, ad=55, crit=25),
+ 'IE':         dict(g=3400, ad=75, crit=25),
+ 'Kraken':     dict(g=2900, ad=45, as_=35),
+}
+def kalista(items, armor=120, mr=50, ehp=2200, targets=1, oathsworn=True, level=15):
+    its = [K_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ad = 57 + 5.2*(level-1) + sum(i.get('ad',0) for i in its)
+    as_i = sum(i.get('as_',0) for i in its)/100
+    guin = any(i.get('double') for i in its)
+    AS, raw, B = as_kalista(as_i, guinsoo_stacks=guin)
+    pen = max([i.get('pen',0) for i in its] or [0])
+    # on-hit por golpe (fis->mag separados)
+    oh_mag = sum(i.get('wrath',0)+i.get('shadow',0)+i.get('onhit',0) for i in its)
+    mult_double = 4/3 if guin else 1.0
+    pct_cur = sum(i.get('pct',0) for i in its)/100
+    # auto (físico) + on-hit (mágico) + BotRK (físico)
+    auto_phys = AS*ad + AS*pct_cur*ehp*0.9  # vida actual ~90% de max en pelea
+    auto_mag  = AS*oh_mag*mult_double
+    # Energized Statikk (~cada 4 ataques)
+    en = sum(i.get('energized',0) for i in its)
+    auto_mag += AS/4*en if en else 0
+    # E Rend: ciclo 7s, lanzas = AS*4 (+1 por Q)
+    n = max(1, AS*4)
+    e_dmg = 75 + 0.70*ad + n*(42 + 0.57*ad)
+    e_dps = e_dmg/7
+    q_dps = (265 + 1.10*ad)/6.5
+    w_dps = 0.19*ehp/8 if oathsworn else 0
+    lt_bullet = 24*(1+0.0067*B*100)
+    lt_dps = AS*lt_bullet
+    # mitigación
+    dps_phys = mit_phys(auto_phys + e_dps + q_dps + AS*pct_cur*ehp*0, armor, pen)
+    dps_mag  = mit_magic(auto_mag, mr)
+    dps_true_w = mit_phys(w_dps, 0) if False else w_dps  # W es mágico
+    dps_mag += mit_magic(w_dps, mr)
+    # LT bala = adaptiva (física aquí)
+    dps_phys += mit_phys(lt_dps, armor, pen)
+    # AoE: Runaan bolts (0.55AD + on-hit completo) + Statikk bounces
+    aoe = 0
+    if targets > 1:
+        bolts = sum(i.get('bolts',0) for i in its)
+        per_bolt = 0.55*ad + oh_mag*mult_double + pct_cur*ehp*0.9
+        aoe += mit_phys(AS*per_bolt*min(bolts, targets-1)*0.55/0.55, armor, pen)*0  # (simplificado abajo)
+        aoe = AS*min(bolts, targets-1)*(mit_phys(0.55*ad + pct_cur*ehp*0.9, armor, pen) + mit_magic(oh_mag*mult_double, mr))
+        if en: aoe += AS/4*en*4*mit_magic(1, mr)  # 4 bounces extra aprox
+    total = dps_phys + dps_mag + (aoe if targets>1 else 0)
+    return dict(gold=gold, AD=ad, AS=AS, raw=raw, pen=pen, e_hit=e_dmg,
+                single=dps_phys+dps_mag, multi=total, aoe=aoe,
+                heal=(dps_phys+dps_mag)*sum(i.get('ls',0) for i in its)/100)
+
+print("="*118)
+print("KALISTA nivel 15 (LT+Alacrity full; E cada 7s con ~AS×4 lanzas; W 19% maxHP/8s con Oathsworn)")
+print("="*118)
+K_BUILDS = {
+ 'K1 Comunidad (Statikk+Guinsoo+Term+Runaan+WE)': ['Gunmetal','Statikk','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K2 BotRK (saca Statikk)':                       ['Gunmetal','BotRK','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K3 LDR anti-tanque (saca Statikk)':             ['Gunmetal','LDR','Guinsoo','Terminus','Runaan','WitsEnd'],
+ 'K4 CRIT (descarte teórico)':                    ['Gunmetal','C44','IE','Runaan','LDR','Kraken'],
+ 'K5 Single-target (sin Runaan/Statikk)':         ['Gunmetal','BotRK','Guinsoo','Terminus','Kraken','WitsEnd'],
+}
+print(f"{'BUILD':<48}{'oro':>6}{'AD':>5}{'AS':>6}{'pen':>4}{'1v1':>7}{'3v3':>8}{'vsTanq':>8}{'E-hit':>7}")
+for n, b in K_BUILDS.items():
+    r1 = kalista(b); r3 = kalista(b, targets=3); rt = kalista(b, armor=220, mr=150, ehp=4500)
+    print(f"{n:<48}{r1['gold']:>6}{r1['AD']:>5.0f}{r1['AS']:>6.2f}{r1['pen']:>4.0f}{r1['single']:>7.0f}{r3['multi']:>8.0f}{rt['single']:>8.0f}{r1['e_hit']:>7.0f}")
+print("\nCheckpoint nivel 11 (2 items, Berserker's): ")
+for n,b in {'Statikk+Guinsoo':['Statikk','Guinsoo'],'Guinsoo+WE':['Guinsoo','WitsEnd'],'Statikk+Runaan':['Statikk','Runaan'],'C44+Runaan(crit)':['C44','Runaan']}.items():
+    r = kalista(['Gunmetal' if False else 'Statikk']+[] if False else b, level=11, armor=90, mr=40, ehp=1800)
+    # sin botas T3 (aún no, min 10 ok sí -> usar Gunmetal si >=10min; nivel 11 ~ 12min: incluir Gunmetal)
+    r = kalista(['Gunmetal']+b, level=11, armor=90, mr=40, ehp=1800)
+    print(f"  {n:<22} AD={r['AD']:.0f} AS={r['AS']:.2f} 1v1={r['single']:.0f} 3v3={kalista(['Gunmetal']+b, level=11, armor=90, mr=40, ehp=1800, targets=3)['multi']:.0f}")
+
+# ══════════════════════════════ DIANA ══════════════════════════════
+# Rotación sostenida (10s) + burst combo. Moonsilver: +30-100% AS 4s tras habilidad (uptime ~85% en pelea -> prom 0.65 efectivo sostenido, 1.0 en burst).
+# Cada 3er auto: 65 + 0.5AP mágico AoE. Q 195+0.7AP/5s; E 160+0.3AP (reset w/ Moonlight: 2 casts/ciclo); W 3x(65+0.2AP)+escudo; R 440+0.8AP.
+D_ITEMS = {
+ 'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=8, ah=0),
+ 'Crimson':      dict(g=2000, ah=25),
+ 'DuskDawn':     dict(g=3100, ap=60, hp=300, as_=20, ah=20, sb=0.75),   # spellblade 75% base AD +10%AP + cura
+ 'Nashor':       dict(g=2900, ap=80, as_=50, ah=15, gnaw=1.0),           # on-hit 15+20% bonus AP
+ 'Rabadon':      dict(g=3400, ap=130),
+ 'InfinityOrb':  dict(g=3100, ap=110, pen_f=15, crit_exec=0.2),
+ 'Zhonyas':      dict(g=3300, ap=110, armor=40),
+ 'Cryptbloom':   dict(g=3000, ap=75, pen_p=30, ah=20),
+ 'VoidStaff':    dict(g=3000, ap=95, pen_p=40),
+ 'Luden':        dict(g=2800, ap=100, ah=10, echo=1.0),
+ 'Stormsurge':   dict(g=2800, ap=90, pen_f=15, squall=1.0),
+ 'Malignance':   dict(g=2700, ap=90, ah=15),
+ 'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
+}
+def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
+    its = [D_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its) + ap_extra
+    base_ad = 52 + 3.64*(level-1)
+    haste = sum(i.get('ah',0) for i in its) + (15 if 'Legend: Haste' in (pen_note or '') else 0)
+    cdr = haste/(100+haste)
+    as_i = sum(i.get('as_',0) for i in its)/100
+    moons = 0.65
+    B = 0.15 + 0.008*(level-1) + as_i + moons + (0.384 if keystone=='lt' else 0) + (0.21 if keystone=='lt' else 0)
+    AS = min(0.694*(1+B), CAP)
+    pen_f = sum(i.get('pen_f',0) for i in its); pen_p = max(i.get('pen_p',0) for i in its) if any('pen_p' in i for i in its) else 0
+    mrm = max(0, mr*(1-pen_p/100)-pen_f)
+    mitm = 100/(100+mrm)
+    # --- habilidades en ventana de fight ---
+    q_n = max(1, round(fight/(5*(1-cdr))))
+    q = q_n*(195+0.7*ap)
+    e_n = q_n + 1     # E resetea con Moonlight de cada Q (+1 inicial)
+    e = e_n*(160+0.3*ap)
+    w_n = max(1, round(fight/(8.5*(1-cdr))))
+    w = w_n*3*(65+0.2*ap)
+    r = (440+0.8*ap) if burst or fight>=8 else 0
+    # --- autos ---
+    gnaw = sum(i.get('gnaw',0) for i in its)
+    auto_phys = AS*base_ad*fight
+    auto_mag = AS*(gnaw*(15+0.2*ap))*fight
+    proc3 = (AS*fight/3)*(65+0.5*ap)
+    sb_n = int(fight/1.5) if any(i.get('sb') for i in its) else 0
+    sb = sb_n*(0.75*sum(i.get('sb',0) for i in its)*base_ad + 0.10*ap)
+    # echo Luden / squall
+    echo = (75 + 0.08*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0
+    squall = (125+0.1*ap)*max(1,int(fight/25*4)) if any(i.get('squall') for i in its) else 0  # ~1 cada 2.5s de dmg
+    total_mag = (q+e+w+r+auto_mag+proc3+sb+echo+squall)*mitm
+    total_phys = auto_phys*100/(100+60)  # autos físicos vs ~60 armadura
+    # keystone
+    kbonus = 0
+    if keystone=='empower':
+        proc_n = int(fight/4)                      # proc cada 3 hits, ICD 4s
+        emp = proc_n*165*mitm                      # daño adaptivo del proc (late ~165)
+        total = (total_mag+total_phys+emp)*1.08    # amp 8% (uptime ~casi todo el fight)
+        return dict(gold=gold, AP=ap, AS=AS, dps=total/fight, mr_eff=mrm,
+                    burst=(440+0.8*ap+195+0.7*ap+2*(160+0.3*ap)+3*(65+0.2*ap))*mitm)
+    if keystone=='lt':
+        bul = 24*(1+0.0067*B*100)*AS*fight*mitm
+        total_phys += bul
+    if keystone=='conq':
+        total_phys += AS*fight*30*100/(100+60)*0.6   # ~30 adaptivo (AD) a uptime 60%
+        total_mag *= 1.0                              # + omnivamp 9% (sustain, no DPS)
+    return dict(gold=gold, AP=ap, AS=AS, dps=(total_mag+total_phys)/fight, burst=(440+0.8*ap+195+0.7*ap+2*(160+0.3*ap)+3*(65+0.2*ap))*mitm, mr_eff=mrm)
+
+print()
+print("="*118)
+print("DIANA nivel 15 — DPS sostenido (fight 10s, vs 80 MR squishy) y burst combo completo (R+Q+E×2+W×3)")
+print("="*118)
+D_BUILDS = {
+ 'D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)':      ['Spellslinger','DuskDawn','InfinityOrb','Zhonyas','Rabadon','Luden'],
+ 'D2 Nashor híbrida (D&D,Nashor,Rabadon,Zhonya,Crypt)':['Spellslinger','DuskDawn','Nashor','Rabadon','Zhonyas','Cryptbloom'],
+ 'D3 Burst puro (Luden,Rabadon,Orb,Stormsurge,Zhonya)':['Spellslinger','Luden','Rabadon','InfinityOrb','Stormsurge','Zhonyas'],
+ 'D4 Anti-tanque (Void Staff)':                       ['Spellslinger','DuskDawn','Rabadon','VoidStaff','Zhonyas','Cryptbloom'],
+}
+for ks in ['empower','lt','conq']:
+    print(f"\n-- Keystone: {ks.upper()} --")
+    print(f"{'BUILD':<52}{'oro':>6}{'AP':>5}{'AS':>6}{'MR-ef':>6}{'DPS10s':>8}{'burst':>8}")
+    for n,b in D_BUILDS.items():
+        r = diana(b, keystone=ks)
+        print(f"{n:<52}{r['gold']:>6}{r['AP']:>5.0f}{r['AS']:>6.2f}{r['mr_eff']:>6.0f}{r['dps']:>8.0f}{r['burst']:>8.0f}")
+print("\nDiana vs tanque (180 MR): D1 vs D4")
+for n,b in [('D1',D_BUILDS['D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)']),('D4',D_BUILDS['D4 Anti-tanque (Void Staff)'])]:
+    r = diana(b, mr=180); print(f"  {n}: DPS={r['dps']:.0f} MR efectiva={r['mr_eff']:.0f}")
+
+# ══════════════════════════════ YUUMI ══════════════════════════════
+Y_ITEMS = {
+ 'Scythe':     dict(g=0,    ah=10),
+ 'Crimson':    dict(g=2000, ah=25),
+ 'Censer':     dict(g=2400, ap=50, hsp=8),
+ 'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
+ 'Staff':      dict(g=2400, ap=50, hsp=8, ah=10, rapids=1),
+ 'Redemption': dict(g=2450, ap=40, hsp=8, ah=10, redempt=1),
+ 'Mikael':     dict(g=2500, hp=300, hsp=9, ah=15, cleanse=1),
+ 'Diadem':     dict(g=2400, hp=200, hsp=8, diadem=1),
+ 'Locket':     dict(g=2600, hp=200, armor=30, mr=30, ah=10, locket=1),
+ 'Shurelya':   dict(g=2500, ap=55, ah=20, shurelya=1),
+ 'Zeke':       dict(g=2400, hp=300, armor=25, mr=25, ah=10, zeke=1),
+ 'YordleTrap': dict(g=2400, hp=200, armor=20, mr=20, ah=15, trap=1),
+}
+def yuumi(items, revitalize=True, bf=True, adc_as_base=2.6, adc_dmg_per_hit=330,
+          w_flat=None, w_ap_pct=0.01):
+    # 7.3a NERF: W Best Friend HSP 8/9/10/11 % + 0.02 %/AP → 6/7/8/9 % + 0.01 %/AP (rank 5).
+    # w_flat=None → valor del parche vigente (9 attach / 6 sin attach). Para reproducir el
+    # baseline publicado pre-7.3a (E=339): w_flat=11, w_ap_pct=0.0 (ver update_reports.params_yuumi).
+    its = [Y_ITEMS[i] for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its)
+    if w_flat is None: w_flat = 9 if bf else 6
+    hsp = sum(i.get('hsp',0) for i in its) + w_flat + w_ap_pct*ap + (5 if revitalize else 0)
+    haste = sum(i.get('ah',0) for i in its)
+    # E shield rank4: 170+0.4AP, multiplicado por (1+HSP%)
+    e_shield = (170+0.4*ap)*(1+hsp/100)
+    e_cd = 9*100/(100+haste)
+    # R heal total (BF): 7 olas x (52+0.08AP) x (1+HSP)
+    r_heal = 7*(52+0.08*ap)*(1+hsp/100)
+    # Q on-hit aliado: 22+0.05AP (5s, Q cd5 -> uptime ~100%)
+    q_onhit = 22+0.05*ap
+    # Censer: +30% AS y +25 on-hit mágico al ADC; Q de Yuumi: +22+5%AP on-hit al aliado (uptime ~100%)
+    censer = 'Censer' in items
+    # +30% AS sobre AS total ~2.6 del carry => ~+11.5% DPS (30/260); on-hit y Q-onhit por golpe
+    adc_dps_add = (0.115*adc_as_base*adc_dmg_per_hit if censer else 0)
+    adc_dps_add += adc_as_base*(25 if censer else 0) + adc_as_base*q_onhit
+    # Echoes/Diadem/Redemption throughput
+    echo_val = 0.30*e_shield if any(i.get('siphon') for i in its) else 0
+    diadem_hps = 0.008*(1200)*1.0 if any(i.get('diadem') for i in its) else 0  # 0.8% mana max/s ~9.6
+    redempt_burst = 350*(1+hsp/100)*0 + 350 if any(i.get('redempt') for i in its) else 0
+    return dict(gold=gold, AP=ap, HSP=hsp, haste=haste, e_shield=e_shield, e_cd=e_cd,
+                r_heal=r_heal, q_onhit=q_onhit, adc_dps_add=adc_dps_add,
+                shield_per_min=e_shield*(60/e_cd), echo_val=echo_val, diadem_hps=diadem_hps)
+
+print()
+print("="*118)
+print("YUUMI — valor por build (E shield, R heal total, DPS añadido al ADC carry [AS 2.6, 330 dmg/golpe], escudo/min)")
+print("="*118)
+Y_BUILDS = {
+ 'Y1 Amp-ADC (Censer,Echoes,Staff,Redemption)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'Y2 Heal engine (Echoes,Staff,Diadem,Redempt)': ['Scythe','Crimson','Echoes','Staff','Diadem','Redemption'],
+ 'Y3 Anti-dive (Mikael,Locket,Censer,Echoes)':   ['Scythe','Crimson','Mikael','Locket','Censer','Echoes'],
+ 'Y4 AP greedy (Censer,Staff,Echoes,Shurelya)':  ['Scythe','Crimson','Censer','Staff','Echoes','Shurelya'],
+ 'Y5 Zeke (para comps de engage)':              ['Scythe','Crimson','Zeke','Censer','Echoes','Staff'],
+}
+print(f"{'BUILD':<46}{'oro':>6}{'AP':>5}{'HSP%':>5}{'E-shield':>9}{'E-cd':>6}{'R-heal':>8}{'ADC+DPS':>8}{'shld/min':>9}")
+for n,b in Y_BUILDS.items():
+    r = yuumi(b)
+    print(f"{n:<46}{r['gold']:>6}{r['AP']:>5.0f}{r['HSP']:>5.0f}{r['e_shield']:>9.0f}{r['e_cd']:>6.1f}{r['r_heal']:>8.0f}{r['adc_dps_add']:>8.0f}{r['shield_per_min']:>9.0f}")
+
+# ══════════════════════════════ KARMA ══════════════════════════════
+def karma(items, ap_extra=0, revitalize=True):
+    its = [Y_ITEMS.get(i) or D_ITEMS.get(i) for i in items]
+    gold = sum(i['g'] for i in its)
+    ap = sum(i.get('ap',0) for i in its) + ap_extra
+    haste = sum(i.get('ah',0) for i in its)
+    hsp = sum(i.get('hsp',0) for i in its) + (5 if revitalize else 0)
+    e_shield = (150+0.65*ap)*(1+hsp/100)
+    e_mantra = (300+0.65*ap)*(1+hsp/100)
+    e_cd = 7*100/(100+haste)
+    q_dmg = (180+0.4*ap); q_mantra = (290+0.5*ap)+(160+0.5*ap)
+    w_dmg = (110+0.4*ap)+(130+0.45*ap)
+    r_dmg = 390+0.8*ap
+    mantra_cad = 3  # casts por mantra
+    casts_per_10s = 10/((6+7+15)/3*100/(100+haste))  # Q+E+W promedio
+    mantras_10s = casts_per_10s/3
+    return dict(gold=gold, AP=ap, HSP=hsp, haste=haste, e_shield=e_shield, e_mantra=e_mantra,
+                e_cd=e_cd, q_mantra=q_mantra, mantras_10s=mantras_10s,
+                dmg_10s=(casts_per_10s/3)*q_mantra + (casts_per_10s*2/3)*q_dmg*0.5)
+
+KARMA_SUP = {
+ 'KS1 Mandate+Censer (team amp)':  ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'KS2 Escudos puros':              ['Scythe','Crimson','Censer','Echoes','Staff','Mikael'],
+ 'KS3 Mandate (marcar +7% team)':  ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+}
+print()
+print("="*118)
+print("KARMA support — E shield / E-Mantra / cadencia de Mantras en 10s (con Imperial Mandate: +7% dmg team a marcados)")
+print("="*118)
+KB = {
+ 'KS1 Enchanter (Censer,Echoes,Staff,Redemption)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+ 'KS2 Mandate amp (Censer,Mandate*,Echoes,Staff)': ['Scythe','Crimson','Censer','Echoes','Staff','Redemption'],
+}
+print(f"{'BUILD':<50}{'oro':>6}{'AP':>5}{'HSP%':>5}{'E-shield':>9}{'E-Mantra':>9}{'E-cd':>6}{'mantras/10s':>12}")
+for n,b in KB.items():
+    r = karma(b)
+    print(f"{n:<50}{r['gold']:>6}{r['AP']:>5.0f}{r['HSP']:>5.0f}{r['e_shield']:>9.0f}{r['e_mantra']:>9.0f}{r['e_cd']:>6.1f}{r['mantras_10s']:>12.1f}")
+print("\nKARMA mid (comunidad):", end=" ")
+rm = karma(['Spellslinger','Luden','Malignance','Rabadon','InfinityOrb','Zhonyas']) if False else None
+# mid karma usa items AP puros:
+items_mid = ['Spellslinger','Luden','Malignance','Rabadon','InfinityOrb','Zhonyas']
+gold = sum(D_ITEMS[i]['g'] for i in items_mid); ap = sum(D_ITEMS[i].get('ap',0) for i in items_mid)
+haste = sum(D_ITEMS[i].get('ah',0) for i in items_mid)
+print(f"oro={gold} AP={ap:.0f} haste={haste} E-mantra shield={(300+0.65*ap)*(1.05):.0f} Q-mantra={(290+0.5*ap)+(160+0.5*ap):.0f}")
+
+# ══════════════════════════════ TAMAÑO (SIZE) ══════════════════════════════
+print()
+print("="*118)
+print("TAMAÑO — Cho'Gath Feast: HP bonus, rango y ejecucion R por stacks")
+print("="*118)
+print(f"{'stacks Feast':>12}{'HP bonus':>10}{'size +':>8}{'rango +':>9}{'R true dmg (AP150, HP items 1500)':>36}")
+for st in [6, 10, 15, 22]:
+    hp = st*160; size = min(6*st, 135); rng = min(7.7*st, 75)
+    r_true = 600 + 0.5*150 + 0.10*(hp+1500)
+    print(f"{st:>12}{hp:>10}{size:>7.0f}%{rng:>9.1f}{r_true:>36.0f}")
+print()
+print("MALPHITE armor-stacking (lvl 15, base armor 119):")
+for combo, armor in [("Iceborn(50)+Thornmail(75)+Armored(30)", 119+155), ("+ W rank4 (+40% bonus armor)", 119+155+0.4*155), ("+ Gargoyle/Twinguard situacional", 119+155+62+50)]:
+    e = 210+0.45*armor; w = 50+0.2*armor; w1 = 100+0.4*armor
+    print(f"  armor~{armor:.0f} ({combo}): E={e:.0f} mág AoE | W golpe={w:.0f} | W primero={w1:.0f} | pasiva Granite={0.11*(690+130*14):.0f} escudo")
+print()
+print("GARGOYLE activo (escudo = 100 + 90% bonus HP) + SIZE:")
+for bhp in [800, 1200, 1800, 2500]:
+    print(f"  bonus HP {bhp}: escudo {100+0.9*bhp:.0f} (+aumento de tamaño 2.5s)")
+print()
+print("TWINGUARD Endurance (5 stacks): +20% size, +20% tenacidad, +30% armadura y +30% MR bonus")
+for base_ar, base_mr in [(150,80),(250,120),(320,180)]:
+    print(f"  con {base_ar} arm / {base_mr} MR -> {base_ar*1.3:.0f} arm / {base_mr*1.3:.0f} MR en pelea (mitigación {100/(100+base_ar)*100:.1f}% -> {100/(100+base_ar*1.3)*100:.1f}% dmg físico recibido)")
+print()
+print("HEARTSTEEL scaling (3.5% max HP de daño, 15% del daño como HP permanente, 20s CD/target):")
+for hp in [2500, 3500, 5000, 7000]:
+    dmg = 140+0.035*hp
+    print(f"  con {hp} HP: golpe {dmg:.0f} -> +{0.15*dmg:.0f} HP permanente (por campeón cada 20s)")
+```
+
+## 10c. OPTIMIZADOR DE BUILDS (búsqueda exhaustiva con Leyes 0-1-2-3 como restricciones)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · optimize_build.py — optimizador exhaustivo de builds (ROADMAP módulo 2)
+================================================================================
+Busca la build ÓPTIMA de 6 slots (Ley 0: 1 botas T3 + 5 ítems) para cualquier
+ChampSpec del arquetipo de autos (dps_model), maximizando un objetivo ponderado
+de escenarios, sujeto a:
+    · presupuesto de oro            (--oro, default 18 000)
+    · Ley 1: crítico total ≤ 100 %  (poda estructural)
+    · Ley 2: AS cruda ≤ tope 3.0+ε  (poda estructural; pasivas tipo Get Excited quedan fuera)
+    · Ley 0: 1 botas + 5 ítems      (estructural: la botas se eligen en el lazo externo)
+
+Motor = dps_model.eval_build (fuente de verdad). Búsqueda en dos pasadas:
+    1) DFS podado sobre el pool (oro/AS/crit monótonos) puntuado con el escenario
+       de mayor peso → se conservan los mejores --embudo (default 400).
+    2) Re-puntuación EXACTA del embudo con el objetivo ponderado completo.
+
+USO
+    python3 model/optimize_build.py jinx                     # top 10 por defecto
+    python3 model/optimize_build.py jinx --oro 15000 --top 5 # presupuesto early/mid
+    python3 model/optimize_build.py jinx --validar           # ¿redescubre la build publicada?
+    python3 model/optimize_build.py yunara --pesos 1v1:0.5,3v3:0.5
+    python3 model/optimize_build.py jinx --excluir ga,maw    # sin defensivos
+
+VALIDACIÓN CRUZADA (obligatoria tras tocar datos): con pesos por defecto debe
+redescubrir la build C de Jinx (Gunmetal+C44+Runaan's+IE+LDR+Kraken, 17 350 g).
+
+Alcance v1: arquetipo de AUTOS (crítico/on-hit del motor dps_model). Kalista/Diana/
+soportes usan los modelos de analysis_batch2 (optimizador propio = ROADMAP).
+"""
+import argparse, heapq, os, sys, time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import dps_model as M
+
+EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
+ESCENARIOS = {          # nombre → (kwargs de eval_build, métrica)
+    "1v1":     (dict(),                                   "dps1"),
+    "3v3":     (dict(targets=3),                          "dpsN"),
+    "vs120":   (dict(armor=120),                          "dps1"),
+    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500), "dps1"),
+}
+PESOS_DEFAULT = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+
+
+def pool_items(excluir=(), incluir=None):
+    ex = {x.lower() for x in excluir}
+    pool = [k for k in M.ITEMS if k not in M.BOOTS_ALL and k.lower() not in ex
+            and k != "boots_speed"]
+    if incluir:
+        inc = {M.resolve(x).key for x in incluir}
+        pool = [k for k in pool if k in inc]
+    return pool
+
+
+def pool_botas(solo=None):
+    t3 = list(M.BOOT_UPGRADES.keys())          # solo Tier 3 (build final, min 10:00)
+    if solo:
+        wanted = {M.resolve(x).key for x in solo.split(",")}
+        t3 = [b for b in t3 if b in wanted]
+    return t3
+
+
+def optimizar(spec_key, oro=18000, top=10, pesos=None, excluir=(), solo_botas=None,
+              embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0, incluir=None):
+    spec = M.CHAMPS[spec_key]
+    pesos = pesos or dict(PESOS_DEFAULT)
+    falta = set(pesos) - set(ESCENARIOS)
+    if falta:
+        sys.exit(f"escenarios desconocidos: {falta} (válidos: {list(ESCENARIOS)})")
+
+    items = pool_items(excluir, incluir)
+    botas = pool_botas(solo_botas)
+    if not botas:
+        sys.exit("sin botas candidatas")
+
+    # escenario de la pasada 1 = el de mayor peso
+    esc1 = max(pesos, key=pesos.get)
+    kw1, met1 = ESCENARIOS[esc1]
+
+    # constantes de AS para la poda (as_total: raw = base_as + as_ratio·B)
+    lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
+    const_B = (spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as
+               + M.ALACRITY_FULL + spec.self_as_buff)
+    const_raw = spec.base_as + spec.as_ratio * const_B
+    as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in items}
+    oro_item = {k: M.ITEMS[k].gold for k in items}
+    crit_item = {k: M.ITEMS[k].crit for k in items}
+    oro_min = min(oro_item.values())
+
+    # pool ordenado por oro ascendente → poda de presupuesto más efectiva
+    orden = sorted(items, key=lambda k: oro_item[k])
+    idx = {k: i for i, k in enumerate(orden)}
+
+    t0 = time.time()
+    candidatos = []            # heap de (score1, oro_total,组合)
+    hojas = 0
+    heap = []                  # min-heap con los mejores `embudo` por score1
+
+    def dfs(start, elegidos, g, crit_p, as_p):
+        nonlocal hojas
+        faltan = 5 - len(elegidos)
+        if g + faltan * oro_min > oro:
+            return                                    # ni con lo más barato cabe
+        if crit_p > 100:
+            return                                    # Ley 1: crítico desperdiciado
+        if const_raw + spec.as_ratio * as_p > M.AS_CAP + EPS_AS:
+            return                                    # Ley 2: AS cruda pasmada
+        if faltan == 0:
+            combo = botas_ctx + elegidos
+            r0 = M.eval_build(spec, combo, level=nivel, validate=False)
+            if r0["crit"] < crit_min or r0["pen"] < pen_min:
+                return                                  # Ley 1 / Ley 3 como restricción dura
+            hojas += 1
+            r = M.eval_build(spec, combo, level=nivel, validate=False, **kw1) if kw1 else r0
+            s = r[met1] if kw1 else r0[met1]
+            if len(heap) < embudo:
+                heapq.heappush(heap, (s, -g, combo))
+            elif s > heap[0][0]:
+                heapq.heapreplace(heap, (s, -g, combo))
+            return
+        for k in orden[start:]:
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k],
+                crit_p + crit_item[k], as_p + as_por_item[k])
+
+    for b in botas:
+        botas_ctx = [b]
+        presupuesto = oro - M.ITEMS[b].gold
+        oro_save, oro = oro, presupuesto       # el DFS trabaja sobre el resto
+        dfs(0, [], 0, 0.0, 0.0)
+        oro = oro_save
+        candidatos.extend(heap)
+        heap = []
+
+    # pasada 2: objetivo ponderado NORMALIZADO (cada escenario aporta en proporción,
+    # no en magnitud absoluta: 3v3 ~10k no aplasta a vsTanque ~1.3k)
+    brutos = []
+    for s1, neg_g, combo in candidatos:
+        detalle = {}
+        for esc in ESCENARIOS:
+            kw, met = ESCENARIOS[esc]
+            detalle[esc] = M.eval_build(spec, combo, level=nivel, validate=False, **kw)[met]
+        base = M.eval_build(spec, combo, level=nivel, validate=False)
+        brutos.append((combo, detalle, base))
+    max_e = {esc: max((d[esc] for _, d, _ in brutos), default=1.0) or 1.0 for esc in ESCENARIOS}
+    finales = []
+    for combo, detalle, base in brutos:
+        score = sum(pesos.get(esc, 0.0) * (detalle[esc] / max_e[esc]) for esc in ESCENARIOS)
+        finales.append((score, combo, detalle, base))
+    finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+    if verbose:
+        print(f"[{spec.name}] hojas legales exploradas: {hojas:,} · embudo: {len(candidatos)} "
+              f"· {time.time()-t0:.1f}s · presupuesto {oro:,} g · nivel {nivel}")
+    return finales[:top], hojas
+
+
+def imprimir(finales, spec, pesos, oro):
+    nombres = lambda combo: "+".join(combo)
+    w = " · ".join(f"{e}:{p:g}" for e, p in sorted(pesos.items(), key=lambda x: -x[1]))
+    print(f"\n=== TOP builds · {spec.name} · objetivo [{w}] · ≤{oro:,} g ===")
+    tot_w = sum(pesos.values()) or 1.0
+    hdr = (f"{'#':>2} {'EFIC':>6} {'ORO':>6} {'AD':>4} {'AS':>5} {'crit':>4} {'pen':>4} "
+           + " ".join(f"{e:>7}" for e in ESCENARIOS) + "  BUILD")
+    print(hdr)
+    for i, (score, combo, det, base) in enumerate(finales, 1):
+        as_s = f"{base['AS']:.2f}" + ("*" if base["overcap"] else "")
+        print(f"{i:>2} {score/tot_w*100:>5.1f}% {base['gold']:>6} {base['AD']:>4.0f} {as_s:>5} "
+              f"{base['crit']:>4.0f} {base['pen']:>4.0f} "
+              + " ".join(f"{det[e]:>7.0f}" for e in ESCENARIOS)
+              + f"  {nombres(combo)}")
+    print("(* = AS cruda excede el tope; el exceso viene de pasivas, no de ítems)")
+
+
+def validar(finales, spec_key):
+    """Compara el top-1 contra la build publicada en el registro (si existe)."""
+    reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
+    if not os.path.exists(reg_path):
+        print("⚠️ sin reportes_registry.json — corre update_reports.py baseline")
+        return None
+    import json
+    reg = json.load(open(reg_path, encoding="utf-8"))
+    pubs = []
+    for f, e in reg["reportes"].items():
+        if e["champion"] == spec_key and e.get("build_keys") and e.get("hook"):
+            pubs.append((f, e["build_keys"]))
+    if not pubs:
+        print("⚠️ el registro no tiene build cuantitativa publicada para", spec_key)
+        return None
+    top1 = finales[0][1]
+    top1_keys = sorted(M.resolve(x).key for x in top1)
+    ok_global = False
+    for f, bk in pubs:
+        pub_keys = sorted(M.resolve(x).key for x in bk)
+        r = M.eval_build(M.CHAMPS[spec_key], bk, validate=False)
+        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1)
+                     if sorted(M.resolve(x).key for x in c) == pub_keys), None)
+        mismo = pub_keys == top1_keys
+        ok_global |= mismo
+        print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
+              f"top-1 del optimizador {'==' if mismo else '≠'} publicada"
+              + (f" (la publicada rankea #{rank} del top-{len(finales)})" if rank and not mismo else "")
+              + f" · dps1 publicada {r['dps1']:.0f} vs óptima {finales[0][3]['dps1']:.0f}")
+    return ok_global
+
+
+def parse_pesos(s):
+    out = {}
+    for par in s.split(","):
+        k, v = par.split(":")
+        out[k.strip()] = float(v)
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (motor dps_model)")
+    ap.add_argument("champion", help="clave en CHAMPS (jinx, yunara, shyvana…)")
+    ap.add_argument("--oro", type=int, default=18000, help="presupuesto total (default 18000)")
+    ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--nivel", type=int, default=15)
+    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5 (default 0.3/0.3/0.2/0.2)")
+    ap.add_argument("--excluir", default="", help="claves de ítem a excluir (coma-separadas)")
+    ap.add_argument("--incluir", default=None,
+                    help="restringir el pool a estos ítems (alias, coma-separados) — útil para "
+                         "validación cruzada contra el pool de candidatos de un reporte")
+    ap.add_argument("--botas", default=None, help="restringir botas T3 (coma-separadas, alias ok)")
+    ap.add_argument("--embudo", type=int, default=400)
+    ap.add_argument("--crit-min", type=float, default=0,
+                    help="Ley 1 como restricción dura (p.ej. 100 = crítico exacto)")
+    ap.add_argument("--pen-min", type=float, default=0,
+                    help="Ley 3 como restricción dura (p.ej. 30 = pen %% mínima)")
+    ap.add_argument("--validar", action="store_true", help="comparar contra la build publicada del registro")
+    ap.add_argument("--contra", default=None, help="build de referencia extra (alias separados por coma)")
+    args = ap.parse_args()
+
+    ck = args.champion.lower()
+    if ck not in M.CHAMPS:
+        sys.exit(f"'{ck}' no está en CHAMPS. Especs: {sorted(M.CHAMPS)}")
+    pesos = parse_pesos(args.pesos) if args.pesos else dict(PESOS_DEFAULT)
+    excluir = tuple(x for x in args.excluir.split(",") if x)
+
+    finales, hojas = optimizar(ck, oro=args.oro, top=args.top, pesos=pesos,
+                               excluir=excluir, solo_botas=args.botas,
+                               embudo=args.embudo, nivel=args.nivel,
+                               crit_min=args.crit_min, pen_min=args.pen_min,
+                               incluir=[x for x in args.incluir.split(",")] if args.incluir else None)
+    if args.contra:
+        ref = [x.strip() for x in args.contra.split(",")]
+        M.validate_slots(ref)
+        det = {e: M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False, **kw)[met]
+               for e, (kw, met) in ESCENARIOS.items()}
+        base = M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False)
+        # re-normalizar incluyendo la referencia
+        max_e = {e: max([det[e]] + [d[e] for _, _, d, _ in finales]) for e in ESCENARIOS}
+        def score_norm(d):
+            tot = sum(pesos.values()) or 1.0
+            return sum(pesos.get(e, 0.0) * (d[e] / (max_e[e] or 1.0)) for e in ESCENARIOS)
+        finales = [(score_norm(d), c, d, b) for _, c, d, b in finales]
+        finales.append((score_norm(det), ref, det, base))
+        finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+        finales = finales[:args.top + 1]
+    imprimir(finales, M.CHAMPS[ck], pesos, args.oro)
+    if args.validar:
+        print()
+        ok = validar(finales, ck)
+        if ok is False:
+            sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+<!-- generado por model/build_bundles.py · 29/09/2026 · lite · sha256(cuerpo)=69f302f0641f0096 · NO editar a mano: editar las fuentes y regenerar -->

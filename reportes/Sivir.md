@@ -37,6 +37,17 @@ Status: Beta
 
 **Veredicto:** 
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Sivir:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE] **Veredicto**
 > C44 gana en AoE y scaling.
 > Su pasiva Magnification (+10% daño a ≥550 unidades) aplica tanto a autos como a Q/W cuando se lanzan desde rango seguro.

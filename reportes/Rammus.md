@@ -8,6 +8,15 @@ Status: Beta
 
 ---
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos) y re-baselinar.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 ## 0. RESUMEN EJECUTIVO
 
 **Órden de compra (Ruta por defecto - Jungla):**

@@ -8,6 +8,14 @@ Status: Beta
 
 ---
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Seraphine:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
+> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 ## 0. RESUMEN EJECUTIVO
 
 Seraphine en el parche 7.3 se consolida como un **Soporte-Mago Híbrido (Enchanter-Caster)**. Su valor no reside en el DPS sostenido de autoataques (su AD es bajo, ~52 base), sino en la **eficacia de sus habilidades escaladas por AP**, su capacidad de **curación/escudo masivo vía Mantra (R)** y el control de zona con **Slow/Silence**.

@@ -11,6 +11,15 @@ Status: Beta
 **Arquetipo:** AP Juggernaut — daño mágico sostenido
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Mordekaiser:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
+> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > Win Rate 50.52 % | Pick Rate 10.95 % | **Ban 32.20 % (⛔ Perma-ban)** | Tendencia ↓3 | Rol: Top.

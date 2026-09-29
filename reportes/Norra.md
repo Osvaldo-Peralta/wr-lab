@@ -9,6 +9,16 @@ Status: Beta
 **Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).
 
 ---
+
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Norra:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 ## ⚠️ 1. CONTEXTO Y DISCREPANCIA CRÍTICA DE DATOS (NORRA)
 
 **Norra** aparece registrada con las siguientes stats:

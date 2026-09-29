@@ -1,10 +1,13 @@
 # HOTFIX 7.3a — Cambios completos (despliegue: 29-sep-2026, 09:30–12:00 CN)
 
 > **Fuente:** notas oficiales del servidor chino (lolm.qq.com, docid 15413436308828016227) vía traducción
-> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`). El sitio oficial EN aún no publica
-> página propia de 7.3a (verificado 28/09: 404); la página de notas 7.3 no fue modificada.
-> **Estado en el lab:** datos aplicados donde aplica; pendientes de re-verificación contra la nota EN oficial
-> cuando se publique (protocolo §E de FRAMEWORK).
+> comunitaria (r/wildrift, archivado en `data/raw/patch73a_cn_en.txt`).
+> **✅ VERIFICADO contra la nota EN oficial** (wildrift.leagueoflegends.com/…/wild-rift-patch-notes-7-3a/,
+> publicada el 29-sep-2026, archivada en `data/raw/patch73a_en.html/.txt`): todos los números de campeones,
+> ítems y sistemas coinciden con esta tabla. Única discrepancia: la nota EN lista solo **Diadem of Songs**
+> (0.5→0.25 %) además de Whispering Circlet; la traducción CN decía "Crown/Diadem" — mandan las notas EN
+> (ver FUENTES.md). Typo de la fuente EN: "0.01%a Ability Power" = 0.01 % AP.
+> **Estado en el lab:** datos aplicados en specs, motor, apéndices y tests (v1.5+).
 
 ## RESUMEN DE INTENCIÓN (traducción del intro oficial)
 

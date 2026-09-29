@@ -1,6 +1,7 @@
 {
- "official_73_md5": "2749fc0382f9659bf54fa1cb5187f31a",
+ "official_73_md5": "720ba0572c5e0e996c7a48be76f4bb70",
  "new_pages": [
+  "7-3",
   "7-3a"
  ],
  "changelog_dates": {
@@ -9,18 +10,20 @@
    "7.3"
   ],
   "yuumi": [
-   "22 SEP 2026",
-   "7.3"
+   "30 SEP 2026",
+   "7.3A"
   ],
   "kalista": [
    "22 SEP 2026",
    "7.3"
   ],
   "malphite": [
-   "22 SEP 2026",
-   "7.3"
+   "30 SEP 2026",
+   "7.3A"
   ]
  },
- "last_check": "2026-09-29T17:25:55",
- "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73"
+ "last_check": "2026-09-29T19:50:53",
+ "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
+ "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
+ "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97"
 }

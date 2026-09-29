@@ -11,6 +11,15 @@ Status: Beta
 **Arquetipo:** AP Assassin híbrido
 **Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Diana:** ninguno en 7.3a.
+> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
+> **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
+> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
 > Win Rate 47.98 % | Pick Rate 1.12 % | Ban 0.29 % | Tendencia ↓ 2 (🧊 Falling) | Rol: Mid.
