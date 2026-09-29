@@ -40,6 +40,56 @@ with contextlib.redirect_stdout(io.StringIO()):
 
 EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
 
+# ---------------------------------------------------------------- defensa y utilidad (v1.9)
+# Fuentes: items_7.3.csv (valores oficiales) + comentarios del motor. Uptimes declarados:
+# escudos condicionales (Lifeline/Ichorshield/Noxian) cuentan al 50-70 % (no están siempre).
+ESCUDOS_FIS = {"bt": 255 * 0.5, "shieldbow": 425 * 0.5, "armored_adv": 75 * 0.7}
+ESCUDOS_MAG = {"chainlaced": 75 * 0.7}      # Maw: valor recortado en la fuente → solo su MR cuenta
+UTIL_FLAGS = {"ga": 300, "Zhonyas": 300, "scimitar": 150, "gale": 100,
+              "immortal_treads": 100, "Redemption": 200, "Mikael": 200, "Locket": 150,
+              "Shurelya": 100, "Zeke": 100}
+BASE_DEF_FALLBACK = (650.0, 45.0, 35.0)     # hp/armor/mr nivel 1 (si no está en champion_base_stats.json)
+
+
+def cargar_base_def(champ, nivel=15):
+    """(hp, armor, mr) a nivel `nivel` desde data/estructurada/champion_base_stats.json.
+    Formato fuente: '570 (104)' = base (crecimiento por nivel). Fallback genérico declarado."""
+    import json, re as _re
+    ruta = os.path.join(ROOT, "data", "estructurada", "champion_base_stats.json")
+    try:
+        with open(ruta, encoding="utf-8") as fh:
+            db = json.load(fh)
+        st = db[champ]["stats"]
+        def num(clave):
+            m = _re.match(r"([\d.]+)\s*\(([\d.]+)\)", st.get(clave, "").replace("\xa0", " "))
+            if not m:
+                return None
+            return float(m.group(1)) + float(m.group(2)) * (nivel - 1)
+        hp, ar, mr = num("heal"), num("armor"), num("magicresistance")   # 'heal' = Health (errata del scrape)
+        if None in (hp, ar, mr):
+            raise ValueError
+        return hp, ar, mr
+    except Exception:
+        b = BASE_DEF_FALLBACK
+        return (b[0] + 90 * (nivel - 1), b[1] + 3.5 * (nivel - 1), b[2] + 1.2 * (nivel - 1))
+
+
+def ehp_y_util(keys_resueltas, base_def, heal_s):
+    """EHP mixto (50 % físico / 50 % mágico, escudos condicionales ponderados) y utilidad
+    (heal/s + banderas de activas). hechizo heurístico declarado: GA/Zhonyas 300, QSS 150…"""
+    hp, armor, mr = base_def
+    esc_f = esc_m = util = 0.0
+    for k in keys_resueltas:
+        it = M.ITEMS.get(k)
+        if it is not None:
+            hp += it.hp; armor += it.armor; mr += it.mr
+        esc_f += ESCUDOS_FIS.get(k, 0.0)
+        esc_m += ESCUDOS_MAG.get(k, 0.0)
+        util += UTIL_FLAGS.get(k, 0.0)
+    ehp = 0.5 * ((hp + esc_f) * (1 + armor / 100.0) + (hp + esc_m) * (1 + mr / 100.0))
+    # heal/s se pondera ×0.25 para que no aplaste a las activas (heurístico declarado v1.9)
+    return ehp, util + 0.25 * heal_s
+
 # ---------------------------------------------------------------- motores
 ESC_AUTOS = {
     "1v1":      (dict(),                                     "dps1"),
@@ -123,12 +173,21 @@ def motor_para(champ, override=None):
 
 
 # ---------------------------------------------------------------- búsqueda
+PRESETS = {"balanceado": (0.15, 0.15), "ofensivo": (0.0, 0.0), "defensivo": (0.30, 0.15)}
+
+
 def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), incluir=None,
               solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
-              keystone="lt"):
+              keystone="lt", defensa=0.0, utilidad=0.0, preset=None):
     champ = champ.lower()
     motor = motor_para(champ, motor)
     eng = ENGINES[motor]
+    if preset:
+        defensa, utilidad = PRESETS[preset]
+    if motor == "aliado" and (defensa or utilidad):
+        print("[aviso] motor aliado: la defensa propia no aplica (Yuumi attachada es intargeteable) "
+              "— pesos de defensa/utilidad ignorados")
+        defensa = utilidad = 0.0
     if eng["requiere_spec"] and champ not in M.CHAMPS:
         sys.exit(f"'{champ}' no tiene ChampSpec en dps_model.CHAMPS (motor autos). "
                  f"Especs: {sorted(M.CHAMPS)}")
@@ -234,17 +293,26 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
         candidatos.extend(heap)
         heap = []
 
-    # pasada 2: objetivo ponderado NORMALIZADO por escenario
+    # pasada 2: objetivo ponderado NORMALIZADO por escenario (+ defensa/utilidad opcionales)
+    base_def = cargar_base_def(champ, nivel) if (defensa or utilidad) else None
     brutos = []
     for s1, neg_g, combo in candidatos:
         det = {e: eval_fn(champ, combo, kw, opts)[m] for e, (kw, m) in escenarios.items()}
         base = eng["base_fn"](champ, combo, opts)
-        brutos.append((combo, det, base))
-    max_e = {e: max((d[e] for _, d, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+        ehp = util = 0.0
+        if base_def is not None:
+            keys = [M.resolve(c).key for c in combo] if eng is ENGINES["autos"] else list(combo)
+            heal_s = base.get("heal", 0.0) if isinstance(base, dict) else 0.0
+            ehp, util = ehp_y_util(keys, base_def, heal_s)
+        brutos.append((combo, det, base, ehp, util))
+    max_e = {e: max((d[e] for _, d, _, _, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+    max_ehp = max((x[3] for x in brutos), default=1.0) or 1.0
+    max_util = max((x[4] for x in brutos), default=1.0) or 1.0
     finales = []
-    for combo, det, base in brutos:
-        score = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
-        finales.append((score, combo, det, base))
+    for combo, det, base, ehp, util in brutos:
+        off = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
+        score = (1 - defensa - utilidad) * off + defensa * (ehp / max_ehp) + utilidad * (util / max_util)
+        finales.append((score, combo, det, base, ehp, util))
     finales.sort(key=lambda x: (-x[0], sum(gold(k) for k in x[1])))
     if verbose:
         print(f"[{champ}·{motor}] hojas legales: {hojas:,} · embudo: {len(candidatos)} · "
@@ -260,11 +328,17 @@ def imprimir(finales, champ, motor, pesos, oro):
     cols = list(eng["escenarios"])
     print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    for i, (score, combo, det, base) in enumerate(finales, 1):
+    con_def = len(finales[0]) > 4
+    if con_def:
+        print(f"(columnas EHP/UTIL activas — pesos defensa/utilidad incluidos en EFIC)")
+    for i, fila in enumerate(finales, 1):
+        score, combo, det, base = fila[0], fila[1], fila[2], fila[3]
+        ehp, util = (fila[4], fila[5]) if con_def else (0, 0)
         og = sum(gold(k) for k in combo)
+        extra = f" {ehp/1000:>6.1f}k {util:>6.0f}" if con_def else ""
         print(f"{i:>2} {score/tot_w*100:>5.1f}% {og:>6} "
               + " ".join(f"{det[c]:>8.0f}" for c in cols)
-              + f"  {'+'.join(combo)}")
+              + extra + f"  {'+'.join(combo)}")
 
 
 def validar(finales, champ, motor):
@@ -308,7 +382,7 @@ def validar(finales, champ, motor):
     ok_global = False
     for f, bk in pubs:
         mismo = sorted(bk) == sorted(top1)
-        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1) if sorted(c) == sorted(bk)), None)
+        rank = next((i for i, f in enumerate(finales, 1) if sorted(f[1]) == sorted(bk)), None)
         ok_global |= mismo
         print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
               f"top-1 {'==' if mismo else '≠'} publicada"
@@ -339,6 +413,10 @@ def main():
     ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
     ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--defensa", type=float, default=0.0, help="peso de EHP en el score (0-0.5)")
+    ap.add_argument("--utilidad", type=float, default=0.0, help="peso de heal/activas en el score (0-0.5)")
+    ap.add_argument("--preset", default=None, choices=list(PRESETS),
+                    help="balanceado=70/15/15 ofensivo/defensivo (ver PRESETS)")
     args = ap.parse_args()
 
     ck = args.champion.lower()
@@ -351,7 +429,8 @@ def main():
                                incluir=args.incluir.split(",") if args.incluir else None,
                                solo_botas=args.botas, embudo=args.embudo, nivel=args.nivel,
                                crit_min=args.crit_min, pen_min=args.pen_min,
-                               keystone=args.keystone)
+                               keystone=args.keystone, defensa=args.defensa,
+                               utilidad=args.utilidad, preset=args.preset)
     imprimir(finales, ck, motor, pesos, oro)
     if args.validar:
         print()

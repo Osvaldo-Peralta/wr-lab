@@ -252,7 +252,7 @@ def lt_bullet(spec, level, B):
 
 def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
                lt=True, alacrity=ALACRITY_FULL, missing_hp=50, enemy_hp=2200,
-               self_buff_on=True, spellblade_uptime=1/1.5, validate=True):
+               self_buff_on=True, spellblade_uptime=1/1.5, validate=True, ad_extra=0.0):
     """Devuelve métricas de una build completa (lista de nombres/alias de ítems, botas incluidas).
     OJO: 'items' = SLOTS FINALES. Las botas ocupan 1 slot y su mejora T2→T3 es EN EL MISMO SLOT
     (usa el nombre T3, p.ej. 'Gunmetal'; NUNCA listes 'Berserker's'+'Gunmetal' juntos)."""
@@ -260,7 +260,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
         validate_slots(items, final=(len(items) == 6))
     its = [resolve(x) for x in items]
     gold = sum(i.gold for i in its)
-    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its)
+    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its) + ad_extra
     base_ad = spec.base_ad + spec.ad_growth*(level-1)
     crit = min(sum(i.crit for i in its), 100)/100.0
     pen  = min(sum(i.pen for i in its), 100)

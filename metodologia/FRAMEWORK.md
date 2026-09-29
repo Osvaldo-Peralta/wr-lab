@@ -28,7 +28,9 @@
 7. **Curva de poder, no solo nivel 15.** Correr el modelo en los checkpoints nivel 9 (1.er ítem),
    12 (2 ítems + botas), 14 (3 ítems + botas T3) para ordenar la RUTA de compra y detectar
    ítems que ganan temprano pero pierden tarde (Kraken-first) o al revés (C44-first).
-8. **Runas y hechizos.** Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
+8. **Runas y hechizos** (apoyo: `model/optimize_runes.py <champ>` puntúa keystone × secundaria
+   con valor marginal contra el baseline LT+Alacrity; supuestos declarados en su docstring).
+   Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
    Fleet ↔ sustain de lane; First Strike ↔ poke). Secundarias: valor por slot con la misma lógica de stats muertos.
 9. **Matriz situacional del último slot** (vs CC / vs burst AD / vs AP / vs tanques / vs curación / vs dive)
    con números, no con opiniones.
@@ -143,6 +145,9 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 ---
 
 ## E. Protocolo de actualización de datos (cada parche)
+
+> 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
+> "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):

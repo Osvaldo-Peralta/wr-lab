@@ -69,7 +69,9 @@
 7. **Curva de poder, no solo nivel 15.** Correr el modelo en los checkpoints nivel 9 (1.er ítem),
    12 (2 ítems + botas), 14 (3 ítems + botas T3) para ordenar la RUTA de compra y detectar
    ítems que ganan temprano pero pierden tarde (Kraken-first) o al revés (C44-first).
-8. **Runas y hechizos.** Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
+8. **Runas y hechizos** (apoyo: `model/optimize_runes.py <champ>` puntúa keystone × secundaria
+   con valor marginal contra el baseline LT+Alacrity; supuestos declarados en su docstring).
+   Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
    Fleet ↔ sustain de lane; First Strike ↔ poke). Secundarias: valor por slot con la misma lógica de stats muertos.
 9. **Matriz situacional del último slot** (vs CC / vs burst AD / vs AP / vs tanques / vs curación / vs dive)
    con números, no con opiniones.
@@ -184,6 +186,9 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 ---
 
 ## E. Protocolo de actualización de datos (cada parche)
+
+> 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
+> "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):
@@ -2342,7 +2347,7 @@ def lt_bullet(spec, level, B):
 
 def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
                lt=True, alacrity=ALACRITY_FULL, missing_hp=50, enemy_hp=2200,
-               self_buff_on=True, spellblade_uptime=1/1.5, validate=True):
+               self_buff_on=True, spellblade_uptime=1/1.5, validate=True, ad_extra=0.0):
     """Devuelve métricas de una build completa (lista de nombres/alias de ítems, botas incluidas).
     OJO: 'items' = SLOTS FINALES. Las botas ocupan 1 slot y su mejora T2→T3 es EN EL MISMO SLOT
     (usa el nombre T3, p.ej. 'Gunmetal'; NUNCA listes 'Berserker's'+'Gunmetal' juntos)."""
@@ -2350,7 +2355,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
         validate_slots(items, final=(len(items) == 6))
     its = [resolve(x) for x in items]
     gold = sum(i.gold for i in its)
-    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its)
+    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its) + ad_extra
     base_ad = spec.base_ad + spec.ad_growth*(level-1)
     crit = min(sum(i.crit for i in its), 100)/100.0
     pen  = min(sum(i.pen for i in its), 100)
@@ -2775,7 +2780,7 @@ for hp in [2500, 3500, 5000, 7000]:
     print(f"  con {hp} HP: golpe {dmg:.0f} -> +{0.15*dmg:.0f} HP permanente (por campeón cada 20s)")
 ```
 
-## 10c. OPTIMIZADOR DE BUILDS (búsqueda exhaustiva con Leyes 0-1-2-3 como restricciones)
+## 10c. OPTIMIZADOR DE BUILDS (4 motores · búsqueda exhaustiva con Leyes 0-1-2-3 · presets de defensa/utilidad)
 
 ```python
 # -*- coding: utf-8 -*-
@@ -2819,6 +2824,56 @@ with contextlib.redirect_stdout(io.StringIO()):
     import analysis_batch2 as B2
 
 EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
+
+# ---------------------------------------------------------------- defensa y utilidad (v1.9)
+# Fuentes: items_7.3.csv (valores oficiales) + comentarios del motor. Uptimes declarados:
+# escudos condicionales (Lifeline/Ichorshield/Noxian) cuentan al 50-70 % (no están siempre).
+ESCUDOS_FIS = {"bt": 255 * 0.5, "shieldbow": 425 * 0.5, "armored_adv": 75 * 0.7}
+ESCUDOS_MAG = {"chainlaced": 75 * 0.7}      # Maw: valor recortado en la fuente → solo su MR cuenta
+UTIL_FLAGS = {"ga": 300, "Zhonyas": 300, "scimitar": 150, "gale": 100,
+              "immortal_treads": 100, "Redemption": 200, "Mikael": 200, "Locket": 150,
+              "Shurelya": 100, "Zeke": 100}
+BASE_DEF_FALLBACK = (650.0, 45.0, 35.0)     # hp/armor/mr nivel 1 (si no está en champion_base_stats.json)
+
+
+def cargar_base_def(champ, nivel=15):
+    """(hp, armor, mr) a nivel `nivel` desde data/estructurada/champion_base_stats.json.
+    Formato fuente: '570 (104)' = base (crecimiento por nivel). Fallback genérico declarado."""
+    import json, re as _re
+    ruta = os.path.join(ROOT, "data", "estructurada", "champion_base_stats.json")
+    try:
+        with open(ruta, encoding="utf-8") as fh:
+            db = json.load(fh)
+        st = db[champ]["stats"]
+        def num(clave):
+            m = _re.match(r"([\d.]+)\s*\(([\d.]+)\)", st.get(clave, "").replace("\xa0", " "))
+            if not m:
+                return None
+            return float(m.group(1)) + float(m.group(2)) * (nivel - 1)
+        hp, ar, mr = num("heal"), num("armor"), num("magicresistance")   # 'heal' = Health (errata del scrape)
+        if None in (hp, ar, mr):
+            raise ValueError
+        return hp, ar, mr
+    except Exception:
+        b = BASE_DEF_FALLBACK
+        return (b[0] + 90 * (nivel - 1), b[1] + 3.5 * (nivel - 1), b[2] + 1.2 * (nivel - 1))
+
+
+def ehp_y_util(keys_resueltas, base_def, heal_s):
+    """EHP mixto (50 % físico / 50 % mágico, escudos condicionales ponderados) y utilidad
+    (heal/s + banderas de activas). hechizo heurístico declarado: GA/Zhonyas 300, QSS 150…"""
+    hp, armor, mr = base_def
+    esc_f = esc_m = util = 0.0
+    for k in keys_resueltas:
+        it = M.ITEMS.get(k)
+        if it is not None:
+            hp += it.hp; armor += it.armor; mr += it.mr
+        esc_f += ESCUDOS_FIS.get(k, 0.0)
+        esc_m += ESCUDOS_MAG.get(k, 0.0)
+        util += UTIL_FLAGS.get(k, 0.0)
+    ehp = 0.5 * ((hp + esc_f) * (1 + armor / 100.0) + (hp + esc_m) * (1 + mr / 100.0))
+    # heal/s se pondera ×0.25 para que no aplaste a las activas (heurístico declarado v1.9)
+    return ehp, util + 0.25 * heal_s
 
 # ---------------------------------------------------------------- motores
 ESC_AUTOS = {
@@ -2903,12 +2958,21 @@ def motor_para(champ, override=None):
 
 
 # ---------------------------------------------------------------- búsqueda
+PRESETS = {"balanceado": (0.15, 0.15), "ofensivo": (0.0, 0.0), "defensivo": (0.30, 0.15)}
+
+
 def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), incluir=None,
               solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
-              keystone="lt"):
+              keystone="lt", defensa=0.0, utilidad=0.0, preset=None):
     champ = champ.lower()
     motor = motor_para(champ, motor)
     eng = ENGINES[motor]
+    if preset:
+        defensa, utilidad = PRESETS[preset]
+    if motor == "aliado" and (defensa or utilidad):
+        print("[aviso] motor aliado: la defensa propia no aplica (Yuumi attachada es intargeteable) "
+              "— pesos de defensa/utilidad ignorados")
+        defensa = utilidad = 0.0
     if eng["requiere_spec"] and champ not in M.CHAMPS:
         sys.exit(f"'{champ}' no tiene ChampSpec en dps_model.CHAMPS (motor autos). "
                  f"Especs: {sorted(M.CHAMPS)}")
@@ -3014,17 +3078,26 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
         candidatos.extend(heap)
         heap = []
 
-    # pasada 2: objetivo ponderado NORMALIZADO por escenario
+    # pasada 2: objetivo ponderado NORMALIZADO por escenario (+ defensa/utilidad opcionales)
+    base_def = cargar_base_def(champ, nivel) if (defensa or utilidad) else None
     brutos = []
     for s1, neg_g, combo in candidatos:
         det = {e: eval_fn(champ, combo, kw, opts)[m] for e, (kw, m) in escenarios.items()}
         base = eng["base_fn"](champ, combo, opts)
-        brutos.append((combo, det, base))
-    max_e = {e: max((d[e] for _, d, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+        ehp = util = 0.0
+        if base_def is not None:
+            keys = [M.resolve(c).key for c in combo] if eng is ENGINES["autos"] else list(combo)
+            heal_s = base.get("heal", 0.0) if isinstance(base, dict) else 0.0
+            ehp, util = ehp_y_util(keys, base_def, heal_s)
+        brutos.append((combo, det, base, ehp, util))
+    max_e = {e: max((d[e] for _, d, _, _, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+    max_ehp = max((x[3] for x in brutos), default=1.0) or 1.0
+    max_util = max((x[4] for x in brutos), default=1.0) or 1.0
     finales = []
-    for combo, det, base in brutos:
-        score = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
-        finales.append((score, combo, det, base))
+    for combo, det, base, ehp, util in brutos:
+        off = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
+        score = (1 - defensa - utilidad) * off + defensa * (ehp / max_ehp) + utilidad * (util / max_util)
+        finales.append((score, combo, det, base, ehp, util))
     finales.sort(key=lambda x: (-x[0], sum(gold(k) for k in x[1])))
     if verbose:
         print(f"[{champ}·{motor}] hojas legales: {hojas:,} · embudo: {len(candidatos)} · "
@@ -3040,11 +3113,17 @@ def imprimir(finales, champ, motor, pesos, oro):
     cols = list(eng["escenarios"])
     print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    for i, (score, combo, det, base) in enumerate(finales, 1):
+    con_def = len(finales[0]) > 4
+    if con_def:
+        print(f"(columnas EHP/UTIL activas — pesos defensa/utilidad incluidos en EFIC)")
+    for i, fila in enumerate(finales, 1):
+        score, combo, det, base = fila[0], fila[1], fila[2], fila[3]
+        ehp, util = (fila[4], fila[5]) if con_def else (0, 0)
         og = sum(gold(k) for k in combo)
+        extra = f" {ehp/1000:>6.1f}k {util:>6.0f}" if con_def else ""
         print(f"{i:>2} {score/tot_w*100:>5.1f}% {og:>6} "
               + " ".join(f"{det[c]:>8.0f}" for c in cols)
-              + f"  {'+'.join(combo)}")
+              + extra + f"  {'+'.join(combo)}")
 
 
 def validar(finales, champ, motor):
@@ -3088,7 +3167,7 @@ def validar(finales, champ, motor):
     ok_global = False
     for f, bk in pubs:
         mismo = sorted(bk) == sorted(top1)
-        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1) if sorted(c) == sorted(bk)), None)
+        rank = next((i for i, f in enumerate(finales, 1) if sorted(f[1]) == sorted(bk)), None)
         ok_global |= mismo
         print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
               f"top-1 {'==' if mismo else '≠'} publicada"
@@ -3119,6 +3198,10 @@ def main():
     ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
     ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--defensa", type=float, default=0.0, help="peso de EHP en el score (0-0.5)")
+    ap.add_argument("--utilidad", type=float, default=0.0, help="peso de heal/activas en el score (0-0.5)")
+    ap.add_argument("--preset", default=None, choices=list(PRESETS),
+                    help="balanceado=70/15/15 ofensivo/defensivo (ver PRESETS)")
     args = ap.parse_args()
 
     ck = args.champion.lower()
@@ -3131,7 +3214,8 @@ def main():
                                incluir=args.incluir.split(",") if args.incluir else None,
                                solo_botas=args.botas, embudo=args.embudo, nivel=args.nivel,
                                crit_min=args.crit_min, pen_min=args.pen_min,
-                               keystone=args.keystone)
+                               keystone=args.keystone, defensa=args.defensa,
+                               utilidad=args.utilidad, preset=args.preset)
     imprimir(finales, ck, motor, pesos, oro)
     if args.validar:
         print()
@@ -3144,4 +3228,223 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 29/09/2026 · lite · sha256(cuerpo)=3b976964b7c07983 · NO editar a mano: editar las fuentes y regenerar -->
+## 10d. BUSCADOR DE RUNAS (keystone × secundaria · valor marginal · supuestos declarados)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · optimize_runes.py — buscador de runas (ROADMAP módulo 3)
+=================================================================
+Puntúa combinaciones KEYSTONE × SECUNDARIA sobre una build dada, con el mismo
+esquema del optimizador de builds: escenario por escenario, puntuación ponderada
+NORMALIZADA y valor marginal contra el baseline del lab (Lethal Tempo + Alacrity).
+
+Motores soportados (v1):
+    autos      (dps_model.eval_build)     → Jinx, Yunara, Sivir, Caitlyn…
+    rotacion   (analysis_batch2.diana)    → Diana y magos de rotación (keystones empower/lt/conq)
+    onhit/aliado: PENDIENTES (los modelos batch no parametrizan suficientes runas — ver ROADMAP)
+
+FUENTE DE VALORES: data/estructurada/runas_7.3.md (scrape de wr-meta; las notas oficiales
+7.3 mandan para Lethal Tempo, ya dentro del motor). SUPUESTOS DECLARADOS (auditables):
+    · Conqueror: 5 AD × 6 stacks = 30 AD con uptime 85 % en pelea sostenida (→ 25.5 efectivo)
+      + 5 % omnivamp ranged a stacks llenos (va a la columna de sustain, no al DPS).
+    · First Strike: +7 % verdadero 3 s cada 25 s → +0.84 % efectivo sostenido (+oro no modelado).
+    · Electrocute: 210 (nivel 15) + 10 % AD por proc; **CD 25 s ASUMIDO** (la fuente está cortada
+      en "Cooldown:") → verificar en juego antes de publicar conclusiones finas.
+    · Coup de Grace: +8 % sobre el 25 % del tiempo de pelea con el objetivo <40 % HP → +2 %.
+    · Cut Down: +6.57 % vs >60 % HP → completo en vsTanque, mitad en el resto.
+    · Last Stand: 5-11 % bajo 60 % HP → promedio 5 % × ventana 50 % → +2.5 %.
+    · Triumph / Legend: Bloodline: sustain/utilidad (columna propia, NO puntúan DPS).
+    · Brutal / Sudden Impact / Battle Zeal / Gathering Storm: EXCLUIDOS del modelo v1
+      (fuente rasgada sin números fiables / requieren flags por campeón / amplifican
+      habilidades fuera del modelo de autos). Motivo registrado en EXCLUIDAS.
+
+USO
+    python3 model/optimize_runes.py jinx                       # build publicada del registro
+    python3 model/optimize_runes.py jinx --build "Gunmetal,C44,Runaan's,IE,LDR,Kraken"
+    python3 model/optimize_runes.py diana --build "Spellslinger,DuskDawn,Nashor,Rabadon,Zhonyas,Cryptbloom"
+    python3 model/optimize_runes.py jinx --top 8
+
+VALIDACIÓN: para Jinx debe ganar Lethal Tempo + Legend: Alacrity (conclusión del reporte);
+para Diana (rotación), keystone LT (reporte: +30 % DPS sostenido vs Empowerment).
+"""
+import argparse, json, os, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import dps_model as M
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import analysis_batch2 as B2
+from optimize_build import ENGINES, PESOS_AUTOS, motor_para   # reutiliza motores/normalización
+
+# ---------------------------------------------------------------- catálogo de runas (autos)
+KEYSTONES_AUTOS = {
+    "Lethal Tempo": dict(lt=True,
+        notas="6.4 %/stack ranged + bala 6-24 · valores oficiales 7.3 YA en el motor"),
+    "Conqueror": dict(ad_extra=25.5, omnivamp=0.05,
+        notas="30 AD a 6 stacks × uptime 85 % = 25.5 · +5 % omnivamp (sustain)"),
+    "First Strike": dict(true_amp=0.0084,
+        notas="+7 % verdadero 3 s / CD 25 s = +0.84 % sostenido · +oro no modelado"),
+    "Electrocute": dict(burst_ad_ratio=0.10, burst_flat=210, burst_cd=25,
+        notas="210 + 10 % AD por proc · CD 25 s ASUMIDO (fuente cortada)"),
+}
+SECONDARIES_AUTOS = {
+    "Legend: Alacrity": dict(alacrity=0.21, notas="+21 % AS (3+18 a full stacks) — motor oficial"),
+    "Legend: Bloodline": dict(omnivamp=0.08, notas="+8 % omnivamp — sustain, no DPS"),
+    "Coup de Grace": dict(cond_amp=0.08, ventana=0.25, notas="+8 % vs <40 % HP × ventana 25 %"),
+    "Cut Down": dict(tank_amp=0.0657, otros_amp=0.0329, notas="+6.57 % vs >60 % HP (mitad fuera de vsTanque)"),
+    "Last Stand": dict(cond_amp=0.05, ventana=0.50, notas="5-11 % bajo 60 % HP → 5 % × 50 %"),
+    "Triumph": dict(utility=True, notas="10 % vida perdida por takedown + 35 MS — utilidad pura"),
+}
+EXCLUIDAS = {
+    "Brutal": "fuente rasgada sin números fiables (verificar en juego)",
+    "Sudden Impact": "requiere flag de dash por campeón (no está en ChampSpec)",
+    "Battle Zeal": "amplifica habilidades — fuera del modelo de autos",
+    "Legend: Haste": "AH de habilidades — solo aplica al motor rotación",
+    "Grasp of the Undying": "sustain de melee — fuera del arquetipo autos ranged",
+    "Summon Aery / Arcane Comet / Phase Rush / Ice Overlord": "keystones de mago/utilidad — fuera de autos",
+}
+
+ESC_AUTOS = ENGINES["autos"]["escenarios"]
+
+# ---------------------------------------------------------------- catálogo (rotación)
+KEYSTONES_ROT = {
+    "Lethal Tempo": dict(ks="lt", notas="motor batch2: bala adaptativa + AS 38.4 %"),
+    "Empowerment": dict(ks="empower", notas="motor batch2: proc 165 + amp 8 %, ICD 4 s"),
+    "Conqueror": dict(ks="conq", notas="motor batch2: ~30 adaptivo uptime 60 % + omnivamp"),
+}
+SECONDARIES_ROT = {
+    "Legend: Haste": dict(pen_note="Legend: Haste", notas="+15 AH (tope) — entra en diana()"),
+    "— (sin secundaria modelada)": dict(pen_note=None, notas="baseline"),
+}
+
+
+def build_desde_registro(champ):
+    reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
+    if not os.path.exists(reg_path):
+        return None
+    with open(reg_path, encoding="utf-8") as fh:
+        reg = json.load(fh)
+    for f, e in sorted(reg["reportes"].items()):
+        if e["champion"] == champ and e.get("build_keys"):
+            return e["build_keys"], f
+    return None
+
+
+def eval_par_autos(spec, build, ks, sec, esc_kw, met, nivel=15):
+    """Valor del par (keystone, secundaria) para la métrica del escenario + sustain."""
+    k, s = KEYSTONES_AUTOS[ks], SECONDARIES_AUTOS[sec]
+    r = M.eval_build(spec, build, level=nivel, validate=False,
+                     lt=k.get("lt", False), alacrity=s.get("alacrity", 0.0),
+                     ad_extra=k.get("ad_extra", 0.0), **esc_kw)
+    dps = r[met]
+    armor = esc_kw.get("armor", 0.0)
+    if k.get("true_amp"):                                   # First Strike: verdadero post-mitigación
+        dps *= (1 + k["true_amp"])
+    if k.get("burst_flat"):                                 # Electrocute: burst single-target mitigado / CD
+        mit = 100 / (100 + armor * (1 - r["pen"] / 100)) if armor > 0 else 1.0
+        dps += (k["burst_flat"] + k["burst_ad_ratio"] * r["AD"]) * mit / k["burst_cd"]
+    if s.get("cond_amp"):                                   # CdG / Last Stand: ventana declarada
+        dps *= (1 + s["cond_amp"] * s["ventana"])
+    if s.get("tank_amp"):                                   # Cut Down
+        dps *= (1 + (s["tank_amp"] if esc_kw.get("tank") else s["otros_amp"]))
+    sustain = r["heal"] + r["dps1"] * (k.get("omnivamp", 0) + s.get("omnivamp", 0))
+    return dps, sustain
+
+
+def buscar_autos(champ, build, top=10, nivel=15, pesos=None):
+    spec = M.CHAMPS[champ]
+    pesos = pesos or dict(PESOS_AUTOS)
+    grid = []
+    for ks in KEYSTONES_AUTOS:
+        for sec in SECONDARIES_AUTOS:
+            det, sustains = {}, []
+            for e, (kw, met) in ESC_AUTOS.items():
+                d, sus = eval_par_autos(spec, build, ks, sec, kw, met, nivel)
+                det[e] = d
+                sustains.append(sus)
+            grid.append({"ks": ks, "sec": sec, "det": det, "sustain": max(sustains)})
+    max_e = {e: max(g["det"][e] for g in grid) or 1.0 for e in ESC_AUTOS}
+    for g in grid:
+        g["score"] = sum(pesos.get(e, 0) * (g["det"][e] / max_e[e]) for e in ESC_AUTOS)
+    base = next(g for g in grid if g["ks"] == "Lethal Tempo" and g["sec"] == "Legend: Alacrity")
+    for g in grid:
+        g["marginal"] = (g["score"] / base["score"] - 1) * 100 if base["score"] else 0.0
+    grid.sort(key=lambda g: (-g["score"], g["ks"]))
+    return grid[:top], base
+
+
+def buscar_rotacion(champ, build, top=10, keystone_build_kw=None):
+    grid = []
+    for ks_name, ks in KEYSTONES_ROT.items():
+        for sec_name, sec in SECONDARIES_ROT.items():
+            kw = {"keystone": ks["ks"]}
+            if sec.get("pen_note"):
+                kw["pen_note"] = sec["pen_note"]
+            r = B2.diana(build, **kw)
+            rt = B2.diana(build, mr=180, **kw)
+            grid.append({"ks": ks_name, "sec": sec_name,
+                         "det": {"dps10s": r["dps"], "burst": r["burst"], "vs180mr": rt["dps"]},
+                         "sustain": 0.0})
+    from optimize_build import PESOS_ROT
+    max_e = {e: max(g["det"][e] for g in grid) or 1.0 for e in ("dps10s", "burst", "vs180mr")}
+    for g in grid:
+        g["score"] = sum(PESOS_ROT[e] * (g["det"][e] / max_e[e]) for e in max_e)
+    base = next(g for g in grid if g["ks"] == "Lethal Tempo" and "sin secundaria" in g["sec"])
+    for g in grid:
+        g["marginal"] = (g["score"] / base["score"] - 1) * 100 if base["score"] else 0.0
+    grid.sort(key=lambda g: -g["score"])
+    return grid[:top], base
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · buscador de runas (keystone × secundaria)")
+    ap.add_argument("champion")
+    ap.add_argument("--build", default=None, help="ítems coma-separados (default: publicada en el registro)")
+    ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--nivel", type=int, default=15)
+    args = ap.parse_args()
+    champ = args.champion.lower()
+    motor = motor_para(champ)
+    if motor not in ("autos", "rotacion"):
+        sys.exit(f"motor '{motor}' aún sin soporte de runas (v1: autos y rotacion). Ver ROADMAP.")
+
+    if args.build:
+        build = [x.strip() for x in args.build.split(",")]
+        origen = "CLI"
+    else:
+        reg = build_desde_registro(champ)
+        if not reg:
+            sys.exit("sin build publicada en el registro — pasa --build explícita")
+        build, origen = reg
+    if motor == "autos":
+        build = [M.ALIAS.get(b, b) if b in M.ALIAS else b for b in build]
+        M.validate_slots(build)
+        grid, base = buscar_autos(champ, build, args.top, args.nivel)
+        cols = list(ESC_AUTOS)
+    else:
+        grid, base = buscar_rotacion(champ, build, args.top)
+        cols = ["dps10s", "burst", "vs180mr"]
+
+    base_lbl = "vs baseline" if motor == "rotacion" else "vs LT+Alac"
+    print(f"=== RUNAS · {champ} ({motor}) · build: {'+'.join(build)}  [{origen}] ===")
+    print(f"{'#':>2} {'SCORE':>6} {base_lbl:>10} {'sustain':>8} " +
+          " ".join(f"{c:>8}" for c in cols) + "  KEYSTONE × SECUNDARIA")
+    for i, g in enumerate(grid, 1):
+        print(f"{i:>2} {g['score']*100:>5.1f}% {g['marginal']:>+9.1f}% {g['sustain']:>8.0f} " +
+              " ".join(f"{g['det'][c]:>8.0f}" for c in cols) +
+              f"  {g['ks']} × {g['sec']}")
+    lbl = ("Lethal Tempo × — (sin secundaria modelada)" if motor == "rotacion"
+           else "Lethal Tempo × Legend: Alacrity")
+    print(f"\nBaseline del lab: {lbl} = 0.0 % (columna '{base_lbl}' = valor marginal).")
+    print("Supuestos declarados en el docstring del módulo; runas excluidas:")
+    for r, mot in EXCLUIDAS.items():
+        print(f"  · {r}: {mot}")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+<!-- generado por model/build_bundles.py · 29/09/2026 · lite · sha256(cuerpo)=4d8e571a741c9717 · NO editar a mano: editar las fuentes y regenerar -->

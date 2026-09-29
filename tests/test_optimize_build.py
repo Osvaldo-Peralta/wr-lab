@@ -61,15 +61,15 @@ class TestJinxAutos(unittest.TestCase):
 
     def test_ley0_y_presupuesto(self):
         finales, _ = O.optimizar("jinx", oro=18000, top=5, incluir=POOL_JINX_REPORTE, verbose=False)
-        for score, combo, det, base in finales:
-            self.assertEqual(M.validate_slots(combo), (1, 5))
-            self.assertLessEqual(base["gold"], 18000)
+        for f in finales:
+            self.assertEqual(M.validate_slots(f[1]), (1, 5))
+            self.assertLessEqual(f[3]["gold"], 18000)
 
     def test_restricciones_de_ley_duras(self):
         finales, _ = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30, verbose=False)
-        for score, combo, det, base in finales:
-            self.assertGreaterEqual(base["crit"], 100)
-            self.assertGreaterEqual(base["pen"], 30)
+        for f in finales:
+            self.assertGreaterEqual(f[3]["crit"], 100)
+            self.assertGreaterEqual(f[3]["pen"], 30)
 
     def test_pool_completo_no_peor_que_publicada(self):
         """NIVEL 2: post-7.3a la frontera óptima se expande (Yun Tal buffeada); el óptimo
@@ -79,7 +79,7 @@ class TestJinxAutos(unittest.TestCase):
         self.assertGreater(hojas, 20000)
         det_c = {e: M.eval_build(M.CHAMPS["jinx"], JINX_C, validate=False, **kw)[m]
                  for e, (kw, m) in O.ESC_AUTOS.items()}
-        max_e = {e: max([det_c[e]] + [d[e] for _, _, d, _ in finales]) for e in O.ESC_AUTOS}
+        max_e = {e: max([det_c[e]] + [f[2][e] for f in finales]) for e in O.ESC_AUTOS}
         eff_c = sum(O.PESOS_AUTOS[e] * det_c[e] / max_e[e] for e in O.ESC_AUTOS)
         self.assertGreaterEqual(finales[0][0] + 1e-9, eff_c)
 
@@ -89,7 +89,7 @@ class TestKalistaOnHit(unittest.TestCase):
         """NIVEL 2: el híbrido Statikk supera a K2 por <1.5 % (ruido del modelo: el valor
         defensivo de Wit's End — MR/tenacidad — no está en la fórmula)."""
         finales, hojas = O.optimizar("kalista", top=6, verbose=False)
-        combos = [sorted(c) for _, c, _, _ in finales]
+        combos = [sorted(f[1]) for f in finales]
         self.assertIn(sorted(KALISTA_K2), combos)
         rank = combos.index(sorted(KALISTA_K2)) + 1
         self.assertLessEqual(rank, 3)
@@ -98,8 +98,8 @@ class TestKalistaOnHit(unittest.TestCase):
     def test_IE_excluido_por_modelo(self):
         """batch2.kalista no modela críticos → IE fuera del pool (conservador)."""
         finales, _ = O.optimizar("kalista", top=10, verbose=False)
-        for _, combo, _, _ in finales:
-            self.assertNotIn("IE", combo)
+        for f in finales:
+            self.assertNotIn("IE", f[1])
 
 
 class TestDianaRotacion(unittest.TestCase):
@@ -113,9 +113,9 @@ class TestDianaRotacion(unittest.TestCase):
     def test_busqueda_estructural(self):
         finales, hojas = O.optimizar("diana", top=3, verbose=False)
         self.assertGreater(hojas, 100)
-        for _, combo, det, base in finales:
-            self.assertEqual(len(combo), 6)
-            self.assertIn(combo[0], ("Spellslinger", "Crimson"))   # 1 botas (Ley 0)
+        for f in finales:
+            self.assertEqual(len(f[1]), 6)
+            self.assertIn(f[1][0], ("Spellslinger", "Crimson"))   # 1 botas (Ley 0)
 
 
 class TestYuumiAliado(unittest.TestCase):
@@ -128,11 +128,50 @@ class TestYuumiAliado(unittest.TestCase):
         """Motor aliado: quest (Scythe) fija + botas Crimson + 4 elegibles = 6 slots."""
         finales, hojas = O.optimizar("yuumi", top=5, verbose=False)
         self.assertGreater(hojas, 0)
-        for _, combo, _, _ in finales:
-            self.assertEqual(len(combo), 6)
-            self.assertIn("Crimson", combo)
-            self.assertIn("Scythe", combo)
+        for f in finales:
+            self.assertEqual(len(f[1]), 6)
+            self.assertIn("Crimson", f[1])
+            self.assertIn("Scythe", f[1])
 
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestDefensaUtilidad(unittest.TestCase):
+    """Modelo de defensa/utilidad v1.9 (EHP mixto + activas + sustain ponderado)."""
+
+    def test_ehp_botas_magicas(self):
+        bd = O.cargar_base_def("jinx")
+        e_gun, _ = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        e_chain, _ = O.ehp_y_util(["chainlaced", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        self.assertGreater(e_chain, e_gun)          # +150 HP +30 MR + escudo mágico
+
+    def test_util_bt_sobre_kraken(self):
+        bd = O.cargar_base_def("jinx")
+        _, u_c = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        _, u_d = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "bt"], bd, 594)
+        self.assertGreater(u_d, u_c)                # Ichorshield + lifesteal alto
+
+    def test_ga_aporta_utilidad(self):
+        bd = O.cargar_base_def("jinx")
+        _, u_sin = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        _, u_ga = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "ga"], bd, 180)
+        self.assertGreater(u_ga, u_sin + 200)       # bandera Resurrect (300)
+
+    def test_preset_balanceado_habilita_defensivos(self):
+        """Con 15 % EHP + 15 % utilidad, al menos una build del top lleva ítem defensivo/activa."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=8, crit_min=100, pen_min=30,
+                                 preset="balanceado", verbose=False)
+        defensivos = {"ga", "scimitar", "shieldbow", "maw", "chainlaced", "armored_adv",
+                      "immortal_treads", "deathsdance"}
+        claves = [[M.resolve(c).key for c in f[1]] for f in finales]
+        self.assertTrue(any(defensivos & set(k) for k in claves),
+                        f"ningún defensivo en el top: {claves}")
+
+    def test_default_ofensivo_golden_intacto(self):
+        """Sin pesos de defensa (default), el ranking no cambia: C sigue siendo top-1."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=1, crit_min=100, pen_min=30,
+                                 incluir=POOL_JINX_REPORTE, preset="ofensivo", verbose=False)
+        self.assertEqual(sorted(M.resolve(x).key for x in finales[0][1]),
+                         sorted(M.resolve(x).key for x in JINX_C))

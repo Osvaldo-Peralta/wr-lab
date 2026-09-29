@@ -177,8 +177,11 @@ def secciones_comunes():
         ("10b", "MOTOR SECUNDARIO — modelos batch (Kalista on-hit, Diana rotación, Yuumi/Karma "
                 "valor-aliado, TAMAÑO)",
          fence("python", leer("model", "analysis_batch2.py"))),
-        ("10c", "OPTIMIZADOR DE BUILDS (búsqueda exhaustiva con Leyes 0-1-2-3 como restricciones)",
+        ("10c", "OPTIMIZADOR DE BUILDS (4 motores · búsqueda exhaustiva con Leyes 0-1-2-3 · "
+                "presets de defensa/utilidad)",
          fence("python", leer("model", "optimize_build.py"))),
+        ("10d", "BUSCADOR DE RUNAS (keystone × secundaria · valor marginal · supuestos declarados)",
+         fence("python", leer("model", "optimize_runes.py"))),
     ]
     return secs
 
@@ -197,14 +200,18 @@ def secciones_completo():
         ("15", "BASE DE ÍTEMS COMPLETA (pasivas + tips)",
          csv_literal("data/estructurada/items_7.3.csv")),
         ("16", "ROADMAP DEL PROYECTO (módulos futuros)", leer("ROADMAP.md")),
-        ("17", "TESTS DE REGRESIÓN (model + update_reports + optimize_build)",
-         fence("python", leer("tests", "test_model.py"))
-         + "\n\n" + fence("python", leer("tests", "test_update_reports.py"))
-         + "\n\n" + fence("python", leer("tests", "test_optimize_build.py"))),
+        ("17", "TESTS DE REGRESIÓN (suite completa)",
+         "\n\n".join(fence("python", leer("tests", t)) for t in (
+             "test_model.py", "test_update_reports.py", "test_optimize_build.py",
+             "test_optimize_runes.py", "test_lint_refresh.py", "test_bundles.py",
+             "test_wrlab.py"))),
         ("17b", "ACTUALIZADOR DE REPORTES (triage de hotfixes — Regla de Oro v1.6)",
          fence("python", leer("model", "update_reports.py"))),
-        ("18", "INFRAESTRUCTURA DE MANTENIMIENTO (extract_data · build_db · check_patch · parse_champs)",
-         fence("python", leer("model", "extract_data.py"))
+        ("18", "INFRAESTRUCTURA (CLI unificado wrlab.py + extract_data · build_db · check_patch · "
+               "parse_champs · lint_reportes)",
+         fence("python", leer("wrlab.py"))
+         + "\n\n" + fence("python", leer("model", "lint_reportes.py"))
+         + "\n\n" + fence("python", leer("model", "extract_data.py"))
          + "\n\n" + fence("python", leer("model", "build_db.py"))
          + "\n\n" + fence("python", leer("model", "check_patch.py"))
          + "\n\n" + fence("python", leer("model", "parse_champs.py"))),
