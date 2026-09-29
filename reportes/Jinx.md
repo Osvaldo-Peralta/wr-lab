@@ -1,31 +1,14 @@
 ---
 tags:
   - ADC
-  - Marksman
-  - Crítico
-  - Bot-Lane
-version: 1.4
+version: 1.3
 Status: Aprobado
-champion: Jinx
-patch: "7.3+7.3a"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)
 **Rol principal:** ADC (Dragon Lane)
 **Arquetipo:** Crítico AoE — cohetes Fishbones que critan en área (112 % AD)
 **Enfoque:** 100 % de crítico exacto @230 % (C44+Runaan's+IE+LDR), penetración 35 % + Giant Slayer, AS al 94 % del tope 3.0 y Magnification permanente al rango 655-700 de Fishbones.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Jinx:** ninguno en 7.3a.
-> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
-> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF), Death's Dance (NERF) — verificar variantes/rechazados del reporte.
-> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
-> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Nota del lab (diff 7.3a):** Placas más blandas + Nexus 4000 → siege Jinx MEJORA; ningún cambio directo a Jinx → Anotado
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
@@ -35,9 +18,6 @@ patch: "7.3+7.3a"
 > [!TIP]
 > **Variante sustentable:** si el enemigo tiene poke o necesitas sobrevivir peleas largas, cambia el slot 6 (Kraken Slayer) por **Bloodthirster**: −7.5 % de DPS a cambio de ~594 HP/s de lifesteal + escudo Ichorshield. Matriz situacional completa en §6.
 
-
-> [!WARNING] Hotfix 7.3a (29-sep-2026)
-> Sin cambios directos a Jinx. **La beneficia indirectamente:** placas de torreta más blandas (+20 resist por 10 s, antes +30/20 s), Nexus 4 000 HP y nerfs a Caitlyn (AS growth 0.04→0.025, Headshot 60-90 %) y Senna → menos competencia en el rol de siege. Build y números intactos. Detalle: `data/estructurada/cambios_7.3a.md`.
 ---
 
 ## 0. RESUMEN EJECUTIVO
