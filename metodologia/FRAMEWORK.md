@@ -166,7 +166,15 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
 #      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
 #      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
-# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
+# 7b. APLICAR números nuevos donde el motor los reproduce 1:1 (nunca toca builds):
+#    python3 model/update_reports.py refresh --patch <X.Xx> --apply
+# 7c. Para cada ❌ REGENERAR, generar el esqueleto de reemplazo en directorio aparte
+#    (el publicado NO se borra; el autor decide el reemplazo manual):
+#    python3 model/update_reports.py borrador --patch <X.Xx>   → reportes/_borradores/
+# 7d. Lint de reportes nuevos/externos (ítems alucinados, Ley 0, frontmatter, estilo):
+#    python3 model/lint_reportes.py [--strict]
+# 8. python3 -m unittest discover -s tests && python3 model/build_bundles.py
+#    python3 model/build_db.py && python3 model/update_reports.py check  → y commit.
 ```
 
 **Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se

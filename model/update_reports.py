@@ -121,13 +121,18 @@ SINONIMOS = {
     "statikk":                   {"autos": "statikk", "onhit": "Statikk"},
     "infinity orb":              {"rotacion": "InfinityOrb"},
     "luden's echo":              {"rotacion": "Luden"},
-    "liandry's anguish":         {"rotacion": "Liandry"},
+    "liandry's anguish":         {"rotacion": "Liandry", "aliado": "Liandry"},
     "morellonomicon":            {"rotacion": "Morello"},
     "zhonyas":                   {"rotacion": "Zhonyas"},
     "nashor":                    {"rotacion": "Nashor"},
     "rabadon":                   {"rotacion": "Rabadon"},
     "censer":                    {"aliado": "Censer"},
-    "redemption":                {"aliado": "Redemption"},
+    "stormsurge":                {"aliado": "Stormsurge", "rotacion": "Stormsurge"},
+    "harmonic echo":             {"aliado": "HarmonicEcho"},
+    "morellonomicon":            {"aliado": "Morello", "rotacion": "Morello"},
+    "rylai's crystal scepter":   {"aliado": "Rylai", "rotacion": "Rylai"},
+    "horizon focus":             {"aliado": "HorizonFocus", "rotacion": "HorizonFocus"},
+    "liandry's torment":         {"aliado": "Liandry", "rotacion": "Liandry"},
 }
 
 # relevancia de cambios sistémicos por rol (para notas cualitativas)
@@ -821,6 +826,189 @@ def insertar_bloque(txt, bloque, patch):
     return txt[:i].rstrip("\n") + "\n\n" + bloque + "\n\n" + txt[i:]
 
 
+# ================================================================ refresh (aplicar números nuevos)
+def variantes_num(pre, post):
+    """Pares (cadena_pre, cadena_post) con los formatos de número del estándar v1.4
+    (entero, entero con espacio de miles, 1 decimal) para reemplazo 1:1."""
+    pares = []
+    rp, rq = round(pre), round(post)
+    if rp != rq:
+        pares.append((str(rp), str(rq)))
+        f = lambda n: f"{n:,}".replace(",", " ")
+        if rp >= 1000:
+            pares.append((f(rp), f(rq)))
+    for dec in (1, 2):
+        a, b = f"{pre:.{dec}f}", f"{post:.{dec}f}"
+        if a != b:
+            pares.append((a, b))
+    return pares
+
+
+def refresh_texto(txt, delta, pre, post_cons, max_hits=3):
+    """Actualiza los números reproducibles DENTRO de la sección '### Resultado del modelo'
+    (y su cita titular). Devuelve (nuevo_txt, cambios). Si la sección no existe o ningún
+    número publicado coincide 1:1 con el modelo, no toca nada (honestidad: la anotación
+    WRLAB-VERIF sigue siendo la constancia del Δ)."""
+    m = re.search(r"(###\s+Resultado del modelo.*?)(?=\n---|\n## )", txt, re.S)
+    if not m:
+        return txt, []
+    seccion = m.group(1)
+    nueva = seccion
+    cambios = []
+    for k, dv in sorted(delta.items(), key=lambda x: -abs(x[1])):
+        if abs(dv) < 0.05 or k not in pre or k not in post_cons:
+            continue
+        for pre_s, post_s in variantes_num(pre[k], post_cons[k]):
+            hits = len(re.findall(rf"(?<![\d.,]){re.escape(pre_s)}(?![\d])", nueva))
+            if 0 < hits <= max_hits:
+                nueva = re.sub(rf"(?<![\d.,]){re.escape(pre_s)}(?![\d])", post_s, nueva)
+                cambios.append((k, pre_s, post_s, hits))
+    if cambios:
+        txt = txt[:m.start(1)] + nueva + txt[m.end(1):]
+    return txt, cambios
+
+
+def cmd_refresh(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    solo = set(args.solo.split(",")) if args.solo else None
+    for t in resultados:
+        if solo and t["archivo"] not in solo:
+            continue
+        ruta = os.path.join(REPORTES, t["archivo"])
+        if t["veredicto"] == "REGENERAR":
+            print(f"❌ {t['archivo']}: veredicto REGENERAR — refresh NO aplica "
+                  f"(usa 'borrador' y el flujo FRAMEWORK)")
+            continue
+        if not t.get("delta") or not any(abs(v) >= 0.05 for v in t["delta"].values()):
+            motivo = ("sin modelo cuantitativo (triage cualitativo)" if not t.get("hook")
+                      else "Δ 0 % — nada que refrescar")
+            print(f"=  {t['archivo']}: {motivo}")
+            continue
+        with open(ruta, encoding="utf-8") as fh:
+            txt = fh.read()
+        nuevo, cambios = refresh_texto(txt, t["delta"], t["pre"], t["post_cons"])
+        if not cambios:
+            print(f"⚠️  {t['archivo']}: Δ {t['delta_max']:.1f} % medido, pero sus números publicados "
+                  f"no son reproducibles 1:1 por el motor — sin auto-refresh (la anotación "
+                  f"WRLAB-VERIF documenta el Δ)")
+            continue
+        desc = ", ".join(f"{k}: {a}→{b} (×{n})" for k, a, b, n in cambios)
+        if args.apply:
+            with open(ruta, "w", encoding="utf-8") as fh:
+                fh.write(nuevo)
+            print(f"✍️  {t['archivo']}: números actualizados — {desc}")
+        else:
+            print(f"── {t['archivo']} (dry-run): {desc}")
+    if args.apply:
+        print("\nRecuerda: python3 model/build_bundles.py && python3 -m unittest discover -s tests")
+
+
+# ================================================================ borrador (para ❌ REGENERAR)
+def _fila_csv(rel, champ):
+    import csv as _csv
+    with open(os.path.join(ROOT, *rel.split("/")), encoding="utf-8", newline="") as fh:
+        for fila in _csv.reader(fh):
+            if fila and fila[0].strip().lower() == champ.lower():
+                return fila
+    return None
+
+
+def _esqueleto_template():
+    tpl = leer_md(os.path.join(ROOT, "metodologia", "TEMPLATE_REPORTE.md"))
+    m = re.search(r"## B\. ESQUELETO CANÓNICO.*?```markdown\n(.*?)```", tpl, re.S)
+    return m.group(1).rstrip() if m else "(copiar el esqueleto de metodologia/TEMPLATE_REPORTE.md §B)"
+
+
+def leer_md(ruta):
+    with open(ruta, encoding="utf-8") as fh:
+        return fh.read()
+
+
+def cmd_borrador(args):
+    reg = cargar_registro()
+    patch, cs, resultados = triage_todos(reg, patch=args.patch)
+    outdir = os.path.join(REPORTES, "_borradores")
+    os.makedirs(outdir, exist_ok=True)
+    hoy = datetime.date.today().strftime("%d/%m/%Y")
+    generados = 0
+    for t in resultados:
+        if t["veredicto"] != "REGENERAR":
+            continue
+        entry = reg["reportes"][t["archivo"]]
+        champ = t["champion"]
+        stem = re.sub(r"\.md$", "", t["archivo"]).replace(" ", "_")
+        partes = [f"""---
+tags:
+  - BORRADOR
+version: 0.1
+Status: Borrador
+champion: {champ}
+patch: "{patch}"
+---
+# ⚠️ BORRADOR DE REGENERACIÓN — {champ} ({patch}) · generado {hoy} por update_reports.py
+
+> [!DANGER] Por qué existe este borrador
+> El reporte publicado `{t['archivo']}` recibió veredicto **❌ REGENERAR** contra {patch}:
+> {'; '.join(t['razones'])}.
+> **Cambio directo:** {t['directo']['detalles'] if t['directo'] else '—'}
+
+## 1. DATOS NUEVOS DEL PARCHE (fuente: data/estructurada/cambios_{patch}.md)
+
+| Entidad | Tipo | Cambio |
+|---|---|---|"""]
+        if t["directo"]:
+            partes.append(f"| **{champ}** | {t['directo']['tipo']} | {t['directo']['detalles']} |")
+        for it in t["items_build"] + [v.split(" (")[0] for v in t["items_variantes"]]:
+            if it in cs["items"]:
+                partes.append(f"| {it} | {cs['items'][it]['tipo']} | {cs['items'][it]['detalles'][:160]} |")
+        for srow in t["sistemas"]:
+            partes.append(f"| (sistema) | — | {srow[:200]} |")
+        partes.append("")
+        as_row = _fila_csv("data/estructurada/champion_attack_speed_7.3.csv", champ)
+        dur_row = _fila_csv("data/estructurada/champion_durability_7.3.csv", champ)
+        partes.append("## 2. FICHA BASE (datos del lab)")
+        if as_row:
+            partes.append("- **AS oficial (7.3, overrides " + patch + " marcados):** `" + ", ".join(as_row) + "`")
+        if dur_row:
+            partes.append("- **Durabilidad (cambios 7.3):** `" + ", ".join(dur_row) + "`")
+        spec = M.CHAMPS.get(entry["champion"])
+        if spec:
+            partes.append(f"- **ChampSpec precargado:** AD {spec.base_ad}+{spec.ad_growth}/nv · "
+                          f"AS ratio {spec.as_ratio} · bonus base {spec.base_bonus_as} · "
+                          f"AS/nv {spec.as_per_lvl} — ⚠️ revisar contra el diff de arriba antes de regenerar")
+        else:
+            partes.append("- **ChampSpec:** NO existe en `model/champspecs.py` — crearlo desde el "
+                          "apéndice AS de las notas oficiales + wiki (FRAMEWORK §A paso 2)")
+        partes.append(f"""
+## 3. CÓMO REGENERAR (flujo FRAMEWORK §A de 10 pasos)
+
+1. Actualizar el spec/datos con los valores de §1 (fuente primaria: notas oficiales {patch}).
+2. Re-derivar candidatos: {'`python3 model/optimize_build.py ' + entry['champion'] + ' --validar --top 8`' if spec else 'crear primero el ChampSpec (paso 2 de FRAMEWORK §A) y luego `python3 model/optimize_build.py ' + entry['champion'] + ' --validar --top 8`; si el arquetipo no es de autos, comparar candidatas con analysis_batch2'}.
+   Verificar también a mano contra las candidatas del reporte original (§8).
+3. Rellenar el esqueleto TEMPLATE (§B) abajo, o generar el reporte completo en un chat
+   externo con el bundle `WR-LAB_completo.md`.
+4. Sustituir `reportes/{t['archivo']}` por la versión nueva (o decidir mantenerla con el
+   bloque ❌ visible), luego:
+   `python3 model/update_reports.py baseline && python3 model/update_reports.py annotate --patch {patch} --apply`
+5. `python3 model/build_bundles.py && python3 -m unittest discover -s tests` y commit.
+
+## 4. ESQUELETO DEL REPORTE NUEVO (TEMPLATE v1.4 §B)
+
+```markdown
+{_esqueleto_template().replace("{champion}", champ).replace("{patch}", patch)}
+```
+""")
+        destino = os.path.join(outdir, f"{stem}_{patch}_REGENERAR.md")
+        with open(destino, "w", encoding="utf-8") as fh:
+            fh.write("\n".join(partes))
+        generados += 1
+        print(f"📝 {os.path.relpath(destino, ROOT)}")
+    if not generados:
+        print(f"Ningún reporte con veredicto ❌ REGENERAR contra {patch} — nada que borrador.")
+
+
+
 # ================================================================ comandos
 def cmd_baseline(args):
     reg = construir_registro()
@@ -938,9 +1126,16 @@ def main():
     a.add_argument("--apply", action="store_true", help="escribir en los reportes (default: dry-run)")
     a.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
     a.add_argument("--fecha", default=None, help="fecha del sello (dd/mm/aaaa)")
+    rf = sub.add_parser("refresh", help="aplicar los números post-parche dentro de los reportes (solo si el motor los reproduce 1:1)")
+    rf.add_argument("--patch", default=None)
+    rf.add_argument("--apply", action="store_true")
+    rf.add_argument("--solo", default=None)
+    bo = sub.add_parser("borrador", help="generar esqueletos de regeneración en reportes/_borradores/ (veredictos ❌)")
+    bo.add_argument("--patch", default=None)
     sub.add_parser("check", help="modo CI: drift + verificaciones pendientes")
     args = ap.parse_args()
-    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate, "check": cmd_check}[args.cmd](args)
+    {"baseline": cmd_baseline, "triage": cmd_triage, "annotate": cmd_annotate,
+     "refresh": cmd_refresh, "borrador": cmd_borrador, "check": cmd_check}[args.cmd](args)
 
 
 if __name__ == "__main__":

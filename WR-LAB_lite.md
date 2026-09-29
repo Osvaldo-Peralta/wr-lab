@@ -207,7 +207,15 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #    → ❌ REGENERAR: regeneración completa por el flujo de 10 pasos (§A), con
 #      `python3 model/optimize_build.py <champ> --crit-min … --pen-min …` para re-derivar
 #      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
-# 8. python3 -m unittest discover -s tests   (golden numbers + triage) y commit.
+# 7b. APLICAR números nuevos donde el motor los reproduce 1:1 (nunca toca builds):
+#    python3 model/update_reports.py refresh --patch <X.Xx> --apply
+# 7c. Para cada ❌ REGENERAR, generar el esqueleto de reemplazo en directorio aparte
+#    (el publicado NO se borra; el autor decide el reemplazo manual):
+#    python3 model/update_reports.py borrador --patch <X.Xx>   → reportes/_borradores/
+# 7d. Lint de reportes nuevos/externos (ítems alucinados, Ley 0, frontmatter, estilo):
+#    python3 model/lint_reportes.py [--strict]
+# 8. python3 -m unittest discover -s tests && python3 model/build_bundles.py
+#    python3 model/build_db.py && python3 model/update_reports.py check  → y commit.
 ```
 
 **Regla de oro (v1.6):** una build publicada y aprobada es **definitiva**. Un hotfix se
@@ -2543,6 +2551,12 @@ D_ITEMS = {
  'Malignance':   dict(g=2700, ap=90, ah=15),
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
+# v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
+D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
+D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
     gold = sum(i['g'] for i in its)
@@ -2614,8 +2628,19 @@ for n,b in [('D1',D_BUILDS['D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)']),('D4'
     r = diana(b, mr=180); print(f"  {n}: DPS={r['dps']:.0f} MR efectiva={r['mr_eff']:.0f}")
 
 # ══════════════════════════════ YUUMI ══════════════════════════════
+# v1.8: diccionario expandido desde data/estructurada/items_7.3.csv (stats oficiales).
+# Pasivas no modeladas en yuumi()/karma() quedan como flag inerte (comentario por ítem):
+# el modelo de valor-aliado consume AP/HSP/haste; las pasivas de daño/amp se declaran pero
+# no puntúan (conservador).
 Y_ITEMS = {
  'Scythe':     dict(g=0,    ah=10),
+ 'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
+ 'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
+ 'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
+ 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
+ 'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
+ 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
@@ -2755,269 +2780,362 @@ for hp in [2500, 3500, 5000, 7000]:
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · optimize_build.py — optimizador exhaustivo de builds (ROADMAP módulo 2)
-================================================================================
-Busca la build ÓPTIMA de 6 slots (Ley 0: 1 botas T3 + 5 ítems) para cualquier
-ChampSpec del arquetipo de autos (dps_model), maximizando un objetivo ponderado
-de escenarios, sujeto a:
-    · presupuesto de oro            (--oro, default 18 000)
-    · Ley 1: crítico total ≤ 100 %  (poda estructural)
-    · Ley 2: AS cruda ≤ tope 3.0+ε  (poda estructural; pasivas tipo Get Excited quedan fuera)
-    · Ley 0: 1 botas + 5 ítems      (estructural: la botas se eligen en el lazo externo)
+WR-LAB · optimize_build.py — optimizador exhaustivo de builds (v2: 4 motores)
+=============================================================================
+Busca la build ÓPTIMA de 6 slots (Ley 0) maximizando un objetivo ponderado
+NORMALIZADO por escenario (cada escenario aporta en proporción, no en magnitud),
+sujeto a presupuesto de oro y —en el motor de autos— a las Leyes 1 y 2 como podas.
 
-Motor = dps_model.eval_build (fuente de verdad). Búsqueda en dos pasadas:
-    1) DFS podado sobre el pool (oro/AS/crit monótonos) puntuado con el escenario
-       de mayor peso → se conservan los mejores --embudo (default 400).
-    2) Re-puntuación EXACTA del embudo con el objetivo ponderado completo.
+MOTORES (adapters sobre los modelos del lab; el motor declara ítems, botas, escenarios y pesos):
+    autos     dps_model.eval_build    → Jinx, Yunara, Sivir, Caitlyn… (crítico/on-hit del engine)
+    onhit     analysis_batch2.kalista → Kalista (E Rend + Guinsoo doble on-hit)
+    rotacion  analysis_batch2.diana   → Diana (y magos de rotación AP; keystone configurable)
+    aliado    analysis_batch2.yuumi   → Yuumi/Karma (valor-aliado: escudo/cura/DPS-al-carry;
+                                        slot de quest fijo + botas Crimson)
 
 USO
-    python3 model/optimize_build.py jinx                     # top 10 por defecto
-    python3 model/optimize_build.py jinx --oro 15000 --top 5 # presupuesto early/mid
-    python3 model/optimize_build.py jinx --validar           # ¿redescubre la build publicada?
-    python3 model/optimize_build.py yunara --pesos 1v1:0.5,3v3:0.5
-    python3 model/optimize_build.py jinx --excluir ga,maw    # sin defensivos
+    python3 model/optimize_build.py jinx                        # motor autos (default del campeón)
+    python3 model/optimize_build.py jinx --crit-min 100 --pen-min 30 --validar
+    python3 model/optimize_build.py kalista --validar           # ¿redescubre K2 BotRK?
+    python3 model/optimize_build.py diana --keystone lt --validar
+    python3 model/optimize_build.py yuumi --oro 13000 --validar
+    python3 model/optimize_build.py jinx --motor autos --oro 15000 --top 5
+    python3 model/optimize_build.py jinx --incluir "Gunmetal,C44,Runaan's,IE,LDR,Kraken,BT" --excluir ga
 
-VALIDACIÓN CRUZADA (obligatoria tras tocar datos): con pesos por defecto debe
-redescubrir la build C de Jinx (Gunmetal+C44+Runaan's+IE+LDR+Kraken, 17 350 g).
+VALIDACIÓN CRUZADA (ROADMAP): con pesos default debe redescubrir la build C de Jinx
+(pool del reporte), K2 de Kalista, D2-LT de Diana e Y1 de Yuumi — ver tests/test_optimize_build.py.
 
-Alcance v1: arquetipo de AUTOS (crítico/on-hit del motor dps_model). Kalista/Diana/
-soportes usan los modelos de analysis_batch2 (optimizador propio = ROADMAP).
+Búsqueda: DFS podado (oro; en autos también AS-cap y crit≤100 como podas estructurales,
+y --crit-min/--pen-min como restricciones duras de hoja) + embudo re-puntuado con el
+objetivo ponderado completo. Cero dependencias.
 """
 import argparse, heapq, os, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "model"))
 import dps_model as M
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import analysis_batch2 as B2
 
 EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
-ESCENARIOS = {          # nombre → (kwargs de eval_build, métrica)
-    "1v1":     (dict(),                                   "dps1"),
-    "3v3":     (dict(targets=3),                          "dpsN"),
-    "vs120":   (dict(armor=120),                          "dps1"),
-    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500), "dps1"),
+
+# ---------------------------------------------------------------- motores
+ESC_AUTOS = {
+    "1v1":      (dict(),                                     "dps1"),
+    "3v3":      (dict(targets=3),                            "dpsN"),
+    "vs120":    (dict(armor=120),                            "dps1"),
+    "vsTanque": (dict(armor=220, tank=True, enemy_hp=4500),  "dps1"),
 }
-PESOS_DEFAULT = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+PESOS_AUTOS = {"1v1": 0.30, "3v3": 0.30, "vs120": 0.20, "vsTanque": 0.20}
+
+ESC_ONHIT = {
+    "1v1":      (dict(), "single"),
+    "3v3":      (dict(targets=3), "multi"),
+    "vsTanque": (dict(armor=220, mr=150, ehp=4500), "single"),
+}
+PESOS_ONHIT = {"1v1": 0.35, "3v3": 0.45, "vsTanque": 0.20}
+
+ESC_ROT = {
+    "dps10s":  (dict(), "dps"),
+    "burst":   (dict(), "burst"),
+    "vs180mr": (dict(mr=180), "dps"),
+}
+PESOS_ROT = {"dps10s": 0.50, "burst": 0.30, "vs180mr": 0.20}
+
+ESC_ALIADO = {
+    "e_shield": (dict(), "e_shield"),
+    "r_heal":   (dict(), "r_heal"),
+    "adc_dps":  (dict(), "adc_dps_add"),
+}
+PESOS_ALIADO = {"e_shield": 0.35, "r_heal": 0.30, "adc_dps": 0.35}
+
+# IE fuera del pool on-hit: batch2.kalista() NO modela críticos (la E Rend no critica y los
+# autos critables no están en la fórmula) → IE aparecería como "AD barato" y su 25 % de crit
+# valdría 0 en el score. En la realidad ese crit SÍ vale: excluirlo es la postura conservadora.
+_K_NO_BOOT = [k for k in B2.K_ITEMS if k not in ("Gunmetal", "IE")]
+_D_NO_BOOT = [k for k in B2.D_ITEMS if k not in ("Spellslinger", "Crimson")]
+_Y_NO_BOOT = [k for k in B2.Y_ITEMS if k not in ("Crimson", "Scythe", "ionian")]
+
+ENGINES = {
+    "autos": dict(
+        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"],
+        boots=list(M.BOOT_UPGRADES.keys()), fixed=[], n_elegir=5, oro_default=18000,
+        escenarios=ESC_AUTOS, pesos=PESOS_AUTOS, podas_autos=True,
+        eval_fn=lambda champ, combo, kw, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False, **kw),
+        base_fn=lambda champ, combo, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False),
+        gold_fn=lambda k: M.ITEMS[k].gold,
+        requiere_spec=True,
+    ),
+    "onhit": dict(
+        items=_K_NO_BOOT, boots=["Gunmetal"], fixed=[], n_elegir=5, oro_default=18000,
+        escenarios=ESC_ONHIT, pesos=PESOS_ONHIT, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.kalista(combo, **kw),
+        base_fn=lambda champ, combo, opts: B2.kalista(combo),
+        gold_fn=lambda k: B2.K_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+    "rotacion": dict(
+        items=_D_NO_BOOT, boots=["Spellslinger", "Crimson"], fixed=[], n_elegir=5, oro_default=18500,
+        escenarios=ESC_ROT, pesos=PESOS_ROT, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.diana(combo, keystone=opts.get("keystone", "lt"), **kw),
+        base_fn=lambda champ, combo, opts: B2.diana(combo, keystone=opts.get("keystone", "lt")),
+        gold_fn=lambda k: B2.D_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+    "aliado": dict(
+        items=_Y_NO_BOOT, boots=["Crimson"], fixed=["Scythe"], n_elegir=4, oro_default=13000,
+        escenarios=ESC_ALIADO, pesos=PESOS_ALIADO, podas_autos=False,
+        eval_fn=lambda champ, combo, kw, opts: B2.yuumi(combo, **kw),
+        base_fn=lambda champ, combo, opts: B2.yuumi(combo),
+        gold_fn=lambda k: B2.Y_ITEMS[k]["g"],
+        requiere_spec=False,
+    ),
+}
+
+MOTOR_POR_CAMPEON = {"kalista": "onhit", "diana": "rotacion", "yuumi": "aliado", "karma": "aliado"}
 
 
-def pool_items(excluir=(), incluir=None):
-    ex = {x.lower() for x in excluir}
-    pool = [k for k in M.ITEMS if k not in M.BOOTS_ALL and k.lower() not in ex
-            and k != "boots_speed"]
-    if incluir:
-        inc = {M.resolve(x).key for x in incluir}
-        pool = [k for k in pool if k in inc]
-    return pool
+def motor_para(champ, override=None):
+    if override:
+        return override
+    return MOTOR_POR_CAMPEON.get(champ, "autos")
 
 
-def pool_botas(solo=None):
-    t3 = list(M.BOOT_UPGRADES.keys())          # solo Tier 3 (build final, min 10:00)
-    if solo:
-        wanted = {M.resolve(x).key for x in solo.split(",")}
-        t3 = [b for b in t3 if b in wanted]
-    return t3
-
-
-def optimizar(spec_key, oro=18000, top=10, pesos=None, excluir=(), solo_botas=None,
-              embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0, incluir=None):
-    spec = M.CHAMPS[spec_key]
-    pesos = pesos or dict(PESOS_DEFAULT)
-    falta = set(pesos) - set(ESCENARIOS)
+# ---------------------------------------------------------------- búsqueda
+def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), incluir=None,
+              solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
+              keystone="lt"):
+    champ = champ.lower()
+    motor = motor_para(champ, motor)
+    eng = ENGINES[motor]
+    if eng["requiere_spec"] and champ not in M.CHAMPS:
+        sys.exit(f"'{champ}' no tiene ChampSpec en dps_model.CHAMPS (motor autos). "
+                 f"Especs: {sorted(M.CHAMPS)}")
+    opts = {"keystone": keystone}
+    oro = oro or eng["oro_default"]
+    pesos = pesos or dict(eng["pesos"])
+    escenarios = eng["escenarios"]
+    falta = set(pesos) - set(escenarios)
     if falta:
-        sys.exit(f"escenarios desconocidos: {falta} (válidos: {list(ESCENARIOS)})")
+        sys.exit(f"escenarios desconocidos para motor {motor}: {falta} (válidos: {list(escenarios)})")
 
-    items = pool_items(excluir, incluir)
-    botas = pool_botas(solo_botas)
+    def resolver(x):
+        """alias/nombre visible → clave del pool del motor."""
+        x = x.strip()
+        if eng is ENGINES["autos"]:
+            try:
+                return M.resolve(x).key
+            except KeyError:
+                return x.lower()
+        for k in eng["items"] + eng["boots"] + eng["fixed"]:
+            if k.lower() == x.lower():
+                return k
+        try:                                  # nombres visibles del vault ("Runaan's Hurricane")
+            import update_reports as U
+            for k in eng["items"] + eng["boots"] + eng["fixed"]:
+                if U.resolver_clave(x, motor) == k:
+                    return k
+        except Exception:
+            pass
+        return x.lower()
+
+    ex_keys = {resolver(x) for x in excluir if x}
+    pool = [k for k in eng["items"] if k not in ex_keys]
+    if incluir:
+        inc = {resolver(x) for x in incluir if x.strip()}
+        pool = [k for k in pool if k in inc]
+    botas = list(eng["boots"])
+    if solo_botas:
+        wanted = {x.strip().lower() for x in solo_botas.split(",")}
+        botas = [b for b in botas if b.lower() in wanted]
     if not botas:
         sys.exit("sin botas candidatas")
+    fixed = list(eng["fixed"])
+    n_elegir = eng["n_elegir"]
 
-    # escenario de la pasada 1 = el de mayor peso
+    gold = eng["gold_fn"]
     esc1 = max(pesos, key=pesos.get)
-    kw1, met1 = ESCENARIOS[esc1]
+    kw1, met1 = escenarios[esc1]
 
-    # constantes de AS para la poda (as_total: raw = base_as + as_ratio·B)
-    lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
-    const_B = (spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as
-               + M.ALACRITY_FULL + spec.self_as_buff)
-    const_raw = spec.base_as + spec.as_ratio * const_B
-    as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in items}
-    oro_item = {k: M.ITEMS[k].gold for k in items}
-    crit_item = {k: M.ITEMS[k].crit for k in items}
-    oro_min = min(oro_item.values())
-
-    # pool ordenado por oro ascendente → poda de presupuesto más efectiva
-    orden = sorted(items, key=lambda k: oro_item[k])
+    # podas estructurales del motor de autos (Ley 1/2 como cotas monótonas)
+    if eng["podas_autos"]:
+        spec = M.CHAMPS[champ]
+        lt_as = (M.LT_RANGED_STACK if spec.ranged else M.LT_MELEE_STACK) * 6
+        const_raw = spec.base_as + spec.as_ratio * (
+            spec.base_bonus_as + M.lvl_as_bonus(spec, nivel) + lt_as + M.ALACRITY_FULL + spec.self_as_buff)
+        as_por_item = {k: M.ITEMS[k].a_s / 100.0 for k in pool}
+        crit_item = {k: M.ITEMS[k].crit for k in pool}
+    oro_item = {k: gold(k) for k in pool}
+    oro_min = min(oro_item.values()) if oro_item else 0
+    orden = sorted(pool, key=lambda k: oro_item[k])
     idx = {k: i for i, k in enumerate(orden)}
 
     t0 = time.time()
-    candidatos = []            # heap de (score1, oro_total,组合)
     hojas = 0
-    heap = []                  # min-heap con los mejores `embudo` por score1
+    heap = []                                   # min-heap (score1, -oro, combo)
+    eval_fn = eng["eval_fn"]
 
-    def dfs(start, elegidos, g, crit_p, as_p):
+    def dfs(start, elegidos, g):
         nonlocal hojas
-        faltan = 5 - len(elegidos)
-        if g + faltan * oro_min > oro:
-            return                                    # ni con lo más barato cabe
-        if crit_p > 100:
-            return                                    # Ley 1: crítico desperdiciado
-        if const_raw + spec.as_ratio * as_p > M.AS_CAP + EPS_AS:
-            return                                    # Ley 2: AS cruda pasmada
+        faltan = n_elegir - len(elegidos)
+        if g + faltan * oro_min > oro - oro_fijo:
+            return
+        if eng["podas_autos"]:
+            if sum(crit_item[k] for k in elegidos) > 100:
+                return
+            ai = sum(as_por_item[k] for k in elegidos)
+            if const_raw + spec.as_ratio * ai > M.AS_CAP + EPS_AS:
+                return
         if faltan == 0:
-            combo = botas_ctx + elegidos
-            r0 = M.eval_build(spec, combo, level=nivel, validate=False)
-            if r0["crit"] < crit_min or r0["pen"] < pen_min:
-                return                                  # Ley 1 / Ley 3 como restricción dura
+            combo = ctx_botas + fixed + elegidos
+            base = eng["base_fn"](champ, combo, opts)
+            if eng["podas_autos"]:
+                if base["crit"] < crit_min or base["pen"] < pen_min:
+                    return
             hojas += 1
-            r = M.eval_build(spec, combo, level=nivel, validate=False, **kw1) if kw1 else r0
-            s = r[met1] if kw1 else r0[met1]
+            r = eval_fn(champ, combo, kw1, opts) if kw1 else base
+            s = r[met1]
             if len(heap) < embudo:
                 heapq.heappush(heap, (s, -g, combo))
             elif s > heap[0][0]:
                 heapq.heapreplace(heap, (s, -g, combo))
             return
         for k in orden[start:]:
-            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k],
-                crit_p + crit_item[k], as_p + as_por_item[k])
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k])
 
+    oro_fijo = sum(gold(k) for k in fixed)
+    candidatos = []
     for b in botas:
-        botas_ctx = [b]
-        presupuesto = oro - M.ITEMS[b].gold
-        oro_save, oro = oro, presupuesto       # el DFS trabaja sobre el resto
-        dfs(0, [], 0, 0.0, 0.0)
+        ctx_botas = [b]
+        oro_save, oro = oro, oro - gold(b)
+        dfs(0, [], 0)
         oro = oro_save
         candidatos.extend(heap)
         heap = []
 
-    # pasada 2: objetivo ponderado NORMALIZADO (cada escenario aporta en proporción,
-    # no en magnitud absoluta: 3v3 ~10k no aplasta a vsTanque ~1.3k)
+    # pasada 2: objetivo ponderado NORMALIZADO por escenario
     brutos = []
     for s1, neg_g, combo in candidatos:
-        detalle = {}
-        for esc in ESCENARIOS:
-            kw, met = ESCENARIOS[esc]
-            detalle[esc] = M.eval_build(spec, combo, level=nivel, validate=False, **kw)[met]
-        base = M.eval_build(spec, combo, level=nivel, validate=False)
-        brutos.append((combo, detalle, base))
-    max_e = {esc: max((d[esc] for _, d, _ in brutos), default=1.0) or 1.0 for esc in ESCENARIOS}
+        det = {e: eval_fn(champ, combo, kw, opts)[m] for e, (kw, m) in escenarios.items()}
+        base = eng["base_fn"](champ, combo, opts)
+        brutos.append((combo, det, base))
+    max_e = {e: max((d[e] for _, d, _ in brutos), default=1.0) or 1.0 for e in escenarios}
     finales = []
-    for combo, detalle, base in brutos:
-        score = sum(pesos.get(esc, 0.0) * (detalle[esc] / max_e[esc]) for esc in ESCENARIOS)
-        finales.append((score, combo, detalle, base))
-    finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
+    for combo, det, base in brutos:
+        score = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
+        finales.append((score, combo, det, base))
+    finales.sort(key=lambda x: (-x[0], sum(gold(k) for k in x[1])))
     if verbose:
-        print(f"[{spec.name}] hojas legales exploradas: {hojas:,} · embudo: {len(candidatos)} "
-              f"· {time.time()-t0:.1f}s · presupuesto {oro:,} g · nivel {nivel}")
+        print(f"[{champ}·{motor}] hojas legales: {hojas:,} · embudo: {len(candidatos)} · "
+              f"{time.time()-t0:.1f}s · ≤{oro:,} g · nivel {nivel}")
     return finales[:top], hojas
 
 
-def imprimir(finales, spec, pesos, oro):
-    nombres = lambda combo: "+".join(combo)
+def imprimir(finales, champ, motor, pesos, oro):
+    eng = ENGINES[motor]
+    gold = eng["gold_fn"]
     w = " · ".join(f"{e}:{p:g}" for e, p in sorted(pesos.items(), key=lambda x: -x[1]))
-    print(f"\n=== TOP builds · {spec.name} · objetivo [{w}] · ≤{oro:,} g ===")
+    print(f"\n=== TOP builds · {champ} ({motor}) · objetivo [{w}] · ≤{oro:,} g ===")
+    cols = list(eng["escenarios"])
+    print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    hdr = (f"{'#':>2} {'EFIC':>6} {'ORO':>6} {'AD':>4} {'AS':>5} {'crit':>4} {'pen':>4} "
-           + " ".join(f"{e:>7}" for e in ESCENARIOS) + "  BUILD")
-    print(hdr)
     for i, (score, combo, det, base) in enumerate(finales, 1):
-        as_s = f"{base['AS']:.2f}" + ("*" if base["overcap"] else "")
-        print(f"{i:>2} {score/tot_w*100:>5.1f}% {base['gold']:>6} {base['AD']:>4.0f} {as_s:>5} "
-              f"{base['crit']:>4.0f} {base['pen']:>4.0f} "
-              + " ".join(f"{det[e]:>7.0f}" for e in ESCENARIOS)
-              + f"  {nombres(combo)}")
-    print("(* = AS cruda excede el tope; el exceso viene de pasivas, no de ítems)")
+        og = sum(gold(k) for k in combo)
+        print(f"{i:>2} {score/tot_w*100:>5.1f}% {og:>6} "
+              + " ".join(f"{det[c]:>8.0f}" for c in cols)
+              + f"  {'+'.join(combo)}")
 
 
-def validar(finales, spec_key):
-    """Compara el top-1 contra la build publicada en el registro (si existe)."""
+def validar(finales, champ, motor):
+    """Compara el top-1 contra las builds publicadas del registro (mismo campeón)."""
+    eng = ENGINES[motor]
     reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
     if not os.path.exists(reg_path):
         print("⚠️ sin reportes_registry.json — corre update_reports.py baseline")
         return None
     import json
-    reg = json.load(open(reg_path, encoding="utf-8"))
+    with open(reg_path, encoding="utf-8") as fh:
+        reg = json.load(fh)
+    keys_pool = set(eng["items"]) | set(eng["boots"]) | set(eng["fixed"])
+
+    def norm_keys(bk):
+        out = []
+        for k in bk:
+            if k in keys_pool:
+                out.append(k)
+            elif eng is ENGINES["autos"]:
+                try:
+                    out.append(M.resolve(k).key)
+                except KeyError:
+                    out.append(k)
+            else:
+                hit = next((p for p in keys_pool if p.lower() == k.lower()), None)
+                out.append(hit or k)
+        return out
+
     pubs = []
     for f, e in reg["reportes"].items():
-        if e["champion"] == spec_key and e.get("build_keys") and e.get("hook"):
-            pubs.append((f, e["build_keys"]))
+        if e["champion"] != champ or not e.get("build_keys"):
+            continue
+        bk = norm_keys(e["build_keys"])
+        if all(k in keys_pool for k in bk):
+            pubs.append((f, bk))
     if not pubs:
-        print("⚠️ el registro no tiene build cuantitativa publicada para", spec_key)
+        print(f"⚠️ el registro no tiene build publicada compatible con el motor '{motor}' para {champ}")
         return None
     top1 = finales[0][1]
-    top1_keys = sorted(M.resolve(x).key for x in top1)
     ok_global = False
     for f, bk in pubs:
-        pub_keys = sorted(M.resolve(x).key for x in bk)
-        r = M.eval_build(M.CHAMPS[spec_key], bk, validate=False)
-        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1)
-                     if sorted(M.resolve(x).key for x in c) == pub_keys), None)
-        mismo = pub_keys == top1_keys
+        mismo = sorted(bk) == sorted(top1)
+        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1) if sorted(c) == sorted(bk)), None)
         ok_global |= mismo
         print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
-              f"top-1 del optimizador {'==' if mismo else '≠'} publicada"
-              + (f" (la publicada rankea #{rank} del top-{len(finales)})" if rank and not mismo else "")
-              + f" · dps1 publicada {r['dps1']:.0f} vs óptima {finales[0][3]['dps1']:.0f}")
+              f"top-1 {'==' if mismo else '≠'} publicada"
+              + ("" if mismo else f" (publicada rankea #{rank} del top-{len(finales)} mostrado)"
+                 if rank else " (publicada fuera del top mostrado — corre con --top mayor)")
+              + f" · publicada: {'+'.join(bk)}")
     return ok_global
 
 
 def parse_pesos(s):
-    out = {}
-    for par in s.split(","):
-        k, v = par.split(":")
-        out[k.strip()] = float(v)
-    return out
+    return {par.split(":")[0].strip(): float(par.split(":")[1]) for par in s.split(",")}
 
 
 def main():
-    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (motor dps_model)")
-    ap.add_argument("champion", help="clave en CHAMPS (jinx, yunara, shyvana…)")
-    ap.add_argument("--oro", type=int, default=18000, help="presupuesto total (default 18000)")
+    ap = argparse.ArgumentParser(description="WR-LAB · optimizador exhaustivo de builds (4 motores)")
+    ap.add_argument("champion")
+    ap.add_argument("--motor", default=None, choices=list(ENGINES),
+                    help="default: por campeón (kalista→onhit, diana→rotacion, yuumi/karma→aliado, resto→autos)")
+    ap.add_argument("--oro", type=int, default=None, help="presupuesto (default por motor)")
     ap.add_argument("--top", type=int, default=10)
     ap.add_argument("--nivel", type=int, default=15)
-    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5 (default 0.3/0.3/0.2/0.2)")
-    ap.add_argument("--excluir", default="", help="claves de ítem a excluir (coma-separadas)")
-    ap.add_argument("--incluir", default=None,
-                    help="restringir el pool a estos ítems (alias, coma-separados) — útil para "
-                         "validación cruzada contra el pool de candidatos de un reporte")
-    ap.add_argument("--botas", default=None, help="restringir botas T3 (coma-separadas, alias ok)")
+    ap.add_argument("--pesos", default=None, help="p.ej. 1v1:0.5,3v3:0.5")
+    ap.add_argument("--excluir", default="")
+    ap.add_argument("--incluir", default=None)
+    ap.add_argument("--botas", default=None)
+    ap.add_argument("--keystone", default="lt", help="motor rotacion: lt|empower|conq")
     ap.add_argument("--embudo", type=int, default=400)
-    ap.add_argument("--crit-min", type=float, default=0,
-                    help="Ley 1 como restricción dura (p.ej. 100 = crítico exacto)")
-    ap.add_argument("--pen-min", type=float, default=0,
-                    help="Ley 3 como restricción dura (p.ej. 30 = pen %% mínima)")
-    ap.add_argument("--validar", action="store_true", help="comparar contra la build publicada del registro")
-    ap.add_argument("--contra", default=None, help="build de referencia extra (alias separados por coma)")
+    ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
+    ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
+    ap.add_argument("--validar", action="store_true")
     args = ap.parse_args()
 
     ck = args.champion.lower()
-    if ck not in M.CHAMPS:
-        sys.exit(f"'{ck}' no está en CHAMPS. Especs: {sorted(M.CHAMPS)}")
-    pesos = parse_pesos(args.pesos) if args.pesos else dict(PESOS_DEFAULT)
-    excluir = tuple(x for x in args.excluir.split(",") if x)
-
-    finales, hojas = optimizar(ck, oro=args.oro, top=args.top, pesos=pesos,
-                               excluir=excluir, solo_botas=args.botas,
-                               embudo=args.embudo, nivel=args.nivel,
+    motor = motor_para(ck, args.motor)
+    eng = ENGINES[motor]
+    pesos = parse_pesos(args.pesos) if args.pesos else dict(eng["pesos"])
+    oro = args.oro or eng["oro_default"]
+    finales, hojas = optimizar(ck, motor=motor, oro=oro, top=args.top, pesos=pesos,
+                               excluir=tuple(x for x in args.excluir.split(",") if x),
+                               incluir=args.incluir.split(",") if args.incluir else None,
+                               solo_botas=args.botas, embudo=args.embudo, nivel=args.nivel,
                                crit_min=args.crit_min, pen_min=args.pen_min,
-                               incluir=[x for x in args.incluir.split(",")] if args.incluir else None)
-    if args.contra:
-        ref = [x.strip() for x in args.contra.split(",")]
-        M.validate_slots(ref)
-        det = {e: M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False, **kw)[met]
-               for e, (kw, met) in ESCENARIOS.items()}
-        base = M.eval_build(M.CHAMPS[ck], ref, level=args.nivel, validate=False)
-        # re-normalizar incluyendo la referencia
-        max_e = {e: max([det[e]] + [d[e] for _, _, d, _ in finales]) for e in ESCENARIOS}
-        def score_norm(d):
-            tot = sum(pesos.values()) or 1.0
-            return sum(pesos.get(e, 0.0) * (d[e] / (max_e[e] or 1.0)) for e in ESCENARIOS)
-        finales = [(score_norm(d), c, d, b) for _, c, d, b in finales]
-        finales.append((score_norm(det), ref, det, base))
-        finales.sort(key=lambda x: (-x[0], x[3]["gold"]))
-        finales = finales[:args.top + 1]
-    imprimir(finales, M.CHAMPS[ck], pesos, args.oro)
+                               keystone=args.keystone)
+    imprimir(finales, ck, motor, pesos, oro)
     if args.validar:
         print()
-        ok = validar(finales, ck)
+        ok = validar(finales, ck, motor)
         if ok is False:
             sys.exit(2)
 
@@ -3026,4 +3144,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 29/09/2026 · lite · sha256(cuerpo)=69f302f0641f0096 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 29/09/2026 · lite · sha256(cuerpo)=3b976964b7c07983 · NO editar a mano: editar las fuentes y regenerar -->

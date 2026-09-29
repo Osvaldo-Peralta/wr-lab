@@ -36,7 +36,8 @@ wr-lab/
 │   ├── dps_model.py                   ← ⭐ motor de DPS parametrizado por campeón (engine + Jinx precargado)
 │   ├── analysis_batch2.py             ← modelos batch: Kalista on-hit, Diana rotación, Yuumi/Karma valor-aliado, TAMAÑO
 │   ├── update_reports.py              ← ⭐ triador de hotfixes sobre reportes publicados (anota, NO regenera)
-│   ├── optimize_build.py              ← ⭐ optimizador exhaustivo de builds (Leyes 0-1-2-3 como restricciones)
+│   ├── optimize_build.py              ← ⭐ optimizador exhaustivo (4 motores: autos/on-hit/rotación/valor-aliado)
+│   ├── lint_reportes.py               ← ⭐ linter de reportes del vault (ítems alucinados, Ley 0, estilo v1.4)
 │   └── build_bundles.py               ← regenera los bundles portables desde las fuentes (+ --check para CI)
 ├── metodologia/
 │   ├── FRAMEWORK.md                   ← ⭐ las 7 Leyes + flujo de 10 pasos + arquetipos + protocolo de parche nuevo
@@ -67,18 +68,29 @@ python3 model/dps_model.py        # reproduce las tablas del reporte de Jinx (va
 
 ```bash
 python3 model/update_reports.py triage   --patch 7.3a          # ¿qué tanto afecta a cada reporte publicado?
+python3 model/update_reports.py refresh  --patch 7.3a --apply   # APLICA números nuevos donde el motor los reproduce 1:1
+python3 model/update_reports.py borrador --patch 7.3a           # ❌ REGENERAR → esqueleto en reportes/_borradores/
 python3 model/update_reports.py annotate --patch 7.3a --apply   # inserta el bloque de verificación (idempotente)
 python3 model/update_reports.py check                          # CI: drift motor↔registro + reportes sin triar
+python3 model/lint_reportes.py                                 # calidad de reportes externos (ítems inventados, Ley 0…)
 ```
+
+**Ciclo completo de hotfix (una sola línea por paso, en orden):** datos nuevos (§E 1-6) →
+`triage` → `refresh --apply` → `borrador` → `annotate --apply` → `baseline` → tests →
+`build_bundles.py` → `build_db.py` → `check` → commit/push. Los reportes publicados
+**nunca se borran ni se re-derivan solos**: `refresh` solo actualiza números reproducibles,
+`borrador` prepara el reemplazo en un directorio aparte y el autor decide.
 
 **Optimizador de builds** (búsqueda exhaustiva sobre el motor; arquetipo de autos):
 
 ```bash
-python3 model/optimize_build.py jinx                                     # top-10 con pesos default
-python3 model/optimize_build.py jinx --crit-min 100 --pen-min 30         # Leyes 1 y 3 como restricción dura
+python3 model/optimize_build.py jinx --crit-min 100 --pen-min 30 --validar   # motor autos (Jinx, Yunara, Sivir…)
+python3 model/optimize_build.py kalista --validar                            # motor on-hit (E Rend + Guinsoo)
+python3 model/optimize_build.py diana --keystone lt --validar                # motor rotación AP
+python3 model/optimize_build.py yuumi --oro 13000 --validar                  # motor valor-aliado (quest fija + Crimson)
 python3 model/optimize_build.py jinx --incluir "Gunmetal,C44,Runaan's,IE,LDR,Kraken,BT,Galeforce,Scimitar,RFC,Berserker's" --validar
-#   ↑ validación cruzada: redescubre la build C publicada (3 042 dps1) dentro del pool del reporte
-python3 model/optimize_build.py yunara --oro 15000 --top 5               # otro campeón / presupuesto
+#   ↑ NIVEL 1 de validación: redescubre la build C publicada (3 042 dps1) dentro del pool del reporte.
+#   NIVEL 2 (pool completo): puede superarla — hallazgos en ROADMAP §Hallazgos, no se auto-aplican.
 ```
 
 **Bundles portables** (artefactos derivados — NO editar a mano):
@@ -167,7 +179,9 @@ El lab es un **proyecto de software versionado**, no solo documentos:
 | `tests/test_model.py` | 14 tests de regresión: fórmula oficial de AS (test Caitlyn pre/post 7.3a), validate_slots (incluye el bug histórico de botas), golden numbers de los reportes, overrides de hotfix |
 | `tests/test_update_reports.py` | 25 tests del triador: golden numbers por modelo (Jinx/Kalista/Diana/Yuumi), parseo de Tabla A, caso Yuumi 7.3a (no regenerar), idempotencia de anotación, rúbrica de veredictos |
 | `model/update_reports.py` + `data/estructurada/reportes_registry.json` | Triador/actualizador de reportes publicados ante hotfixes: cuantifica el Δ (métricas de resultado vs input), inserta bloques de verificación idempotentes y sella el registro. `check` vigila drift y reportes sin triar |
-| `model/optimize_build.py` | Optimizador exhaustivo (DFS podado por oro/AS/crit + embudo re-puntuado): top-N builds por objetivo ponderado normalizado, con Leyes 1/3 como restricciones opcionales. Validación cruzada: redescubre la build C de Jinx |
+| `model/optimize_build.py` | Optimizador exhaustivo v2 con **4 motores** (autos/on-hit/rotación/valor-aliado), objetivo ponderado normalizado, Leyes 1/3 como restricciones opcionales. Validación cruzada en 2 niveles (redescubre C de Jinx, D2-LT de Diana, Y1 de Yuumi; K2 de Kalista a 0.3 % del top-1) |
+| `update_reports.py refresh/borrador` | `refresh` aplica números post-parche in-place SOLO donde el motor reproduce el publicado 1:1; `borrador` genera esqueletos de regeneración en `reportes/_borradores/` para los ❌ (el publicado no se toca) |
+| `model/lint_reportes.py` | Linter del vault: ERRORES (build no extraíble, Ley 0, **ítems inexistentes en la BD oficial**) + AVISOS (frontmatter, rol, parche, pie de página, espacio de miles). `--strict` para gates |
 | `model/build_bundles.py` | Regenerador de los bundles portables (lite/completo) desde las fuentes + `--check` anti-drift en CI |
 | `model/check_patch.py` + `.github/workflows/patch-watch.yml` | Vigía 2×/día: detecta cambios de CONTENIDO de la página oficial (hash normalizado, inmune al ruido del CMS), aparición de 7.3a/7.4 y changelogs nuevos en wr-meta. Exit 1 + aviso si hay cambios |
 | `.github/workflows/ci.yml` | Tests + rebuild de BD en cada push |
@@ -183,5 +197,6 @@ Reglas: **texto plano = fuente de verdad; SQLite = índice derivado; cero depend
 - v1.3 — 25/09/2026: **Ley 0 de slots** (botas T2→T3 = mismo slot) tras bug detectado al usar los bundles en otro chat: `validate_slots()` en el motor, FRAMEWORK/TEMPLATE/ítems/reportes actualizados, extract_data.py corregido y reproducible.
 - v1.5 — 28/09/2026: **HOTFIX 7.3a integrado** (nerfs Malphite/Yuumi/Caitlyn/Senna/Hwei…, buffs Yun Tal/Samira/Tristana/Draven/Viego, Smite/Nexus/placas) con diff estructurado, overrides en datos y tests. **Arquitectura de proyecto:** git + SQLite (wrlab.db) + tests (14) + CI/patch-watch (GitHub Actions) + ROADMAP de módulos.
 - v1.4 — 28/09/2026: **Estándar visual de reportes** (TEMPLATE_REPORTE.md = guía de estilo obligatoria: frontmatter Obsidian, callouts, Tabla A/B, números con espacio de miles, pie de página con créditos Riot/wr-meta/WR-LAB). Los 5 reportes (Jinx, Kalista, Diana, Yuumi, Karma) re-estilizados al estándar; reporte de Jinx adoptado desde la versión del autor con datos de ejemplo corregidos.
+- v1.8 — 29/09/2026: **Optimizador v2 (4 motores)** — on-hit (Kalista), rotación AP (Diana) y valor-aliado (Yuumi/Karma) además de autos; validación cruzada en 2 niveles + hallazgos documentados (ROADMAP). **Refresh y borradores:** `update_reports.py refresh --apply` actualiza números reproducibles 1:1 dentro del reporte; `borrador` genera esqueletos de reemplazo en `reportes/_borradores/` para los ❌ REGENERAR (Caitlyn y Rammus ya los tienen). **Linter de reportes** (`lint_reportes.py`): caza ítems alucinados ("Bastion of Spirits" en Seraphine), builds no extraíbles y desviaciones del estándar v1.4. **Diccionarios batch2 expandidos** desde items_7.3.csv (Mandate, Stormsurge, Harmonic Echo, Morello, Rylai, Horizon Focus, Liandry) → Yuumi poke-híbrida ya es cuantificable (Δ 7.3a = −1.7 % → ✅ ANOTAR). Tests: 74.
 - v1.7 — 29/09/2026: **Optimizador de builds** (`optimize_build.py`, validación cruzada: redescubre la build C de Jinx; hallazgo post-7.3a: con el pool completo, Yun Tal buffeada + Terminus superan a C ~7 % en eficiencia ponderada — decisión de actualizar el reporte queda al autor). **Regenerador de bundles** (`build_bundles.py`, artefactos derivados con `--check` en CI). **Vault integrado:** 16 reportes externos sustituyen a los 5 del lab; parser del actualizador v2 (champion por nombre de archivo, tablas BUILD_FINAL/rutas, alias en paréntesis, ⏩ AL_DIA); triage 7.3a del vault: Caitlyn y Rammus ❌ REGENERAR (inputs del spec tocados), Yuumi ⚠️ REVISAR (nerf W sin hook para build poke-híbrida), 13 ✅. Tests: 60. BD con reports keyed por ruta.
 - v1.6 — 29/09/2026: **Actualizador de reportes publicados** (`model/update_reports.py`): ante un hotfix, TRIA el impacto por reporte (Δ sobre métricas de resultado, no inputs), inserta bloques de verificación idempotentes (`WRLAB-VERIF`) y sella `reportes_registry.json`; las builds definitivas no se re-derivan salvo ❌ REGENERAR (caso de aceptación: Yuumi 7.3a ✅). Verificación de que 7.3a sigue siendo el último hotfix (página oficial: contenido idéntico, solo ruido de CMS) y `check_patch.py` corregido a hash de contenido normalizado (adiós falsos positivos). Tests: 39 (14+25). FRAMEWORK §E ampliado (pasos 6–8) + TEMPLATE A.8.

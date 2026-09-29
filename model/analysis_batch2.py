@@ -115,6 +115,12 @@ D_ITEMS = {
  'Malignance':   dict(g=2700, ap=90, ah=15),
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
+# v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
+D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
+D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
     gold = sum(i['g'] for i in its)
@@ -186,8 +192,19 @@ for n,b in [('D1',D_BUILDS['D1 Comunidad (D&D,Orb,Zhonya,Rabadon,Luden)']),('D4'
     r = diana(b, mr=180); print(f"  {n}: DPS={r['dps']:.0f} MR efectiva={r['mr_eff']:.0f}")
 
 # ══════════════════════════════ YUUMI ══════════════════════════════
+# v1.8: diccionario expandido desde data/estructurada/items_7.3.csv (stats oficiales).
+# Pasivas no modeladas en yuumi()/karma() quedan como flag inerte (comentario por ítem):
+# el modelo de valor-aliado consume AP/HSP/haste; las pasivas de daño/amp se declaran pero
+# no puntúan (conservador).
 Y_ITEMS = {
  'Scythe':     dict(g=0,    ah=10),
+ 'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
+ 'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
+ 'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
+ 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
+ 'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
+ 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),

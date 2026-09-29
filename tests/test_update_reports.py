@@ -88,10 +88,13 @@ class TestRegistroVault(unittest.TestCase):
             self.assertEqual(e["hook"], "hook_diana", f)
             self.assertIsNotNone(e["metricas"], f)
 
-    def test_yuumi_poke_hybrid_sin_hook_honesto(self):
+    def test_yuumi_poke_hybrid_con_hook_tras_expansion(self):
+        """v1.8: Y_ITEMS expandido desde items_7.3.csv → la build poke-híbrida ya es cuantificable."""
         e = self.entry("Yuumi.md")
-        self.assertIsNone(e["hook"])                     # Stormsurge/Harmonic Echo fuera del modelo
-        self.assertIn("Stormsurge", e["hook_motivo"])
+        self.assertEqual(e["hook"], "hook_yuumi")
+        self.assertEqual(e["sin_resolver"], [])
+        self.assertEqual(round(e["metricas"]["AP"]), 230)      # AP de la build (fuente: CSV oficial)
+        self.assertLess(e["metricas"]["e_shield"], 339)        # sacrifica escudo vs Y1 clásica (~305)
 
     def test_reportes_sin_build_extraible(self):
         for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
@@ -151,11 +154,14 @@ class TestTriage73aVault(unittest.TestCase):
         """7.3a nerfeó su armadura base (input del spec)."""
         self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
 
-    def test_yuumi_revisar_conservador(self):
-        """Nerf directo a su W sin hook para la build poke-hybrid → revisión acotada, NO regenerar."""
+    def test_yuumi_anotar_cuantificado(self):
+        """v1.8: con el diccionario expandido, el nerf de la poke-híbrida se mide: Δ conservador
+        −1.7 % (< 2 %) → ✅ ANOTAR. (Con AP 230, el término 0.01 %/AP casi neutraliza el nerf.)"""
         t = self.por["Yuumi.md"]
-        self.assertEqual(t["veredicto"], "REVISAR")
-        self.assertIsNotNone(t["directo"])
+        self.assertEqual(t["veredicto"], "ANOTAR")
+        self.assertTrue(t["cuantificado"])
+        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
+        self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
 
     def test_jinx_anotar_delta_cero(self):
         t = self.por["Jinx.md"]
@@ -171,8 +177,8 @@ class TestTriage73aVault(unittest.TestCase):
 
     def test_balance_general(self):
         verdictos = [t["veredicto"] for t in self.res]
-        self.assertEqual(verdictos.count("REGENERAR"), 2)
-        self.assertEqual(verdictos.count("REVISAR"), 1)
+        self.assertEqual(verdictos.count("REGENERAR"), 2)      # Caitlyn + Rammus (inputs del spec)
+        self.assertEqual(verdictos.count("REVISAR"), 0)        # Yuumi ya es cuantificable (v1.8)
         self.assertEqual(len(self.res), 16)
 
     def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
