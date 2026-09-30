@@ -28,6 +28,8 @@
 7. **Curva de poder, no solo nivel 15.** Correr el modelo en los checkpoints nivel 9 (1.er ítem),
    12 (2 ítems + botas), 14 (3 ítems + botas T3) para ordenar la RUTA de compra y detectar
    ítems que ganan temprano pero pierden tarde (Kraken-first) o al revés (C44-first).
+   Fechar la Tabla B con `model/sim_timings.py --rol <rol> --build "…"` (curvas de oro del
+   vault) y auditarla con `--reporte X --leave-one-out` antes de publicar.
 8. **Runas y hechizos** (apoyo: `model/optimize_runes.py <champ>` puntúa keystone × secundaria
    con valor marginal contra el baseline LT+Alacrity; supuestos declarados en su docstring).
    Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;

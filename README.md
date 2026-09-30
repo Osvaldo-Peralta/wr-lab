@@ -39,6 +39,7 @@ wr-lab/
 │   ├── update_reports.py              ← ⭐ triador de hotfixes sobre reportes publicados (anota, NO regenera)
 │   ├── optimize_build.py              ← ⭐ optimizador exhaustivo (4 motores + presets defensa/utilidad)
 │   ├── optimize_runes.py              ← ⭐ buscador de runas (keystone × secundaria, valor marginal)
+│   ├── sim_timings.py                 ← ⭐ simulador de timings de oro (curvas derivadas del vault)
 │   ├── lint_reportes.py               ← ⭐ linter de reportes del vault (ítems alucinados, Ley 0, estilo v1.4)
 │   └── build_bundles.py               ← regenera los bundles portables desde las fuentes (+ --check para CI)
 ├── metodologia/
@@ -91,6 +92,15 @@ python3 model/lint_reportes.py                                 # calidad de repo
 `build_bundles.py` → `build_db.py` → `check` → commit/push. Los reportes publicados
 **nunca se borran ni se re-derivan solos**: `refresh` solo actualiza números reproducibles,
 `borrador` prepara el reemplazo en un directorio aparte y el autor decide.
+
+**Simulador de timings de oro** (curvas por rol derivadas de las Tablas B del vault — sin constantes inventadas):
+
+```bash
+python3 model/sim_timings.py --curvas                    # anclas y curvas por rol (adc/support/jungla/mid/top)
+python3 model/sim_timings.py --reporte Jinx.md --leave-one-out   # ¿es consistente su Tabla B? (validación honesta)
+python3 model/sim_timings.py --rol adc --build "Berserker's,Hexoptics C44,Terminus,Yun Tal,IE,LDR" --upgrade Gunmetal
+#   ↑ fecha cada compra de una ruta NUEVA (p.ej. la variante anti-tanques: pico 6 slots ~22:00)
+```
 
 **Buscador de runas** (keystone × secundaria con valor marginal contra el baseline LT+Alacrity):
 
@@ -202,6 +212,7 @@ El lab es un **proyecto de software versionado**, no solo documentos:
 | `model/optimize_build.py` | Optimizador exhaustivo v2 con **4 motores** (autos/on-hit/rotación/valor-aliado), objetivo ponderado normalizado, Leyes 1/3 como restricciones opcionales. Validación cruzada en 2 niveles (redescubre C de Jinx, D2-LT de Diana, Y1 de Yuumi; K2 de Kalista a 0.3 % del top-1) |
 | `update_reports.py refresh/borrador` | `refresh` aplica números post-parche in-place SOLO donde el motor reproduce el publicado 1:1; `borrador` genera esqueletos de regeneración en `reportes/_borradores/` para los ❌ (el publicado no se toca) |
 | `wrlab.py` | **CLI unificado + menú interactivo** (registro escalable de acciones): estado, ciclo hotfix completo, optimizador, runas, lint, bundles, BD, tests, git. Modo comando para CI/chats externos |
+| `model/sim_timings.py` | Simulador de timings: curvas de oro por rol derivadas de las Tablas B del vault (112 anclas); audita rutas publicadas (leave-one-out) y fecha picos de rutas nuevas; tolerancia ±150 s |
 | `model/optimize_runes.py` | Buscador de runas: grid keystone×secundaria, valor marginal vs baseline, supuestos declarados y runas excluidas con motivo (fuente rasgada). Valida LT×Alacrity (Jinx) y LT (Diana) |
 | `model/lint_reportes.py` | Linter del vault: ERRORES (build no extraíble, Ley 0, **ítems inexistentes en la BD oficial**) + AVISOS (frontmatter, rol, parche, pie de página, espacio de miles). `--strict` para gates |
 | `model/build_bundles.py` | Regenerador de los bundles portables (lite/completo) desde las fuentes + `--check` anti-drift en CI |
@@ -219,6 +230,7 @@ Reglas: **texto plano = fuente de verdad; SQLite = índice derivado; cero depend
 - v1.3 — 25/09/2026: **Ley 0 de slots** (botas T2→T3 = mismo slot) tras bug detectado al usar los bundles en otro chat: `validate_slots()` en el motor, FRAMEWORK/TEMPLATE/ítems/reportes actualizados, extract_data.py corregido y reproducible.
 - v1.5 — 28/09/2026: **HOTFIX 7.3a integrado** (nerfs Malphite/Yuumi/Caitlyn/Senna/Hwei…, buffs Yun Tal/Samira/Tristana/Draven/Viego, Smite/Nexus/placas) con diff estructurado, overrides en datos y tests. **Arquitectura de proyecto:** git + SQLite (wrlab.db) + tests (14) + CI/patch-watch (GitHub Actions) + ROADMAP de módulos.
 - v1.4 — 28/09/2026: **Estándar visual de reportes** (TEMPLATE_REPORTE.md = guía de estilo obligatoria: frontmatter Obsidian, callouts, Tabla A/B, números con espacio de miles, pie de página con créditos Riot/wr-meta/WR-LAB). Los 5 reportes (Jinx, Kalista, Diana, Yuumi, Karma) re-estilizados al estándar; reporte de Jinx adoptado desde la versión del autor con datos de ejemplo corregidos.
+- v1.10 — 29/09/2026: **Simulador de timings de oro** (`sim_timings.py`: curvas por rol derivadas de las Tablas B del vault — cero constantes inventadas; audita reportes con leave-one-out y fecha rutas nuevas; la variante anti-tanques de Jinx pica ~22:00 vs ~21:00 de la C). **Fix de arquetipos en el optimizador** (bug reportado: Cho'Gath optimizado "como ADC" — ahora los arquetipos sin motor se rechazan con guía y las aproximaciones avisan; columnas EHP/UTIL solo con pesos activos). **Reporte de Jinx v1.4 integrado** (variante anti-tanques = hallazgo del optimizador verificado por el motor: 17 900 g · pen 65 % · +42 %/+31 %; ⏩ AL_DIA — declara patch 7.3a). Tests: 107. Menú wrlab: +timings. Bundles: §10e.
 - v1.9 — 29/09/2026: **CLI unificado + menú interactivo** (`wrlab.py`: estado, ciclo hotfix completo, análisis, artefactos; registro escalable; modo comando para CI). **Buscador de runas** (`optimize_runes.py`: keystone×secundaria con valor marginal; autos+rotación; valida las conclusiones de runas de Jinx y Diana; supuestos declarados; runas con fuente rasgada excluidas con motivo). **Defensa/utilidad en el optimizador** (EHP mixto + activas + sustain ponderado; `--preset balanceado/defensivo`; goldens ofensivos intactos por defecto). `eval_build` gana `ad_extra` (Conqueror). Tests: 92. Bundles: lite 200 KB / completo 910 KB (§10d runas, §17 suite completa, §18 CLI+lint+infra).
 - v1.8 — 29/09/2026: **Optimizador v2 (4 motores)** — on-hit (Kalista), rotación AP (Diana) y valor-aliado (Yuumi/Karma) además de autos; validación cruzada en 2 niveles + hallazgos documentados (ROADMAP). **Refresh y borradores:** `update_reports.py refresh --apply` actualiza números reproducibles 1:1 dentro del reporte; `borrador` genera esqueletos de reemplazo en `reportes/_borradores/` para los ❌ REGENERAR (Caitlyn y Rammus ya los tienen). **Linter de reportes** (`lint_reportes.py`): caza ítems alucinados ("Bastion of Spirits" en Seraphine), builds no extraíbles y desviaciones del estándar v1.4. **Diccionarios batch2 expandidos** desde items_7.3.csv (Mandate, Stormsurge, Harmonic Echo, Morello, Rylai, Horizon Focus, Liandry) → Yuumi poke-híbrida ya es cuantificable (Δ 7.3a = −1.7 % → ✅ ANOTAR). Tests: 74.
 - v1.7 — 29/09/2026: **Optimizador de builds** (`optimize_build.py`, validación cruzada: redescubre la build C de Jinx; hallazgo post-7.3a: con el pool completo, Yun Tal buffeada + Terminus superan a C ~7 % en eficiencia ponderada — decisión de actualizar el reporte queda al autor). **Regenerador de bundles** (`build_bundles.py`, artefactos derivados con `--check` en CI). **Vault integrado:** 16 reportes externos sustituyen a los 5 del lab; parser del actualizador v2 (champion por nombre de archivo, tablas BUILD_FINAL/rutas, alias en paréntesis, ⏩ AL_DIA); triage 7.3a del vault: Caitlyn y Rammus ❌ REGENERAR (inputs del spec tocados), Yuumi ⚠️ REVISAR (nerf W sin hook para build poke-híbrida), 13 ✅. Tests: 60. BD con reports keyed por ruta.

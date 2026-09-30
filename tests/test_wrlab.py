@@ -30,8 +30,8 @@ class TestRegistroMenu(unittest.TestCase):
 
     def test_comandos_no_interactivos_cubren_el_ciclo(self):
         for cmd in ("estado", "watch", "hotfix", "triage", "refresh", "borrador",
-                    "annotate", "baseline", "optimize", "runes", "lint", "tests",
-                    "bundles", "db", "motor", "git", "menu"):
+                    "annotate", "baseline", "optimize", "runes", "timings", "lint",
+                    "tests", "bundles", "db", "motor", "git", "menu"):
             self.assertIn(cmd, wrlab.COMANDOS, cmd)
 
 

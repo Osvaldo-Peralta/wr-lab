@@ -175,3 +175,27 @@ class TestDefensaUtilidad(unittest.TestCase):
                                  incluir=POOL_JINX_REPORTE, preset="ofensivo", verbose=False)
         self.assertEqual(sorted(M.resolve(x).key for x in finales[0][1]),
                          sorted(M.resolve(x).key for x in JINX_C))
+
+
+class TestMotorPorArquetipo(unittest.TestCase):
+    """Bug reportado 29-sep: 'optimize chogath' lo trataba como ADC. Ahora los arquetipos
+    sin motor se rechazan con guía, y las aproximaciones avisan."""
+
+    def test_chogath_rechazado(self):
+        with self.assertRaises(SystemExit):
+            O.optimizar("chogath", verbose=False)
+
+    def test_mordekaiser_rechazado(self):
+        with self.assertRaises(SystemExit):
+            O.optimizar("mordekaiser", verbose=False)
+
+    def test_forzar_motor_permitido_bajo_responsabilidad(self):
+        finales, _ = O.optimizar("chogath", motor="autos", top=1, verbose=False,
+                                 incluir=["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"])
+        self.assertEqual(len(finales[0][1]), 6)
+
+    def test_yunara_aproximado_funciona(self):
+        finales, _ = O.optimizar("yunara", top=1, verbose=False,
+                                 incluir=["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"])
+        self.assertEqual(len(finales[0][1]), 6)
+        self.assertEqual(M.validate_slots(finales[0][1]), (1, 5))

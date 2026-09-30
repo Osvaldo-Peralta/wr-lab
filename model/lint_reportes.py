@@ -97,7 +97,10 @@ def lint_archivo(path, legit, ultimo_patch):
             avisos.append(f"build extraída de '{fuente}' (no Tabla A estándar v1.4)")
 
     if ultimo_patch and f"WRLAB-VERIF:{ultimo_patch}:START" not in txt:
-        avisos.append(f"sin bloque de verificación {ultimo_patch} (update_reports.py annotate --apply)")
+        if pd and U.patch_key(pd) >= U.patch_key(ultimo_patch):
+            pass    # ⏩ AL_DIA: el reporte ya declara datos del parche — bloque innecesario
+        else:
+            avisos.append(f"sin bloque de verificación {ultimo_patch} (update_reports.py annotate --apply)")
     if not re.search(r"^## Pie de página", txt, re.M):
         avisos.append("sin '## Pie de página' (referencias Riot/wr-meta/WR-LAB + aviso legal)")
     resumen = re.search(r"(>\s+\*\*Oro total[^\n]+)", txt)

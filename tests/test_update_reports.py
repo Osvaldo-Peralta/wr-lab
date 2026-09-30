@@ -163,12 +163,18 @@ class TestTriage73aVault(unittest.TestCase):
         self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
         self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
 
-    def test_jinx_anotar_delta_cero(self):
+    def test_jinx_al_dia(self):
+        """Jinx.md v1.4 declara patch 7.3a en frontmatter → ⏩ AL_DIA (sin bloque ni triage)."""
         t = self.por["Jinx.md"]
+        self.assertEqual(t["veredicto"], "AL_DIA")
+        self.assertTrue(any("7.3a" in r for r in t["razones"]))
+
+    def test_sivir_anotar_con_variantes_y_sistemas(self):
+        """Sivir declara 7.3 → se tria: Yun Tal en sus variantes + sistemas de siege (rol ADC)."""
+        t = self.por["Sivir.md"]
         self.assertEqual(t["veredicto"], "ANOTAR")
-        self.assertEqual(t["delta_max"], 0.0)
         self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
-        self.assertTrue(t["sistemas"])                    # placas/Nexus (rol ADC)
+        self.assertTrue(t["sistemas"])                    # placas/Nexus
 
     def test_kalista_cuantitativo(self):
         t = self.por["Kalista.md"]
@@ -248,13 +254,17 @@ class TestAnotacion(unittest.TestCase):
         out = U.insertar_bloque(out, b2, "9.9z")
         self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
 
-    def test_reportes_del_vault_tienen_bloque_73a(self):
+    def test_reportes_del_vault_bloque_o_al_dia(self):
+        """Cada reporte del vault tiene bloque WRLAB-VERIF:7.3a O declara patch ≥ 7.3a (AL_DIA)."""
         import glob
-        con_bloque = 0
         for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
-            if "WRLAB-VERIF:7.3a:START" in open(ruta, encoding="utf-8").read():
-                con_bloque += 1
-        self.assertEqual(con_bloque, 16)
+            with open(ruta, encoding="utf-8") as fh:
+                txt = fh.read()
+            fm = U.parse_frontmatter(txt)
+            pd = U.parche_declarado(fm, txt)
+            al_dia = pd and U.patch_key(pd) >= U.patch_key("7.3a")
+            self.assertTrue("WRLAB-VERIF:7.3a:START" in txt or al_dia,
+                            f"{os.path.basename(ruta)}: ni bloque ni patch declarado ≥7.3a")
 
 
 class TestUtilidades(unittest.TestCase):

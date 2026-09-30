@@ -182,6 +182,8 @@ def secciones_comunes():
          fence("python", leer("model", "optimize_build.py"))),
         ("10d", "BUSCADOR DE RUNAS (keystone × secundaria · valor marginal · supuestos declarados)",
          fence("python", leer("model", "optimize_runes.py"))),
+        ("10e", "SIMULADOR DE TIMINGS DE ORO (curvas derivadas de las Tablas B del vault)",
+         fence("python", leer("model", "sim_timings.py"))),
     ]
     return secs
 

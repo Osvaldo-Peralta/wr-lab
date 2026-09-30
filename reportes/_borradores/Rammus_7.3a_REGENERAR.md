@@ -6,7 +6,7 @@ Status: Borrador
 champion: Rammus
 patch: "7.3a"
 ---
-# ⚠️ BORRADOR DE REGENERACIÓN — Rammus (7.3a) · generado 29/09/2026 por update_reports.py
+# ⚠️ BORRADOR DE REGENERACIÓN — Rammus (7.3a) · generado 30/09/2026 por update_reports.py
 
 > [!DANGER] Por qué existe este borrador
 > El reporte publicado `Rammus.md` recibió veredicto **❌ REGENERAR** contra 7.3a:

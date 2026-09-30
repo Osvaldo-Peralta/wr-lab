@@ -165,10 +165,35 @@ ENGINES = {
 
 MOTOR_POR_CAMPEON = {"kalista": "onhit", "diana": "rotacion", "yuumi": "aliado", "karma": "aliado"}
 
+# Campeones cuyo arquetipo NO es representable por ningún motor del lab: optimizarlos
+# con el motor de autos produce BASURA (bug reportado 29-sep: chogath "como ADC").
+SIN_MOTOR = {
+    "chogath":     "tanque AP (Feast) — el motor de autos no tiene sentido; ver metodologia/ESCALADO_DE_TAMANIO.md y el modelo de rotación (pendiente en batch2)",
+    "mordekaiser": "juggernaut AP — requiere modelo de rotación + R (pendiente en batch2)",
+    "heimerdinger": "mago de zona (torretas) — requiere modelo de DPS de torretas (pendiente)",
+    "seraphine":   "enchanter-mage — modelo de valor-aliado/rotación (pendiente)",
+    "malphite":    "tanque de escalado de armadura — ver ESCALADO_DE_TAMANIO.md",
+}
+# Campeones donde el motor elegido es una APROXIMACIÓN (aviso, no bloqueo)
+MOTOR_AVISOS = {
+    "yunara":   "motor autos NO modela su spread de Q ni la interacción de R con crítico — resultados aproximados",
+    "shyvana":  "motor autos NO modela su Q doble golpe ni la forma dragón — resultados aproximados",
+    "volibear": "motor autos NO modela su W ejecutor ni stacks de AS; ad_growth sin verificar (FUENTES.md) — resultados aproximados",
+}
 
-def motor_para(champ, override=None):
+
+def motor_para(champ, override=None, quiet=False):
     if override:
+        if champ in SIN_MOTOR and not quiet:
+            print(f"⚠️ MOTOR FORZADO para {champ}: {SIN_MOTOR[champ]}.\n"
+                  f"   Los resultados NO son válidos para publicar — solo exploración bajo tu responsabilidad.")
         return override
+    if champ in SIN_MOTOR:
+        sys.exit(f"❌ '{champ}' no tiene motor de optimización: {SIN_MOTOR[champ]}.\n"
+                 f"   (Puedes forzar uno con --motor, bajo tu responsabilidad; o analizarlo a mano "
+                 f"con el bundle completo en un chat externo.)")
+    if champ in MOTOR_AVISOS and not quiet:
+        print(f"⚠️ {champ}: {MOTOR_AVISOS[champ]}")
     return MOTOR_POR_CAMPEON.get(champ, "autos")
 
 
@@ -180,7 +205,7 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
               solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
               keystone="lt", defensa=0.0, utilidad=0.0, preset=None):
     champ = champ.lower()
-    motor = motor_para(champ, motor)
+    motor = motor_para(champ, motor, quiet=not verbose)
     eng = ENGINES[motor]
     if preset:
         defensa, utilidad = PRESETS[preset]
@@ -320,7 +345,7 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
     return finales[:top], hojas
 
 
-def imprimir(finales, champ, motor, pesos, oro):
+def imprimir(finales, champ, motor, pesos, oro, con_def=False):
     eng = ENGINES[motor]
     gold = eng["gold_fn"]
     w = " · ".join(f"{e}:{p:g}" for e, p in sorted(pesos.items(), key=lambda x: -x[1]))
@@ -328,7 +353,6 @@ def imprimir(finales, champ, motor, pesos, oro):
     cols = list(eng["escenarios"])
     print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    con_def = len(finales[0]) > 4
     if con_def:
         print(f"(columnas EHP/UTIL activas — pesos defensa/utilidad incluidos en EFIC)")
     for i, fila in enumerate(finales, 1):
@@ -431,7 +455,8 @@ def main():
                                crit_min=args.crit_min, pen_min=args.pen_min,
                                keystone=args.keystone, defensa=args.defensa,
                                utilidad=args.utilidad, preset=args.preset)
-    imprimir(finales, ck, motor, pesos, oro)
+    imprimir(finales, ck, motor, pesos, oro,
+             con_def=bool(args.preset in ("balanceado", "defensivo") or args.defensa or args.utilidad))
     if args.validar:
         print()
         ok = validar(finales, ck, motor)

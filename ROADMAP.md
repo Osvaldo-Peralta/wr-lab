@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.9):** repo git versionado · BD SQLite derivada · 92 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.10):** repo git versionado · BD SQLite derivada · 107 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -52,9 +52,9 @@
    índice `Guias.md`, respeta la nomenclatura del vault y hace commit en ese repo.
    Publicar = `git push` del vault (su workflow de Pages ya funciona).
 
-5. **Simulador de timings de oro** (medio) — curva de oro de ADC/support/jungla por minuto
-   (datos 7.3: minions, placas con decaimiento, jungle eco) para fechar los picos de cada
-   ruta con precisión en vez de "~13:00".
+5. ~~**Simulador de timings de oro**~~ ✅ **hecho en v1.10** — `sim_timings.py` (curvas del
+   vault). Mejora futura: calibrar con minion gold / passive income verificados en juego
+   (hoy las anclas son las estimaciones de los autores — fuente secundaria declarada).
 
 6. **Matriz de matchups** (alto) — EHP/DPS efectivo cruzado entre builds (p.ej. "¿mi Jinx
    full contra un Chainlaced+Randuin?"), usando las tablas de mitigación ya existentes.
