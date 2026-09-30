@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.8):** repo git versionado · BD SQLite derivada · 74 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.9):** repo git versionado · BD SQLite derivada · 92 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -38,14 +38,14 @@
 
 ## Módulos propuestos (prioridad × esfuerzo)
 
-1. **`wrlab` CLI unificado** (bajo esfuerzo, alto valor)
-   `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
-   — envolver los scripts actuales en un solo punto de entrada con argparse.
+1. ~~**`wrlab` CLI unificado**~~ ✅ **hecho en v1.9** — CLI + menú interactivo escalable (`wrlab.py`).
 
 2. ~~**Optimizador v2 para motores batch2**~~ ✅ **hecho en v1.8** — 4 motores (autos/onhit/
    rotacion/aliado) con protocolo de validación en 2 niveles (ver §Hallazgos).
 
-3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
+3. ~~**Buscador de runas**~~ ✅ **hecho en v1.9** — `optimize_runes.py` (autos + rotación).
+   Pendiente v2: motores onhit/aliado (parametrizar LT/Alacrity en kalista()/yuumi()) y
+   verificar en juego los supuestos declarados (CD de Electrocute, valores de Brutal).
 
 4. **Sincronizador con el sitio Quartz** (bajo-medio)
    `wrlab sync-vault <ruta-del-vault>`: copia reportes + fichas con frontmatter, genera

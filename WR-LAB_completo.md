@@ -70,7 +70,9 @@
 7. **Curva de poder, no solo nivel 15.** Correr el modelo en los checkpoints nivel 9 (1.er ítem),
    12 (2 ítems + botas), 14 (3 ítems + botas T3) para ordenar la RUTA de compra y detectar
    ítems que ganan temprano pero pierden tarde (Kraken-first) o al revés (C44-first).
-8. **Runas y hechizos.** Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
+8. **Runas y hechizos** (apoyo: `model/optimize_runes.py <champ>` puntúa keystone × secundaria
+   con valor marginal contra el baseline LT+Alacrity; supuestos declarados en su docstring).
+   Keystone que multiplique lo que la build ya compra (Lethal Tempo ↔ AS;
    Fleet ↔ sustain de lane; First Strike ↔ poke). Secundarias: valor por slot con la misma lógica de stats muertos.
 9. **Matriz situacional del último slot** (vs CC / vs burst AD / vs AP / vs tanques / vs curación / vs dive)
    con números, no con opiniones.
@@ -185,6 +187,9 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 ---
 
 ## E. Protocolo de actualización de datos (cada parche)
+
+> 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
+> "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):
@@ -2343,7 +2348,7 @@ def lt_bullet(spec, level, B):
 
 def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
                lt=True, alacrity=ALACRITY_FULL, missing_hp=50, enemy_hp=2200,
-               self_buff_on=True, spellblade_uptime=1/1.5, validate=True):
+               self_buff_on=True, spellblade_uptime=1/1.5, validate=True, ad_extra=0.0):
     """Devuelve métricas de una build completa (lista de nombres/alias de ítems, botas incluidas).
     OJO: 'items' = SLOTS FINALES. Las botas ocupan 1 slot y su mejora T2→T3 es EN EL MISMO SLOT
     (usa el nombre T3, p.ej. 'Gunmetal'; NUNCA listes 'Berserker's'+'Gunmetal' juntos)."""
@@ -2351,7 +2356,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
         validate_slots(items, final=(len(items) == 6))
     its = [resolve(x) for x in items]
     gold = sum(i.gold for i in its)
-    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its)
+    ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its) + ad_extra
     base_ad = spec.base_ad + spec.ad_growth*(level-1)
     crit = min(sum(i.crit for i in its), 100)/100.0
     pen  = min(sum(i.pen for i in its), 100)
@@ -2776,7 +2781,7 @@ for hp in [2500, 3500, 5000, 7000]:
     print(f"  con {hp} HP: golpe {dmg:.0f} -> +{0.15*dmg:.0f} HP permanente (por campeón cada 20s)")
 ```
 
-## 10c. OPTIMIZADOR DE BUILDS (búsqueda exhaustiva con Leyes 0-1-2-3 como restricciones)
+## 10c. OPTIMIZADOR DE BUILDS (4 motores · búsqueda exhaustiva con Leyes 0-1-2-3 · presets de defensa/utilidad)
 
 ```python
 # -*- coding: utf-8 -*-
@@ -2820,6 +2825,56 @@ with contextlib.redirect_stdout(io.StringIO()):
     import analysis_batch2 as B2
 
 EPS_AS = 0.02          # tolerancia del tope de AS (Ley 2)
+
+# ---------------------------------------------------------------- defensa y utilidad (v1.9)
+# Fuentes: items_7.3.csv (valores oficiales) + comentarios del motor. Uptimes declarados:
+# escudos condicionales (Lifeline/Ichorshield/Noxian) cuentan al 50-70 % (no están siempre).
+ESCUDOS_FIS = {"bt": 255 * 0.5, "shieldbow": 425 * 0.5, "armored_adv": 75 * 0.7}
+ESCUDOS_MAG = {"chainlaced": 75 * 0.7}      # Maw: valor recortado en la fuente → solo su MR cuenta
+UTIL_FLAGS = {"ga": 300, "Zhonyas": 300, "scimitar": 150, "gale": 100,
+              "immortal_treads": 100, "Redemption": 200, "Mikael": 200, "Locket": 150,
+              "Shurelya": 100, "Zeke": 100}
+BASE_DEF_FALLBACK = (650.0, 45.0, 35.0)     # hp/armor/mr nivel 1 (si no está en champion_base_stats.json)
+
+
+def cargar_base_def(champ, nivel=15):
+    """(hp, armor, mr) a nivel `nivel` desde data/estructurada/champion_base_stats.json.
+    Formato fuente: '570 (104)' = base (crecimiento por nivel). Fallback genérico declarado."""
+    import json, re as _re
+    ruta = os.path.join(ROOT, "data", "estructurada", "champion_base_stats.json")
+    try:
+        with open(ruta, encoding="utf-8") as fh:
+            db = json.load(fh)
+        st = db[champ]["stats"]
+        def num(clave):
+            m = _re.match(r"([\d.]+)\s*\(([\d.]+)\)", st.get(clave, "").replace("\xa0", " "))
+            if not m:
+                return None
+            return float(m.group(1)) + float(m.group(2)) * (nivel - 1)
+        hp, ar, mr = num("heal"), num("armor"), num("magicresistance")   # 'heal' = Health (errata del scrape)
+        if None in (hp, ar, mr):
+            raise ValueError
+        return hp, ar, mr
+    except Exception:
+        b = BASE_DEF_FALLBACK
+        return (b[0] + 90 * (nivel - 1), b[1] + 3.5 * (nivel - 1), b[2] + 1.2 * (nivel - 1))
+
+
+def ehp_y_util(keys_resueltas, base_def, heal_s):
+    """EHP mixto (50 % físico / 50 % mágico, escudos condicionales ponderados) y utilidad
+    (heal/s + banderas de activas). hechizo heurístico declarado: GA/Zhonyas 300, QSS 150…"""
+    hp, armor, mr = base_def
+    esc_f = esc_m = util = 0.0
+    for k in keys_resueltas:
+        it = M.ITEMS.get(k)
+        if it is not None:
+            hp += it.hp; armor += it.armor; mr += it.mr
+        esc_f += ESCUDOS_FIS.get(k, 0.0)
+        esc_m += ESCUDOS_MAG.get(k, 0.0)
+        util += UTIL_FLAGS.get(k, 0.0)
+    ehp = 0.5 * ((hp + esc_f) * (1 + armor / 100.0) + (hp + esc_m) * (1 + mr / 100.0))
+    # heal/s se pondera ×0.25 para que no aplaste a las activas (heurístico declarado v1.9)
+    return ehp, util + 0.25 * heal_s
 
 # ---------------------------------------------------------------- motores
 ESC_AUTOS = {
@@ -2904,12 +2959,21 @@ def motor_para(champ, override=None):
 
 
 # ---------------------------------------------------------------- búsqueda
+PRESETS = {"balanceado": (0.15, 0.15), "ofensivo": (0.0, 0.0), "defensivo": (0.30, 0.15)}
+
+
 def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), incluir=None,
               solo_botas=None, embudo=400, nivel=15, verbose=True, crit_min=0, pen_min=0,
-              keystone="lt"):
+              keystone="lt", defensa=0.0, utilidad=0.0, preset=None):
     champ = champ.lower()
     motor = motor_para(champ, motor)
     eng = ENGINES[motor]
+    if preset:
+        defensa, utilidad = PRESETS[preset]
+    if motor == "aliado" and (defensa or utilidad):
+        print("[aviso] motor aliado: la defensa propia no aplica (Yuumi attachada es intargeteable) "
+              "— pesos de defensa/utilidad ignorados")
+        defensa = utilidad = 0.0
     if eng["requiere_spec"] and champ not in M.CHAMPS:
         sys.exit(f"'{champ}' no tiene ChampSpec en dps_model.CHAMPS (motor autos). "
                  f"Especs: {sorted(M.CHAMPS)}")
@@ -3015,17 +3079,26 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
         candidatos.extend(heap)
         heap = []
 
-    # pasada 2: objetivo ponderado NORMALIZADO por escenario
+    # pasada 2: objetivo ponderado NORMALIZADO por escenario (+ defensa/utilidad opcionales)
+    base_def = cargar_base_def(champ, nivel) if (defensa or utilidad) else None
     brutos = []
     for s1, neg_g, combo in candidatos:
         det = {e: eval_fn(champ, combo, kw, opts)[m] for e, (kw, m) in escenarios.items()}
         base = eng["base_fn"](champ, combo, opts)
-        brutos.append((combo, det, base))
-    max_e = {e: max((d[e] for _, d, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+        ehp = util = 0.0
+        if base_def is not None:
+            keys = [M.resolve(c).key for c in combo] if eng is ENGINES["autos"] else list(combo)
+            heal_s = base.get("heal", 0.0) if isinstance(base, dict) else 0.0
+            ehp, util = ehp_y_util(keys, base_def, heal_s)
+        brutos.append((combo, det, base, ehp, util))
+    max_e = {e: max((d[e] for _, d, _, _, _ in brutos), default=1.0) or 1.0 for e in escenarios}
+    max_ehp = max((x[3] for x in brutos), default=1.0) or 1.0
+    max_util = max((x[4] for x in brutos), default=1.0) or 1.0
     finales = []
-    for combo, det, base in brutos:
-        score = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
-        finales.append((score, combo, det, base))
+    for combo, det, base, ehp, util in brutos:
+        off = sum(pesos.get(e, 0.0) * (det[e] / max_e[e]) for e in escenarios)
+        score = (1 - defensa - utilidad) * off + defensa * (ehp / max_ehp) + utilidad * (util / max_util)
+        finales.append((score, combo, det, base, ehp, util))
     finales.sort(key=lambda x: (-x[0], sum(gold(k) for k in x[1])))
     if verbose:
         print(f"[{champ}·{motor}] hojas legales: {hojas:,} · embudo: {len(candidatos)} · "
@@ -3041,11 +3114,17 @@ def imprimir(finales, champ, motor, pesos, oro):
     cols = list(eng["escenarios"])
     print(f"{'#':>2} {'EFIC':>6} {'ORO':>6} " + " ".join(f"{c:>8}" for c in cols) + "  BUILD")
     tot_w = sum(pesos.values()) or 1.0
-    for i, (score, combo, det, base) in enumerate(finales, 1):
+    con_def = len(finales[0]) > 4
+    if con_def:
+        print(f"(columnas EHP/UTIL activas — pesos defensa/utilidad incluidos en EFIC)")
+    for i, fila in enumerate(finales, 1):
+        score, combo, det, base = fila[0], fila[1], fila[2], fila[3]
+        ehp, util = (fila[4], fila[5]) if con_def else (0, 0)
         og = sum(gold(k) for k in combo)
+        extra = f" {ehp/1000:>6.1f}k {util:>6.0f}" if con_def else ""
         print(f"{i:>2} {score/tot_w*100:>5.1f}% {og:>6} "
               + " ".join(f"{det[c]:>8.0f}" for c in cols)
-              + f"  {'+'.join(combo)}")
+              + extra + f"  {'+'.join(combo)}")
 
 
 def validar(finales, champ, motor):
@@ -3089,7 +3168,7 @@ def validar(finales, champ, motor):
     ok_global = False
     for f, bk in pubs:
         mismo = sorted(bk) == sorted(top1)
-        rank = next((i for i, (_, c, _, _) in enumerate(finales, 1) if sorted(c) == sorted(bk)), None)
+        rank = next((i for i, f in enumerate(finales, 1) if sorted(f[1]) == sorted(bk)), None)
         ok_global |= mismo
         print(f"{'✅ REDISCUBIERTA' if mismo else '≠ DIVERGE'} · {f}: "
               f"top-1 {'==' if mismo else '≠'} publicada"
@@ -3120,6 +3199,10 @@ def main():
     ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
     ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--defensa", type=float, default=0.0, help="peso de EHP en el score (0-0.5)")
+    ap.add_argument("--utilidad", type=float, default=0.0, help="peso de heal/activas en el score (0-0.5)")
+    ap.add_argument("--preset", default=None, choices=list(PRESETS),
+                    help="balanceado=70/15/15 ofensivo/defensivo (ver PRESETS)")
     args = ap.parse_args()
 
     ck = args.champion.lower()
@@ -3132,13 +3215,233 @@ def main():
                                incluir=args.incluir.split(",") if args.incluir else None,
                                solo_botas=args.botas, embudo=args.embudo, nivel=args.nivel,
                                crit_min=args.crit_min, pen_min=args.pen_min,
-                               keystone=args.keystone)
+                               keystone=args.keystone, defensa=args.defensa,
+                               utilidad=args.utilidad, preset=args.preset)
     imprimir(finales, ck, motor, pesos, oro)
     if args.validar:
         print()
         ok = validar(finales, ck, motor)
         if ok is False:
             sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## 10d. BUSCADOR DE RUNAS (keystone × secundaria · valor marginal · supuestos declarados)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · optimize_runes.py — buscador de runas (ROADMAP módulo 3)
+=================================================================
+Puntúa combinaciones KEYSTONE × SECUNDARIA sobre una build dada, con el mismo
+esquema del optimizador de builds: escenario por escenario, puntuación ponderada
+NORMALIZADA y valor marginal contra el baseline del lab (Lethal Tempo + Alacrity).
+
+Motores soportados (v1):
+    autos      (dps_model.eval_build)     → Jinx, Yunara, Sivir, Caitlyn…
+    rotacion   (analysis_batch2.diana)    → Diana y magos de rotación (keystones empower/lt/conq)
+    onhit/aliado: PENDIENTES (los modelos batch no parametrizan suficientes runas — ver ROADMAP)
+
+FUENTE DE VALORES: data/estructurada/runas_7.3.md (scrape de wr-meta; las notas oficiales
+7.3 mandan para Lethal Tempo, ya dentro del motor). SUPUESTOS DECLARADOS (auditables):
+    · Conqueror: 5 AD × 6 stacks = 30 AD con uptime 85 % en pelea sostenida (→ 25.5 efectivo)
+      + 5 % omnivamp ranged a stacks llenos (va a la columna de sustain, no al DPS).
+    · First Strike: +7 % verdadero 3 s cada 25 s → +0.84 % efectivo sostenido (+oro no modelado).
+    · Electrocute: 210 (nivel 15) + 10 % AD por proc; **CD 25 s ASUMIDO** (la fuente está cortada
+      en "Cooldown:") → verificar en juego antes de publicar conclusiones finas.
+    · Coup de Grace: +8 % sobre el 25 % del tiempo de pelea con el objetivo <40 % HP → +2 %.
+    · Cut Down: +6.57 % vs >60 % HP → completo en vsTanque, mitad en el resto.
+    · Last Stand: 5-11 % bajo 60 % HP → promedio 5 % × ventana 50 % → +2.5 %.
+    · Triumph / Legend: Bloodline: sustain/utilidad (columna propia, NO puntúan DPS).
+    · Brutal / Sudden Impact / Battle Zeal / Gathering Storm: EXCLUIDOS del modelo v1
+      (fuente rasgada sin números fiables / requieren flags por campeón / amplifican
+      habilidades fuera del modelo de autos). Motivo registrado en EXCLUIDAS.
+
+USO
+    python3 model/optimize_runes.py jinx                       # build publicada del registro
+    python3 model/optimize_runes.py jinx --build "Gunmetal,C44,Runaan's,IE,LDR,Kraken"
+    python3 model/optimize_runes.py diana --build "Spellslinger,DuskDawn,Nashor,Rabadon,Zhonyas,Cryptbloom"
+    python3 model/optimize_runes.py jinx --top 8
+
+VALIDACIÓN: para Jinx debe ganar Lethal Tempo + Legend: Alacrity (conclusión del reporte);
+para Diana (rotación), keystone LT (reporte: +30 % DPS sostenido vs Empowerment).
+"""
+import argparse, json, os, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import dps_model as M
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import analysis_batch2 as B2
+from optimize_build import ENGINES, PESOS_AUTOS, motor_para   # reutiliza motores/normalización
+
+# ---------------------------------------------------------------- catálogo de runas (autos)
+KEYSTONES_AUTOS = {
+    "Lethal Tempo": dict(lt=True,
+        notas="6.4 %/stack ranged + bala 6-24 · valores oficiales 7.3 YA en el motor"),
+    "Conqueror": dict(ad_extra=25.5, omnivamp=0.05,
+        notas="30 AD a 6 stacks × uptime 85 % = 25.5 · +5 % omnivamp (sustain)"),
+    "First Strike": dict(true_amp=0.0084,
+        notas="+7 % verdadero 3 s / CD 25 s = +0.84 % sostenido · +oro no modelado"),
+    "Electrocute": dict(burst_ad_ratio=0.10, burst_flat=210, burst_cd=25,
+        notas="210 + 10 % AD por proc · CD 25 s ASUMIDO (fuente cortada)"),
+}
+SECONDARIES_AUTOS = {
+    "Legend: Alacrity": dict(alacrity=0.21, notas="+21 % AS (3+18 a full stacks) — motor oficial"),
+    "Legend: Bloodline": dict(omnivamp=0.08, notas="+8 % omnivamp — sustain, no DPS"),
+    "Coup de Grace": dict(cond_amp=0.08, ventana=0.25, notas="+8 % vs <40 % HP × ventana 25 %"),
+    "Cut Down": dict(tank_amp=0.0657, otros_amp=0.0329, notas="+6.57 % vs >60 % HP (mitad fuera de vsTanque)"),
+    "Last Stand": dict(cond_amp=0.05, ventana=0.50, notas="5-11 % bajo 60 % HP → 5 % × 50 %"),
+    "Triumph": dict(utility=True, notas="10 % vida perdida por takedown + 35 MS — utilidad pura"),
+}
+EXCLUIDAS = {
+    "Brutal": "fuente rasgada sin números fiables (verificar en juego)",
+    "Sudden Impact": "requiere flag de dash por campeón (no está en ChampSpec)",
+    "Battle Zeal": "amplifica habilidades — fuera del modelo de autos",
+    "Legend: Haste": "AH de habilidades — solo aplica al motor rotación",
+    "Grasp of the Undying": "sustain de melee — fuera del arquetipo autos ranged",
+    "Summon Aery / Arcane Comet / Phase Rush / Ice Overlord": "keystones de mago/utilidad — fuera de autos",
+}
+
+ESC_AUTOS = ENGINES["autos"]["escenarios"]
+
+# ---------------------------------------------------------------- catálogo (rotación)
+KEYSTONES_ROT = {
+    "Lethal Tempo": dict(ks="lt", notas="motor batch2: bala adaptativa + AS 38.4 %"),
+    "Empowerment": dict(ks="empower", notas="motor batch2: proc 165 + amp 8 %, ICD 4 s"),
+    "Conqueror": dict(ks="conq", notas="motor batch2: ~30 adaptivo uptime 60 % + omnivamp"),
+}
+SECONDARIES_ROT = {
+    "Legend: Haste": dict(pen_note="Legend: Haste", notas="+15 AH (tope) — entra en diana()"),
+    "— (sin secundaria modelada)": dict(pen_note=None, notas="baseline"),
+}
+
+
+def build_desde_registro(champ):
+    reg_path = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
+    if not os.path.exists(reg_path):
+        return None
+    with open(reg_path, encoding="utf-8") as fh:
+        reg = json.load(fh)
+    for f, e in sorted(reg["reportes"].items()):
+        if e["champion"] == champ and e.get("build_keys"):
+            return e["build_keys"], f
+    return None
+
+
+def eval_par_autos(spec, build, ks, sec, esc_kw, met, nivel=15):
+    """Valor del par (keystone, secundaria) para la métrica del escenario + sustain."""
+    k, s = KEYSTONES_AUTOS[ks], SECONDARIES_AUTOS[sec]
+    r = M.eval_build(spec, build, level=nivel, validate=False,
+                     lt=k.get("lt", False), alacrity=s.get("alacrity", 0.0),
+                     ad_extra=k.get("ad_extra", 0.0), **esc_kw)
+    dps = r[met]
+    armor = esc_kw.get("armor", 0.0)
+    if k.get("true_amp"):                                   # First Strike: verdadero post-mitigación
+        dps *= (1 + k["true_amp"])
+    if k.get("burst_flat"):                                 # Electrocute: burst single-target mitigado / CD
+        mit = 100 / (100 + armor * (1 - r["pen"] / 100)) if armor > 0 else 1.0
+        dps += (k["burst_flat"] + k["burst_ad_ratio"] * r["AD"]) * mit / k["burst_cd"]
+    if s.get("cond_amp"):                                   # CdG / Last Stand: ventana declarada
+        dps *= (1 + s["cond_amp"] * s["ventana"])
+    if s.get("tank_amp"):                                   # Cut Down
+        dps *= (1 + (s["tank_amp"] if esc_kw.get("tank") else s["otros_amp"]))
+    sustain = r["heal"] + r["dps1"] * (k.get("omnivamp", 0) + s.get("omnivamp", 0))
+    return dps, sustain
+
+
+def buscar_autos(champ, build, top=10, nivel=15, pesos=None):
+    spec = M.CHAMPS[champ]
+    pesos = pesos or dict(PESOS_AUTOS)
+    grid = []
+    for ks in KEYSTONES_AUTOS:
+        for sec in SECONDARIES_AUTOS:
+            det, sustains = {}, []
+            for e, (kw, met) in ESC_AUTOS.items():
+                d, sus = eval_par_autos(spec, build, ks, sec, kw, met, nivel)
+                det[e] = d
+                sustains.append(sus)
+            grid.append({"ks": ks, "sec": sec, "det": det, "sustain": max(sustains)})
+    max_e = {e: max(g["det"][e] for g in grid) or 1.0 for e in ESC_AUTOS}
+    for g in grid:
+        g["score"] = sum(pesos.get(e, 0) * (g["det"][e] / max_e[e]) for e in ESC_AUTOS)
+    base = next(g for g in grid if g["ks"] == "Lethal Tempo" and g["sec"] == "Legend: Alacrity")
+    for g in grid:
+        g["marginal"] = (g["score"] / base["score"] - 1) * 100 if base["score"] else 0.0
+    grid.sort(key=lambda g: (-g["score"], g["ks"]))
+    return grid[:top], base
+
+
+def buscar_rotacion(champ, build, top=10, keystone_build_kw=None):
+    grid = []
+    for ks_name, ks in KEYSTONES_ROT.items():
+        for sec_name, sec in SECONDARIES_ROT.items():
+            kw = {"keystone": ks["ks"]}
+            if sec.get("pen_note"):
+                kw["pen_note"] = sec["pen_note"]
+            r = B2.diana(build, **kw)
+            rt = B2.diana(build, mr=180, **kw)
+            grid.append({"ks": ks_name, "sec": sec_name,
+                         "det": {"dps10s": r["dps"], "burst": r["burst"], "vs180mr": rt["dps"]},
+                         "sustain": 0.0})
+    from optimize_build import PESOS_ROT
+    max_e = {e: max(g["det"][e] for g in grid) or 1.0 for e in ("dps10s", "burst", "vs180mr")}
+    for g in grid:
+        g["score"] = sum(PESOS_ROT[e] * (g["det"][e] / max_e[e]) for e in max_e)
+    base = next(g for g in grid if g["ks"] == "Lethal Tempo" and "sin secundaria" in g["sec"])
+    for g in grid:
+        g["marginal"] = (g["score"] / base["score"] - 1) * 100 if base["score"] else 0.0
+    grid.sort(key=lambda g: -g["score"])
+    return grid[:top], base
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · buscador de runas (keystone × secundaria)")
+    ap.add_argument("champion")
+    ap.add_argument("--build", default=None, help="ítems coma-separados (default: publicada en el registro)")
+    ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--nivel", type=int, default=15)
+    args = ap.parse_args()
+    champ = args.champion.lower()
+    motor = motor_para(champ)
+    if motor not in ("autos", "rotacion"):
+        sys.exit(f"motor '{motor}' aún sin soporte de runas (v1: autos y rotacion). Ver ROADMAP.")
+
+    if args.build:
+        build = [x.strip() for x in args.build.split(",")]
+        origen = "CLI"
+    else:
+        reg = build_desde_registro(champ)
+        if not reg:
+            sys.exit("sin build publicada en el registro — pasa --build explícita")
+        build, origen = reg
+    if motor == "autos":
+        build = [M.ALIAS.get(b, b) if b in M.ALIAS else b for b in build]
+        M.validate_slots(build)
+        grid, base = buscar_autos(champ, build, args.top, args.nivel)
+        cols = list(ESC_AUTOS)
+    else:
+        grid, base = buscar_rotacion(champ, build, args.top)
+        cols = ["dps10s", "burst", "vs180mr"]
+
+    base_lbl = "vs baseline" if motor == "rotacion" else "vs LT+Alac"
+    print(f"=== RUNAS · {champ} ({motor}) · build: {'+'.join(build)}  [{origen}] ===")
+    print(f"{'#':>2} {'SCORE':>6} {base_lbl:>10} {'sustain':>8} " +
+          " ".join(f"{c:>8}" for c in cols) + "  KEYSTONE × SECUNDARIA")
+    for i, g in enumerate(grid, 1):
+        print(f"{i:>2} {g['score']*100:>5.1f}% {g['marginal']:>+9.1f}% {g['sustain']:>8.0f} " +
+              " ".join(f"{g['det'][c]:>8.0f}" for c in cols) +
+              f"  {g['ks']} × {g['sec']}")
+    lbl = ("Lethal Tempo × — (sin secundaria modelada)" if motor == "rotacion"
+           else "Lethal Tempo × Legend: Alacrity")
+    print(f"\nBaseline del lab: {lbl} = 0.0 % (columna '{base_lbl}' = valor marginal).")
+    print("Supuestos declarados en el docstring del módulo; runas excluidas:")
+    for r, mot in EXCLUIDAS.items():
+        print(f"  · {r}: {mot}")
 
 
 if __name__ == "__main__":
@@ -11695,7 +11998,7 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.8):** repo git versionado · BD SQLite derivada · 74 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.9):** repo git versionado · BD SQLite derivada · 92 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
 
 ## Ya disponible
 
@@ -11733,14 +12036,14 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 ## Módulos propuestos (prioridad × esfuerzo)
 
-1. **`wrlab` CLI unificado** (bajo esfuerzo, alto valor)
-   `python -m wrlab update | analyze <champ> | db rebuild | test | bundle | watch`
-   — envolver los scripts actuales en un solo punto de entrada con argparse.
+1. ~~**`wrlab` CLI unificado**~~ ✅ **hecho en v1.9** — CLI + menú interactivo escalable (`wrlab.py`).
 
 2. ~~**Optimizador v2 para motores batch2**~~ ✅ **hecho en v1.8** — 4 motores (autos/onhit/
    rotacion/aliado) con protocolo de validación en 2 niveles (ver §Hallazgos).
 
-3. **Buscador de runas** (bajo) — misma lógica sobre keystones×secundarias con valor marginal por escenario.
+3. ~~**Buscador de runas**~~ ✅ **hecho en v1.9** — `optimize_runes.py` (autos + rotación).
+   Pendiente v2: motores onhit/aliado (parametrizar LT/Alacrity en kalista()/yuumi()) y
+   verificar en juego los supuestos declarados (CD de Electrocute, valores de Brutal).
 
 4. **Sincronizador con el sitio Quartz** (bajo-medio)
    `wrlab sync-vault <ruta-del-vault>`: copia reportes + fichas con frontmatter, genera
@@ -11778,7 +12081,7 @@ git push -u origin main --tags
 # GitHub Actions corre ci.yml en el push y patch-watch.yml 2×/día.
 ```
 
-## 17. TESTS DE REGRESIÓN (model + update_reports + optimize_build)
+## 17. TESTS DE REGRESIÓN (suite completa)
 
 ```python
 # -*- coding: utf-8 -*-
@@ -12199,15 +12502,15 @@ class TestJinxAutos(unittest.TestCase):
 
     def test_ley0_y_presupuesto(self):
         finales, _ = O.optimizar("jinx", oro=18000, top=5, incluir=POOL_JINX_REPORTE, verbose=False)
-        for score, combo, det, base in finales:
-            self.assertEqual(M.validate_slots(combo), (1, 5))
-            self.assertLessEqual(base["gold"], 18000)
+        for f in finales:
+            self.assertEqual(M.validate_slots(f[1]), (1, 5))
+            self.assertLessEqual(f[3]["gold"], 18000)
 
     def test_restricciones_de_ley_duras(self):
         finales, _ = O.optimizar("jinx", oro=18000, top=5, crit_min=100, pen_min=30, verbose=False)
-        for score, combo, det, base in finales:
-            self.assertGreaterEqual(base["crit"], 100)
-            self.assertGreaterEqual(base["pen"], 30)
+        for f in finales:
+            self.assertGreaterEqual(f[3]["crit"], 100)
+            self.assertGreaterEqual(f[3]["pen"], 30)
 
     def test_pool_completo_no_peor_que_publicada(self):
         """NIVEL 2: post-7.3a la frontera óptima se expande (Yun Tal buffeada); el óptimo
@@ -12217,7 +12520,7 @@ class TestJinxAutos(unittest.TestCase):
         self.assertGreater(hojas, 20000)
         det_c = {e: M.eval_build(M.CHAMPS["jinx"], JINX_C, validate=False, **kw)[m]
                  for e, (kw, m) in O.ESC_AUTOS.items()}
-        max_e = {e: max([det_c[e]] + [d[e] for _, _, d, _ in finales]) for e in O.ESC_AUTOS}
+        max_e = {e: max([det_c[e]] + [f[2][e] for f in finales]) for e in O.ESC_AUTOS}
         eff_c = sum(O.PESOS_AUTOS[e] * det_c[e] / max_e[e] for e in O.ESC_AUTOS)
         self.assertGreaterEqual(finales[0][0] + 1e-9, eff_c)
 
@@ -12227,7 +12530,7 @@ class TestKalistaOnHit(unittest.TestCase):
         """NIVEL 2: el híbrido Statikk supera a K2 por <1.5 % (ruido del modelo: el valor
         defensivo de Wit's End — MR/tenacidad — no está en la fórmula)."""
         finales, hojas = O.optimizar("kalista", top=6, verbose=False)
-        combos = [sorted(c) for _, c, _, _ in finales]
+        combos = [sorted(f[1]) for f in finales]
         self.assertIn(sorted(KALISTA_K2), combos)
         rank = combos.index(sorted(KALISTA_K2)) + 1
         self.assertLessEqual(rank, 3)
@@ -12236,8 +12539,8 @@ class TestKalistaOnHit(unittest.TestCase):
     def test_IE_excluido_por_modelo(self):
         """batch2.kalista no modela críticos → IE fuera del pool (conservador)."""
         finales, _ = O.optimizar("kalista", top=10, verbose=False)
-        for _, combo, _, _ in finales:
-            self.assertNotIn("IE", combo)
+        for f in finales:
+            self.assertNotIn("IE", f[1])
 
 
 class TestDianaRotacion(unittest.TestCase):
@@ -12251,9 +12554,9 @@ class TestDianaRotacion(unittest.TestCase):
     def test_busqueda_estructural(self):
         finales, hojas = O.optimizar("diana", top=3, verbose=False)
         self.assertGreater(hojas, 100)
-        for _, combo, det, base in finales:
-            self.assertEqual(len(combo), 6)
-            self.assertIn(combo[0], ("Spellslinger", "Crimson"))   # 1 botas (Ley 0)
+        for f in finales:
+            self.assertEqual(len(f[1]), 6)
+            self.assertIn(f[1][0], ("Spellslinger", "Crimson"))   # 1 botas (Ley 0)
 
 
 class TestYuumiAliado(unittest.TestCase):
@@ -12266,10 +12569,415 @@ class TestYuumiAliado(unittest.TestCase):
         """Motor aliado: quest (Scythe) fija + botas Crimson + 4 elegibles = 6 slots."""
         finales, hojas = O.optimizar("yuumi", top=5, verbose=False)
         self.assertGreater(hojas, 0)
-        for _, combo, _, _ in finales:
-            self.assertEqual(len(combo), 6)
-            self.assertIn("Crimson", combo)
-            self.assertIn("Scythe", combo)
+        for f in finales:
+            self.assertEqual(len(f[1]), 6)
+            self.assertIn("Crimson", f[1])
+            self.assertIn("Scythe", f[1])
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+
+
+class TestDefensaUtilidad(unittest.TestCase):
+    """Modelo de defensa/utilidad v1.9 (EHP mixto + activas + sustain ponderado)."""
+
+    def test_ehp_botas_magicas(self):
+        bd = O.cargar_base_def("jinx")
+        e_gun, _ = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        e_chain, _ = O.ehp_y_util(["chainlaced", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        self.assertGreater(e_chain, e_gun)          # +150 HP +30 MR + escudo mágico
+
+    def test_util_bt_sobre_kraken(self):
+        bd = O.cargar_base_def("jinx")
+        _, u_c = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        _, u_d = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "bt"], bd, 594)
+        self.assertGreater(u_d, u_c)                # Ichorshield + lifesteal alto
+
+    def test_ga_aporta_utilidad(self):
+        bd = O.cargar_base_def("jinx")
+        _, u_sin = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "kraken"], bd, 186)
+        _, u_ga = O.ehp_y_util(["gunmetal", "c44", "runaan", "ie", "ldr", "ga"], bd, 180)
+        self.assertGreater(u_ga, u_sin + 200)       # bandera Resurrect (300)
+
+    def test_preset_balanceado_habilita_defensivos(self):
+        """Con 15 % EHP + 15 % utilidad, al menos una build del top lleva ítem defensivo/activa."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=8, crit_min=100, pen_min=30,
+                                 preset="balanceado", verbose=False)
+        defensivos = {"ga", "scimitar", "shieldbow", "maw", "chainlaced", "armored_adv",
+                      "immortal_treads", "deathsdance"}
+        claves = [[M.resolve(c).key for c in f[1]] for f in finales]
+        self.assertTrue(any(defensivos & set(k) for k in claves),
+                        f"ningún defensivo en el top: {claves}")
+
+    def test_default_ofensivo_golden_intacto(self):
+        """Sin pesos de defensa (default), el ranking no cambia: C sigue siendo top-1."""
+        finales, _ = O.optimizar("jinx", oro=18000, top=1, crit_min=100, pen_min=30,
+                                 incluir=POOL_JINX_REPORTE, preset="ofensivo", verbose=False)
+        self.assertEqual(sorted(M.resolve(x).key for x in finales[0][1]),
+                         sorted(M.resolve(x).key for x in JINX_C))
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""WR-LAB · tests del buscador de runas (model/optimize_runes.py).
+Validación: reproduce las conclusiones de runas de los reportes (Jinx LT×Alacrity, Diana LT)."""
+import os, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import optimize_runes as R
+
+JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
+DIANA_D2 = ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"]
+
+
+class TestRunasAutos(unittest.TestCase):
+    def test_jinx_lt_alacrity_gana(self):
+        """El reporte de Jinx concluyó LT + Alacrity: el grid completo debe confirmarlo."""
+        grid, base = R.buscar_autos("jinx", JINX_C, top=24)
+        self.assertEqual(grid[0]["ks"], "Lethal Tempo")
+        self.assertEqual(grid[0]["sec"], "Legend: Alacrity")
+        self.assertAlmostEqual(grid[0]["marginal"], 0.0, places=5)
+
+    def test_conqueror_supera_a_first_strike_en_sostenido(self):
+        """+25.5 AD efectivos pesan más que +0.84 % de amp en pelea de 10 s."""
+        d_conq, _ = R.eval_par_autos(__import__("dps_model").CHAMPS["jinx"], JINX_C,
+                                     "Conqueror", "Triumph", {}, "dps1")
+        d_fs, _ = R.eval_par_autos(__import__("dps_model").CHAMPS["jinx"], JINX_C,
+                                   "First Strike", "Triumph", {}, "dps1")
+        self.assertGreater(d_conq, d_fs)
+
+    def test_cut_down_solo_brilla_vs_tanque(self):
+        spec = __import__("dps_model").CHAMPS["jinx"]
+        d_tank_cd, _ = R.eval_par_autos(spec, JINX_C, "Lethal Tempo", "Cut Down",
+                                        dict(armor=220, tank=True, enemy_hp=4500), "dps1")
+        d_tank_al, _ = R.eval_par_autos(spec, JINX_C, "Lethal Tempo", "Legend: Alacrity",
+                                        dict(armor=220, tank=True, enemy_hp=4500), "dps1")
+        d_1v1_cd, _ = R.eval_par_autos(spec, JINX_C, "Lethal Tempo", "Cut Down", {}, "dps1")
+        d_1v1_al, _ = R.eval_par_autos(spec, JINX_C, "Lethal Tempo", "Legend: Alacrity", {}, "dps1")
+        margen_tanque = d_tank_cd / d_tank_al - 1
+        margen_1v1 = d_1v1_cd / d_1v1_al - 1
+        self.assertLess(margen_1v1, margen_tanque)      # Cut Down rinde más vs tanques
+
+    def test_excluidas_documentadas(self):
+        self.assertIn("Brutal", R.EXCLUIDAS)            # gate de calidad de datos
+        self.assertGreaterEqual(len(R.EXCLUIDAS), 5)
+
+
+class TestRunasRotacion(unittest.TestCase):
+    def test_diana_lt_gana(self):
+        """Reporte de Diana: LT supera a Empowerment (+30 % DPS sostenido)."""
+        grid, base = R.buscar_rotacion("diana", DIANA_D2, top=6)
+        self.assertEqual(grid[0]["ks"], "Lethal Tempo")
+        emp = next(g for g in grid if g["ks"] == "Empowerment")
+        self.assertGreater(grid[0]["det"]["dps10s"] / emp["det"]["dps10s"], 1.05)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests de las herramientas de calidad de reportes:
+linter (model/lint_reportes.py), refresh y borrador (update_reports.py).
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, sys, types, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import update_reports as U
+import lint_reportes as L
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REP = os.path.join(ROOT, "reportes")
+
+
+class TestLinter(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.legit = L.nombres_items_oficiales()
+
+    def lint(self, nombre):
+        return L.lint_archivo(os.path.join(REP, nombre), self.legit, "7.3a")
+
+    def test_jinx_sin_errores(self):
+        _, errs, _ = self.lint("Jinx.md")
+        self.assertEqual(errs, [])
+
+    def test_build_no_extraible_es_error(self):
+        for f in ("Seraphine.md", "Heimerdinger.md"):
+            _, errs, _ = self.lint(f)
+            self.assertTrue(any("no extraíble" in e for e in errs), f)
+
+    def test_slot_situacional_es_aviso_no_error(self):
+        _, errs, avis = self.lint("Sivir.md")
+        self.assertEqual(errs, [])
+        self.assertTrue(any("situacional" in a for a in avis))
+
+    def test_item_alucinado_detectado(self):
+        mini = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Support
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol |
+|---|---|---|---|
+| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** | 2 000 | x |
+| 2 | **Bastion of Spirits** | 2 600 | ítem inventado |
+| 3 | **Ardent Censer** | 2 400 | x |
+| 4 | **Echoes of Helia** | 2 400 | x |
+| 5 | **Staff of Flowing Waters** | 2 400 | x |
+| 6 | **Redemption** | 2 450 | x |
+
+## 0. RESUMEN
+"""
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as fh:
+            fh.write(mini)
+            ruta = fh.name
+        try:
+            _, errs, _ = L.lint_archivo(ruta, self.legit, "7.3a")
+            self.assertTrue(any("Bastion of Spirits" in e for e in errs))
+        finally:
+            os.unlink(ruta)
+
+
+class TestRefresh(unittest.TestCase):
+    TXT = ("""---
+champion: Yuumi
+---
+## 0. RESUMEN
+
+### Resultado del modelo (nivel 15)
+
+| Métrica | Valor |
+|---|---|
+| Escudo E | **339** |
+| Cura R | **651** (+excedente) |
+| Escudo/min | ~3 953 |
+
+> Titular dentro de la sección.
+
+---
+
+## 1. CONTEXTO
+
+Texto fuera de la sección con 339 y 651 que NO debe cambiar.
+""")
+
+    def test_refresh_reemplaza_en_seccion_y_no_fuera(self):
+        delta = {"e_shield": -1.4, "r_heal": -1.4, "shield_per_min": -1.4}
+        pre = {"e_shield": 338.8, "r_heal": 650.7, "shield_per_min": 3952.7}
+        post = {"e_shield": 334.0, "r_heal": 641.4, "shield_per_min": 3896.2}
+        nuevo, cambios = U.refresh_texto(self.TXT, delta, pre, post)
+        self.assertTrue(cambios)
+        seccion = nuevo.split("## 1. CONTEXTO")[0]
+        self.assertIn("**334**", seccion)
+        self.assertIn("**641**", seccion)
+        self.assertIn("3 896", seccion)                      # espacio de miles preservado
+        # dentro de la sección TODO número reproducible se actualiza (incluido el titular)…
+        self.assertIn("Titular dentro de la sección.", nuevo)
+        self.assertNotIn("339", seccion.split("### Resultado del modelo")[1])
+        # …pero fuera de la sección no se toca nada
+        self.assertIn("Texto fuera de la sección con 339 y 651 que NO debe cambiar.", nuevo)
+
+    def test_refresh_vault_actual_no_toca_nada(self):
+        """En el vault de hoy: Δ 0 (Jinx/Kalista/Diana) o no reproducible 1:1 (Yuumi poke)."""
+        reg = U.cargar_registro()
+        patch, cs, res = U.triage_todos(reg, patch="7.3a")
+        tocables = 0
+        for t in res:
+            if not t.get("delta") or not any(abs(v) >= 0.05 for v in t["delta"].values()):
+                continue
+            with open(os.path.join(REP, t["archivo"]), encoding="utf-8") as fh:
+                txt = fh.read()
+            _, cambios = U.refresh_texto(txt, t["delta"], t["pre"], t["post_cons"])
+            tocables += len(cambios)
+        self.assertEqual(tocables, 0)
+
+
+class TestBorrador(unittest.TestCase):
+    def test_borradores_73a_existen_y_contienen_datos(self):
+        d = os.path.join(REP, "_borradores")
+        args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            U.cmd_borrador(args)                      # idempotente: los regenera
+        cat = open(os.path.join(d, "Caitlyn_7.3a_REGENERAR.md"), encoding="utf-8").read()
+        ram = open(os.path.join(d, "Rammus_7.3a_REGENERAR.md"), encoding="utf-8").read()
+        self.assertIn("BORRADOR DE REGENERACIÓN", cat)
+        self.assertIn("AS growth 0.04→0.025", cat)
+        self.assertIn("0.025 (7.3a: era 0.04)", cat)          # fila del CSV oficial
+        self.assertIn("ESQUELETO DEL REPORTE NUEVO", cat)
+        self.assertIn("BORRADOR DE REGENERACIÓN", ram)
+        self.assertTrue("45→" in ram or "Armor" in ram)
+
+    def test_baseline_ignora_borradores(self):
+        reg = U.construir_registro()
+        self.assertNotIn("_borradores", reg["reportes"])
+        self.assertEqual(len(reg["reportes"]), 16)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests de los bundles portables (model/build_bundles.py).
+Los bundles son ARTEFACTOS DERIVADOS: estos tests garantizan que los .md de la raíz
+están sincronizados con las fuentes (si alguien edita una fuente y no regenera, CI falla).
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, re, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import build_bundles as BB
+
+
+def _norm(t):
+    t = re.sub(r"\d{2}/\d{2}/\d{4}", "<FECHA>", t)
+    return re.sub(r"sha256\(cuerpo\)=[0-9a-f]+", "sha=<X>", t)
+
+
+class TestBundlesSincronizados(unittest.TestCase):
+    def test_lite_al_dia(self):
+        with open(os.path.join(BB.ROOT, "WR-LAB_lite.md"), encoding="utf-8") as fh:
+            disco = fh.read()
+        self.assertEqual(_norm(disco), _norm(BB.generar("LITE")),
+                         "WR-LAB_lite.md desfasado — corre: python3 model/build_bundles.py")
+
+    def test_completo_al_dia(self):
+        with open(os.path.join(BB.ROOT, "WR-LAB_completo.md"), encoding="utf-8") as fh:
+            disco = fh.read()
+        self.assertEqual(_norm(disco), _norm(BB.generar("COMPLETO")),
+                         "WR-LAB_completo.md desfasado — corre: python3 model/build_bundles.py")
+
+
+class TestContenidoBundles(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.lite = BB.generar("LITE")
+        cls.completo = BB.generar("COMPLETO")
+
+    def test_integridad_lite(self):
+        problemas, n_as, n_items, _ = BB.validar(self.lite, "LITE")
+        self.assertEqual(problemas, [])
+        self.assertEqual(n_as, 140)                      # los 140 campeones del apéndice oficial
+        self.assertEqual(n_items, 186)
+
+    def test_integridad_completo(self):
+        problemas, _, _, n_rep = BB.validar(self.completo, "COMPLETO")
+        self.assertEqual(problemas, [])
+        self.assertEqual(n_rep, len([f for f in os.listdir(os.path.join(BB.ROOT, "reportes")) if f.endswith(".md")]))
+
+    def test_modulos_nuevos_embebidos(self):
+        for modulo in ("model/optimize_build.py", "model/update_reports.py",
+                       "model/analysis_batch2.py"):
+            fuente = open(os.path.join(BB.ROOT, *modulo.split("/")), encoding="utf-8").read()
+            self.assertIn(fuente[:1500], self.completo, f"{modulo} no embebido íntegro")
+        # el lite trae el optimizador (herramienta de análisis) pero no la infraestructura
+        self.assertIn("optimize_build", self.lite)
+        self.assertNotIn("def cmd_baseline", self.lite)
+
+    def test_reportes_con_verificacion_en_el_completo(self):
+        m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
+        self.assertIsNotNone(m, "sección §14 no encontrada")
+        n = len(re.findall(r"WRLAB-VERIF:7\.3a:START", m.group(0)))
+        reportes = [f for f in os.listdir(os.path.join(BB.ROOT, "reportes")) if f.endswith(".md")]
+        self.assertEqual(n, len(reportes))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests del CLI unificado + menú (wrlab.py).
+Validan el registro de acciones (escalabilidad), el render del menú y el cableado
+de extremo a extremo con un par de smoke-tests por subprocess.
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, subprocess, sys, unittest
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+import wrlab
+
+
+class TestRegistroMenu(unittest.TestCase):
+    def test_estructura_bien_formada(self):
+        flat = wrlab.acciones_planas()
+        self.assertGreaterEqual(len(flat), 12)
+        etiquetas = [lbl for lbl, _ in flat]
+        self.assertEqual(len(etiquetas), len(set(etiquetas)), "etiquetas duplicadas en el menú")
+        for lbl, fn in flat:
+            self.assertTrue(callable(fn), lbl)
+            self.assertTrue(lbl.strip())
+
+    def test_menu_texto_renderiza(self):
+        t = wrlab.menu_texto()
+        for seccion in ("ESTADO", "CICLO DE HOTFIX", "ANÁLISIS", "ARTEFACTOS"):
+            self.assertIn(seccion, t)
+        self.assertIn("0. Salir", t)
+
+    def test_comandos_no_interactivos_cubren_el_ciclo(self):
+        for cmd in ("estado", "watch", "hotfix", "triage", "refresh", "borrador",
+                    "annotate", "baseline", "optimize", "runes", "lint", "tests",
+                    "bundles", "db", "motor", "git", "menu"):
+            self.assertIn(cmd, wrlab.COMANDOS, cmd)
+
+
+class TestSmokeSubprocess(unittest.TestCase):
+    def _wrlab(self, *args, stdin=""):
+        return subprocess.run([sys.executable, os.path.join(ROOT, "wrlab.py"), *args],
+                              cwd=ROOT, input=stdin, capture_output=True, text=True, timeout=180)
+
+    def test_sin_args_y_sin_tty_no_cuelga(self):
+        r = self._wrlab()
+        self.assertEqual(r.returncode, 0)
+        self.assertIn("stdin no es una terminal", r.stdout)
+
+    def test_comando_desconocido_da_usage(self):
+        r = self._wrlab("inexistente")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("comando desconocido", r.stderr + r.stdout)
+
+    def test_estado_extremo_a_extremo(self):
+        """'estado' encadena update_reports check + bundles --check + lint → todo en verde."""
+        r = self._wrlab("estado")
+        self.assertEqual(r.returncode, 0, r.stdout[-2000:])
+        self.assertIn("TODO EN ORDEN", r.stdout)
+
+    def test_lint_solo_un_archivo(self):
+        r = self._wrlab("lint", "--solo", "Jinx.md")
+        self.assertEqual(r.returncode, 0)
+        self.assertIn("Jinx.md", r.stdout)
+
+    def test_menu_in_process_selecciona_accion_y_sale(self):
+        """Menú driveado in-process: elige la acción 'Motor de DPS — demo Jinx', vuelve y sale."""
+        import builtins, contextlib, io
+        from unittest import mock
+        flat = wrlab.acciones_planas()
+        idx = next(i for i, (lbl, _) in enumerate(flat, 1) if "Motor de DPS" in lbl)
+        respuestas = iter([str(idx), "", "0"])           # acción → Enter (volver) → salir
+        buf = io.StringIO()
+        with mock.patch.object(builtins, "input", lambda *_: next(respuestas)), \
+                contextlib.redirect_stdout(buf):
+            rc = wrlab.menu()
+        out = buf.getvalue()
+        self.assertEqual(rc, 0)
+        self.assertIn("Motor de DPS", out)                 # la acción se lanzó desde el menú
+        self.assertGreaterEqual(out.count("menú principal"), 2)  # …y el bucle volvió a pintar el menú
 
 
 if __name__ == "__main__":
@@ -13423,7 +14131,408 @@ if __name__ == "__main__":
     main()
 ```
 
-## 18. INFRAESTRUCTURA DE MANTENIMIENTO (extract_data · build_db · check_patch · parse_champs)
+## 18. INFRAESTRUCTURA (CLI unificado wrlab.py + extract_data · build_db · check_patch · parse_champs · lint_reportes)
+
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · wrlab.py — CLI unificado + menú interactivo (ROADMAP módulo 1 · v1.9)
+===============================================================================
+Un solo punto de entrada para TODO el laboratorio. Dos modos:
+
+INTERACTIVO (menú escalable — sin argumentos):
+    python3 wrlab.py
+    → menú numerado por secciones; cada acción pide solo los parámetros que necesita.
+    → para añadir funcionalidades nuevas: registrar una entrada en MENU (abajo).
+
+NO INTERACTIVO (scripts/CI/chat externo):
+    python3 wrlab.py estado                  # salud local: check reportes + bundles + lint
+    python3 wrlab.py watch                   # vigía de parches (red; exit 1 si hay cambios)
+    python3 wrlab.py hotfix 7.3b             # CICLO COMPLETO §E pasos 7-8 (con confirmación)
+    python3 wrlab.py triage|refresh|borrador|annotate|baseline [--patch X] [--apply]
+    python3 wrlab.py optimize <champ> [flags de optimize_build…]
+    python3 wrlab.py runes <champ> [flags de optimize_runes…]
+    python3 wrlab.py lint [--strict] [--solo X.md]
+    python3 wrlab.py tests | bundles | db | motor | git
+"""
+import os, subprocess, sys
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+PY = sys.executable or "python3"
+
+
+def run(*cmd, check=False):
+    """Ejecuta un comando del lab (cwd = raíz) con salida en vivo. Devuelve exit code."""
+    print(f"\n$ {' '.join(cmd)}\n" + "─" * 72)
+    r = subprocess.run(list(cmd), cwd=ROOT)
+    print("─" * 72 + f"\n[exit {r.returncode}]")
+    if check and r.returncode != 0:
+        sys.exit(r.returncode)
+    return r.returncode
+
+
+def py(script, *args):
+    return run(PY, os.path.join("model", script), *args)
+
+
+def preguntar(mensaje, default=None):
+    if not sys.stdin.isatty():
+        if default:
+            return default
+        sys.exit(f"falta parámetro ({mensaje}) y stdin no es interactivo — pásalo como argumento")
+    d = f" [{default}]" if default else ""
+    r = input(f"{mensaje}{d}: ").strip()
+    return r or (default or "")
+
+
+# ---------------------------------------------------------------- acciones
+def acc_estado(_=None):
+    ok = True
+    ok &= py("update_reports.py", "check") == 0
+    ok &= py("build_bundles.py", "--check") == 0
+    py("lint_reportes.py")                     # informativo, no rompe el estado
+    print("\nEstado general:", "✅ TODO EN ORDEN" if ok else "❌ HAY PENDIENTES (ver arriba)")
+    return 0 if ok else 1
+
+
+def acc_hotfix(patch=None):
+    patch = patch or preguntar("Parche del hotfix (ej. 7.3b)", "7.3b")
+    print(f"""
+CICLO COMPLETO de hotfix {patch} (FRAMEWORK §E pasos 7-8).
+⚠️ ANTES de continuar, los pasos 1-6 deben estar hechos (datos nuevos aplicados a
+   data/estructurada/, motor y specs; diff estructurado cambios_{patch}.md escrito).
+Acciones: triage → refresh --apply → borrador → annotate --apply → baseline
+          → tests → bundles → BD → check""")
+    if input("¿Continuar? (s/N): ").strip().lower() not in ("s", "sí", "si"):
+        print("Cancelado.")
+        return 0
+    p = ["--patch", patch]
+    codes = [py("update_reports.py", "triage", *p),
+             py("update_reports.py", "refresh", *p, "--apply"),
+             py("update_reports.py", "borrador", *p),
+             py("update_reports.py", "annotate", *p, "--apply"),
+             py("update_reports.py", "baseline"),
+             run(PY, "-m", "unittest", "discover", "-s", "tests"),
+             py("build_bundles.py"),
+             py("build_db.py"),
+             py("update_reports.py", "check")]
+    print("\nResumen de códigos:", codes)
+    print("→ Falta: revisar borradores en reportes/_borradores/, decidir reemplazos y hacer commit/push.")
+    return 0 if all(c == 0 for c in codes) else 1
+
+
+def acc_optimize(args=None):
+    champ = (args or [None])[0] or preguntar("Campeón (jinx, yunara, kalista, diana, yuumi…)", "jinx")
+    extra = (args or [])[1:]
+    return py("optimize_build.py", champ, *extra)
+
+
+def acc_runes(args=None):
+    champ = (args or [None])[0] or preguntar("Campeón (motor autos o rotacion)", "jinx")
+    extra = (args or [])[1:]
+    return py("optimize_runes.py", champ, *extra)
+
+
+def acc_git(_=None):
+    run("git", "status", "-sb")
+    run("git", "log", "--oneline", "-6")
+    run("git", "tag", "-l")
+    print("\nPara publicar:  git push origin main --tags   (requiere tus credenciales)")
+    return 0
+
+
+# ---------------------------------------------------------------- menú (registro escalable)
+MENU = [
+    ("📊 ESTADO", [
+        ("Salud del lab (reportes verificados + bundles al día + lint)", lambda _: acc_estado()),
+        ("Vigía de parches — ¿hotfix nuevo? (red)", lambda _: py("check_patch.py")),
+        ("Estado git (status/log/tags)", acc_git),
+    ]),
+    ("🔥 CICLO DE HOTFIX (FRAMEWORK §E)", [
+        ("CICLO COMPLETO: triage→refresh→borrador→annotate→baseline→tests→bundles→BD→check", acc_hotfix),
+        ("Solo triage (ver impacto por reporte)", lambda _: py("update_reports.py", "triage")),
+        ("Solo refresh --apply (números reproducibles in-place)", lambda _: py("update_reports.py", "refresh", "--apply")),
+        ("Solo borrador (esqueletos de ❌ REGENERAR)", lambda _: py("update_reports.py", "borrador")),
+        ("Solo annotate --apply (bloques WRLAB-VERIF)", lambda _: py("update_reports.py", "annotate", "--apply")),
+        ("Solo baseline (re-sellar registro)", lambda _: py("update_reports.py", "baseline")),
+    ]),
+    ("🧮 ANÁLISIS", [
+        ("Optimizador de builds (4 motores, leyes, presets defensa/utilidad)", acc_optimize),
+        ("Buscador de runas (keystone × secundaria, valor marginal)", acc_runes),
+        ("Motor de DPS — demo Jinx (validación del engine)", lambda _: py("dps_model.py")),
+        ("Lint de reportes del vault", lambda _: py("lint_reportes.py")),
+    ]),
+    ("📦 ARTEFACTOS", [
+        ("Regenerar bundles portables (lite + completo)", lambda _: py("build_bundles.py")),
+        ("Reconstruir BD SQLite (wrlab.db)", lambda _: py("build_db.py")),
+        ("Tests completos (unittest discover)", lambda _: run(PY, "-m", "unittest", "discover", "-s", "tests")),
+    ]),
+]
+
+COMANDOS = {   # modo no interactivo
+    "estado": lambda a: acc_estado(),
+    "watch": lambda a: py("check_patch.py"),
+    "hotfix": lambda a: acc_hotfix(a[0] if a else None),
+    "triage": lambda a: py("update_reports.py", "triage", *a),
+    "refresh": lambda a: py("update_reports.py", "refresh", *a),
+    "borrador": lambda a: py("update_reports.py", "borrador", *a),
+    "annotate": lambda a: py("update_reports.py", "annotate", *a),
+    "baseline": lambda a: py("update_reports.py", "baseline", *a),
+    "check": lambda a: py("update_reports.py", "check"),
+    "optimize": lambda a: acc_optimize(a),
+    "runes": lambda a: acc_runes(a),
+    "lint": lambda a: py("lint_reportes.py", *a),
+    "tests": lambda a: run(PY, "-m", "unittest", "discover", "-s", "tests"),
+    "bundles": lambda a: py("build_bundles.py", *a),
+    "db": lambda a: py("build_db.py"),
+    "motor": lambda a: py("dps_model.py"),
+    "git": acc_git,
+    "menu": lambda a: menu(),
+}
+
+
+def menu_texto():
+    lineas = ["", "⚗️  WR-LAB · menú principal  (parche vigente: 7.3+7.3a · Wild Rift)",
+              "=" * 62]
+    n = 1
+    for seccion, acciones in MENU:
+        lineas.append(f"\n{seccion}")
+        for label, _fn in acciones:
+            lineas.append(f"  {n:>2}. {label}")
+            n += 1
+    lineas.append(f"\n   0. Salir")
+    lineas.append("=" * 62)
+    return "\n".join(lineas)
+
+
+def acciones_planas():
+    flat = []
+    for _, acciones in MENU:
+        flat.extend(acciones)
+    return flat
+
+
+def menu():
+    flat = acciones_planas()
+    while True:
+        print(menu_texto())
+        try:
+            sel = input("\nOpción: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return 0
+        if sel in ("0", "q", "salir", ""):
+            return 0
+        if not sel.isdigit() or not (1 <= int(sel) <= len(flat)):
+            print("⚠️ opción no válida")
+            continue
+        label, fn = flat[int(sel) - 1]
+        print(f"\n▶ {label}")
+        try:
+            fn(None)
+        except SystemExit as e:              # los scripts del lab usan sys.exit
+            print(f"[exit {e.code}]")
+        except (EOFError, KeyboardInterrupt):
+            print("\n(interrumpido)")
+        try:
+            input("\n— Enter para volver al menú —")
+        except (EOFError, KeyboardInterrupt):
+            return 0
+
+
+def main():
+    if len(sys.argv) > 1:
+        cmd, resto = sys.argv[1], sys.argv[2:]
+        if cmd not in COMANDOS:
+            print(__doc__)
+            sys.exit(f"comando desconocido: '{cmd}' (válidos: {', '.join(COMANDOS)})")
+        sys.exit(COMANDOS[cmd](resto) or 0)
+    if not sys.stdin.isatty():
+        print(__doc__)
+        print("(stdin no es una terminal — usa un subcomando, o ejecuta en una terminal para el menú)")
+        sys.exit(0)
+    sys.exit(menu())
+
+
+if __name__ == "__main__":
+    main()
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · lint_reportes.py — validador/linter de reportes (vault y chats externos)
+=================================================================================
+Revisa cada .md de reportes/ contra los estándares del lab y detecta la deriva
+típica de reportes generados en chats externos:
+
+ERRORES (rompen la integrabilidad con el lab):
+    · sin frontmatter YAML o sin Status
+    · build final no extraíble (ninguna tabla de 6 slots reconocible)
+    · build extraída viola la Ley 0 (≠6 slots, 0 o 2+ botas)
+    · ÍTEM INEXISTENTE en la base oficial items_7.3.csv (alucinaciones tipo
+      "Bastion of Spirits", "Sorcerer's Shoes", "Aurora Guard")
+
+AVISOS (estilo/completitud v1.4, no bloquean):
+    · sin 'champion:'/'patch:' en frontmatter (el lab los deriva del archivo)
+    · sin línea **Rol principal:** · sin **Parche:** declarado
+    · sin bloque WRLAB-VERIF del último hotfix (correr update_reports.py annotate)
+    · pie de página / referencias ausentes · números de 4+ dígitos sin espacio de miles
+
+Uso:
+    python3 model/lint_reportes.py                 # tabla informativa (exit 0)
+    python3 model/lint_reportes.py --strict        # exit 1 si hay ERRORES (para CI/gate)
+    python3 model/lint_reportes.py --solo Jinx.md  # un archivo
+"""
+import argparse, csv, os, re, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPORTES = os.path.join(ROOT, "reportes")
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import update_reports as U
+
+
+def nombres_items_oficiales():
+    """Set normalizado de TODO nombre de ítem legítimo (CSV oficial + alias del motor
+    + sinónimos del actualizador + diccionarios batch2)."""
+    legit = set()
+    with open(os.path.join(ROOT, "data", "estructurada", "items_7.3.csv"),
+              encoding="utf-8", newline="") as fh:
+        for fila in csv.reader(fh):
+            if fila and fila[0] and fila[0].lower() != "item":
+                legit.add(U._norm(fila[0]))
+    import dps_model as M
+    import analysis_batch2 as B2
+    for a in list(M.ALIAS) + list(M.ITEMS):
+        legit.add(U._norm(a))
+    for s in U.SINONIMOS:
+        legit.add(U._norm(s))
+    for dic in (B2.K_ITEMS, B2.D_ITEMS, B2.Y_ITEMS):
+        for k in dic:
+            legit.add(U._norm(k))
+    # formas T2/T3 y nombres compuestos frecuentes ya cubiertos por ALIAS/SINONIMOS
+    return legit
+
+
+def lint_archivo(path, legit, ultimo_patch):
+    archivo = os.path.basename(path)
+    with open(path, encoding="utf-8") as fh:
+        txt = fh.read()
+    errores, avisos = [], []
+    fm = U.parse_frontmatter(txt)
+
+    if not fm:
+        errores.append("sin frontmatter YAML (--- … ---)")
+    else:
+        if not fm.get("Status"):
+            errores.append("frontmatter sin 'Status'")
+        if not fm.get("champion"):
+            avisos.append("frontmatter sin 'champion:' (el lab lo deriva del nombre de archivo)")
+        if not fm.get("patch"):
+            avisos.append("frontmatter sin 'patch:' (se usa la línea **Parche:**)")
+
+    if not re.search(r"\*\*Rol principal:\*\*", txt):
+        avisos.append("sin línea **Rol principal:** (tags del frontmatter como fallback)")
+    pd = U.parche_declarado(fm, txt)
+    if not pd:
+        avisos.append("sin parche declarado (**Parche:** o patch: en frontmatter)")
+
+    build, fuente = U.extraer_build(txt)
+    if not build:
+        errores.append("build final no extraíble (ninguna tabla de 6 slots con header de slot)")
+    else:
+        if len(build) != 6:
+            errores.append(f"la build extraída tiene {len(build)} slots (Ley 0: 6)")
+        n_boots = sum(1 for b in build if _es_botas(b, legit))
+        if n_boots != 1:
+            errores.append(f"Ley 0: {n_boots} botas en la build extraída (debe ser exactamente 1)")
+        PLACEHOLDERS = ("situacional", "flexible", "según matchup", "segun matchup")
+        for b in build:
+            if any(p in b.lower() for p in PLACEHOLDERS):
+                avisos.append(f"slot con ítem situacional ('{b}') — la build final v1.4 lista un ítem concreto + matriz situacional aparte")
+            elif not _item_legitimo(b, legit):
+                errores.append(f"ÍTEM INEXISTENTE en items_7.3.csv: '{b}' (¿alucinación o nombre viejo?)")
+        if fuente != "Tabla A":
+            avisos.append(f"build extraída de '{fuente}' (no Tabla A estándar v1.4)")
+
+    if ultimo_patch and f"WRLAB-VERIF:{ultimo_patch}:START" not in txt:
+        avisos.append(f"sin bloque de verificación {ultimo_patch} (update_reports.py annotate --apply)")
+    if not re.search(r"^## Pie de página", txt, re.M):
+        avisos.append("sin '## Pie de página' (referencias Riot/wr-meta/WR-LAB + aviso legal)")
+    resumen = re.search(r"(>\s+\*\*Oro total[^\n]+)", txt)
+    if resumen and re.search(r"(?<![\d ])\d{4,}(?![\d ])", resumen.group(1)):
+        avisos.append("números de 4+ dígitos sin espacio de miles en el resumen (estándar v1.4: '17 350 g')")
+    return archivo, errores, avisos
+
+
+def _es_botas(nombre, legit):
+    n = U._norm(nombre)
+    import dps_model as M
+    botas_norm = {U._norm(a) for a, k in M.ALIAS.items() if k in M.BOOTS_ALL}
+    botas_norm |= {U._norm(k) for k in M.BOOTS_ALL}
+    botas_norm |= {U._norm(x) for x in ("crimson lucidity", "gunmetal greaves", "spellslinger's shoes",
+                                        "chainlaced crushers", "armored advance", "armorcrusher boots",
+                                        "immortal treads", "ionian boots", "berserker's greaves",
+                                        "mercury's treads", "plated steelcaps", "boots of mana",
+                                        "boots of dynamism", "gluttonous greaves", "boots of speed")}
+    return n in botas_norm
+
+
+def _item_legitimo(nombre, legit):
+    n = U._norm(nombre)
+    if n in legit:
+        return True
+    base = U._norm(re.sub(r"\s*\(.*?\)\s*", " ", nombre))     # sin paréntesis
+    if base in legit:
+        return True
+    m = re.search(r"\(([^)]+)\)", nombre)                      # alias entre paréntesis
+    if m and U._norm(m.group(1)) in legit:
+        return True
+    for v in U.expandir_nombre_item(nombre):                   # nombres compuestos
+        if U._norm(v) in legit:
+            return True
+    return False
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · linter de reportes del vault")
+    ap.add_argument("--strict", action="store_true", help="exit 1 si hay ERRORES")
+    ap.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
+    args = ap.parse_args()
+
+    legit = nombres_items_oficiales()
+    ultimo_patch = U.ultimo_parche_hotfix()[0]
+    solo = set(args.solo.split(",")) if args.solo else None
+    total_e = total_a = 0
+    filas = []
+    for f in sorted(os.listdir(REPORTES)):
+        if not f.endswith(".md") or (solo and f not in solo):
+            continue
+        archivo, errs, avis = lint_archivo(os.path.join(REPORTES, f), legit, ultimo_patch)
+        total_e += len(errs)
+        total_a += len(avis)
+        filas.append((archivo, errs, avis))
+
+    print(f"=== LINT de {len(filas)} reportes (ítems oficiales: {len(legit)} nombres; "
+          f"último hotfix: {ultimo_patch}) ===")
+    for archivo, errs, avis in filas:
+        estado = "❌" if errs else ("⚠️ " if avis else "✅")
+        print(f"{estado} {archivo:<44} {len(errs)} errores · {len(avis)} avisos")
+        for e in errs:
+            print(f"     ERROR: {e}")
+        for a in avis:
+            print(f"     aviso: {a}")
+    print(f"\nTotal: {total_e} errores · {total_a} avisos en {len(filas)} reportes.")
+    if args.strict and total_e:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+```
 
 ```python
 # -*- coding: utf-8 -*-
@@ -13972,4 +15081,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 29/09/2026 · completo · sha256(cuerpo)=2797703b4df3588b · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 29/09/2026 · completo · sha256(cuerpo)=24aef853c074feac · NO editar a mano: editar las fuentes y regenerar -->
