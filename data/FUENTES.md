@@ -1,6 +1,6 @@
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+**Última actualización del lab:** 1 de octubre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
 
 ## Registro de verificaciones de parche
 
@@ -12,6 +12,7 @@
 | 29/09/2026 | Vault externo integrado (16 reportes sustituyen a los 5 del lab, commit 163d9bc) | Re-triage 7.3a del vault: **Caitlyn ❌ y Rammus ❌ REGENERAR** (7.3a tocó inputs de su spec: AS growth / armadura base — sus reportes declaran datos 7.3), **Yuumi ⚠️ REVISAR** (nerf W sin hook para la build poke-híbrida: Stormsurge/Harmonic Echo fuera del modelo), 13 ✅ ANOTAR/SIN IMPACTO | Bloques `WRLAB-VERIF:7.3a` en los 16 reportes + registro |
 | 29/09/2026 | Validación cruzada del optimizador (`optimize_build.py`) | ✅ **Redescubre la build C de Jinx** dentro del pool de candidatos del reporte (Leyes 1+3 duras, 3 042 dps1). Pool completo post-7.3a: `Gunmetal+C44+Terminus+YunTal+LDR+IE` supera a C ~7 % en eficiencia ponderada normalizada (supuestos: Yun Tal a rampa máxima 125 ataques, Terminus a stacks) — **hallazgo registrado, reporte publicado intacto** (Regla de Oro) | ROADMAP.md §Hallazgos del optimizador |
 | 29/09/2026 | **Nota EN oficial de 7.3a publicada** (detectada por check_patch.py en vivo) | Descargada y verificada número por número contra `cambios_7.3a.md` (traducción CN): **todo coincide** — specs/motor/tests del lab quedan confirmados contra fuente primaria. Discrepancia menor registrada: Crown of Songs (ver §Discrepancias). wr-meta indexó changelogs "30 SEP 2026 (7.3A)" en Yuumi/Malphite | `data/raw/patch73a_en.html/.txt` |
+| 01/10/2026 | **Win rates integradas al vigía** (v1.11, petición del autor: "dato vital siempre actualizado") | `check_patch.py` paso 4: bloque Meta Overview de wr-meta (bucket Diamond+) para el roster (17 campeones = 16 reportes + 13 specs, ampliado por el registro); escribe `champion_winrates.csv/.md`, alimenta la tabla `winrates` de la BD y el §7b de los bundles; alerta si |Δ win rate| ≥ 2 pts; el lint avisa si el callout meta de un reporte diverge >3 pts. Siembra en vivo: 17 campeones · 22 filas · "Updated: 01 OCT 2026 UTC 00:00". IDs verificados contra home + sitemap.xml de wr-meta (descubiertos: caitlyn 317, sivir 394, norra 552, rammus 242, hwei 505) | `data/estructurada/champion_winrates.csv`, `.watch_state.json` (secciones `winrates`/`wrmeta_ids`) |
 | 29/09/2026 | Bundles regenerables | `WR-LAB_lite.md` (176 KB) y `WR-LAB_completo.md` (836 KB) regenerados desde las fuentes con los 16 reportes del vault + módulos nuevos (optimizador §10c, batch2 §10b, actualizador §17b, infra §18); CI verifica sincronía (`build_bundles.py --check`) | `model/build_bundles.py` |
 
 ## Hotfix 7.3a (29-sep-2026)
@@ -34,6 +35,7 @@
 |---|---|---|---|---|
 | wr-meta.com/items | wr-meta.com/items/ | 25/09/2026 (`data/raw/wrmeta_items.html`, 510 KB) | Stats completos y precio de los 186 ítems únicos (incluye nuevos de 7.3), pasivas, botas T2/T3, runas | Alta: incluye ítems 7.3; desfasada en runas removidas (lista Ingenious Hunter) y texto viejo de Lethal Tempo |
 | wr-meta.com Jinx | wr-meta.com/39-jinx.html | 25/09/2026 (`data/raw/wrmeta_jinx.html/.txt`) | Stats base de Jinx (58 AD/630 HP/335 MS/575 rango), valores por habilidad, change history completo, build popular y meta (WR 49.82 %, pick 10.97 %, Diamond+, 24/09) | Alta para números de kit; la build popular es insumo, no conclusión |
+| wr-meta.com — Meta Overview (win rates) | wr-meta.com/{id}-{champ}.html (bloque `wrCnFsSnapWrap`) + sitemap.xml para ids | vivo, 2×/día vía `check_patch.py` paso 4 (`champion_winrates.csv/.md`) | Win/pick/ban/trend + tier y confianza por rol, bucket Diamond+ (select por defecto de la página) | Contexto meta (secundaria): no decide builds; para callouts de reportes y detección de movimientos ≥ 2 pts |
 | wr-meta.com — 11 fichas del equipo | wr-meta.com/{id}-{champ}.html (yuumi 321, yunara 545, mordekaiser 365, kalista 349, diana 216, karma 323, heimerdinger 346, volibear 411, seraphine 34, shyvana 23, chogath 339) | 25/09/2026 (`data/raw/campeones/*.html` → `data/estructurada/campeones/*.md` + `champion_base_stats.json`) | Stats base, habilidades con valores, change history y builds populares de los 11 campeones del roster | Alta en general; ⚠️ Volibear muestra ad_growth "56" (errata probable — verificar); el rango de ataque no se publica (verificar Kalista/Yunara en juego) |
 
 ## Fuentes intentadas y descartadas (para no repetir el trabajo)
@@ -72,4 +74,7 @@ data/raw/patch72.txt   ───→ referencia del sistema de botas/encantamient
 data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
                            └→ runas_7.3.md
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
+wr-meta.com/{id}-{champ}.html (EN VIVO, vigía 2×/día — check_patch.py paso 4)
+                        └→ champion_winrates.csv / champion_winrates.md (Diamond+)
+                           └→ BD tabla `winrates` + bundle §7b + callouts meta de reportes
 ```

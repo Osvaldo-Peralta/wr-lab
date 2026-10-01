@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.10):** repo git versionado · BD SQLite derivada · 107 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.11):** repo git versionado · BD SQLite derivada · 124 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
 
 ## Ya disponible
 
@@ -12,7 +12,8 @@
 | **Actualizador de reportes publicados** | `model/update_reports.py` + `data/estructurada/reportes_registry.json` + `tests/test_update_reports.py` | ✅ triage/annotate/check: un hotfix **anota** los reportes con su Δ medido (umbrales 2 %/5 %) en vez de regenerarlos; bloques `WRLAB-VERIF` idempotentes; CI detecta drift y reportes sin triar. Parser v2: reportes del vault sin frontmatter champion, tablas BUILD FINAL, alias en paréntesis, veredicto ⏩ AL_DIA |
 | **Optimizador de builds** | `model/optimize_build.py` + `tests/test_optimize_build.py` | ✅ búsqueda exhaustiva (DFS podado por oro/AS/crit) sobre el motor dps_model: top-N por objetivo ponderado **normalizado** por escenario; `--crit-min/--pen-min` (Leyes 1/3 duras), `--incluir/--excluir`, `--oro`, `--validar` (validación cruzada: **redescubre la build C de Jinx**). Alcance v1: arquetipo de autos; pendiente: motores batch2 (Kalista/Diana/soportes) |
 | **Regenerador de bundles** | `model/build_bundles.py` | ✅ lite/completo son artefactos derivados de las fuentes; `--check` en CI evita desfases; validación de integridad embebida (motor íntegro, 140 AS, 186 ítems, 16 reportes con WRLAB-VERIF, 11 fichas) |
-| Vigía de parches | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta |
+| Vigía de parches + win rates | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta · **paso 4 (v1.11): actualiza las win rates del roster en el mismo proceso** |
+| **Win rates del roster (Diamond+)** | `model/check_patch.py` paso 4 + `data/estructurada/champion_winrates.csv/.md` + tabla `winrates` en la BD + §7b de los bundles + `wrlab.py winrates` | ✅ fuente de los callouts meta de los reportes (TEMPLATE §A.1); alerta del vigía si \|Δ win rate\| ≥ 2 pts; el lint avisa si un callout publicado diverge >3 pts del dato actual; ids wr-meta descubiertos por sitemap y persistidos en `.watch_state.json` |
 | CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
 | Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
 
@@ -71,8 +72,11 @@
   cero superficie de rotura. `requirements.txt` existe pero está vacío a propósito.
 - **Golden tests:** los números canónicos de los reportes están fijados en tests; cualquier cambio de
   datos que los mueva falla en CI y obliga a documentar el porqué (como el override 7.3a de Caitlyn).
-- **El vigía no actualiza solo:** detecta y avisa (exit 1 + step summary). La actualización real sigue
-  el protocolo FRAMEWORK §E porque requiere criterio (discrepancias, overrides, re-validación).
+- **El vigía no actualiza solo el PARCHE:** detecta y avisa (exit 1 + step summary); la actualización
+  de datos de balance sigue el protocolo FRAMEWORK §E porque requiere criterio (discrepancias,
+  overrides, re-validación). Excepción (v1.11): las **win rates** sí las escribe en el mismo ciclo —
+  son dato de contexto (no de balance), su fuente es única y el formato es estable; el commit-back
+  del workflow las persiste junto a `.watch_state.json`.
 
 ## Para ponerlo en GitHub (una vez, ~3 minutos)
 

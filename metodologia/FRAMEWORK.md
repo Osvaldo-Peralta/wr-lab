@@ -150,12 +150,20 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 
 > 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
 > "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
+>
+> 🏹 v1.11: el vigía (`python3 model/check_patch.py`, cron 2×/día) busca parches/hotfix
+> nuevos **y en el mismo proceso actualiza las win rates del roster**
+> (`data/estructurada/champion_winrates.csv/.md`, wr-meta Diamond+). Los callouts
+> "Estado Meta Actual" de los reportes nuevos o regenerados se citan desde ese archivo,
+> nunca de memoria (TEMPLATE §A.1); refresco manual: `python3 wrlab.py winrates`.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):
 #    https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-X-X/
 #    → limpiar HTML → data/raw/patchX.txt  (mismo formato que patch73.txt)
 # 2. Re-descargar https://wr-meta.com/items/ → data/raw/wrmeta_items.html
+# 2b. Win rates (v1.11): las refresca el vigía en este mismo protocolo —
+#     python3 wrlab.py winrates → data/estructurada/champion_winrates.csv/.md
 #    (alternativa si cae: wr-meta.com/<id>-<champion>.html por campeón)
 # 3. Re-ejecutar:  python3 model/extract_data.py
 # 4. Diffear contra la versión anterior de items_7.3.csv / champion_attack_speed_7.3.csv

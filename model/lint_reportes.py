@@ -13,6 +13,8 @@ ERRORES (rompen la integrabilidad con el lab):
       "Bastion of Spirits", "Sorcerer's Shoes", "Aurora Guard")
 
 AVISOS (estilo/completitud v1.4, no bloquean):
+    · callout meta con win rate desactualizado vs champion_winrates.csv (>3 pts — el vigía
+      refresca ese CSV 2×/día; los reportes nuevos deben citarlo, TEMPLATE §A.1)
     · sin 'champion:'/'patch:' en frontmatter (el lab los deriva del archivo)
     · sin línea **Rol principal:** · sin **Parche:** declarado
     · sin bloque WRLAB-VERIF del último hotfix (correr update_reports.py annotate)
@@ -55,6 +57,23 @@ def nombres_items_oficiales():
     return legit
 
 
+WR_CACHE = None
+
+def _winrates_actuales():
+    """{champion_norm: [filas csv]} de data/estructurada/champion_winrates.csv (si existe)."""
+    global WR_CACHE
+    if WR_CACHE is None:
+        WR_CACHE = {}
+        ruta = os.path.join(ROOT, "data", "estructurada", "champion_winrates.csv")
+        if os.path.exists(ruta):
+            import csv as _csv
+            with open(ruta, encoding="utf-8", newline="") as fh:
+                for fila in _csv.DictReader(fh):
+                    if fila.get("champion") and fila.get("win_pct"):
+                        WR_CACHE.setdefault(U._norm_champ(fila["champion"]), []).append(fila)
+    return WR_CACHE
+
+
 def lint_archivo(path, legit, ultimo_patch):
     archivo = os.path.basename(path)
     with open(path, encoding="utf-8") as fh:
@@ -77,6 +96,20 @@ def lint_archivo(path, legit, ultimo_patch):
     pd = U.parche_declarado(fm, txt)
     if not pd:
         avisos.append("sin parche declarado (**Parche:** o patch: en frontmatter)")
+
+    # callout meta vs win rates actuales (champion_winrates.csv — lo refresca el vigía 2×/día)
+    m_wr = re.search(r"Win Rate\s*([\d.]+)\s*%", txt)
+    if m_wr:
+        champ = U.champ_desde_archivo(archivo, fm, txt)
+        filas = _winrates_actuales().get(U._norm_champ(champ), [])
+        if filas:
+            pub = float(m_wr.group(1))
+            deltas = [(abs(pub - float(f["win_pct"])), f) for f in filas]
+            d, mejor = min(deltas, key=lambda x: x[0])
+            if d > 3.0:
+                avisos.append(f"callout meta desactualizado: publica WR {pub:g} % y wr-meta dice "
+                              f"{mejor['win_pct']} % ({mejor['role']}, {mejor['bucket']}, "
+                              f"updated {mejor['updated_utc']}) — ver champion_winrates.csv")
 
     build, fuente = U.extraer_build(txt)
     if not build:
