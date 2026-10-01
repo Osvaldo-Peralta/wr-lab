@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 WR-LAB · build_db.py — construye data/wrlab.db (SQLite) desde las fuentes de texto del lab.
-Tablas: meta, champions, champion_as_official, items, patches, changes, reports, sources.
+Tablas: meta, champions, champion_as_official, items, patches, changes, reports, sources,
+winrates (champion_winrates.csv — las refresca el vigía 2×/día, check_patch.py paso 4).
 Uso:  python3 model/build_db.py        (idempotente: recrea la BD desde cero)
 Diseño: los .md/.csv siguen siendo la fuente de verdad editable; la BD es la capa de
 consulta/respaldo (y lo que consume un futuro frontend/CLI).
@@ -27,6 +28,9 @@ def connect_fresh():
     CREATE TABLE changes(patch TEXT, entity_type TEXT, entity TEXT, change TEXT);
     CREATE TABLE reports(champion TEXT, path TEXT PRIMARY KEY, version TEXT, status TEXT, patch TEXT, tags TEXT);
     CREATE TABLE sources(name TEXT, url TEXT, accessed TEXT, role TEXT);
+    CREATE TABLE winrates(champion TEXT, role TEXT, tier TEXT, win_pct REAL, pick_pct REAL,
+        ban_pct REAL, trend TEXT, confidence TEXT, bucket TEXT, updated_utc TEXT,
+        actualizado TEXT, PRIMARY KEY(champion, role));
     """)
     return con
 
@@ -59,7 +63,7 @@ def main():
     con = connect_fresh(); cur = con.cursor()
     hoy = datetime.date.today().isoformat()
     cur.executemany("INSERT INTO meta VALUES(?,?)", [
-        ("lab_version", "1.5"), ("patch_base", "7.3"), ("hotfix", "7.3a"),
+        ("lab_version", "1.11"), ("patch_base", "7.3"), ("hotfix", "7.3a"),
         ("db_built", hoy), ("champions_total", ""), ("items_total", "")])
 
     # champions (specs del equipo)
@@ -92,6 +96,22 @@ def main():
         rows = [(r["item"], r["precio_oro"], r["stats"], r["categorias"], r.get(det_col, "")) for r in rd]
     cur.executemany("INSERT OR REPLACE INTO items VALUES(?,?,?,?,?)", rows)
     cur.execute("UPDATE meta SET value=? WHERE key='items_total'", (str(len(rows)),))
+
+    # win rates del roster (si el vigía ya las sembró; si no, la tabla queda vacía)
+    wr_csv = os.path.join(E, "champion_winrates.csv")
+    n_wr = 0
+    if os.path.exists(wr_csv):
+        with open(wr_csv, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                try:
+                    cur.execute("INSERT OR REPLACE INTO winrates VALUES(?,?,?,?,?,?,?,?,?,?,?)", (
+                        r["champion"], r["role"], r.get("tier", ""),
+                        float(r["win_pct"]), float(r.get("pick_pct") or 0), float(r.get("ban_pct") or 0),
+                        r.get("trend", ""), r.get("confidence", ""), r.get("bucket", ""),
+                        r.get("updated_utc", ""), r.get("actualizado", "")))
+                    n_wr += 1
+                except (KeyError, ValueError):
+                    continue
 
     # patches + changes
     cur.execute("INSERT INTO patches VALUES(?,?,?,?,?)",
@@ -132,14 +152,16 @@ def main():
               ("Notas oficiales 7.2", "wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-2/", "2026-09-25", "primaria"),
               ("7.3a CN vía Arctic Shift", "lolm.qq.com docid 15413436308828016227 (reddit 1wskk84)", "2026-09-28", "primaria-traducida"),
               ("wr-meta items", "wr-meta.com/items/", "2026-09-25", "secundaria"),
-              ("wr-meta campeones", "wr-meta.com/{id}-{champ}.html", "2026-09-25/28", "secundaria")]:
+              ("wr-meta campeones", "wr-meta.com/{id}-{champ}.html", "2026-09-25/28", "secundaria"),
+              ("wr-meta Meta Overview (win rates)", "wr-meta.com/{id}-{champ}.html · sitemap.xml", "vigía 2×/día (check_patch.py)", "secundaria-contexto")]:
         cur.execute("INSERT INTO sources VALUES(?,?,?,?)", s)
 
     con.commit(); con.close()
     print(f"BD construida: {DB} ({os.path.getsize(DB)//1024} KB)")
     con = sqlite3.connect(DB)
     for q in ["SELECT COUNT(*) FROM champions","SELECT COUNT(*) FROM champion_as_official",
-              "SELECT COUNT(*) FROM items","SELECT COUNT(*) FROM changes","SELECT COUNT(*) FROM reports"]:
+              "SELECT COUNT(*) FROM items","SELECT COUNT(*) FROM changes","SELECT COUNT(*) FROM reports",
+              "SELECT COUNT(*) FROM winrates"]:
         print(" ", q.replace("SELECT COUNT(*) FROM ",""), "=", con.execute(q).fetchone()[0])
     con.close()
 

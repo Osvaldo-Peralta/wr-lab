@@ -12,7 +12,8 @@ INTERACTIVO (menú escalable — sin argumentos):
 
 NO INTERACTIVO (scripts/CI/chat externo):
     python3 wrlab.py estado                  # salud local: check reportes + bundles + lint
-    python3 wrlab.py watch                   # vigía de parches (red; exit 1 si hay cambios)
+    python3 wrlab.py watch                   # vigía de parches + win rates (red; exit 1 si hay cambios)
+    python3 wrlab.py winrates                # refresca SOLO las win rates (wr-meta, Diamond+)
     python3 wrlab.py hotfix 7.3b             # CICLO COMPLETO §E pasos 7-8 (con confirmación)
     python3 wrlab.py triage|refresh|borrador|annotate|baseline [--patch X] [--apply]
     python3 wrlab.py optimize <champ> [flags de optimize_build…]
@@ -110,7 +111,8 @@ def acc_git(_=None):
 MENU = [
     ("📊 ESTADO", [
         ("Salud del lab (reportes verificados + bundles al día + lint)", lambda _: acc_estado()),
-        ("Vigía de parches — ¿hotfix nuevo? (red)", lambda _: py("check_patch.py")),
+        ("Vigía de parches + win rates — ¿hotfix nuevo? (red)", lambda _: py("check_patch.py")),
+        ("Actualizar win rates del roster (wr-meta · Diamond+)", lambda _: py("check_patch.py", "--winrates-only")),
         ("Estado git (status/log/tags)", acc_git),
     ]),
     ("🔥 CICLO DE HOTFIX (FRAMEWORK §E)", [
@@ -137,7 +139,8 @@ MENU = [
 
 COMANDOS = {   # modo no interactivo
     "estado": lambda a: acc_estado(),
-    "watch": lambda a: py("check_patch.py"),
+    "watch": lambda a: py("check_patch.py", *a),
+    "winrates": lambda a: py("check_patch.py", "--winrates-only", *a),
     "hotfix": lambda a: acc_hotfix(a[0] if a else None),
     "triage": lambda a: py("update_reports.py", "triage", *a),
     "refresh": lambda a: py("update_reports.py", "refresh", *a),

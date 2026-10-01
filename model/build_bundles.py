@@ -166,6 +166,11 @@ def secciones_comunes():
          csv_literal("data/estructurada/champion_attack_speed_7.3.csv")
          + "\n\n### 7.2 Durabilidad 7.3\n\n"
          + csv_literal("data/estructurada/champion_durability_7.3.csv")),
+    ]
+    if os.path.exists(os.path.join(E, "champion_winrates.md")):
+        secs.append(("7b", "WIN RATES DEL ROSTER (wr-meta · Diamond+ · las actualiza el vigía 2×/día)",
+                     leer("data", "estructurada", "champion_winrates.md")))
+    secs += [
         ("8", "BASE DE ÍTEMS 7.3 (compacta — OJO: Boots tier 3 = MISMO slot que su tier 2; "
               "Yun Tal y Death's Dance ya con valores 7.3a en el motor)",
          csv_a_md("data/estructurada/items_7.3.csv",

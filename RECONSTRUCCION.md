@@ -1,79 +1,80 @@
-# RECONSTRUCCIÓN + VERIFICACIÓN DE COMPATIBILIDAD — WR-LAB v1.10
+# RECONSTRUCCIÓN · VERIFICACIÓN · v1.11 — WR-LAB
 
-**Fecha:** 01/10/2026 · **Entrada:** `WR-LAB_completo.md` (bundle estable v1.10, generado 30/09/2026,
-sha256(cuerpo)=957395e591f84ab9) · **Repo oficial:** https://github.com/Osvaldo-Peralta/wr-lab
+**Actualizado:** 01/10/2026 · **Repo oficial:** https://github.com/Osvaldo-Peralta/wr-lab
+**Base:** bundle estable `WR-LAB_completo.md` v1.10 (30/09/2026, sha256(cuerpo)=957395e591f84ab9)
 
-## Fase 1 — Reconstrucción desde el bundle
+## Fase 1 — Reconstrucción desde el bundle (01/10)
 
 Se extrajeron las 63 fuentes embebidas en las §§1–18 del bundle y se regeneraron los
 artefactos derivados. Prueba de fidelidad: un `build_bundles.py` reescrito reprodujo el
-bundle **byte a byte** (932 571 B, salvo fecha/sha del pie, que el propio tooling normaliza);
-`update_reports.py annotate --fecha 29/09/2026` resultó **idempotente** (los 15 bloques
-`WRLAB-VERIF` se regeneraron idénticos; Jinx ⏩ AL_DIA).
+bundle **byte a byte**; `update_reports.py annotate --fecha 29/09/2026` resultó
+**idempotente** (15 bloques `WRLAB-VERIF` regenerados idénticos; Jinx ⏩ AL_DIA).
 
-## Fase 2 — Verificación contra el repositorio (este es el veredicto)
+## Fase 2 — Verificación contra el repositorio
 
 | Verificación | Resultado |
 |---|---|
-| `WR-LAB_completo.md` del repo (commit `46f9c4d`, "Feat: Laboratorio en su versión 1.10") vs bundle adjunto | ✅ **idénticos byte a byte** (sha256 `e8be158a…6342b` en ambos) |
-| Árbol local vs exportación prístina de `46f9c4d` | ✅ **idéntico byte a byte** en los 100+ archivos (única adición: este documento) |
-| Suite de regresión del repo | ✅ **107/107 tests OK** (coincide con el "107 tests" del ROADMAP; el bundle §17 solo embebe 7 de los 8 archivos de tests — falta `test_sim_timings.py`, ver "hallazgos") |
-| `python3 model/build_bundles.py --check` | ✅ LITE al día (215 170 B) · COMPLETO al día (932 571 B) |
-| `python3 model/update_reports.py check` | ✅ 16 reportes sin drift, verificados contra 7.3a |
-| `python3 wrlab.py estado` | ✅ TODO EN ORDEN |
+| Bundle adjunto vs `WR-LAB_completo.md` del repo en `46f9c4d` (v1.10) | ✅ idénticos (sha256 `e8be158a…6342b`) |
+| Árbol reconstruido vs exportación prístina de `46f9c4d` | ✅ idéntico byte a byte (tras adoptar nombres/generador/README/deploy/raw oficiales) |
+| Suite del repo | ✅ 107/107 OK (el "107" del ROADMAP incluía `test_sim_timings.py`, que el bundle §17 no embebe) |
 
-**Veredicto: la reconstrucción es 100 % compatible con la versión v1.10 del repositorio**
-(commit `46f9c4d`, 30/09/2026). Nota: el repo no tiene tag `v1.10` en GitHub (solo `v1.5`);
-la referencia de versión es el commit.
+## Fase 3 — Emparejamiento con `origin/main` (01/10)
 
-## Diferencias que la Fase 2 corrigió sobre la Fase 1 (documento de transparencia)
+Tras el fix del autor `71e1ef4` ("Corrección a commit erróneo… Seraphine"): el lab local
+quedó **idéntico a `origin/main`** (Seraphine revertida a v1.10, 15 bloques WRLAB-VERIF
+re-sellados al 30/09, bundle/registro/BD regenerados). Verificado: 107/107 tests,
+`build_bundles --check` ✅, `update_reports check` ✅, `wrlab.py estado` ✅.
+Tag local `v1.10` reapuntado al commit oficial `46f9c4d`.
 
-La reconstrucción inicial desde el bundle era fiel en contenido pero difería del repo en
-detalles que solo el repo podía resolver; se adoptaron las versiones oficiales:
+## v1.11 — Win rates en el mismo proceso del vigía (petición del autor)
 
-1. **Nombres reales vs inferidos:** `reportes/Cho'Gath - Titán de la Jungla.md` (no
-   "Cho'Gath - Jungla.md"), `tests/test_lint_refresh.py` (no test_calidad_reportes.py),
-   `tests/test_wrlab.py` (no test_wrlab_cli.py). Los contenidos de mis tests inferidos
-   eran idénticos a los reales (verificado con `cmp`); la asignación semántica de
-   "Titán del Barón" al reporte Top/Baron Lane fue correcta.
-2. **`model/build_bundles.py`:** el generador real reemplazó a mi reescritura. Diferencias
-   de fondo: LITE = §§1–10e **sin** ROADMAP ni §15; §8 se **deriva del CSV** en tiempo de
-   ensamblado (`csv_a_md`), no del .md; reportes/fichas se unen con `---` en el ensamblado
-   (los archivos en disco NO llevan el separador pegado); §3b/3c/… son dinámicos por cada
-   `cambios_<patch>.md`.
-3. **Archivos que el bundle no transporta y el repo sí tiene:** `README.md`,
-   `deploy/GITHUB_PAGES_QUARTZ.md`, `data/raw/` completo (26 archivos: notas oficiales
-   7.2/7.3/7.3a en HTML/TXT, wr-meta, `.watch_state.json`, `referencia_estilo_jinx.md`,
-   12 fichas HTML incluido malphite), `tests/test_sim_timings.py` (10 tests),
-   `requirements.txt` real (comentarios, no vacío), `.gitignore` real (incluye `*.zip`),
-   workflows reales de CI y patch-watch.
-4. **Finos de bytes:** CSV oficiales con CRLF (el generador los normaliza a LF al embeber
-   por universal-newlines), trailing-newline en 7 .md, `reportes_registry.json` y
-   `wrlab.db` sellados el 30/09, `_borradores` con fecha 30/09/2026.
-5. **`champion_base_stats.json`:** mi regeneración desde las fichas + CSV resultó
-   **idéntica byte a byte** a la del repo (no requirió corrección).
+**Requisito:** "es indispensable que el laboratorio pueda actualizar la win rate de los
+campeones en el mismo proceso en el que busca cambios de la versión/parche, para tener
+este dato vital siempre actualizado (fundamental para los reportes)".
 
-## Hallazgos sobre el estado actual del repo (main = `e8d8410`, posterior a v1.10)
+**Implementación (todo en el ciclo existente del vigía):**
 
-- HEAD añadió "Feat: Se actualizo la guia de Seraphine: Modo Agresiva" (01/10/2026):
-  reescribe `reportes/Seraphine.md` (555 líneas) **sin regenerar los bundles** →
-  el CI de main está en **rojo**: `build_bundles.py --check` reporta
-  `❌ COMPLETO: WR-LAB_completo.md DESFASADO` (LITE sí al día, no incluye reportes).
-  `update_reports.py check` sigue en ✅ (Seraphine no tiene hook cuantitativo).
-  Arreglo: `python3 model/build_bundles.py && python3 -m unittest discover -s tests` y commit
-  (o `python3 wrlab.py hotfix`/menú 📦). **Este lab local está alineado a v1.10, no a HEAD.**
-- El bundle §17 se anuncia como "suite completa" pero la lista TESTS del generador omite
-  `test_sim_timings.py` (10 tests): un bundle externo no transporta esa suite.
-- Los commits `chore: patch-watch state` (4c630a2, b839269) posteriores a v1.10 solo tocan
-  `data/raw/.watch_state.json`.
+- `model/check_patch.py` **paso 4** (junto a los pasos 1-3 de parches): descarga el bloque
+  *Meta Overview* (`wrCnFsSnapWrap`, bucket **Diamond+**) de wr-meta para el **roster**
+  (17 campeones = 16 reportes + 13 specs, ampliado automáticamente por
+  `reportes_registry.json`), por rol (SOLO/JUNGLE/MID/DUO/SUPPORT).
+- Salidas (fuente de verdad en texto plano, como todo el lab):
+  `data/estructurada/champion_winrates.csv` (CRLF, como los demás CSV) +
+  `champion_winrates.md` (legible, viaja en los bundles como **§7b**, en LITE y COMPLETO).
+  Escritura **idempotente**: solo se reescriben si cambian los VALORES (sin commits parásitos).
+- **Alerta:** \|Δ win rate\| ≥ **2 pts** vs el estado previo → finding del vigía (exit 1 +
+  step summary en `patch-watch.yml`, que ahora commitea CSV/MD/estado).
+- **Descubrimiento de ids:** `WRMETA_IDS` sembrado (FUENTES + verificación en vivo) y
+  completado vía `sitemap.xml`; lo descubierto se persiste en `.watch_state.json`.
+- **Consumo en reportes:** TEMPLATE §A.1 — el callout "Estado Meta Actual" se cita desde el
+  CSV, no de memoria; `lint_reportes.py` añade AVISO (no error) si lo publicado diverge
+  **>3 pts** del dato actual. `build_db.py` carga la tabla `winrates` (22 filas hoy).
+- **Acceso:** automático (cron 2×/día en `patch-watch.yml`) · `python3 wrlab.py winrates`
+  (manual, solo paso 4) · `python3 wrlab.py watch` (ciclo completo) · menú 📊 ESTADO.
+- **Tests:** `tests/test_winrates.py` (17, offline: fixture sintético + snapshot commiteado
+  de Cho'Gath, red simulada con monkeypatch, drift, idempotencia, lint, §7b, CLI).
+  Suite total: **124 OK**.
+- **Siembra en vivo (01/10/2026):** 17 campeones · 22 filas · "Updated: 01 OCT 2026 UTC
+  00:00" — coherente con los callouts publicados (Δ < 1 pt en los 9 reportes con "Win Rate").
+- Docs: FRAMEWORK §E (nota v1.11 + paso 2b), FUENTES (registro, fuente secundaria,
+  diagrama de derivación), ROADMAP (v1.11 + fila "Win rates del roster" + matiz al vigía),
+  README (mapa, tabla, changelog v1.11).
 
-## Cómo usar este lab
+**Filosofía respetada:** el vigía NO actualiza solo datos de *balance* (eso sigue el
+protocolo FRAMEWORK §E con criterio humano); las win rates son dato de *contexto* de
+fuente única y formato estable → sí se escriben en el ciclo, y un movimiento ≥ 2 pts
+avisa para re-verificar callouts (no re-deriva builds: Regla de Oro v1.6 intacta).
+
+## Estado del lab
 
 ```bash
-python3 wrlab.py                     # menú interactivo
-python3 wrlab.py estado              # salud: check reportes + bundles + lint
-python3 -m unittest discover -s tests    # 107 tests
-git remote -v                        # origin → github.com/Osvaldo-Peralta/wr-lab
+python3 -m unittest discover -s tests   # 124 tests OK (offline)
+python3 model/build_bundles.py --check  # ✅ LITE 217 763 B · COMPLETO 950 475 B (01/10/2026)
+python3 model/update_reports.py check   # ✅ 16 reportes sin drift, verificados vs 7.3a
+python3 wrlab.py estado                 # ✅ TODO EN ORDEN
+python3 wrlab.py winrates               # refresco manual de win rates (red)
 ```
 
 **Parche vigente:** 7.3 + hotfix 7.3a (29-sep-2026). Sin páginas 7.3b/7.4 al 29-sep-2026.
+Pendiente para el autor: `git push` (el sandbox no tiene credenciales) — el commit local
+`v1.11` queda listo sobre `origin/main`.

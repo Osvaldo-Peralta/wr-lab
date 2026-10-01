@@ -22,8 +22,40 @@
    "7.3A"
   ]
  },
- "last_check": "2026-09-30T21:26:51",
+ "last_check": "2026-10-01T03:57:47",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
- "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97"
+ "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
+ "winrates": {
+  "Caitlyn|DUO": 50.44,
+  "Cho'Gath|SOLO": 50.17,
+  "Cho'Gath|JUNGLE": 50.41,
+  "Diana|MID": 47.95,
+  "Diana|JUNGLE": 50.35,
+  "Heimerdinger|MID": 50.49,
+  "Jinx|DUO": 50.55,
+  "Kalista|DUO": 51.12,
+  "Kalista|SOLO": 53.01,
+  "Karma|SUPPORT": 49.19,
+  "Malphite|SUPPORT": 51.51,
+  "Malphite|SOLO": 56.44,
+  "Mordekaiser|SOLO": 50.87,
+  "Norra|MID": 50.06,
+  "Rammus|JUNGLE": 56.81,
+  "Seraphine|SUPPORT": 49.3,
+  "Shyvana|JUNGLE": 46.14,
+  "Sivir|DUO": 48.08,
+  "Volibear|SOLO": 47.53,
+  "Volibear|JUNGLE": 47.97,
+  "Yunara|DUO": 50.91,
+  "Yuumi|SUPPORT": 48.9
+ },
+ "wrmeta_ids": {},
+ "winrates_meta": {
+  "bucket": "Diamond +",
+  "updated_utc": "01 OCT 2026 UTC 00:00",
+  "n_champs": 17,
+  "n_filas": 22
+ },
+ "winrates_checked": "2026-10-01T03:57:47"
 }

@@ -27,7 +27,7 @@
 2. **Bloque de metadatos** (inmediato, en negritas, una línea por campo):
    `**Fecha del análisis:**` · `**Parche:**` · `**Rol principal:**` · `**Arquetipo:**` · `**Enfoque:**` (1-2 líneas: la tesis de la build).
 3. **Callouts Obsidian** (en este orden, tras los metadatos):
-   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO** (datos de wr-meta/fichas).
+   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO**. Fuente (v1.11): `data/estructurada/champion_winrates.csv` — wr-meta Diamond+, actualizado 2×/día por el vigía (`wrlab.py winrates`); citar de ahí, no de memoria.
    - `> [!TIP]` Variante principal en 2-3 líneas (qué slot cambia, qué se gana/pierde con números). → OBLIGATORIO si existe variante.
    - `> [!DANGER]` Solo en **builds personalizadas de escenario** (ej. Yuumi agresiva, Cho'Gath tamaño): declarar el sacrificio con números ("sacrifica ~X % de Y a cambio de ~Z % más de W").
    - `> [!WARNING]` Datos pendientes de verificar en juego (rangos, mecánicas ambiguas).
@@ -266,7 +266,7 @@ patch: "7.3"
 ## C. CHECKLIST ANTES DE PUBLICAR (Status: Borrador → Aprobado)
 
 - [ ] Frontmatter completo (tags rol/clase/arquetipo/lane, version, Status, champion, patch).
-- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha).
+- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha) tomada de `champion_winrates.csv` (el lint avisa si diverge >3 pts del dato actual).
 - [ ] Tabla A = 6 filas exactas (1 botas con ⬆️ + 5 ítems); Tabla B con componentes y oro acumulado.
 - [ ] `validate_slots()` en PASS declarado en §10.
 - [ ] Números con espacio de miles (`2 900`) y `%` con espacio (`25 %`) en TODO el documento.

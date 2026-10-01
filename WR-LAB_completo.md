@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 30/09/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 01/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -192,12 +192,20 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 
 > 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
 > "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
+>
+> 🏹 v1.11: el vigía (`python3 model/check_patch.py`, cron 2×/día) busca parches/hotfix
+> nuevos **y en el mismo proceso actualiza las win rates del roster**
+> (`data/estructurada/champion_winrates.csv/.md`, wr-meta Diamond+). Los callouts
+> "Estado Meta Actual" de los reportes nuevos o regenerados se citan desde ese archivo,
+> nunca de memoria (TEMPLATE §A.1); refresco manual: `python3 wrlab.py winrates`.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):
 #    https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-X-X/
 #    → limpiar HTML → data/raw/patchX.txt  (mismo formato que patch73.txt)
 # 2. Re-descargar https://wr-meta.com/items/ → data/raw/wrmeta_items.html
+# 2b. Win rates (v1.11): las refresca el vigía en este mismo protocolo —
+#     python3 wrlab.py winrates → data/estructurada/champion_winrates.csv/.md
 #    (alternativa si cae: wr-meta.com/<id>-<champion>.html por campeón)
 # 3. Re-ejecutar:  python3 model/extract_data.py
 # 4. Diffear contra la versión anterior de items_7.3.csv / champion_attack_speed_7.3.csv
@@ -360,7 +368,7 @@ Grep de "size/tamaño" sobre los 186 ítems de `items_7.3.csv` y las 12 fichas d
 2. **Bloque de metadatos** (inmediato, en negritas, una línea por campo):
    `**Fecha del análisis:**` · `**Parche:**` · `**Rol principal:**` · `**Arquetipo:**` · `**Enfoque:**` (1-2 líneas: la tesis de la build).
 3. **Callouts Obsidian** (en este orden, tras los metadatos):
-   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO** (datos de wr-meta/fichas).
+   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO**. Fuente (v1.11): `data/estructurada/champion_winrates.csv` — wr-meta Diamond+, actualizado 2×/día por el vigía (`wrlab.py winrates`); citar de ahí, no de memoria.
    - `> [!TIP]` Variante principal en 2-3 líneas (qué slot cambia, qué se gana/pierde con números). → OBLIGATORIO si existe variante.
    - `> [!DANGER]` Solo en **builds personalizadas de escenario** (ej. Yuumi agresiva, Cho'Gath tamaño): declarar el sacrificio con números ("sacrifica ~X % de Y a cambio de ~Z % más de W").
    - `> [!WARNING]` Datos pendientes de verificar en juego (rangos, mecánicas ambiguas).
@@ -599,7 +607,7 @@ patch: "7.3"
 ## C. CHECKLIST ANTES DE PUBLICAR (Status: Borrador → Aprobado)
 
 - [ ] Frontmatter completo (tags rol/clase/arquetipo/lane, version, Status, champion, patch).
-- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha).
+- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha) tomada de `champion_winrates.csv` (el lint avisa si diverge >3 pts del dato actual).
 - [ ] Tabla A = 6 filas exactas (1 botas con ⬆️ + 5 ítems); Tabla B con componentes y oro acumulado.
 - [ ] `validate_slots()` en PASS declarado en §10.
 - [ ] Números con espacio de miles (`2 900`) y `%` con espacio (`25 %`) en TODO el documento.
@@ -613,7 +621,7 @@ patch: "7.3"
 
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+**Última actualización del lab:** 1 de octubre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
 
 ## Registro de verificaciones de parche
 
@@ -625,6 +633,7 @@ patch: "7.3"
 | 29/09/2026 | Vault externo integrado (16 reportes sustituyen a los 5 del lab, commit 163d9bc) | Re-triage 7.3a del vault: **Caitlyn ❌ y Rammus ❌ REGENERAR** (7.3a tocó inputs de su spec: AS growth / armadura base — sus reportes declaran datos 7.3), **Yuumi ⚠️ REVISAR** (nerf W sin hook para la build poke-híbrida: Stormsurge/Harmonic Echo fuera del modelo), 13 ✅ ANOTAR/SIN IMPACTO | Bloques `WRLAB-VERIF:7.3a` en los 16 reportes + registro |
 | 29/09/2026 | Validación cruzada del optimizador (`optimize_build.py`) | ✅ **Redescubre la build C de Jinx** dentro del pool de candidatos del reporte (Leyes 1+3 duras, 3 042 dps1). Pool completo post-7.3a: `Gunmetal+C44+Terminus+YunTal+LDR+IE` supera a C ~7 % en eficiencia ponderada normalizada (supuestos: Yun Tal a rampa máxima 125 ataques, Terminus a stacks) — **hallazgo registrado, reporte publicado intacto** (Regla de Oro) | ROADMAP.md §Hallazgos del optimizador |
 | 29/09/2026 | **Nota EN oficial de 7.3a publicada** (detectada por check_patch.py en vivo) | Descargada y verificada número por número contra `cambios_7.3a.md` (traducción CN): **todo coincide** — specs/motor/tests del lab quedan confirmados contra fuente primaria. Discrepancia menor registrada: Crown of Songs (ver §Discrepancias). wr-meta indexó changelogs "30 SEP 2026 (7.3A)" en Yuumi/Malphite | `data/raw/patch73a_en.html/.txt` |
+| 01/10/2026 | **Win rates integradas al vigía** (v1.11, petición del autor: "dato vital siempre actualizado") | `check_patch.py` paso 4: bloque Meta Overview de wr-meta (bucket Diamond+) para el roster (17 campeones = 16 reportes + 13 specs, ampliado por el registro); escribe `champion_winrates.csv/.md`, alimenta la tabla `winrates` de la BD y el §7b de los bundles; alerta si |Δ win rate| ≥ 2 pts; el lint avisa si el callout meta de un reporte diverge >3 pts. Siembra en vivo: 17 campeones · 22 filas · "Updated: 01 OCT 2026 UTC 00:00". IDs verificados contra home + sitemap.xml de wr-meta (descubiertos: caitlyn 317, sivir 394, norra 552, rammus 242, hwei 505) | `data/estructurada/champion_winrates.csv`, `.watch_state.json` (secciones `winrates`/`wrmeta_ids`) |
 | 29/09/2026 | Bundles regenerables | `WR-LAB_lite.md` (176 KB) y `WR-LAB_completo.md` (836 KB) regenerados desde las fuentes con los 16 reportes del vault + módulos nuevos (optimizador §10c, batch2 §10b, actualizador §17b, infra §18); CI verifica sincronía (`build_bundles.py --check`) | `model/build_bundles.py` |
 
 ## Hotfix 7.3a (29-sep-2026)
@@ -647,6 +656,7 @@ patch: "7.3"
 |---|---|---|---|---|
 | wr-meta.com/items | wr-meta.com/items/ | 25/09/2026 (`data/raw/wrmeta_items.html`, 510 KB) | Stats completos y precio de los 186 ítems únicos (incluye nuevos de 7.3), pasivas, botas T2/T3, runas | Alta: incluye ítems 7.3; desfasada en runas removidas (lista Ingenious Hunter) y texto viejo de Lethal Tempo |
 | wr-meta.com Jinx | wr-meta.com/39-jinx.html | 25/09/2026 (`data/raw/wrmeta_jinx.html/.txt`) | Stats base de Jinx (58 AD/630 HP/335 MS/575 rango), valores por habilidad, change history completo, build popular y meta (WR 49.82 %, pick 10.97 %, Diamond+, 24/09) | Alta para números de kit; la build popular es insumo, no conclusión |
+| wr-meta.com — Meta Overview (win rates) | wr-meta.com/{id}-{champ}.html (bloque `wrCnFsSnapWrap`) + sitemap.xml para ids | vivo, 2×/día vía `check_patch.py` paso 4 (`champion_winrates.csv/.md`) | Win/pick/ban/trend + tier y confianza por rol, bucket Diamond+ (select por defecto de la página) | Contexto meta (secundaria): no decide builds; para callouts de reportes y detección de movimientos ≥ 2 pts |
 | wr-meta.com — 11 fichas del equipo | wr-meta.com/{id}-{champ}.html (yuumi 321, yunara 545, mordekaiser 365, kalista 349, diana 216, karma 323, heimerdinger 346, volibear 411, seraphine 34, shyvana 23, chogath 339) | 25/09/2026 (`data/raw/campeones/*.html` → `data/estructurada/campeones/*.md` + `champion_base_stats.json`) | Stats base, habilidades con valores, change history y builds populares de los 11 campeones del roster | Alta en general; ⚠️ Volibear muestra ad_growth "56" (errata probable — verificar); el rango de ataque no se publica (verificar Kalista/Yunara en juego) |
 
 ## Fuentes intentadas y descartadas (para no repetir el trabajo)
@@ -685,6 +695,9 @@ data/raw/patch72.txt   ───→ referencia del sistema de botas/encantamient
 data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
                            └→ runas_7.3.md
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
+wr-meta.com/{id}-{champ}.html (EN VIVO, vigía 2×/día — check_patch.py paso 4)
+                        └→ champion_winrates.csv / champion_winrates.md (Diamond+)
+                           └→ BD tabla `winrates` + bundle §7b + callouts meta de reportes
 ```
 
 ## 3b. HOTFIX 7.3a — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
@@ -1738,6 +1751,47 @@ Thresh,,,,,120 → 140
 Ornn,720 → 690,,,,120 → 132
 Nocturne,,,,,120 → 134
 ```
+
+## 7b. WIN RATES DEL ROSTER (wr-meta · Diamond+ · las actualiza el vigía 2×/día)
+
+# Win rates del roster — wr-meta (Meta Overview)
+
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 01 OCT 2026 UTC 00:00** · Refrescado por el vigía: 01/10/2026
+> Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
+> `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
+> en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
+> **Los callouts "Estado Meta Actual" de los reportes se toman de aquí** (TEMPLATE §A.1);
+> alerta del vigía si un campeón se mueve ≥ 2 pts de win rate.
+
+| Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
+|---|---|---|---|---|---|---|---|
+| Caitlyn | DUO | A | 50.44 | 25.95 | 27.38 | ↓ 10 | Confidence High |
+| Cho'Gath | SOLO | A | 50.17 | 12.72 | 33.10 | ↓ 2 | Confidence High |
+| Cho'Gath | JUNGLE | A | 50.41 | 8.64 | 33.10 | ↓ 3 | Confidence High |
+| Diana | MID | B | 47.95 | 1.16 | 0.18 | ↓ 2 | Confidence Low |
+| Diana | JUNGLE | A | 50.35 | 1.74 | 0.18 | ↑ 5 | Confidence Low |
+| Heimerdinger | MID | A | 50.49 | 1.52 | 1.01 | ↓ 3 | Confidence Low |
+| Jinx | DUO | A | 50.55 | 11.30 | 0.41 | 0 | Confidence High |
+| Kalista | DUO | S | 51.12 | 4.65 | 4.19 | ↑ 1 | Confidence Med |
+| Kalista | SOLO | S+ | 53.01 | 2.05 | 4.19 | ↑ 4 | Confidence Low |
+| Karma | SUPPORT | A | 49.19 | 5.13 | 0.38 | ↓ 5 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.51 | 7.30 | 46.65 | ↓ 2 | Confidence Med |
+| Malphite | SOLO | S+ | 56.44 | 9.32 | 46.65 | 0 | Confidence High |
+| Mordekaiser | SOLO | S | 50.87 | 10.83 | 27.69 | 0 | Confidence High |
+| Norra | MID | A | 50.06 | 1.57 | 7.98 | ↑ 1 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.81 | 5.42 | 5.84 | 0 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.30 | 6.88 | 0.96 | ↓ 1 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.14 | 3.76 | 1.45 | 0 | Confidence Med |
+| Sivir | DUO | B | 48.08 | 3.45 | 0.05 | ↓ 1 | Confidence Med |
+| Volibear | SOLO | B | 47.53 | 5.87 | 4.65 | ↓ 3 | Confidence Med |
+| Volibear | JUNGLE | B | 47.97 | 2.51 | 4.65 | 0 | Confidence Low |
+| Yunara | DUO | S | 50.91 | 18.06 | 22.13 | ↑ 1 | Confidence High |
+| Yuumi | SUPPORT | A | 48.90 | 10.43 | 34.20 | ↓ 5 | Confidence High |
+
+Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
+Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
+Dato de CONTEXTO meta (secundario): no cambia builds por sí solo — si un movimiento
+coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 
 ## 8. BASE DE ÍTEMS 7.3 (compacta — OJO: Boots tier 3 = MISMO slot que su tier 2; Yun Tal y Death's Dance ya con valores 7.3a en el motor)
 
@@ -12386,7 +12440,7 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.10):** repo git versionado · BD SQLite derivada · 107 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a.
+**Estado actual (v1.11):** repo git versionado · BD SQLite derivada · 124 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
 
 ## Ya disponible
 
@@ -12398,7 +12452,8 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 | **Actualizador de reportes publicados** | `model/update_reports.py` + `data/estructurada/reportes_registry.json` + `tests/test_update_reports.py` | ✅ triage/annotate/check: un hotfix **anota** los reportes con su Δ medido (umbrales 2 %/5 %) en vez de regenerarlos; bloques `WRLAB-VERIF` idempotentes; CI detecta drift y reportes sin triar. Parser v2: reportes del vault sin frontmatter champion, tablas BUILD FINAL, alias en paréntesis, veredicto ⏩ AL_DIA |
 | **Optimizador de builds** | `model/optimize_build.py` + `tests/test_optimize_build.py` | ✅ búsqueda exhaustiva (DFS podado por oro/AS/crit) sobre el motor dps_model: top-N por objetivo ponderado **normalizado** por escenario; `--crit-min/--pen-min` (Leyes 1/3 duras), `--incluir/--excluir`, `--oro`, `--validar` (validación cruzada: **redescubre la build C de Jinx**). Alcance v1: arquetipo de autos; pendiente: motores batch2 (Kalista/Diana/soportes) |
 | **Regenerador de bundles** | `model/build_bundles.py` | ✅ lite/completo son artefactos derivados de las fuentes; `--check` en CI evita desfases; validación de integridad embebida (motor íntegro, 140 AS, 186 ítems, 16 reportes con WRLAB-VERIF, 11 fichas) |
-| Vigía de parches | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta |
+| Vigía de parches + win rates | `model/check_patch.py` + `.github/workflows/patch-watch.yml` (cron 2×/día) | ✅ detecta: cambios en la página 7.3, aparición de 7.3a/7.4, nuevas entradas de changelog en wr-meta · **paso 4 (v1.11): actualiza las win rates del roster en el mismo proceso** |
+| **Win rates del roster (Diamond+)** | `model/check_patch.py` paso 4 + `data/estructurada/champion_winrates.csv/.md` + tabla `winrates` en la BD + §7b de los bundles + `wrlab.py winrates` | ✅ fuente de los callouts meta de los reportes (TEMPLATE §A.1); alerta del vigía si \|Δ win rate\| ≥ 2 pts; el lint avisa si un callout publicado diverge >3 pts del dato actual; ids wr-meta descubiertos por sitemap y persistidos en `.watch_state.json` |
 | CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
 | Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
 
@@ -12457,8 +12512,11 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
   cero superficie de rotura. `requirements.txt` existe pero está vacío a propósito.
 - **Golden tests:** los números canónicos de los reportes están fijados en tests; cualquier cambio de
   datos que los mueva falla en CI y obliga a documentar el porqué (como el override 7.3a de Caitlyn).
-- **El vigía no actualiza solo:** detecta y avisa (exit 1 + step summary). La actualización real sigue
-  el protocolo FRAMEWORK §E porque requiere criterio (discrepancias, overrides, re-validación).
+- **El vigía no actualiza solo el PARCHE:** detecta y avisa (exit 1 + step summary); la actualización
+  de datos de balance sigue el protocolo FRAMEWORK §E porque requiere criterio (discrepancias,
+  overrides, re-validación). Excepción (v1.11): las **win rates** sí las escribe en el mismo ciclo —
+  son dato de contexto (no de balance), su fuente es única y el formato es estable; el commit-back
+  del workflow las persiste junto a `.watch_state.json`.
 
 ## Para ponerlo en GitHub (una vez, ~3 minutos)
 
@@ -14583,7 +14641,8 @@ INTERACTIVO (menú escalable — sin argumentos):
 
 NO INTERACTIVO (scripts/CI/chat externo):
     python3 wrlab.py estado                  # salud local: check reportes + bundles + lint
-    python3 wrlab.py watch                   # vigía de parches (red; exit 1 si hay cambios)
+    python3 wrlab.py watch                   # vigía de parches + win rates (red; exit 1 si hay cambios)
+    python3 wrlab.py winrates                # refresca SOLO las win rates (wr-meta, Diamond+)
     python3 wrlab.py hotfix 7.3b             # CICLO COMPLETO §E pasos 7-8 (con confirmación)
     python3 wrlab.py triage|refresh|borrador|annotate|baseline [--patch X] [--apply]
     python3 wrlab.py optimize <champ> [flags de optimize_build…]
@@ -14681,7 +14740,8 @@ def acc_git(_=None):
 MENU = [
     ("📊 ESTADO", [
         ("Salud del lab (reportes verificados + bundles al día + lint)", lambda _: acc_estado()),
-        ("Vigía de parches — ¿hotfix nuevo? (red)", lambda _: py("check_patch.py")),
+        ("Vigía de parches + win rates — ¿hotfix nuevo? (red)", lambda _: py("check_patch.py")),
+        ("Actualizar win rates del roster (wr-meta · Diamond+)", lambda _: py("check_patch.py", "--winrates-only")),
         ("Estado git (status/log/tags)", acc_git),
     ]),
     ("🔥 CICLO DE HOTFIX (FRAMEWORK §E)", [
@@ -14708,7 +14768,8 @@ MENU = [
 
 COMANDOS = {   # modo no interactivo
     "estado": lambda a: acc_estado(),
-    "watch": lambda a: py("check_patch.py"),
+    "watch": lambda a: py("check_patch.py", *a),
+    "winrates": lambda a: py("check_patch.py", "--winrates-only", *a),
     "hotfix": lambda a: acc_hotfix(a[0] if a else None),
     "triage": lambda a: py("update_reports.py", "triage", *a),
     "refresh": lambda a: py("update_reports.py", "refresh", *a),
@@ -14812,6 +14873,8 @@ ERRORES (rompen la integrabilidad con el lab):
       "Bastion of Spirits", "Sorcerer's Shoes", "Aurora Guard")
 
 AVISOS (estilo/completitud v1.4, no bloquean):
+    · callout meta con win rate desactualizado vs champion_winrates.csv (>3 pts — el vigía
+      refresca ese CSV 2×/día; los reportes nuevos deben citarlo, TEMPLATE §A.1)
     · sin 'champion:'/'patch:' en frontmatter (el lab los deriva del archivo)
     · sin línea **Rol principal:** · sin **Parche:** declarado
     · sin bloque WRLAB-VERIF del último hotfix (correr update_reports.py annotate)
@@ -14854,6 +14917,23 @@ def nombres_items_oficiales():
     return legit
 
 
+WR_CACHE = None
+
+def _winrates_actuales():
+    """{champion_norm: [filas csv]} de data/estructurada/champion_winrates.csv (si existe)."""
+    global WR_CACHE
+    if WR_CACHE is None:
+        WR_CACHE = {}
+        ruta = os.path.join(ROOT, "data", "estructurada", "champion_winrates.csv")
+        if os.path.exists(ruta):
+            import csv as _csv
+            with open(ruta, encoding="utf-8", newline="") as fh:
+                for fila in _csv.DictReader(fh):
+                    if fila.get("champion") and fila.get("win_pct"):
+                        WR_CACHE.setdefault(U._norm_champ(fila["champion"]), []).append(fila)
+    return WR_CACHE
+
+
 def lint_archivo(path, legit, ultimo_patch):
     archivo = os.path.basename(path)
     with open(path, encoding="utf-8") as fh:
@@ -14876,6 +14956,20 @@ def lint_archivo(path, legit, ultimo_patch):
     pd = U.parche_declarado(fm, txt)
     if not pd:
         avisos.append("sin parche declarado (**Parche:** o patch: en frontmatter)")
+
+    # callout meta vs win rates actuales (champion_winrates.csv — lo refresca el vigía 2×/día)
+    m_wr = re.search(r"Win Rate\s*([\d.]+)\s*%", txt)
+    if m_wr:
+        champ = U.champ_desde_archivo(archivo, fm, txt)
+        filas = _winrates_actuales().get(U._norm_champ(champ), [])
+        if filas:
+            pub = float(m_wr.group(1))
+            deltas = [(abs(pub - float(f["win_pct"])), f) for f in filas]
+            d, mejor = min(deltas, key=lambda x: x[0])
+            if d > 3.0:
+                avisos.append(f"callout meta desactualizado: publica WR {pub:g} % y wr-meta dice "
+                              f"{mejor['win_pct']} % ({mejor['role']}, {mejor['bucket']}, "
+                              f"updated {mejor['updated_utc']}) — ver champion_winrates.csv")
 
     build, fuente = U.extraer_build(txt)
     if not build:
@@ -15166,7 +15260,8 @@ print("\nTodo extraido en", OUT)
 # -*- coding: utf-8 -*-
 """
 WR-LAB · build_db.py — construye data/wrlab.db (SQLite) desde las fuentes de texto del lab.
-Tablas: meta, champions, champion_as_official, items, patches, changes, reports, sources.
+Tablas: meta, champions, champion_as_official, items, patches, changes, reports, sources,
+winrates (champion_winrates.csv — las refresca el vigía 2×/día, check_patch.py paso 4).
 Uso:  python3 model/build_db.py        (idempotente: recrea la BD desde cero)
 Diseño: los .md/.csv siguen siendo la fuente de verdad editable; la BD es la capa de
 consulta/respaldo (y lo que consume un futuro frontend/CLI).
@@ -15192,6 +15287,9 @@ def connect_fresh():
     CREATE TABLE changes(patch TEXT, entity_type TEXT, entity TEXT, change TEXT);
     CREATE TABLE reports(champion TEXT, path TEXT PRIMARY KEY, version TEXT, status TEXT, patch TEXT, tags TEXT);
     CREATE TABLE sources(name TEXT, url TEXT, accessed TEXT, role TEXT);
+    CREATE TABLE winrates(champion TEXT, role TEXT, tier TEXT, win_pct REAL, pick_pct REAL,
+        ban_pct REAL, trend TEXT, confidence TEXT, bucket TEXT, updated_utc TEXT,
+        actualizado TEXT, PRIMARY KEY(champion, role));
     """)
     return con
 
@@ -15224,7 +15322,7 @@ def main():
     con = connect_fresh(); cur = con.cursor()
     hoy = datetime.date.today().isoformat()
     cur.executemany("INSERT INTO meta VALUES(?,?)", [
-        ("lab_version", "1.5"), ("patch_base", "7.3"), ("hotfix", "7.3a"),
+        ("lab_version", "1.11"), ("patch_base", "7.3"), ("hotfix", "7.3a"),
         ("db_built", hoy), ("champions_total", ""), ("items_total", "")])
 
     # champions (specs del equipo)
@@ -15257,6 +15355,22 @@ def main():
         rows = [(r["item"], r["precio_oro"], r["stats"], r["categorias"], r.get(det_col, "")) for r in rd]
     cur.executemany("INSERT OR REPLACE INTO items VALUES(?,?,?,?,?)", rows)
     cur.execute("UPDATE meta SET value=? WHERE key='items_total'", (str(len(rows)),))
+
+    # win rates del roster (si el vigía ya las sembró; si no, la tabla queda vacía)
+    wr_csv = os.path.join(E, "champion_winrates.csv")
+    n_wr = 0
+    if os.path.exists(wr_csv):
+        with open(wr_csv, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                try:
+                    cur.execute("INSERT OR REPLACE INTO winrates VALUES(?,?,?,?,?,?,?,?,?,?,?)", (
+                        r["champion"], r["role"], r.get("tier", ""),
+                        float(r["win_pct"]), float(r.get("pick_pct") or 0), float(r.get("ban_pct") or 0),
+                        r.get("trend", ""), r.get("confidence", ""), r.get("bucket", ""),
+                        r.get("updated_utc", ""), r.get("actualizado", "")))
+                    n_wr += 1
+                except (KeyError, ValueError):
+                    continue
 
     # patches + changes
     cur.execute("INSERT INTO patches VALUES(?,?,?,?,?)",
@@ -15297,14 +15411,16 @@ def main():
               ("Notas oficiales 7.2", "wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-2/", "2026-09-25", "primaria"),
               ("7.3a CN vía Arctic Shift", "lolm.qq.com docid 15413436308828016227 (reddit 1wskk84)", "2026-09-28", "primaria-traducida"),
               ("wr-meta items", "wr-meta.com/items/", "2026-09-25", "secundaria"),
-              ("wr-meta campeones", "wr-meta.com/{id}-{champ}.html", "2026-09-25/28", "secundaria")]:
+              ("wr-meta campeones", "wr-meta.com/{id}-{champ}.html", "2026-09-25/28", "secundaria"),
+              ("wr-meta Meta Overview (win rates)", "wr-meta.com/{id}-{champ}.html · sitemap.xml", "vigía 2×/día (check_patch.py)", "secundaria-contexto")]:
         cur.execute("INSERT INTO sources VALUES(?,?,?,?)", s)
 
     con.commit(); con.close()
     print(f"BD construida: {DB} ({os.path.getsize(DB)//1024} KB)")
     con = sqlite3.connect(DB)
     for q in ["SELECT COUNT(*) FROM champions","SELECT COUNT(*) FROM champion_as_official",
-              "SELECT COUNT(*) FROM items","SELECT COUNT(*) FROM changes","SELECT COUNT(*) FROM reports"]:
+              "SELECT COUNT(*) FROM items","SELECT COUNT(*) FROM changes","SELECT COUNT(*) FROM reports",
+              "SELECT COUNT(*) FROM winrates"]:
         print(" ", q.replace("SELECT COUNT(*) FROM ",""), "=", con.execute(q).fetchone()[0])
     con.close()
 
@@ -15315,28 +15431,63 @@ if __name__ == "__main__":
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · check_patch.py — vigilante de parches.
+WR-LAB · check_patch.py — vigilante de parches + win rates (v1.11).
 Detecta: (1) cambios de CONTENIDO en la página oficial 7.3 (hash de texto normalizado,
 inmune al ruido dinámico del CMS/nav), (2) publicación de páginas 7.3a/7.3b/7.4,
-(3) nuevas entradas de change-history en wr-meta para campeones centinela.
+(3) nuevas entradas de change-history en wr-meta para campeones centinela,
+(4) ACTUALIZA LAS WIN RATES DEL ROSTER (wr-meta, bloque "Meta Overview", bucket
+    Diamond+ por defecto) en el MISMO proceso: escribe data/estructurada/
+    champion_winrates.csv/.md (fuente de verdad de los callouts meta de los reportes)
+    y alerta cuando un campeón se mueve ≥ UMBRAL_WINRATE_PTS puntos.
 Estado persistente en data/raw/.watch_state.json. Exit 1 si hay cambios (útil para CI/cron).
 
 Historia: hasta v1.5 hasheaba el HTML crudo → falsos positivos por el listados de
 "artículos relacionados" y tokens del CMS (29-sep-2026: md5 distinto con contenido idéntico).
 Desde v1.6 el hash es del TEXTO del artículo, cortado antes del pie dinámico.
+Desde v1.11 las win rates viajan en el mismo ciclo del vigía (petición del autor:
+"dato vital siempre actualizado, fundamental para los reportes").
 
-Uso:  python3 model/check_patch.py [--quiet]
+Uso:  python3 model/check_patch.py [--quiet] [--winrates-only]
+      --winrates-only   solo el paso 4 (refresco manual: wrlab.py winrates)
 """
-import hashlib, html as htmllib, json, os, re, sys, datetime, urllib.request
+import csv, datetime, hashlib, html as htmllib, io, json, os, re, sys, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "data", "raw", ".watch_state.json")
 OFFICIAL = "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-{slug}/"
 CANDIDATES = ["7-3b", "7-3c", "7-4", "7-4a", "7-5", "7-3b-hotfix"]
 WATCH_PAGES = ["7-3", "7-3a"]        # páginas activas: vigilar cambios de CONTENIDO
-WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": None, "hwei": None, "yuumi": "321-yuumi",
-                    "kalista": "349-kalista", "malphite": "47-malphite"}
+WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": "317-caitlyn", "hwei": "505-hwei",
+                    "yuumi": "321-yuumi", "kalista": "349-kalista", "malphite": "47-malphite"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126.0"}
+
+# ---------------------------------------------------------------- win rates (paso 4, v1.11)
+WRMETA_PAGE = "https://wr-meta.com/{pid}-{slug}.html"
+WRMETA_SITEMAP = "https://wr-meta.com/sitemap.xml"
+WINRATES_CSV = os.path.join(ROOT, "data", "estructurada", "champion_winrates.csv")
+WINRATES_MD = os.path.join(ROOT, "data", "estructurada", "champion_winrates.md")
+UMBRAL_WINRATE_PTS = 2.0     # |Δ win rate| en puntos que merece alerta (el ruido diario es menor)
+PAUSA_ENTRE_PETICIONES = 0.35  # s — cortesía con wr-meta
+
+# Roster vigilado: campeones de los 16 reportes del vault + los 13 specs del lab
+# (el registro de reportes añade automáticamente cualquier campeón nuevo).
+WINRATE_ROSTER = ["caitlyn", "chogath", "diana", "heimerdinger", "jinx", "kalista", "karma",
+                  "malphite", "mordekaiser", "norra", "rammus", "seraphine", "shyvana",
+                  "sivir", "volibear", "yunara", "yuumi"]
+
+# IDs de página wr-meta conocidos (FUENTES.md + verificados en vivo el 01/10/2026).
+# Lo que falte se descubre con el sitemap y se persiste en state["wrmeta_ids"].
+WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365",
+              "kalista": "349", "diana": "216", "karma": "323", "heimerdinger": "346",
+              "volibear": "411", "seraphine": "34", "shyvana": "23", "chogath": "339",
+              "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
+              "rammus": "242"}
+
+DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
+
+CSV_COLS = ["champion", "role", "tier", "win_pct", "pick_pct", "ban_pct",
+            "trend", "confidence", "bucket", "updated_utc", "actualizado"]
+
 
 def get(url, t=25):
     req = urllib.request.Request(url, headers=UA)
@@ -15370,15 +15521,16 @@ def load_state():
     if os.path.exists(STATE):
         st = json.load(open(STATE))
         st.setdefault("official_73_content_md5", None)
+        st.setdefault("winrates", {})
+        st.setdefault("wrmeta_ids", {})
         return st
     return {"official_73_md5": None, "official_73_content_md5": None,
-            "new_pages": [], "changelog_dates": {}, "last_check": None}
+            "new_pages": [], "changelog_dates": {}, "last_check": None,
+            "winrates": {}, "wrmeta_ids": {}}
 
-def main():
-    quiet = "--quiet" in sys.argv
-    state = load_state()
-    findings = []
 
+# ---------------------------------------------------------------- pasos 1-3: parches
+def chequear_parches(state, findings):
     # 1) ¿el CONTENIDO de las páginas oficiales activas cambió? (7-3 y 7-3a)
     for slug in WATCH_PAGES:
         st, body = get(OFFICIAL.format(slug=slug))
@@ -15416,8 +15568,229 @@ def main():
                 findings.append(f"wr-meta {champ}: nuevo change-history {latest} (antes {prev})")
             state["changelog_dates"][champ] = list(latest)
 
+
+# ---------------------------------------------------------------- paso 4: win rates
+def display(champ):
+    return DISPLAY.get(champ, champ.title())
+
+
+def descubrir_ids():
+    """{slug: id} desde el sitemap de wr-meta (1 petición). Falla suave: {}."""
+    st, body = get(WRMETA_SITEMAP, t=20)
+    if st != 200:
+        return {}
+    t = body.decode("utf-8", "ignore")
+    return {name: num for num, name in re.findall(r"(\d+)-([a-z0-9-]+)\.html", t)}
+
+
+def roster_winrates():
+    """WINRATE_ROSTER + campeones del registro de reportes (si existe)."""
+    roster = set(WINRATE_ROSTER)
+    reg = os.path.join(ROOT, "data", "estructurada", "reportes_registry.json")
+    if os.path.exists(reg):
+        try:
+            datos = json.load(open(reg, encoding="utf-8")).get("reportes", {})
+            roster |= {e.get("champion") for e in datos.values() if e.get("champion")}
+        except Exception:
+            pass
+    return sorted(roster)
+
+
+def parsear_winrates(champ, body):
+    """[{role, tier, win_pct, pick_pct, ban_pct, trend, confidence, bucket, updated_utc}]
+    del bloque 'Meta Overview' (widget wrCnFsSnapWrap) de una ficha wr-meta.
+    Un registro por rol (SOLO/JUNGLE/MID/DUO/SUPPORT). Lista vacía si no está el bloque."""
+    t = body.decode("utf-8", "ignore")
+    i = t.find("wrCnFsSnapWrap")
+    if i < 0:
+        return []
+    seg = t[i:i + 40000]                       # el widget completo cabe de sobra
+
+    def _uno(pat, chunk, d=""):
+        m = re.search(pat, chunk)
+        return htmllib.unescape(m.group(1)).strip() if m else d
+
+    bucket = _uno(r'<option value="\d+" selected>([^<]+)</option>', seg, "Diamond +")
+    updated = _uno(r"Updated: <b>([^<]+)</b>", seg)
+    out, vistos = [], set()
+    # cada slide = un rol; el primer trozo es la cabecera del widget
+    for chunk in re.split(r"<div class='wr-cn-fs-slide'>", seg)[1:]:
+        role = _uno(r"wr-cn-fs-role'><i[^>]*></i><span>([^<]+)</span>", chunk).upper()
+        win = _uno(r"<span class='k'>Win:</span>\s*<span class='v[^']*'>([\d.]+)%", chunk)
+        if not role or not win or role in vistos:
+            continue
+        vistos.add(role)
+        out.append({
+            "champion": display(champ),
+            "role": role,
+            "tier": _uno(r'wr-tier-ico"[^>]*alt="([^"]*)"', chunk),
+            "win_pct": win,
+            "pick_pct": _uno(r"<span class='k'>Pick:</span>\s*<span class='v[^']*'>([\d.]+)%", chunk),
+            "ban_pct": _uno(r"<span class='k'>Ban:</span>\s*<span class='v[^']*'>([\d.]+)%", chunk),
+            "trend": _uno(r"wr-cn-trend[^']*'>([^<]+)<", chunk),
+            "confidence": _uno(r"wr-badge wr-conf-[^']*'>([^<]+)<", chunk),
+            "bucket": bucket,
+            "updated_utc": updated,
+        })
+    return out
+
+
+def winrates_csv_text(filas):
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, fieldnames=CSV_COLS, lineterminator="\r\n")
+    w.writeheader()
+    for f in filas:
+        w.writerow({k: f.get(k, "") for k in CSV_COLS})
+    return buf.getvalue()
+
+
+def winrates_md_text(filas):
+    """Documento legible (el que viaja en el bundle §7b). Misma fuente que el CSV."""
+    if not filas:
+        return ""
+    updated = filas[0].get("updated_utc", "")
+    bucket = filas[0].get("bucket", "Diamond +")
+    hoy = datetime.date.today().strftime("%d/%m/%Y")
+    L = ["# Win rates del roster — wr-meta (Meta Overview)",
+         "",
+         f"> Bucket: **{bucket}** · Datos wr-meta: **Updated {updated}** · Refrescado por el vigía: {hoy}",
+         "> Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía",
+         "> `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día",
+         "> en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).",
+         "> **Los callouts \"Estado Meta Actual\" de los reportes se toman de aquí** (TEMPLATE §A.1);",
+         "> alerta del vigía si un campeón se mueve ≥ "
+         f"{UMBRAL_WINRATE_PTS:.0f} pts de win rate.",
+         "",
+         "| Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |",
+         "|---|---|---|---|---|---|---|---|"]
+    for f in filas:
+        L.append(f"| {f['champion']} | {f['role']} | {f.get('tier','')} | {f['win_pct']} "
+                 f"| {f.get('pick_pct','')} | {f.get('ban_pct','')} | {f.get('trend','')} "
+                 f"| {f.get('confidence','')} |")
+    L += ["",
+          "Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.",
+          "Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).",
+          "Dato de CONTEXTO meta (secundario): no cambia builds por sí solo — si un movimiento",
+          "coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).", ""]
+    return "\n".join(L)
+
+
+def _escribir_si_cambia(ruta, texto):
+    """Escribe solo si el contenido cambia (evita commits/fechas parásitos en el vigía)."""
+    nuevo = texto.encode("utf-8")
+    if os.path.exists(ruta) and open(ruta, "rb").read() == nuevo:
+        return False
+    with open(ruta, "wb") as fh:
+        fh.write(nuevo)
+    return True
+
+
+def deltas_winrate(filas, prev):
+    """Findings de drift |Δwin| ≥ umbral contra el estado previo. Nuevo campeón no alerta."""
+    findings = []
+    for f in filas:
+        clave = f"{f['champion']}|{f['role']}"
+        try:
+            nuevo = float(f["win_pct"])
+        except ValueError:
+            continue
+        anterior = prev.get(clave)
+        if anterior is None:
+            continue
+        d = nuevo - float(anterior)
+        if abs(d) >= UMBRAL_WINRATE_PTS:
+            findings.append(f"WIN RATE {f['champion']} ({f['role']}, {f['bucket']}): "
+                            f"{float(anterior):.2f} → {nuevo:.2f} % ({d:+.2f} pts) — "
+                            "re-verificar el callout meta de sus reportes")
+    return findings
+
+
+def actualizar_winrates(state, findings, quiet=False):
+    """Paso 4 del vigía. Devuelve (n_champs_ok, n_filas). Falla suave: si wr-meta no
+    responde, conserva los valores previos y NO rompe los pasos 1-3."""
+    ids = dict(WRMETA_IDS)
+    ids.update(state.get("wrmeta_ids", {}))
+    roster = roster_winrates()
+    faltan = [c for c in roster if c not in ids]
+    if faltan:
+        descubiertos = descubrir_ids()
+        if descubiertos:
+            for c in faltan:
+                if c in descubiertos:
+                    ids[c] = descubiertos[c]
+            state["wrmeta_ids"] = {k: v for k, v in ids.items() if k not in WRMETA_IDS}
+            faltan = [c for c in roster if c not in ids]
+
+    filas, fallos = [], []
+    for n, champ in enumerate(roster):
+        pid = ids.get(champ)
+        if not pid:
+            fallos.append(f"{champ} (sin id wr-meta)")
+            continue
+        if n:
+            time.sleep(PAUSA_ENTRE_PETICIONES)
+        st, body = get(WRMETA_PAGE.format(pid=pid, slug=champ), t=20)
+        if st != 200:
+            fallos.append(f"{champ} (HTTP {st})")
+            continue
+        rows = parsear_winrates(champ, body)
+        if not rows:
+            fallos.append(f"{champ} (sin bloque Meta Overview)")
+            continue
+        filas += rows
+
+    if not filas:
+        msg = ("⚠️ win rates: sin datos frescos (wr-meta inaccesible o estructura cambiada) "
+               "— se conservan los valores previos" + (f": {', '.join(fallos)}" if fallos else ""))
+        print(msg)
+        return 0, 0
+
+    hoy = datetime.date.today().isoformat()
+    for f in filas:
+        f["actualizado"] = hoy
+    # drift contra el estado previo (antes de sobrescribirlo)
+    findings.extend(deltas_winrate(filas, state.get("winrates", {})))
+    # escribe CSV + MD solo si los VALORES cambian (la columna 'actualizado' no cuenta:
+    # así el vigía no genera commits/fechas parásitos cuando wr-meta no ha movido datos)
+    csv_txt = winrates_csv_text(filas)
+    anterior = open(WINRATES_CSV, "rb").read().decode("utf-8") if os.path.exists(WINRATES_CSV) else None
+    sin_fecha = lambda t: [l.rsplit(",", 1)[0] for l in t.splitlines()]
+    if anterior is None or sin_fecha(anterior) != sin_fecha(csv_txt):
+        _escribir_si_cambia(WINRATES_CSV, csv_txt)
+        _escribir_si_cambia(WINRATES_MD, winrates_md_text(filas))
+        if not quiet:
+            print(f"✍️  win rates actualizadas: {os.path.relpath(WINRATES_CSV, ROOT)} ({len(filas)} filas)")
+    state["winrates"] = {f"{f['champion']}|{f['role']}": float(f["win_pct"]) for f in filas}
+    state["winrates_meta"] = {"bucket": filas[0]["bucket"], "updated_utc": filas[0]["updated_utc"],
+                              "n_champs": len({f["champion"] for f in filas}), "n_filas": len(filas)}
+    state["winrates_checked"] = datetime.datetime.now().isoformat(timespec="seconds")
+    if fallos and not quiet:
+        print("⚠️  win rates sin refrescar:", ", ".join(fallos))
+    return len({f["champion"] for f in filas}), len(filas)
+
+
+def main():
+    quiet = "--quiet" in sys.argv
+    solo_wr = "--winrates-only" in sys.argv
+    state = load_state()
+    findings = []
+
+    if not solo_wr:
+        chequear_parches(state, findings)          # pasos 1-3
+    n_ch, n_filas = actualizar_winrates(state, findings, quiet)   # paso 4 (mismo proceso)
+
     state["last_check"] = datetime.datetime.now().isoformat(timespec="seconds")
     json.dump(state, open(STATE, "w"), indent=1)
+
+    if solo_wr:
+        if findings:
+            print("🔔 WIN RATES — MOVIMIENTOS ≥ umbral:")
+            for f in findings: print("  -", f)
+        if not n_filas:
+            sys.exit(1)
+        if not quiet:
+            print(f"✅ Win rates al día: {n_ch} campeones · {n_filas} filas (champion_winrates.csv)")
+        sys.exit(1 if findings else 0)
 
     if findings:
         print("🔔 CAMBIOS DETECTADOS:")
@@ -15425,7 +15798,8 @@ def main():
         print("→ Ejecutar protocolo de actualización (FRAMEWORK §E) y regenerar BD/bundles.")
         sys.exit(1)
     if not quiet:
-        print("✅ Sin cambios desde el último chequeo.", state["last_check"])
+        print("✅ Sin cambios desde el último chequeo.", state["last_check"],
+              f"· win rates: {n_ch} campeones refrescados")
     sys.exit(0)
 
 if __name__ == "__main__":
@@ -15521,4 +15895,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 30/09/2026 · completo · sha256(cuerpo)=01ada54f3c1a461c · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 01/10/2026 · completo · sha256(cuerpo)=4393f86152fe1d66 · NO editar a mano: editar las fuentes y regenerar -->

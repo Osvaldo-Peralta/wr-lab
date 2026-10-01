@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 30/09/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 01/10/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -191,12 +191,20 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 
 > 💡 Atajo v1.9: `python3 wrlab.py` abre el **menú interactivo**; la opción
 > "CICLO COMPLETO" de la sección hotfix ejecuta los pasos 7-8 de una vez.
+>
+> 🏹 v1.11: el vigía (`python3 model/check_patch.py`, cron 2×/día) busca parches/hotfix
+> nuevos **y en el mismo proceso actualiza las win rates del roster**
+> (`data/estructurada/champion_winrates.csv/.md`, wr-meta Diamond+). Los callouts
+> "Estado Meta Actual" de los reportes nuevos o regenerados se citan desde ese archivo,
+> nunca de memoria (TEMPLATE §A.1); refresco manual: `python3 wrlab.py winrates`.
 
 ```bash
 # 1. Descargar notas oficiales del nuevo parche (python urllib desde el sandbox funciona):
 #    https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-X-X/
 #    → limpiar HTML → data/raw/patchX.txt  (mismo formato que patch73.txt)
 # 2. Re-descargar https://wr-meta.com/items/ → data/raw/wrmeta_items.html
+# 2b. Win rates (v1.11): las refresca el vigía en este mismo protocolo —
+#     python3 wrlab.py winrates → data/estructurada/champion_winrates.csv/.md
 #    (alternativa si cae: wr-meta.com/<id>-<champion>.html por campeón)
 # 3. Re-ejecutar:  python3 model/extract_data.py
 # 4. Diffear contra la versión anterior de items_7.3.csv / champion_attack_speed_7.3.csv
@@ -359,7 +367,7 @@ Grep de "size/tamaño" sobre los 186 ítems de `items_7.3.csv` y las 12 fichas d
 2. **Bloque de metadatos** (inmediato, en negritas, una línea por campo):
    `**Fecha del análisis:**` · `**Parche:**` · `**Rol principal:**` · `**Arquetipo:**` · `**Enfoque:**` (1-2 líneas: la tesis de la build).
 3. **Callouts Obsidian** (en este orden, tras los metadatos):
-   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO** (datos de wr-meta/fichas).
+   - `> [!NOTE]` **Estado Meta Actual ({rango}, {fecha}):** Win Rate X % | Pick Rate X % | Ban X % | Tendencia ↑↓ | Rol. → **OBLIGATORIO**. Fuente (v1.11): `data/estructurada/champion_winrates.csv` — wr-meta Diamond+, actualizado 2×/día por el vigía (`wrlab.py winrates`); citar de ahí, no de memoria.
    - `> [!TIP]` Variante principal en 2-3 líneas (qué slot cambia, qué se gana/pierde con números). → OBLIGATORIO si existe variante.
    - `> [!DANGER]` Solo en **builds personalizadas de escenario** (ej. Yuumi agresiva, Cho'Gath tamaño): declarar el sacrificio con números ("sacrifica ~X % de Y a cambio de ~Z % más de W").
    - `> [!WARNING]` Datos pendientes de verificar en juego (rangos, mecánicas ambiguas).
@@ -598,7 +606,7 @@ patch: "7.3"
 ## C. CHECKLIST ANTES DE PUBLICAR (Status: Borrador → Aprobado)
 
 - [ ] Frontmatter completo (tags rol/clase/arquetipo/lane, version, Status, champion, patch).
-- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha).
+- [ ] Metadatos + callout [!NOTE] con meta real (WR/pick/ban/tendencia + fecha) tomada de `champion_winrates.csv` (el lint avisa si diverge >3 pts del dato actual).
 - [ ] Tabla A = 6 filas exactas (1 botas con ⬆️ + 5 ítems); Tabla B con componentes y oro acumulado.
 - [ ] `validate_slots()` en PASS declarado en §10.
 - [ ] Números con espacio de miles (`2 900`) y `%` con espacio (`25 %`) en TODO el documento.
@@ -612,7 +620,7 @@ patch: "7.3"
 
 # FUENTES — Registro de datos y verificación
 
-**Última actualización del lab:** 29 de septiembre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
+**Última actualización del lab:** 1 de octubre de 2026 · **Parche base:** 7.3 (lanzado 21-sep-2026) + **hotfix 7.3a** (despliegue 29-sep-2026)
 
 ## Registro de verificaciones de parche
 
@@ -624,6 +632,7 @@ patch: "7.3"
 | 29/09/2026 | Vault externo integrado (16 reportes sustituyen a los 5 del lab, commit 163d9bc) | Re-triage 7.3a del vault: **Caitlyn ❌ y Rammus ❌ REGENERAR** (7.3a tocó inputs de su spec: AS growth / armadura base — sus reportes declaran datos 7.3), **Yuumi ⚠️ REVISAR** (nerf W sin hook para la build poke-híbrida: Stormsurge/Harmonic Echo fuera del modelo), 13 ✅ ANOTAR/SIN IMPACTO | Bloques `WRLAB-VERIF:7.3a` en los 16 reportes + registro |
 | 29/09/2026 | Validación cruzada del optimizador (`optimize_build.py`) | ✅ **Redescubre la build C de Jinx** dentro del pool de candidatos del reporte (Leyes 1+3 duras, 3 042 dps1). Pool completo post-7.3a: `Gunmetal+C44+Terminus+YunTal+LDR+IE` supera a C ~7 % en eficiencia ponderada normalizada (supuestos: Yun Tal a rampa máxima 125 ataques, Terminus a stacks) — **hallazgo registrado, reporte publicado intacto** (Regla de Oro) | ROADMAP.md §Hallazgos del optimizador |
 | 29/09/2026 | **Nota EN oficial de 7.3a publicada** (detectada por check_patch.py en vivo) | Descargada y verificada número por número contra `cambios_7.3a.md` (traducción CN): **todo coincide** — specs/motor/tests del lab quedan confirmados contra fuente primaria. Discrepancia menor registrada: Crown of Songs (ver §Discrepancias). wr-meta indexó changelogs "30 SEP 2026 (7.3A)" en Yuumi/Malphite | `data/raw/patch73a_en.html/.txt` |
+| 01/10/2026 | **Win rates integradas al vigía** (v1.11, petición del autor: "dato vital siempre actualizado") | `check_patch.py` paso 4: bloque Meta Overview de wr-meta (bucket Diamond+) para el roster (17 campeones = 16 reportes + 13 specs, ampliado por el registro); escribe `champion_winrates.csv/.md`, alimenta la tabla `winrates` de la BD y el §7b de los bundles; alerta si |Δ win rate| ≥ 2 pts; el lint avisa si el callout meta de un reporte diverge >3 pts. Siembra en vivo: 17 campeones · 22 filas · "Updated: 01 OCT 2026 UTC 00:00". IDs verificados contra home + sitemap.xml de wr-meta (descubiertos: caitlyn 317, sivir 394, norra 552, rammus 242, hwei 505) | `data/estructurada/champion_winrates.csv`, `.watch_state.json` (secciones `winrates`/`wrmeta_ids`) |
 | 29/09/2026 | Bundles regenerables | `WR-LAB_lite.md` (176 KB) y `WR-LAB_completo.md` (836 KB) regenerados desde las fuentes con los 16 reportes del vault + módulos nuevos (optimizador §10c, batch2 §10b, actualizador §17b, infra §18); CI verifica sincronía (`build_bundles.py --check`) | `model/build_bundles.py` |
 
 ## Hotfix 7.3a (29-sep-2026)
@@ -646,6 +655,7 @@ patch: "7.3"
 |---|---|---|---|---|
 | wr-meta.com/items | wr-meta.com/items/ | 25/09/2026 (`data/raw/wrmeta_items.html`, 510 KB) | Stats completos y precio de los 186 ítems únicos (incluye nuevos de 7.3), pasivas, botas T2/T3, runas | Alta: incluye ítems 7.3; desfasada en runas removidas (lista Ingenious Hunter) y texto viejo de Lethal Tempo |
 | wr-meta.com Jinx | wr-meta.com/39-jinx.html | 25/09/2026 (`data/raw/wrmeta_jinx.html/.txt`) | Stats base de Jinx (58 AD/630 HP/335 MS/575 rango), valores por habilidad, change history completo, build popular y meta (WR 49.82 %, pick 10.97 %, Diamond+, 24/09) | Alta para números de kit; la build popular es insumo, no conclusión |
+| wr-meta.com — Meta Overview (win rates) | wr-meta.com/{id}-{champ}.html (bloque `wrCnFsSnapWrap`) + sitemap.xml para ids | vivo, 2×/día vía `check_patch.py` paso 4 (`champion_winrates.csv/.md`) | Win/pick/ban/trend + tier y confianza por rol, bucket Diamond+ (select por defecto de la página) | Contexto meta (secundaria): no decide builds; para callouts de reportes y detección de movimientos ≥ 2 pts |
 | wr-meta.com — 11 fichas del equipo | wr-meta.com/{id}-{champ}.html (yuumi 321, yunara 545, mordekaiser 365, kalista 349, diana 216, karma 323, heimerdinger 346, volibear 411, seraphine 34, shyvana 23, chogath 339) | 25/09/2026 (`data/raw/campeones/*.html` → `data/estructurada/campeones/*.md` + `champion_base_stats.json`) | Stats base, habilidades con valores, change history y builds populares de los 11 campeones del roster | Alta en general; ⚠️ Volibear muestra ad_growth "56" (errata probable — verificar); el rango de ataque no se publica (verificar Kalista/Yunara en juego) |
 
 ## Fuentes intentadas y descartadas (para no repetir el trabajo)
@@ -684,6 +694,9 @@ data/raw/patch72.txt   ───→ referencia del sistema de botas/encantamient
 data/raw/wrmeta_items.html ┬→ items_7.3.csv / items_7.3.md  (186 ítems)
                            └→ runas_7.3.md
 data/raw/wrmeta_jinx.html  → spec de Jinx en model/dps_model.py + reporte
+wr-meta.com/{id}-{champ}.html (EN VIVO, vigía 2×/día — check_patch.py paso 4)
+                        └→ champion_winrates.csv / champion_winrates.md (Diamond+)
+                           └→ BD tabla `winrates` + bundle §7b + callouts meta de reportes
 ```
 
 ## 3b. HOTFIX 7.3a — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
@@ -1737,6 +1750,47 @@ Thresh,,,,,120 → 140
 Ornn,720 → 690,,,,120 → 132
 Nocturne,,,,,120 → 134
 ```
+
+## 7b. WIN RATES DEL ROSTER (wr-meta · Diamond+ · las actualiza el vigía 2×/día)
+
+# Win rates del roster — wr-meta (Meta Overview)
+
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 01 OCT 2026 UTC 00:00** · Refrescado por el vigía: 01/10/2026
+> Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
+> `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
+> en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
+> **Los callouts "Estado Meta Actual" de los reportes se toman de aquí** (TEMPLATE §A.1);
+> alerta del vigía si un campeón se mueve ≥ 2 pts de win rate.
+
+| Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
+|---|---|---|---|---|---|---|---|
+| Caitlyn | DUO | A | 50.44 | 25.95 | 27.38 | ↓ 10 | Confidence High |
+| Cho'Gath | SOLO | A | 50.17 | 12.72 | 33.10 | ↓ 2 | Confidence High |
+| Cho'Gath | JUNGLE | A | 50.41 | 8.64 | 33.10 | ↓ 3 | Confidence High |
+| Diana | MID | B | 47.95 | 1.16 | 0.18 | ↓ 2 | Confidence Low |
+| Diana | JUNGLE | A | 50.35 | 1.74 | 0.18 | ↑ 5 | Confidence Low |
+| Heimerdinger | MID | A | 50.49 | 1.52 | 1.01 | ↓ 3 | Confidence Low |
+| Jinx | DUO | A | 50.55 | 11.30 | 0.41 | 0 | Confidence High |
+| Kalista | DUO | S | 51.12 | 4.65 | 4.19 | ↑ 1 | Confidence Med |
+| Kalista | SOLO | S+ | 53.01 | 2.05 | 4.19 | ↑ 4 | Confidence Low |
+| Karma | SUPPORT | A | 49.19 | 5.13 | 0.38 | ↓ 5 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.51 | 7.30 | 46.65 | ↓ 2 | Confidence Med |
+| Malphite | SOLO | S+ | 56.44 | 9.32 | 46.65 | 0 | Confidence High |
+| Mordekaiser | SOLO | S | 50.87 | 10.83 | 27.69 | 0 | Confidence High |
+| Norra | MID | A | 50.06 | 1.57 | 7.98 | ↑ 1 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.81 | 5.42 | 5.84 | 0 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.30 | 6.88 | 0.96 | ↓ 1 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.14 | 3.76 | 1.45 | 0 | Confidence Med |
+| Sivir | DUO | B | 48.08 | 3.45 | 0.05 | ↓ 1 | Confidence Med |
+| Volibear | SOLO | B | 47.53 | 5.87 | 4.65 | ↓ 3 | Confidence Med |
+| Volibear | JUNGLE | B | 47.97 | 2.51 | 4.65 | 0 | Confidence Low |
+| Yunara | DUO | S | 50.91 | 18.06 | 22.13 | ↑ 1 | Confidence High |
+| Yuumi | SUPPORT | A | 48.90 | 10.43 | 34.20 | ↓ 5 | Confidence High |
+
+Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
+Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
+Dato de CONTEXTO meta (secundario): no cambia builds por sí solo — si un movimiento
+coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 
 ## 8. BASE DE ÍTEMS 7.3 (compacta — OJO: Boots tier 3 = MISMO slot que su tier 2; Yun Tal y Death's Dance ya con valores 7.3a en el motor)
 
@@ -3804,4 +3858,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 30/09/2026 · lite · sha256(cuerpo)=be17e8dcac9567ed · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 01/10/2026 · lite · sha256(cuerpo)=f09e9254c6008f4b · NO editar a mano: editar las fuentes y regenerar -->
