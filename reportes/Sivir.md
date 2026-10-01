@@ -38,7 +38,7 @@ Status: Beta
 **Veredicto:** 
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Sivir:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.

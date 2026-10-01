@@ -7865,7 +7865,7 @@ Status: Beta
 **Enfoque:** Aprovechar su rango base de 650 para procar Magnification y RFC de forma segura.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> [!NOTE] ❌ REGENERAR Verificación automática (30/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
 > **Cambio directo:** NERF — **AS growth 0.04→0.025** · Headshot ratio 60–100→**60–90 % AD**.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Infinity Edge + Lord Dominik's Regards + Rapid Firecannon + Bloodthirster — **sin cambios**.
@@ -8115,7 +8115,7 @@ Status: Beta
 **Enfoque:** Convertir el tamaño en poder real
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Hollow Radiance + Liandry's Torment + Force of Nature + Warmog's Armor — **sin cambios**.
@@ -8482,7 +8482,7 @@ Status: Beta
 **Enfoque:** Maximizar HP bonus como stat compuesto
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Rod of Ages + Amaranth's Twinguard + Gargoyle Stoneplate + Liandry's Torment — **sin cambios**.
@@ -8850,7 +8850,7 @@ Status: Beta
 **Enfoque:** Explotar el Lethal Tempo rehecho
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Nashor's Tooth + Dusk and Dawn + Rabadon's Deathcap + Zhonya's Hourglass + Cryptbloom — **sin cambios**.
@@ -9152,7 +9152,7 @@ Status: Beta
 **Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
@@ -9445,7 +9445,7 @@ Status: Beta
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Heimerdinger:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
@@ -10214,7 +10214,7 @@ Status: Beta
 **Parche:** 7.3 (Lanzamiento: 21/09/2026)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Kalista:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.
@@ -10361,7 +10361,7 @@ Status: Beta
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Mordekaiser:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -10606,7 +10606,7 @@ Status: Beta
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Norra:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
@@ -10752,7 +10752,7 @@ Status: Beta
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> [!NOTE] ❌ REGENERAR Verificación automática (30/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
 > **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
@@ -10999,7 +10999,7 @@ Status: Beta
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Seraphine:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
@@ -11278,7 +11278,7 @@ Status: Beta
 **Veredicto:** 
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Sivir:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
@@ -11371,7 +11371,7 @@ Status: Beta
 **Enfoque:** Explotar el escalado cruzado (AP + HP) para generar escudos
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Volibear:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Chainlaced Crushers + Dusk and Dawn + Riftmaker + Nashor's Tooth + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -11668,7 +11668,7 @@ Status: Beta
 **Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (lanzado 21-sep-2026)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Yunara:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
@@ -11851,7 +11851,7 @@ Status: Aprobado
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (29/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
 > **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
 > **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
@@ -15521,4 +15521,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 30/09/2026 · completo · sha256(cuerpo)=957395e591f84ab9 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 30/09/2026 · completo · sha256(cuerpo)=01ada54f3c1a461c · NO editar a mano: editar las fuentes y regenerar -->

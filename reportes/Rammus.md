@@ -9,7 +9,7 @@ Status: Beta
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (29/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> [!NOTE] ❌ REGENERAR Verificación automática (30/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
 > **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
