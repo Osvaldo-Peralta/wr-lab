@@ -3,6 +3,10 @@ tags:
   - Mid
 version: 1
 Status: Beta
+champion: Heimerdinger
+slug: heimerdinger
+role: mid
+engine: none
 ---
 **Fecha del análisis:** 26 de septiembre de 2026  
 

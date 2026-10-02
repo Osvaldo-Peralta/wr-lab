@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 01/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 02/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -7911,6 +7911,13 @@ tags:
   - ADC
 version: 1.2
 Status: Beta
+champion: Caitlyn
+slug: caitlyn
+role: adc
+patch: "7.3"
+archetype: Crítico burst/abilities — Headshots
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8161,6 +8168,13 @@ tags:
   - Personalizado
 version: 1.2
 Status: Beta
+champion: Cho'Gath
+slug: chogath-titan-de-la-jungla
+role: jungla
+patch: "7.3"
+archetype: Tanque de Escalado Infinito
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8528,6 +8542,13 @@ tags:
   - Personalizado
 version: 1.2
 Status: Beta
+champion: Cho'Gath
+slug: chogath-titan-del-baron
+role: jungla
+patch: "7.3"
+archetype: AP-Tank con escalado infinito
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8896,6 +8917,13 @@ tags:
   - Mid
 version: 1.2
 Status: Beta
+champion: Diana
+slug: diana-jungla
+role: jungla
+patch: "7.3"
+archetype: AP assassin híbrido
+engine: rotacion
+published_at: "2026-09-29"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -9198,6 +9226,13 @@ tags:
   - Jungla
 version: 1.2
 Status: Beta
+champion: Diana
+slug: diana-mid
+role: mid
+patch: "7.3"
+archetype: AP Assassin híbrido
+engine: rotacion
+published_at: "2026-09-29"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -9493,6 +9528,10 @@ tags:
   - Mid
 version: 1
 Status: Beta
+champion: Heimerdinger
+slug: heimerdinger
+role: mid
+engine: none
 ---
 **Fecha del análisis:** 26 de septiembre de 2026  
 
@@ -9702,6 +9741,12 @@ tags:
 version: 1.4
 Status: Aprobado
 patch: 7.3a
+champion: Jinx
+slug: jinx
+role: adc
+archetype: Crítico AoE
+engine: autos
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026 · Variante anti-tanques añadida el 29/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a verificado (29/09/2026)
@@ -10263,6 +10308,12 @@ tags:
   - ADC
 version: 1
 Status: Beta
+champion: Kalista
+slug: kalista
+role: adc
+patch: "7.3"
+engine: onhit
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026  
 **Parche:** 7.3 (Lanzamiento: 21/09/2026)
@@ -10407,6 +10458,13 @@ tags:
   - Jungla
 version: 1.2
 Status: Beta
+champion: Mordekaiser
+slug: mordekaiser
+role: jungla
+patch: "7.3"
+archetype: AP Juggernaut — daño mágico sostenido
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -10653,6 +10711,12 @@ tags:
   - Personalizado
 version: 1
 Status: Beta
+champion: Norra
+slug: norra
+role: mid
+patch: "7.3"
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026 · **Parche:** 7.3 (21-sep-2026)
 **Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).
@@ -10800,6 +10864,10 @@ tags:
   - Jungla
 version: 1
 Status: Beta
+champion: Rammus
+slug: rammus
+role: jungla
+engine: none
 ---
 **Fecha del análisis:** 26 de septiembre de 2026  
 
@@ -11047,6 +11115,11 @@ tags:
   - Soporte
 version: 1
 Status: Beta
+champion: Seraphine
+slug: seraphine
+role: support
+archetype: `enchanter-mage` (Soporte de Area Control & Sustain).
+engine: none
 ---
 **Fecha del análisis:** 27 de septiembre de 2026  
 
@@ -11297,6 +11370,12 @@ tags:
   - ADC
 version: 1
 Status: Beta
+champion: Sivir
+slug: sivir
+role: adc
+patch: "7.3"
+engine: none
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (21-sep-2026)
 
@@ -11417,6 +11496,13 @@ tags:
   - Jungla
 version: 1.2
 Status: Beta
+champion: Volibear
+slug: volibear-pesadilla
+role: jungla
+patch: "7.3"
+archetype: AP-Bruiser de Inmersión (Dive, Shield & Tower Control)
+engine: none
+published_at: "2026-09-29"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -11718,6 +11804,12 @@ tags:
   - ADC
 version: 1
 Status: Beta
+champion: Yunara
+slug: yunana
+role: adc
+patch: "7.3"
+engine: none
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (lanzado 21-sep-2026)
 
@@ -11897,6 +11989,13 @@ tags:
   - Personalizado
 version: 1.2
 Status: Aprobado
+champion: Yuumi
+slug: yuumi
+role: support
+patch: "7.3"
+archetype: Poke-Hybrid Support
+engine: aliado
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -12456,6 +12555,30 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 | **Win rates del roster (Diamond+)** | `model/check_patch.py` paso 4 + `data/estructurada/champion_winrates.csv/.md` + tabla `winrates` en la BD + §7b de los bundles + `wrlab.py winrates` | ✅ fuente de los callouts meta de los reportes (TEMPLATE §A.1); alerta del vigía si \|Δ win rate\| ≥ 2 pts; el lint avisa si un callout publicado diverge >3 pts del dato actual; ids wr-meta descubiertos por sitemap y persistidos en `.watch_state.json` |
 | CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
 | Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
+
+## Pistas activas (01-oct-2026)
+
+1. **Migración del sitio** — plan del autor v1.0 en `deploy/PLAN_MIGRACION_VERCEL.md`
+   (Next.js + backend de comunidad + Supabase; 8 fases; el lab no se toca: solo aporta
+   el contrato de frontmatter y el backfill desde `reportes_registry.json` en fases 0-1).
+2. **Módulo ARAM AAA** (propuesto por el autor, pendiente de aprobación formal) — set de
+   cartas/augments óptimo por campeón. Datos primarios parciales YA en el lab: notas 7.3
+   §Themed Augments (Heartsteel/Steel Tokens, True Damage/Duet, sets de pentakill) y 7.3a
+   (12 augments reajustados + Fiddle/Nasus). Huecos: catálogo completo de augments,
+   modificadores de daño por campeón en ARAM, reglas de draft/niveles extendidos
+   (fuentes a investigar; wr-meta no cubre ARAM). Arquitectura propuesta: namespace
+   separado (`data/aram/`, `model/aram_*.py`, tests propios) — CERO contaminación del
+   núcleo SR; reutiliza ChampSpecs y añade capa de augments. Ver análisis en el chat.
+
+## Backlog APROBADO por el autor (29-sep-2026, en este orden)
+
+1. **Matriz de matchups** (#6) — EHP/DPS efectivo cruzado entre builds; base parcial lista
+   (modelo de defensa/EHP del optimizador v1.9).
+2. **Runas v2** — buscador de runas para motores on-hit (Kalista) y aliado (Yuumi/Karma).
+3. **Calibración en juego** (minion gold, passive income, CD Electrocute, Brutal).
+
+**En modo mantenimiento:** `sim_timings.py` (juego casual del equipo — funcional y testeado,
+sin más inversión en precisión por ahora).
 
 ## Hallazgos del optimizador (registro vivo)
 
@@ -15895,4 +16018,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 01/10/2026 · completo · sha256(cuerpo)=4393f86152fe1d66 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 02/10/2026 · completo · sha256(cuerpo)=035aa6eebc8ff867 · NO editar a mano: editar las fuentes y regenerar -->

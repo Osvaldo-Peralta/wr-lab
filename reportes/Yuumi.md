@@ -4,6 +4,13 @@ tags:
   - Personalizado
 version: 1.2
 Status: Aprobado
+champion: Yuumi
+slug: yuumi
+role: support
+patch: "7.3"
+archetype: Poke-Hybrid Support
+engine: aliado
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)

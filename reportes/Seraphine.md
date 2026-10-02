@@ -3,6 +3,11 @@ tags:
   - Soporte
 version: 1
 Status: Beta
+champion: Seraphine
+slug: seraphine
+role: support
+archetype: `enchanter-mage` (Soporte de Area Control & Sustain).
+engine: none
 ---
 **Fecha del análisis:** 27 de septiembre de 2026  
 

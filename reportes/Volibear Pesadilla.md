@@ -4,6 +4,13 @@ tags:
   - Jungla
 version: 1.2
 Status: Beta
+champion: Volibear
+slug: volibear-pesadilla
+role: jungla
+patch: "7.3"
+archetype: AP-Bruiser de Inmersión (Dive, Shield & Tower Control)
+engine: none
+published_at: "2026-09-29"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
