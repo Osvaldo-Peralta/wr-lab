@@ -3,6 +3,12 @@ tags:
   - ADC
 version: 1
 Status: Beta
+champion: Kalista
+slug: kalista
+role: adc
+patch: "7.3"
+engine: onhit
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026  
 **Parche:** 7.3 (Lanzamiento: 21/09/2026)

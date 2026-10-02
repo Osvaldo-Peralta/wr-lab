@@ -17,6 +17,30 @@
 | CI | `.github/workflows/ci.yml` (tests + rebuild BD en cada push) | ✅ |
 | Motor de DPS + validador | `model/dps_model.py` (`validate_slots`, `eval_build`, `compare`) | ✅ |
 
+## Pistas activas (01-oct-2026)
+
+1. **Migración del sitio** — plan del autor v1.0 en `deploy/PLAN_MIGRACION_VERCEL.md`
+   (Next.js + backend de comunidad + Supabase; 8 fases; el lab no se toca: solo aporta
+   el contrato de frontmatter y el backfill desde `reportes_registry.json` en fases 0-1).
+2. **Módulo ARAM AAA** (propuesto por el autor, pendiente de aprobación formal) — set de
+   cartas/augments óptimo por campeón. Datos primarios parciales YA en el lab: notas 7.3
+   §Themed Augments (Heartsteel/Steel Tokens, True Damage/Duet, sets de pentakill) y 7.3a
+   (12 augments reajustados + Fiddle/Nasus). Huecos: catálogo completo de augments,
+   modificadores de daño por campeón en ARAM, reglas de draft/niveles extendidos
+   (fuentes a investigar; wr-meta no cubre ARAM). Arquitectura propuesta: namespace
+   separado (`data/aram/`, `model/aram_*.py`, tests propios) — CERO contaminación del
+   núcleo SR; reutiliza ChampSpecs y añade capa de augments. Ver análisis en el chat.
+
+## Backlog APROBADO por el autor (29-sep-2026, en este orden)
+
+1. **Matriz de matchups** (#6) — EHP/DPS efectivo cruzado entre builds; base parcial lista
+   (modelo de defensa/EHP del optimizador v1.9).
+2. **Runas v2** — buscador de runas para motores on-hit (Kalista) y aliado (Yuumi/Karma).
+3. **Calibración en juego** (minion gold, passive income, CD Electrocute, Brutal).
+
+**En modo mantenimiento:** `sim_timings.py` (juego casual del equipo — funcional y testeado,
+sin más inversión en precisión por ahora).
+
 ## Hallazgos del optimizador (registro vivo)
 
 - **29/09 · Protocolo de validación (2 niveles):** NIVEL 1 — dentro de las candidatas del propio

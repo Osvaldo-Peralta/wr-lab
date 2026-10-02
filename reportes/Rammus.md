@@ -3,6 +3,10 @@ tags:
   - Jungla
 version: 1
 Status: Beta
+champion: Rammus
+slug: rammus
+role: jungla
+engine: none
 ---
 **Fecha del análisis:** 26 de septiembre de 2026  
 

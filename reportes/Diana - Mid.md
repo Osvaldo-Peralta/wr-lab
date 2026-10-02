@@ -4,6 +4,13 @@ tags:
   - Jungla
 version: 1.2
 Status: Beta
+champion: Diana
+slug: diana-mid
+role: mid
+patch: "7.3"
+archetype: AP Assassin híbrido
+engine: rotacion
+published_at: "2026-09-29"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)

@@ -6,7 +6,7 @@ Status: Borrador
 champion: Caitlyn
 patch: "7.3a"
 ---
-# ⚠️ BORRADOR DE REGENERACIÓN — Caitlyn (7.3a) · generado 30/09/2026 por update_reports.py
+# ⚠️ BORRADOR DE REGENERACIÓN — Caitlyn (7.3a) · generado 02/10/2026 por update_reports.py
 
 > [!DANGER] Por qué existe este borrador
 > El reporte publicado `Caitlyn.md` recibió veredicto **❌ REGENERAR** contra 7.3a:

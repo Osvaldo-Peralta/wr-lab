@@ -4,6 +4,12 @@ tags:
   - Personalizado
 version: 1
 Status: Beta
+champion: Norra
+slug: norra
+role: mid
+patch: "7.3"
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026 · **Parche:** 7.3 (21-sep-2026)
 **Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).

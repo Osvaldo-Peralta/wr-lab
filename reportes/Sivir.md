@@ -3,6 +3,12 @@ tags:
   - ADC
 version: 1
 Status: Beta
+champion: Sivir
+slug: sivir
+role: adc
+patch: "7.3"
+engine: none
+published_at: "2026-09-27"
 ---
 **Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (21-sep-2026)
 

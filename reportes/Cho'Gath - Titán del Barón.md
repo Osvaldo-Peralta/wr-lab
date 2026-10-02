@@ -5,6 +5,13 @@ tags:
   - Personalizado
 version: 1.2
 Status: Beta
+champion: Cho'Gath
+slug: chogath-titan-del-baron
+role: jungla
+patch: "7.3"
+archetype: AP-Tank con escalado infinito
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)

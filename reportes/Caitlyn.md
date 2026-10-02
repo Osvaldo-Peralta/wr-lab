@@ -3,6 +3,13 @@ tags:
   - ADC
 version: 1.2
 Status: Beta
+champion: Caitlyn
+slug: caitlyn
+role: adc
+patch: "7.3"
+archetype: Crítico burst/abilities — Headshots
+engine: none
+published_at: "2026-09-28"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)

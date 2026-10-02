@@ -1,0 +1,123 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   WR-LAB · tema minimalista para Quartz (drop-in)
+   Filosofía: papel limpio, un acento (oro Wild Rift), cero recursos
+   externos (tipografía del sistema), tablas legibles y callouts suaves.
+   Zonas: 1 variables · 2 base · 3 tipografía · 4 tablas · 5 callouts ·
+          6 código · 7 navegación/ explorer · 8 dark mode · 9 utilidades
+   Instala: copiar a quartz/styles/ e importar según el esquema de tu
+   versión de Quartz (ver deploy/README_SITIO.md §2).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Variables ─────────────────────────────────────────────────────── */
+:root {
+  --wrlab-gold: #c8aa6e;
+  --wrlab-gold-soft: rgba(200, 170, 110, 0.14);
+  --wrlab-ink: #23272e;
+  --wrlab-ink-soft: #5b6470;
+  --wrlab-paper: #fdfcfa;
+  --wrlab-line: #e8e4dc;
+  --wrlab-code-bg: #f6f4ef;
+  --wrlab-radius: 10px;
+  --wrlab-ok: #3d8b5f;
+  --wrlab-warn: #b7791f;
+  --wrlab-danger: #b04a4a;
+  --wrlab-info: #4a72a8;
+}
+
+/* ── 2. Base ──────────────────────────────────────────────────────────── */
+body {
+  background: var(--wrlab-paper);
+  color: var(--wrlab-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+article, .center { max-width: 860px; }
+hr { border: none; border-top: 1px solid var(--wrlab-line); margin: 2rem 0; }
+a { color: inherit; text-decoration-color: var(--wrlab-gold); text-underline-offset: 3px; }
+a:hover { color: var(--wrlab-gold); }
+
+/* ── 3. Tipografía ────────────────────────────────────────────────────── */
+h1, h2, h3, h4 { line-height: 1.25; font-weight: 650; letter-spacing: -0.01em; }
+h1 { font-size: 1.9rem; }
+h2 {
+  font-size: 1.35rem; margin-top: 2.4rem; padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--wrlab-gold-soft);
+}
+h3 { font-size: 1.1rem; margin-top: 1.8rem; color: var(--wrlab-ink); }
+h2::before { content: ""; }             /* limpia decoraciones del tema base */
+blockquote {
+  border-left: 3px solid var(--wrlab-gold);
+  background: var(--wrlab-gold-soft);
+  margin: 1rem 0; padding: 0.55rem 1rem; border-radius: 0 var(--wrlab-radius) var(--wrlab-radius) 0;
+  color: var(--wrlab-ink);
+}
+
+/* ── 4. Tablas (los reportes son tabla-intensivos) ───────────────────── */
+table {
+  width: 100%; border-collapse: collapse; margin: 1.1rem 0;
+  font-size: 0.92em; font-variant-numeric: tabular-nums;
+}
+th {
+  text-align: left; font-weight: 650; color: var(--wrlab-ink-soft);
+  border-bottom: 2px solid var(--wrlab-gold);
+  padding: 0.45rem 0.6rem; white-space: nowrap;
+}
+td { border-bottom: 1px solid var(--wrlab-line); padding: 0.42rem 0.6rem; }
+tbody tr:nth-child(even) { background: rgba(0, 0, 0, 0.015); }
+tbody tr:hover { background: var(--wrlab-gold-soft); }
+.table-container { overflow-x: auto; }   /* scroll horizontal en móvil, nunca tablas rotas */
+
+/* ── 5. Callouts ([!NOTE]/[!TIP]/[!WARNING]/[!DANGER] + WRLAB-VERIF) ─── */
+.callout {
+  border: 1px solid var(--wrlab-line); border-left-width: 4px;
+  border-radius: var(--wrlab-radius); padding: 0.2rem 0.9rem;
+  margin: 1.1rem 0; background: #fff;
+}
+.callout-title { font-weight: 650; font-size: 0.95em; }
+.callout[data-callout="note"]     { border-left-color: var(--wrlab-info); }
+.callout[data-callout="tip"]      { border-left-color: var(--wrlab-ok); }
+.callout[data-callout="warning"]  { border-left-color: var(--wrlab-warn); }
+.callout[data-callout="danger"]   { border-left-color: var(--wrlab-danger); }
+.callout[data-callout="tip"] .callout-title { color: var(--wrlab-ok); }
+.callout[data-callout="warning"] .callout-title { color: var(--wrlab-warn); }
+.callout[data-callout="danger"] .callout-title { color: var(--wrlab-danger); }
+
+/* ── 6. Código ────────────────────────────────────────────────────────── */
+code { background: var(--wrlab-code-bg); padding: 0.12em 0.4em; border-radius: 5px; font-size: 0.88em; }
+pre { background: var(--wrlab-code-bg); border: 1px solid var(--wrlab-line);
+      border-radius: var(--wrlab-radius); padding: 0.9rem 1.1rem; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+
+/* ── 7. Navegación / explorer / búsqueda ──────────────────────────────── */
+.sidebar, .sidebar-container { border-right: 1px solid var(--wrlab-line); }
+#explorer-content .folder, #explorer-content a { color: var(--wrlab-ink-soft); }
+#explorer-content a:hover { color: var(--wrlab-gold); }
+#search-container input, .search-input {
+  border: 1px solid var(--wrlab-line); border-radius: var(--wrlab-radius);
+  padding: 0.5rem 0.8rem; background: #fff;
+}
+footer { color: var(--wrlab-ink-soft); font-size: 0.85em; border-top: 1px solid var(--wrlab-line); }
+
+/* ── 8. Dark mode automático ──────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --wrlab-ink: #e8e4da; --wrlab-ink-soft: #9aa2ad;
+    --wrlab-paper: #16181d; --wrlab-line: #2a2e36; --wrlab-code-bg: #1d2026;
+    --wrlab-gold: #d4b978; --wrlab-gold-soft: rgba(212, 185, 120, 0.10);
+  }
+  .callout { background: #1a1d23; }
+  tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+}
+
+/* ── 9. Utilidades del estándar v1.4 ──────────────────────────────────── */
+img { max-width: 100%; border-radius: var(--wrlab-radius); }
+strong { font-weight: 650; }
+/* veredictos de los bloques WRLAB-VERIF: la primera línea ya lleva emoji;
+   resaltamos sutilmente el bloque completo de verificación */
+blockquote:has(> .callout), .callout:has(+ *) { scroll-margin-top: 2rem; }
+@media print {
+  .sidebar-container, #search-container, footer { display: none; }
+  body { background: #fff; }
+}
