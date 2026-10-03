@@ -1,5 +1,5 @@
 {
- "official_73_md5": "61e445a4761992c24d9fc4ab3f521f3f",
+ "official_73_md5": "92daa4ae37403624bc97a04a007d89d2",
  "new_pages": [
   "7-3",
   "7-3a"
@@ -30,40 +30,40 @@
    "7.3A"
   ]
  },
- "last_check": "2026-10-02T23:33:21",
+ "last_check": "2026-10-03T12:47:48",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
-  "Caitlyn|DUO": 49.48,
-  "Cho'Gath|SOLO": 50.15,
-  "Cho'Gath|JUNGLE": 50.67,
-  "Diana|MID": 47.4,
-  "Diana|JUNGLE": 50.91,
-  "Heimerdinger|MID": 50.4,
-  "Jinx|DUO": 51.1,
-  "Kalista|DUO": 51.18,
-  "Kalista|SOLO": 53.82,
-  "Karma|SUPPORT": 49.32,
-  "Malphite|SUPPORT": 51.78,
-  "Malphite|SOLO": 55.69,
-  "Mordekaiser|SOLO": 51.35,
-  "Norra|MID": 50.42,
-  "Rammus|JUNGLE": 56.74,
-  "Seraphine|SUPPORT": 49.21,
-  "Shyvana|JUNGLE": 46.43,
-  "Sivir|DUO": 48.57,
-  "Volibear|SOLO": 47.79,
-  "Volibear|JUNGLE": 46.87,
-  "Yunara|DUO": 51.22,
-  "Yuumi|SUPPORT": 49.23
+  "Caitlyn|DUO": 49.35,
+  "Cho'Gath|SOLO": 50.63,
+  "Cho'Gath|JUNGLE": 50.5,
+  "Diana|MID": 47.78,
+  "Diana|JUNGLE": 50.14,
+  "Heimerdinger|MID": 50.15,
+  "Jinx|DUO": 50.91,
+  "Kalista|DUO": 51.08,
+  "Kalista|SOLO": 52.58,
+  "Karma|SUPPORT": 49.15,
+  "Malphite|SUPPORT": 51.64,
+  "Malphite|SOLO": 55.58,
+  "Mordekaiser|SOLO": 51.43,
+  "Norra|MID": 51.01,
+  "Rammus|JUNGLE": 56.81,
+  "Seraphine|SUPPORT": 49.75,
+  "Shyvana|JUNGLE": 46.18,
+  "Sivir|DUO": 48.07,
+  "Volibear|SOLO": 47.88,
+  "Volibear|JUNGLE": 48.43,
+  "Yunara|DUO": 51.84,
+  "Yuumi|SUPPORT": 48.56
  },
  "wrmeta_ids": {},
  "winrates_meta": {
   "bucket": "Diamond +",
-  "updated_utc": "02 OCT 2026 UTC 00:00",
+  "updated_utc": "03 OCT 2026 UTC 00:00",
   "n_champs": 17,
   "n_filas": 22
  },
- "winrates_checked": "2026-10-02T23:33:21"
+ "winrates_checked": "2026-10-03T12:47:48"
 }
