@@ -125,25 +125,30 @@ Texto fuera de la sección con 339 y 651 que NO debe cambiar.
 
 
 class TestBorrador(unittest.TestCase):
-    def test_borradores_73a_existen_y_contienen_datos(self):
+    def test_borrador_se_genera_solo_para_regenerar(self):
+        """cmd_borrador genera esqueletos SOLO para veredictos ❌ REGENERAR vigentes.
+        Tras la reconciliación (01/10): Caitlyn es ⏩ AL_DIA (el autor ya la regeneró) →
+        NO se genera su borrador; Rammus sigue ❌ → SÍ. El test no depende de artefactos
+        históricos en disco: _borradores/ es contenido derivado y regenerable."""
+        import shutil
         d = os.path.join(REP, "_borradores")
+        shutil.rmtree(d, ignore_errors=True)          # partir de cero (como un checkout limpio de CI)
         args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
         import contextlib, io
         with contextlib.redirect_stdout(io.StringIO()):
-            U.cmd_borrador(args)                      # idempotente: los regenera
-        cat = open(os.path.join(d, "Caitlyn_7.3a_REGENERAR.md"), encoding="utf-8").read()
-        ram = open(os.path.join(d, "Rammus_7.3a_REGENERAR.md"), encoding="utf-8").read()
-        self.assertIn("BORRADOR DE REGENERACIÓN", cat)
-        self.assertIn("AS growth 0.04→0.025", cat)
-        self.assertIn("0.025 (7.3a: era 0.04)", cat)          # fila del CSV oficial
-        self.assertIn("ESQUELETO DEL REPORTE NUEVO", cat)
+            U.cmd_borrador(args)
+        archivos = sorted(os.listdir(d))
+        self.assertEqual(archivos, ["Rammus_7.3a_REGENERAR.md"])
+        ram = open(os.path.join(d, archivos[0]), encoding="utf-8").read()
         self.assertIn("BORRADOR DE REGENERACIÓN", ram)
-        self.assertTrue("45→" in ram or "Armor" in ram)
+        self.assertTrue("45→" in ram or "Armor" in ram)          # el nerf 7.3a de Rammus
+        self.assertIn("ESQUELETO DEL REPORTE NUEVO", ram)
 
     def test_baseline_ignora_borradores(self):
         reg = U.construir_registro()
         self.assertNotIn("_borradores", reg["reportes"])
         self.assertEqual(len(reg["reportes"]), 17)
+
 
 
 if __name__ == "__main__":
