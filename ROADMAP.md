@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.11):** repo git versionado · BD SQLite derivada · 124 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
+**Estado actual (v1.13):** repo git versionado · BD SQLite derivada · 136 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
 
 ## Ya disponible
 
@@ -37,6 +37,8 @@
    (modelo de defensa/EHP del optimizador v1.9).
 2. **Runas v2** — buscador de runas para motores on-hit (Kalista) y aliado (Yuumi/Karma).
 3. **Calibración en juego** (minion gold, passive income, CD Electrocute, Brutal).
+4. **Motor de tanques/rotaciones no cubiertas** (Rammus, Cho'Gath, Mordekaiser…) — desbloquea
+   su auto-regeneración (hoy caen al fallback `borrador`).
 
 **En modo mantenimiento:** `sim_timings.py` (juego casual del equipo — funcional y testeado,
 sin más inversión en precisión por ahora).

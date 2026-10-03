@@ -59,11 +59,11 @@ class TestRegistroVault(unittest.TestCase):
     def entry(self, archivo):
         return self.entradas[archivo]
 
-    def test_16_reportes(self):
-        self.assertEqual(len(self.entradas), 16)
+    def test_17_reportes(self):
+        self.assertEqual(len(self.entradas), 17)   # reconciliación 01/10: +Volibear.md
 
     def test_champions_derivados_del_nombre(self):
-        self.assertEqual(self.entry("Yunana.md")["champion_display"], "Yunara")     # errata de archivo
+        self.assertEqual(self.entry("Yunara.md")["champion_display"], "Yunara")     # renombrado (era errata Yunana)
         self.assertEqual(self.entry("Cho'Gath - Titán del Barón.md")["champion_display"], "Cho'Gath")
         self.assertEqual(self.entry("Volibear Pesadilla.md")["champion_display"], "Volibear")
         self.assertEqual(self.entry("Diana - Mid.md")["champion_display"], "Diana")
@@ -146,9 +146,9 @@ class TestTriage73aVault(unittest.TestCase):
         cls.patch, cls.cs, cls.res = U.triage_todos(cls.reg, patch="7.3a")
         cls.por = {t["archivo"]: t for t in cls.res}
 
-    def test_caitlyn_regenerar(self):
-        """7.3a nerfeó su AS growth (input del spec) → el reporte 7.3 debe regenerarse."""
-        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "REGENERAR")
+    def test_caitlyn_al_dia_tras_regeneracion_del_autor(self):
+        """El autor regeneró Caitlyn en su chat externo (v1.3, patch 7.3a) → ⏩ AL_DIA."""
+        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "AL_DIA")
 
     def test_rammus_regenerar(self):
         """7.3a nerfeó su armadura base (input del spec)."""
@@ -183,9 +183,10 @@ class TestTriage73aVault(unittest.TestCase):
 
     def test_balance_general(self):
         verdictos = [t["veredicto"] for t in self.res]
-        self.assertEqual(verdictos.count("REGENERAR"), 2)      # Caitlyn + Rammus (inputs del spec)
-        self.assertEqual(verdictos.count("REVISAR"), 0)        # Yuumi ya es cuantificable (v1.8)
-        self.assertEqual(len(self.res), 16)
+        self.assertEqual(verdictos.count("REGENERAR"), 1)      # Rammus (único pendiente del autor)
+        self.assertEqual(verdictos.count("REVISAR"), 0)
+        self.assertEqual(verdictos.count("AL_DIA"), 4)         # Jinx, Caitlyn, Seraphine, Volibear
+        self.assertEqual(len(self.res), 17)
 
     def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
         """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""

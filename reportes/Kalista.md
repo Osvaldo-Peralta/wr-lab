@@ -14,7 +14,7 @@ published_at: "2026-09-27"
 **Parche:** 7.3 (Lanzamiento: 21/09/2026)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Kalista:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.

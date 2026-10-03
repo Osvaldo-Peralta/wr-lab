@@ -189,6 +189,8 @@ def secciones_comunes():
          fence("python", leer("model", "optimize_runes.py"))),
         ("10e", "SIMULADOR DE TIMINGS DE ORO (curvas derivadas de las Tablas B del vault)",
          fence("python", leer("model", "sim_timings.py"))),
+        ("10f", "GENERADOR DE REPORTES (auto-regeneración con Status 'Espera de verificación' + aprobación)",
+         fence("python", leer("model", "generate_report.py"))),
     ]
     return secs
 
@@ -208,16 +210,15 @@ def secciones_completo():
          csv_literal("data/estructurada/items_7.3.csv")),
         ("16", "ROADMAP DEL PROYECTO (módulos futuros)", leer("ROADMAP.md")),
         ("17", "TESTS DE REGRESIÓN (suite completa)",
-         "\n\n".join(fence("python", leer("tests", t)) for t in (
-             "test_model.py", "test_update_reports.py", "test_optimize_build.py",
-             "test_optimize_runes.py", "test_lint_refresh.py", "test_bundles.py",
-             "test_wrlab.py"))),
+         "\n\n".join(fence("python", leer("tests", t)) for t in sorted(
+             f for f in os.listdir(os.path.join(ROOT, "tests")) if f.endswith(".py")))),
         ("17b", "ACTUALIZADOR DE REPORTES (triage de hotfixes — Regla de Oro v1.6)",
          fence("python", leer("model", "update_reports.py"))),
         ("18", "INFRAESTRUCTURA (CLI unificado wrlab.py + extract_data · build_db · check_patch · "
                "parse_champs · lint_reportes)",
          fence("python", leer("wrlab.py"))
          + "\n\n" + fence("python", leer("model", "lint_reportes.py"))
+         + "\n\n" + fence("python", leer("model", "backfill_frontmatter.py"))
          + "\n\n" + fence("python", leer("model", "extract_data.py"))
          + "\n\n" + fence("python", leer("model", "build_db.py"))
          + "\n\n" + fence("python", leer("model", "check_patch.py"))

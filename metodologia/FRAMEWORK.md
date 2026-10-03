@@ -183,9 +183,11 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
 # 7b. APLICAR números nuevos donde el motor los reproduce 1:1 (nunca toca builds):
 #    python3 model/update_reports.py refresh --patch <X.Xx> --apply
-# 7c. Para cada ❌ REGENERAR, generar el esqueleto de reemplazo en directorio aparte
-#    (el publicado NO se borra; el autor decide el reemplazo manual):
-#    python3 model/update_reports.py borrador --patch <X.Xx>   → reportes/_borradores/
+# 7c. Para cada ❌ REGENERAR (el publicado NO se toca):
+#    con spec+motor  → python3 model/generate_report.py generar --champion <c>
+#                      (reporte completo en reportes/_auto/, Status 'Espera de verificación';
+#                       el autor revisa TODOs/números y decide: aprobar o regenerar a mano)
+#    sin motor       → python3 model/update_reports.py borrador --patch <X.Xx> (esqueleto)
 # 7d. Lint de reportes nuevos/externos (ítems alucinados, Ley 0, frontmatter, estilo):
 #    python3 model/lint_reportes.py [--strict]
 # 8. python3 -m unittest discover -s tests && python3 model/build_bundles.py

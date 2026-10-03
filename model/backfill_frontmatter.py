@@ -77,6 +77,16 @@ def derivar(archivo, txt, registry):
     f = fecha_iso(txt)
     if f:
         out["published_at"] = f
+    # v1.1: custom (tag) y variant (sufijo del nombre de archivo)
+    tags_bajos = " ".join(re.findall(r"^\s+-\s+(.+)$", txt.split("---")[1], flags=re.M)).lower()
+    if "custom" in tags_bajos or "personalizado" in tags_bajos:
+        out["custom"] = "true"
+    champ_norm = U._norm_champ(out["champion"])
+    base = slugify(archivo)
+    if base.startswith(champ_norm) and len(base) > len(champ_norm):
+        variante = base[len(champ_norm):].strip("-")
+        if variante:
+            out["variant"] = variante
     return out
 
 
@@ -93,7 +103,7 @@ def procesar(archivo, txt, registry):
     # patch y published_at entre comillas (convención del vault)
     lineas = []
     for k, v in faltan.items():
-        if k in ("patch", "published_at"):
+        if k in ("patch", "published_at", "custom", "variant", "generate", "mode"):
             lineas.append(f'{k}: "{v}"')
         else:
             lineas.append(f"{k}: {v}")

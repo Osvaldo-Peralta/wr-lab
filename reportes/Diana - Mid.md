@@ -11,6 +11,7 @@ patch: "7.3"
 archetype: AP Assassin híbrido
 engine: rotacion
 published_at: "2026-09-29"
+variant: "mid"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -19,7 +20,7 @@ published_at: "2026-09-29"
 **Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.

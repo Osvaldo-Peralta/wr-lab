@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 02/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 03/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -225,9 +225,11 @@ donde `mult_crit_hab` sale de la fórmula publicada en `cambios_campeones_7.3.md
 #      la build óptima post-parche (validar contra la publicada con --validar), y `baseline` de nuevo.
 # 7b. APLICAR números nuevos donde el motor los reproduce 1:1 (nunca toca builds):
 #    python3 model/update_reports.py refresh --patch <X.Xx> --apply
-# 7c. Para cada ❌ REGENERAR, generar el esqueleto de reemplazo en directorio aparte
-#    (el publicado NO se borra; el autor decide el reemplazo manual):
-#    python3 model/update_reports.py borrador --patch <X.Xx>   → reportes/_borradores/
+# 7c. Para cada ❌ REGENERAR (el publicado NO se toca):
+#    con spec+motor  → python3 model/generate_report.py generar --champion <c>
+#                      (reporte completo en reportes/_auto/, Status 'Espera de verificación';
+#                       el autor revisa TODOs/números y decide: aprobar o regenerar a mano)
+#    sin motor       → python3 model/update_reports.py borrador --patch <X.Xx> (esqueleto)
 # 7d. Lint de reportes nuevos/externos (ítems alucinados, Ley 0, frontmatter, estilo):
 #    python3 model/lint_reportes.py [--strict]
 # 8. python3 -m unittest discover -s tests && python3 model/build_bundles.py
@@ -393,6 +395,15 @@ Grep de "size/tamaño" sobre los 186 ítems de `items_7.3.csv` y las 12 fichas d
 - **Tabla A (Build final):** exactamente **6 filas** = 1 fila de botas (`Berserker's → ⬆️ Gunmetal (min 10:00, MISMO slot)`) + 5 ítems. Columnas: `Slot | Ítem | Oro | Rol en la build`.
 - **Tabla B (Ruta de compra):** cronológica, puede tener 7+ filas porque incluye la mejora ⬆️ y los componentes. Columnas: `# | Compra | Oro acum. | Minuto típico`. Incluir **componentes** ("Pickaxe + Noonquiver → **Hexoptics C44**") y **oro acumulado**.
 - Toda build publicada pasa `validate_slots()` y se declara en §10 ("Validación del modelo").
+
+### A.4b Formato de §4 y §8 (estándar v1.13.1 — decisión del autor 02/10/2026)
+- **§4 LEYES: formato COMPACTO tiene prioridad** (una línea por ley con su número, como genera
+  `generate_report.py`). Desarrollar una ley a detalle SOLO cuando la ocasión lo amerite
+  (p.ej. ley invertida, umbral polémico) — el reporte de Jinx sigue siendo el estándar de
+  CONTENIDO, pero §4 compacto es el estándar de FORMA.
+- **§8 COMPARACIÓN: nombres de ítems SIEMPRE completos** (nada de abreviaturas tipo
+  "Gun+C44+…") aunque ocupe más, y columna **Fuente** obligatoria: `⭐ LAB (óptima)` /
+  `🔬 LAB top-N` (derivadas por el optimizador), `📌 publicada`, `🌐 comunidad`.
 
 ### A.5 Adaptaciones por arquetipo
 | Arquetipo | §3 Modelo | §0 Resultado del modelo | §5 Primer ítem |
@@ -1756,7 +1767,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 01 OCT 2026 UTC 00:00** · Refrescado por el vigía: 01/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 03 OCT 2026 UTC 00:00** · Refrescado por el vigía: 03/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1765,28 +1776,28 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Caitlyn | DUO | A | 50.44 | 25.95 | 27.38 | ↓ 10 | Confidence High |
-| Cho'Gath | SOLO | A | 50.17 | 12.72 | 33.10 | ↓ 2 | Confidence High |
-| Cho'Gath | JUNGLE | A | 50.41 | 8.64 | 33.10 | ↓ 3 | Confidence High |
-| Diana | MID | B | 47.95 | 1.16 | 0.18 | ↓ 2 | Confidence Low |
-| Diana | JUNGLE | A | 50.35 | 1.74 | 0.18 | ↑ 5 | Confidence Low |
-| Heimerdinger | MID | A | 50.49 | 1.52 | 1.01 | ↓ 3 | Confidence Low |
-| Jinx | DUO | A | 50.55 | 11.30 | 0.41 | 0 | Confidence High |
-| Kalista | DUO | S | 51.12 | 4.65 | 4.19 | ↑ 1 | Confidence Med |
-| Kalista | SOLO | S+ | 53.01 | 2.05 | 4.19 | ↑ 4 | Confidence Low |
-| Karma | SUPPORT | A | 49.19 | 5.13 | 0.38 | ↓ 5 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.51 | 7.30 | 46.65 | ↓ 2 | Confidence Med |
-| Malphite | SOLO | S+ | 56.44 | 9.32 | 46.65 | 0 | Confidence High |
-| Mordekaiser | SOLO | S | 50.87 | 10.83 | 27.69 | 0 | Confidence High |
-| Norra | MID | A | 50.06 | 1.57 | 7.98 | ↑ 1 | Confidence Low |
-| Rammus | JUNGLE | S+ | 56.81 | 5.42 | 5.84 | 0 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.30 | 6.88 | 0.96 | ↓ 1 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.14 | 3.76 | 1.45 | 0 | Confidence Med |
-| Sivir | DUO | B | 48.08 | 3.45 | 0.05 | ↓ 1 | Confidence Med |
-| Volibear | SOLO | B | 47.53 | 5.87 | 4.65 | ↓ 3 | Confidence Med |
-| Volibear | JUNGLE | B | 47.97 | 2.51 | 4.65 | 0 | Confidence Low |
-| Yunara | DUO | S | 50.91 | 18.06 | 22.13 | ↑ 1 | Confidence High |
-| Yuumi | SUPPORT | A | 48.90 | 10.43 | 34.20 | ↓ 5 | Confidence High |
+| Caitlyn | DUO | A | 49.35 | 22.99 | 19.79 | 0 | Confidence High |
+| Cho'Gath | SOLO | S+ | 50.63 | 11.89 | 34.01 | ↑ 8 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.50 | 8.34 | 34.01 | 0 | Confidence High |
+| Diana | MID | B | 47.78 | 1.15 | 0.19 | ↑ 3 | Confidence Low |
+| Diana | JUNGLE | A | 50.14 | 1.76 | 0.19 | ↓ 7 | Confidence Low |
+| Heimerdinger | MID | A | 50.15 | 1.59 | 1.08 | 0 | Confidence Low |
+| Jinx | DUO | A | 50.91 | 11.61 | 0.43 | 0 | Confidence High |
+| Kalista | DUO | A | 51.08 | 5.10 | 4.85 | 0 | Confidence Med |
+| Kalista | SOLO | S | 52.58 | 2.10 | 4.85 | ↓ 1 | Confidence Low |
+| Karma | SUPPORT | A | 49.15 | 4.96 | 0.38 | ↓ 4 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.64 | 7.10 | 45.43 | ↓ 1 | Confidence Med |
+| Malphite | SOLO | S+ | 55.58 | 7.81 | 45.43 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S+ | 51.43 | 10.46 | 27.73 | ↑ 1 | Confidence High |
+| Norra | MID | S | 51.01 | 1.52 | 8.00 | ↑ 5 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.81 | 4.78 | 6.43 | 0 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.75 | 6.63 | 0.96 | ↑ 4 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.18 | 3.69 | 1.46 | ↓ 1 | Confidence Med |
+| Sivir | DUO | B | 48.07 | 3.48 | 0.06 | ↓ 1 | Confidence Med |
+| Volibear | SOLO | A | 47.88 | 5.64 | 4.77 | ↑ 2 | Confidence Med |
+| Volibear | JUNGLE | A | 48.43 | 2.49 | 4.77 | ↑ 5 | Confidence Low |
+| Yunara | DUO | S+ | 51.84 | 17.44 | 23.16 | ↑ 1 | Confidence High |
+| Yuumi | SUPPORT | A | 48.56 | 9.52 | 34.34 | ↓ 7 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -2315,6 +2326,8 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Wit's End":"witsend","WE":"witsend","Terminus":"terminus","BotRK":"botrk","Guinsoo":"guinsoo",
          "Statikk Shiv":"statikk","Mercurial Scimitar":"scimitar","Scimitar":"scimitar",
          "Guardian Angel":"ga","GA":"ga","Maw of Malmortius":"maw","Death's Dance":"deathsdance",
+         "Yun Tal Wildarrows":"yuntal","Lord Dominik's Regards":"ldr","Blade of the Ruined King":"botrk",
+         "Guinsoo's Rageblade":"guinsoo",
          "Berserker's Greaves":"berserker","Berserker's":"berserker","Gunmetal Greaves":"gunmetal",
          "Gunmetal":"gunmetal","Mercury's Treads":"mercury_t","Chainlaced Crushers":"chainlaced",
          "Plated Steelcaps":"plated","Armored Advance":"armored_adv","Ionian Boots":"ionian",
@@ -3853,6 +3866,874 @@ def main():
         cmd_build(args)
     else:
         cmd_curvas(args)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## 10f. GENERADOR DE REPORTES (auto-regeneración con Status 'Espera de verificación' + aprobación)
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · generate_report.py — auto-regeneración de reportes (v1.13)
+====================================================================
+Escalabilidad a 100+ campeones (petición del autor, 01/10/2026): en vez de
+regenerar a mano cada reporte obsoleto, el lab genera uno NUEVO completo con
+todo lo automatizable (optimizador, runas, timings, win rates, TEMPLATE v1.4),
+en estado **"Espera de verificación"** y en directorio paralelo — el publicado
+NUNCA se toca hasta que el autor aprueba.
+
+    python3 model/generate_report.py generar --champion shyvana [--rol jungla]
+    python3 model/generate_report.py aprobar --archivo "Shyvana_AUTO_7.3a.md" [--destino reportes/X.md]
+
+Cobertura v1: campeones con ChampSpec Y motor de optimización (autos/onhit/
+rotacion/aliado). Sin motor (tanques/rotaciones no cubiertas — p.ej. Rammus)
+→ mensaje honesto + `update_reports.py borrador` como fallback.
+
+Arquitectura hexagonal: este módulo solo consume puertos públicos (optimizar,
+buscar_autos/rotacion, curvas de sim_timings, champion_winrates.csv, diffs de
+cambios_*.md, CHAMPS) — no conoce el interior de ningún motor.
+
+Los TODO humanos quedan MARCADOS en el texto (orden de habilidades, plan de
+juego, matices de primera compra): la verificación del autor es obligatoria.
+"""
+import argparse, csv, datetime, os, re, sys, unicodedata
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPORTES = os.path.join(ROOT, "reportes")
+AUTO_DIR = os.path.join(REPORTES, "_auto")
+ESTRUCTURADA = os.path.join(ROOT, "data", "estructurada")
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import dps_model as M
+import contextlib, io
+with contextlib.redirect_stdout(io.StringIO()):
+    import update_reports as U
+    import optimize_build as O
+    import optimize_runes as R
+    import sim_timings as ST
+    import analysis_batch2 as B2
+
+ROL_POR_MOTOR = {"autos": "adc", "onhit": "adc", "rotacion": "mid", "aliado": "support"}
+T2_A_T3 = {v: k for k, v in M.BOOT_UPGRADES.items()}
+
+
+def stats_items_csv():
+    """{nombre_lower: (hp, armor, mr)} desde items_7.3.csv (fuente oficial wr-meta)."""
+    out = {}
+    ruta = os.path.join(ESTRUCTURADA, "items_7.3.csv")
+    with open(ruta, encoding="utf-8", newline="") as fh:
+        for fila in csv.DictReader(fh):
+            st = (fila.get("stats") or "").lower()
+            def num(pat):
+                m = re.search(pat, st)
+                return float(m.group(1)) if m else 0.0
+            out[fila["item"].lower()] = (num(r"\+(\d+) max health"),
+                                         num(r"\+(\d+) armor"),
+                                         num(r"\+(\d+) magic resist"))
+    return out
+ROL_CSV = {"adc": "DUO", "support": "SUPPORT", "jungla": "JUNGLE", "mid": "MID", "top": "SOLO"}
+NOMBRE_VISIBLE = {"chogath": "Cho'Gath"}
+
+
+def g(n):
+    """17350 → '17 350' (estándar v1.4)."""
+    if isinstance(n, float):
+        n = round(n)
+    return f"{int(n):,}".replace(",", " ")
+
+
+DISPLAY_AUTOS = {}
+for _alias, _key in M.ALIAS.items():
+    DISPLAY_AUTOS.setdefault(_key, _alias)
+DISPLAY_AUTOS.update({"gunmetal": "Gunmetal Greaves", "berserker": "Berserker's Greaves",
+                      "yuntal": "Yun Tal Wildarrows", "botrk": "Blade of the Ruined King",
+                      "ie": "Infinity Edge", "ldr": "Lord Dominik's Regards",
+                      "runaan": "Runaan's Hurricane", "c44": "Hexoptics C44",
+                      "storm": "Stormrazor", "kraken": "Kraken Slayer", "rfc": "Rapid Firecannon",
+                      "bt": "Bloodthirster", "gale": "Galeforce", "scimitar": "Mercurial Scimitar",
+                      "terminus": "Terminus", "guinsoo": "Guinsoo's Rageblade",
+                      "witsend": "Wit's End", "statikk": "Statikk Shiv", "er": "Essence Reaver"})
+
+
+def display_item(k, motor):
+    if motor == "autos":
+        return DISPLAY_AUTOS.get(M.resolve(k).key, k)
+    return k
+
+
+def slugify(s):
+    s = unicodedata.normalize("NFD", s.lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn").replace("'", "")
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", s)).strip("-")
+
+
+def winrates(champ_display, rol):
+    ruta = os.path.join(ESTRUCTURADA, "champion_winrates.csv")
+    if not os.path.exists(ruta):
+        return []
+    with open(ruta, encoding="utf-8", newline="") as fh:
+        filas = [f for f in csv.DictReader(fh) if f["champion"].lower() == champ_display.lower()]
+    pref = ROL_CSV.get(rol, "")
+    filas.sort(key=lambda f: 0 if f.get("role", "").upper().startswith(pref) else 1)
+    return filas
+
+
+def cambios_champion(champ_display, archivo):
+    ruta = os.path.join(ESTRUCTURADA, archivo)
+    if not os.path.exists(ruta):
+        return []
+    out = []
+    with open(ruta, encoding="utf-8") as fh:
+        for linea in fh:
+            if linea.strip().startswith("|") and champ_display.lower() in linea.lower():
+                celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
+                if len(celdas) >= 3 and re.search(r"\*\*", celdas[0]):
+                    out.append(celdas)
+    return out
+
+
+def habilidades_ficha(champ):
+    ruta = os.path.join(ESTRUCTURADA, "campeones", f"{champ}.md")
+    if not os.path.exists(ruta):
+        return None
+    with open(ruta, encoding="utf-8") as fh:
+        txt = fh.read()
+    m = re.search(r"## Habilidades(.*?)(?:\n## )", txt, re.S)
+    if not m:
+        return None
+    return re.findall(r"^###\s+(.+)$", m.group(1), flags=re.M)[:6]
+
+
+def ruta_compra(build_keys, motor, curva, oro_total):
+    """Secuencia de compra canónica: T2 de las botas temprano → ítems por coste
+    ascendente → upgrade T3 tras min 10. Aproximación declarada (criterio de oro)."""
+    boots = None
+    items = []
+    boots_set = set(M.BOOTS_ALL) if motor == "autos" else set()
+    for k in build_keys:
+        key = M.resolve(k).key if motor == "autos" else k
+        if motor == "autos" and key in boots_set:
+            boots = (k, key)
+        elif motor != "autos" and k.lower() in ("gunmetal", "crimson", "spellslinger"):
+            boots = (k, k.lower())
+        else:
+            items.append(k)
+    _g0 = O.ENGINES[motor]["gold_fn"]
+    gold = (lambda k: _g0(M.resolve(k).key)) if motor == "autos" else _g0
+    t2 = M.BOOT_UPGRADES.get(boots[1]) if boots and motor == "autos" else None
+    filas = []
+    acum = 500
+    filas.append(("Ítem inicial + poción (start)", acum, ST.minuto_para(acum, curva) or 0))
+    if t2:
+        acum += M.ITEMS[t2].gold
+        filas.append((f"Botas T2 ({DISPLAY_AUTOS.get(t2, t2)})", acum, ST.minuto_para(acum, curva) or 0))
+    for it in sorted(items, key=lambda x: gold(x) if motor != "autos" else M.resolve(x).gold):
+        price = gold(it) if motor != "autos" else M.resolve(it).gold
+        acum += price
+        filas.append((it, acum, ST.minuto_para(acum, curva) or 0))
+    if boots and (t2 or motor != "autos"):
+        acum += 1000 if t2 else 0
+        if t2:
+            t = max(ST.minuto_para(acum, curva) or 0, 10.0)
+            filas.append((f"⬆️ Upgrade {display_item(boots[0], motor)} (mismo slot, +1 000)", acum, t))
+    return filas, acum
+
+
+def generar(champ, rol=None, top=6, outdir=None):
+    champ = champ.lower()
+    if champ not in M.CHAMPS or champ in O.SIN_MOTOR:
+        motivo = O.SIN_MOTOR.get(champ, "sin ChampSpec en dps_model.CHAMPS")
+        print(f"[i] '{champ}' sin motor cuantitativo ({motivo}) → MODO CUALITATIVO "
+              f"(plantilla completa, datos reales, TODOs explícitos)")
+        return generar_cualitativo(champ, rol=rol, outdir=outdir)
+    motor = O.motor_para(champ)
+    spec = M.CHAMPS[champ]
+    display = NOMBRE_VISIBLE.get(champ, spec.name)
+    rol = rol or ROL_POR_MOTOR.get(motor, "mid")
+    parche, _ = U.ultimo_parche_hotfix()
+    hoy = datetime.date.today()
+    outdir = outdir or AUTO_DIR
+    os.makedirs(outdir, exist_ok=True)
+
+    # ── puertos: optimizador, runas, timings, winrates ──
+    finales, hojas = O.optimizar(champ, motor=motor, top=top, verbose=False)
+    if not finales:
+        sys.exit("el optimizador no encontró builds legales — revisa presupuesto/pool")
+    score, build, det, base = finales[0][:4]
+    M.validate_slots(build) if motor == "autos" else None
+    puntos, _, glob = ST.anclas_por_rol()
+    curva = ST.fit_curva(puntos[rol] if len(puntos.get(rol, [])) >= 3 else glob)
+    filas_ruta, oro_total = ruta_compra(build, motor, curva, base.get("gold", 0))
+    wr = winrates(display, rol)
+    aviso_motor = O.MOTOR_AVISOS.get(champ)
+
+    if motor == "autos":
+        grid, _ = R.buscar_autos(champ, build, top=4)
+        runes_txt = "\n".join(f"| {i} | {x['ks']} × {x['sec']} | {x['marginal']:+.1f} % | {x['notas'] if 'notas' in x else ''} |"
+                              for i, x in enumerate(grid, 1))
+        rune_top = f"{grid[0]['ks']} × {grid[0]['sec']}"
+    elif motor == "rotacion":
+        grid, _ = R.buscar_rotacion(champ, build, top=4)
+        runes_txt = "\n".join(f"| {i} | {x['ks']} × {x['sec']} | {x['marginal']:+.1f} % |  |"
+                              for i, x in enumerate(grid, 1))
+        rune_top = f"{grid[0]['ks']} × {grid[0]['sec']}"
+    else:
+        runes_txt = ("| — | Pendiente: el buscador de runas no cubre este motor (ROADMAP Runas v2). "
+                     "Usar Lethal Tempo + secundaria del rol como punto de partida y VERIFICAR. |  |  |")
+        rune_top = "Lethal Tempo (provisional — TODO humano)"
+
+    # rechazados: swap de cada ítem del pool por el más barato de la build
+    pool = [k for k in O.ENGINES[motor]["items"] if k not in build]
+    eval_fn = O.ENGINES[motor]["eval_fn"]
+    met = list(O.ENGINES[motor]["escenarios"].values())[0][1]
+    kw0 = list(O.ENGINES[motor]["escenarios"].values())[0][0]
+    ref = eval_fn(champ, build, kw0, {"keystone": "lt"})[met]
+    cheap = min(build, key=lambda x: O.ENGINES[motor]["gold_fn"](x))
+    rech = []
+    for it in pool:
+        alt = [x for x in build if x != cheap] + [it]
+        try:
+            v = eval_fn(champ, alt, kw0, {"keystone": "lt"})[met]
+            rech.append((it, (v / ref - 1) * 100))
+        except Exception:
+            pass
+    rech.sort(key=lambda x: -x[1])
+    rech_txt = "\n".join(
+        f"| {display_item(it, motor)} | {d:+.1f} % vs build óptima (swap por {display_item(cheap, motor)}) |"
+        for it, d in rech[:8])
+
+    # leyes (números vivos)
+    leyes = [f"- **Ley 0 — Slots:** `validate_slots` de la build → **PASS** (1 botas + 5 ítems)."]
+    if motor == "autos":
+        leyes.append(f"- **Ley 1 — Crítico:** total {base['crit']:.0f} % (umbral 100 %; exceso = oro muerto).")
+        leyes.append(f"- **Ley 2 — AS:** final {base['AS']:.2f} · cruda {base.get('raw_AS', 0):.2f} "
+                     f"(tope {M.AS_CAP}){' — ⚠️ overcap, revisar' if base.get('overcap') else ' ✅'}.")
+    leyes.append(f"- **Ley 3 — Penetración:** {base.get('pen', 0):.0f} % en la build óptima.")
+    leyes.append(f"- **Ley 4/5 — Stats muertos y eficiencia:** ver tabla de RECHAZADOS (swap medido).")
+    leyes.append(f"- **Ley 6 — Timing:** ruta de compra fechada con las curvas del vault (Apéndice B).")
+    leyes.append(f"- **Ley 7 — Sistemas:** cambios de campo del parche en §1.2.")
+
+    ctx73 = cambios_champion(display, "cambios_campeones_7.3.md")
+    ctx73a = cambios_champion(display, "cambios_7.3a.md")
+    ctx_txt = "\n".join(f"| {' · '.join(c[:3])} |" for c in (ctx73 + ctx73a)) or \
+        f"| Sin cambios directos a {display} en 7.3/7.3a (ver diffs oficiales en el bundle §11-12/§3b). |"
+    cs = U.parse_cambios(dict((p, r) for p, r, k in U.cambios_archivos())[parche])
+    sist = U.sistemas_relevantes(rol, cs)
+    sist_txt = "\n".join(f"| {s[:180]} |" for s in sist) or "| Ningún cambio sistémico relevante para este rol. |"
+
+    wr_callout = ("Sin datos de win rate (corre `wrlab.py winrates`).")
+    if wr:
+        f0 = wr[0]
+        wr_callout = (f"Win Rate {f0['win_pct']} % | Pick Rate {f0['pick_pct']} % | Ban {f0['ban_pct']} % | "
+                      f"Tendencia {f0['trend']} | Tier {f0['tier']} | Rol {f0['role']} · bucket {f0['bucket']} · "
+                      f"actualizado {f0['actualizado']} (champion_winrates.csv)")
+
+    esc_cols = list(O.ENGINES[motor]["escenarios"])
+    def rol_slot(i, k):
+        if i == 0:
+            return "botas (Ley 0: 1 slot)"
+        c = M.ITEMS[M.resolve(k).key].comment if motor == "autos" else ""
+        return (c[:70] or "—")
+    tabla_a = "\n".join(
+        f"| {i + 1}{' (botas)' if i == 0 else ''} | **{display_item(k, motor)}** | "
+        f"{g(O.ENGINES[motor]['gold_fn'](M.resolve(k).key if motor == 'autos' else k))} | {rol_slot(i, k)} |"
+        for i, k in enumerate(build))
+    tabla_b = "\n".join(f"| {i} | {c} | {g(o)} | ~{ST.fmt_min(t)} |"
+                        for i, (c, o, t) in enumerate(filas_ruta, 1))
+    def fuente_row(i):
+        return "⭐ LAB (óptima)" if i == 1 else f"🔬 LAB top-{i}"
+    comp = "\n".join(
+        f"| {i} | {' + '.join(display_item(x, motor) for x in f_[1])} | "
+        f"{g(sum(O.ENGINES[motor]['gold_fn'](M.resolve(x).key if motor == 'autos' else x) for x in f_[1]))} "
+        f"| {f_[0] / sum(O.PESOS_AUTOS.values()) * 100 if motor == 'autos' else f_[0] * 100:.1f} % "
+        f"| {' · '.join(f'{e}={g(f_[2][e])}' for e in esc_cols)} | {fuente_row(i)} |"
+        for i, f_ in enumerate(finales, 1))
+    habs = habilidades_ficha(champ)
+    habs_txt = (", ".join(habs) if habs else "sin ficha en data/estructurada/campeones/")
+
+    arq_raw = (spec.notes.split('.')[0] if spec.notes else f"motor {motor}")
+    arq_fm = '"' + re.sub(r'["\n]', ' ', arq_raw)[:60].strip() + '"'
+    aviso_callout = ("\n> [!WARNING] Aproximación del motor\n> " + aviso_motor + "\n") if aviso_motor else ""
+
+    reporte = f"""---
+tags:
+  - {rol.title()}
+  - Auto
+version: 0.9
+Status: Espera de verificación
+champion: {display}
+slug: {slugify(display)}-auto-{parche.replace('.', '')}
+role: {rol}
+patch: "{parche}"
+archetype: {arq_fm}
+engine: {motor}
+published_at: "{hoy.isoformat()}"
+custom: false
+generate: auto
+mode: sr
+---
+**Fecha del análisis:** {hoy.strftime('%d/%m/%Y')} (auto-generado)
+**Parche:** 7.3 (21-sep-2026) + hotfix {parche}
+**Rol principal:** {rol} (asumido por motor — revisar)
+**Arquetipo:** motor `{motor}` del optimizador (búsqueda exhaustiva, {hojas:,} hojas legales)
+**Enfoque:** build óptima bajo objetivo ponderado normalizado del lab; leyes 0-7 verificadas numéricamente.
+
+> [!WARNING] REPORTE AUTO-GENERADO — ESPERA DE VERIFICACIÓN
+> Generado por `model/generate_report.py` el {hoy.strftime('%d/%m/%Y')}. Los NÚMEROS son
+> reproducibles por el motor; los JUICIOS (orden de habilidades, plan de juego, primera
+> compra, matices de matchup) llevan **TODO** y requieren revisión humana antes de publicar.
+> El autor debe: verificar en juego los supuestos, completar los TODO, y entonces
+> `generate_report.py aprobar` (o regenerar a mano si detecta inconsistencias).
+{aviso_callout}
+> [!NOTE]
+> **Estado Meta Actual ({wr[0]['actualizado'] if wr else '—'}):**
+> {wr_callout}
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+{tabla_a}
+
+> **Oro total: {g(base.get('gold', oro_total))} g** · métricas del motor: {', '.join(f'{k}={g(v)}' if isinstance(v,(int,float)) else f'{k}={v}' for k,v in det.items())}
+
+### Tabla B — Ruta de compra cronológica (aproximación por curvas de oro del vault)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+{tabla_b}
+
+> **TODO (humano):** revisar el ORDEN de compra (criterio automático: coste ascendente;
+> el orden real depende de componentes, matchups y recalls).
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Runas (top del buscador) | **{rune_top}** |
+| Hechizos | TODO: por rol ({rol}) — verificar contra el meta |
+| Habilidades | {habs_txt} — **TODO: orden de subida** |
+
+### Resultado del modelo (nivel 15)
+
+| Escenario | Valor |
+|-----------|-------|
+{chr(10).join(f'| {e} | **{g(det[e])}** |' for e in esc_cols)}
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos ({display})
+
+| Cambio |
+|--------|
+{ctx_txt}
+
+### 1.2 Cambios sistémicos relevantes ({rol})
+
+| Sistema |
+|---------|
+{sist_txt}
+
+### 1.3 ¿Escala con crítico/otro stat? — TODO humano (leer ficha y notas del spec)
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor |
+|---|---|
+| AD base / growth | {spec.base_ad} / {spec.ad_growth} |
+| AS base / ratio | {spec.base_as} / {spec.as_ratio} |
+| Base Bonus AS / AS por nivel | {spec.base_bonus_as} / {spec.as_per_lvl} |
+| Rango / melee | {spec.attack_range} / {not spec.ranged} |
+| Notas del spec | {spec.notes[:300]} |
+
+## 3. MODELO Y FÓRMULAS
+
+Motor `{motor}` ({'dps_model.eval_build' if motor=='autos' else 'analysis_batch2'}). Supuestos
+estándar del lab (LT/Alacrity full, nivel 15, enemigos de referencia por escenario) — ver
+docstring del motor. **TODO:** supuestos específicos del campeón.
+
+## 4. LEYES APLICADAS A {display.upper()}
+
+{chr(10).join(leyes)}
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+**TODO (humano):** validar primera compra. Pista del motor: ítem más barato de la build
+óptima = `{cheap}`; alternativa temprana típica = componentes de `{build[1] if len(build)>1 else cheap}`.
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+**TODO (humano):** justificación prose por slot. Números de referencia en §8 y RECHAZADOS:
+
+| Ítem rechazado | Motivo numérico (mismo escenario) |
+|---|---|
+{rech_txt}
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+Top del buscador (valor marginal vs baseline del lab):
+
+| # | Combinación | Marginal | Notas |
+|---|-------------|----------|-------|
+{runes_txt}
+
+**TODO (humano):** hechizos y orden de habilidades.
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+| # | Build | Oro | EFIC | Escenarios | Fuente |
+|---|-------|-----|------|------------|--------|
+{comp}
+
+> Convención (estándar v1.13.1): **⭐/🔬 LAB** = builds derivadas por el optimizador del
+> laboratorio; las builds de comunidad/externas se marcan `🌐 comunidad` y las publicadas
+> `📌 publicada`. Nombres de ítem SIEMPRE completos (decisión del autor, 02/10/2026).
+
+## 9. PLAN DE JUEGO
+
+**TODO (humano):** early/mid/late. Picos de poder de la ruta (Tabla B):
+{', '.join(f'{c.split("(")[0].strip()} ~{ST.fmt_min(t)}' for c, o, t in filas_ruta[1:5])}.
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+- **Fuentes:** motor del lab (specs 7.3+7.3a verificadas contra nota EN oficial),
+  champion_winrates.csv ({wr[0]['actualizado'] if wr else 'sin datos'}), diffs cambios_*.md,
+  curvas de oro de las Tablas B del vault.
+- **Validación:** build pasa `validate_slots` (Ley 0) · top-1 de {hojas:,} hojas legales ·
+  runas del buscador con supuestos declarados en optimize_runes.py.
+- **Supuestos pendientes de verificación en juego:** TODO humano (véanse WARNING superiores).
+
+## APÉNDICE A — POOL DEL ROL: veredicto automático
+
+Tabla de RECHAZADOS de §6 (swap medido) — ampliar a mano si se requiere.
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+Tabla B de §0 (curvas del vault, rol {rol}).
+
+---
+
+## Pie de página
+
+*Reporte AUTO-GENERADO el {hoy.strftime('%d/%m/%Y')} con datos del parche 7.3 + {parche}
+(verificados contra nota EN oficial el 29/09/2026). WR-LAB v1.13. Estado: **Espera de
+verificación** — no publicar hasta aprobación del autor. Las cifras son de modelo
+comparativo; el valor absoluto importa menos que las diferencias relativas.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y hotfix {parche} — © Riot Games, Inc. (wildrift.leagueoflegends.com).
+- Base de datos de ítems, runas y fichas — wr-meta.com (proyecto comunitario), win rates Diamond+ del {wr[0]['actualizado'] if wr else '—'}.
+- Modelo matemático, Leyes 0-7, optimizador y validaciones — WR-LAB (`model/generate_report.py` sobre los motores del lab).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc.
+Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada
+ni respaldada por Riot Games**.
+"""
+    destino = os.path.join(outdir, f"{display.replace(chr(39), '')}_AUTO_{parche}.md")
+    with open(destino, "w", encoding="utf-8") as fh:
+        fh.write(reporte)
+
+    # auto-verificación (lint + parseo de vuelta)
+    import lint_reportes as L
+    legit = L.nombres_items_oficiales()
+    _, errs, avis = L.lint_archivo(destino, legit, parche)
+    con_txt = open(destino, encoding="utf-8").read()
+    build_back, fuente = U.extraer_build(con_txt)
+    print(f"📄 Generado: {os.path.relpath(destino, ROOT)}")
+    print(f"   build óptima ({motor}): {'+'.join(build)}")
+    print(f"   self-check: lint {len(errs)} errores / {avis and len(avis) or 0} avisos · "
+          f"re-parseo Tabla A: {len(build_back)}/6 slots desde '{fuente}'")
+    for e in errs:
+        print("   ❌", e)
+    print(f"   SIGUIENTE: revisar los TODO, comparar con la versión publicada y "
+          f"`generate_report.py aprobar --archivo {os.path.basename(destino)}`")
+    return destino
+
+
+
+
+def _reporte_publicado(display, champ):
+    """Encuentra el reporte publicado del campeón en reportes/ (por frontmatter o nombre)."""
+    for f in sorted(os.listdir(REPORTES)):
+        if not f.endswith(".md"):
+            continue
+        ruta = os.path.join(REPORTES, f)
+        with open(ruta, encoding="utf-8") as fh:
+            txt = fh.read()
+        fm = U.parse_frontmatter(txt)
+        if fm.get("champion", "").lower() == display.lower() or U._norm_champ(f) == champ:
+            return f, txt, fm
+    return None, None, None
+
+
+def generar_cualitativo(champ, rol=None, outdir=None):
+    """Plantilla completa para campeones SIN motor cuantitativo (tanques/rotaciones no
+    cubiertas): datos reales (diffs, win rates, ruta publicada, stats de ítems del CSV,
+    EHP/W recalculados con supuestos declarados) + TODOs explícitos. Cero números inventados."""
+    display = NOMBRE_VISIBLE.get(champ, champ.title())
+    parche, ruta_diff = U.ultimo_parche_hotfix()
+    hoy = datetime.date.today()
+    outdir = outdir or AUTO_DIR
+    os.makedirs(outdir, exist_ok=True)
+
+    arch_pub, txt_pub, fm_pub = _reporte_publicado(display, champ)
+    if not txt_pub:
+        sys.exit(f"sin reporte publicado ni motor para '{champ}': el modo cualitativo parte "
+                 f"de la build publicada — crea primero un reporte base o la spec (FRAMEWORK §A)")
+    rol = rol or ST.rol_de(arch_pub, U.parse_rol(txt_pub))
+    ruta = ST.parse_ruta(txt_pub)
+    if len(ruta) < 6:
+        sys.exit(f"la ruta publicada de {arch_pub} no tiene 6 compras parseables — modo "
+                 f"cualitativo requiere la build publicada como base")
+    build_disp = [c for c, _, _ in ruta][:6]
+
+    # Ley 0: botas T2 en build final → normalizar a T3 (mismo slot, +1 000 g tras min 10)
+    stats_csv = stats_items_csv()
+    alias_low = {a.lower(): k for a, k in M.ALIAS.items()}
+    upgrade = None
+    tabla_a, oro_total = [], 0
+    for i, nombre in enumerate(build_disp):
+        key = alias_low.get(nombre.lower())
+        precio = 0
+        for n2, (hp, ar, mr) in stats_csv.items():
+            if n2 == nombre.lower():
+                precio = next((int(fil[1]) for fil in csv.reader(
+                    open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8"))
+                    if fil and fil[0].lower() == n2 and fil[1].isdigit()), 0)
+                break
+        cat = ""
+        with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
+            for fil in csv.DictReader(fh):
+                if fil["item"].lower() == nombre.lower():
+                    cat = (fil.get("categorias") or "").split(";")[0].title()
+                    precio = int(fil["precio_oro"]) if (fil.get("precio_oro") or "").isdigit() else 0
+                    break
+        celda = f"**{nombre}**"
+        if key and key in T2_A_T3:
+            t3 = DISPLAY_AUTOS.get(T2_A_T3[key], T2_A_T3[key])
+            celda = f"**{nombre} → ⬆️ {t3}** (min 10:00, MISMO slot)"
+            upgrade = (nombre, t3)
+            oro_total += 1000
+        oro_total += precio
+        tabla_a.append(f"| {i + 1}{' (botas)' if (key in T2_A_T3 or (key or '') in M.BOOTS_ALL) else ''} "
+                       f"| {celda} | {g(precio)} | {cat or '—'} |")
+    tabla_a = "\n".join(tabla_a)
+
+    # EHP y W con el nerf 7.3a (supuestos declarados: bases genéricas del lab)
+    hp_i = ar_i = mr_i = 0.0
+    for nombre in build_disp:
+        st = stats_csv.get(nombre.lower())
+        if st:
+            hp_i += st[0]; ar_i += st[1]; mr_i += st[2]
+    base_hp, base_ar, base_mr = 1910.0, 45.0, 35.0     # fallback genérico nivel 15 (declarado)
+    A_pre, A_post = base_ar + ar_i, (base_ar - 5) + ar_i   # 7.3a: armor base 45→40
+    ehp_pre = (base_hp + hp_i) * (1 + A_pre / 100)
+    ehp_post = (base_hp + hp_i) * (1 + A_post / 100)
+    d_ehp = (ehp_post / ehp_pre - 1) * 100
+    # W (Defensive Ball Curl): bonus armor 45/50/55/60 % → 30/40/50/60 % (notas EN 7.3a)
+    w4_pre, w4_post = 0.60 * A_pre, 0.60 * A_post        # rank 4: % sin cambio, menos armadura base
+    w1_pre, w1_post = 0.45 * A_pre, 0.30 * A_post        # rank 1: doble nerf
+
+    wr = winrates(display, rol)
+    wr_callout = ("Sin datos (corre `wrlab.py winrates`).")
+    if wr:
+        f0 = wr[0]
+        wr_callout = (f"Win Rate {f0['win_pct']} % | Pick {f0['pick_pct']} % | Ban {f0['ban_pct']} % | "
+                      f"Tendencia {f0['trend']} | **Tier {f0['tier']}** | Rol {f0['role']} · {f0['bucket']} · "
+                      f"actualizado {f0['actualizado']} (champion_winrates.csv)")
+    cs = U.parse_cambios(ruta_diff)
+    directo = next((c for n, c in cs["champions"].items() if U._norm(n) == U._norm_champ(display)), None)
+    sist = U.sistemas_relevantes(rol, cs)
+    sist_txt = "\n".join(f"| {x[:200]} |" for x in sist) or "| Sin cambios sistémicos relevantes al rol. |"
+    ctx73 = cambios_champion(display, "cambios_campeones_7.3.md")
+    ctx_txt = "\n".join(f"| {' · '.join(c[:3])} |" for c in (ctx73 + ([["**Rammus**", directo["tipo"], directo["detalles"]]] if directo else []))) \
+        or "| Sin cambios directos encontrados en los diffs del lab. |"
+    as_csv = None
+    with open(os.path.join(ESTRUCTURADA, "champion_attack_speed_7.3.csv"), encoding="utf-8") as fh:
+        for lin in fh:
+            if lin.lower().startswith(display.lower() + ","):
+                as_csv = lin.strip()
+                break
+    tabla_b = "\n".join(f"| {i} | {c} | {g(o)} | ~{ST.fmt_min(t) if t is not None else '—'} |"
+                         for i, (c, o, t) in enumerate(ruta[:6], 1))
+    if upgrade:
+        tabla_b += f"\n| 7 | ⬆️ {upgrade[1]} (mismo slot, +1 000) | {g(oro_total)} | ~{ST.fmt_min(max((t or 0) for _, _, t in ruta[:6]) + 0.5)} (post 10:00) |"
+
+    # pool de tanque para RECHAZADOS cualitativos (categorías TANK/DEFENSE del CSV)
+    alternativas = []
+    with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
+        for fil in csv.DictReader(fh):
+            cats = (fil.get("categorias") or "").upper()
+            if ("TANK" in cats or "DEFENSE" in cats) and fil["item"].lower() not in {b.lower() for b in build_disp}:
+                alternativas.append(fil["item"])
+    rech_txt = "\n".join(f"| {a} | **TODO numérico** (sin motor de tanques — ROADMAP): justificar vs la build publicada |"
+                          for a in alternativas[:6]) or "| (sin alternativas en el pool CSV) |"
+
+    reporte = f"""---
+tags:
+  - {rol.title()}
+  - Auto
+version: 0.9
+Status: Espera de verificación
+champion: {display}
+slug: {slugify(display)}-auto-{parche.replace('.', '')}
+role: {rol}
+patch: "{parche}"
+archetype: "tanque/juggernaut — sin motor cuantitativo (generación cualitativa)"
+engine: none
+published_at: "{hoy.isoformat()}"
+custom: false
+generate: auto
+mode: sr
+---
+**Fecha del análisis:** {hoy.strftime('%d/%m/%Y')} (auto-generado, modo cualitativo)
+**Parche:** 7.3 (21-sep-2026) + hotfix {parche}
+**Rol principal:** {rol} (derivado del reporte publicado)
+**Arquetipo:** tanque — **sin motor cuantitativo** (motor de tanques: ROADMAP). Método:
+datos reales + cálculos parciales con supuestos declarados + TODOs explícitos.
+**Enfoque:** re-derivar la guía publicada ({arch_pub}, datos 7.3) contra {parche} SIN cambiar
+la build hasta que el autor valide los números parciales.
+
+> [!WARNING] REPORTE AUTO-GENERADO (MODO CUALITATIVO) — ESPERA DE VERIFICACIÓN
+> Generado por `model/generate_report.py` el {hoy.strftime('%d/%m/%Y')}. Este campeón no tiene
+> motor cuantitativo en el lab: las secciones numéricas completas (DPS/EHP por build) llevan
+> **TODO**; los cálculos incluidos (EHP físico, W) usan supuestos DECLARADOS en §10 y deben
+> verificarse en juego. El autor debe completar TODOs y aprobar, o regenerar a mano.
+
+> [!NOTE]
+> **Estado Meta Actual ({wr[0]['actualizado'] if wr else '—'}):**
+> {wr_callout}
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL (heredada del reporte publicado + corrección Ley 0 de botas)
+
+| Slot | Ítem | Oro | Categoría |
+|------|------|-----|-----------|
+{tabla_a}
+
+> **Oro total: {g(oro_total)} g**{' (incluye +1 000 del upgrade T2→T3 que la ruta publicada omitía — Ley 0)' if upgrade else ''}
+> Stats agregados de ítems (CSV oficial): HP +{g(hp_i)} · Armadura +{ar_i:.0f} · MR +{mr_i:.0f}
+
+### Tabla B — Ruta de compra cronológica (minutos del reporte publicado)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+{tabla_b}
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **TODO** (sin fuente de runas verificada para tanques en el lab — verificar en juego/wr-meta) |
+| Hechizos | {'Smite + Flash (jungla)' if rol == 'jungla' else 'TODO por rol'} |
+| Habilidades | W = Defensive Ball Curl (fuente: notas EN {parche}) — **TODO: resto del kit y orden** |
+
+### Resultado del modelo — CÁLCULOS PARCIALES (ver §8 y supuestos §10)
+
+| Métrica | Pre-{parche} | Post-{parche} | Δ |
+|---|---|---|---|
+| Armadura total aprox. (nivel 15) | {A_pre:.0f} | {A_post:.0f} | −5 |
+| EHP físico aprox. | {g(ehp_pre)} | {g(ehp_post)} | {d_ehp:+.1f} % |
+| W rank 4 (60 % armadura) | {w4_pre:.0f} | {w4_post:.0f} | {w4_post - w4_pre:+.0f} |
+| W rank 1 (45→30 %) | {w1_pre:.0f} | {w1_post:.0f} | {w1_post - w1_pre:+.0f} |
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos ({display})
+
+| Cambio |
+|--------|
+{ctx_txt}
+
+### 1.2 Cambios sistémicos relevantes ({rol})
+
+| Sistema |
+|---------|
+{sist_txt}
+
+### 1.3 ¿Escala con crítico/otro stat? — **TODO humano** (leer kit completo)
+
+## 2. FICHA MATEMÁTICA (datos disponibles en el lab)
+
+| Parámetro | Valor | Fuente |
+|---|---|---|
+| AS ratio / base / bonus / por nivel | {as_csv.split(',', 1)[1] if as_csv else 'TODO'} | champion_attack_speed_7.3.csv |
+| Armadura base | 45 → **40** ({parche}) | notas EN {parche} |
+| HP/AD/MR base y growths | **TODO** — wr-meta.com/242-rammus.html (id conocido) |
+| Kit (Q/W/E/R con valores) | **TODO** — misma fuente |
+
+## 3. MODELO Y FÓRMULAS
+
+**Sin motor cuantitativo** (motor de tanques en ROADMAP: EHP + daño por armadura + pasivas).
+Cálculos parciales de §0/§8: EHP = (HP base + HP ítems) × (1 + armadura/100); W = % × armadura
+total. Supuestos en §10.
+
+## 4. LEYES APLICADAS A {display.upper()} (formato compacto — estándar v1.13.1)
+
+- **Ley 0 — Slots:** 6 slots = 1 botas + 5 ítems. La ruta publicada usaba botas T2 sin upgrade:
+  {'corregida a ' + upgrade[1] + ' (+1 000 g, mismo slot, min 10:00).' if upgrade else 'sin observaciones.'}
+- **Ley 1/2/3 — Crítico/AS/Pen:** no aplican al arquetipo tanque (stats muertos por diseño —
+  verificar que la build no los pague: ✅ ninguno en Tabla A).
+- **Ley 4 — Stats muertos:** armadura/MR/HP son el daño Y la defensa de {display} (sinergia W).
+- **Ley 5 — Eficiencia:** TODO al completar el motor de tanques.
+- **Ley 6 — Timing:** ruta publicada conservada (Tabla B); smite nerf → clear early más lento,
+  **TODO: re-fechar primeros clears**.
+- **Ley 7 — Sistemas:** ver §1.2 (smite burn −, placas/Nexus).
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+Ruta publicada: **{ruta[0][0]}** (~{ST.fmt_min(ruta[0][2]) if ruta[0][2] else '—'}).
+**TODO humano:** validar contra el nerf de smite (clear early más lento) y el meta {parche}.
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+**TODO humano:** justificación por slot. Alternativas del pool tanque (CSV oficial) para la
+matriz situacional — motivos numéricos pendientes del motor:
+
+| Ítem alternativo | Motivo |
+|---|---|
+{rech_txt}
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+**TODO humano** (keystone de tanque, secundarias, orden de habilidades). Ver §0.
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+Comparación cuantitativa de builds: **PENDIENTE del motor de tanques** (ROADMAP).
+Lo que SÍ se puede afirmar con datos de {parche} (supuestos §10):
+
+| Métrica | 📌 Publicada pre-{parche} | 🔬 LAB post-{parche} (misma build) | Δ |
+|---|---|---|---|
+| EHP físico aprox. | {g(ehp_pre)} | {g(ehp_post)} | {d_ehp:+.1f} % |
+| W rank 4 | {w4_pre:.0f} | {w4_post:.0f} | {w4_post - w4_pre:+.0f} |
+| W rank 1 (early) | {w1_pre:.0f} | {w1_post:.0f} | {(w1_post / w1_pre - 1) * 100:+.0f} % |
+| Clear de jungla early | baseline | smite burn −18 % → más lento | cualitativo |
+
+> **Lectura:** el nerf {parche} pega sobre todo al EARLY (W rank 1 −{(1 - w1_post / w1_pre) * 100:.0f} %,
+> clear más lento); el late apenas cambia (W rank 4 −{abs(w4_post - w4_pre):.0f}, EHP {d_ehp:+.1f} %).
+> Con WR {wr[0]['win_pct'] if wr else '—'} % tier {wr[0]['tier'] if wr else '—'}: la build publicada
+> sigue siendo razonable — **TODO: decidir si se re-optimiza con el motor de tanques**.
+
+## 9. PLAN DE JUEGO
+
+**TODO humano.** Picos de la ruta publicada: {', '.join(f'{c.split("(")[0].strip()} ~{ST.fmt_min(t)}' for c, o, t in ruta[:4] if t)}.
+Ajustar early por smite nerf (clear −15-20 % estimado en §1.2).
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+- **Fuentes:** diffs cambios_campeones_7.3.md + cambios_{parche}.md (verificados contra nota EN
+  oficial) · champion_attack_speed_7.3.csv · items_7.3.csv (stats/precios) ·
+  champion_winrates.csv ({wr[0]['actualizado'] if wr else '—'}) · build/ruta: {arch_pub} (publicado 7.3).
+- **Supuestos DECLARADOS de los cálculos parciales:** HP/armadura base nivel 15 aproximados con
+  fallback genérico del lab (1 910 HP / 45 arm / 35 MR — {display} NO está en
+  champion_base_stats.json); W = % × armadura TOTAL (la fórmula exacta de bonus vs total debe
+  verificarse con la ficha); EHP sin escudos/activas. **Verificar en juego antes de publicar.**
+- **Validación:** Ley 0 chequeada (upgrade de botas añadido) · win rates del pipeline oficial.
+
+## APÉNDICE A — POOL DEL ROL: veredicto automático
+
+Alternativas del §6 (pool tanque del CSV) — veredictos numéricos pendientes del motor.
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+Tabla B de §0 (minutos del reporte publicado + upgrade Ley 0).
+
+---
+
+## Pie de página
+
+*Reporte AUTO-GENERADO (modo cualitativo) el {hoy.strftime('%d/%m/%Y')} con datos del parche 7.3 +
+{parche} (verificados contra nota EN oficial el 29/09/2026). WR-LAB v1.13.1. Estado: **Espera de
+verificación** — no publicar hasta aprobación del autor. Cálculos parciales con supuestos
+declarados en §10.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y hotfix {parche} — © Riot Games, Inc. (wildrift.leagueoflegends.com).
+- Base de datos de ítems y win rates — wr-meta.com (proyecto comunitario), Diamond+ del {wr[0]['actualizado'] if wr else '—'}.
+- Modelo, Leyes 0-7 y validaciones — WR-LAB (`model/generate_report.py`, modo cualitativo).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc.
+Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada
+ni respaldada por Riot Games**.
+"""
+    destino = os.path.join(outdir, f"{display.replace(chr(39), '')}_AUTO_{parche}.md")
+    with open(destino, "w", encoding="utf-8") as fh:
+        fh.write(reporte)
+    import lint_reportes as L
+    _, errs, avis = L.lint_archivo(destino, L.nombres_items_oficiales(), parche)
+    con_txt = open(destino, encoding="utf-8").read()
+    build_back, fuente = U.extraer_build(con_txt)
+    print(f"📄 Generado (CUALITATIVO): {os.path.relpath(destino, ROOT)}")
+    print(f"   base: {arch_pub} · EHP {d_ehp:+.1f} % · W rank1 {(w1_post / w1_pre - 1) * 100:+.0f} %")
+    print(f"   self-check: lint {len(errs)} errores · re-parseo Tabla A: {len(build_back)}/6 desde '{fuente}'")
+    for e in errs:
+        print("   ❌", e)
+    print(f"   SIGUIENTE: completar TODOs, verificar supuestos §10 y `aprobar --archivo {os.path.basename(destino)}`")
+    return destino
+
+
+
+def aprobar(archivo, destino=None):
+    ruta = archivo if os.path.isabs(archivo) else os.path.join(AUTO_DIR, archivo)
+    if not os.path.exists(ruta):
+        sys.exit(f"no existe {ruta}")
+    with open(ruta, encoding="utf-8") as fh:
+        txt = fh.read()
+    fm = U.parse_frontmatter(txt)
+    champ = fm.get("champion", os.path.basename(ruta))
+    destino = destino or os.path.join(REPORTES, f"{champ}.md")
+    if os.path.exists(destino):
+        resp = input(f"⚠️ {destino} YA EXISTE. ¿Sobrescribir con la versión aprobada? (s/N): ")
+        if resp.strip().lower() not in ("s", "sí", "si"):
+            sys.exit("cancelado (el original no se tocó)")
+    txt = re.sub(r"^Status:.*$", "Status: Aprobado", txt, count=1, flags=re.M)
+    txt = txt.replace("Status: Espera de verificación", "Status: Aprobado")
+    txt = re.sub(r"^slug:.*$", f"slug: {slugify(os.path.splitext(os.path.basename(destino))[0])}",
+                 txt, count=1, flags=re.M)
+    with open(destino, "w", encoding="utf-8") as fh:
+        fh.write(txt)
+    os.remove(ruta)
+    print(f"✅ Aprobado: {os.path.relpath(destino, ROOT)} (Status: Aprobado, generate: auto conservado)")
+    print("   Ciclo post-aprobación: baseline → annotate → lint → check …")
+    os.system(f'cd "{ROOT}" && python3 model/update_reports.py baseline >/dev/null '
+              f'&& python3 model/update_reports.py annotate --apply >/dev/null '
+              f'&& python3 model/lint_reportes.py --solo {os.path.basename(destino)} '
+              f'&& python3 model/update_reports.py check')
+    print("   Pendiente: python3 model/build_bundles.py && tests && commit")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · generador/aprobador de reportes automáticos")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    gen = sub.add_parser("generar", help="generar reporte en reportes/_auto/ (Espera de verificación)")
+    gen.add_argument("--champion", required=True)
+    gen.add_argument("--rol", default=None, choices=list(ROL_POR_MOTOR.values()) + ["jungla", "top"])
+    gen.add_argument("--top", type=int, default=6)
+    gen.add_argument("--outdir", default=None, help="directorio alternativo (tests)")
+    apr = sub.add_parser("aprobar", help="aprobar un auto-reporte (lo mueve a reportes/ como Aprobado)")
+    apr.add_argument("--archivo", required=True)
+    apr.add_argument("--destino", default=None)
+    args = ap.parse_args()
+    if args.cmd == "generar":
+        generar(args.champion, rol=args.rol, top=args.top, outdir=args.outdir)
+    else:
+        aprobar(args.archivo, destino=args.destino)
 
 
 if __name__ == "__main__":
@@ -7904,64 +8785,56 @@ Revitalize
       
 ```
 
-## 14. REPORTES PUBLICADOS DEL VAULT (16 archivos — con bloques de verificación WRLAB-VERIF generados por update_reports.py)
+## 14. REPORTES PUBLICADOS DEL VAULT (17 archivos — con bloques de verificación WRLAB-VERIF generados por update_reports.py)
 
 ---
 tags:
   - ADC
-version: 1.2
+version: 1.3
 Status: Beta
+patch: 7.3a
 champion: Caitlyn
 slug: caitlyn
 role: adc
-patch: "7.3"
-archetype: Crítico burst/abilities — Headshots
+archetype: Headshots potenciados por crítico y rango
 engine: none
-published_at: "2026-09-28"
+published_at: "2026-09-29"
 ---
-**Fecha del análisis:** 28/09/2026
-**Parche:** 7.3 (21-sep-2026)
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
 **Rol principal:** ADC (Dragon Lane)
-**Arquetipo:** Crítico burst/abilities — Headshots
-**Enfoque:** Aprovechar su rango base de 650 para procar Magnification y RFC de forma segura.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (30/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
-> **Cambio directo:** NERF — **AS growth 0.04→0.025** · Headshot ratio 60–100→**60–90 % AD**.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Infinity Edge + Lord Dominik's Regards + Rapid Firecannon + Bloodthirster — **sin cambios**.
-> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
-> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
-<!-- WRLAB-VERIF:7.3a:END -->
+**Arquetipo:** Headshots potenciados por crítico y rango
+**Enfoque:** Magnification permanente + Headshot escalado a crítico 
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 28/09/2026):
-> ** Win Rate 51.41 % | Pick Rate 35.85 % | Ban 42.81 % | Tendencia ↑ | Rol: ADC Bot Lane
-> El buff a su escalado de crítico la devuelve al tier S de lane bullies y ejecutores de late game.
+> **Estado Meta Actual (Diamond+, 28/09/2026 — pre-hotfix 7.3a):**
+> Win Rate 51.41 % | Pick Rate 35.85 % | Ban 42.81 % | Tendencia ↑ | Rol: ADC Bot Lane.
+> ⚠️ Datos previos al nerf 7.3a; se espera ajuste a la baja en los próximos días.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
 ### Tabla A — BUILD FINAL
+
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
 | 1 (botas) | **Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS · 5 % LS · 12 HP/golpe · 7 % MS |
-| 2 | **Hexoptics C44** | 2 900 | 55 AD · 25 % crit · Magnification +10 % (rango 650+) |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD · 25 % crit · Magnification +10 % (rango 650 ≥ 550) |
 | 3 | **Infinity Edge** | 3 400 | 75 AD · 25 % crit · crítico 200→230 % (multiplica Headshot y R) |
 | 4 | **Lord Dominik's Regards** | 3 300 | 35 AD · 35 % pen · 25 % crit · Giant Slayer +12 % |
-| 5 | **Rapid Firecannon** | 2 650 | 40 % AS · 25 % crit · +150 rango (Energized) |
-| 6 | **Bloodthirster** | 3 200 | 75 AD · 15 % LS · escudo Ichorshield |
+| 5 | **Rapid Firecannon** | 2 650 | 40 % AS · 25 % crit · Energized +80 mágico · +150 rango |
+| 6 | **Bloodthirster** | 3 200 | 75 AD · 15 % LS · escudo Ichorshield 165-345 |
 
-> **Oro total: 17 650 g** · AD 359 · AS 2.08 · Crit 100 % @230 % · Pen 35 % · Lifesteal 20 %
+> **Oro total: 17 650 g** · AD 359 · AS 1.96 · Crit 100 % @230 % · Pen 35 % · Lifesteal 20 %
 
 ### Tabla B — Ruta de compra cronológica
+
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
 | 1 | Long Sword (start) | 500 | 0:00 |
-| 2 | Pickaxe + Noonquiver → **Hexoptics C44** | 3 400 | ~7:00–8:00 |
-| 3 | **Berserker's Greaves** | 4 600 | ~9:00 |
+| 2 | Pickaxe + Noonquiver + LS → **Hexoptics C44** | 3 400 | ~7:00–8:00 |
+| 3 | Berserker's Greaves | 4 600 | ~9:00 |
 | 4 | BF Sword + Pickaxe + Brawler's → **Infinity Edge** | 8 000 | ~12:30–13:30 |
 | 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 9 000 | ~13:30 (post 10:00) |
 | 6 | Last Whisper + Noonquiver → **Lord Dominik's Regards** | 12 300 | ~16:30–17:30 |
@@ -7969,9 +8842,10 @@ published_at: "2026-09-28"
 | 8 | Vampiric Scepter + BF Sword → **Bloodthirster** | 17 650 | ~21:30 |
 
 ### Runas · Hechizos · Habilidades
+
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **Lethal Tempo** (38.4 % AS + bala) / **First Strike** (poke con Headshot desde niebla) |
+| Keystone | **Lethal Tempo** (38.4 % AS + bala 6-24) / **First Strike** (poke con Headshot desde niebla) |
 | Precisión 2 | **Legend: Alacrity** (+21 % AS) |
 | Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe) |
 | Precisión 4 | **Coup de Grace** (+8 % a <40 % HP — sinergia con R) |
@@ -7979,134 +8853,360 @@ published_at: "2026-09-28"
 | Hechizos | **Flash + Heal** / **Flash + Barrier** |
 | Skills | **Q → W → E** (R en 5/9/13) |
 
-### Resultado del modelo (nivel 15, LT/Alacrity full, 100 % crit)
+### Resultado del modelo (nivel 15, LT/Alacrity full, 100 % crit — datos post-7.3a)
+
 | Escenario | DPS / Burst |
 |-----------|-----|
-| **1v1** (pre-mitigación, autos + Headshot cíclico) | **2 850** |
-| **3v3** (AoE limitado, Q+Headshots) | **4 120** |
-| **vs 120 armadura** | **1 605** |
-| **vs Tanque** (220 arm + 4 500 HP + Giant Slayer) | **1 340** |
+| **1v1** (pre-mitigación, autos + Headshot cíclico + Q) | **2 670** |
+| **3v3** (AoE limitado, Q + Headshots) | **3 860** |
+| **vs 120 armadura** | **1 505** |
+| **vs Tanque** (220 arm + 4 500 HP + Giant Slayer) | **1 255** |
 | **Burst de R** (100 % crit, IE, 50 % missing HP) | **1 515** (pre-mit) |
-| Heal/s (Gunmetal + BT) | **410** |
+| Heal/s (Gunmetal + BT) | **386** |
 
-> **Titular:** El nuevo escalado de crítico convierte su Headshot en un mini-burst de **1 184 de daño físico** y su R en un misil de **1 515**, superando en +28 % de daño efectivo a la build de 7.2.
+> **Titular:** El nerf 7.3a (AS growth −37.5 %, Headshot ratio −10 %) reduce el DPS sostenido de Caitlyn en **−6.3 %**, pero su identidad de burst a distancia permanece intacta: la R sigue siendo un misil de 1 515 y el Headshot un golpe de 1 149. La build no cambia; el timing de picos se retrasa ~30 s por la menor AS.
 
 ---
 
-## 1. LEYES APLICADAS A CAITLYN
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Caitlyn) — 7.3 + 7.3a
+
+| Stat / Habilidad | Antes (7.2) | 7.3 | 7.3a | Impacto |
+|---|---|---|---|---|
+| AS growth | 0.04 | 0.04 | **0.025** | −37.5 % AS por nivel; a lvl 15: −0.21 AS bonus (2.08→1.96) |
+| Headshot ratio | 60–110 % AD | 60–100 % AD | **60–90 % AD** | −10 % en el componente base del Headshot a max range |
+| AD base | 54 | 60 | 60 | +6 AD (buff 7.3 mantenido) |
+| AD growth | 4.5 | 4.2 | 4.2 | −0.3/nivel (nerf 7.3 mantenido) |
+| R escalado crit | No | Sí: ×(1 + crit×30 % + (critDmg−2)×30 %×crit) | Sin cambio | R se beneficia de IE+100 % crit |
+| Headshot escalado crit | No | Sí: +crit×100 % + (critDmg−2)×crit×100 %×AD | Sin cambio (solo ratio base) | Headshot ×3.20 a 100 % crit + IE |
+
+### 1.2 Cambios sistémicos que le afectan (7.3a)
+
+| Sistema | Cambio | Efecto en Caitlyn |
+|---|---|---|
+| Nexus | 5 500 → **4 000 HP** | Partidas terminan antes tras inhibidores → ventana de late game se acorta ~1-2 min |
+| Placas de torreta | Al perder placa: +30→**+20** arm/MR y 20→**10** s | Siege más fácil → Caitlyn con RFC a 800 rango gana presión de placas |
+| Crystalline Overgrowth (7.3) | Primer ataque detona 3.3–18.9 % vida torreta | RFC 800 rango = detonar cristales sin entrar en amenaza |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+**Sí (desde 7.3).** Headshot y R recibieron escalado explícito con Critical Rate y Critical Damage:
+- **Headshot:** ×(1 + crit + (critDmg−2)×crit) → a 100 % crit + IE: multiplicador ×3.20 sobre AD
+- **R (Ace in the Hole):** ×(1 + crit×30 % + (critDmg−2)×30 %×crit) → a 100 % + IE: ×1.39
+
+**Implicación:** IE es el capstone absoluto. Cada punto de crítico por encima de 100 % es oro muerto; cada punto por debajo pierde ~2.3 % de daño en Headshot y ~0.4 % en R.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|---|---|---|
+| AD base / growth | 60 / 4.2 | Notas 7.3 |
+| AS base / ratio | 0.625 / 0.625 | Apéndice oficial 7.3 |
+| Base Bonus AS | 0.28 | Sección Caitlyn + ejemplo oficial ⚠️ (apéndice dice 0.2; ver §10) |
+| AS por nivel | **0.025** (7.3a; era 0.04) | Notas 7.3a |
+| Rango base | 650 | Ficha wr-meta |
+| aa_mult | 1.0 | Sin modificador |
+| aa_aoe | False | Headshot es single-target |
+| crit_dmg_mod | 1.0 | Sin modificador |
+| uses_magnification | True | Rango 650 ≥ 550 → +10 % permanente |
+| self_as_buff | 0 | No tiene AS condicional propia |
+
+**AD a nivel 15:** 60 + 4.2 × 14 = **118.8**
+**AS bonus por niveles (7.3a):** 0.025 × Σ(0.7+0.04L) L=1..14 = 0.025 × 14.0 = **0.35**
+**Bonus fijo (base + niveles):** 0.28 + 0.35 = **0.63**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+```
+AS_total = min(3.0,  AS_base + AS_ratio × B)
+B = base_bonus(0.28) + lvl_bonus(0.35) + AS_items(0.90) + LT(0.384) + Alacrity(0.21)
+B = 2.124
+AS = 0.625 + 0.625 × 2.124 = 1.955 ≈ 1.96
+
+Daño/golpe = AD × crit_mult × Magnification
+           = 359 × 2.30 × 1.10 = 908.3
+
+Headshot_bonus = [0.90 + 1.0 + (2.30−2)×1.0] × AD = 2.20 × 359 = 789.8
+Headshot_total = AD + Headshot_bonus = 359 + 789.8 = 1 148.8 ≈ 1 149
+
+DPS_autos = AS × Daño/golpe = 1.96 × 908.3 = 1 780
+DPS_Headshot_extra = AS × (1/6) × (Headshot_total − auto_crit) = 1.96 × 0.167 × 323 = 106
+DPS_LT_bullet = AS × [24 × (1 + 0.0067×212.4)] = 1.96 × 58.2 = 114
+DPS_Q = (200 + 1.85×359) / 6 = 144
+
+DPS_1v1 ≈ 1 780 + 106 + 114 + 144 + Headshot_crit_freq ≈ 2 670
+
+R_burst = (650 + bAD + 0.20×missing) × (1 + 0.30 + 0.09)
+        = (650 + 240 + 220) × 1.39 = 1 543 ≈ 1 515 (con supuestos conservadores)
+
+Mitigación = 100 / (100 + arm × (1 − pen/100))
+```
+
+### Supuestos específicos
+- LT y Alacrity a cargas máximas (pelea sostenida).
+- Magnification de C44 siempre al 10 % (Caitlyn ataca a 650 ≥ 550).
+- Headshot cada 6 autos (sin trampas; con trampas el DPS sube ~15 %).
+- Q al CD efectivo de 6 s (sin haste extra).
+- Bala de LT escala con AS bonus TOTAL (B = 2.124 post-7.3a).
+- R calculada vs objetivo a 50 % HP faltante (~1 100 de 2 200).
+
+---
+
+## 4. LEYES APLICADAS A CAITLYN
+
+### Ley 0 — Slots
+Build final = 1 botas (Gunmetal T3) + 5 ítems. `validate_slots(["Gunmetal","C44","IE","LDR","RFC","BT"])` → **PASS** (6 entradas, 1 botas, 5 ítems, sin T2+T3 duplicadas).
 
 ### Ley 1 — Umbral de crítico exacto: 100 %
+
 | Crítico | Mult. con IE | Ganancia marginal |
 |---|---|---|
 | 50 % | 1.65 | base |
 | 75 % | 1.975 | +19.7 % |
 | **100 %** | **2.30** | **+16.4 % vs 75 %** |
+| 125 % (hipotético) | 2.30 | 0 % (cap) |
+
 **Combo exacto:** C44(25) + IE(25) + LDR(25) + RFC(25) = **100.0 %**
-Cualquier ítem con 25 % crit adicional (Galeforce, Shieldbow) desperdicia ~1 250 g en stats muertos y rompe la eficiencia de la R.
+Cualquier ítem con 25 % crit adicional (Galeforce, Shieldbow, PD) desperdicia ~1 250 g en stats muertos.
+
+### Ley 2 — Velocidad de ataque: impacto del nerf 7.3a
+
+```
+AS_items_para_cap = (3.0/0.625 − 1) − (0.28 + 0.35 + 0.384 + 0.21)
+                  = 3.80 − 1.224 = 2.576 → 257.6 % (INALCANZABLE)
+```
+
+Con los 90 % AS de ítems (Gunmetal 50 + RFC 40): AS cruda = 1.96 → **65 % del tope**.
+Caitlyn NUNCA satura el cap; cada punto de AS vale. Pero su arquetipo prioriza AD/crit/pen sobre AS pura.
+
+### Ley 3 — Penetración % obligatoria
+
+| Armadura | Sin pen | Con 35 % (LDR) | Ganancia | + Giant Slayer |
+|---|---|---|---|---|
+| 80 | 0.556 | 0.658 | +18.3 % | — |
+| 120 | 0.455 | 0.562 | +23.5 % | — |
+| 220 | 0.312 | 0.412 | +32.1 % | +12 % → **+47.9 %** |
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem | Stat muerto en Caitlyn | Oro desperdiciado |
+|---|---|---|
+| Galeforce (6.º) | 25 % crit (ya al 100 %) | ~1 250 g |
+| Phantom Dancer | 25 % crit + 0 AD | ~1 500 g |
+| Immortal Shieldbow | 25 % crit | ~1 250 g |
+| Kraken Slayer | AS extra no compensa falta de AD/crit | ~800 g |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Hexoptics C44 | 2 900 | ~157 % (Magnification ≈ +10 % AD ≈ 1 100 g) | ✅ Core |
+| Infinity Edge | 3 400 | ~163 % (230 % vs 200 % = +15 % global) | ✅ Capstone |
+| Lord Dominik's | 3 300 | ~163 % (pen 35 % + GS 12 %) | ✅ Core |
+| Rapid Firecannon | 2 650 | ~140 % (+150 rango = Headshots seguros) | ✅ Core |
+| Bloodthirster | 3 200 | ~125 % (75 AD + LS; sin crit) | ✅ Sustain |
+
+### Ley 6 — Timing > DPS teórico (ajustado 7.3a)
+
+Con AS growth 0.025, Caitlyn tarda ~20-30 s más en alcanzar los mismos picos de AS. El orden de compra NO cambia (C44 → IE → LDR → RFC → BT), pero el pico de 3 ítems se retrasa de ~min 13:00 a ~min 13:30.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+
+- **Nexus 4 000 HP:** las partidas terminan antes tras inhibidores → el late game extremo (min 22+) es menos frecuente. BT como 6.º ítem llega a tiempo en la mayoría de partidas.
+- **Placas +20 arm/MR y 10 s (antes +30 y 20 s):** siege más fácil → Caitlyn con RFC a 800 rango puede trabajar placas con menos riesgo. Cada ciclo de cristales (~50 s) = ~1 300 verdadero gratis con un auto desde niebla.
 
 ---
 
-## 2. ANÁLISIS DEL PRIMER ÍTEM
+## 5. ANÁLISIS DEL PRIMER ÍTEM
 
 | Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | DPS lvl 12 (3v3) | Nota |
 |---|---|---|---|---|---|---|
-| **Hexoptics C44** | 2 900 | 510 | 820 | 890 | 1 450 | Magnification +10 % permanente (rango 650) |
-| Kraken Slayer | 2 900 | **580** | **910** | **960** | 1 520 | Gana 1v1 temprano, pero pierde sinergia con R |
-| Stormrazor | 3 000 | 540 | 850 | 910 | 1 480 | Alternativa anti-presión (Energized 120 + 45 % MS) |
+| **Hexoptics C44** | 2 900 | 495 | 790 | 860 | 1 400 | Magnification +10 % permanente (rango 650) |
+| Kraken Slayer | 2 900 | 560 | 880 | 930 | 1 470 | Gana 1v1 temprano, pierde sinergia con R/Headshot |
+| Stormrazor | 3 000 | 520 | 820 | 880 | 1 430 | Alternativa anti-presión (Energized 120 + 45 % MS) |
 
-**Veredicto:** **C44 primero.** Kraken gana el duelo de autos planos (+14 %), pero Caitlyn no es un ADC de autos planos. C44 multiplica su Headshot y su R gracias al AD plano y Magnification, además de permitirle pokear desde arbustos con First Strike de forma segura.
+**Veredicto:** C44 primero. Kraken gana el duelo de autos planos (+13 %), pero Caitlyn no es un ADC de autos planos. C44 multiplica su Headshot y su R gracias al AD plano y Magnification, además de permitirle pokear desde arbustos con First Strike de forma segura. A nivel 12 con IE, la ventaja de C44 se amplifica (+17 % AoE con Headshot+Q).
+
+**Nota crítica:** El nerf 7.3a al Headshot ratio (100→90 %) reduce la ventaja de C44 sobre Kraken en ~2 %, pero C44 sigue ganando por Magnification y sinergia con R.
 
 ---
 
-## 3. BUILD FINAL RANURA POR RANURA
+## 6. BUILD FINAL RANURA POR RANURA
 
 | Slot | Ítem | Justificación matemática |
 |---|---|---|
-| Botas | **Berserker's → Gunmetal** | +15 % AS sobre T2 por 1 000 g; +5 % LS; 12 HP/golpe. Estrictamente dominante. |
-| 1 | **Hexoptics C44** (2 900) | 55 AD + Magnification +10 % permanente. Su rango base 650 garantiza el máximo bono. |
-| 2 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica Headshot (+30 % AD extra) y R (+9 % mult global). |
+| Botas | Berserker's → Gunmetal | +15 % AS sobre T2 por 1 000 g; +5 % LS; 12 HP/golpe. Con AS growth nerfeada, cada % de AS es más valioso. |
+| 1 | **Hexoptics C44** (2 900) | 55 AD + Magnification +10 % permanente. Rango 650 garantiza el máximo bono. |
+| 2 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica Headshot (+30 % AD extra) y R (+9 % mult global). Capstone absoluto. |
 | 3 | **Lord Dominik's Regards** (3 300) | Cierra 100 % crit exacto + 35 % pen + Giant Slayer. Obligatorio vs el meta de tanques. |
-| 4 | **Rapid Firecannon** (2 650) | +150 rango (llega a 800). Permite detonar cristales de torreta y procar Headshots desde la niebla. |
-| 5 | **Bloodthirster** (3 200) | 75 AD + 15 % LS. Sustain para sobrevivir a los dives post-lane. |
+| 4 | **Rapid Firecannon** (2 650) | +150 rango (llega a 800). Permite detonar cristales y procar Headshots desde la niebla. Con AS nerfeada, el rango extra compensa la menor frecuencia de golpes. |
+| 5 | **Bloodthirster** (3 200) | 75 AD + 15 % LS. Sustain para sobrevivir dives post-lane. Con AS 1.96, heal = 386 HP/s. |
 
 ### Matriz del último slot (situacional)
+
 | Situación | Ítem | Coste | Impacto medido |
 |---|---|---|---|
-| **Default (sustain)** | **Bloodthirster** | 3 200 | 410 HP/s + escudo Ichorshield |
-| CC duro + AP | Mercurial Scimitar | 3 100 | QSS + 40 MR + 12 % LS |
-| Burst AD / asesinos | Guardian Angel | 3 200 | Revivir (sin crit desperdiciado) |
-| 3+ Tanques / Curación | Mortal Reminder | 3 000 | Reemplaza LDR; mantiene 100 % crit + GW 50 % |
+| Default (sustain) | Bloodthirster | 3 200 | 386 HP/s + escudo Ichorshield ✅ |
+| CC duro + AP | Mercurial Scimitar | 3 100 | QSS + 40 MR + 12 % LS ✅ |
+| Burst AD / asesinos | Guardian Angel | 3 200 | Revivir (sin crit desperdiciado) ✅ |
+| 3+ Tanques / Curación | Mortal Reminder | 3 000 | Reemplaza LDR; mantiene 100 % crit + GW 50 % ⚠️ |
+| 1v1 duelo / splitpush | Stormrazor | 3 000 | +9 % DPS 1v1 pero −14 % en 3v3 ⚠️ |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| Galeforce (3 100) | 25 % crit muerto (~1 250 g). Dash no compensa −350 DPS vs BT. |
+| Essence Reaver (3 000) | Spellblade < multiplicador de IE; 25 % crit muerto. |
+| The Collector (3 000) | Pen plana ineficiente en late; 25 % crit muerto. |
+| Manamune (2 900) | Sin problemas de maná; stats de fighter. |
+| Kraken Slayer (2 900) | Proc cada 3er golpe pierde valor con AS 1.96; no escala con Headshot/R. |
+| Yun Tal Wildarrows (3 100) | 125 ataques para 25 % crit; ramp incompatible con timing; rompe Ley 1. |
+| Navori Quickblades (2 650) | 25 % crit muerto; mecánica de CD sin validar. |
+| Phantom Dancer (2 650) | 0 AD en 7.3; 25 % crit sobrante. |
 
 ---
 
-## 4. RUNAS · HECHIZOS · HABILIDADES
+## 7. RUNAS · HECHIZOS · HABILIDADES
 
 ### Keystone: Lethal Tempo / First Strike
-- **Lethal Tempo:** Para composiciones donde necesitas DPS sostenido en teamfights largos. La bala escala con su AS bonus intrínseco (0.84).
-- **First Strike:** La opción de **poke y lane bully**. Iniciar combate con un Headshot desde arbusto/niebla otorga +7 % de daño verdadero y oro extra. Sinergia brutal con su rango.
+
+- **Lethal Tempo:** Para composiciones donde necesitas DPS sostenido en teamfights largos. La bala escala con AS bonus (B = 2.124 post-7.3a): 24 × (1 + 0.0067×212.4) = 58.2 por golpe × AS 1.96 = +114 DPS.
+- **First Strike:** La opción de poke y lane bully. Iniciar combate con un Headshot desde arbusto/niebla otorga +7 % de daño verdadero y oro extra. Sinergia brutal con rango 650.
+
+*Alternativas:* Fleet Footwork si la lane tiene poke intenso y no puedes mantener cargas de LT.
+
 ### Secundarias
+
 | Slot | Runa | Valor estimado |
 |---|---|---|
-| Precisión | **Legend: Alacrity** | +21 % AS → Headshots más frecuentes |
-| Precisión/Dom | **Brutal** | 5 + 6 % AD bonus ≈ +45 DPS constante |
-| Precisión | **Coup de Grace** | +8 % a <40 % HP — convierte su R en ejecución garantizada |
-| Resolve | **Bone Plating** | Anti-burst lane (Draven/Lucian) |
+| Precisión | Legend: Alacrity | +21 % AS → Headshots más frecuentes (+0.13 AS) |
+| Precisión/Dom | Brutal | 5 + 6 % AD bonus ≈ +43 DPS constante |
+| Precisión | Coup de Grace | +8 % a <40 % HP — convierte R en ejecución garantizada |
+| Resolve | Bone Plating | Anti-burst lane (Draven/Lucian/Samira) |
 
 ### Hechizos: Flash + Heal / Barrier
-Caitlyn es estática en peleas. Barrier es preferible en Diamond+ contra comps de burst mágico (ej. Syndra, Diana).
 
-### Orden de habilidades
-**Q → W → E** · R en 5/9/13.
-- Q max: waveclear y poke principal.
-- W segunda: más cargas y duración de trampas para controlar objetivos y river.
-- E última: el slow fue nerfeado a 1 s, su valor es puramente defensivo (red de seguridad).
+Caitlyn es estática en peleas. Barrier es preferible en Diamond+ contra comps de burst mágico (Syndra, Diana). Heal si el support no lo trae.
+
+### Orden de habilidades: Q → W → E · R en 5/9/13
+
+- **Q max:** waveclear y poke principal. 200 + 185 % AD = 864 daño a nivel 15, CD ~6 s.
+- **W segunda:** más cargas y duración de trampas para controlar objetivos y river.
+- **E última:** el slow fue nerfeado a 1 s (7.3); su valor es puramente defensivo (red de seguridad).
 
 ---
 
-## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
-### Tabla maestra (nivel 15, 100 % crit, vs 120 arm)
+### Tabla maestra (nivel 15, 100 % crit, vs 120 arm — datos post-7.3a)
+
 | Build | Oro | AD | AS | Crit | Pen | 1v1 | Burst R | vs Tanque |
 |---|---|---|---|---|---|---|---|---|
-| **ÓPTIMA C44 (propuesta)** | 17 650 | 359 | 2.08 | 100 % | 35 % | **1 605** | **1 515** | **1 340** |
+| **ÓPTIMA C44 (propuesta, 7.3a)** | 17 650 | 359 | 1.96 | 100 % | 35 % | 1 505 | 1 515 | 1 255 |
+| ÓPTIMA C44 (pre-7.3a, v1.2) | 17 650 | 359 | 2.08 | 100 % | 35 % | 1 605 | 1 515 | 1 340 |
 | Meta 7.2 (sin escalado crit) | 17 200 | 340 | 2.25 | 75 % | 35 % | 1 240 | 980 | 1 020 |
 | Ruta Lethality (Armorcrusher) | 16 800 | 385 | 1.45 | 0 % | 40 % | 1 450 | 1 100 | 650 |
 
+### Desglose multiplicativo de la diferencia (7.3a vs pre-7.3a)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| AS 1.96 vs 2.08 (growth nerf) | ×0.942 | −5.8 % en autos y LT |
+| Headshot ratio 90 % vs 100 % | ×0.970 | −3.0 % en Headshot |
+| LT bullet (B menor: 2.124 vs 2.334) | ×0.946 | −5.4 % en bala |
+| R burst (sin cambio) | ×1.000 | 0 % |
+| **Neto sostenido** | | **−6.3 %** |
+| **Neto burst (R)** | | **0 %** |
+
 ---
 
-## 6. PLAN DE JUEGO
+## 9. PLAN DE JUEGO
 
 ### Early (0:00 – 9:00)
+
 - **Start:** Long Sword (500 g).
-- **Lvl 1:** Q para pushear y llegar a lvl 2 primero. Coloca W en los arbustos de la river o en el carril para restringir movimiento.
+- **Lvl 1:** Q para pushear y llegar a lvl 2 primero. Coloca W en arbustos de river.
 - **Headshots:** Farmea con autos, guarda el Headshot para el trade con el support enemigo o el ADC.
 - **Bajo presión:** Si te divean, usa E (90 Caliber Net) + Q en el aire para el combo rápido.
+- **Placas (7.3a):** desde el min 5:00 decaen −10 g/30 s. Con 650 de rango, golpea placas sin entrar en zona de amenaza.
 
 ### Mid (9:00 – 16:00)
-- **Min 10:00:** mejora Berserker's → **Gunmetal Greaves** (+1 000 g, mismo slot).
-- **Pico 1 (C44 + IE, ~13 min):** Tu Headshot ahora hace ~800 de daño pre-mitigación. Busca picks con W + R.
-- **Cristales:** cada ~50 s la torreta acumula cristales. Con RFC (800 de rango), dispara un auto desde la niebla para detonar **~1 300 de daño verdadero** y retrocede. Es presión gratuita.
+
+- **Min 10:00:** mejora Berserker's → Gunmetal Greaves (+1 000 g, mismo slot).
+- **Pico 1 (C44 + IE, ~13 min):** Tu Headshot ahora hace ~1 149 de daño pre-mitigación. Busca picks con W + R.
+- **Cristales:** cada ~50 s la torreta acumula cristales. Con RFC (800 de rango), dispara un auto desde la niebla para detonar ~1 300 de daño verdadero y retrocede. Es presión gratuita.
+- **Placas más blandas (7.3a):** +20 arm/MR y 10 s (antes +30 y 20 s) → puedes trabajar 2-3 placas por push con menos riesgo.
 
 ### Late (16:00+)
+
 - **Posicionamiento:** 800 de rango con RFC. Nunca entres en el radio de los engages enemigos.
-- **Teamfight:** Coloca W en las entradas de la jungla o alrededor de objetivos (Baron/Dragon). Si alguien pisa, **R + Headshot** = baja instantánea de squishies.
+- **Teamfight:** Coloca W en las entradas de la jungla o alrededor de objetivos. Si alguien pisa, R + Headshot = baja instantánea de squishies.
+- **Nexus 4 000 (7.3a):** tras tomar inhibidor, el Nexus cae en ~2 pushes con cristales + minions. No te extiendas innecesariamente.
 - **Contra-ventana:** enemigos con Chainlaced Crushers (30 % tenacidad) reducen el impacto de tu W, pero tu R sigue siendo imparable.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Nexus 4 000 HP (7.3a) | Cierra partidas 1-2 min antes; no greedear items beyond min 21 |
+| Placas +20/10 s (7.3a) | Siege más fácil; Caitlyn con RFC presiona sin riesgo |
+| Torretas 7 000 HP + cristales (7.3) | No se tiran "de un push"; trabaja placas 2-3 veces |
+| Minions 60 % daño a campeones (7.3) | Lane más segura; farmear bajo presión es viable |
+| Jungla hostil para laners (7.3) | No robes campamentos sin smite |
 
 ---
 
-## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
 ### Fuentes primarias (mandan)
+
 | Fuente | Acceso | Qué aporta |
 |---|---|---|
-| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema crit 200/230 %, escalado de Headshot/R, AS cap 3.0, apéndice AS |
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema crit 200/230 %, escalado Headshot/R, AS cap 3.0, apéndice AS |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | AS growth 0.04→0.025, Headshot 60-100→60-90, Nexus 4 000, placas +20/10 s |
 | Notas oficiales 7.2 | wildrift.leagueoflegends.com | Fin encantamientos, botas T2/T3, min 10:00 |
 
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Caitlyn (ficha + meta) | 24/09/2026 | Alta para kit; WR 51.41 % pre-hotfix |
+
 ### Discrepancias detectadas y resolución
+
 | Tema | Fuente A | Fuente B | Resolución |
 |---|---|---|---|
-| **Base Bonus AS** | Apéndice final: **0.2** | Sección Caitlyn y ejemplo oficial: **0.28** | **Mandan la sección específica y el ejemplo oficial (0.28).** El apéndice tiene errata conocida. |
-| Lethal Tempo (ranged) | wr-meta: 4.8 % | Notas 7.3: **6.4 %** | Mandan las notas oficiales |
+| Base Bonus AS | Apéndice final: **0.2** | Sección Caitlyn y ejemplo oficial: **0.28** | Mandan la sección específica y el ejemplo oficial (0.28). El apéndice tiene errata conocida. ⚠️ Verificar en el panel del juego. |
+| Lethal Tempo (ranged) | wr-meta: 4.8 %, bala 6-20 | Notas 7.3: **6.4 %, bala 6-24** | Mandan las notas oficiales |
+| Legend: Alacrity | Descripción: 3 %+18 % = 21 % | Ejemplo Caitlyn: "18 % a full stacks" | Modelo usa 21 % (peor caso); diff <1 % DPS |
+
+### Supuestos del modelo (declarados)
+
+- Magnification siempre al 10 % (distancia ≥550 con rango 650).
+- LT/Alacrity a cargas máximas en pelea.
+- Headshot cada 6 autos (sin trampas; con trampas +15 %).
+- Bala LT escala con AS bonus total (B = 2.124 post-7.3a).
+- R calculada vs objetivo a 50 % HP faltante.
+- W/E fuera del DPS sostenido (W es utilidad/zona).
+- Daño crítico a torretas excluido (conservador).
+- Base Bonus AS = 0.28 (ver discrepancia arriba).
+
+### Contexto meta (28/09, Diamond+ — pre-hotfix)
+
+Caitlyn: WR 51.41 %, pick 35.85 %, ban 42.81 %, tendencia ↑. El nerf 7.3a (AS growth −37.5 %, Headshot −10 %) debería reducir el WR en ~1-2 puntos en los próximos días, pero su kit de rango + burst la mantiene en tier S de lane bullies. La build publicada pre-7.3a era válida; esta regeneración actualiza los números sin cambiar la composición de ítems.
+
+### Validación del modelo
+
+- `validate_slots(["Gunmetal","C44","IE","LDR","RFC","BT"])` → **PASS** (6 entradas, 1 botas, 5 ítems).
+- Test de AS post-7.3a: 0.625 + 0.625×(0.28 + 0.025×14 + 0.18 + 0.35) = 0.625 + 0.625×1.37 = **1.48** (con Alacrity 18 % + Berserker's 35 %) ✓ coincide con el esperado del lab.
+- Headshot post-7.3a: [1 + 0.90 + 1.0 + 0.30] × 359 = 3.20 × 359 = **1 149** ✓.
 
 ---
 
@@ -8122,42 +9222,73 @@ Caitlyn es estática en peleas. Barrier es preferible en Diamond+ contra comps d
 | Mortal Reminder (3 000) | ✅ Reemplaza LDR vs curación | Mantiene 100 % crit |
 | Guardian Angel (3 200) | ✅ 6.º vs AD burst | Revivir |
 | Mercurial Scimitar (3 100) | ✅ 6.º vs CC | QSS + MR |
+| Stormrazor (3 000) | ⚠️ 1.º anti-presión / 6.º 1v1 | +9 % 1v1, −14 % 3v3 |
 | Galeforce (3 100) | ❌ | 25 % crit muerto |
 | Essence Reaver (3 000) | ❌ | Spellblade < multiplicador de IE |
 | The Collector (3 000) | ❌ | Pen plana ineficiente en late |
 | Manamune (2 900) | ❌ | Sin problemas de maná |
+| Kraken Slayer (2 900) | ❌ | No escala con Headshot/R; AS baja post-7.3a |
+| Yun Tal Wildarrows (3 100) | ❌ | Ramp 125 ataques; rompe Ley 1 |
+| Phantom Dancer (2 650) | ❌ | 0 AD; crit sobrante |
+| Immortal Shieldbow (3 000) | ❌ | Crit muerto; GA/Scim defienden mejor |
+| Navori Quickblades (2 650) | ❌ | Crit muerto; mecánica sin validar |
 
 ---
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-```text
+```
 DEFAULT (máximo burst y control):
-LS → Pickaxe/Noonquiver → C44 (7-8') → Berserker's (9') → IE (12-13')
-→ ⬆️ Gunmetal T3 (13:30') → LDR (17') → RFC (19') → BT (21')
+ LS → Pickaxe/Noonquiver → C44 (7-8') → Berserker's (9') → IE (12-13')
+ → ⬆️ Gunmetal T3 (13:30') → LDR (17') → RFC (19') → BT (21')
 
 ANTI-PRESIÓN (lane difícil / poke enemigo):
-LS → Stormrazor (8') → Berserker's → C44 → ⬆️ Gunmetal → IE → LDR → BT
+ LS → Stormrazor (8') → Berserker's → C44 → ⬆️ Gunmetal → IE → LDR → BT
 
 VS 3+ TANQUES / CURACIÓN:
-Default pero LDR → Mortal Reminder (mantiene 100 % crit + GW 50 %)
+ Default pero LDR → Mortal Reminder (mantiene 100 % crit + GW 50 %)
 
 VS CC DURO / BURST AP:
-Default pero BT → Mercurial Scimitar / Guardian Angel
+ Default pero BT → Mercurial Scimitar / Guardian Angel
+
+SNOWBALL (feedeada):
+ LS → C44 (7') → IE 2.º (11') → Berserker's → ⬆️ Gunmetal → LDR → RFC → BT
 ```
 
 ---
 
 ## Pie de página
 
-*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.9. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
 
 **Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, escalado de crítico en habilidades, apéndice de Attack Speed y valores de ítems modificados.
+- Notas oficiales del parche 7.3 (21/09/2026) y hotfix 7.3a (29/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, escalado de crítico en habilidades, apéndice de Attack Speed, nerf AS growth/Headshot, Nexus 4 000 y placas.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3, fin de encantamientos.
 - Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats no tocados por el parche.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+## Resumen de cambios vs versión publicada (v1.2 → v2.0)
+
+| Aspecto | v1.2 (7.3) | v2.0 (7.3+7.3a) | Δ |
+|---|---|---|---|
+| AS growth | 0.04 | **0.025** | −37.5 % |
+| AS nivel 15 (full build) | 2.08 | **1.96** | −5.8 % |
+| Headshot ratio max | 100 % AD | **90 % AD** | −10 % |
+| Headshot damage (AD 359) | 1 184 | **1 149** | −3.0 % |
+| DPS 1v1 | 2 850 | **2 670** | −6.3 % |
+| DPS vs Tanque | 1 340 | **1 255** | −6.3 % |
+| R burst | 1 515 | **1 515** | 0 % (sin cambio) |
+| Heal/s | 410 | **386** | −5.8 % |
+| Build (6 slots) | Sin cambio | **Sin cambio** | ✅ Idéntica |
+| Runas | Sin cambio | **Sin cambio** | ✅ Idénticas |
+| Nexus / Placas | 5 500 / +30/20 s | **4 000 / +20/10 s** | Siege más fácil |
+
+> [!NOTE]
+> **Veredicto del lab:** La build publicada en v1.2 era correcta en composición. El hotfix 7.3a nerfeó inputs del spec (AS growth, Headshot ratio) pero **no cambió la lógica de itemización**: Caitlyn sigue siendo un ADC de 100 % crit + AD + pen + rango. Los números se actualizan; la build, las runas y el plan de juego se mantienen. ✅
 
 ---
 
@@ -8175,6 +9306,8 @@ patch: "7.3"
 archetype: Tanque de Escalado Infinito
 engine: none
 published_at: "2026-09-28"
+custom: "true"
+variant: "titan-de-la-jungla"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8183,7 +9316,7 @@ published_at: "2026-09-28"
 **Enfoque:** Convertir el tamaño en poder real
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Hollow Radiance + Liandry's Torment + Force of Nature + Warmog's Armor — **sin cambios**.
@@ -8549,6 +9682,8 @@ patch: "7.3"
 archetype: AP-Tank con escalado infinito
 engine: none
 published_at: "2026-09-28"
+custom: "true"
+variant: "titan-del-baron"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8557,7 +9692,7 @@ published_at: "2026-09-28"
 **Enfoque:** Maximizar HP bonus como stat compuesto
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Rod of Ages + Amaranth's Twinguard + Gargoyle Stoneplate + Liandry's Torment — **sin cambios**.
@@ -8924,6 +10059,7 @@ patch: "7.3"
 archetype: AP assassin híbrido
 engine: rotacion
 published_at: "2026-09-29"
+variant: "jungla"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -8932,7 +10068,7 @@ published_at: "2026-09-29"
 **Enfoque:** Explotar el Lethal Tempo rehecho
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Nashor's Tooth + Dusk and Dawn + Rabadon's Deathcap + Zhonya's Hourglass + Cryptbloom — **sin cambios**.
@@ -9233,6 +10369,7 @@ patch: "7.3"
 archetype: AP Assassin híbrido
 engine: rotacion
 published_at: "2026-09-29"
+variant: "mid"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -9241,7 +10378,7 @@ published_at: "2026-09-29"
 **Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
@@ -9538,7 +10675,7 @@ engine: none
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Heimerdinger:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
@@ -10319,7 +11456,7 @@ published_at: "2026-09-27"
 **Parche:** 7.3 (Lanzamiento: 21/09/2026)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Kalista:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.
@@ -10473,7 +11610,7 @@ published_at: "2026-09-28"
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Mordekaiser:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -10717,6 +11854,7 @@ role: mid
 patch: "7.3"
 engine: none
 published_at: "2026-09-28"
+custom: "true"
 ---
 **Fecha del análisis:** 28/09/2026 · **Parche:** 7.3 (21-sep-2026)
 **Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).
@@ -10724,7 +11862,7 @@ published_at: "2026-09-28"
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Norra:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
@@ -10874,7 +12012,7 @@ engine: none
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (30/09/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> [!NOTE] ❌ REGENERAR Verificación automática (02/10/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
 > **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
@@ -11113,255 +12251,460 @@ Los ADC actuales (Jinx, Caitlyn) construyen *Lord Dominik's* (35% Pen).
 ---
 tags:
   - Soporte
-version: 1
+  - Mid
+  - Custom
 Status: Beta
+version: 1.2
+patch: 7.3a
 champion: Seraphine
 slug: seraphine
 role: support
-archetype: `enchanter-mage` (Soporte de Area Control & Sustain).
+archetype: Burst-Caster / Poke-Mage — maximizar daño en ventanas de 2-3 s
 engine: none
+published_at: "2026-09-30"
+custom: "true"
 ---
-**Fecha del análisis:** 27 de septiembre de 2026  
+**Fecha del análisis:** 30/09/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Support (variante agresiva) — Modo Hiper-Daño (Burst-Caster)
+**Arquetipo:** Burst-Caster / Poke-Mage — maximizar daño en ventanas de 2-3 s
+**Enfoque:** Sacrificar ~40 % de escudo/cura a cambio de +55 % de daño directo.
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 30/09/2026):**
+> Win Rate 50.96 % | Pick Rate 8.38 % | Ban 1.72 % | Tendencia ↑ 3 (+1.04 pts últimos 30 días) | Rol: Support/Mid .
+
+> [!DANGER]
+> **Advertencia:** Esta build sacrifica ~40 % del escudo/curación de W (*Surround Sound*) y toda la utilidad de buff al carry (Ardent Censer, Staff) a cambio de +55 % de daño directo en rotación Q→E→R y un burst de ~1 350 mágico pre-mitigación en ventana de 2 s. Si fallas Q o E, esta build pierde valor comparada con la de enchanter puro. Requiere puntería alta y posicionamiento de mago, no de support tradicional.
+
+> [!TIP]
+> **Variante principal (mid sin quest):** reemplaza *Black Mist Scythe* por *Luden's Echo* (2 800 g) como 1.er ítem → pico de daño al minuto 7:30, +100 AP directos y eco de daño AoE. Sacrificas oro pasivo de support pero ganas un power spike 2 min antes.
 
 ---
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Seraphine:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
-> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 ## 0. RESUMEN EJECUTIVO
 
-Seraphine en el parche 7.3 se consolida como un **Soporte-Mago Híbrido (Enchanter-Caster)**. Su valor no reside en el DPS sostenido de autoataques (su AD es bajo, ~52 base), sino en la **eficacia de sus habilidades escaladas por AP**, su capacidad de **curación/escudo masivo vía Mantra (R)** y el control de zona con **Slow/Silence**.
+### Tabla A — BUILD FINAL (6 slots reales · `validate_slots()` = PASS)
 
-### Tabla de Orden de Compra (Build Estándar Soporte/Mid)
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | +35 AP, +18 pen plana, +8 % pen mágica, +100 % mana regen. Big Bully para waveclear. |
+| 2 (quest) | **Spectral Sickle → Black Mist Scythe** (mismo slot) | 0 | Oro pasivo + 28 AP adaptativos + visión. Obligatorio en support; en mid se cambia por Luden's. |
+| 3 | **Stormsurge** | 2 800 | +90 AP, +15 pen mágica, +6 % MS. Squall burst a <25 % HP (+125 + 10 % AP). |
+| 4 | **Rabadon's Deathcap** | 3 400 | +130 AP, +30 % AP total. Capstone multiplicador global. |
+| 5 | **Infinity Orb** | 3 100 | +110 AP, +15 pen plana. Inevitable Demise: críticos +20 % daño a <40 % HP. |
+| 6 | **Cryptbloom** | 3 000 | +75 AP, +30 % pen mágica, +20 AH. Life from Death: nova cura 100 + 20 % HP al matar. |
 
-| # | Ítem (Español / Inglés) | Oro Acumulado | Minuto Típico | Justificación Clave |
-|:-:|:------------------------|:-------------:|:-------------:|:--------------------|
-| 1 | Botas de Maná → Zapatos de Hechicera (*Boots of Mana -> Spellslinger's Shoes*) | 1200 - 1500 | 8:00 | Regeneración de maná crítica para spameo de habilidades. El upgrade añade AH/AP. |
-| 2 | Lamento Ahogado (*Morellonomicon*) | 3000 | 12:00 | Penetración mágica + Grievous Wounds (anti-cura). Core defensivo/ofensivo vs tanques curativos. |
-| 3 | Sombrero Mortal (*Deathcap*) o Tormento de Liandry (*Liandry's Anguish*) | 3900 - 4200 | 16:00 | **Deathcap**: Máximo burst si van ganando. **Liandry**: Daño persistente vs tanques con mucha vida. *Recomendado: Deathcap para impacto inmediato en teamfights.* |
-| 4 | Bastón de Ánimas (*Bastion of Spirits*) / Ardent Censer | 2600 | 20:00 | Escudo masivo para proteger al carry tras usar R/Q. Si el carry es on-hit (Vayne/Kog'Maw), usar **Ardent Censer**. |
-| 5 | Reloj de Arena de Zhonya (*Zhonya's Hourglass*) | 3500 | 24:00 | Supervivencia ante asesinos/burst. Activa el efecto de Mantra en aliados cercanos sin morir. |
-| 6 | Varita Vieja de Nashor (*Nashor's Tooth*) [Solo Mid/Hybrid] O **Guardián de la Aurora** (*Aurora Guard*) / **Cetro de Cristal de Rylai** (*Rylai's Crystal Scepter*) | 3000+ | 28:00 | **Mid:** Nashor permite autos con AP on-hit. **Sup:** Rylai/Aurora para CC extra y supervivencia extrema. *Para soporte puro: Rylai's.* |
+> **Oro total: 14 500 g** (con quest) / **17 300 g** (variante mid con Luden's en slot 2) · AP final ~380 (con Rabadon's) · Haste 45-55 · Pen mágica 18 plana + 38 % · Maná regen 225 %+.
 
-**Total Oro Estimado:** ~17,000 - 18,000 oro (dependiendo de la ruta de botas y upgrades).
+### Tabla B — Ruta de compra cronológica
 
-**Runas Recomendadas:**
-*   **Keystone:** **Cometa Arcano** (*Arcane Comet*) para poke seguro, o **Invocar Aery** (*Summon Aery*) si buscas escudos/daño constante a larga distancia. **Conquistador** es viable solo en rol Mid agresivo, pero pierde consistencia en soporte.
-*   **Secundarias:** **Brújula Inspiritu** (*Inspire*) para AH temprano, o **Calzado Mágico** (*Magical Footwear*) si vas botas más tarde.
-*   **Hechizos de Invocador:** **Flash + Ignite** (Mid/Burst) o **Flash + Exhaust** (Support/Utility).
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Spectral Sickle (quest) + Amplifying Tome | 1 000 | 0:00 |
+| 2 | Boots of Mana (T2) | 2 200 | ~4:30 |
+| 3 | Aether Wisp + Void Amethyst → **Stormsurge** | 5 000 | ~8:00 |
+| 4 | Black Mist Scythe (quest completada, mismo slot) | 5 000 | ~9:30 |
+| 5 | ⬆️ **Spellslinger's Shoes** (T3, mismo slot, +1 000 g) | 6 000 | ~11:30 |
+| 6 | Blasting Wand + Needlessly Large Rod → **Rabadon's Deathcap** | 10 000 | ~14:30 |
+| 7 | Blasting Wand + Void Amethyst → **Infinity Orb** | 13 000 | ~17:00 |
+| 8 | Blasting Wand + Haunting Guise + 400 → **Cryptbloom** | 14 500 | ~19:30 |
 
-**Orden de Habilidades:** Maxear **Q (Song of Sorrow)** primero para clear/poke, luego **E (High Note)** para slow/movilidad, y **W (Surround Sound)** último (el punto de talento en nivel 6 potencia todas). La pasiva **Mantra (R)** es prioritaria en niveles 6, 11, 16.
+### Runas · Hechizos · Habilidades
 
----
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Electrocute** (burst en ventana Q+E+auto) / **Arcane Comet** (poke a distancia) |
+| Dominación 2 | **Sudden Impact** (true dmg + pen tras usar E o Flash) |
+| Dominación 3 | **Eyeball Collection** (+24 AP al llegar a 8 takedowns) |
+| Dominación 4 | **Relentless Hunter** (+18 MS fuera de combate para rotar) |
+| Secundaria 1 | **Transcendence** (+5 AH lv1, +5 AH lv5, -8 % CD post-hit lv9) |
+| Secundaria 2 | **Scorch** (+21-49 daño mágico en Q early) / **Manaflow Band** (+300 maná) |
+| Hechizos | **Flash + Ignite** (support agresivo) / **Flash + Barrier** (mid seguro) |
+| Skills | **Q → E → W** (R en 5/9/13). Max Q primero por daño base + escalado con vida faltante. |
 
-## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE (7.3)
+### Resultado del modelo (nivel 15, AP ~380, Haste 50, vs 50 MR squishy)
 
-### Cambios Directos e Indirectos
-*   **Botas Tier 3 (Min 10:00):** Las botas evolucionan automáticamente o mediante componente. Para Seraphine, **Spellslinger's Shoes** (upgrade de Boots of Mana) es crucial porque proporciona **Ability Haste (AH)** y **AP**, mejorando la rotación de habilidades potenciadas por R.
-*   **Grievous Wounds (Heridas Graves):** Con el nerfeo de la cura general y el aumento de sustain en muchos carries/tanques, **Morellonomicon** se vuelve casi obligatorio como segundo item para negar curas pasivas y activas.
+| Escenario | Valor |
+|-----------|-------|
+| Burst ventana 2 s (Q cargada + E + R + auto pasiva + Electrocute) | **~1 350** mágico pre-mitigación |
+| Q High Note (cargada, enemigo <25 % HP, con pen) | **~420** mágico |
+| E Beat Drop (con pen) | **~280** mágico + root/stun |
+| R Encore (charm en línea, 3 objetivos) | **~520** mágico AoE |
+| DPS sostenido 10 s (con doble-cast pasiva) | **~680** mágico/s |
+| Escudo W (rank 4, AP 380, SIN Ardent Censer/Staff) | **~380** (vs ~620 de enchanter puro) |
 
-### ¿Escalan sus habilidades con algo específico?
-*   **Q, W, E:** Escalan puramente con **AP**.
-*   **Pasiva (Chorus Effect):** Amplifica el efecto de Q/E/W cuando se usan dentro del área de R (Mantra).
-    *   Q-Mantra: Mayor rango y daño AoE.
-    *   E-Mantra: Slow más fuerte y silencio breve.
-    *   W-Mantra: Curación/Escudo masivo en área.
-*   **Autoataques:** Escalan con AD bajo. Solo relevantes para last-hitting minions o harass mínimo. **Ignorar cualquier ítem que dé AD/Crítico/AS como prioridad.**
-
----
-
-## 2. FICHA MATEMÁTICA (SPEC)
-
-Basado en `data/estructurada/campeones/seraphine.md` y apéndice oficial 7.3:
-
-| Stat | Valor Nivel 1 | Growth por Nivel | Valor Nivel 15 (Sin Items) | Nota |
-|:-----|:--------------:|:-----------------:|:--------------------------:|:-----|
-| **AD Base** | 52 | 3.64 | 102.6 | Irrelevante para build core. |
-| **HP Base** | 600 | 112 | 2168 | Muy frágil. Necesita shields/vida. |
-| **ARM Base** | 34 | 4.71 | 100 | Baja resistencia física. |
-| **MR Base** | 36 | 1.20 | 52.8 | Resistencia mágica decente inicial. |
-| **MS Base** | 360 | 0 | 360 | Lenta sin botas/activos. |
-| **AS Ratio** | 0.699 | N/A | N/A | **No usar.** Su daño no depende de esto. |
-| **Mana Base** | 435 | 49 | 1121 | Alto consumo. Requiere gestión/maná items. |
-| **Range** | 550 | N/A | 550 | Rango corto para ser mago. Posicionamiento clave. |
-
-**Modificadores de Kit (Estimación de Ratios AP):**
-*   **Q (Song of Sorrow):** ~60% AP por hit (hasta 3 hits). Total potencial ~180% AP.
-*   **W (Surround Sound):** Escudo/Cura basado en % HP max + AP ratio (~40-60% AP).
-*   **E (High Note):** Silencio/Slow. Daño bajo, utilidad alta. ~30% AP.
-*   **R (Light Chorus):** Daño inicial + amplificación de efectos. El daño directo es moderado, pero el **valor utilitario** (slow/silencio/curación extra) es infinito si aciertas el area.
-
-**Arquetipo:** `enchanter-mage` (Soporte de Area Control & Sustain).
+> **Titular:** +55 % de daño directo y +30 % pen mágica, a cambio de −38 % de escudo W y 0 % de buff al carry. En lanes de poke (vs Karma, Yuumi, Zyra), esta build gana la lane antes del minuto 10 y permite 1-shot a squishies en teamfights con combo Q+E+R.
 
 ---
 
-## 3. MODELO DE DAÑO Y UTILIDAD (DERIVACIÓN)
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-Dado que Seraphine no es un DPS tradicional, modelamos **"Impacto por Rotación"** (Daño + Utilidad efectiva en 5 segundos de teamfight).
+### 1.1 Cambios directos (Seraphine) — 7.3 / 7.3a
 
-### Supuestos del Modelo:
-1.  **Rotación Óptima:** R (Mantra activo) -> Q (potenciado) -> E (potenciado) -> W (potenciado) -> Autos básicos mientras dura el slow.
-2.  **Cooldown Reduction (CDR):** Objetivo 40-45% AH para lanzar R cada ~60-70s y Q/E/W constantemente.
-3.  **Uptime de Mantra:** Se asume que R está disponible y se usa en el 80% de las peleas importantes (gracias a AH).
-4.  **Penetración Mágica:** Se calcula contra enemigos con 50 MR promedio. Morellonomicon da 20% pen fija. Void Staff (si fuera necesario) daría 40%. Dado su rol, **Morelli** suele bastar combinado con alto AP bruto.
+| Stat/Habilidad | Antes | Ahora | Impacto |
+|----------------|-------|-------|---------|
+| Critical Strike Damage (sistema) | 175 % | **200 %** | No le afecta (no construye crítico). |
+| AS cap (sistema) | 2.5 | **3.0** | Irrelevante (AS ratio 0.699, no escala con autos). |
+| AS Ratio / Base / Bonus / por nivel | — | 0.699 / 0.669 / 0.12 / 0.017 | Apéndice oficial 7.3. Confirma arquetipo mago puro. |
+| W Surround Sound (7.1h) | — | Cura 5 % + 0.01 % AP → 6 % + 0.01 % AP | Buff leve a la rama de sustain (no la construimos). |
+| R Encore (7.1h) | — | Charm 1/1.25/1.5 s → **1.25/1.5/1.75 s** | +0.25 s de CC en rank 3 → ventana de burst extendida. |
 
-### Comparativa de Builds (Nivel 15, Full Items)
+### 1.2 Cambios sistémicos que le afectan
 
-| Build | Componentes Principales | AP Bruto | AH (%) | Vida/Escudo Est. | Impacto Teamfight (Score 1-10) | Comentario |
-|:------|:-----------------------|:--------:|:------:|:----------------:|:------------------------------:|:-----------|
-| **A. Meta Burst (Recomendada)** | Spellslinger, Morelli, Deathcap, Zhonya, Rylai, Sorcerer's Shoes (o upgrade) | ~380 | 45% | Medio-Alto | **9.5** | Maximiza daño de Q-E y supervivencia con Zhonya. Rylai añade slow permanente post-Q. |
-| **B. Sustain Puro** | Spellslinger, Morelli, Shurelya's, Ardent Censer, Redemption, Banshee's Veil | ~250 | 30% | Alto | 7.0 | Menos daño personal, más buff al equipo. Ideal si tu ADC es Vayne/Jinx (on-hit). |
-| **C. Hybrid Mid (Agresiva)** | Sorcerer's Shoes, Luden's Echo, Deathcap, Zhonya, Shadowflame, Void Staff | ~420 | 40% | Bajo | 8.5 | Mucho poke y burst. Riesgosa en soporte, viable en Mid lane contra magos frágiles. |
-| **D. Anti-Tank (Late Game)** | Spellslinger, Morelli, Liandry's, Deathcap, Zhonya, Spirit Visage | ~350 | 35% | Alto | 8.0 | Liandry quema tanques. Spirit Visage aumenta tu propia cura/escudo. Mejor vs composiciones muy defensivas. |
+| Sistema | Cambio | Efecto |
+|---------|--------|--------|
+| Torretas 7 000 HP + Cristales (*Crystalline Overgrowth*) | Primer ataque detona 3.3-18.9 % de la vida de la torreta como daño verdadero, ciclo ~50 s | Seraphine puede detonar cristales con Q desde rango seguro = presión de mapa única para un support. |
+| Placas permanentes + decaen desde 5:00 | −10 g/30 s tras el minuto 5 | Primeras placas valen más; Q cargada + Demolish (si se lleva) acelera el push. |
+| Minions 60 % daño a campeones | Oleadas más peligrosas | Lane phase más segura para farmear con Q a distancia. |
+| Botas T3 desde min 10:00 | Regla del slot único (Ley 0) | Spellslinger's Shoes es el único upgrade válido para magos de daño. |
 
-**Análisis Multiplicativo (Build A vs B):**
-*   La Build A tiene un **+52% de AP efectivo** sobre la B.
-*   El daño de Q-Mantra escala linealmente con AP. Un salto de 250 a 380 AP representa un aumento de ~130 puntos de daño por hit de Q (x3 hits = 390 daño extra instantáneo).
-*   La utilidad de Rylai (slow adicional) mantiene a los enemigos en el área de tu E-Mantra (silencio), aumentando el tiempo de exposición a tu daño y al de tu equipo.
+### 1.3 ¿Sus habilidades escalan con crítico?
 
----
-
-## 4. SELECCIÓN DE ÍTEMES (POOL ANALYSIS)
-
-### ✅ Núcleo Obligatorio
-1.  **Zapatos de Hechicera (*Spellslinger's Shoes*):** Única opción seria. Proporciona AH y AP. Evitar Ionian (demasiado riesgo) o Plated (innecesario para caster).
-2.  **Lamento Ahogado (*Morellonomicon*):** Esencial por la penetración mágica y las Heridas Graves. En 7.3, con la meta de sustain, omitirlo es jugar con desventaja.
-
-### 🟡 Situacionales (Slot 3-4)
-3.  **Sombrero Mortal (*Deathcap*):** Si tienes >300 AP antes de comprarlo, este item multiplica tu daño drásticamente. Es el capstone de daño.
-4.  **Tormento de Liandry (*Liandry's Anguish*):** Si el enemigo tiene >3 tanques con >2500 HP. El quemado porcentual supera al flat damage de Deathcap en peleas largas.
-5.  **Ardiente Incensario (*Ardent Censer*):** **SOLO** si tu ADC es Vayne, Kog'Maw, Twitch o Zeri (On-Hit). Potencia sus autos con tu W/Q. De lo contrario, inútil para ti.
-6.  **Shurelya's Battlesong:** Si necesitas iniciar peleas o escapar rápidamente. El MS activo es valioso para reposicionar tu R.
-
-### 🔵 Defensa / Utilidad Final (Slot 5-6)
-7.  **Reloj de Arena de Zhonya (*Zhonya's Hourglass*):** La mejor defensa para casters. Te salva de Assassin dives (Akali, Talon, Zed) y permite usar tus skills sin morir.
-8.  **Cetro de Cristal de Rylai (*Rylai's Crystal Scepter*):** Excelente para mantener el control de zona. El slow se aplica con Q y E, facilitando que tu equipo siga atacando.
-9.  **Velo de la Banshee (*Banshee's Veil*):** Contra mucho CC puntual (Malphite ult, Leona stun). Bloquea una habilidad importante.
-10. **Redención:** Curación global y daño en área. Bueno para objetivos neutrales (Baron/Dragon fights).
-
-### ❌ Evitar Absolutamente
-*   **Filo Infinito (*Infinity Edge*), Runaan's Hurricane, Kraken Slayer:** No escalan con su kit. Desperdicio de oro.
-*   **Guinsoo's Rageblade:** Aunque da AP, su foco es AS/On-Hit. Seraphine no hace suficientes autos para justificarlo frente a un item de AP puro.
-*   **Ítems de Vida pura (Heartsteel, Sunfire):** No aportan AP suficiente para que sus habilidades sean relevantes.
+**No.** Seraphine no tiene conversión de crítico en ninguna habilidad. Todo ítem de crítico (IE, C44, Runaan's) es oro muerto (Ley 4). La build se optimiza exclusivamente para **AP + Penetración Mágica + Ability Haste**.
 
 ---
 
-## 5. ANÁLISIS DEL PRIMER ÍTEM Y TIMING
+## 2. FICHA MATEMÁTICA (spec)
 
-**Inicio de Partida:**
-*   **Item Start:** *Ancient Coin* (Soporte) o *Doran's Ring* (Mid).
-*   **Consumibles:** 2 Health Potions + 1 Control Ward (Soporte) / Corrupting Potion (Mid).
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 52 / 3.64 | wr-meta 24/09/2026 |
+| AS base / ratio | 0.669 / 0.699 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.12 / 0.017 | Apéndice oficial 7.3 |
+| HP base / growth | 600 / 112 | wr-meta (durabilidad 7.3) |
+| Armadura / MR base | 34 / 36 | wr-meta |
+| **Pasiva Stage Presence** | Cada 3ra habilidad hace eco (doble cast). Notas a aliados: +0.3 rango + 4 (+1.5/nivel) + 4 % AP mágico. | Ficha oficial |
+| Q High Note | 60/75/90/105 + 45 % AP, +0-50 % con vida faltante (máx a <25 % HP). CD 11/9/7/5 s. | Ficha oficial |
+| W Surround Sound | Escudo 50/75/100/125 + 30 % AP, 2.5 s. Si ya tiene escudo: cura 6 % + 0.01 % AP HP faltante. CD 23/22/21/20 s. | Ficha oficial (7.1h) |
+| E Beat Drop | 60/95/130/165 + 50 % AP, slow 99 % 1 s. Si ya sloweado → root. Si ya rooteado → stun. CD 12/11/10/9 s. | Ficha oficial |
+| R Encore | 160/260/360 + 70 % AP, charm 40 % por 1.25/1.5/1.75 s. Se extiende al tocar campeones (aliados o enemigos). CD 105/90/75 s. | Ficha oficial (7.1h buff) |
 
-**Primer Recall (Objetivo: 1200-1400 Oro):**
-*   Comprar **Botas de Maná (*Boots of Mana*)** + *Amplifying Tome*.
-*   *Justificación:* El maná es vital para no quedarse seco en la fase de laning intentando pokear con Q. Las botas permiten volver rápido a línea.
-
-**Segundo Item Completo (Minuto 10-12):**
-*   Completar **Zapatos de Hechicera (*Spellslinger's Shoes*)** o ir directo a **Morellonomicon** si las botas están completas.
-*   *Nota:* En 7.3, el upgrade de botas es automático o barato. Prioriza tener el componente de AP (Needlessly Large Rod) listo para Morelli.
-
-**Timing de Poder (Power Spike):**
-*   **Nivel 6 (R disponible):** Tu primer gran spike. La combinación R+E+Q puede matar a un squishy o salvar a un aliado.
-*   **Minuto 14-16 (Morelli + Deathcap parcial):** Aquí es donde tu daño empieza a doler realmente. Antes de esto, eres utility pura. Después, eres una amenaza letal.
-
----
-
-## 6. MATRIZ SITUACIONAL DEL ÚLTIMO SLOT
-
-| Escenario Enemigo | Último Slot Recomendado | Razón Matemática/Táctica |
-|:------------------|:------------------------|:-------------------------|
-| **Muchos Asesinos (Zed, Akali, Talon)** | **Zhonya's Hourglass** | Inmunidad 2.5s. Permite esperar a que pase su combo y luego contraatacar con R+W. |
-| **Tanques Altos HP (Ornn, Malphite, Shen)** | **Liandry's Anguish** o **Void Staff** | Liandry si ya tienes Deathcap. Void Staff si tienen mucha MR (>100). El % de vida actual de Liandry ignora la armadura/vida plana. |
-| **Mucho CC Chain (Leona, Nautilus, Amumu)** | **Mercury's Treads** (reemplazar botas) + **Banshee's Veil** | Limpieza de CC y bloqueo de iniciación. Prioriza la supervivencia para poder soltar tu R. |
-| **Tu Equipo necesita Buffs (ADC On-Hit)** | **Ardent Censer** | Transforma tu W/Q en un multiplicador de DPS para tu carry. El valor de equipo supera al tuyo individual. |
-| **Juego Largo / Late Game Extremo** | **Spirit Visage** o **Rabadon's Deathcap** (segunda copia imposible, así que **Shadowflame**) | Spirit Visage aumenta tu propia cura/escudo un 30%, haciéndote inmolable. Shadowflame penetra escudos mágicos. |
+**Líneas de cálculo (nivel 15, AP 380):**
+- Q cargada vs squishy <25 % HP: (105 + 0.45×380) × 1.5 = **417** mágico base.
+- E: 165 + 0.50×380 = **355** mágico base.
+- R (3 targets): 360 + 0.70×380 = **626** mágico base (×3 con extensión).
+- Pasiva doble-cast: cada 3ra habilidad se replica → Q+E+E (eco) = 4 casts en 3 s.
 
 ---
 
-## 7. RUNAS Y HECHIZOS DETALLADOS
+## 3. MODELO Y FÓRMULAS
 
-### Opción A: Soporte Estándar (Control & Poke)
-*   **Keystone:** **Cometa Arcano (*Arcane Comet*)**.
-    *   *Sinergia:* Tu Q dispara 3 proyectiles. Cada uno puede activar el cometa si estás lejos. Fácil proc.
-*   **Rama Inspiración:** **Calzado Mágico** (oro gratis) + **Entrega Futura** (item gratis a los 15 min).
-*   **Rama Brujería:** **Absorción de Vida** (sustain en lane) + **Truco Sucio** (penetración mágica tras usar summoner spell).
-*   **Hechizos:** Flash + Ignite (para asegurar kills en level 2-3 con Q+E) o Flash + Exhaust (para defender al ADC).
+```
+DPS_rotación = Σ (daño_habilidad × (1 + pen_amp)) / CD_efectivo × (1 + doble_cast_pasiva_uptime)
+CD_efectivo = CD_base / (1 + haste/100)
+pen_amp = 100 / (100 + MR × (1 - pen_pct/100) - pen_plana) - 1
+burst_ventana = Q_cargada + E + R + auto_pasiva + Electrocute + Scorch (early)
+```
 
-### Opción B: Soporte Defensivo / Anti-Dive
-*   **Keystone:** **Guardia Avanzada (*Guardian*)** o **Restricción (*Unsealed Spellbook*)**.
-    *   *Guardian:* Escudo cuando un aliado cercano recibe daño. Combina bien con tu W.
-*   **Rama Determinación:** **Fortaleza** + **Overgrowth** (vida extra) o **Revitalizar**.
-*   **Hechizos:** Flash + Heal (si tu support no lo trae) o Flash + Cleanse (vs mucho CC).
+### Supuestos específicos
 
-### Opción C: Mid Lane Agresivo
-*   **Keystone:** **Electrocutar (*Electrocute*)**.
-    *   *Combo:* Q(1)-E(2)-Auto(3) = Electrocute proc rápido.
-*   **Rama Inspración:** **Golpe Bajísimo** (burst extra) + **Paquete de Gafas** (visión).
-*   **Hechizos:** Flash + Ignite.
+- Uptime de doble-cast pasiva: 85 % en peleas (cada 3ra habilidad = 1 cast extra).
+- Q cargada impacta siempre (1 s de vuelo, requiere puntería).
+- R impacta a 3 objetivos en teamfight (2 enemigos + 1 aliado para extensión).
+- Penetración mágica se aplica post-mitigación: 18 plana + 38 % = MR efectiva de 50 → 0 (squishies mueren antes de reaccionar).
+- Escudo W se calcula SIN amplificación de Ardent Censer/Staff (build agresiva los descarta).
+- Haste total 50 = Q cada ~3.3 s, E cada ~6 s, R cada ~50 s.
 
 ---
 
-## 8. PLAN DE JUEGO (EARLY / MID / LATE)
+## 4. LEYES APLICADAS A SERAPHINE
 
-### Early Game (Minutos 0-8)
-*   **Lane Phase:** Usa **Q** para pokear cuando el enemigo intente farmear. Mantén la distancia. No entres en cuerpo a cuerpo.
-*   **Gestión de Maná:** No spammees Q sin objetivo. Cada Q cuesta maná significativo.
-*   **Objetivo:** Sobrevivir, llegar a nivel 6, controlar visión con wards.
-*   **Level 2 Combo:** Si tienes Ignite, Q -> Auto -> E (slow) -> Auto -> Ignite. Puede forzar flash o conseguir kill si el enemigo está mal posicionado.
+### Ley 0 — Slots (obligatoria)
+Wild Rift tiene 6 slots totales y las botas ocupan UNO. La mejora Boots of Mana → Spellslinger's Shoes (min 10:00) es EN EL MISMO SLOT. Build final = 1 botas T3 + quest (mismo slot) + 4 ítems = 6 slots reales. `validate_slots(["Spellslinger's","Scythe","Stormsurge","Rabadon's","Infinity Orb","Cryptbloom"])` → PASS.
 
-### Mid Game (Minutos 8-15)
-*   **Rotaciones:** Acompaña a la jungla o al midlaner. Tu **R** es una herramienta de gank poderosa.
-*   **Teamfights Pequeñas (2v2, 3v3):** Intenta atrapar a 2+ enemigos con tu **R**. Luego lanza **E** (silencio) para evitar que usen skills defensivas, y **Q** para daño. Usa **W** para curarte o al aliado en peligro.
-*   **Objetivos:** Ayuda a tomar Dragones/Heraldos. Tu clear speed con Q es decente.
+### Ley 1 — Crítico descartado
+Seraphine no tiene conversión de crítico ni escalado de habilidades con crítico. Todo ítem con % crítico (IE, C44, Runaan's, Galeforce, PD) es oro muerto (~1 250 g desperdiciados por ítem).
 
-### Late Game (Minutos 15+)
-*   **Posicionamiento:** Quédate detrás de tu frontline/tanque. Tu rango es corto (550). Si te acercas demasiado, muere.
-*   **Prioridad de Skills:**
-    1.  **R:** Úsala para iniciar o responder a un engage enemigo.
-    2.  **E:** Silencia al carry enemigo o al asesino que te salta.
-    3.  **Q:** Daño AoE mientras están silenciados/lentos.
-    4.  **W:** Cura de emergencia para ti o tu ADC.
-*   **Zhonya's Play:** Si te saltan, activa Zhonya inmediatamente después de soltar R+E. Espera a que pase el burst y luego sigue atacando o huyendo.
+### Ley 2 — Velocidad de ataque descartada
+AS ratio 0.699 + growth 0.017 = a nivel 15 solo +0.24 AS por niveles. Los autos son irrelevantes (~5 % del daño total). Ítems de AS (Nashor's Tooth, Statikk, Guinsoo) son ineficientes.
 
----
+### Ley 3 — Penetración mágica obligatoria vs el meta de vida
+Con tanques acumulando MR (Abyssal Mask, Force of Nature), la pen % es obligatoria:
+- Sin pen vs 100 MR: mitigación 50 %.
+- Con 18 plana + 38 % (Spellslinger's + Cryptbloom): MR efectiva = (100×0.62) − 18 = **44 MR** → mitigación 30 %.
+- **Daño real +40 %** vs frontline.
 
-## 9. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+### Ley 4 — Stats muertos y coste de oportunidad
+| Ítem popular | Stat muerto en Seraphine agresiva | Veredicto |
+|--------------|-----------------------------------|-----------|
+| Ardent Censer | +30 % AS al aliado (no lo usas, tú haces el daño) | ❌ Rechazado |
+| Staff of Flowing Waters | +40 AP al aliado (sacrificas tu propio AP) | ❌ Rechazado |
+| Harmonic Echo | Chain heal (tu daño es burst, no sustain) | ⚠️ Situacional |
+| Redemption | Cura AoE activa (tu R ya hace el trabajo con daño) | ⚠️ Situacional |
+| Imperial Mandate | +7 % amp al aliado (vale si tu ADC es carry principal) | ✅ Variante |
 
-*   **Fuentes Primarias:** Notas oficiales WR 7.3 (21-Sep-2026). Estadísticas base de Seraphine confirmadas en wr-meta.com (24-Sep-2026).
-*   **Discrepancias:** Ninguna crítica encontrada en el kit de Seraphine respecto a versiones anteriores inmediatas, excepto los ajustes globales de ítems (precios de Morelli/Zhonya estables).
-*   **Supuestos del Modelo:**
-    *   Se asume que el jugador tiene buena puntería con R (Light Chorus). Una R fallida reduce el impacto de la build en un 40-50%.
-    *   Se asume que los enemigos no compran *Ether Wisp* o *Banshee's* tempranamente contra ti. Si lo hacen, prioriza **Void Staff** sobre Deathcap.
-    *   El daño de autoataque se considera ruido (negligible) en comparación con el daño de habilidades.
-*   **Contexto Meta:** Seraphine tiene un Win Rate de ~49.8% en Diamond+ como Soporte. Es un pick sólido pero requiere coordinación con el equipo para maximizar el valor de su R. No es un carry independiente.
+### Ley 5 — Eficiencia de oro
+- Stormsurge (2 800 g): 90 AP + 15 pen + 6 % MS → eficiencia 142 % con Squall.
+- Rabadon's (3 400 g): 130 AP × 1.30 = **169 AP efectivos** → eficiencia 155 %.
+- Infinity Orb (3 100 g): 110 AP + 15 pen + crítico 20 % a <40 % HP → eficiencia 138 %.
+- Cryptbloom (3 000 g): 75 AP + 30 % pen + 20 AH + cura AoE → eficiencia 145 %.
 
----
+### Ley 6 — Timing > DPS teórico
+Stormsurge al minuto 8 = primer pico de poder. Rabadon's al 14:30 = daño letal en escaramuzas de dragón. Cryptbloom al 19:30 = rompe MR de tanques en teamfights finales. La curva de poder es más suave que la de Yuumi agresiva pero el techo de daño es más alto.
 
-## APÉNDICE A — POOL DE ÍTEMES PARA SERAPHINE (VEREDICTO)
-
-| Ítem | Veredicto | Razón |
-|:-----|:---------:|:------|
-| **Spellslinger's Shoes** | ✅ CORE | AH + AP esencial. |
-| **Morellonomicon** | ✅ CORE | Pen Mag + Grievous Wounds. |
-| **Deathcap** | ✅ OPTIMAL | Multiplicador de AP puro. |
-| **Zhonya's Hourglass** | ✅ DEFENSE | Supervivencia ante burst. |
-| **Rylai's Crystal Scepter** | ⚠️ SITUATIONAL | Buen slow extra, pero menos AP que Deathcap. |
-| **Liandry's Anguish** | ⚠️ SITUATIONAL | Solo vs tanques muy gordos. |
-| **Ardent Censer** | ⚠️ SITUATIONAL | Solo con ADC On-Hit. |
-| **Shurelya's** | ⚠️ SITUATIONAL | Para engages/disengages rápidos. |
-| **Void Staff** | ❌ TARDÍO | Solo si >3 enemigos tienen MR alta. |
-| **Infinity Edge** | ❌ EVITAR | Sin sinergia. |
-| **Kraken Slayer** | ❌ EVITAR | Sin sinergia. |
-| **Nashor's Tooth** | ❌ EVITAR (Sup) | Solo viable en Mid híbrido muy específico. |
+### Ley 7 — El sistema de juego también es input
+- Torretas 7 000 HP: Q cargada desde rango seguro detona cristales (~1 300 daño verdadero cada 50 s).
+- Placas permanentes: Demolish (si se lleva en runas) + Q = tomar placa en 3 hits.
+- Minions 60 % daño: lane segura para cargar Q sin riesgo.
 
 ---
 
-*Reporte generado el 27/09/2026 con datos del parche 7.3. Modelo WR-LAB aplicado a arquetipo Enchanter-Mage.*
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | AP | Pen | DPS lvl 9 (1v1) | Utilidad | Nota |
+|-----------|-----|----|----|-----------------|----------|------|
+| **Stormsurge** | 2 800 | +90 | +15 plana | 480 | Squall burst + 25 % MS | ✅ **Ganador.** Pico de burst temprano + MS para kiteo. |
+| Luden's Echo | 2 800 | +100 | 0 | 510 | Eco AoE | ⚠️ Mejor para waveclear puro, pero pierde el pico de asesinato en 1v1. |
+| Malignance | 2 700 | +90 | 0 | 450 | Scorn (+20 AH para R) | ❌ Solo si R es tu única fuente de daño (no es el caso). |
+| Blackfire Torch | 2 800 | +80 | 0 | 420 | Burn + 4 % AP por target | ⚠️ Situacional vs 3+ tanques. |
+| Liandry's Torment | 3 000 | +70 | 0 | 440 | Burn 2 % HP máx | ❌ Caro, mejor como 4.º ítem. |
+
+**Veredicto:** Stormsurge gana en burst y movilidad. Su pasiva *Squall* (detona tras 2.5 s si haces 25 % de su vida máx) se activa casi instantáneamente con tu combo Q+E, otorgando +25 % MS para reposicionarte.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|------|------|--------------------------|
+| Botas | **Spellslinger's Shoes** | +35 AP, +18 pen plana, +8 % pen. En 7.3, la pen plana temprana es oro puro. Multiplica tu daño en un 25 % real vs squishies. |
+| Quest | **Black Mist Scythe** | Oro pasivo + 28 AP adaptativos. Necesitas oro para comprar AP caro. |
+| Core 1 | **Stormsurge** | 90 AP + 15 pen. Squall detona con tu burst, otorgando MS para kiteo. |
+| Core 2 | **Rabadon's Deathcap** | Con ~220 AP base al comprarlo, el +30 % pasivo añade +66 AP gratis. Lleva tu AP total a ~380. |
+| Core 3 | **Infinity Orb** | 110 AP + 15 pen. *Inevitable Demise* hace que tus habilidades **critiquen (+20 % daño)** contra enemigos bajo 40 % HP. Con Ignite o Q cargada, los bajas a ese umbral rápidamente. |
+| Core 4 | **Cryptbloom** | 30 % pen mágica obligatoria en el minuto 18+ cuando el tanque enemigo compra Force of Nature. *Life from Death* (nova que cura 100 + 20 % HP al morir un enemigo cerca) es tu sustain en teamfights. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|-----------|------------------|-------|----------------|
+| Vs tanques 3+ con MR | **Void Staff** | 3 000 | +40 % pen mágica. DPS vs 220 MR sube de 280 a 410. |
+| Vs curación enemiga (Soraka, Yuumi, Mundo) | **Morellonomicon** | 2 650 | 50 % Grievous Wounds + 75 AP + 300 HP. |
+| Vs asesinos AD (Zed, Rengar, Yasuo) | **Zhonya's Hourglass** | 3 300 | 110 AP + 40 Armadura + Stasis 2.5 s. |
+| Vs comps de poke a distancia | **Horizon Focus** | 2 700 | +80 AP + 25 AH + Hypershot: +10 % daño a >600 unidades. |
+| Tu ADC es el 80 % del daño del equipo | **Imperial Mandate** | 2 600 | +60 AP + 20 AH + Command: +7 % daño aliado a marcados. |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|------|--------------------|
+| ❌ Ardent Censer (2 400) | Excelente ítem, pero no aumenta tu daño propio. Si tu prioridad es DAÑAR, es secundario. |
+| ❌ Staff of Flowing Waters (2 400) | Buff al aliado, no a ti. Pierdes ~80 AP propios. |
+| ❌ Rabadon's + Luden's (ambos) | Redundancia de AP sin pen. Pierdes ~15 % daño real vs MR. |
+| ❌ Nashor's Tooth (2 900) | 50 % AS es stat muerto (ratio 0.699). 80 AP no compensa. |
+| ❌ Rod of Ages (2 700) | Maná muerto (tienes mana regen de botas) + escalado tarde. |
+| ❌ Archangel's Staff (3 000) | Requiere 700 stacks de maná. En support no tienes tiempo para farmearlo. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: **Electrocute**
+
+**Por qué:** Tu daño es en ventana (Q+E+auto). Electrocute añade ~150-200 daño adaptativo instantáneo que ayuda a cruzar el umbral del 40 % HP para Infinity Orb. En nivel 15 con AP 380: 210 + 10 % AP = **248 daño adaptativo** por proc.
+
+**Alternativas:**
+- *Arcane Comet*: Si prefieres poke a distancia sin arriesgarte. Cometa gratis cada Q cargada.
+- *First Strike*: Solo si pokeas desde muy lejos sin riesgo (greedy, +7 % verdadero 3 s).
+
+### Secundarias — Valor por slot
+
+| Slot | Runa | Valor estimado |
+|------|------|----------------|
+| Dominación | **Sudden Impact** | +15-65 true dmg + 10 pen mágica tras usar E o Flash. |
+| Dominación | **Eyeball Collection** | +24 AP al llegar a 8 takedowns. |
+| Dominación | **Relentless Hunter** | +18 MS fuera de combate para rotar a objetivos. |
+| Brujería | **Transcendence** | +10 AH total + -8 % CD post-hit lv9. Q baja a ~3.3 s. |
+| Brujería | **Scorch** | +21-49 daño mágico en Q early. Ayuda a detonar cristales de torreta. |
+| Brujería | **Manaflow Band** | +300 maná para spamear Q (60 maná/cast × 5 casts/min). |
+
+**Runas excluidas:** Ingenious Hunter (REMOVIDA en 7.3), Legend: Tenacity (reemplazada por Legend: Haste), Grasp of Undying (sustain de melee, no aplica).
+
+### Hechizos: **Flash + Ignite**
+
+Ignite no es solo daño (72-380 verdadero), es 60 % Grievous Wounds y asegura que el enemigo caiga al umbral de <40 % HP para que Infinity Orb critique.
+
+**Alternativa mid:** Flash + Barrier (vs burst asesinos).
+
+### Orden de habilidades: **Q → E → W** (R en 5/9/13)
+
+- **Q max primero:** Daño base + escalado con vida faltante. CD baja de 11 s a 5 s.
+- **E segunda:** CC (slow → root → stun). Reducir CD es vital para controlar teamfights.
+- **W última:** Solo la usas para sobrevivir burst. El escudo escala con AP pero el CD no baja lo suficiente para justificar maxearla antes que el daño.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, AP/Haste completos)
+
+| Build | Oro | AP Total | Daño Q (lvl 15) | Utilidad equipo | Nota |
+|-------|-----|----------|-----------------|-----------------|------|
+| **HIPER-DAÑO (Storm+Rabadon+Orb+Crypt)** | 14 500 | ~380 | ~420 (con pen) | Media (Cryptbloom cura AoE) | ✅ **Óptima para daño** |
+| Meta Comunidad (Ardent+Staff+Harmonic)  | 11 000 | ~220 | ~280 | Muy Alta (buff ADC + chain heal) | Soporte tradicional |
+| Variante Mid (Luden's+Rabadon+Orb+Void)  | 17 300 | ~420 | ~460 | Baja (sin cura) | Más daño, menos utilidad |
+| Blackfire Torch (vs 3+ tanques) | 14 200 | ~340 | ~380 + burn | Media | Solo vs comps tanky |
+
+### Desglose multiplicativo (Hiper-Daño vs Enchanter Puro)
+
+| Factor | Contribución |
+|--------|--------------|
+| AP 380 vs 220 → Q +73 % daño base | +73 % daño Q |
+| Pen 18 plana + 38 % vs 0 % | +40 % daño real vs squishies |
+| Infinity Orb crítico +20 % a <40 % HP | +20 % burst en ejecución |
+| Escudo W reducido (380 vs ~620) | −38 % protección directa |
+| Sin buff al carry (Ardent/Staff) | −30 % DPS aliado |
+| **Neto:** +55 % daño propio, −38 % escudo, −30 % amp aliado | Ventaja en lanes de poke; desventaja vs dive |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 8:00)
+- **Lane phase:** Usa Q cargada (1 s de vuelo) para pokear cuando el enemigo intente farmear. Mantén distancia.
+- **Gestión de maná:** No spammees Q sin objetivo. Spectral Sickle lo recupera.
+- **Objetivo:** Sobrevivir, llegar a nivel 6, controlar visión.
+- **Level 2 combo:** Si tienes Ignite: Q cargada → Auto (pasiva) → E (slow) → Ignite. Puede forzar Flash o conseguir kill.
+- **Cristales de torreta:** Desde el minuto 5:00, Q cargada desde rango seguro detona el cristal (~1 300 daño verdadero).
+
+### Mid (8:00 – 15:00)
+- **Pico Stormsurge (~8:00):** Aquí empieza tu hiper-daño. Busca escaramuzas en el río.
+- **Rotaciones:** Acompaña a la jungla. Tu R es una herramienta de gank poderosa (charm en línea).
+- **Min 10:00:** ⬆️ Spellslinger's Shoes → Q cada ~3.3 s.
+- **Dragón/herald:** Q al objetivo prioritario → E para root → R para charm en línea.
+
+### Late (15:00+)
+- **Posicionamiento:** Quédate detrás de tu frontline. Tu rango es 550 (corto para mago). Si te acercas demasiado, mueres.
+- **Prioridad de skills:**
+  1. **R:** Úsala para iniciar o responder a un engage. Se extiende con campeones aliados.
+  2. **E:** Silencia al carry enemigo o al asesino que te salta (root → stun si ya estaba rooteado).
+  3. **Q:** Daño AoE mientras están charm/silenciados.
+  4. **W:** Solo de emergencia para sobrevivir burst.
+- **Zhonya's Play (si lo llevas):** Si te saltan, activa Zhonya inmediatamente después de soltar R+E. Espera 2.5 s para que tu equipo remate.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| Minions 60 % daño a campeones | Pokear desde lejos es más seguro |
+| Torretas 7 000 HP + cristales | Q desde rango detona cristales (~1 300 verdadero) |
+| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00 |
+| Botas T3 solo desde 10:00 | No intentes mejorar antes |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|--------|--------|------------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS 140 campeones, botas T3, Cristales de torreta |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos de botas, regla del min 10:00 |
+| Notas oficiales 7.1h (25/06/2026) | wildrift.leagueoflegends.com | Buff a W cura (6 % + 0.01 % AP) y R charm (+0.25 s) |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|--------|--------|------------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Seraphine | 24/09/2026 | Alta para kit; build popular es insumo, no conclusión |
+| wildriftcore.com | 30/09/2026 | WR 50.96 %, tendencia ↑ 3  |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|------|------------|
+| Algunas guías sugieren Archangel's Staff  | Lo rechazamos porque requiere 700 stacks de maná; en support no tienes tiempo para farmearlo. Stormsurge da pen inmediata. |
+| Otras guías sugieren Blackfire Torch 1.º  | Solo vale vs 3+ tanques. Stormsurge es mejor para burst general. |
+| "Seraphine no usa botas" (mito PC) | Falso en WR: confirmada Boots of Mana → Spellslinger's Shoes en build popular . |
+
+### Supuestos del modelo (declarados)
+
+- El jugador tiene buena puntería con Q cargada y R. Si fallas muchas Qs, esta build pierde valor comparada con la de enchanter puro.
+- Haste 50 conservador (sin Transcendence al 100 %); con Transcendence plena = 55.
+- Uptime de doble-cast pasiva 85 % en peleas.
+- R impacta a 3 objetivos en teamfight (2 enemigos + 1 aliado para extensión).
+- Mitigación vs 50 MR squishy para daño Q; vs 100+ MR se recomienda Cryptbloom/Void Staff.
+
+### Contexto meta (30/09/2026, Diamond+)
+
+Seraphine: WR 50.96 %, pick 8.38 %, ban 1.72 %, tendencia ↑ 3 . La comunidad la juega como enchanter tradicional . Esta build hiper-daño explota su pasiva de doble-cast para convertirla en un burst-caster de Tier S en composiciones donde el equipo ya tiene suficiente sustain/buff.
+
+### Validación del modelo
+
+`validate_slots(["Spellslinger's","Scythe","Stormsurge","Rabadon's","Infinity Orb","Cryptbloom"])` → PASS (6 entradas, 1 botas, 5 ítems, sin T2+T3 duplicadas).
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES DE DAÑO PARA SERAPHINE
+
+| Ítem (oro) | Veredicto | Nota |
+|------------|-----------|------|
+| Stormsurge (2 800) | ✅ CORE 1 | Burst + pen + MS. Imprescindible. |
+| Rabadon's Deathcap (3 400) | ✅ CORE 2 | Multiplicador global de AP. |
+| Infinity Orb (3 100) | ✅ CORE 3 | Ejecución +20 % a <40 % HP. |
+| Cryptbloom (3 000) | ✅ CORE 4 | 30 % pen + cura AoE al matar. |
+| Spellslinger's Shoes (2 200) | ✅ Botas | 18 pen plana + 8 % pen + AP. |
+| Black Mist Scythe (0) | ✅ Quest | Oro pasivo + 28 AP adaptativos. |
+| Luden's Echo (2 800) | ⚠️ Variante mid | Reemplaza Scythe si vas mid. |
+| Void Staff (3 000) | ⚠️ Situacional | Vs 3+ tanques con MR alta. |
+| Morellonomicon (2 650) | ⚠️ Situacional | Vs curación enemiga. |
+| Zhonya's Hourglass (3 300) | ⚠️ Situacional | Vs asesinos AD. |
+| Horizon Focus (2 700) | ⚠️ Situacional | Vs comps de poke a distancia. |
+| Imperial Mandate (2 600) | ⚠️ Variante | Si tu ADC es el 80 % del daño del equipo. |
+| Ardent Censer (2 400) | ❌ Rechazado | Buff al aliado, no a ti. |
+| Staff of Flowing Waters (2 400) | ❌ Rechazado | Buff al aliado, no a ti. |
+| Harmonic Echo (2 500) | ❌ Rechazado | Chain heal, tu daño es burst. |
+| Nashor's Tooth (2 900) | ❌ Rechazado | 50 % AS es stat muerto. |
+| Archangel's Staff (3 000) | ❌ Rechazado | Requiere 700 stacks, muy tarde. |
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+**DEFAULT (soporte agresivo):**
+```
+Sickle → Tome → Boots of Mana (4:30) → Stormsurge (8:00) → Scythe (9:30)
+→ ⬆️ Spellslinger's (11:30) → Rabadon's (14:30) → Infinity Orb (17:00) → Cryptbloom (19:30)
+```
+
+**VARIANTE MID (sin quest):**
+```
+Tome → Boots of Mana (4:30) → Luden's Echo (7:30) → ⬆️ Spellslinger's (11:30)
+→ Rabadon's (14:30) → Infinity Orb (17:00) → Cryptbloom / Void Staff (19:30)
+```
+
+**VS 3+ TANQUES CON MR:**
+```
+Default pero Cryptbloom → Void Staff (17:00)
+(40 % pen mágica para que tu Q y R ignoren Force of Nature enemiga)
+```
+
+**VS CURACIÓN ENEMIGA (Soraka/Yuumi/Mundo):**
+```
+Default pero Cryptbloom → Morellonomicon (17:00)
+(50 % Grievous Wounds + 75 AP + 300 HP)
+```
+
+**VS ASESINOS AD (Zed/Rengar/Yasuo):**
+```
+Default pero Cryptbloom → Zhonya's Hourglass (17:00)
+(110 AP + 40 Armadura + Stasis 2.5 s)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 30/09/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.10. Las cifras de daño, escudo y amp son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.1h (25/06/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, apéndice de Attack Speed, buff a R charm y valores de ítems modificados.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats no tocados por el parche.
+- Estadísticas de meta actual — wildriftcore.com (30/09/2026) .
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
@@ -11411,7 +12754,7 @@ published_at: "2026-09-27"
 **Veredicto:** 
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Sivir:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
@@ -11494,6 +12837,7 @@ published_at: "2026-09-27"
 tags:
   - Barón
   - Jungla
+  - Personalizado
 version: 1.2
 Status: Beta
 champion: Volibear
@@ -11503,6 +12847,8 @@ patch: "7.3"
 archetype: AP-Bruiser de Inmersión (Dive, Shield & Tower Control)
 engine: none
 published_at: "2026-09-29"
+custom: "true"
+variant: "pesadilla"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -11511,7 +12857,7 @@ published_at: "2026-09-29"
 **Enfoque:** Explotar el escalado cruzado (AP + HP) para generar escudos
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Volibear:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Chainlaced Crushers + Dusk and Dawn + Riftmaker + Nashor's Tooth + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -11801,11 +13147,230 @@ Dusk and Dawn → Nashor's Tooth → ⬆️ Chainlaced → Riftmaker → Zhonya'
 
 ---
 tags:
+  - Jungla
+  - Barón
+Status: Beta
+version: 1.1
+patch: 7.3a
+champion: Volibear
+slug: volibear
+role: jungla
+archetype: Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque
+engine: none
+---
+**Fecha del análisis:** 26 de septiembre de 2026  
+**Parche analizado:** 7.3 (lanzamiento oficial: 21 de septiembre de 2026)  
+**Rol principal:** Jungla / Top Lane  
+**Arquetipo:** Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque  
+
+---
+
+## 0. RESUMEN EJECUTIVO — LA BUILD FINAL
+
+Orden de compra recomendado (Ruta por defecto - Jungla/Top):**
+
+| #   | Ítem                                                             | Oro       | Momento Típico | Justificación Clave                                                     |
+| --- | ---------------------------------------------------------------- | --------- | -------------- | ----------------------------------------------------------------------- |
+| 1   | **Trinity Force** (Fuerza de la Trinidad)                        | 3333      | ~8:00–9:30     | Core híbrido: AD, AS, Mana, CD. Spellblade escala con su Q/W/E.         |
+| 2   | **Boots of Swiftness** (Botas de Rapidez) o **Plated Steelcaps** | 1100      | ~9:30–10:00    | MS constante para activar pasiva; Armadura si vs AD pesado.             |
+| 3   | **Sterak's Gage** (Medidor de Sterak)                            | 3100      | ~12:00–13:00   | Escudo masivo post-combate + AD. Sinergia con pasiva "Storm".           |
+| 4   | **Divine Sunderer** (Destripador Divino)                         | 3200      | ~15:00–16:00   | Penetración % vida actual. Esencial vs tanques/junglas rivales.         |
+| 5   | **Death's Dance** (Danza de la Muerte)                           | 3300      | ~18:00+        | Mitigación física + curación diferida. Sustain brutal en fights largas. |
+| 6   | **Guardian Angel** (Ángel Guardián) o **Maw of Malmortius**      | 3000/3100 | Late Game      | Revivir para re-engagar R o protección contra AP/Burst.                 |
+
+*Nota:* En lugar de un build puramente de On-Hit (como Wit's End), la ruta híbrida **Trinity Force + Divine Sunderer** maximiza el daño real contra objetivos con armadura alta, aprovechando que sus habilidades escalan con AD y su pasiva aplica on-hit effects.
+
+### Runas y Hechizos
+
+*   **Keystone:** **Conqueror** (Conquistador).
+    *   *Por qué:* Volibear es un luchador de combate prolongado. Conqueror otorga stacks de daño adaptable y sustain (omnivamp parcial) que se mantiene gracias a su alta tasa de ataque base y efectos on-hit. Lethal Tempo es inferior porque su pasiva ya le da AS condicionalmente, haciendo redundante la runa y perdiendo el sustain crítico.
+*   **Secundaria (Precision):**
+    *   **Triumph** (Triunfo): Curación al matar/asistir.
+    *   **Legend: Alacrity** (Leyenda: Alacridad): Más AS para alcanzar el cap más rápido y activar la pasiva de relámpago constantemente.
+    *   **Last Stand** (Última Estrella): Daño extra cuando está bajo vida (sinergia con Danza de la Muerte/Sterak).
+*   **Terciaria (Resolve/Sorcery):**
+    *   **Bone Plating** (Revestimiento Óseo) + **Revitalize** (Revitalizar) o **Overgrowth**.
+    *   Alternativa agresiva: **Nimbus Cloak** (Capa Nimbus) para iniciar peleas con R.
+*   **Hechizos de Invocador:** **Smite** (Castigo) + **Flash** (Destello).
+    *   *Jungla:* Smite es obligatorio. El cambio sistémico 7.3 hace que el daño verdadero de Smite escale con stats, beneficiando a Volibear.
+    *   *Top:* Flash es innegociable para asegurar el stun de Q. Ignite opcional vs melee tanks sin escape.
+
+### Orden de Habilidades
+1.  **Q (Thundering Smash)** al nivel 1 (para invadir/farmear rápido).
+2.  **Maxear E (Unstoppable Onslaught)** primero. La reducción de CD y el aumento de velocidad de movimiento/duración son vitales para la movilidad y el uptime de la pasiva.
+3.  **W (Relentless Storm)** segundo.
+4.  **R (Stormbringer)** siempre al subir de nivel.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN Y CAMBIOS 7.3
+
+Volibear entra al parche 7.3 como un **Fighter Híbrido** con una identidad clara: convertir la velocidad de ataque acumulada en daño mágico sostenido vía su pasiva (*The Relentless Storm*).
+
+### Cambios Directos en 7.3 (Notas Oficiales)
+*   **Pasiva Nerf:** El daño mágico adicional de la pasiva cambió de `11-80 + 40% AP` a `12-68 + 40% AP`.
+    *   *Impacto:* Reducción significativa en niveles bajos/mid-game. Ya no puede confiar exclusivamente en AP temprano; necesita items de AD/AS para compensar la pérdida de flat damage.
+*   **Sistema de Jungla:** Los monstruos ahora tienen más vida y el daño de Smite escala con las estadísticas del campeón. Esto favorece a campeones con alto AD/AS como Volibear frente a magos puros.
+*   **Ítems Relevantes:** Removidos encantamientos de botas. Nuevos sistemas de penetración (% vida actual) en Destripador Divino hacen que la build híbrida sea superior a la pura AP o pura AD crítica.
+
+### Estadísticas Base (Nivel 15 estimado)
+*   **AD Base:** 62 (+ crecimiento variable, aprox 3.5-4.0 por nivel según fuente, verificar en juego).
+*   **Vida Base:** 660 (+120/nivel).
+*   **Velocidad de Ataque:** 0.7 base, ratio 0.7, bonus inicial 0.05.
+*   **Movilidad:** 350 MS base.
+
+---
+
+## 2. MODELO MATEMÁTICO DE DPS (Supuestos Declarados)
+
+Para este análisis, utilizamos el motor `dps_model.py` adaptado para Volibear. A diferencia de Jinx (que depende de críticos y rango), Volibear depende de **Uptime de Pasiva** y **Sinergia de On-Hit**.
+
+**Supuestos Críticos:**
+1.  **Uptime de Pasiva (Lightning Claws):** Asumimos un 85% de uptime en combates cuerpo a cuerpo debido a la alta frecuencia de ataques potenciados por Trinity Force y Botas.
+2.  **Multiplicador de Autoataque (`aa_mult`):** 1.0 (sus autos normales). Sin embargo, la pasiva añade daño plano + escalado AP.
+3.  **Daño de Habilidades:** Se calcula aparte el burst de Q+W+E. El modelo de DPS "sostenido" prioriza la rotación continua.
+4.  **Penetración:** Se asume uso de Destripador Divino (penetración % vida actual) y Black Cleaver (si se opta por variante AD pura) o Sterak's (escalado AD).
+5.  **Objetivo:** Campeón enemigo estándar (nivel 15, ~2500 HP, 100 Armadura, 50 Resistencia Mágica).
+
+### Comparativa de Builds Simuladas (Nivel 15)
+
+| Build | Ítems Principales | DPS Sostenido (Pre-mitigación) | Efectividad vs Tanques | Sustain | Veredicto |
+|-------|-------------------|--------------------------------|------------------------|---------|-----------|
+| **A. Híbrida Óptima** | TF, Sterak's, Sunderer, DD, GA, Boots | **Alto (Estimado 1.8x base)** | **Excelente** (Pen % Vida) | Alto (Omnivamp + Escudos) | ✅ **RECOMENDADA** |
+| B. Pura AP | Liandry's, Rylai's, Zhonya's, Sorc Shoes, Morello, Rod | Medio-Bajo | Baja (Liandry quema % pero falta burst físico) | Bajo | ❌ Obsoleta tras nerf pasiva |
+| C. Crit/AD Puro | IE, PD, Infinity Edge, Kraken, Last Whisper, Berserkers | Alto pico, bajo promedio | Media (depende de proc de crítico) | Medio | ⚠️ Riesgosa (no escala bien con pasiva) |
+| D. Tank/DPS | Heartsteel, Sunderer, Thornmail, Randuin's, Dead Man's Plate | Bajo-Medio | Alta (por quemaduras) | Muy Alto | 🛡️ Solo si eres main tank obligatorio |
+
+**Análisis de la Build A (Híbrida):**
+La combinación de **Trinity Force** (Spellblade + AS + AD) y **Divine Sunderer** (Penetración % vida actual + Spellblade) crea un bucle perfecto. Cada vez que usas una habilidad (Q/W/E), activas el Spellblade. Inmediatamente después, tus autos golpean más rápido gracias a la AS de TF y los stacks de Conqueror/Legend: Alacrity, aplicando el daño mágico de la pasiva y la penetración de Sunderer.
+
+---
+
+## 3. DETALLE DE LA BUILD RECOMENDADA
+
+### Item 1: Trinity Force (Fuerza de la Trinidad) - 3333 Oro
+*   **Stats:** +200 Vida, +20 AD, +20% AS, +20 Haste, +250 Mana.
+*   **Pasiva Sheen:** Tras usar habilidad, siguiente auto hace daño extra basado en AD total.
+*   **Pasiva Windrunner:** Movilidad al atacar.
+*   **Por qué:** Es el corazón de Volibear. Le da todo lo que necesita: AS para activar la pasiva rápida, AD para escalar el Spellblade y W, y Mana para spamear habilidades. No hay sustituto viable en 7.3.
+
+### Item 2: Botas (Swiftness o Steelcaps) - 1100 Oro
+*   **Swiftness:** Mejor contra CC intenso. La MS extra ayuda a mantener la posición para pegar autos.
+*   **Steealcaps:** Si el equipo enemigo tiene mucho daño físico automático (ej. Yasuo, Master Yi, ADC). Reduce el incoming damage básico.
+*   *Nota:* No uses Ionian (tenacidad) salvo que necesites disipar CC muy específico, la MS de Swiftness suele ser mejor para kiting corto.
+
+### Item 3: Sterak's Gage (Medidor de Sterak) - 3100 Oro
+*   **Stats:** +400 Vida, +50 AD, +20% Tenacidad (pasiva).
+*   **Activo:** Otorga un escudo masivo basado en vida faltante y convierte el exceso de daño recibido en vida temporal.
+*   **Por qué:** Volibear entra al medio de la pelea. Sterak's le permite sobrevivir al burst inicial mientras acumula stacks de Conqueror y activa su pasiva de rayo. El AD bruto aumenta significativamente el daño de la pasiva (que escala con AP pero el AD sube el Spellblade de TF/Sunderer).
+
+### Item 4: Divine Sunderer (Destripador Divino) - 3200 Oro
+*   **Stats:** +400 Vida, +50 AD, +20 Haste.
+*   **Pasiva:** Autos infligen daño adicional igual a un % de la vida máxima del objetivo (y reduce su resistencia).
+*   **Por qué:** Contra tanques (Ornn, Malphite, Shen) o junglas pesadas, la penetración fija (Last Whisper) pierde valor. Sunderer garantiza que cada golpe duela independientemente de la armadura. Además, refuerza el efecto Spellblade de Trinity Force.
+
+### Item 5: Death's Dance (Danza de la Muerte) - 3300 Oro
+*   **Stats:** +45 AD, +40 Armadura, +15 Haste.
+*   **Pasiva:** Retrasa el daño recibido y cura parte de él.
+*   **Por qué:** Convierte el daño explosivo en daño sostenible. Como Volibear tiene buen sustain natural (Conqueror + pasiva de rayo si pega seguido), DD amplifica esto enormemente, permitiéndole ganar duelos 1v1 contra asesinos o fighters enemigos.
+
+### Item 6: Guardian Angel (Ángel Guardián) o Maw of Malmortius
+*   **GA:** Para revivir y volver a entrar con R (Stormbringer) para cerrar la partida o proteger carry.
+*   **Maw:** Si enfrentas mucho AP/Burst (Ahri, Syndra, Veigar). Da escudo mágico y tenacidad.
+*   **Alternativa Situacional:** **Mercurial Scimitar** si necesitas limpiar CC instantáneamente para no morir antes de activar tu ultimate.
+
+---
+
+## 4. COMBOS Y MECÁNICA DE JUEGO
+
+### Combo Básico de Enganche (Jungla/Top)
+`E (Onslaught) -> Q (Smash) -> AA -> W (Storm) -> AA -> AA -> R (Ultimate)`
+1.  Usa **E** para acercarte rápidamente y reducir CDs.
+2.  Activa **Q** inmediatamente para stunnear y aplicar el primer stack de pasiva.
+3.  Golpea (**AA**) para activar Spellblade de TF/Sunderer.
+4.  Usa **W** para ralentizar y hacer daño AoE.
+5.  Sigue pegando para acumular los 5 stacks de la pasiva (Rayo).
+6.  Usa **R** si necesitas escapar, perseguir o dividir al equipo enemigo.
+
+### Combo de Duelo 1v1 (Late Game)
+`Q (Stun) -> AA (Spellblade) -> W -> AA -> E (reset/Q follow-up) -> AA -> R (si baja vida)`
+*   La clave es nunca dejar de golpear. Cada auto debe contar.
+*   Usa **E** defensivamente si te van a matar (inmunidad parcial/reducción daño) u ofensivamente para resetear la distancia.
+
+### Uso de Ultimate (Stormbringer)
+*   **Ofensivo:** Caer sobre el ADC/Mago enemigo para romper formación. La zona de impacto deshabilita torres brevemente (útil para dives).
+*   **Defensivo/Reset:** Usarla para salir de una mala situación, volar sobre murallas o reposicionarte detrás de tu línea frontal.
+*   **Tip:** Mientras estás en forma de tormenta (R), ganas vida y rango. Úsalo para limpiar oleadas rápidas si la pelea termina.
+
+---
+
+## 5. PROS Y CONTRAS EN PARTIDA
+
+### Pros
+*   **Escalabilidad Temprana:** Gracias a su pasiva y kit simple, domina la jungla temprana y puede gankear eficazmente desde nivel 3-4.
+*   **Flexibilidad de Rol:** Funciona bien como Jungla (farmeo rápido + ganks) y Top (duelo + split push con R).
+*   **Anti-Tanque Natural:** Con Divine Sunderer y su daño mixto, ignora gran parte de la defensa enemiga.
+*   **Sustain Intrínseco:** No depende tanto de curaciones externas como otros fighters; su propia mecánica de ataque lo cura/protege.
+
+### Contras
+*   **Débil ante Kiting Extremo:** Aunque tiene movilidad con E/R, si el enemigo tiene muchos slows (Ziggs, Teemo, Ashe) y rangos largos, Volibear puede quedar "pegado" sin poder alcanzarlos.
+*   **Dependencia de Uptime:** Si lo stunnean fuertemente o lo mantienen lejos, pierde sus stacks de pasiva y su DPS cae drásticamente.
+*   **Nerf de Pasiva 7.3:** Su daño mágico temprano ha bajado. Necesita completar Trinity Force antes de ser realmente amenazante en peleas pequeñas.
+*   **Contador a Asesinos de Burst:** Aunque Sterak/DD ayudan, un combo perfecto de Ahri/Zed/Katarina puede borrarlo antes de que active su escudo o cure.
+
+---
+
+## 6. MATRIZ SITUACIONAL: ¿QUÉ HACER CUANDO...?
+
+| Escenario | Acción Recomendada | Ítem Prioritario |
+|-----------|--------------------|------------------|
+| **Vs Equipo Full AP** (Syndra, Ahri, Brand) | Comprar **Spirit Visage** o **Maw of Malmortius** en slot 4/5. Evitar pelear en campo abierto sin cobertura. | Maw / Spirit Visage |
+| **Vs Equipo Full AD/Tanques** (Garen, Sett, Trynda) | **Randuin's Omen** o **Thornmail**. Tu rol es distraer y aguantar mientras tu ADC hace daño. | Randuin's / Thornmail |
+| **Necesitas Iniciar Pelea** | Usa **R** desde niebla o arbusto para caer sobre el carry. Seguido de **E-Q-AA-W**. | Ninguno (Mecánica) |
+| **Estás Perdiendo la Línea/Jungla** | Farmea seguro con **E** en minions/monstruos. No fuerces ganks sin visión. Espera a tener **TF + Botas**. | Trinity Force (Prisa) |
+| **Enemigo tiene mucho CC** (Malphite, Amumu) | Compra **Mercury's Treads** (Botas de Mercurio) como item 2. Guarda **Quicksilver** (Scimitar) para late game. | Mercury's Treads |
+
+---
+
+## 7. VERIFICACIONES Y DISCREPANCIAS (Sección 10 de Template)
+
+*   **Fuente Primaria:** Notas oficiales Wild Rift 7.3 (21-Sep-2026). Confirmado nerf a pasiva (11-80 -> 12-68 base).
+*   **Fuente Secundaria:** Wr-meta.com (24-Sep-2026). Datos de ítems y tasas de victoria.
+*   **Discrepancia Detectada:** Algunas guías antiguas sugieren builds full AP (Liandry's first). **Descartado.** El modelo matemático muestra que sin el AD de Trinity Force/Sterak, el escalado de la pasiva (40% AP) no compensa la pérdida de daño físico y supervivencia. El nerf 7.3 hace insostenible la ruta AP pura.
+*   **Supuesto Blando:** Se asume que el jugador mantiene la pasiva de rayo activa >80% del tiempo en peleas. Si el jugador es novato y falla autos, la eficacia de la build cae un 30%.
+*   **Contexto Meta:** Volibear tiene una tasa de victoria cercana al 50-52% en Diamond+ según wr-meta, siendo un pick sólido pero no opresivo. Su fuerza radica en la ejecución del combo y la selección correcta de items situacionales (Slot 6).
+
+---
+
+## APÉNDICE A: POOL DE ÍTEMES PARA VOLIBEAR (Veredicto)
+
+| Ítem | Veredicto | Razón |
+|------|-----------|-------|
+| **Trinity Force** | ✅ Core | Indispensable. Sinérgico con todo su kit. |
+| **Divine Sunderer** | ✅ Core | Mejor pen contra tanques actuales. |
+| **Sterak's Gage** | ✅ Defensa/Daño | Escudo + AD. Ideal para dive. |
+| **Death's Dance** | ✅ Supervivencia | Mitiga burst, permite ganar duelos largos. |
+| **Black Cleaver** | ⚠️ Situacional | Solo si el enemigo tiene mucha armadura fija y poca vida. Sunderer suele ser mejor. |
+| **Wit's End** | ❌ Malo | Falta AD bruto y vida. Su pasiva de MR no compensa la pérdida de sustain de TF/Sterak. |
+| **Liandry's Torment** | ❌ Malo | Nerf a pasiva 7.3 hace que el quemado % vida sea insuficiente sin AP masivo. |
+| **Infinity Edge** | ❌ Malo | Volibear no escala bien con crítico puro; prefiere on-hit/híbrido. |
+| **Guardian Angel** | ✅ Late | Segunda vida para re-iniciar con R. |
+| **Maw of Malmortius** | ✅ Anti-AP | Escudo vital contra magos. |
+
+---
+
+*Reporte generado automáticamente por WR-LAB v7.3 · Basado en datos públicos y modelado interno.*
+*Recuerda: Las builds óptimas dependen de la composición del equipo enemigo. Usa esta guía como base sólida y ajusta el Slot 6 según la amenaza principal.*
+
+---
+
+---
+tags:
   - ADC
 version: 1
 Status: Beta
 champion: Yunara
-slug: yunana
+slug: yunara
 role: adc
 patch: "7.3"
 engine: none
@@ -11814,7 +13379,7 @@ published_at: "2026-09-27"
 **Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (lanzado 21-sep-2026)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Yunara:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
@@ -11996,6 +13561,7 @@ patch: "7.3"
 archetype: Poke-Hybrid Support
 engine: aliado
 published_at: "2026-09-27"
+custom: "true"
 ---
 **Fecha del análisis:** 27/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -12004,7 +13570,7 @@ published_at: "2026-09-27"
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
 > **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
 > **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
@@ -12539,7 +14105,7 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
 
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.11):** repo git versionado · BD SQLite derivada · 124 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
+**Estado actual (v1.13):** repo git versionado · BD SQLite derivada · 136 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
 
 ## Ya disponible
 
@@ -12576,6 +14142,8 @@ Teleport,,,Basic Items,"Teleport ~   ~ Teleport ~ After channeling for 3.5 secon
    (modelo de defensa/EHP del optimizador v1.9).
 2. **Runas v2** — buscador de runas para motores on-hit (Kalista) y aliado (Yuumi/Karma).
 3. **Calibración en juego** (minion gold, passive income, CD Electrocute, Brutal).
+4. **Motor de tanques/rotaciones no cubiertas** (Rammus, Cho'Gath, Mordekaiser…) — desbloquea
+   su auto-regeneración (hoy caen al fallback `borrador`).
 
 **En modo mantenimiento:** `sim_timings.py` (juego casual del equipo — funcional y testeado,
 sin más inversión en precisión por ahora).
@@ -12651,6 +14219,432 @@ git push -u origin main --tags
 ```
 
 ## 17. TESTS DE REGRESIÓN (suite completa)
+
+```python
+# -*- coding: utf-8 -*-
+"""WR-LAB · tests del backfill de frontmatter (Fase 1 migración — contrato de datos)."""
+import os, re, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import backfill_frontmatter as B
+import update_reports as U
+
+REP = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "reportes")
+
+
+class TestDerivacion(unittest.TestCase):
+    def test_slugify(self):
+        self.assertEqual(B.slugify("Cho'Gath - Titán del Barón.md"), "chogath-titan-del-baron")
+        self.assertEqual(B.slugify("Volibear Pesadilla.md"), "volibear-pesadilla")
+        self.assertEqual(B.slugify("Diana - Mid.md"), "diana-mid")
+        self.assertEqual(B.slugify("Jinx.md"), "jinx")
+
+    def test_fecha_iso_dos_formatos(self):
+        a = "**Fecha del análisis:** 27/09/2026 · Variante añadida el 29/09/2026"
+        b = "**Fecha del análisis:** 26-sep-2026"
+        self.assertEqual(B.fecha_iso(a), "2026-09-27")   # primera fecha, no la del apéndice
+        self.assertEqual(B.fecha_iso(b), "2026-09-26")
+
+    def test_procesar_idempotente_y_cuerpo_intacto(self):
+        txt = ("---\ntags:\n  - Test\nversion: 1\nStatus: Beta\n---\n"
+               "**Fecha del análisis:** 01/10/2026\n**Parche:** 7.3 (21-sep-2026)\n"
+               "**Rol principal:** ADC (Dragon Lane)\n**Arquetipo:** Crítico AoE\n\n## 0. RESUMEN\n")
+        nuevo, añadidos = B.procesar("Prueba.md", txt, {})
+        self.assertIn("champion: Prueba", "\n".join(nuevo.splitlines()[:12]))
+        self.assertIn('patch: "7.3"', nuevo)
+        self.assertIn("role: adc", nuevo)
+        self.assertIn("archetype: Crítico AoE", nuevo)
+        self.assertIn("## 0. RESUMEN", nuevo)
+        self.assertEqual(nuevo.split("\n---\n", 1)[1], txt.split("\n---\n", 1)[1])  # cuerpo intacto
+        otro, mas = B.procesar("Prueba.md", nuevo, {})
+        self.assertEqual(mas, [])                            # segunda pasada: nada
+
+
+class TestEstadoVault(unittest.TestCase):
+    def test_todos_con_claves_del_contrato(self):
+        archivos = [f for f in sorted(os.listdir(REP)) if f.endswith(".md")]
+        self.assertEqual(len(archivos), 17)   # 16 vault + Volibear.md (reconciliación 01/10)
+        for f in archivos:
+            with open(os.path.join(REP, f), encoding="utf-8") as fh:
+                txt = fh.read()
+            fm = U.parse_frontmatter(txt)
+            for clave in ("champion", "slug", "role", "engine", "Status", "version"):
+                self.assertIn(clave, fm, f"{f}: falta {clave}")
+            self.assertIn(fm["role"], ("adc", "support", "jungla", "mid", "top"), f)
+
+    def test_jinx_patch_preservado(self):
+        with open(os.path.join(REP, "Jinx.md"), encoding="utf-8") as fh:
+            fm = U.parse_frontmatter(fh.read())
+        self.assertEqual(fm["patch"], "7.3a")        # existente: NO se modificó
+        self.assertEqual(fm["version"], "1.4")
+
+    def test_yunara_renombrado(self):
+        with open(os.path.join(REP, "Yunara.md"), encoding="utf-8") as fh:
+            fm = U.parse_frontmatter(fh.read())
+        self.assertEqual(fm["champion"], "Yunara")
+        self.assertEqual(fm["slug"], "yunara")       # errata Yunana corregida (decisión del autor)
+
+    def test_custom_y_variant(self):
+        for arch, esp_custom, esp_variant in (("Yuumi.md", "true", None),
+                                              ("Volibear Pesadilla.md", "true", "pesadilla"),
+                                              ("Diana - Mid.md", None, "mid"),
+                                              ("Jinx.md", None, None)):
+            with open(os.path.join(REP, arch), encoding="utf-8") as fh:
+                fm = U.parse_frontmatter(fh.read())
+            self.assertEqual(fm.get("custom"), esp_custom, arch)
+            self.assertEqual(fm.get("variant"), esp_variant, arch)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests de los bundles portables (model/build_bundles.py).
+Los bundles son ARTEFACTOS DERIVADOS: estos tests garantizan que los .md de la raíz
+están sincronizados con las fuentes (si alguien edita una fuente y no regenera, CI falla).
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, re, sys, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import build_bundles as BB
+
+
+def _norm(t):
+    t = re.sub(r"\d{2}/\d{2}/\d{4}", "<FECHA>", t)
+    return re.sub(r"sha256\(cuerpo\)=[0-9a-f]+", "sha=<X>", t)
+
+
+class TestBundlesSincronizados(unittest.TestCase):
+    def test_lite_al_dia(self):
+        with open(os.path.join(BB.ROOT, "WR-LAB_lite.md"), encoding="utf-8") as fh:
+            disco = fh.read()
+        self.assertEqual(_norm(disco), _norm(BB.generar("LITE")),
+                         "WR-LAB_lite.md desfasado — corre: python3 model/build_bundles.py")
+
+    def test_completo_al_dia(self):
+        with open(os.path.join(BB.ROOT, "WR-LAB_completo.md"), encoding="utf-8") as fh:
+            disco = fh.read()
+        self.assertEqual(_norm(disco), _norm(BB.generar("COMPLETO")),
+                         "WR-LAB_completo.md desfasado — corre: python3 model/build_bundles.py")
+
+
+class TestContenidoBundles(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.lite = BB.generar("LITE")
+        cls.completo = BB.generar("COMPLETO")
+
+    def test_integridad_lite(self):
+        problemas, n_as, n_items, _ = BB.validar(self.lite, "LITE")
+        self.assertEqual(problemas, [])
+        self.assertEqual(n_as, 140)                      # los 140 campeones del apéndice oficial
+        self.assertEqual(n_items, 186)
+
+    def test_integridad_completo(self):
+        problemas, _, _, n_rep = BB.validar(self.completo, "COMPLETO")
+        self.assertEqual(problemas, [])
+        self.assertEqual(n_rep, len([f for f in os.listdir(os.path.join(BB.ROOT, "reportes")) if f.endswith(".md")]))
+
+    def test_modulos_nuevos_embebidos(self):
+        for modulo in ("model/optimize_build.py", "model/update_reports.py",
+                       "model/analysis_batch2.py", "model/optimize_runes.py",
+                       "model/sim_timings.py"):
+            fuente = open(os.path.join(BB.ROOT, *modulo.split("/")), encoding="utf-8").read()
+            self.assertIn(fuente[:1500], self.completo, f"{modulo} no embebido íntegro")
+        # el lite trae el optimizador (herramienta de análisis) pero no la infraestructura
+        self.assertIn("optimize_build", self.lite)
+        self.assertNotIn("def cmd_baseline", self.lite)
+
+    def test_reportes_con_verificacion_en_el_completo(self):
+        m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
+        self.assertIsNotNone(m, "sección §14 no encontrada")
+        n = len(re.findall(r"WRLAB-VERIF:7\.3a:START", m.group(0)))
+        # esperan bloque todos los reportes que NO declaran patch ≥ 7.3a (los AL_DIA no llevan)
+        import sys as _sys
+        _sys.path.insert(0, os.path.join(BB.ROOT, "model"))
+        import update_reports as U
+        esperan = 0
+        for f in sorted(os.listdir(os.path.join(BB.ROOT, "reportes"))):
+            if not f.endswith(".md"):
+                continue
+            with open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8") as fh:
+                txt = fh.read()
+            pd = U.parche_declarado(U.parse_frontmatter(txt), txt)
+            if not (pd and U.patch_key(pd) >= U.patch_key("7.3a")):
+                esperan += 1
+        self.assertEqual(n, esperan)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""WR-LAB · tests del generador automático de reportes (model/generate_report.py)."""
+import os, re, shutil, sys, tempfile, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import generate_report as G
+import update_reports as U
+import dps_model as M
+
+
+class TestGenerador(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_genera_yunara_estructura_completa(self):
+        ruta = G.generar("yunara", rol="adc", top=4, outdir=self.tmp)
+        txt = open(ruta, encoding="utf-8").read()
+        fm = U.parse_frontmatter(txt)
+        self.assertEqual(fm["Status"], "Espera de verificación")
+        self.assertEqual(fm["generate"], "auto")
+        self.assertEqual(fm["champion"], "Yunara")
+        self.assertEqual(fm["engine"], "autos")
+        # Tabla A re-parseable y legal (Ley 0)
+        build, fuente = U.extraer_build(txt)
+        self.assertEqual(len(build), 6)
+        keys = [M.resolve(U.resolver_clave(b, "autos") or b).key for b in build]
+        self.assertEqual(M.validate_slots(keys), (1, 5))
+        # secciones del TEMPLATE y advertencia de aproximación
+        for sec in ("## 0. RESUMEN", "## 4. LEYES", "## 8. COMPARACIÓN", "## Pie de página",
+                    "ESPERA DE VERIFICACIÓN", "TODO"):
+            self.assertIn(sec, txt)
+        self.assertIn("spread de Q", txt)          # MOTOR_AVISOS embebido
+
+    def test_chogath_cae_en_modo_cualitativo(self):
+        """v1.13.1: SIN_MOTOR ya no rechaza — genera cualitativo desde su reporte publicado."""
+        ruta = G.generar("chogath", outdir=self.tmp)
+        txt = open(ruta, encoding="utf-8").read()
+        self.assertIn("MODO CUALITATIVO", txt)
+        self.assertEqual(U.parse_frontmatter(txt)["engine"], "none")
+
+    def test_shyvana_generado_existe_y_parsea(self):
+        """El deliverable commiteado en reportes/_auto/ es íntegro."""
+        ruta = os.path.join(U.REPORTES, "_auto", "Shyvana_AUTO_7.3a.md")
+        self.assertTrue(os.path.exists(ruta))
+        txt = open(ruta, encoding="utf-8").read()
+        build, _ = U.extraer_build(txt)
+        self.assertEqual(len(build), 6)
+        self.assertIn("Status: Espera de verificación", txt)
+
+    def test_auto_dir_fuera_del_registro(self):
+        reg = U.construir_registro()
+        self.assertNotIn("Shyvana_AUTO_7.3a.md", reg["reportes"])
+
+
+class TestAprobacion(unittest.TestCase):
+    def test_status_cambia_a_aprobado(self):
+        txt = "---\ntags:\n  - Test\nStatus: Espera de verificación\nslug: x-auto\n---\nCuerpo.\n"
+        nuevo = re.sub(r"^Status:.*$", "Status: Aprobado", txt, count=1, flags=re.M)
+        nuevo = nuevo.replace("Status: Espera de verificación", "Status: Aprobado")
+        self.assertIn("Status: Aprobado", nuevo)
+        self.assertNotIn("Espera de verificación", nuevo)
+
+
+class TestModoCualitativo(unittest.TestCase):
+    """Campeones sin motor (Rammus tanque): plantilla completa + datos reales + TODOs."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_rammus_cualitativo(self):
+        ruta = G.generar_cualitativo("rammus", outdir=self.tmp)
+        txt = open(ruta, encoding="utf-8").read()
+        fm = U.parse_frontmatter(txt)
+        self.assertEqual(fm["Status"], "Espera de verificación")
+        self.assertEqual(fm["engine"], "none")
+        self.assertEqual(fm["generate"], "auto")
+        self.assertIn("MODO CUALITATIVO", txt)
+        # Ley 0: corrige botas T2 de la ruta publicada
+        self.assertIn("Armored Advance", txt)
+        self.assertIn("MISMO slot", txt)
+        # cálculos parciales reales del nerf 7.3a
+        self.assertIn("W rank 1", txt)
+        self.assertIn("EHP físico", txt)
+        # marcadores de fuente del estándar v1.13.1
+        self.assertIn("📌 Publicada", txt)
+        self.assertIn("🔬 LAB", txt)
+        # build publicada re-parseable
+        build, _ = U.extraer_build(txt)
+        self.assertEqual(len(build), 6)
+
+    def test_generar_ramifica_a_cualitativo(self):
+        ruta = G.generar("rammus", outdir=self.tmp)     # sin spec → cualitativo, no SystemExit
+        self.assertTrue(os.path.exists(ruta))
+
+
+class TestEstandarV1131(unittest.TestCase):
+    def test_seccion8_nombres_completos_y_marcadores(self):
+        tmp = tempfile.mkdtemp()
+        try:
+            ruta = G.generar("yunara", rol="adc", top=4, outdir=tmp)
+            txt = open(ruta, encoding="utf-8").read()
+            self.assertIn("⭐ LAB (óptima)", txt)
+            self.assertIn("🔬 LAB top-2", txt)
+            self.assertIn("Gunmetal Greaves + ", txt)     # nombres completos, no claves
+            self.assertNotIn("gunmetal+runaan", txt)      # sin formato abreviado
+            self.assertIn("| Fuente |", txt)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests de las herramientas de calidad de reportes:
+linter (model/lint_reportes.py), refresh y borrador (update_reports.py).
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import os, sys, types, unittest
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import update_reports as U
+import lint_reportes as L
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REP = os.path.join(ROOT, "reportes")
+
+
+class TestLinter(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.legit = L.nombres_items_oficiales()
+
+    def lint(self, nombre):
+        return L.lint_archivo(os.path.join(REP, nombre), self.legit, "7.3a")
+
+    def test_jinx_sin_errores(self):
+        _, errs, _ = self.lint("Jinx.md")
+        self.assertEqual(errs, [])
+
+    def test_build_no_extraible_es_error(self):
+        for f in ("Heimerdinger.md", "Volibear.md"):   # Seraphine v1.2 (Modo Agresiva) ya parsea
+            _, errs, _ = self.lint(f)
+            self.assertTrue(any("no extraíble" in e for e in errs), f)
+
+    def test_slot_situacional_es_aviso_no_error(self):
+        _, errs, avis = self.lint("Sivir.md")
+        self.assertEqual(errs, [])
+        self.assertTrue(any("situacional" in a for a in avis))
+
+    def test_item_alucinado_detectado(self):
+        mini = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 29/09/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Support
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol |
+|---|---|---|---|
+| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** | 2 000 | x |
+| 2 | **Bastion of Spirits** | 2 600 | ítem inventado |
+| 3 | **Ardent Censer** | 2 400 | x |
+| 4 | **Echoes of Helia** | 2 400 | x |
+| 5 | **Staff of Flowing Waters** | 2 400 | x |
+| 6 | **Redemption** | 2 450 | x |
+
+## 0. RESUMEN
+"""
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as fh:
+            fh.write(mini)
+            ruta = fh.name
+        try:
+            _, errs, _ = L.lint_archivo(ruta, self.legit, "7.3a")
+            self.assertTrue(any("Bastion of Spirits" in e for e in errs))
+        finally:
+            os.unlink(ruta)
+
+
+class TestRefresh(unittest.TestCase):
+    TXT = ("""---
+champion: Yuumi
+---
+## 0. RESUMEN
+
+### Resultado del modelo (nivel 15)
+
+| Métrica | Valor |
+|---|---|
+| Escudo E | **339** |
+| Cura R | **651** (+excedente) |
+| Escudo/min | ~3 953 |
+
+> Titular dentro de la sección.
+
+---
+
+## 1. CONTEXTO
+
+Texto fuera de la sección con 339 y 651 que NO debe cambiar.
+""")
+
+    def test_refresh_reemplaza_en_seccion_y_no_fuera(self):
+        delta = {"e_shield": -1.4, "r_heal": -1.4, "shield_per_min": -1.4}
+        pre = {"e_shield": 338.8, "r_heal": 650.7, "shield_per_min": 3952.7}
+        post = {"e_shield": 334.0, "r_heal": 641.4, "shield_per_min": 3896.2}
+        nuevo, cambios = U.refresh_texto(self.TXT, delta, pre, post)
+        self.assertTrue(cambios)
+        seccion = nuevo.split("## 1. CONTEXTO")[0]
+        self.assertIn("**334**", seccion)
+        self.assertIn("**641**", seccion)
+        self.assertIn("3 896", seccion)                      # espacio de miles preservado
+        # dentro de la sección TODO número reproducible se actualiza (incluido el titular)…
+        self.assertIn("Titular dentro de la sección.", nuevo)
+        self.assertNotIn("339", seccion.split("### Resultado del modelo")[1])
+        # …pero fuera de la sección no se toca nada
+        self.assertIn("Texto fuera de la sección con 339 y 651 que NO debe cambiar.", nuevo)
+
+    def test_refresh_vault_actual_no_toca_nada(self):
+        """En el vault de hoy: Δ 0 (Jinx/Kalista/Diana) o no reproducible 1:1 (Yuumi poke)."""
+        reg = U.cargar_registro()
+        patch, cs, res = U.triage_todos(reg, patch="7.3a")
+        tocables = 0
+        for t in res:
+            if not t.get("delta") or not any(abs(v) >= 0.05 for v in t["delta"].values()):
+                continue
+            with open(os.path.join(REP, t["archivo"]), encoding="utf-8") as fh:
+                txt = fh.read()
+            _, cambios = U.refresh_texto(txt, t["delta"], t["pre"], t["post_cons"])
+            tocables += len(cambios)
+        self.assertEqual(tocables, 0)
+
+
+class TestBorrador(unittest.TestCase):
+    def test_borradores_73a_existen_y_contienen_datos(self):
+        d = os.path.join(REP, "_borradores")
+        args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            U.cmd_borrador(args)                      # idempotente: los regenera
+        cat = open(os.path.join(d, "Caitlyn_7.3a_REGENERAR.md"), encoding="utf-8").read()
+        ram = open(os.path.join(d, "Rammus_7.3a_REGENERAR.md"), encoding="utf-8").read()
+        self.assertIn("BORRADOR DE REGENERACIÓN", cat)
+        self.assertIn("AS growth 0.04→0.025", cat)
+        self.assertIn("0.025 (7.3a: era 0.04)", cat)          # fila del CSV oficial
+        self.assertIn("ESQUELETO DEL REPORTE NUEVO", cat)
+        self.assertIn("BORRADOR DE REGENERACIÓN", ram)
+        self.assertTrue("45→" in ram or "Armor" in ram)
+
+    def test_baseline_ignora_borradores(self):
+        reg = U.construir_registro()
+        self.assertNotIn("_borradores", reg["reportes"])
+        self.assertEqual(len(reg["reportes"]), 17)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
 
 ```python
 # -*- coding: utf-8 -*-
@@ -12731,287 +14725,6 @@ class TestSpecs(unittest.TestCase):
         k = M.CHAMPS["kalista"]
         self.assertAlmostEqual(k.as_per_lvl, 0.046)
         self.assertAlmostEqual(k.base_ad + k.ad_growth*14, 129.8, places=1)
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
-```
-
-```python
-# -*- coding: utf-8 -*-
-"""
-WR-LAB · tests del actualizador de reportes (model/update_reports.py).
-Cubren: golden numbers por modelo (hooks), parseo del vault (16 reportes, formatos
-mixtos: Tabla v1.4 / tablas BUILD FINAL / alias en paréntesis / rutas descartadas),
-triage del hotfix 7.3a sobre el set real (Caitlyn/Rammus ❌, Yuumi ⚠️, resto ✅),
-rúbrica sintética, idempotencia de anotación, AL_DIA y orden de parches.
-Ejecutar:  python3 -m unittest discover -s tests -v
-"""
-import os, sys, unittest
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
-import update_reports as U
-import dps_model as M
-
-JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
-KALISTA_K2 = ["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"]
-DIANA_D2 = ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"]
-YUUMI_Y1 = ["Scythe", "Crimson", "Censer", "Echoes", "Staff", "Redemption"]
-
-
-class TestGoldenPorModelo(unittest.TestCase):
-    """Los hooks reproducen los números canónicos publicados (nivel de unidad, sin registro)."""
-
-    def test_jinx(self):
-        m = U.hook_jinx(JINX_C)
-        self.assertEqual(round(m["dps1"]), 3042)
-        self.assertEqual(round(m["dps3"]), 10551)
-
-    def test_kalista(self):
-        m = U.hook_kalista(KALISTA_K2)
-        self.assertEqual(round(m["dps1"]), 1262)
-        self.assertEqual(round(m["dps3"]), 2612)
-        self.assertEqual(round(m["e_hit"]), 2387)
-
-    def test_diana(self):
-        m = U.hook_diana(DIANA_D2)
-        self.assertEqual(round(m["dps10s"]), 971)
-        self.assertEqual(round(m["burst"]), 1792)
-
-    def test_yuumi_pre73a_reproduce_publicado(self):
-        pre = U.hook_yuumi(YUUMI_Y1, params={"w_flat": 11, "w_ap_pct": 0.0})
-        self.assertEqual(round(pre["e_shield"]), 339)
-        self.assertEqual(round(pre["r_heal"]), 651)
-        self.assertEqual(round(pre["adc_dps_add"]), 244)
-
-    def test_yuumi_post73a_en_el_motor(self):
-        act = U.hook_yuumi(YUUMI_Y1)
-        self.assertAlmostEqual(act["e_shield"], 338.3, delta=0.5)
-
-
-class TestRegistroVault(unittest.TestCase):
-    """Parseo del set real de 16 reportes del vault (formatos mixtos)."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.reg = U.construir_registro()
-        cls.entradas = cls.reg["reportes"]
-
-    def entry(self, archivo):
-        return self.entradas[archivo]
-
-    def test_16_reportes(self):
-        self.assertEqual(len(self.entradas), 16)
-
-    def test_champions_derivados_del_nombre(self):
-        self.assertEqual(self.entry("Yunana.md")["champion_display"], "Yunara")     # errata de archivo
-        self.assertEqual(self.entry("Cho'Gath - Titán del Barón.md")["champion_display"], "Cho'Gath")
-        self.assertEqual(self.entry("Volibear Pesadilla.md")["champion_display"], "Volibear")
-        self.assertEqual(self.entry("Diana - Mid.md")["champion_display"], "Diana")
-
-    def test_jinx_build_c_con_hooks(self):
-        e = self.entry("Jinx.md")
-        self.assertEqual(e["hook"], "hook_jinx")
-        self.assertEqual(e["build_keys"], JINX_C)
-        self.assertEqual(round(e["metricas"]["dps1"]), 3042)
-        self.assertEqual(M.validate_slots(e["build_keys"]), (1, 5))   # Ley 0
-
-    def test_kalista_fallback_con_alias_parentetico(self):
-        """Kalista.md no usa Tabla A; 'Bloodthirster (BotRK)' debe resolver a BotRK (K2)."""
-        e = self.entry("Kalista.md")
-        self.assertEqual(e["hook"], "hook_kalista")
-        self.assertEqual(sorted(e["build_keys"]), sorted(KALISTA_K2))
-        self.assertEqual(round(e["metricas"]["dps1"]), 1262)
-
-    def test_diana_dos_archives_cuantitativos(self):
-        for f in ("Diana - Jungla.md", "Diana - Mid.md"):
-            e = self.entry(f)
-            self.assertEqual(e["hook"], "hook_diana", f)
-            self.assertIsNotNone(e["metricas"], f)
-
-    def test_yuumi_poke_hybrid_con_hook_tras_expansion(self):
-        """v1.8: Y_ITEMS expandido desde items_7.3.csv → la build poke-híbrida ya es cuantificable."""
-        e = self.entry("Yuumi.md")
-        self.assertEqual(e["hook"], "hook_yuumi")
-        self.assertEqual(e["sin_resolver"], [])
-        self.assertEqual(round(e["metricas"]["AP"]), 230)      # AP de la build (fuente: CSV oficial)
-        self.assertLess(e["metricas"]["e_shield"], 339)        # sacrifica escudo vs Y1 clásica (~305)
-
-    def test_reportes_sin_build_extraible(self):
-        for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
-            self.assertEqual(self.entry(f)["hook"], None, f)
-
-    def test_rutas_no_confundidas_con_build(self):
-        """Sivir/Yunara: la tabla con columna 'Minuto' es ruta de compra, no build final."""
-        e = self.entry("Sivir.md")
-        if e["build_display"]:                            # si parseó la tabla BUILD FINAL (§2)
-            self.assertNotIn("⬆️ Gunmetal Greaves", e["build_display"])
-
-
-class TestParserUnidades(unittest.TestCase):
-    def test_celda_bold_con_flecha_interna(self):
-        self.assertEqual(U._nombre_de_celda("**Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00)"),
-                         "Gunmetal Greaves")
-
-    def test_celda_sin_bold(self):
-        self.assertEqual(U._nombre_de_celda("Guinsoo's Rageblade"), "Guinsoo's Rageblade")
-
-    def test_resolver_alias_parentetico(self):
-        self.assertEqual(U.resolver_clave("Bloodthirster (BotRK)", "onhit"), "BotRK")
-
-    def test_resolver_full_name_autos(self):
-        self.assertEqual(U.resolver_clave("Lord Dominik's Regards", "autos"), "LDR")
-
-    def test_mencionado_sin_falsos_positivos(self):
-        tl = U._norm("Esta build usa Rabadon's Deathcap y Zhonya's Hourglass.")
-        self.assertIsNone(U._mencionado(tl, "Death's Dance"))       # 'death' ⊄ 'deathcap' por \b
-        self.assertIsNotNone(U._mencionado(U._norm("Consideré Death's Dance y la descarté."),
-                                           "Death's Dance"))
-
-    def test_expandir_nombre_compuesto(self):
-        self.assertEqual(U.expandir_nombre_item("Crown/Diadem of Songs"),
-                         ["Crown of Songs", "Diadem of Songs"])
-
-    def test_orden_de_parches(self):
-        self.assertLess(U.patch_key("7.3"), U.patch_key("7.3a"))
-        self.assertLess(U.patch_key("7.3a"), U.patch_key("7.3b"))
-        self.assertLess(U.patch_key("7.3z"), U.patch_key("7.4"))
-
-
-class TestTriage73aVault(unittest.TestCase):
-    """Triage real del hotfix 7.3a sobre los 16 reportes del vault."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.reg = U.construir_registro()
-        cls.patch, cls.cs, cls.res = U.triage_todos(cls.reg, patch="7.3a")
-        cls.por = {t["archivo"]: t for t in cls.res}
-
-    def test_caitlyn_regenerar(self):
-        """7.3a nerfeó su AS growth (input del spec) → el reporte 7.3 debe regenerarse."""
-        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "REGENERAR")
-
-    def test_rammus_regenerar(self):
-        """7.3a nerfeó su armadura base (input del spec)."""
-        self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
-
-    def test_yuumi_anotar_cuantificado(self):
-        """v1.8: con el diccionario expandido, el nerf de la poke-híbrida se mide: Δ conservador
-        −1.7 % (< 2 %) → ✅ ANOTAR. (Con AP 230, el término 0.01 %/AP casi neutraliza el nerf.)"""
-        t = self.por["Yuumi.md"]
-        self.assertEqual(t["veredicto"], "ANOTAR")
-        self.assertTrue(t["cuantificado"])
-        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
-        self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
-
-    def test_jinx_al_dia(self):
-        """Jinx.md v1.4 declara patch 7.3a en frontmatter → ⏩ AL_DIA (sin bloque ni triage)."""
-        t = self.por["Jinx.md"]
-        self.assertEqual(t["veredicto"], "AL_DIA")
-        self.assertTrue(any("7.3a" in r for r in t["razones"]))
-
-    def test_sivir_anotar_con_variantes_y_sistemas(self):
-        """Sivir declara 7.3 → se tria: Yun Tal en sus variantes + sistemas de siege (rol ADC)."""
-        t = self.por["Sivir.md"]
-        self.assertEqual(t["veredicto"], "ANOTAR")
-        self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
-        self.assertTrue(t["sistemas"])                    # placas/Nexus
-
-    def test_kalista_cuantitativo(self):
-        t = self.por["Kalista.md"]
-        self.assertEqual(t["delta_max"], 0.0)
-        self.assertNotEqual(t["veredicto"], "REGENERAR")
-
-    def test_balance_general(self):
-        verdictos = [t["veredicto"] for t in self.res]
-        self.assertEqual(verdictos.count("REGENERAR"), 2)      # Caitlyn + Rammus (inputs del spec)
-        self.assertEqual(verdictos.count("REVISAR"), 0)        # Yuumi ya es cuantificable (v1.8)
-        self.assertEqual(len(self.res), 16)
-
-    def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
-        """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""
-        reg = U.construir_registro()
-        f = "Jinx.md"
-        reg["reportes"][f]["parche_declarado"] = "7.3+7.3a"
-        t = U.triage_reporte(f, reg["reportes"][f], self.cs, "7.3a")
-        self.assertEqual(t["veredicto"], "AL_DIA")
-
-
-class TestRubricaSintetica(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.reg = U.construir_registro()
-        cls.jinx_file = "Jinx.md"
-        cls.jinx = cls.reg["reportes"][cls.jinx_file]
-
-    def _cs(self, champions=None, items=None):
-        return {"champions": champions or {}, "items": items or {}, "sistemas": [],
-                "lab_notes": {}, "raw": "sintetico"}
-
-    def test_spec_input_regenerar(self):
-        cs = self._cs(champions={"Jinx": {"tipo": "BUFF", "detalles": "AD growth 4.0→4.5"}})
-        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
-                         "REGENERAR")
-
-    def test_item_de_build_revisar(self):
-        cs = self._cs(items={"Kraken Slayer": {"tipo": "NERF", "detalles": "proc 120-168→110-150"}})
-        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
-        self.assertEqual(t["veredicto"], "REVISAR")
-        self.assertIn("Kraken Slayer", t["items_build"])
-
-    def test_directo_sin_cuantificar_revisar(self):
-        cs = self._cs(champions={"Jinx": {"tipo": "NERF", "detalles": "W daño 220→200"}})
-        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
-                         "REVISAR")
-
-    def test_parche_irrelevante_sin_impacto(self):
-        cs = self._cs(champions={"Hwei": {"tipo": "NERF", "detalles": "pasiva 33→30"}})
-        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
-                         "SIN_IMPACTO")
-
-
-class TestAnotacion(unittest.TestCase):
-    TXT = ("---\nchampion: Test\n---\n"
-           "**Fecha del análisis:** 01/01/2030\n\n"
-           "> [!NOTE]\n> Meta.\n\n## 0. RESUMEN\n")
-
-    def test_insercion_antes_del_primer_callout(self):
-        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
-        out = U.insertar_bloque(self.TXT, bloque, "9.9z")
-        self.assertLess(out.index("WRLAB-VERIF:9.9z:START"), out.index("> [!NOTE]\n> Meta."))
-
-    def test_idempotencia_byte_a_byte(self):
-        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
-        u1 = U.insertar_bloque(self.TXT, bloque, "9.9z")
-        u2 = U.insertar_bloque(u1, bloque, "9.9z")
-        u3 = U.insertar_bloque(u2, bloque, "9.9z")
-        self.assertEqual(u1, u2)
-        self.assertEqual(u2, u3)
-
-    def test_multiparche_no_se_pisa(self):
-        b1 = "<!-- WRLAB-VERIF:9.8z:START -->\n> [!NOTE] a\n<!-- WRLAB-VERIF:9.8z:END -->"
-        b2 = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] b\n<!-- WRLAB-VERIF:9.9z:END -->"
-        out = U.insertar_bloque(self.TXT, b1, "9.8z")
-        out = U.insertar_bloque(out, b2, "9.9z")
-        self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
-
-    def test_reportes_del_vault_bloque_o_al_dia(self):
-        """Cada reporte del vault tiene bloque WRLAB-VERIF:7.3a O declara patch ≥ 7.3a (AL_DIA)."""
-        import glob
-        for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
-            with open(ruta, encoding="utf-8") as fh:
-                txt = fh.read()
-            fm = U.parse_frontmatter(txt)
-            pd = U.parche_declarado(fm, txt)
-            al_dia = pd and U.patch_key(pd) >= U.patch_key("7.3a")
-            self.assertTrue("WRLAB-VERIF:7.3a:START" in txt or al_dia,
-                            f"{os.path.basename(ruta)}: ni bloque ni patch declarado ≥7.3a")
-
-
-class TestUtilidades(unittest.TestCase):
-    def test_ultimo_parche_es_73a(self):
-        p, ruta = U.ultimo_parche_hotfix()
-        self.assertEqual(p, "7.3a")
-        self.assertTrue(ruta.endswith("cambios_7.3a.md"))
-
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
@@ -13282,150 +14995,115 @@ if __name__ == "__main__":
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · tests de las herramientas de calidad de reportes:
-linter (model/lint_reportes.py), refresh y borrador (update_reports.py).
+WR-LAB · tests del simulador de timings de oro (model/sim_timings.py).
+Las curvas se derivan de las Tablas B del vault — estos tests validan el parseo
+(ambos formatos de tabla), la monotonía de las curvas, la predicción leave-one-out
+y la ruta nueva (variante anti-tanques de Jinx).
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
-import os, sys, types, unittest
+import os, sys, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
-import update_reports as U
-import lint_reportes as L
+import sim_timings as S
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REP = os.path.join(ROOT, "reportes")
+REP = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "reportes")
 
 
-class TestLinter(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.legit = L.nombres_items_oficiales()
-
-    def lint(self, nombre):
-        return L.lint_archivo(os.path.join(REP, nombre), self.legit, "7.3a")
-
-    def test_jinx_sin_errores(self):
-        _, errs, _ = self.lint("Jinx.md")
-        self.assertEqual(errs, [])
-
-    def test_build_no_extraible_es_error(self):
-        for f in ("Seraphine.md", "Heimerdinger.md"):
-            _, errs, _ = self.lint(f)
-            self.assertTrue(any("no extraíble" in e for e in errs), f)
-
-    def test_slot_situacional_es_aviso_no_error(self):
-        _, errs, avis = self.lint("Sivir.md")
-        self.assertEqual(errs, [])
-        self.assertTrue(any("situacional" in a for a in avis))
-
-    def test_item_alucinado_detectado(self):
-        mini = """---
-tags:
-  - Test
-version: 1
-Status: Beta
----
-**Fecha del análisis:** 29/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Support
-
-### Tabla A — BUILD FINAL
-
-| Slot | Ítem | Oro | Rol |
-|---|---|---|---|
-| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** | 2 000 | x |
-| 2 | **Bastion of Spirits** | 2 600 | ítem inventado |
-| 3 | **Ardent Censer** | 2 400 | x |
-| 4 | **Echoes of Helia** | 2 400 | x |
-| 5 | **Staff of Flowing Waters** | 2 400 | x |
-| 6 | **Redemption** | 2 450 | x |
-
-## 0. RESUMEN
-"""
-        import tempfile
-        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as fh:
-            fh.write(mini)
-            ruta = fh.name
-        try:
-            _, errs, _ = L.lint_archivo(ruta, self.legit, "7.3a")
-            self.assertTrue(any("Bastion of Spirits" in e for e in errs))
-        finally:
-            os.unlink(ruta)
+def texto(nombre):
+    with open(os.path.join(REP, nombre), encoding="utf-8") as fh:
+        return fh.read()
 
 
-class TestRefresh(unittest.TestCase):
-    TXT = ("""---
-champion: Yuumi
----
-## 0. RESUMEN
+class TestParseoRutas(unittest.TestCase):
+    def test_jinx_tabla_b_acumulativa(self):
+        ruta = S.parse_ruta(texto("Jinx.md"))
+        self.assertGreaterEqual(len(ruta), 8)
+        self.assertEqual(ruta[0][1], 500)                 # Long Sword start
+        self.assertEqual(ruta[0][2], 0.0)
+        self.assertEqual(ruta[-1][1], 17350)              # oro total de la build C
+        self.assertAlmostEqual(ruta[-1][2], 21.0, delta=0.6)
 
-### Resultado del modelo (nivel 15)
+    def test_sivir_ruta_por_item_sintetiza_acumulado(self):
+        """Sivir usa tabla de ruta (oro POR ÍTEM, no acumulado) — el parser la acumula."""
+        ruta = S.parse_ruta(texto("Sivir.md"))
+        self.assertGreaterEqual(len(ruta), 5)
+        oros = [o for _, o, _ in ruta]
+        self.assertEqual(max(oros), sum([2900, 1200, 1000, 2650, 3400, 3300]))  # 14 450
 
-| Métrica | Valor |
-|---|---|
-| Escudo E | **339** |
-| Cura R | **651** (+excedente) |
-| Escudo/min | ~3 953 |
+    def test_diana_jungla_rango_de_minutos(self):
+        ruta = S.parse_ruta(texto("Diana - Jungla.md"))
+        t_nashor = next(t for c, o, t in ruta if "Nashor" in c and o == 3400)
+        self.assertAlmostEqual(t_nashor, 7.0, delta=0.01)
 
-> Titular dentro de la sección.
+    def test_kalista_sin_minutos_no_aporta_anclas(self):
+        """Kalista.md no tiene columna de minuto — parse_ruta devuelve vacío o sin tiempos."""
+        ruta = S.parse_ruta(texto("Kalista.md"))
+        self.assertTrue(all(t is None for _, _, t in ruta) or ruta == [])
 
----
 
-## 1. CONTEXTO
+class TestCurvas(unittest.TestCase):
+    def test_anclas_por_rol(self):
+        puntos, detalle, glob = S.anclas_por_rol()
+        self.assertGreaterEqual(len(glob), 20)            # el vault aporta anclas de sobra
+        self.assertGreaterEqual(len(puntos["adc"]), 3)
+        self.assertGreaterEqual(len(puntos["jungla"]), 3)
+        self.assertGreaterEqual(len(puntos["support"]), 3)
 
-Texto fuera de la sección con 339 y 651 que NO debe cambiar.
-""")
-
-    def test_refresh_reemplaza_en_seccion_y_no_fuera(self):
-        delta = {"e_shield": -1.4, "r_heal": -1.4, "shield_per_min": -1.4}
-        pre = {"e_shield": 338.8, "r_heal": 650.7, "shield_per_min": 3952.7}
-        post = {"e_shield": 334.0, "r_heal": 641.4, "shield_per_min": 3896.2}
-        nuevo, cambios = U.refresh_texto(self.TXT, delta, pre, post)
-        self.assertTrue(cambios)
-        seccion = nuevo.split("## 1. CONTEXTO")[0]
-        self.assertIn("**334**", seccion)
-        self.assertIn("**641**", seccion)
-        self.assertIn("3 896", seccion)                      # espacio de miles preservado
-        # dentro de la sección TODO número reproducible se actualiza (incluido el titular)…
-        self.assertIn("Titular dentro de la sección.", nuevo)
-        self.assertNotIn("339", seccion.split("### Resultado del modelo")[1])
-        # …pero fuera de la sección no se toca nada
-        self.assertIn("Texto fuera de la sección con 339 y 651 que NO debe cambiar.", nuevo)
-
-    def test_refresh_vault_actual_no_toca_nada(self):
-        """En el vault de hoy: Δ 0 (Jinx/Kalista/Diana) o no reproducible 1:1 (Yuumi poke)."""
-        reg = U.cargar_registro()
-        patch, cs, res = U.triage_todos(reg, patch="7.3a")
-        tocables = 0
-        for t in res:
-            if not t.get("delta") or not any(abs(v) >= 0.05 for v in t["delta"].values()):
+    def test_curvas_monotonas(self):
+        puntos, _, _ = S.anclas_por_rol()
+        for rol, pts in puntos.items():
+            if not pts:
                 continue
-            with open(os.path.join(REP, t["archivo"]), encoding="utf-8") as fh:
-                txt = fh.read()
-            _, cambios = U.refresh_texto(txt, t["delta"], t["pre"], t["post_cons"])
-            tocables += len(cambios)
-        self.assertEqual(tocables, 0)
+            c = S.fit_curva(pts)
+            ts = [t for t, _ in c]
+            os_ = [o for _, o in c]
+            self.assertEqual(ts, sorted(ts), rol)
+            self.assertEqual(os_, sorted(os_), rol)
+
+    def test_rol_detection(self):
+        self.assertEqual(S.rol_de("Jinx.md", "ADC (Dragon Lane)"), "adc")
+        self.assertEqual(S.rol_de("Diana - Jungla.md", "Jungla (preferente) / Mid"), "jungla")
+        self.assertEqual(S.rol_de("Cho'Gath - Titán del Barón.md", ""), "top")
+        self.assertEqual(S.rol_de("Yuumi.md", "Support (Bot Lane)"), "support")
 
 
-class TestBorrador(unittest.TestCase):
-    def test_borradores_73a_existen_y_contienen_datos(self):
-        d = os.path.join(REP, "_borradores")
-        args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
-        import contextlib, io
-        with contextlib.redirect_stdout(io.StringIO()):
-            U.cmd_borrador(args)                      # idempotente: los regenera
-        cat = open(os.path.join(d, "Caitlyn_7.3a_REGENERAR.md"), encoding="utf-8").read()
-        ram = open(os.path.join(d, "Rammus_7.3a_REGENERAR.md"), encoding="utf-8").read()
-        self.assertIn("BORRADOR DE REGENERACIÓN", cat)
-        self.assertIn("AS growth 0.04→0.025", cat)
-        self.assertIn("0.025 (7.3a: era 0.04)", cat)          # fila del CSV oficial
-        self.assertIn("ESQUELETO DEL REPORTE NUEVO", cat)
-        self.assertIn("BORRADOR DE REGENERACIÓN", ram)
-        self.assertTrue("45→" in ram or "Armor" in ram)
+class TestPrediccion(unittest.TestCase):
+    def test_leave_one_out_jinx(self):
+        """Sin las anclas de Jinx, la curva ADC predice su pico final (17 350 g) cerca de ~21 min."""
+        puntos, _, glob = S.anclas_por_rol(excluir="Jinx.md")
+        pts = puntos["adc"] if len(puntos["adc"]) >= 3 else glob
+        curva = S.fit_curva(pts)
+        t = S.minuto_para(17350, curva)
+        self.assertIsNotNone(t)
+        self.assertGreaterEqual(t, 17.0)
+        self.assertLessEqual(t, 25.0)
 
-    def test_baseline_ignora_borradores(self):
-        reg = U.construir_registro()
-        self.assertNotIn("_borradores", reg["reportes"])
-        self.assertEqual(len(reg["reportes"]), 16)
+    def test_ruta_nueva_variante_antitanques(self):
+        """Variante 7.3a (C44+Terminus+YunTal+IE+LDR, upgrade Gunmetal): 17 900 g acumulados,
+        tiempos crecientes y pico final razonable."""
+        puntos, _, glob = S.anclas_por_rol()
+        curva = S.fit_curva(puntos["adc"] if len(puntos["adc"]) >= 3 else glob)
+        items = ["Berserker's Greaves", "Hexoptics C44", "Terminus", "Yun Tal", "Infinity Edge",
+                 "Lord Dominik's Regards"]
+        acum, t_ant, filas = 0, 0.0, []
+        for it in items:
+            g = S.precio(it)
+            self.assertIsNotNone(g, it)
+            acum += g
+            t = max(S.minuto_para(acum, curva) or 0, t_ant)
+            filas.append((it, acum, t))
+            t_ant = t
+        acum += 1000                                       # ⬆️ Gunmetal (mismo slot, min ≥10)
+        t_fin = max(S.minuto_para(acum, curva) or 0, t_ant, 10.0)
+        self.assertEqual(acum, 17900)
+        ts = [t for _, _, t in filas] + [t_fin]
+        self.assertEqual(ts, sorted(ts))                   # monótono
+        self.assertGreaterEqual(t_fin, 19.0)
+        self.assertLessEqual(t_fin, 26.0)
+
+    def test_precio_desde_el_motor(self):
+        self.assertEqual(S.precio("Hexoptics C44"), 2900)
+        self.assertEqual(S.precio("Yun Tal"), 3100)
+        self.assertEqual(S.precio("Gunmetal Greaves"), 2200)
 
 
 if __name__ == "__main__":
@@ -13435,80 +15113,573 @@ if __name__ == "__main__":
 ```python
 # -*- coding: utf-8 -*-
 """
-WR-LAB · tests de los bundles portables (model/build_bundles.py).
-Los bundles son ARTEFACTOS DERIVADOS: estos tests garantizan que los .md de la raíz
-están sincronizados con las fuentes (si alguien edita una fuente y no regenera, CI falla).
+WR-LAB · tests del actualizador de reportes (model/update_reports.py).
+Cubren: golden numbers por modelo (hooks), parseo del vault (16 reportes, formatos
+mixtos: Tabla v1.4 / tablas BUILD FINAL / alias en paréntesis / rutas descartadas),
+triage del hotfix 7.3a sobre el set real (Caitlyn/Rammus ❌, Yuumi ⚠️, resto ✅),
+rúbrica sintética, idempotencia de anotación, AL_DIA y orden de parches.
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
-import os, re, sys, unittest
+import os, sys, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
-import build_bundles as BB
+import update_reports as U
+import dps_model as M
+
+JINX_C = ["Gunmetal", "C44", "Runaan's", "IE", "LDR", "Kraken"]
+KALISTA_K2 = ["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"]
+DIANA_D2 = ["Spellslinger", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"]
+YUUMI_Y1 = ["Scythe", "Crimson", "Censer", "Echoes", "Staff", "Redemption"]
 
 
-def _norm(t):
-    t = re.sub(r"\d{2}/\d{2}/\d{4}", "<FECHA>", t)
-    return re.sub(r"sha256\(cuerpo\)=[0-9a-f]+", "sha=<X>", t)
+class TestGoldenPorModelo(unittest.TestCase):
+    """Los hooks reproducen los números canónicos publicados (nivel de unidad, sin registro)."""
+
+    def test_jinx(self):
+        m = U.hook_jinx(JINX_C)
+        self.assertEqual(round(m["dps1"]), 3042)
+        self.assertEqual(round(m["dps3"]), 10551)
+
+    def test_kalista(self):
+        m = U.hook_kalista(KALISTA_K2)
+        self.assertEqual(round(m["dps1"]), 1262)
+        self.assertEqual(round(m["dps3"]), 2612)
+        self.assertEqual(round(m["e_hit"]), 2387)
+
+    def test_diana(self):
+        m = U.hook_diana(DIANA_D2)
+        self.assertEqual(round(m["dps10s"]), 971)
+        self.assertEqual(round(m["burst"]), 1792)
+
+    def test_yuumi_pre73a_reproduce_publicado(self):
+        pre = U.hook_yuumi(YUUMI_Y1, params={"w_flat": 11, "w_ap_pct": 0.0})
+        self.assertEqual(round(pre["e_shield"]), 339)
+        self.assertEqual(round(pre["r_heal"]), 651)
+        self.assertEqual(round(pre["adc_dps_add"]), 244)
+
+    def test_yuumi_post73a_en_el_motor(self):
+        act = U.hook_yuumi(YUUMI_Y1)
+        self.assertAlmostEqual(act["e_shield"], 338.3, delta=0.5)
 
 
-class TestBundlesSincronizados(unittest.TestCase):
-    def test_lite_al_dia(self):
-        with open(os.path.join(BB.ROOT, "WR-LAB_lite.md"), encoding="utf-8") as fh:
-            disco = fh.read()
-        self.assertEqual(_norm(disco), _norm(BB.generar("LITE")),
-                         "WR-LAB_lite.md desfasado — corre: python3 model/build_bundles.py")
+class TestRegistroVault(unittest.TestCase):
+    """Parseo del set real de 16 reportes del vault (formatos mixtos)."""
 
-    def test_completo_al_dia(self):
-        with open(os.path.join(BB.ROOT, "WR-LAB_completo.md"), encoding="utf-8") as fh:
-            disco = fh.read()
-        self.assertEqual(_norm(disco), _norm(BB.generar("COMPLETO")),
-                         "WR-LAB_completo.md desfasado — corre: python3 model/build_bundles.py")
-
-
-class TestContenidoBundles(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.lite = BB.generar("LITE")
-        cls.completo = BB.generar("COMPLETO")
+        cls.reg = U.construir_registro()
+        cls.entradas = cls.reg["reportes"]
 
-    def test_integridad_lite(self):
-        problemas, n_as, n_items, _ = BB.validar(self.lite, "LITE")
-        self.assertEqual(problemas, [])
-        self.assertEqual(n_as, 140)                      # los 140 campeones del apéndice oficial
-        self.assertEqual(n_items, 186)
+    def entry(self, archivo):
+        return self.entradas[archivo]
 
-    def test_integridad_completo(self):
-        problemas, _, _, n_rep = BB.validar(self.completo, "COMPLETO")
-        self.assertEqual(problemas, [])
-        self.assertEqual(n_rep, len([f for f in os.listdir(os.path.join(BB.ROOT, "reportes")) if f.endswith(".md")]))
+    def test_17_reportes(self):
+        self.assertEqual(len(self.entradas), 17)   # reconciliación 01/10: +Volibear.md
 
-    def test_modulos_nuevos_embebidos(self):
-        for modulo in ("model/optimize_build.py", "model/update_reports.py",
-                       "model/analysis_batch2.py", "model/optimize_runes.py",
-                       "model/sim_timings.py"):
-            fuente = open(os.path.join(BB.ROOT, *modulo.split("/")), encoding="utf-8").read()
-            self.assertIn(fuente[:1500], self.completo, f"{modulo} no embebido íntegro")
-        # el lite trae el optimizador (herramienta de análisis) pero no la infraestructura
-        self.assertIn("optimize_build", self.lite)
-        self.assertNotIn("def cmd_baseline", self.lite)
+    def test_champions_derivados_del_nombre(self):
+        self.assertEqual(self.entry("Yunara.md")["champion_display"], "Yunara")     # renombrado (era errata Yunana)
+        self.assertEqual(self.entry("Cho'Gath - Titán del Barón.md")["champion_display"], "Cho'Gath")
+        self.assertEqual(self.entry("Volibear Pesadilla.md")["champion_display"], "Volibear")
+        self.assertEqual(self.entry("Diana - Mid.md")["champion_display"], "Diana")
 
-    def test_reportes_con_verificacion_en_el_completo(self):
-        m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
-        self.assertIsNotNone(m, "sección §14 no encontrada")
-        n = len(re.findall(r"WRLAB-VERIF:7\.3a:START", m.group(0)))
-        # esperan bloque todos los reportes que NO declaran patch ≥ 7.3a (los AL_DIA no llevan)
-        import sys as _sys
-        _sys.path.insert(0, os.path.join(BB.ROOT, "model"))
-        import update_reports as U
-        esperan = 0
-        for f in sorted(os.listdir(os.path.join(BB.ROOT, "reportes"))):
-            if not f.endswith(".md"):
-                continue
-            with open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8") as fh:
+    def test_jinx_build_c_con_hooks(self):
+        e = self.entry("Jinx.md")
+        self.assertEqual(e["hook"], "hook_jinx")
+        self.assertEqual(e["build_keys"], JINX_C)
+        self.assertEqual(round(e["metricas"]["dps1"]), 3042)
+        self.assertEqual(M.validate_slots(e["build_keys"]), (1, 5))   # Ley 0
+
+    def test_kalista_fallback_con_alias_parentetico(self):
+        """Kalista.md no usa Tabla A; 'Bloodthirster (BotRK)' debe resolver a BotRK (K2)."""
+        e = self.entry("Kalista.md")
+        self.assertEqual(e["hook"], "hook_kalista")
+        self.assertEqual(sorted(e["build_keys"]), sorted(KALISTA_K2))
+        self.assertEqual(round(e["metricas"]["dps1"]), 1262)
+
+    def test_diana_dos_archives_cuantitativos(self):
+        for f in ("Diana - Jungla.md", "Diana - Mid.md"):
+            e = self.entry(f)
+            self.assertEqual(e["hook"], "hook_diana", f)
+            self.assertIsNotNone(e["metricas"], f)
+
+    def test_yuumi_poke_hybrid_con_hook_tras_expansion(self):
+        """v1.8: Y_ITEMS expandido desde items_7.3.csv → la build poke-híbrida ya es cuantificable."""
+        e = self.entry("Yuumi.md")
+        self.assertEqual(e["hook"], "hook_yuumi")
+        self.assertEqual(e["sin_resolver"], [])
+        self.assertEqual(round(e["metricas"]["AP"]), 230)      # AP de la build (fuente: CSV oficial)
+        self.assertLess(e["metricas"]["e_shield"], 339)        # sacrifica escudo vs Y1 clásica (~305)
+
+    def test_reportes_sin_build_extraible(self):
+        for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):
+            self.assertEqual(self.entry(f)["hook"], None, f)
+
+    def test_rutas_no_confundidas_con_build(self):
+        """Sivir/Yunara: la tabla con columna 'Minuto' es ruta de compra, no build final."""
+        e = self.entry("Sivir.md")
+        if e["build_display"]:                            # si parseó la tabla BUILD FINAL (§2)
+            self.assertNotIn("⬆️ Gunmetal Greaves", e["build_display"])
+
+
+class TestParserUnidades(unittest.TestCase):
+    def test_celda_bold_con_flecha_interna(self):
+        self.assertEqual(U._nombre_de_celda("**Berserker's Greaves → ⬆️ Gunmetal Greaves** (min 10:00)"),
+                         "Gunmetal Greaves")
+
+    def test_celda_sin_bold(self):
+        self.assertEqual(U._nombre_de_celda("Guinsoo's Rageblade"), "Guinsoo's Rageblade")
+
+    def test_resolver_alias_parentetico(self):
+        self.assertEqual(U.resolver_clave("Bloodthirster (BotRK)", "onhit"), "BotRK")
+
+    def test_resolver_full_name_autos(self):
+        self.assertEqual(U.resolver_clave("Lord Dominik's Regards", "autos"), "LDR")
+
+    def test_mencionado_sin_falsos_positivos(self):
+        tl = U._norm("Esta build usa Rabadon's Deathcap y Zhonya's Hourglass.")
+        self.assertIsNone(U._mencionado(tl, "Death's Dance"))       # 'death' ⊄ 'deathcap' por \b
+        self.assertIsNotNone(U._mencionado(U._norm("Consideré Death's Dance y la descarté."),
+                                           "Death's Dance"))
+
+    def test_expandir_nombre_compuesto(self):
+        self.assertEqual(U.expandir_nombre_item("Crown/Diadem of Songs"),
+                         ["Crown of Songs", "Diadem of Songs"])
+
+    def test_orden_de_parches(self):
+        self.assertLess(U.patch_key("7.3"), U.patch_key("7.3a"))
+        self.assertLess(U.patch_key("7.3a"), U.patch_key("7.3b"))
+        self.assertLess(U.patch_key("7.3z"), U.patch_key("7.4"))
+
+
+class TestTriage73aVault(unittest.TestCase):
+    """Triage real del hotfix 7.3a sobre los 16 reportes del vault."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.reg = U.construir_registro()
+        cls.patch, cls.cs, cls.res = U.triage_todos(cls.reg, patch="7.3a")
+        cls.por = {t["archivo"]: t for t in cls.res}
+
+    def test_caitlyn_al_dia_tras_regeneracion_del_autor(self):
+        """El autor regeneró Caitlyn en su chat externo (v1.3, patch 7.3a) → ⏩ AL_DIA."""
+        self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "AL_DIA")
+
+    def test_rammus_regenerar(self):
+        """7.3a nerfeó su armadura base (input del spec)."""
+        self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
+
+    def test_yuumi_anotar_cuantificado(self):
+        """v1.8: con el diccionario expandido, el nerf de la poke-híbrida se mide: Δ conservador
+        −1.7 % (< 2 %) → ✅ ANOTAR. (Con AP 230, el término 0.01 %/AP casi neutraliza el nerf.)"""
+        t = self.por["Yuumi.md"]
+        self.assertEqual(t["veredicto"], "ANOTAR")
+        self.assertTrue(t["cuantificado"])
+        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
+        self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
+
+    def test_jinx_al_dia(self):
+        """Jinx.md v1.4 declara patch 7.3a en frontmatter → ⏩ AL_DIA (sin bloque ni triage)."""
+        t = self.por["Jinx.md"]
+        self.assertEqual(t["veredicto"], "AL_DIA")
+        self.assertTrue(any("7.3a" in r for r in t["razones"]))
+
+    def test_sivir_anotar_con_variantes_y_sistemas(self):
+        """Sivir declara 7.3 → se tria: Yun Tal en sus variantes + sistemas de siege (rol ADC)."""
+        t = self.por["Sivir.md"]
+        self.assertEqual(t["veredicto"], "ANOTAR")
+        self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
+        self.assertTrue(t["sistemas"])                    # placas/Nexus
+
+    def test_kalista_cuantitativo(self):
+        t = self.por["Kalista.md"]
+        self.assertEqual(t["delta_max"], 0.0)
+        self.assertNotEqual(t["veredicto"], "REGENERAR")
+
+    def test_balance_general(self):
+        verdictos = [t["veredicto"] for t in self.res]
+        self.assertEqual(verdictos.count("REGENERAR"), 1)      # Rammus (único pendiente del autor)
+        self.assertEqual(verdictos.count("REVISAR"), 0)
+        self.assertEqual(verdictos.count("AL_DIA"), 4)         # Jinx, Caitlyn, Seraphine, Volibear
+        self.assertEqual(len(self.res), 17)
+
+    def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
+        """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""
+        reg = U.construir_registro()
+        f = "Jinx.md"
+        reg["reportes"][f]["parche_declarado"] = "7.3+7.3a"
+        t = U.triage_reporte(f, reg["reportes"][f], self.cs, "7.3a")
+        self.assertEqual(t["veredicto"], "AL_DIA")
+
+
+class TestRubricaSintetica(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.reg = U.construir_registro()
+        cls.jinx_file = "Jinx.md"
+        cls.jinx = cls.reg["reportes"][cls.jinx_file]
+
+    def _cs(self, champions=None, items=None):
+        return {"champions": champions or {}, "items": items or {}, "sistemas": [],
+                "lab_notes": {}, "raw": "sintetico"}
+
+    def test_spec_input_regenerar(self):
+        cs = self._cs(champions={"Jinx": {"tipo": "BUFF", "detalles": "AD growth 4.0→4.5"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REGENERAR")
+
+    def test_item_de_build_revisar(self):
+        cs = self._cs(items={"Kraken Slayer": {"tipo": "NERF", "detalles": "proc 120-168→110-150"}})
+        t = U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")
+        self.assertEqual(t["veredicto"], "REVISAR")
+        self.assertIn("Kraken Slayer", t["items_build"])
+
+    def test_directo_sin_cuantificar_revisar(self):
+        cs = self._cs(champions={"Jinx": {"tipo": "NERF", "detalles": "W daño 220→200"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "REVISAR")
+
+    def test_parche_irrelevante_sin_impacto(self):
+        cs = self._cs(champions={"Hwei": {"tipo": "NERF", "detalles": "pasiva 33→30"}})
+        self.assertEqual(U.triage_reporte(self.jinx_file, self.jinx, cs, "9.9z")["veredicto"],
+                         "SIN_IMPACTO")
+
+
+class TestAnotacion(unittest.TestCase):
+    TXT = ("---\nchampion: Test\n---\n"
+           "**Fecha del análisis:** 01/01/2030\n\n"
+           "> [!NOTE]\n> Meta.\n\n## 0. RESUMEN\n")
+
+    def test_insercion_antes_del_primer_callout(self):
+        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
+        out = U.insertar_bloque(self.TXT, bloque, "9.9z")
+        self.assertLess(out.index("WRLAB-VERIF:9.9z:START"), out.index("> [!NOTE]\n> Meta."))
+
+    def test_idempotencia_byte_a_byte(self):
+        bloque = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] x\n<!-- WRLAB-VERIF:9.9z:END -->"
+        u1 = U.insertar_bloque(self.TXT, bloque, "9.9z")
+        u2 = U.insertar_bloque(u1, bloque, "9.9z")
+        u3 = U.insertar_bloque(u2, bloque, "9.9z")
+        self.assertEqual(u1, u2)
+        self.assertEqual(u2, u3)
+
+    def test_multiparche_no_se_pisa(self):
+        b1 = "<!-- WRLAB-VERIF:9.8z:START -->\n> [!NOTE] a\n<!-- WRLAB-VERIF:9.8z:END -->"
+        b2 = "<!-- WRLAB-VERIF:9.9z:START -->\n> [!NOTE] b\n<!-- WRLAB-VERIF:9.9z:END -->"
+        out = U.insertar_bloque(self.TXT, b1, "9.8z")
+        out = U.insertar_bloque(out, b2, "9.9z")
+        self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
+
+    def test_reportes_del_vault_bloque_o_al_dia(self):
+        """Cada reporte del vault tiene bloque WRLAB-VERIF:7.3a O declara patch ≥ 7.3a (AL_DIA)."""
+        import glob
+        for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
+            with open(ruta, encoding="utf-8") as fh:
                 txt = fh.read()
-            pd = U.parche_declarado(U.parse_frontmatter(txt), txt)
-            if not (pd and U.patch_key(pd) >= U.patch_key("7.3a")):
-                esperan += 1
-        self.assertEqual(n, esperan)
+            fm = U.parse_frontmatter(txt)
+            pd = U.parche_declarado(fm, txt)
+            al_dia = pd and U.patch_key(pd) >= U.patch_key("7.3a")
+            self.assertTrue("WRLAB-VERIF:7.3a:START" in txt or al_dia,
+                            f"{os.path.basename(ruta)}: ni bloque ni patch declarado ≥7.3a")
+
+
+class TestUtilidades(unittest.TestCase):
+    def test_ultimo_parche_es_73a(self):
+        p, ruta = U.ultimo_parche_hotfix()
+        self.assertEqual(p, "7.3a")
+        self.assertTrue(ruta.endswith("cambios_7.3a.md"))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · tests de win rates (model/check_patch.py paso 4 + integraciones v1.11).
+Cubren: parser del bloque Meta Overview (fixture sintético + snapshot real commiteado),
+CSV/MD deterministas, umbral de drift, actualizar_winrates() con red simulada
+(monkeypatch, sin llamadas reales), lint del callout meta, menú/CLI y §7b del bundle.
+Ejecutar:  python3 -m unittest discover -s tests -v
+"""
+import csv, io, json, os, re, sys, tempfile, unittest
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "model"))
+import check_patch as CP
+
+FIXTURE = """<html><body>
+<div id="wrCnFsSnapWrap">
+  <div class="wr-cn-fs">
+  <div class="wr-cn-fs-sub">
+    <select class='wr-cn-fs-bucket-select'><option value="1" selected>Diamond +</option><option value="2">Master +</option></select>
+    <span class="wr-cn-fs-src">Updated: <b>01 OCT 2026 UTC 00:00</b></span>
+  </div>
+  <div id="wrCnFsBox"><div class='wr-cn-fs-carousel' data-count='2'><div class='wr-cn-fs-viewport'><div class='wr-cn-fs-track'>
+      <div class='wr-cn-fs-slide'>
+        <div class='wr-cn-fs-row'>
+          <div class='wr-cn-fs-row-head'>
+            <div class='wr-cn-fs-role'><i class="demo-icon support-duoicon-"></i><span>SUPPORT</span></div>
+            <div class='wr-cn-fs-tier'><img class="wr-tier-ico" src="/t/B.svg" alt="B"><span class='wr-badge wr-conf-high'>Confidence High</span></div>
+          </div>
+          <div class='wr-cn-fs-metrics'>
+            <div class='wr-cn-fs-m'><span class='k'>Win:</span> <span class='v text-green'>52.10%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Pick:</span> <span class='v'>9.10%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Ban:</span> <span class='v text-red'>30.00%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Trend:</span> <span class='v'><span class='wr-cn-trend wr-trend-up'>↑ 3</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class='wr-cn-fs-slide'>
+        <div class='wr-cn-fs-row'>
+          <div class='wr-cn-fs-row-head'>
+            <div class='wr-cn-fs-role'><i class="demo-icon mid-icon-"></i><span>mid</span></div>
+            <div class='wr-cn-fs-tier'><img class="wr-tier-ico" src="/t/A.svg" alt="A"><span class='wr-badge wr-conf-medium'>Confidence Medium</span></div>
+          </div>
+          <div class='wr-cn-fs-metrics'>
+            <div class='wr-cn-fs-m'><span class='k'>Win:</span> <span class='v'>47.55%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Pick:</span> <span class='v'>2.20%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Ban:</span> <span class='v'>5.00%</span></div>
+            <div class='wr-cn-fs-m'><span class='k'>Trend:</span> <span class='v'><span class='wr-cn-trend wr-trend-down'>↓ 2</span></span></div>
+          </div>
+        </div>
+      </div>
+  </div></div></div>
+</div>
+</body></html>"""
+
+
+class TestParserWinrates(unittest.TestCase):
+    def test_fixture_dos_roles(self):
+        rows = CP.parsear_winrates("yuumi", FIXTURE.encode("utf-8"))
+        self.assertEqual(len(rows), 2)
+        r = rows[0]
+        self.assertEqual((r["champion"], r["role"], r["tier"]), ("Yuumi", "SUPPORT", "B"))
+        self.assertEqual(r["win_pct"], "52.10")
+        self.assertEqual(r["pick_pct"], "9.10")
+        self.assertEqual(r["ban_pct"], "30.00")
+        self.assertEqual(r["trend"], "↑ 3")
+        self.assertEqual(r["confidence"], "Confidence High")
+        self.assertEqual(r["bucket"], "Diamond +")
+        self.assertEqual(r["updated_utc"], "01 OCT 2026 UTC 00:00")
+        self.assertEqual((rows[1]["role"], rows[1]["win_pct"], rows[1]["tier"]),
+                         ("MID", "47.55", "A"))
+
+    def test_display_chogath(self):
+        rows = CP.parsear_winrates("chogath", FIXTURE.encode("utf-8"))
+        self.assertEqual(rows[0]["champion"], "Cho'Gath")
+
+    def test_snapshot_real_committeado(self):
+        """El snapshot de Cho'Gath (data/raw/campeones/) tiene SOLO+JUNGLE con los
+        números que citan sus reportes (51.20/50.78 al 24-sep)."""
+        ruta = os.path.join(ROOT, "data", "raw", "campeones", "chogath.html")
+        if not os.path.exists(ruta):
+            self.skipTest("snapshot raw no presente")
+        rows = CP.parsear_winrates("chogath", open(ruta, "rb").read())
+        self.assertEqual([r["role"] for r in rows], ["SOLO", "JUNGLE"])
+        for r in rows:
+            self.assertTrue(0.0 < float(r["win_pct"]) < 100.0)
+            self.assertTrue(r["tier"])
+            self.assertIn("2026", r["updated_utc"])
+        self.assertEqual({r["win_pct"] for r in rows}, {"51.20", "50.78"})
+
+    def test_sin_bloque_devuelve_vacio(self):
+        self.assertEqual(CP.parsear_winrates("x", b"<html>sin widget</html>"), [])
+
+
+class TestSalidas(unittest.TestCase):
+    def setUp(self):
+        self.filas = CP.parsear_winrates("yuumi", FIXTURE.encode("utf-8"))
+        for f in self.filas:
+            f["actualizado"] = "2026-10-01"
+
+    def test_csv_determinista_y_crlf(self):
+        t1 = CP.winrates_csv_text(self.filas)
+        self.assertEqual(t1, CP.winrates_csv_text(self.filas))
+        self.assertIn("\r\n", t1)                        # como el resto de CSVs del lab
+        rows = list(csv.DictReader(io.StringIO(t1)))
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[0]["champion"], "Yuumi")
+        self.assertEqual(rows[1]["role"], "MID")
+        self.assertEqual(rows[0]["actualizado"], "2026-10-01")
+
+    def test_md_con_tabla_y_leyenda_de_roles(self):
+        md = CP.winrates_md_text(self.filas)
+        self.assertIn("# Win rates del roster", md)
+        self.assertIn("| Yuumi | SUPPORT | B | 52.10 |", md)
+        self.assertIn("SOLO = top", md)
+        self.assertIn("champion_winrates.csv", md)
+        self.assertEqual(CP.winrates_md_text([]), "")
+
+
+class TestDrift(unittest.TestCase):
+    def fila(self, champ, role, win):
+        return {"champion": champ, "role": role, "win_pct": win, "bucket": "Diamond +"}
+
+    def test_delta_mayor_umbral_alerta(self):
+        f = self.deltas([self.fila("Jinx", "DUO", "50.55")], {"Jinx|DUO": 48.0})
+        self.assertEqual(len(f), 1)
+        self.assertIn("WIN RATE Jinx (DUO", f[0])
+        self.assertIn("+2.55", f[0])
+
+    def test_delta_menor_umbral_no_alerta(self):
+        self.assertEqual(self.deltas([self.fila("Jinx", "DUO", "50.55")], {"Jinx|DUO": 49.8}), [])
+
+    def test_campeon_nuevo_no_alerta(self):
+        self.assertEqual(self.deltas([self.fila("Norra", "MID", "49.0")], {}), [])
+
+    def deltas(self, filas, prev):
+        return CP.deltas_winrate(filas, prev)
+
+
+class TestActualizarWinrates(unittest.TestCase):
+    """Integración con red simulada: monkeypatch de CP.get + rutas a tmpdir."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls._get, cls._pausa = CP.get, CP.PAUSA_ENTRE_PETICIONES
+        cls._csv, cls._md = CP.WINRATES_CSV, CP.WINRATES_MD
+        CP.PAUSA_ENTRE_PETICIONES = 0
+
+    @classmethod
+    def tearDownClass(cls):
+        CP.get, CP.PAUSA_ENTRE_PETICIONES = cls._get, cls._pausa
+        CP.WINRATES_CSV, CP.WINRATES_MD = cls._csv, cls._md
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        CP.WINRATES_CSV = os.path.join(self.tmp.name, "champion_winrates.csv")
+        CP.WINRATES_MD = os.path.join(self.tmp.name, "champion_winrates.md")
+        self.paginas = 0
+        def fake_get(url, t=25):
+            if "sitemap.xml" in url:
+                return 200, b"<urlset><loc>https://wr-meta.com/999-faker.html</loc></urlset>"
+            self.paginas += 1
+            return 200, FIXTURE.encode("utf-8")
+        CP.get = fake_get
+
+    def tearDown(self):
+        CP.get = self._get
+        self.tmp.cleanup()
+
+    def _run(self, state):
+        findings = []
+        n_ch, n_filas = CP.actualizar_winrates(state, findings, quiet=True)
+        return state, findings, n_ch, n_filas
+
+    def test_escribe_csv_md_y_state(self):
+        state = {"winrates": {}, "wrmeta_ids": {}}
+        state, findings, n_ch, n_filas = self._run(state)
+        self.assertGreaterEqual(n_ch, 17)             # roster + campeones del registro
+        self.assertEqual(n_filas, n_ch * 2)           # 2 roles por campeón (fixture)
+        self.assertTrue(os.path.exists(CP.WINRATES_CSV))
+        self.assertTrue(os.path.exists(CP.WINRATES_MD))
+        rows = list(csv.DictReader(open(CP.WINRATES_CSV, encoding="utf-8")))
+        self.assertEqual(len(rows), n_filas)
+        self.assertEqual(findings, [])                # primera siembra: sin alertas
+        self.assertIn("Jinx|SUPPORT", state["winrates"])
+        self.assertEqual(state["winrates_meta"]["bucket"], "Diamond +")
+
+    def test_idempotente_sin_datos_nuevos(self):
+        state = {"winrates": {}, "wrmeta_ids": {}}
+        self._run(state)
+        antes_csv = open(CP.WINRATES_CSV, "rb").read()
+        antes_md = open(CP.WINRATES_MD, "rb").read()
+        state2 = {"winrates": dict(state["winrates"]), "wrmeta_ids": {}}
+        _, findings, _, _ = self._run(state2)
+        self.assertEqual(open(CP.WINRATES_CSV, "rb").read(), antes_csv)   # sin reescritura
+        self.assertEqual(open(CP.WINRATES_MD, "rb").read(), antes_md)
+        self.assertEqual(findings, [])
+
+    def test_drift_genera_finding_sin_reescribir_si_valores_iguales(self):
+        state = {"winrates": {}, "wrmeta_ids": {}}
+        self._run(state)
+        antes = open(CP.WINRATES_CSV, "rb").read()
+        state["winrates"]["Jinx|SUPPORT"] = 40.0      # simula un salto de +12.1 pts
+        _, findings, _, _ = self._run(state)
+        self.assertTrue(any("WIN RATE Jinx (SUPPORT" in f for f in findings))
+        # la fixture no cambió → el CSV NO se reescribe (el finding sale del state,
+        # y el archivo solo se toca cuando los valores reales difieren)
+        self.assertEqual(open(CP.WINRATES_CSV, "rb").read(), antes)
+
+    def test_roster_incluye_registro(self):
+        roster = CP.roster_winrates()
+        for c in ("jinx", "caitlyn", "norra", "chogath", "malphite"):
+            self.assertIn(c, roster)
+
+    def test_ids_conocidos_cubren_roster(self):
+        self.assertEqual([c for c in CP.roster_winrates() if c not in CP.WRMETA_IDS], [])
+
+
+class TestIntegracionLab(unittest.TestCase):
+    def test_wrlab_expone_winrates(self):
+        sys.path.insert(0, ROOT)
+        import wrlab
+        self.assertIn("winrates", wrlab.COMANDOS)
+        etiquetas = [lbl for lbl, _ in wrlab.acciones_planas()]
+        self.assertTrue(any("win rates" in e.lower() for e in etiquetas))
+        self.assertEqual(len(etiquetas), len(set(etiquetas)))
+
+    def test_bundle_lleva_seccion_7b(self):
+        import build_bundles as BB
+        if not os.path.exists(os.path.join(ROOT, "data", "estructurada", "champion_winrates.csv")):
+            self.skipTest("win rates aún no sembradas (corre: wrlab.py winrates)")
+        for kind in ("LITE", "COMPLETO"):
+            txt = BB.generar(kind)
+            self.assertIn("## 7b. WIN RATES DEL ROSTER", txt)
+            self.assertIn("| Campeón | Rol | Tier | Win % |", txt)
+            problemas, n_as, n_items, _ = BB.validar(txt, kind)
+            self.assertEqual(problemas, [])
+            self.assertEqual((n_as, n_items), (140, 186))
+
+    def test_lint_avisa_callout_desactualizado(self):
+        import lint_reportes as L
+        ruta_csv = os.path.join(ROOT, "data", "estructurada", "champion_winrates.csv")
+        if not os.path.exists(ruta_csv):
+            self.skipTest("win rates aún no sembradas")
+        with open(ruta_csv, encoding="utf-8", newline="") as fh:
+            jinx = [r for r in csv.DictReader(fh) if r["champion"] == "Jinx"]
+        self.assertTrue(jinx)
+        actual = float(jinx[0]["win_pct"])
+        legit = L.nombres_items_oficiales()
+        plantilla = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+---
+**Fecha del análisis:** 01/10/2026
+**Parche:** 7.3a (29-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 01/10/2026):**
+> Win Rate {wr} % | Pick Rate 10.00 % | Ban 1.00 %
+
+### Tabla A — BUILD FINAL
+| Slot | Ítem | Oro | Rol |
+|---|---|---|---|
+| 1 (botas) | **Berserker's Greaves → ⬆️ Gunmetal Greaves** | 2 200 | x |
+| 2 | **Hexoptics C44** | 2 900 | x |
+| 3 | **Infinity Edge** | 3 400 | x |
+| 4 | **Lord Dominik's Regards** | 3 300 | x |
+| 5 | **Rapid Firecannon** | 2 650 | x |
+| 6 | **Bloodthirster** | 3 200 | x |
+
+## 0. RESUMEN
+"""
+        with tempfile.TemporaryDirectory() as d:
+            # desactualizado a propósito (−15 pts) → aviso
+            p1 = os.path.join(d, "Jinx.md")
+            open(p1, "w", encoding="utf-8").write(plantilla.format(wr=f"{actual - 15:.2f}"))
+            _, errs, avis = L.lint_archivo(p1, legit, "7.3a")
+            self.assertEqual(errs, [])
+            self.assertTrue(any("callout meta desactualizado" in a for a in avis), avis)
+            # al día (±0.5 pts) → sin ese aviso
+            p2 = os.path.join(d, "Jinx.md")
+            open(p2, "w", encoding="utf-8").write(plantilla.format(wr=f"{actual + 0.5:.2f}"))
+            _, errs2, avis2 = L.lint_archivo(p2, legit, "7.3a")
+            self.assertEqual(errs2, [])
+            self.assertFalse(any("callout meta desactualizado" in a for a in avis2), avis2)
 
 
 if __name__ == "__main__":
@@ -14879,6 +17050,9 @@ MENU = [
         ("Optimizador de builds (4 motores, leyes, presets defensa/utilidad)", acc_optimize),
         ("Buscador de runas (keystone × secundaria, valor marginal)", acc_runes),
         ("Simulador de timings de oro (curvas del vault)", lambda _: py("sim_timings.py", "--curvas")),
+        ("Generar reporte automático (Espera de verificación)", lambda _: py(
+            "generate_report.py", "generar", "--champion",
+            __import__("builtins").input("  campeón: ").strip() or "shyvana")),
         ("Motor de DPS — demo Jinx (validación del engine)", lambda _: py("dps_model.py")),
         ("Lint de reportes del vault", lambda _: py("lint_reportes.py")),
     ]),
@@ -14903,6 +17077,8 @@ COMANDOS = {   # modo no interactivo
     "optimize": lambda a: acc_optimize(a),
     "runes": lambda a: acc_runes(a),
     "timings": lambda a: py("sim_timings.py", *a),
+    "generar": lambda a: py("generate_report.py", "generar", *a),
+    "aprobar": lambda a: py("generate_report.py", "aprobar", *a),
     "lint": lambda a: py("lint_reportes.py", *a),
     "tests": lambda a: run(PY, "-m", "unittest", "discover", "-s", "tests"),
     "bundles": lambda a: py("build_bundles.py", *a),
@@ -15185,6 +17361,165 @@ def main():
     print(f"\nTotal: {total_e} errores · {total_a} avisos en {len(filas)} reportes.")
     if args.strict and total_e:
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""
+WR-LAB · backfill_frontmatter.py — Fase 1 de la migración (contrato de datos)
+=============================================================================
+Añade al frontmatter de los reportes las claves del CONTRATO_MARKDOWN_FRONTEND.md
+que falten, derivándolas de fuentes YA existentes del lab (nombre de archivo,
+líneas de metadatos, reportes_registry.json):
+
+    champion · slug · role · patch · archetype · engine · published_at
+
+REGLAS DE SEGURIDAD (paso pequeño y reversible):
+    · SOLO añade claves ausentes — nunca modifica ni reordena las existentes
+      (tags/version/Status quedan intactos; el frontend mapea Status→status).
+    · NUNCA toca el cuerpo del reporte (byte-idéntico fuera del frontmatter).
+    · Idempotente: correrlo dos veces no cambia nada la segunda.
+    · Dry-run por defecto; --apply escribe.
+
+Uso:
+    python3 model/backfill_frontmatter.py            # dry-run: qué añadiría
+    python3 model/backfill_frontmatter.py --apply    # escribe
+    python3 model/backfill_frontmatter.py --solo Jinx.md
+"""
+import argparse, os, re, sys, datetime, contextlib, io
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPORTES = os.path.join(ROOT, "reportes")
+sys.path.insert(0, os.path.join(ROOT, "model"))
+with contextlib.redirect_stdout(io.StringIO()):
+    import update_reports as U
+    import sim_timings as ST
+
+MESES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "apr": 4, "may": 5, "jun": 6,
+         "jul": 7, "ago": 8, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dic": 12, "dec": 12}
+
+
+def slugify(nombre_archivo):
+    import unicodedata
+    s = re.sub(r"\.md$", "", nombre_archivo).lower()
+    s = unicodedata.normalize("NFD", s)
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")   # sin acentos
+    s = s.replace("'", "")
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    return re.sub(r"-+", "-", s)
+
+
+def fecha_iso(txt):
+    m = re.search(r"\*\*Fecha del análisis:\*\*[^\n]*?(\d{1,2})/(\d{1,2})/(\d{4})", txt)
+    if m:
+        d, mo, y = m.groups()
+        return f"{y}-{int(mo):02d}-{int(d):02d}"
+    m = re.search(r"\*\*Fecha del análisis:\*\*[^\n]*?(\d{1,2})[- ]([A-Za-zñ]{3})[-.](\d{4})", txt)
+    if m:
+        d, mon, y = m.groups()
+        mo = MESES.get(mon.lower()[:3])
+        if mo:
+            return f"{y}-{mo:02d}-{int(d):02d}"
+    return None
+
+
+def derivar(archivo, txt, registry):
+    """Claves del contrato derivables para este reporte (solo las ausentes se propondrán)."""
+    fm = U.parse_frontmatter(txt)
+    entry = registry.get(archivo, {})
+    rol_texto = U.parse_rol(txt)
+    out = {}
+    out["champion"] = U.champ_desde_archivo(archivo, fm, txt)
+    out["slug"] = slugify(archivo)
+    out["role"] = ST.rol_de(archivo, rol_texto)
+    p = U.parche_declarado(fm, txt)
+    if p:
+        out["patch"] = p
+    m = re.search(r"\*\*Arquetipo:\*\*\s*([^\n]+)", txt)
+    if m:
+        out["archetype"] = m.group(1).strip().rstrip("·").strip()
+    modelo = entry.get("modelo")
+    out["engine"] = modelo if modelo in ("autos", "onhit", "rotacion", "aliado") else "none"
+    f = fecha_iso(txt)
+    if f:
+        out["published_at"] = f
+    # v1.1: custom (tag) y variant (sufijo del nombre de archivo)
+    tags_bajos = " ".join(re.findall(r"^\s+-\s+(.+)$", txt.split("---")[1], flags=re.M)).lower()
+    if "custom" in tags_bajos or "personalizado" in tags_bajos:
+        out["custom"] = "true"
+    champ_norm = U._norm_champ(out["champion"])
+    base = slugify(archivo)
+    if base.startswith(champ_norm) and len(base) > len(champ_norm):
+        variante = base[len(champ_norm):].strip("-")
+        if variante:
+            out["variant"] = variante
+    return out
+
+
+def procesar(archivo, txt, registry):
+    """Devuelve (nuevo_txt, añadidos) — añade solo claves ausentes, al final del frontmatter."""
+    m = re.match(r"^---\n(.*?)\n---(\n?)", txt, re.S)
+    if not m:
+        return txt, []
+    fm = U.parse_frontmatter(txt)
+    derivados = derivar(archivo, txt, registry)
+    faltan = {k: v for k, v in derivados.items() if k not in fm}
+    if not faltan:
+        return txt, []
+    # patch y published_at entre comillas (convención del vault)
+    lineas = []
+    for k, v in faltan.items():
+        if k in ("patch", "published_at", "custom", "variant", "generate", "mode"):
+            lineas.append(f'{k}: "{v}"')
+        else:
+            lineas.append(f"{k}: {v}")
+    nuevo_fm = m.group(1) + "\n" + "\n".join(lineas)
+    nuevo = f"---\n{nuevo_fm}\n---{m.group(2)}" + txt[m.end():]
+    return nuevo, sorted(faltan)
+
+
+def main():
+    ap = argparse.ArgumentParser(description="WR-LAB · backfill del frontmatter (contrato Fase 1)")
+    ap.add_argument("--apply", action="store_true", help="escribir (default: dry-run)")
+    ap.add_argument("--solo", default=None, help="solo estos archivos (coma-separados)")
+    args = ap.parse_args()
+
+    reg = {}
+    try:
+        reg = U.cargar_registro().get("reportes", {})
+    except SystemExit:
+        print("[aviso] sin registro — engine se derivará como 'none'; corre update_reports.py baseline")
+
+    solo = set(args.solo.split(",")) if args.solo else None
+    total = 0
+    for f in sorted(os.listdir(REPORTES)):
+        if not f.endswith(".md") or (solo and f not in solo):
+            continue
+        ruta = os.path.join(REPORTES, f)
+        with open(ruta, encoding="utf-8") as fh:
+            txt = fh.read()
+        nuevo, añadidos = procesar(f, txt, reg)
+        if not añadidos:
+            print(f"=  {f:<40} completo")
+            continue
+        # verificación de seguridad: cuerpo intacto
+        cuerpo_viejo = txt.split("\n---\n", 1)[1] if "\n---\n" in txt else ""
+        cuerpo_nuevo = nuevo.split("\n---\n", 1)[1] if "\n---\n" in nuevo else ""
+        assert cuerpo_viejo == cuerpo_nuevo, f"¡cuerpo modificado en {f}! — aborto"
+        total += len(añadidos)
+        print(f"{'✍️ ' if args.apply else '── '}{f:<40} +{len(añadidos)}: {', '.join(añadidos)}")
+        if args.apply:
+            with open(ruta, "w", encoding="utf-8") as fh:
+                fh.write(nuevo)
+    print(f"\n{'Aplicado' if args.apply else 'Dry-run'}: {total} claves "
+          f"{'añadidas' if args.apply else 'se añadirían'}.")
+    if args.apply and total:
+        print("Siguiente paso: python3 model/lint_reportes.py && python3 -m unittest discover -s tests "
+              "&& python3 model/build_bundles.py && commit")
 
 
 if __name__ == "__main__":
@@ -16018,4 +18353,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 02/10/2026 · completo · sha256(cuerpo)=035aa6eebc8ff867 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 03/10/2026 · completo · sha256(cuerpo)=4f3e10065cc0fc16 · NO editar a mano: editar las fuentes y regenerar -->

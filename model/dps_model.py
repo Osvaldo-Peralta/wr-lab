@@ -163,6 +163,8 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Wit's End":"witsend","WE":"witsend","Terminus":"terminus","BotRK":"botrk","Guinsoo":"guinsoo",
          "Statikk Shiv":"statikk","Mercurial Scimitar":"scimitar","Scimitar":"scimitar",
          "Guardian Angel":"ga","GA":"ga","Maw of Malmortius":"maw","Death's Dance":"deathsdance",
+         "Yun Tal Wildarrows":"yuntal","Lord Dominik's Regards":"ldr","Blade of the Ruined King":"botrk",
+         "Guinsoo's Rageblade":"guinsoo",
          "Berserker's Greaves":"berserker","Berserker's":"berserker","Gunmetal Greaves":"gunmetal",
          "Gunmetal":"gunmetal","Mercury's Treads":"mercury_t","Chainlaced Crushers":"chainlaced",
          "Plated Steelcaps":"plated","Armored Advance":"armored_adv","Ionian Boots":"ionian",

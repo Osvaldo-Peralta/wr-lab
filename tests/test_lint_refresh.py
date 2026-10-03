@@ -26,7 +26,7 @@ class TestLinter(unittest.TestCase):
         self.assertEqual(errs, [])
 
     def test_build_no_extraible_es_error(self):
-        for f in ("Seraphine.md", "Heimerdinger.md"):
+        for f in ("Heimerdinger.md", "Volibear.md"):   # Seraphine v1.2 (Modo Agresiva) ya parsea
             _, errs, _ = self.lint(f)
             self.assertTrue(any("no extraíble" in e for e in errs), f)
 
@@ -143,7 +143,7 @@ class TestBorrador(unittest.TestCase):
     def test_baseline_ignora_borradores(self):
         reg = U.construir_registro()
         self.assertNotIn("_borradores", reg["reportes"])
-        self.assertEqual(len(reg["reportes"]), 16)
+        self.assertEqual(len(reg["reportes"]), 17)
 
 
 if __name__ == "__main__":

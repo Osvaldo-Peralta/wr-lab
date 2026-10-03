@@ -39,7 +39,7 @@ class TestDerivacion(unittest.TestCase):
 class TestEstadoVault(unittest.TestCase):
     def test_todos_con_claves_del_contrato(self):
         archivos = [f for f in sorted(os.listdir(REP)) if f.endswith(".md")]
-        self.assertEqual(len(archivos), 16)
+        self.assertEqual(len(archivos), 17)   # 16 vault + Volibear.md (reconciliación 01/10)
         for f in archivos:
             with open(os.path.join(REP, f), encoding="utf-8") as fh:
                 txt = fh.read()
@@ -54,7 +54,18 @@ class TestEstadoVault(unittest.TestCase):
         self.assertEqual(fm["patch"], "7.3a")        # existente: NO se modificó
         self.assertEqual(fm["version"], "1.4")
 
-    def test_yunana_champion_canonico(self):
-        with open(os.path.join(REP, "Yunana.md"), encoding="utf-8") as fh:
+    def test_yunara_renombrado(self):
+        with open(os.path.join(REP, "Yunara.md"), encoding="utf-8") as fh:
             fm = U.parse_frontmatter(fh.read())
-        self.assertEqual(fm["champion"], "Yunara")   # canónico, no la errata del archivo
+        self.assertEqual(fm["champion"], "Yunara")
+        self.assertEqual(fm["slug"], "yunara")       # errata Yunana corregida (decisión del autor)
+
+    def test_custom_y_variant(self):
+        for arch, esp_custom, esp_variant in (("Yuumi.md", "true", None),
+                                              ("Volibear Pesadilla.md", "true", "pesadilla"),
+                                              ("Diana - Mid.md", None, "mid"),
+                                              ("Jinx.md", None, None)):
+            with open(os.path.join(REP, arch), encoding="utf-8") as fh:
+                fm = U.parse_frontmatter(fh.read())
+            self.assertEqual(fm.get("custom"), esp_custom, arch)
+            self.assertEqual(fm.get("variant"), esp_variant, arch)

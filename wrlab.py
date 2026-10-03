@@ -127,6 +127,9 @@ MENU = [
         ("Optimizador de builds (4 motores, leyes, presets defensa/utilidad)", acc_optimize),
         ("Buscador de runas (keystone × secundaria, valor marginal)", acc_runes),
         ("Simulador de timings de oro (curvas del vault)", lambda _: py("sim_timings.py", "--curvas")),
+        ("Generar reporte automático (Espera de verificación)", lambda _: py(
+            "generate_report.py", "generar", "--champion",
+            __import__("builtins").input("  campeón: ").strip() or "shyvana")),
         ("Motor de DPS — demo Jinx (validación del engine)", lambda _: py("dps_model.py")),
         ("Lint de reportes del vault", lambda _: py("lint_reportes.py")),
     ]),
@@ -151,6 +154,8 @@ COMANDOS = {   # modo no interactivo
     "optimize": lambda a: acc_optimize(a),
     "runes": lambda a: acc_runes(a),
     "timings": lambda a: py("sim_timings.py", *a),
+    "generar": lambda a: py("generate_report.py", "generar", *a),
+    "aprobar": lambda a: py("generate_report.py", "aprobar", *a),
     "lint": lambda a: py("lint_reportes.py", *a),
     "tests": lambda a: run(PY, "-m", "unittest", "discover", "-s", "tests"),
     "bundles": lambda a: py("build_bundles.py", *a),

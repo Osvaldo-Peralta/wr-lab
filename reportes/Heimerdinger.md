@@ -13,7 +13,7 @@ engine: none
 ---
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (30/09/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Heimerdinger:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).

@@ -1,6 +1,6 @@
 # CONTRATO MARKDOWN ↔ FRONTEND (Fase 1 de la migración)
 
-**Versión:** 1.0 · **Fecha:** 01/10/2026 · **Partes:** `wr-lab` (productor) ↔ `wr-guides-web` (consumidor)
+**Versión:** 1.1 · **Fecha:** 01/10/2026 · **Partes:** `wr-lab` (productor) ↔ `wr-guides-web` (consumidor)
 **Principio hexagonal:** el frontend consume ESTE contrato (puerto); nunca conoce el interior del
 lab. El lab produce Markdown + un índice JSON; nunca conoce al frontend.
 
@@ -20,8 +20,22 @@ patch: "7.3a"                # BACKFILL — parche máximo que el reporte declar
 archetype: Crítico AoE       # BACKFILL (si el reporte tiene línea **Arquetipo:**) — texto libre
 engine: autos                # BACKFILL — autos | onhit | rotacion | aliado | none (validación del lab)
 published_at: 2026-09-27     # BACKFILL — de **Fecha del análisis:** (ISO 8601)
+custom: false                # BACKFILL (v1.1) — true si tags incluye Custom/Personalizado
+variant: pesadilla           # BACKFILL (v1.1) — sufijo del archivo; ausente = guía estándar del campeón
+generate: manual             # v1.1 — manual | auto (ausente = manual)
+mode: sr                     # v1.1 reservado — sr | aram (módulo ARAM AAA futuro)
 ---
 ```
+
+**Vocabulario de `Status` (v1.1):** `Aprobado` (publicable) · `Beta` (publicable con badge) ·
+`Espera de verificación` (generado automáticamente — **NO publicable** hasta aprobación del
+autor) · `Borrador` (no publicable) · `Proximamente` (anuncio, publicable como placeholder).
+
+**Guías custom (v1.1):** un campeón puede tener N guías paralelas (estándar + personalizadas:
+"Volibear Pesadilla", "Seraphine Modo Agresivo", "Yuumi poke-híbrida"…). Identidad = `slug`;
+agrupación = `champion`; la naturaleza custom se declara con `custom: true` (tag
+Custom/Personalizado) y `variant`. El frontend muestra las custom bajo el campeón con su
+badge — la flexibilidad que motivó la migración.
 
 Reglas:
 - **Claves nuevas en minúscula; las existentes (`tags/version/Status`) no se renombran** —
@@ -105,7 +119,30 @@ Pesadilla"?) y Shyvana.md (stub "PROXIMAMENTE"); el lab está adelante en verifi
 Procedimiento: ingerir las ganadoras al lab (ciclo lint→triage→annotate→baseline→bundles),
 decidir los 2 casos ambigüos (autor), y entonces `wr-lab/reportes/` pasa a ser canónica.
 
-## 8. Fuera del contrato (explícitamente)
+## 8. Auto-regeneración y aprobación (v1.1)
+
+Flujo para reportes con veredicto ❌ REGENERAR (o campeones sin guía — escalabilidad a
+100+ campeones):
+
+1. `python3 model/generate_report.py generar --champion <c> [--rol <r>]` → escribe
+   `reportes/_auto/{Champion}_AUTO_{patch}.md` completo (motor + optimizador + runas +
+   timings + win rates + TEMPLATE v1.4), con `Status: Espera de verificación`,
+   `generate: auto` y TODOs explícitos donde hace falta criterio humano (orden de
+   habilidades, plan de juego). El original publicado **no se toca**.
+2. El autor compara ambas versiones (diff/lector) y decide:
+   · **Aprueba** → `python3 model/generate_report.py aprobar --archivo <_auto/…> [--destino reportes/<Nombre>.md]`
+     (mueve, pone `Status: Aprobado`, corre baseline+annotate+lint+check).
+   · **No aprueba** → regeneración manual (chat externo con bundle) o correcciones directas;
+     el archivo _auto se descarta o se conserva como referencia.
+3. Los reportes `_auto/` y `_borradores/` están FUERA del registro, bundles, BD y sitio
+   (solo `reportes/*.md` raíz se publica). `borrador` (esqueleto) sigue existiendo como
+   fallback para campeones sin motor (tanques/rotaciones no cubiertas — p.ej. Rammus).
+
+Cobertura v1 del generador: campeones con ChampSpec Y motor (autos/onhit/rotacion/aliado).
+Fuera de cobertura → mensaje honesto + borrador. Los avisos de aproximación del motor
+(p.ej. Shyvana sin Q doble-golpe) se imprimen como `> [!WARNING]` en el propio reporte.
+
+## 9. Fuera del contrato (explícitamente)
 
 - Likes/vistas/usuarios: NO viven en el Markdown (principio 6 del plan — estado en Supabase).
   El frontend asocia métricas por `slug`.

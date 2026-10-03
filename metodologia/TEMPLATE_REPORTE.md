@@ -53,6 +53,15 @@
 - **Tabla B (Ruta de compra):** cronológica, puede tener 7+ filas porque incluye la mejora ⬆️ y los componentes. Columnas: `# | Compra | Oro acum. | Minuto típico`. Incluir **componentes** ("Pickaxe + Noonquiver → **Hexoptics C44**") y **oro acumulado**.
 - Toda build publicada pasa `validate_slots()` y se declara en §10 ("Validación del modelo").
 
+### A.4b Formato de §4 y §8 (estándar v1.13.1 — decisión del autor 02/10/2026)
+- **§4 LEYES: formato COMPACTO tiene prioridad** (una línea por ley con su número, como genera
+  `generate_report.py`). Desarrollar una ley a detalle SOLO cuando la ocasión lo amerite
+  (p.ej. ley invertida, umbral polémico) — el reporte de Jinx sigue siendo el estándar de
+  CONTENIDO, pero §4 compacto es el estándar de FORMA.
+- **§8 COMPARACIÓN: nombres de ítems SIEMPRE completos** (nada de abreviaturas tipo
+  "Gun+C44+…") aunque ocupe más, y columna **Fuente** obligatoria: `⭐ LAB (óptima)` /
+  `🔬 LAB top-N` (derivadas por el optimizador), `📌 publicada`, `🌐 comunidad`.
+
 ### A.5 Adaptaciones por arquetipo
 | Arquetipo | §3 Modelo | §0 Resultado del modelo | §5 Primer ítem |
 |---|---|---|---|
