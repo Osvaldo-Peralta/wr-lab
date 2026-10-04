@@ -120,6 +120,10 @@ def lint_archivo(path, legit, ultimo_patch):
         n_boots = sum(1 for b in build if _es_botas(b, legit))
         if n_boots != 1:
             errores.append(f"Ley 0: {n_boots} botas en la build extraída (debe ser exactamente 1)")
+        import dps_model as _M
+        for grupo, presentes in _M.violaciones_exclusividad(build):
+            errores.append(f"BUILD ILEGAL — exclusividad ({grupo}): {', '.join(presentes)} "
+                           f"no pueden convivir (items_exclusivos.csv)")
         PLACEHOLDERS = ("situacional", "flexible", "según matchup", "segun matchup")
         for b in build:
             if any(p in b.lower() for p in PLACEHOLDERS):

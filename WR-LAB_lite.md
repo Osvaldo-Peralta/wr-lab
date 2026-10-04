@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 03/10/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 04/10/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -115,6 +115,12 @@ Multiplicador promedio = `1 + crit × (daño_crit × mod_campeón − 1)`; daño
 - AS de ítems sobra cuando: 3 fuentes grandes ya te ponen ≥95 % del tope en pelea.
 
 ### Ley 3 — Penetración % obligatoria contra el meta de vida
+
+> ⚠️ **Ley 3b — EXCLUSIVIDADES (03/10/2026):** ciertos ítems NO pueden convivir en la misma
+> build (juego). Grupo conocido `pen_pct`: Lord Dominik's Regards / Mortal Reminder / Terminus
+> (máximo UNO por build; verificado en juego por el autor). Registro escalable en
+> `data/estructurada/items_exclusivos.csv` — `validate_slots()`, el optimizador y el linter
+> lo hacen cumplir. Toda build propuesta debe pasar la exclusividad antes que cualquier número.
 `mitigación = 100/(100 + armadura × (1−pen))`. Con torretas de 7000 HP y tanques con más vida:
 - vs 120 armadura: pen 35 % = +23.5 % de daño real. vs 220: +32 %. vs 300: +36 %.
 - Giant Slayer (LDR) suma +12 % adicional vs ≥1200 HP bonus → tanque full: ~+47 % total.
@@ -687,6 +693,7 @@ patch: "7.3"
 | Ingenious Hunter | wr-meta la lista | Notas 7.3: **REMOVIDA** | Removida |
 | Berserker's Greaves AS | Notas 7.2: 30 % | wr-meta + ejemplo oficial Caitlyn 7.3: **35 %** | 35 % |
 | 7.3a: Crown of Songs (Harmony) | Traducción CN: "Crown/Diadem of Songs" nerfeadas | Nota EN oficial: solo **Diadem of Songs** + Whispering Circlet | Mandan las notas EN: el nerf listado es de Diadem; si Crown of Songs comparte la pasiva Harmony, heredaría el valor en juego — verificar en tienda antes de publicar análisis de enchanter que use Crown |
+| Exclusividad de ítems de penetración % | Modelo del lab: pen % de ítems se SUMA (LDR 35 + Mortal 30 = 65) y nada en wr-meta/notas 7.3/7.3a documenta restricciones | **Juego (verificado por el autor, 03/10/2026):** Lord Dominik's Regards, Mortal Reminder y Terminus NO pueden convivir en la misma build | Manda el juego: `data/estructurada/items_exclusivos.csv` (grupo `pen_pct`) lo hacen cumplir validate_slots/optimizador/lint. Hallazgos previos con doble pen (Jinx 29/09) CORREGIDOS en ROADMAP; la variante anti-tanques de Jinx.md v1.4 quedó ilegal — corrección pendiente del autor |
 | ⚠️ Caitlyn Base Bonus AS | Notas 7.3 §CAITLYN y ejemplo de la fórmula: **0.28** | Apéndice final de las mismas notas: **0.2** | **Inconsistencia interna de Riot.** Usar 0.28 (sección del campeón + ejemplo oficial) y verificar en el panel del juego antes de publicar cualquier análisis de Caitlyn. El CSV `champion_attack_speed_7.3.csv` replica el apéndice (0.2) — corregir manualmente si se confirma 0.28 |
 
 **Regla permanente:** notas oficiales > BD comunitaria sincronizada > guías/comunidad. Toda discrepancia nueva se anota aquí.
@@ -1994,6 +2001,13 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Cleanse |  |  | Basic Items |
 | Teleport |  |  | Basic Items |
 
+## 8b. EXCLUSIVIDADES DE ÍTEMS (no pueden convivir en la misma build — validado por validate_slots/optimizador/lint; escalable: 1 fila = 1 grupo)
+
+```csv
+grupo,items,fuente,verificado
+pen_pct,Lord Dominik's Regards|Mortal Reminder|Terminus,"Verificado en juego por el autor (03/10/2026): con Terminus equipado no se pueden comprar LDR ni Mortal Reminder. El modelo del lab asumía pen % sumable (LDR 35 + Mortal 30 = 65) — corregido. Pendiente de documentación oficial (ni wr-meta ni las notas 7.3/7.3a lo mencionan).",2026-10-03
+```
+
 ## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
 
 ```python
@@ -2186,6 +2200,7 @@ CONVENIOS / SUPUESTOS (idénticos al reporte de Jinx):
 FUENTES DE NÚMEROS: notas oficiales 7.3/7.2 + wr-meta.com 24-sep-2026 + HOTFIX 7.3a (29-sep-2026,
 ver data/estructurada/cambios_7.3a.md). Items marcados "7.3a" ya incluyen el hotfix.
 """
+import os
 from dataclasses import dataclass, field
 
 # ---------------------------------------------------------------- constantes globales 7.3
@@ -2336,6 +2351,52 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
          "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treds":"immortal_treads"}
 
+# ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
+# El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +
+# Terminus, grupo pen_pct). Fuente: verificación en juego del autor — escalable:
+# añadir una fila al CSV registra un grupo nuevo sin tocar código.
+EXCLUSIVIDAD = []   # lista de (grupo, {claves canónicas})
+
+def _load_exclusividad():
+    global EXCLUSIVIDAD
+    EXCLUSIVIDAD = []
+    ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "data", "estructurada", "items_exclusivos.csv")
+    try:
+        import csv as _csv
+        with open(ruta, encoding="utf-8", newline="") as fh:
+            for fila in _csv.DictReader(fh):
+                claves = set()
+                for nombre in (fila.get("items") or "").split("|"):
+                    nombre = nombre.strip()
+                    if not nombre:
+                        continue
+                    try:
+                        claves.add(resolve(nombre).key)
+                    except KeyError:
+                        claves.add(nombre.lower())
+                if len(claves) >= 2:
+                    EXCLUSIVIDAD.append((fila.get("grupo", "?"), claves))
+    except FileNotFoundError:
+        pass
+
+def canonical_key(x):
+    """clave canónica tolerante (alias, claves batch2 como 'LDR'/'Terminus', display names)."""
+    try:
+        return resolve(x).key
+    except KeyError:
+        return str(x).lower()
+
+def violaciones_exclusividad(items):
+    """[(grupo, [claves presentes])] por cada grupo con 2+ ítems de la misma build."""
+    claves = [canonical_key(x) for x in items]
+    out = []
+    for grupo, conjunto in EXCLUSIVIDAD:
+        presentes = sorted(set(claves) & conjunto)
+        if len(presentes) >= 2:
+            out.append((grupo, presentes))
+    return out
+
 def validate_slots(items, final=True, strict=True):
     """
     VALIDADOR DE SLOTS — previene el error clásico 'Berserker's + Gunmetal como 2 ítems'.
@@ -2356,6 +2417,9 @@ def validate_slots(items, final=True, strict=True):
         errs.append(f"{len(boots)} botas distintas en la lista ({boots}) — solo existe 1 slot de botas.")
     if len(items) > 6:
         errs.append(f"{len(items)} entradas > 6 slots totales. ¿Contaste la mejora de botas como ítem aparte?")
+    for grupo, presentes in violaciones_exclusividad(items):
+        errs.append(f"EXCLUSIVIDAD ({grupo}): el juego no permite combinar "
+                    f"{', '.join(presentes)} en la misma build (items_exclusivos.csv).")
     if final and not errs and len(items) != 6:
         errs.append(f"Build final con {len(items)} slots (deben ser 6 = 1 botas + 5 ítems). "
                     f"Si es un checkpoint temprano, llama con final=False.")
@@ -2394,6 +2458,8 @@ except Exception as _e:   # el engine sigue funcionando solo con Jinx si falla l
 
 def resolve(name): 
     return ITEMS[name] if name in ITEMS else ITEMS[ALIAS[name]]
+
+_load_exclusividad()   # tras resolve(): canonicaliza los nombres del CSV
 
 # ---------------------------------------------------------------- núcleo matemático
 def lvl_as_bonus(spec: ChampSpec, level: int) -> float:
@@ -3126,6 +3192,12 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
         crit_item = {k: M.ITEMS[k].crit for k in pool}
     oro_item = {k: gold(k) for k in pool}
     oro_min = min(oro_item.values()) if oro_item else 0
+    # exclusividades: grupo_idx por ítem del pool (items_exclusivos.csv vía dps_model)
+    grupos_item = {}
+    for gi, (_nombre, conjunto) in enumerate(M.EXCLUSIVIDAD):
+        for k in pool:
+            if M.canonical_key(k) in conjunto:
+                grupos_item.setdefault(k, set()).add(gi)
     orden = sorted(pool, key=lambda k: oro_item[k])
     idx = {k: i for i, k in enumerate(orden)}
 
@@ -3134,7 +3206,7 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
     heap = []                                   # min-heap (score1, -oro, combo)
     eval_fn = eng["eval_fn"]
 
-    def dfs(start, elegidos, g):
+    def dfs(start, elegidos, g, usados=frozenset()):
         nonlocal hojas
         faltan = n_elegir - len(elegidos)
         if g + faltan * oro_min > oro - oro_fijo:
@@ -3160,7 +3232,10 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
                 heapq.heapreplace(heap, (s, -g, combo))
             return
         for k in orden[start:]:
-            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k])
+            gk = grupos_item.get(k)
+            if gk and (usados & gk):
+                continue                       # exclusividad: ya hay otro ítem del grupo
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k], usados | (gk or frozenset()))
 
     oro_fijo = sum(gold(k) for k in fixed)
     candidatos = []
@@ -3291,6 +3366,8 @@ def main():
     ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
     ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--contra", default=None,
+                    help="build de referencia (📌 publicada) para comparar: alias coma-separados")
     ap.add_argument("--defensa", type=float, default=0.0, help="peso de EHP en el score (0-0.5)")
     ap.add_argument("--utilidad", type=float, default=0.0, help="peso de heal/activas en el score (0-0.5)")
     ap.add_argument("--preset", default=None, choices=list(PRESETS),
@@ -3309,6 +3386,36 @@ def main():
                                crit_min=args.crit_min, pen_min=args.pen_min,
                                keystone=args.keystone, defensa=args.defensa,
                                utilidad=args.utilidad, preset=args.preset)
+    if args.contra:
+        eng = ENGINES[motor]
+        ref = [x.strip() for x in args.contra.split(",")]
+        if motor == "autos":
+            ref_keys = [M.resolve(x).key for x in ref]
+            M.validate_slots(ref_keys)
+        else:
+            pool_keys = set(eng["items"]) | set(eng["boots"]) | set(eng["fixed"])
+            ref_keys = [next((k for k in pool_keys if k.lower() == x.lower()), x) for x in ref]
+        det = {e: eng["eval_fn"](ck, ref_keys, kw, {"keystone": args.keystone})[m]
+               for e, (kw, m) in eng["escenarios"].items()}
+        base = eng["base_fn"](ck, ref_keys, {"keystone": args.keystone})
+        ehp = util = 0.0
+        if args.preset in ("balanceado", "defensivo") or args.defensa or args.utilidad:
+            keys = ref_keys if motor == "autos" else ref_keys
+            ehp, util = ehp_y_util(keys, cargar_base_def(ck, args.nivel),
+                                   base.get("heal", 0.0) if isinstance(base, dict) else 0.0)
+        finales = finales + [(None, ref_keys, det, base, ehp, util)]
+        # re-normalizar incluyendo la referencia
+        max_e = {e: max([f[2][e] for f in finales] + [1e-9]) for e in eng["escenarios"]}
+        max_ehp = max([f[4] for f in finales] + [1e-9])
+        max_util = max([f[5] for f in finales] + [1e-9])
+        d, u = PRESETS[args.preset] if args.preset else (args.defensa, args.utilidad)
+        nuevas = []
+        for f_ in finales:
+            off = sum(pesos.get(e, 0.0) * (f_[2][e] / max_e[e]) for e in eng["escenarios"])
+            sc = (1 - d - u) * off + d * (f_[4] / max_ehp) + u * (f_[5] / max_util)
+            nuevas.append((sc,) + tuple(f_[1:]))
+        nuevas.sort(key=lambda x: -x[0])
+        finales = nuevas[:args.top + 1]
     imprimir(finales, ck, motor, pesos, oro,
              con_def=bool(args.preset in ("balanceado", "defensivo") or args.defensa or args.utilidad))
     if args.validar:
@@ -4739,4 +4846,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 03/10/2026 · lite · sha256(cuerpo)=b4fcef0c4c678958 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 04/10/2026 · lite · sha256(cuerpo)=15f161dd3e019633 · NO editar a mano: editar las fuentes y regenerar -->

@@ -74,6 +74,12 @@ Multiplicador promedio = `1 + crit × (daño_crit × mod_campeón − 1)`; daño
 - AS de ítems sobra cuando: 3 fuentes grandes ya te ponen ≥95 % del tope en pelea.
 
 ### Ley 3 — Penetración % obligatoria contra el meta de vida
+
+> ⚠️ **Ley 3b — EXCLUSIVIDADES (03/10/2026):** ciertos ítems NO pueden convivir en la misma
+> build (juego). Grupo conocido `pen_pct`: Lord Dominik's Regards / Mortal Reminder / Terminus
+> (máximo UNO por build; verificado en juego por el autor). Registro escalable en
+> `data/estructurada/items_exclusivos.csv` — `validate_slots()`, el optimizador y el linter
+> lo hacen cumplir. Toda build propuesta debe pasar la exclusividad antes que cualquier número.
 `mitigación = 100/(100 + armadura × (1−pen))`. Con torretas de 7000 HP y tanques con más vida:
 - vs 120 armadura: pen 35 % = +23.5 % de daño real. vs 220: +32 %. vs 300: +36 %.
 - Giant Slayer (LDR) suma +12 % adicional vs ≥1200 HP bonus → tanque full: ~+47 % total.

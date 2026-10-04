@@ -163,11 +163,14 @@ class TestDefensaUtilidad(unittest.TestCase):
         """Con 15 % EHP + 15 % utilidad, al menos una build del top lleva ítem defensivo/activa."""
         finales, _ = O.optimizar("jinx", oro=18000, top=8, crit_min=100, pen_min=30,
                                  preset="balanceado", verbose=False)
+        # post-exclusividad (v1.14): la utilidad la domina el sustain (BotRK/BT) — el preset
+        # debe seguir sacando a superficie ítems defensivos O de sustain con EHP/UTIL activos
         defensivos = {"ga", "scimitar", "shieldbow", "maw", "chainlaced", "armored_adv",
-                      "immortal_treads", "deathsdance"}
+                      "immortal_treads", "deathsdance", "botrk", "bt"}
         claves = [[M.resolve(c).key for c in f[1]] for f in finales]
         self.assertTrue(any(defensivos & set(k) for k in claves),
-                        f"ningún defensivo en el top: {claves}")
+                        f"ningún defensivo/sustain en el top: {claves}")
+        self.assertTrue(all(f[4] > 0 for f in finales))     # columna EHP calculada
 
     def test_default_ofensivo_golden_intacto(self):
         """Sin pesos de defensa (default), el ranking no cambia: C sigue siendo top-1."""

@@ -24,6 +24,7 @@ CONVENIOS / SUPUESTOS (idénticos al reporte de Jinx):
 FUENTES DE NÚMEROS: notas oficiales 7.3/7.2 + wr-meta.com 24-sep-2026 + HOTFIX 7.3a (29-sep-2026,
 ver data/estructurada/cambios_7.3a.md). Items marcados "7.3a" ya incluyen el hotfix.
 """
+import os
 from dataclasses import dataclass, field
 
 # ---------------------------------------------------------------- constantes globales 7.3
@@ -174,6 +175,52 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
          "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treds":"immortal_treads"}
 
+# ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
+# El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +
+# Terminus, grupo pen_pct). Fuente: verificación en juego del autor — escalable:
+# añadir una fila al CSV registra un grupo nuevo sin tocar código.
+EXCLUSIVIDAD = []   # lista de (grupo, {claves canónicas})
+
+def _load_exclusividad():
+    global EXCLUSIVIDAD
+    EXCLUSIVIDAD = []
+    ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "data", "estructurada", "items_exclusivos.csv")
+    try:
+        import csv as _csv
+        with open(ruta, encoding="utf-8", newline="") as fh:
+            for fila in _csv.DictReader(fh):
+                claves = set()
+                for nombre in (fila.get("items") or "").split("|"):
+                    nombre = nombre.strip()
+                    if not nombre:
+                        continue
+                    try:
+                        claves.add(resolve(nombre).key)
+                    except KeyError:
+                        claves.add(nombre.lower())
+                if len(claves) >= 2:
+                    EXCLUSIVIDAD.append((fila.get("grupo", "?"), claves))
+    except FileNotFoundError:
+        pass
+
+def canonical_key(x):
+    """clave canónica tolerante (alias, claves batch2 como 'LDR'/'Terminus', display names)."""
+    try:
+        return resolve(x).key
+    except KeyError:
+        return str(x).lower()
+
+def violaciones_exclusividad(items):
+    """[(grupo, [claves presentes])] por cada grupo con 2+ ítems de la misma build."""
+    claves = [canonical_key(x) for x in items]
+    out = []
+    for grupo, conjunto in EXCLUSIVIDAD:
+        presentes = sorted(set(claves) & conjunto)
+        if len(presentes) >= 2:
+            out.append((grupo, presentes))
+    return out
+
 def validate_slots(items, final=True, strict=True):
     """
     VALIDADOR DE SLOTS — previene el error clásico 'Berserker's + Gunmetal como 2 ítems'.
@@ -194,6 +241,9 @@ def validate_slots(items, final=True, strict=True):
         errs.append(f"{len(boots)} botas distintas en la lista ({boots}) — solo existe 1 slot de botas.")
     if len(items) > 6:
         errs.append(f"{len(items)} entradas > 6 slots totales. ¿Contaste la mejora de botas como ítem aparte?")
+    for grupo, presentes in violaciones_exclusividad(items):
+        errs.append(f"EXCLUSIVIDAD ({grupo}): el juego no permite combinar "
+                    f"{', '.join(presentes)} en la misma build (items_exclusivos.csv).")
     if final and not errs and len(items) != 6:
         errs.append(f"Build final con {len(items)} slots (deben ser 6 = 1 botas + 5 ítems). "
                     f"Si es un checkpoint temprano, llama con final=False.")
@@ -232,6 +282,8 @@ except Exception as _e:   # el engine sigue funcionando solo con Jinx si falla l
 
 def resolve(name): 
     return ITEMS[name] if name in ITEMS else ITEMS[ALIAS[name]]
+
+_load_exclusividad()   # tras resolve(): canonicaliza los nombres del CSV
 
 # ---------------------------------------------------------------- núcleo matemático
 def lvl_as_bonus(spec: ChampSpec, level: int) -> float:

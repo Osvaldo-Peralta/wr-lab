@@ -56,12 +56,15 @@ sin más inversión en precisión por ahora).
 - **29/09 · Diana/Yuumi (pool completo):** el objetivo puramente ofensivo prefiere glass-cannon
   (Diana: Stormsurge+VoidStaff+Orb +31 % dps vs D2; Yuumi: Censer+Staff+HorizonFocus+Stormsurge
   sobre Y1) — limitación conocida: sin valor defensivo/utilidad activa en el score.
-- **29/09 · Jinx post-7.3a:** con el pool completo y Leyes 1+3 duras (18 000 g, nivel 15), la
-  frontera óptima se movió tras el buff de Yun Tal (AS 25→35): `Gunmetal+C44+Terminus+YunTal+LDR+IE`
-  (pen 65) alcanza ~90 % de eficiencia normalizada vs ~83 % de la build C publicada (que sigue
-  siendo la mejor en AoE 3v3 puro). Supuestos a declarar antes de cualquier re-derivación:
-  Yun Tal al **máximo de rampa** (125 ataques) y Terminus a stacks completos. **Decisión pendiente
-  del autor** (la Regla de Oro v1.6 aplica: el reporte publicado no se toca sin decisión explícita).
+- **29/09 · Jinx post-7.3a — ⚠️ CORREGIDO 03/10 (exclusividad):** el hallazgo original
+  (`Gunmetal+C44+Terminus+YunTal+LDR+IE`, "pen 65") era **ILEGAL en juego**: LDR, Mortal Reminder
+  y Terminus son mutuamente exclusivos (verificado en juego por el autor; el modelo asumía pen %
+  sumable). Con `items_exclusivos.csv` aplicado, la frontera legal es:
+  **`Gunmetal+C44+YunTal+BotRK+LDR+IE`** (94.9 % efic.: vs120 +14 % y vsTanque +25 % sobre C,
+  a cambio de −12 % en 3v3) y la build C publicada queda #5 (88.5 %), sigue siendo la reina AoE.
+  La variante anti-tanques de Jinx.md v1.4 (Terminus+LDR) debe corregirse por la autoría
+  (variante B: YunTal+BotRK+LDR; la variante con Terminus+Storm apenas iguala a C vs tanque).
+  Supuestos vigentes: Yun Tal a rampa máxima (125 ataques).
 
 ## Módulos propuestos (prioridad × esfuerzo)
 

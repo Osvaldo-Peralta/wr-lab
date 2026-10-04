@@ -563,7 +563,11 @@ def construir_registro(hoy=None):
                 entry["hook"] = None
                 entry["hook_motivo"] = "build final no extraíble automáticamente (formato del vault)"
         elif modelo.get("hook") and not sin_resolver and len(build_keys) == 6:
-            entry["metricas"] = _redondear(HOOKS[modelo["hook"]](build_keys))
+            try:
+                entry["metricas"] = _redondear(HOOKS[modelo["hook"]](build_keys))
+            except ValueError as exc:          # p.ej. exclusividad violada en la build publicada
+                entry["hook"] = None
+                entry["hook_motivo"] = f"build rechazada por el validador: {str(exc).splitlines()[-1][:120]}"
         elif modelo.get("hook"):
             entry["hook"] = None
             entry["hook_motivo"] = ("ítems sin resolver en el modelo: " + ", ".join(sin_resolver)) \

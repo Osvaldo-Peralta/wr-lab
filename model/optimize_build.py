@@ -272,6 +272,12 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
         crit_item = {k: M.ITEMS[k].crit for k in pool}
     oro_item = {k: gold(k) for k in pool}
     oro_min = min(oro_item.values()) if oro_item else 0
+    # exclusividades: grupo_idx por ítem del pool (items_exclusivos.csv vía dps_model)
+    grupos_item = {}
+    for gi, (_nombre, conjunto) in enumerate(M.EXCLUSIVIDAD):
+        for k in pool:
+            if M.canonical_key(k) in conjunto:
+                grupos_item.setdefault(k, set()).add(gi)
     orden = sorted(pool, key=lambda k: oro_item[k])
     idx = {k: i for i, k in enumerate(orden)}
 
@@ -280,7 +286,7 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
     heap = []                                   # min-heap (score1, -oro, combo)
     eval_fn = eng["eval_fn"]
 
-    def dfs(start, elegidos, g):
+    def dfs(start, elegidos, g, usados=frozenset()):
         nonlocal hojas
         faltan = n_elegir - len(elegidos)
         if g + faltan * oro_min > oro - oro_fijo:
@@ -306,7 +312,10 @@ def optimizar(champ, motor=None, oro=None, top=10, pesos=None, excluir=(), inclu
                 heapq.heapreplace(heap, (s, -g, combo))
             return
         for k in orden[start:]:
-            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k])
+            gk = grupos_item.get(k)
+            if gk and (usados & gk):
+                continue                       # exclusividad: ya hay otro ítem del grupo
+            dfs(idx[k] + 1, elegidos + [k], g + oro_item[k], usados | (gk or frozenset()))
 
     oro_fijo = sum(gold(k) for k in fixed)
     candidatos = []
@@ -437,6 +446,8 @@ def main():
     ap.add_argument("--crit-min", type=float, default=0, help="Ley 1 dura (motor autos)")
     ap.add_argument("--pen-min", type=float, default=0, help="Ley 3 dura (motor autos)")
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--contra", default=None,
+                    help="build de referencia (📌 publicada) para comparar: alias coma-separados")
     ap.add_argument("--defensa", type=float, default=0.0, help="peso de EHP en el score (0-0.5)")
     ap.add_argument("--utilidad", type=float, default=0.0, help="peso de heal/activas en el score (0-0.5)")
     ap.add_argument("--preset", default=None, choices=list(PRESETS),
@@ -455,6 +466,36 @@ def main():
                                crit_min=args.crit_min, pen_min=args.pen_min,
                                keystone=args.keystone, defensa=args.defensa,
                                utilidad=args.utilidad, preset=args.preset)
+    if args.contra:
+        eng = ENGINES[motor]
+        ref = [x.strip() for x in args.contra.split(",")]
+        if motor == "autos":
+            ref_keys = [M.resolve(x).key for x in ref]
+            M.validate_slots(ref_keys)
+        else:
+            pool_keys = set(eng["items"]) | set(eng["boots"]) | set(eng["fixed"])
+            ref_keys = [next((k for k in pool_keys if k.lower() == x.lower()), x) for x in ref]
+        det = {e: eng["eval_fn"](ck, ref_keys, kw, {"keystone": args.keystone})[m]
+               for e, (kw, m) in eng["escenarios"].items()}
+        base = eng["base_fn"](ck, ref_keys, {"keystone": args.keystone})
+        ehp = util = 0.0
+        if args.preset in ("balanceado", "defensivo") or args.defensa or args.utilidad:
+            keys = ref_keys if motor == "autos" else ref_keys
+            ehp, util = ehp_y_util(keys, cargar_base_def(ck, args.nivel),
+                                   base.get("heal", 0.0) if isinstance(base, dict) else 0.0)
+        finales = finales + [(None, ref_keys, det, base, ehp, util)]
+        # re-normalizar incluyendo la referencia
+        max_e = {e: max([f[2][e] for f in finales] + [1e-9]) for e in eng["escenarios"]}
+        max_ehp = max([f[4] for f in finales] + [1e-9])
+        max_util = max([f[5] for f in finales] + [1e-9])
+        d, u = PRESETS[args.preset] if args.preset else (args.defensa, args.utilidad)
+        nuevas = []
+        for f_ in finales:
+            off = sum(pesos.get(e, 0.0) * (f_[2][e] / max_e[e]) for e in eng["escenarios"])
+            sc = (1 - d - u) * off + d * (f_[4] / max_ehp) + u * (f_[5] / max_util)
+            nuevas.append((sc,) + tuple(f_[1:]))
+        nuevas.sort(key=lambda x: -x[0])
+        finales = nuevas[:args.top + 1]
     imprimir(finales, ck, motor, pesos, oro,
              con_def=bool(args.preset in ("balanceado", "defensivo") or args.defensa or args.utilidad))
     if args.validar:

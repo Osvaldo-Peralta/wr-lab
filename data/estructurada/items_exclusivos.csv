@@ -1,0 +1,2 @@
+grupo,items,fuente,verificado
+pen_pct,Lord Dominik's Regards|Mortal Reminder|Terminus,"Verificado en juego por el autor (03/10/2026): con Terminus equipado no se pueden comprar LDR ni Mortal Reminder. El modelo del lab asumía pen % sumable (LDR 35 + Mortal 30 = 65) — corregido. Pendiente de documentación oficial (ni wr-meta ni las notas 7.3/7.3a lo mencionan).",2026-10-03

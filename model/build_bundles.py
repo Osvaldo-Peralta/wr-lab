@@ -175,6 +175,9 @@ def secciones_comunes():
               "Yun Tal y Death's Dance ya con valores 7.3a en el motor)",
          csv_a_md("data/estructurada/items_7.3.csv",
                   columnas=["Ítem", "Oro", "Stats", "Categorías"])),
+        ("8b", "EXCLUSIVIDADES DE ÍTEMS (no pueden convivir en la misma build — validado por "
+               "validate_slots/optimizador/lint; escalable: 1 fila = 1 grupo)",
+         csv_literal("data/estructurada/items_exclusivos.csv")),
         ("9", f"SPECS PRECARGADAS ({n_specs} campeones, notas 7.3a incluidas)",
          fence("python", leer("model", "champspecs.py"))),
         ("10", "MOTOR DE DPS (con validate_slots — ver Ley 0)",
