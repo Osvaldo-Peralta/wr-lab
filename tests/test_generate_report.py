@@ -87,7 +87,7 @@ class TestModoCualitativo(unittest.TestCase):
         self.assertIn("W rank 1", txt)
         self.assertIn("EHP físico", txt)
         # marcadores de fuente del estándar v1.13.1
-        self.assertIn("📌 Publicada", txt)
+        self.assertIn("📌 Pre-", txt)
         self.assertIn("🔬 LAB", txt)
         # build publicada re-parseable
         build, _ = U.extraer_build(txt)

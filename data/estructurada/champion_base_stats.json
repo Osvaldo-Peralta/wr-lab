@@ -252,5 +252,104 @@
    "Attack Speed per Level": "0.008"
   },
   "durability_73": null
+ },
+ "orianna": {
+  "name": "Orianna",
+  "stats": {
+   "attackdamage": "46 (2.7)",
+   "heal": "630 (120)",
+   "healthregeneration": "8 (0.6)",
+   "attackspeed": "0.8 (0.021)",
+   "mana": "435 (57)",
+   "mpreg": "12 (1.1)",
+   "movementspeed": "355 (0)",
+   "armor": "28 (4)",
+   "magicresistance": "36 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Orianna",
+   "Attack Speed Ratio": "0.658",
+   "Base Attack Speed": "0.658",
+   "Base Bonus Attack Speed": "0.14",
+   "Attack Speed per Level": "0.032"
+  },
+  "durability_73": null
+ },
+ "ahri": {
+  "name": "Ahri",
+  "stats": {
+   "attackdamage": "52 (3.6)",
+   "heal": "630 (120)",
+   "healthregeneration": "8 (0.7)",
+   "attackspeed": "0.8 (0.013)",
+   "mana": "435 (49)",
+   "mpreg": "18 (1.1)",
+   "movementspeed": "355 (0)",
+   "armor": "34 (4.5)",
+   "magicresistance": "36 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Ahri",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.2",
+   "Attack Speed per Level": "0.02"
+  },
+  "durability_73": null
+ },
+ "nocturne": {
+  "name": "Nocturne",
+  "stats": {
+   "attackdamage": "54 (5)",
+   "heal": "660 (134)",
+   "healthregeneration": "10 (0.86)",
+   "attackspeed": "0.8 (0.017)",
+   "mana": "380 (50)",
+   "mpreg": "32 (1)",
+   "movementspeed": "345 (0)",
+   "armor": "43 (4.5)",
+   "magicresistance": "40 (2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Nocturne",
+   "Attack Speed Ratio": "0.721",
+   "Base Attack Speed": "0.721",
+   "Base Bonus Attack Speed": "0.11",
+   "Attack Speed per Level": "0.024"
+  },
+  "durability_73": {
+   "champion": "Nocturne",
+   "Base Health": "",
+   "Base Armor": "",
+   "Armor per Level": "",
+   "Base Magic Resist": "",
+   "Health per Level": "120 → 134"
+  }
+ },
+ "syndra": {
+  "name": "Syndra",
+  "stats": {
+   "attackdamage": "54 (3)",
+   "heal": "630 (120)",
+   "healthregeneration": "6 (0.65)",
+   "attackspeed": "0.8 (0.009)",
+   "mana": "380 (50)",
+   "mpreg": "10 (1)",
+   "movementspeed": "360 (0)",
+   "armor": "34 (4.5)",
+   "magicresistance": "36 (1.2)",
+   "criticalstrike": "200% (0)"
+  },
+  "as_official_73": {
+   "champion": "Syndra",
+   "Attack Speed Ratio": "0.625",
+   "Base Attack Speed": "0.625",
+   "Base Bonus Attack Speed": "0.2",
+   "Attack Speed per Level": "0.015"
+  },
+  "durability_73": null
  }
 }

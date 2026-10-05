@@ -2,14 +2,21 @@
 tags:
   - Jungla
   - Barón
-Status: Beta
 version: 1.1
-patch: 7.3a
+Status: Beta
 champion: Volibear
 slug: volibear
 role: jungla
-archetype: Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque
+patch: "7.3a"
+archetype: "Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque"
 engine: none
+custom: false
+generate: manual
+mode: sr
+published_at: "2026-09-26"
+updated_at: "2026-10-04"
+verification: AL_DIA
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 26 de septiembre de 2026  
 **Parche analizado:** 7.3 (lanzamiento oficial: 21 de septiembre de 2026)  

@@ -9,7 +9,9 @@ os.makedirs(OUTC, exist_ok=True)
 
 NAMES = {"yuumi":"Yuumi","yunara":"Yunara","mordekaiser":"Mordekaiser","kalista":"Kalista",
          "diana":"Diana","karma":"Karma","heimerdinger":"Heimerdinger","volibear":"Volibear",
-         "seraphine":"Seraphine","shyvana":"Shyvana","chogath":"Cho'Gath"}
+         "seraphine":"Seraphine","shyvana":"Shyvana","chogath":"Cho'Gath",
+         # v1.15: nuevos campeones solicitados por el autor (IDs vía sitemap.xml, 04/10)
+         "orianna":"Orianna","ahri":"Ahri","nocturne":"Nocturne","syndra":"Syndra"}
 
 # AS oficial 7.3 (apéndice de las notas)
 as_official = {}

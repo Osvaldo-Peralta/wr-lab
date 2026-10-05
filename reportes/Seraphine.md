@@ -3,16 +3,21 @@ tags:
   - Soporte
   - Mid
   - Custom
-Status: Beta
 version: 1.2
-patch: 7.3a
+Status: Beta
 champion: Seraphine
 slug: seraphine
 role: support
-archetype: Burst-Caster / Poke-Mage — maximizar daño en ventanas de 2-3 s
+patch: "7.3a"
+archetype: "Burst-Caster / Poke-Mage — maximizar daño en ventanas de 2-3 s"
 engine: none
-published_at: "2026-09-30"
 custom: "true"
+generate: manual
+mode: sr
+published_at: "2026-09-30"
+updated_at: "2026-10-04"
+verification: AL_DIA
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 30/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)

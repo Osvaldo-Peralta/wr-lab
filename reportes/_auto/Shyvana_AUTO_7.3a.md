@@ -7,13 +7,16 @@ Status: Espera de verificación
 champion: Shyvana
 slug: shyvana-auto-73a
 role: jungla
+variant: auto-7-3a
 patch: "7.3a"
 archetype: "Q Twin Bite: doble golpe (100% + 20/40/60/80% AD) y los auto"
 engine: autos
-published_at: "2026-10-03"
 custom: false
 generate: auto
 mode: sr
+published_at: "2026-10-03"
+updated_at: "2026-10-04"
+verification: pending
 ---
 **Fecha del análisis:** 03/10/2026 (auto-generado)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a

@@ -9,6 +9,10 @@
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
+<<<<<<< Updated upstream
+=======
+| Ahri | MID | A | 50.92 | 4.31 | 0.12 | ↑ 1 | Confidence Med |
+>>>>>>> Stashed changes
 | Caitlyn | DUO | S | 49.68 | 22.38 | 17.37 | ↑ 2 | Confidence High |
 | Cho'Gath | SOLO | A | 50.34 | 11.63 | 34.40 | ↓ 4 | Confidence High |
 | Cho'Gath | JUNGLE | A | 50.38 | 8.32 | 34.40 | ↓ 2 | Confidence High |
@@ -22,11 +26,21 @@
 | Malphite | SUPPORT | S+ | 51.47 | 7.23 | 45.22 | ↓ 1 | Confidence Med |
 | Malphite | SOLO | S+ | 55.30 | 7.67 | 45.22 | 0 | Confidence Med |
 | Mordekaiser | SOLO | S | 51.25 | 10.43 | 27.99 | ↓ 1 | Confidence High |
+<<<<<<< Updated upstream
 | Norra | MID | A | 51.10 | 1.54 | 7.80 | 0 | Confidence Low |
+=======
+| Nocturne | JUNGLE | S+ | 55.46 | 9.57 | 37.99 | ↓ 1 | Confidence High |
+| Norra | MID | A | 51.10 | 1.54 | 7.80 | 0 | Confidence Low |
+| Orianna | MID | S | 51.72 | 4.58 | 0.26 | 0 | Confidence Med |
+>>>>>>> Stashed changes
 | Rammus | JUNGLE | S+ | 57.33 | 4.97 | 6.65 | 0 | Confidence Med |
 | Seraphine | SUPPORT | A | 49.56 | 6.45 | 0.97 | ↑ 3 | Confidence Med |
 | Shyvana | JUNGLE | B | 45.86 | 3.70 | 1.40 | ↓ 1 | Confidence Med |
 | Sivir | DUO | B | 48.40 | 3.46 | 0.05 | ↑ 1 | Confidence Med |
+<<<<<<< Updated upstream
+=======
+| Syndra | MID | S+ | 51.21 | 6.84 | 26.19 | ↑ 2 | Confidence Med |
+>>>>>>> Stashed changes
 | Volibear | SOLO | A | 48.10 | 5.51 | 4.65 | ↑ 1 | Confidence Med |
 | Volibear | JUNGLE | B | 48.11 | 2.54 | 4.65 | 0 | Confidence Low |
 | Yunara | DUO | S+ | 51.84 | 17.19 | 23.57 | ↑ 1 | Confidence High |

@@ -1,12 +1,12 @@
 ---
 tags:
-  - Jungla
+  - Mid
   - Auto
 version: 0.9
 Status: Espera de verificación
-champion: Rammus
-slug: rammus-auto-73a
-role: jungla
+champion: Orianna
+slug: orianna-auto-73a
+role: mid
 variant: auto-7-3a
 patch: "7.3a"
 archetype: "sin motor cuantitativo — generación cualitativa (tanque/mago/asesino)"
@@ -20,84 +20,83 @@ verification: pending
 ---
 **Fecha del análisis:** 04/10/2026 (auto-generado, modo cualitativo)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a
-**Rol principal:** jungla (derivado del reporte publicado)
+**Rol principal:** mid (hint del lab — revisar)
 **Arquetipo:** sin motor cuantitativo (motores de tanques/magos/asesinos: ROADMAP). Método:
 datos reales (ficha wr-meta, diffs oficiales, win rates, BD de ítems) + cálculos parciales
 con supuestos declarados + TODOs explícitos.
-**Enfoque:** re-derivar la guía publicada (Rammus.md) contra 7.3a SIN cambiar la build hasta validación del autor.
+**Enfoque:** semilla comunitaria filtrada contra la BD 7.3 — TODO validar en juego.
 
 > [!WARNING] REPORTE AUTO-GENERADO (MODO CUALITATIVO) — ESPERA DE VERIFICACIÓN
 > Generado por `model/generate_report.py` el 04/10/2026. Este campeón no tiene
 > motor cuantitativo en el lab: las secciones de daño por build llevan **TODO**; los cálculos
-> incluidos (EHP, W) usan supuestos DECLARADOS en §10.
->  El autor debe completar TODOs, verificar en juego y `aprobar` (o regenerar a mano).
+> incluidos (EHP) usan supuestos DECLARADOS en §10.
+> La build es la popular de wr-meta filtrada (la página mezcla contenido de varias fechas — descartados los ítems fuera de la BD 7.3): VALIDAR EN JUEGO. El autor debe completar TODOs, verificar en juego y `aprobar` (o regenerar a mano).
 
 > [!NOTE]
 > **Estado Meta Actual (2026-10-04):**
-> Win Rate 57.33 % | Pick 4.97 % | Ban 6.65 % | Tendencia 0 | **Tier S+** | Rol JUNGLE · Diamond + · actualizado 2026-10-04 (champion_winrates.csv)
+> Win Rate 51.72 % | Pick 4.58 % | Ban 0.26 % | Tendencia 0 | **Tier S** | Rol MID · Diamond + · actualizado 2026-10-04 (champion_winrates.csv)
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (heredada del reporte publicado + corrección Ley 0)
+### Tabla A — BUILD SEMILLA (comunidad, por validar)
 
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
-| 1 | **Sunfire Aegis** | 2 900 | — |
-| 2 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 1 200 | — |
-| 3 | **Thornmail** | 2 700 | — |
-| 4 | **Dead Man's Plate** | 2 800 | — |
-| 5 | **Force of Nature** | 2 800 | — |
-| 6 | **Gargoyle Stoneplate** | 2 900 | — |
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 1 200 | 🌐 comunidad (wr-meta) — TODO validar |
+| 2 | **Blackfire Torch** | 2 800 | 🌐 comunidad (wr-meta) — TODO validar |
+| 3 | **Infinity Orb** | 3 100 | 🌐 comunidad (wr-meta) — TODO validar |
+| 4 | **Rabadon's Deathcap** | 3 400 | 🌐 comunidad (wr-meta) — TODO validar |
+| 5 | **Oceanid's Trident** | 2 600 | 🌐 comunidad (wr-meta) — TODO validar |
+| 6 | **Morellonomicon** | 2 650 | 🌐 comunidad (wr-meta) — TODO validar |
 
-> **Oro total: 16 300 g** (incluye +1 000 del upgrade T2→T3, Ley 0)
-> Stats agregados (BD oficial): HP +1 650 · Armadura +250 · MR +105
+> **Oro total: 16 750 g** (incluye +1 000 del upgrade T2→T3, Ley 0)
+> Stats agregados (BD oficial): HP +500 · Armadura +0 · MR +0
 
-### Tabla B — Ruta de compra cronológica (minutos del reporte publicado)
+### Tabla B — Ruta de compra cronológica (sintetizada con curvas de oro del vault)
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
-| 1 | Sunfire Aegis | 2 900 | ~8:00 |
-| 2 | Plated Steelcaps | 4 100 | ~9:30 |
-| 3 | Thornmail | 6 800 | ~12:00 |
-| 4 | Dead Man's Plate | 9 600 | ~14:00 |
-| 5 | Force of Nature | 12 400 | ~16:30 |
-| 6 | Gargoyle Stoneplate | 15 300 | ~19:00 |
-| 7 | ⬆️ Armored Advance (mismo slot, +1 000) | 16 300 | ~post 10:00 |
+| 1 | Ítem inicial + poción (start) | 500 | ~0:00 |
+| 2 | Boots of Mana | 1 700 | ~7:12 |
+| 3 | Blackfire Torch | 4 500 | ~9:00 |
+| 4 | Infinity Orb | 7 600 | ~11:29 |
+| 5 | Rabadon's Deathcap | 11 000 | ~14:25 |
+| 6 | Oceanid's Trident | 13 600 | ~16:54 |
+| 7 | Morellonomicon | 16 250 | ~19:40 |
+| 8 | ⬆️ Spellslinger's Shoes (mismo slot) | 17 250 | ~19:51 |
 
 ### Runas · Hechizos · Habilidades
 
 | Categoría | Elección |
 |-----------|----------|
 | Keystone | **TODO** (verificar meta en juego/wr-meta — la ficha cruda tiene la sugerencia comunitaria) |
-| Hechizos | Smite + Flash (jungla) |
+| Hechizos | TODO por rol |
 | Habilidades | ver §2 (ficha) — **TODO: orden de subida** |
 
 ### Resultado del modelo — CÁLCULOS PARCIALES (supuestos en §10)
 
 | Métrica | Pre-7.3a | Post-7.3a | Δ |
 |---|---|---|---|
-| Armadura total aprox. (nivel 15) | 295 | 290 | -5 |
-| EHP físico aprox. | 14 062 | 13 884 | -1.3 % |
-| W rank 4 (60 % armadura) | 177 | 174 | -3 |
-| W rank 1 (45→30 %) | 133 | 87 | -34 % |
+| Armadura total aprox. (nivel 15) | 84 | 84 | +0 |
+| EHP físico aprox. | 5 170 | 5 170 | +0.0 % |
 
 ---
 
 ## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### 1.1 Cambios directos (Rammus)
+### 1.1 Cambios directos (Orianna)
 
 | Cambio |
 |--------|
-| **Rammus** · NERF · Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %** |
+| Sin cambios directos encontrados en los diffs del lab. |
 
-### 1.2 Cambios sistémicos relevantes (jungla)
+### 1.2 Cambios sistémicos relevantes (mid)
 
 | Sistema |
 |---------|
-| Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 % |
+| Sin cambios sistémicos relevantes al rol. |
 
 ### 1.3 ¿Escala con crítico/otro stat? — **TODO humano** (leer kit en §2)
 
@@ -105,19 +104,19 @@ con supuestos declarados + TODOs explícitos.
 
 | Parámetro | Valor | Fuente |
 |---|---|---|
-| AS ratio / base / bonus / por nivel | 0.625,0.625,0.28,0.0185 | champion_attack_speed_7.3.csv |
-| Bases nivel 15 | **TODO** — sin ficha en champion_base_stats.json |
-| Kit (habilidades con valores) | ver ficha `data/estructurada/campeones/rammus.md` | wr-meta (crudo en data/raw/campeones/) |
+| AS ratio / base / bonus / por nivel | 0.658,0.658,0.14,0.032 | champion_attack_speed_7.3.csv |
+| Bases nivel 15 | HP 2310 · Armadura 84 · MR 53 (nivel 15, ficha wr-meta) |
+| Kit (habilidades con valores) | ver ficha `data/estructurada/campeones/orianna.md` | wr-meta (crudo en data/raw/campeones/) |
 | Cambios 7.3/7.3a | ver §1.1 | diffs oficiales verificados contra nota EN |
 
 ## 3. MODELO Y FÓRMULAS
 
 **Sin motor cuantitativo** (ROADMAP: motor de tanques/magos). Cálculos parciales de §0/§8:
-EHP = (HP base ficha + HP ítems) × (1 + armadura/100); W = % × armadura total. Supuestos en §10.
+EHP = (HP base ficha + HP ítems) × (1 + armadura/100). Supuestos en §10.
 
-## 4. LEYES APLICADAS A RAMMUS (formato compacto — estándar v1.13.1)
+## 4. LEYES APLICADAS A ORIANNA (formato compacto — estándar v1.13.1)
 
-- **Ley 0 — Slots:** validada (1 botas + 5 ítems) con upgrade T2→T3 añadido (+1 000 g, mismo slot).
+- **Ley 0 — Slots:** semilla de 6 slots; validada (1 botas + 5 ítems) con upgrade T2→T3 añadido (+1 000 g, mismo slot).
 - **Ley 3b — Exclusividades:** sin conflictos (items_exclusivos.csv) ✅.
 - **Ley 1/2 — Crítico/AS:** TODO (el arquetipo no prioriza crítico; verificar AS útil del kit).
 - **Ley 4 — Stats muertos:** TODO humano con el kit en §2.
@@ -126,7 +125,7 @@ EHP = (HP base ficha + HP ítems) × (1 + armadura/100); W = % × armadura total
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-Ruta publicada: Sunfire Aegis — **TODO humano:** validar
+Semilla wr-meta: Boots of Mana — **TODO humano:** validar
 contra el meta 7.3a y el clear de jungla (smite nerf) si aplica.
 
 ## 6. BUILD FINAL RANURA POR RANURA
@@ -140,11 +139,11 @@ contra el meta 7.3a y el clear de jungla (smite nerf) si aplica.
 | Guardian Angel | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |
 | Sterak's Gage | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |
 | Death's Dance | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |
-| Banshee's Veil | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |
+| Nashor's Tooth | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |
 
 ## 7. RUNAS · HECHIZOS · HABILIDADES
 
-**TODO humano.** La ficha cruda (`data/estructurada/campeones/rammus.md`, sección
+**TODO humano.** La ficha cruda (`data/estructurada/campeones/orianna.md`, sección
 "Build/runas populares") trae la sugerencia comunitaria de runas como insumo.
 
 ## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
@@ -154,24 +153,22 @@ Con datos de 7.3a (supuestos §10):
 
 | Métrica | 📌 Pre-7.3a | 🔬 LAB post-7.3a | Δ |
 |---|---|---|---|
-| Armadura total aprox. (nivel 15) | 295 | 290 | -5 |
-| EHP físico aprox. | 14 062 | 13 884 | -1.3 % |
-| W rank 4 (60 % armadura) | 177 | 174 | -3 |
-| W rank 1 (45→30 %) | 133 | 87 | -34 % |
+| Armadura total aprox. (nivel 15) | 84 | 84 | +0 |
+| EHP físico aprox. | 5 170 | 5 170 | +0.0 % |
 
 > **TODO:** al existir el motor, re-optimizar y marcar fuentes (⭐ LAB / 📌 publicada / 🌐 comunidad).
 
 ## 9. PLAN DE JUEGO
 
-**TODO humano.** Picos de §0 Tabla B. Ajustar por smite nerf (jungla).
+**TODO humano.** Picos de §0 Tabla B. 
 
 ## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
-- **Fuentes:** ficha wr-meta (rammus) + apéndice AS oficial 7.3 · diffs cambios_*.md
+- **Fuentes:** ficha wr-meta (orianna) + apéndice AS oficial 7.3 · diffs cambios_*.md
   (verificados contra nota EN oficial) · items_7.3.csv · champion_winrates.csv
-  (2026-10-04) · build/ruta: Rammus.md.
-- **Supuestos DECLARADOS:** bases genéricas del lab (1 910 HP/45 arm/35 MR — SIN ficha);
-  EHP sin escudos/activas; W = % × armadura total (verificar bonus vs total).
+  (2026-10-04) · build semilla: popular wr-meta (página con contenido mixto 2025-07/2026-07 — filtrada contra BD 7.3).
+- **Supuestos DECLARADOS:** bases nivel 15 de la ficha wr-meta;
+  EHP sin escudos/activas.
   **Verificar en juego antes de publicar.**
 - **Validación:** Ley 0 y 3b chequeadas · win rates del pipeline oficial.
 
@@ -181,7 +178,7 @@ Alternativas del §6 (BD oficial) — veredictos numéricos pendientes del motor
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-Tabla B de §0 (minutos del reporte publicado).
+Tabla B de §0 (sintetizada con curvas del vault, rol mid).
 
 ---
 

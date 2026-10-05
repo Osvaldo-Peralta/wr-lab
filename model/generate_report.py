@@ -484,6 +484,66 @@ ni respaldada por Riot Games**.
 
 
 
+ROL_HINTS = {"orianna": "mid", "ahri": "mid", "syndra": "mid", "nocturne": "jungla",
+             "norra": "mid", "rammus": "jungla", "chogath": "jungla", "mordekaiser": "top",
+             "heimerdinger": "mid", "seraphine": "support", "malphite": "top"}
+
+
+def _nombres_items_csv():
+    """{clave alfanumérica: nombre CSV} de toda la BD oficial (clave = solo letras/dígitos,
+    para tolerar los slugs de wr-meta: 'rabadons-deathcap', prefijo 'yordle-', etc.)."""
+    out = {}
+    with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
+        for fil in csv.DictReader(fh):
+            clave = re.sub(r"[^a-z0-9]", "", fil["item"].lower())
+            out[clave] = fil["item"]
+    return out
+
+
+def _es_botas_csv(nombre):
+    try:
+        k = M.resolve(nombre).key
+        return k in M.BOOTS_ALL
+    except KeyError:
+        return "boots" in nombre.lower() or "greaves" in nombre.lower() or \
+               any(x in nombre.lower() for x in ("shoes", "treads", "steelcaps", "lucidity"))
+
+
+def build_popular(slug):
+    """Ítems de la build popular desde el HTML de wr-meta (data/raw/campeones/{slug}.html):
+    secuencia de itemimage → nombres oficiales 7.3 (los que no están en la BD se descartan
+    con aviso — la página puede mezclar contenido desactualizado)."""
+    ruta = os.path.join(ROOT, "data", "raw", "campeones", f"{slug}.html")
+    if not os.path.exists(ruta):
+        return [], ["sin HTML crudo (descargar de wr-meta)"]
+    with open(ruta, encoding="utf-8", errors="ignore") as fh:
+        html = fh.read()
+    slugs = re.findall(r'itemimage[^>]*data-src="[^"]*?(?:\d+_)?([a-z0-9-]+)\.webp"', html)
+    nombres_csv = _nombres_items_csv()
+    vistos, orden, descartados = set(), [], []
+    for sl in slugs:
+        sl = re.sub(r"^\d+_", "", sl)
+        if sl in vistos:
+            continue
+        vistos.add(sl)
+        clave = re.sub(r"[^a-z0-9]", "", sl.lower())
+        clave_sin_yordle = re.sub(r"^yordle", "", clave)
+        if clave in nombres_csv:
+            orden.append(nombres_csv[clave])
+        elif clave_sin_yordle in nombres_csv:
+            orden.append(nombres_csv[clave_sin_yordle])
+        else:
+            descartados.append(sl)
+    # componentes básicos fuera (son ruta, no build final)
+    BASICOS = {"Amplifying Tome", "Long Sword", "Boots of Speed", "Sapphire Crystal",
+               "Ruby Crystal", "Cloth Armor", "Null-Magic Mantle", "Dagger", "Pickaxe",
+               "Blasting Wand", "Recurve Bow", "B. F. Sword", "Noonquiver", "Kircheis Shard",
+               "Spectral Sickle", "Relic Shield", "Stormrazor"}   # Stormrazor no es básico — quitar de aquí
+    BASICOS.discard("Stormrazor")
+    finales = [n for n in orden if n not in BASICOS]
+    return finales, descartados
+
+
 def _reporte_publicado(display, champ):
     """Encuentra el reporte publicado del campeón en reportes/ (por frontmatter o nombre)."""
     for f in sorted(os.listdir(REPORTES)):
@@ -499,9 +559,11 @@ def _reporte_publicado(display, champ):
 
 
 def generar_cualitativo(champ, rol=None, outdir=None):
-    """Plantilla completa para campeones SIN motor cuantitativo (tanques/rotaciones no
-    cubiertas): datos reales (diffs, win rates, ruta publicada, stats de ítems del CSV,
-    EHP/W recalculados con supuestos declarados) + TODOs explícitos. Cero números inventados."""
+    """Plantilla completa para campeones SIN motor cuantitativo. Dos variantes:
+    (a) con reporte publicado (p.ej. Rammus): parte de su build/ruta y recalcula lo posible;
+    (b) campeón NUEVO (p.ej. Orianna): semilla = build popular de wr-meta filtrada contra
+        items_7.3.csv + stats reales de la ficha. Cero números inventados: lo que necesita
+        motor o ficha ausente lleva TODO explícito."""
     display = NOMBRE_VISIBLE.get(champ, champ.title())
     parche, ruta_diff = U.ultimo_parche_hotfix()
     hoy = datetime.date.today()
@@ -509,37 +571,58 @@ def generar_cualitativo(champ, rol=None, outdir=None):
     os.makedirs(outdir, exist_ok=True)
 
     arch_pub, txt_pub, fm_pub = _reporte_publicado(display, champ)
-    if not txt_pub:
-        sys.exit(f"sin reporte publicado ni motor para '{champ}': el modo cualitativo parte "
-                 f"de la build publicada — crea primero un reporte base o la spec (FRAMEWORK §A)")
-    rol = rol or ST.rol_de(arch_pub, U.parse_rol(txt_pub))
-    ruta = ST.parse_ruta(txt_pub)
-    if len(ruta) < 6:
-        sys.exit(f"la ruta publicada de {arch_pub} no tiene 6 compras parseables — modo "
-                 f"cualitativo requiere la build publicada como base")
-    build_disp = [c for c, _, _ in ruta][:6]
-
-    # Ley 0: botas T2 en build final → normalizar a T3 (mismo slot, +1 000 g tras min 10)
+    NUEVO = txt_pub is None
     stats_csv = stats_items_csv()
+    precios = {}
+    with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
+        for fil in csv.DictReader(fh):
+            if (fil.get("precio_oro") or "").isdigit():
+                precios[fil["item"].lower()] = int(fil["precio_oro"])
+
+    # stats base reales (ficha) o fallback declarado
+    base_hp, base_ar, base_mr = 1910.0, 45.0, 35.0
+    ficha_stats = None
+    try:
+        import json as _json
+        with open(os.path.join(ESTRUCTURADA, "champion_base_stats.json"), encoding="utf-8") as fh:
+            bs = _json.load(fh)
+        ficha_stats = bs.get(champ, {}).get("stats")
+        def _lv15(clave):
+            m = re.match(r"([\d.]+)\s*\(([\d.]+)\)", (ficha_stats.get(clave) or "").replace("\xa0", " "))
+            return float(m.group(1)) + float(m.group(2)) * 14 if m else None
+        if ficha_stats:
+            hp_j, ar_j, mr_j = _lv15("heal"), _lv15("armor"), _lv15("magicresistance")
+            if None not in (hp_j, ar_j, mr_j):
+                base_hp, base_ar, base_mr = hp_j, ar_j, mr_j
+    except Exception:
+        pass
+
+    if NUEVO:
+        rol = rol or ROL_HINTS.get(champ, "mid")
+        arch_pub = "(campeón nuevo — semilla: build popular wr-meta filtrada)"
+        populares, descartados = build_popular(champ)
+        if descartados:
+            print(f"  [aviso] slugs wr-meta fuera de la BD 7.3 (descartados): {descartados[:6]}")
+        botas = [n for n in populares if _es_botas_csv(n)]
+        resto = [n for n in populares if n not in botas]
+        build_disp = (botas[:1] + resto)[:6]
+        ruta = []
+        vio = M.violaciones_exclusividad(build_disp) if len(build_disp) == 6 else [("build incompleta", [])]
+    else:
+        rol = rol or ST.rol_de(arch_pub, U.parse_rol(txt_pub))
+        ruta = ST.parse_ruta(txt_pub)
+        if len(ruta) < 6:
+            sys.exit(f"la ruta publicada de {arch_pub} no tiene 6 compras parseables")
+        build_disp = [c for c, _, _ in ruta][:6]
+        vio = M.violaciones_exclusividad(build_disp)
+
+    # ── Tabla A (normaliza botas T2→T3, Ley 0) ──
     alias_low = {a.lower(): k for a, k in M.ALIAS.items()}
     upgrade = None
-    tabla_a, oro_total = [], 0
+    filas_a, oro_total = [], 0
     for i, nombre in enumerate(build_disp):
         key = alias_low.get(nombre.lower())
-        precio = 0
-        for n2, (hp, ar, mr) in stats_csv.items():
-            if n2 == nombre.lower():
-                precio = next((int(fil[1]) for fil in csv.reader(
-                    open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8"))
-                    if fil and fil[0].lower() == n2 and fil[1].isdigit()), 0)
-                break
-        cat = ""
-        with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
-            for fil in csv.DictReader(fh):
-                if fil["item"].lower() == nombre.lower():
-                    cat = (fil.get("categorias") or "").split(";")[0].title()
-                    precio = int(fil["precio_oro"]) if (fil.get("precio_oro") or "").isdigit() else 0
-                    break
+        precio = precios.get(nombre.lower(), 0)
         celda = f"**{nombre}**"
         if key and key in T2_A_T3:
             t3 = DISPLAY_AUTOS.get(T2_A_T3[key], T2_A_T3[key])
@@ -547,24 +630,48 @@ def generar_cualitativo(champ, rol=None, outdir=None):
             upgrade = (nombre, t3)
             oro_total += 1000
         oro_total += precio
-        tabla_a.append(f"| {i + 1}{' (botas)' if (key in T2_A_T3 or (key or '') in M.BOOTS_ALL) else ''} "
-                       f"| {celda} | {g(precio)} | {cat or '—'} |")
-    tabla_a = "\n".join(tabla_a)
+        filas_a.append(f"| {i + 1}{' (botas)' if key in (T2_A_T3.values() if False else set(M.BOOTS_ALL) | set(T2_A_T3)) else ''} | {celda} | {g(precio)} | 🌐 comunidad (wr-meta) — TODO validar |" if NUEVO
+                       else f"| {i + 1}{' (botas)' if key in (set(M.BOOTS_ALL) | set(T2_A_T3)) else ''} | {celda} | {g(precio)} | — |")
+    tabla_a = "\n".join(filas_a)
 
-    # EHP y W con el nerf 7.3a (supuestos declarados: bases genéricas del lab)
+    # ── Tabla B: publicada o sintetizada con curvas del vault ──
+    if ruta:
+        tabla_b = "\n".join(f"| {i} | {c} | {g(o)} | ~{ST.fmt_min(t) if t is not None else '—'} |"
+                             for i, (c, o, t) in enumerate(ruta[:6], 1))
+        if upgrade:
+            tabla_b += f"\n| 7 | ⬆️ {upgrade[1]} (mismo slot, +1 000) | {g(oro_total)} | ~post 10:00 |"
+    else:
+        puntos_r, _, glob_r = ST.anclas_por_rol()
+        curva_r = ST.fit_curva(puntos_r[rol] if len(puntos_r.get(rol, [])) >= 3 else glob_r)
+        acum, filas_b = 500, [("Ítem inicial + poción (start)", 500, ST.minuto_para(500, curva_r) or 0)]
+        for n in build_disp:
+            acum += precios.get(n.lower(), 0)
+            filas_b.append((n, acum, ST.minuto_para(acum, curva_r) or 0))
+        if upgrade:
+            acum += 1000
+            filas_b.append((f"⬆️ {upgrade[1]} (mismo slot)", acum, max(ST.minuto_para(acum, curva_r) or 0, 10.0)))
+        tabla_b = "\n".join(f"| {i} | {c} | {g(o)} | ~{ST.fmt_min(t)} |" for i, (c, o, t) in enumerate(filas_b, 1))
+
+    # ── cálculos parciales (EHP real con stats de ficha; W solo donde hay fuente) ──
     hp_i = ar_i = mr_i = 0.0
     for nombre in build_disp:
         st = stats_csv.get(nombre.lower())
         if st:
             hp_i += st[0]; ar_i += st[1]; mr_i += st[2]
-    base_hp, base_ar, base_mr = 1910.0, 45.0, 35.0     # fallback genérico nivel 15 (declarado)
-    A_pre, A_post = base_ar + ar_i, (base_ar - 5) + ar_i   # 7.3a: armor base 45→40
+    armor_delta = -5.0 if champ == "rammus" else 0.0     # 7.3a verificado (único con cambio de armadura base)
+    A_pre, A_post = base_ar + ar_i, base_ar + armor_delta + ar_i
     ehp_pre = (base_hp + hp_i) * (1 + A_pre / 100)
     ehp_post = (base_hp + hp_i) * (1 + A_post / 100)
     d_ehp = (ehp_post / ehp_pre - 1) * 100
-    # W (Defensive Ball Curl): bonus armor 45/50/55/60 % → 30/40/50/60 % (notas EN 7.3a)
-    w4_pre, w4_post = 0.60 * A_pre, 0.60 * A_post        # rank 4: % sin cambio, menos armadura base
-    w1_pre, w1_post = 0.45 * A_pre, 0.30 * A_post        # rank 1: doble nerf
+    w_rows = ""
+    w4_pre = w4_post = w1_pre = w1_post = 0
+    if champ == "rammus":
+        w4_pre, w4_post = 0.60 * A_pre, 0.60 * A_post
+        w1_pre, w1_post = 0.45 * A_pre, 0.30 * A_post
+        w_rows = (f"| W rank 4 (60 % armadura) | {w4_pre:.0f} | {w4_post:.0f} | {w4_post - w4_pre:+.0f} |\n"
+                  f"| W rank 1 (45→30 %) | {w1_pre:.0f} | {w1_post:.0f} | {(w1_post / w1_pre - 1) * 100:+.0f} % |")
+    calc_txt = (f"| Armadura total aprox. (nivel 15) | {A_pre:.0f} | {A_post:.0f} | {armor_delta:+.0f} |\n"
+                f"| EHP físico aprox. | {g(ehp_pre)} | {g(ehp_post)} | {d_ehp:+.1f} % |\n{w_rows}").rstrip()
 
     wr = winrates(display, rol)
     wr_callout = ("Sin datos (corre `wrlab.py winrates`).")
@@ -578,28 +685,28 @@ def generar_cualitativo(champ, rol=None, outdir=None):
     sist = U.sistemas_relevantes(rol, cs)
     sist_txt = "\n".join(f"| {x[:200]} |" for x in sist) or "| Sin cambios sistémicos relevantes al rol. |"
     ctx73 = cambios_champion(display, "cambios_campeones_7.3.md")
-    ctx_txt = "\n".join(f"| {' · '.join(c[:3])} |" for c in (ctx73 + ([["**Rammus**", directo["tipo"], directo["detalles"]]] if directo else []))) \
-        or "| Sin cambios directos encontrados en los diffs del lab. |"
+    filas_ctx = ctx73 + ([[f"**{display}**", directo["tipo"], directo["detalles"]]] if directo else [])
+    ctx_txt = "\n".join(f"| {' · '.join(c[:3])} |" for c in filas_ctx) or \
+        "| Sin cambios directos encontrados en los diffs del lab. |"
     as_csv = None
     with open(os.path.join(ESTRUCTURADA, "champion_attack_speed_7.3.csv"), encoding="utf-8") as fh:
         for lin in fh:
             if lin.lower().startswith(display.lower() + ","):
                 as_csv = lin.strip()
                 break
-    tabla_b = "\n".join(f"| {i} | {c} | {g(o)} | ~{ST.fmt_min(t) if t is not None else '—'} |"
-                         for i, (c, o, t) in enumerate(ruta[:6], 1))
-    if upgrade:
-        tabla_b += f"\n| 7 | ⬆️ {upgrade[1]} (mismo slot, +1 000) | {g(oro_total)} | ~{ST.fmt_min(max((t or 0) for _, _, t in ruta[:6]) + 0.5)} (post 10:00) |"
-
-    # pool de tanque para RECHAZADOS cualitativos (categorías TANK/DEFENSE del CSV)
     alternativas = []
     with open(os.path.join(ESTRUCTURADA, "items_7.3.csv"), encoding="utf-8", newline="") as fh:
         for fil in csv.DictReader(fh):
             cats = (fil.get("categorias") or "").upper()
-            if ("TANK" in cats or "DEFENSE" in cats) and fil["item"].lower() not in {b.lower() for b in build_disp}:
+            if fil["item"].lower() not in {b.lower() for b in build_disp} and (
+                    ("MAGIC" in cats and rol in ("mid", "support")) or
+                    ("TANK" in cats or "DEFENSE" in cats) if rol in ("jungla", "top") else
+                    ("MAGIC" in cats and rol in ("mid", "support")) or ("TANK" in cats or "DEFENSE" in cats)):
                 alternativas.append(fil["item"])
-    rech_txt = "\n".join(f"| {a} | **TODO numérico** (sin motor de tanques — ROADMAP): justificar vs la build publicada |"
-                          for a in alternativas[:6]) or "| (sin alternativas en el pool CSV) |"
+    rech_txt = "\n".join(f"| {a} | **TODO numérico** (sin motor para el arquetipo — ROADMAP) |"
+                          for a in alternativas[:6]) or "| (sin alternativas registradas) |"
+    stats_row = (f"HP {base_hp:.0f} · Armadura {base_ar:.0f} · MR {base_mr:.0f} (nivel 15, ficha wr-meta)"
+                 if ficha_stats else "**TODO** — sin ficha en champion_base_stats.json")
 
     reporte = f"""---
 tags:
@@ -611,7 +718,7 @@ champion: {display}
 slug: {slugify(display)}-auto-{parche.replace('.', '')}
 role: {rol}
 patch: "{parche}"
-archetype: "tanque/juggernaut — sin motor cuantitativo (generación cualitativa)"
+archetype: "sin motor cuantitativo — generación cualitativa (tanque/mago/asesino)"
 engine: none
 published_at: "{hoy.isoformat()}"
 custom: false
@@ -620,18 +727,18 @@ mode: sr
 ---
 **Fecha del análisis:** {hoy.strftime('%d/%m/%Y')} (auto-generado, modo cualitativo)
 **Parche:** 7.3 (21-sep-2026) + hotfix {parche}
-**Rol principal:** {rol} (derivado del reporte publicado)
-**Arquetipo:** tanque — **sin motor cuantitativo** (motor de tanques: ROADMAP). Método:
-datos reales + cálculos parciales con supuestos declarados + TODOs explícitos.
-**Enfoque:** re-derivar la guía publicada ({arch_pub}, datos 7.3) contra {parche} SIN cambiar
-la build hasta que el autor valide los números parciales.
+**Rol principal:** {rol}{' (hint del lab — revisar)' if NUEVO else ' (derivado del reporte publicado)'}
+**Arquetipo:** sin motor cuantitativo (motores de tanques/magos/asesinos: ROADMAP). Método:
+datos reales (ficha wr-meta, diffs oficiales, win rates, BD de ítems) + cálculos parciales
+con supuestos declarados + TODOs explícitos.
+**Enfoque:** {'semilla comunitaria filtrada contra la BD 7.3 — TODO validar en juego' if NUEVO else f're-derivar la guía publicada ({arch_pub}) contra {parche} SIN cambiar la build hasta validación del autor'}.
 
 > [!WARNING] REPORTE AUTO-GENERADO (MODO CUALITATIVO) — ESPERA DE VERIFICACIÓN
 > Generado por `model/generate_report.py` el {hoy.strftime('%d/%m/%Y')}. Este campeón no tiene
-> motor cuantitativo en el lab: las secciones numéricas completas (DPS/EHP por build) llevan
-> **TODO**; los cálculos incluidos (EHP físico, W) usan supuestos DECLARADOS en §10 y deben
-> verificarse en juego. El autor debe completar TODOs y aprobar, o regenerar a mano.
-
+> motor cuantitativo en el lab: las secciones de daño por build llevan **TODO**; los cálculos
+> incluidos (EHP{', W' if champ == 'rammus' else ''}) usan supuestos DECLARADOS en §10.
+> {'La build es la popular de wr-meta filtrada (la página mezcla contenido de varias fechas — descartados los ítems fuera de la BD 7.3): VALIDAR EN JUEGO.' if NUEVO else ''} El autor debe completar TODOs, verificar en juego y `aprobar` (o regenerar a mano).
+{f'> [!DANGER] Build semilla viola exclusividad: {vio}' if (NUEVO and vio and vio[0][0] != "build incompleta") else ''}
 > [!NOTE]
 > **Estado Meta Actual ({wr[0]['actualizado'] if wr else '—'}):**
 > {wr_callout}
@@ -640,16 +747,16 @@ la build hasta que el autor valide los números parciales.
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (heredada del reporte publicado + corrección Ley 0 de botas)
+### Tabla A — BUILD {'SEMILLA (comunidad, por validar)' if NUEVO else 'FINAL (heredada del reporte publicado + corrección Ley 0)'}
 
-| Slot | Ítem | Oro | Categoría |
-|------|------|-----|-----------|
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
 {tabla_a}
 
-> **Oro total: {g(oro_total)} g**{' (incluye +1 000 del upgrade T2→T3 que la ruta publicada omitía — Ley 0)' if upgrade else ''}
-> Stats agregados de ítems (CSV oficial): HP +{g(hp_i)} · Armadura +{ar_i:.0f} · MR +{mr_i:.0f}
+> **Oro total: {g(oro_total)} g**{' (incluye +1 000 del upgrade T2→T3, Ley 0)' if upgrade else ''}
+> Stats agregados (BD oficial): HP +{g(hp_i)} · Armadura +{ar_i:.0f} · MR +{mr_i:.0f}
 
-### Tabla B — Ruta de compra cronológica (minutos del reporte publicado)
+### Tabla B — Ruta de compra cronológica ({'sintetizada con curvas de oro del vault' if NUEVO else 'minutos del reporte publicado'})
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
@@ -659,18 +766,15 @@ la build hasta que el autor valide los números parciales.
 
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **TODO** (sin fuente de runas verificada para tanques en el lab — verificar en juego/wr-meta) |
+| Keystone | **TODO** (verificar meta en juego/wr-meta — la ficha cruda tiene la sugerencia comunitaria) |
 | Hechizos | {'Smite + Flash (jungla)' if rol == 'jungla' else 'TODO por rol'} |
-| Habilidades | W = Defensive Ball Curl (fuente: notas EN {parche}) — **TODO: resto del kit y orden** |
+| Habilidades | ver §2 (ficha) — **TODO: orden de subida** |
 
-### Resultado del modelo — CÁLCULOS PARCIALES (ver §8 y supuestos §10)
+### Resultado del modelo — CÁLCULOS PARCIALES (supuestos en §10)
 
 | Métrica | Pre-{parche} | Post-{parche} | Δ |
 |---|---|---|---|
-| Armadura total aprox. (nivel 15) | {A_pre:.0f} | {A_post:.0f} | −5 |
-| EHP físico aprox. | {g(ehp_pre)} | {g(ehp_post)} | {d_ehp:+.1f} % |
-| W rank 4 (60 % armadura) | {w4_pre:.0f} | {w4_post:.0f} | {w4_post - w4_pre:+.0f} |
-| W rank 1 (45→30 %) | {w1_pre:.0f} | {w1_post:.0f} | {w1_post - w1_pre:+.0f} |
+{calc_txt}
 
 ---
 
@@ -688,44 +792,39 @@ la build hasta que el autor valide los números parciales.
 |---------|
 {sist_txt}
 
-### 1.3 ¿Escala con crítico/otro stat? — **TODO humano** (leer kit completo)
+### 1.3 ¿Escala con crítico/otro stat? — **TODO humano** (leer kit en §2)
 
-## 2. FICHA MATEMÁTICA (datos disponibles en el lab)
+## 2. FICHA MATEMÁTICA (datos del lab)
 
 | Parámetro | Valor | Fuente |
 |---|---|---|
 | AS ratio / base / bonus / por nivel | {as_csv.split(',', 1)[1] if as_csv else 'TODO'} | champion_attack_speed_7.3.csv |
-| Armadura base | 45 → **40** ({parche}) | notas EN {parche} |
-| HP/AD/MR base y growths | **TODO** — wr-meta.com/242-rammus.html (id conocido) |
-| Kit (Q/W/E/R con valores) | **TODO** — misma fuente |
+| Bases nivel 15 | {stats_row} |
+| Kit (habilidades con valores) | ver ficha `data/estructurada/campeones/{champ}.md` | wr-meta (crudo en data/raw/campeones/) |
+| Cambios 7.3/7.3a | ver §1.1 | diffs oficiales verificados contra nota EN |
 
 ## 3. MODELO Y FÓRMULAS
 
-**Sin motor cuantitativo** (motor de tanques en ROADMAP: EHP + daño por armadura + pasivas).
-Cálculos parciales de §0/§8: EHP = (HP base + HP ítems) × (1 + armadura/100); W = % × armadura
-total. Supuestos en §10.
+**Sin motor cuantitativo** (ROADMAP: motor de tanques/magos). Cálculos parciales de §0/§8:
+EHP = (HP base ficha + HP ítems) × (1 + armadura/100){'; W = % × armadura total' if champ == 'rammus' else ''}. Supuestos en §10.
 
 ## 4. LEYES APLICADAS A {display.upper()} (formato compacto — estándar v1.13.1)
 
-- **Ley 0 — Slots:** 6 slots = 1 botas + 5 ítems. La ruta publicada usaba botas T2 sin upgrade:
-  {'corregida a ' + upgrade[1] + ' (+1 000 g, mismo slot, min 10:00).' if upgrade else 'sin observaciones.'}
-- **Ley 1/2/3 — Crítico/AS/Pen:** no aplican al arquetipo tanque (stats muertos por diseño —
-  verificar que la build no los pague: ✅ ninguno en Tabla A).
-- **Ley 4 — Stats muertos:** armadura/MR/HP son el daño Y la defensa de {display} (sinergia W).
-- **Ley 5 — Eficiencia:** TODO al completar el motor de tanques.
-- **Ley 6 — Timing:** ruta publicada conservada (Tabla B); smite nerf → clear early más lento,
-  **TODO: re-fechar primeros clears**.
-- **Ley 7 — Sistemas:** ver §1.2 (smite burn −, placas/Nexus).
+- **Ley 0 — Slots:** {'semilla de ' + str(len(build_disp)) + ' slots; ' if NUEVO else ''}{'⚠️ seed incompleta — TODO completar 6 slots' if len(build_disp) < 6 else 'validada (1 botas + 5 ítems)' + (' con upgrade T2→T3 añadido (+1 000 g, mismo slot).' if upgrade else '.')}
+- **Ley 3b — Exclusividades:** {'⚠️ VIOLACIÓN ' + str(vio) + ' — corregir antes de aprobar' if vio and vio[0][0] != 'build incompleta' else 'sin conflictos (items_exclusivos.csv) ✅' if len(build_disp) == 6 else 'TODO al completar la build'}.
+- **Ley 1/2 — Crítico/AS:** TODO (el arquetipo no prioriza crítico; verificar AS útil del kit).
+- **Ley 4 — Stats muertos:** TODO humano con el kit en §2.
+- **Ley 5/6 — Eficiencia/timing:** ruta de §0 (curvas del vault); TODO validar recalls.
+- **Ley 7 — Sistemas:** ver §1.2.
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-Ruta publicada: **{ruta[0][0]}** (~{ST.fmt_min(ruta[0][2]) if ruta[0][2] else '—'}).
-**TODO humano:** validar contra el nerf de smite (clear early más lento) y el meta {parche}.
+{'Semilla wr-meta: ' + build_disp[0] if NUEVO else 'Ruta publicada: ' + ruta[0][0]} — **TODO humano:** validar
+contra el meta {parche} y el clear de jungla (smite nerf) si aplica.
 
 ## 6. BUILD FINAL RANURA POR RANURA
 
-**TODO humano:** justificación por slot. Alternativas del pool tanque (CSV oficial) para la
-matriz situacional — motivos numéricos pendientes del motor:
+**TODO humano:** justificación por slot. Alternativas de la BD oficial para la matriz situacional:
 
 | Ítem alternativo | Motivo |
 |---|---|
@@ -733,62 +832,55 @@ matriz situacional — motivos numéricos pendientes del motor:
 
 ## 7. RUNAS · HECHIZOS · HABILIDADES
 
-**TODO humano** (keystone de tanque, secundarias, orden de habilidades). Ver §0.
+**TODO humano.** La ficha cruda (`data/estructurada/campeones/{champ}.md`, sección
+"Build/runas populares") trae la sugerencia comunitaria de runas como insumo.
 
 ## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
-Comparación cuantitativa de builds: **PENDIENTE del motor de tanques** (ROADMAP).
-Lo que SÍ se puede afirmar con datos de {parche} (supuestos §10):
+Comparación cuantitativa de builds: **PENDIENTE del motor del arquetipo** (ROADMAP).
+Con datos de {parche} (supuestos §10):
 
-| Métrica | 📌 Publicada pre-{parche} | 🔬 LAB post-{parche} (misma build) | Δ |
+| Métrica | 📌 Pre-{parche} | 🔬 LAB post-{parche} | Δ |
 |---|---|---|---|
-| EHP físico aprox. | {g(ehp_pre)} | {g(ehp_post)} | {d_ehp:+.1f} % |
-| W rank 4 | {w4_pre:.0f} | {w4_post:.0f} | {w4_post - w4_pre:+.0f} |
-| W rank 1 (early) | {w1_pre:.0f} | {w1_post:.0f} | {(w1_post / w1_pre - 1) * 100:+.0f} % |
-| Clear de jungla early | baseline | smite burn −18 % → más lento | cualitativo |
+{calc_txt}
 
-> **Lectura:** el nerf {parche} pega sobre todo al EARLY (W rank 1 −{(1 - w1_post / w1_pre) * 100:.0f} %,
-> clear más lento); el late apenas cambia (W rank 4 −{abs(w4_post - w4_pre):.0f}, EHP {d_ehp:+.1f} %).
-> Con WR {wr[0]['win_pct'] if wr else '—'} % tier {wr[0]['tier'] if wr else '—'}: la build publicada
-> sigue siendo razonable — **TODO: decidir si se re-optimiza con el motor de tanques**.
+> **TODO:** al existir el motor, re-optimizar y marcar fuentes (⭐ LAB / 📌 publicada / 🌐 comunidad).
 
 ## 9. PLAN DE JUEGO
 
-**TODO humano.** Picos de la ruta publicada: {', '.join(f'{c.split("(")[0].strip()} ~{ST.fmt_min(t)}' for c, o, t in ruta[:4] if t)}.
-Ajustar early por smite nerf (clear −15-20 % estimado en §1.2).
+**TODO humano.** Picos de §0 Tabla B. {'Ajustar por smite nerf (jungla).' if rol == 'jungla' else ''}
 
 ## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
-- **Fuentes:** diffs cambios_campeones_7.3.md + cambios_{parche}.md (verificados contra nota EN
-  oficial) · champion_attack_speed_7.3.csv · items_7.3.csv (stats/precios) ·
-  champion_winrates.csv ({wr[0]['actualizado'] if wr else '—'}) · build/ruta: {arch_pub} (publicado 7.3).
-- **Supuestos DECLARADOS de los cálculos parciales:** HP/armadura base nivel 15 aproximados con
-  fallback genérico del lab (1 910 HP / 45 arm / 35 MR — {display} NO está en
-  champion_base_stats.json); W = % × armadura TOTAL (la fórmula exacta de bonus vs total debe
-  verificarse con la ficha); EHP sin escudos/activas. **Verificar en juego antes de publicar.**
-- **Validación:** Ley 0 chequeada (upgrade de botas añadido) · win rates del pipeline oficial.
+- **Fuentes:** ficha wr-meta ({champ}) + apéndice AS oficial 7.3 · diffs cambios_*.md
+  (verificados contra nota EN oficial) · items_7.3.csv · champion_winrates.csv
+  ({wr[0]['actualizado'] if wr else '—'}){f' · build/ruta: {arch_pub}' if not NUEVO else ' · build semilla: popular wr-meta (página con contenido mixto 2025-07/2026-07 — filtrada contra BD 7.3)'}.
+- **Supuestos DECLARADOS:** {'bases nivel 15 de la ficha wr-meta;' if ficha_stats else 'bases genéricas del lab (1 910 HP/45 arm/35 MR — SIN ficha);'}
+  EHP sin escudos/activas{'; W = % × armadura total (verificar bonus vs total)' if champ == 'rammus' else ''}.
+  **Verificar en juego antes de publicar.**
+- **Validación:** {'Ley 0 y 3b chequeadas' if len(build_disp) == 6 else 'build incompleta — validación pendiente'} · win rates del pipeline oficial.
 
 ## APÉNDICE A — POOL DEL ROL: veredicto automático
 
-Alternativas del §6 (pool tanque del CSV) — veredictos numéricos pendientes del motor.
+Alternativas del §6 (BD oficial) — veredictos numéricos pendientes del motor.
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-Tabla B de §0 (minutos del reporte publicado + upgrade Ley 0).
+Tabla B de §0 ({'sintetizada con curvas del vault, rol ' + rol if NUEVO else 'minutos del reporte publicado'}).
 
 ---
 
 ## Pie de página
 
 *Reporte AUTO-GENERADO (modo cualitativo) el {hoy.strftime('%d/%m/%Y')} con datos del parche 7.3 +
-{parche} (verificados contra nota EN oficial el 29/09/2026). WR-LAB v1.13.1. Estado: **Espera de
+{parche} (verificados contra nota EN oficial el 29/09/2026). WR-LAB v1.15. Estado: **Espera de
 verificación** — no publicar hasta aprobación del autor. Cálculos parciales con supuestos
 declarados en §10.*
 
 **Referencias y créditos**
 
 - Notas oficiales del parche 7.3 y hotfix {parche} — © Riot Games, Inc. (wildrift.leagueoflegends.com).
-- Base de datos de ítems y win rates — wr-meta.com (proyecto comunitario), Diamond+ del {wr[0]['actualizado'] if wr else '—'}.
+- Ficha, build popular y win rates — wr-meta.com (proyecto comunitario), Diamond+ del {wr[0]['actualizado'] if wr else '—'}.
 - Modelo, Leyes 0-7 y validaciones — WR-LAB (`model/generate_report.py`, modo cualitativo).
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc.
@@ -802,14 +894,15 @@ ni respaldada por Riot Games**.
     _, errs, avis = L.lint_archivo(destino, L.nombres_items_oficiales(), parche)
     con_txt = open(destino, encoding="utf-8").read()
     build_back, fuente = U.extraer_build(con_txt)
-    print(f"📄 Generado (CUALITATIVO): {os.path.relpath(destino, ROOT)}")
-    print(f"   base: {arch_pub} · EHP {d_ehp:+.1f} % · W rank1 {(w1_post / w1_pre - 1) * 100:+.0f} %")
+    print(f"📄 Generado (CUALITATIVO{' · campeón nuevo' if NUEVO else ''}): {os.path.relpath(destino, ROOT)}")
+    print(f"   base: {arch_pub[:70]}")
+    if not NUEVO:
+        print(f"   EHP {d_ehp:+.1f} %" + (f" · W rank1 {(w1_post / w1_pre - 1) * 100:+.0f} %" if champ == "rammus" else ""))
     print(f"   self-check: lint {len(errs)} errores · re-parseo Tabla A: {len(build_back)}/6 desde '{fuente}'")
     for e in errs:
         print("   ❌", e)
-    print(f"   SIGUIENTE: completar TODOs, verificar supuestos §10 y `aprobar --archivo {os.path.basename(destino)}`")
+    print(f"   SIGUIENTE: completar TODOs, verificar en juego y `aprobar --archivo {os.path.basename(destino)}`")
     return destino
-
 
 
 def aprobar(archivo, destino=None):

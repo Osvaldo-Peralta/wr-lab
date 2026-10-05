@@ -3,13 +3,19 @@ tags:
   - ADC
 version: 1.3
 Status: Beta
-patch: 7.3a
 champion: Caitlyn
 slug: caitlyn
 role: adc
-archetype: Headshots potenciados por crítico y rango
+patch: "7.3a"
+archetype: "Headshots potenciados por crítico y rango"
 engine: none
+custom: false
+generate: manual
+mode: sr
 published_at: "2026-09-29"
+updated_at: "2026-10-04"
+verification: AL_DIA
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)

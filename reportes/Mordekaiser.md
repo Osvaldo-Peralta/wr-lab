@@ -8,9 +8,15 @@ champion: Mordekaiser
 slug: mordekaiser
 role: jungla
 patch: "7.3"
-archetype: AP Juggernaut — daño mágico sostenido
+archetype: "AP Juggernaut — daño mágico sostenido"
 engine: none
+custom: false
+generate: manual
+mode: sr
 published_at: "2026-09-28"
+updated_at: "2026-10-04"
+verification: ANOTAR
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -19,7 +25,7 @@ published_at: "2026-09-28"
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Mordekaiser:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.

@@ -1,6 +1,6 @@
 # ROADMAP — WR-LAB como proyecto de software
 
-**Estado actual (v1.13):** repo git versionado · BD SQLite derivada · 136 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
+**Estado actual (v1.15):** repo git versionado · BD SQLite derivada · 136 tests · CI (tests + BD + bundles + reportes verificados) + vigilante de parches **y win rates** · actualizador de reportes · optimizador de builds · bundles regenerables · datos 7.3+7.3a · win rates Diamond+ frescas 2×/día (`champion_winrates.csv`).
 
 ## Ya disponible
 

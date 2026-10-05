@@ -40,9 +40,10 @@ PAUSA_ENTRE_PETICIONES = 0.35  # s — cortesía con wr-meta
 
 # Roster vigilado: campeones de los 16 reportes del vault + los 13 specs del lab
 # (el registro de reportes añade automáticamente cualquier campeón nuevo).
-WINRATE_ROSTER = ["caitlyn", "chogath", "diana", "heimerdinger", "jinx", "kalista", "karma",
-                  "malphite", "mordekaiser", "norra", "rammus", "seraphine", "shyvana",
-                  "sivir", "volibear", "yunara", "yuumi"]
+WINRATE_ROSTER = ["ahri", "caitlyn", "chogath", "diana", "heimerdinger", "jinx", "kalista",
+                  "karma", "malphite", "mordekaiser", "nocturne", "norra", "orianna",
+                  "rammus", "seraphine", "shyvana", "sivir", "syndra", "volibear",
+                  "yunara", "yuumi"]
 
 # IDs de página wr-meta conocidos (FUENTES.md + verificados en vivo el 01/10/2026).
 # Lo que falte se descubre con el sitemap y se persiste en state["wrmeta_ids"].
@@ -50,7 +51,9 @@ WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365
               "kalista": "349", "diana": "216", "karma": "323", "heimerdinger": "346",
               "volibear": "411", "seraphine": "34", "shyvana": "23", "chogath": "339",
               "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
-              "rammus": "242"}
+              "rammus": "242",
+              # v1.15: nuevos campeones (IDs vía sitemap.xml, confirmados con fetch 04/10)
+              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398"}
 
 DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
 

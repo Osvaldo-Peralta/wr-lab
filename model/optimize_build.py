@@ -173,6 +173,10 @@ SIN_MOTOR = {
     "heimerdinger": "mago de zona (torretas) — requiere modelo de DPS de torretas (pendiente)",
     "seraphine":   "enchanter-mage — modelo de valor-aliado/rotación (pendiente)",
     "malphite":    "tanque de escalado de armadura — ver ESCALADO_DE_TAMANIO.md",
+    "orianna":     "maga de burst/control — motor de rotación genérico pendiente (batch2 solo modela Diana)",
+    "ahri":        "maga/asesina AP — motor de rotación genérico pendiente",
+    "syndra":      "maga de burst — motor de rotación genérico pendiente",
+    "nocturne":    "asesino AD de burst — el motor de autos NO representa su kit (motor pendiente)",
 }
 # Campeones donde el motor elegido es una APROXIMACIÓN (aviso, no bloqueo)
 MOTOR_AVISOS = {

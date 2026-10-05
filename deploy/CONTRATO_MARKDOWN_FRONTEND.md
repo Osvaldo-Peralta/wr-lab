@@ -1,12 +1,17 @@
 # CONTRATO MARKDOWN ↔ FRONTEND (Fase 1 de la migración)
 
-**Versión:** 1.1 · **Fecha:** 01/10/2026 · **Partes:** `wr-lab` (productor) ↔ `wr-guides-web` (consumidor)
+**Versión:** 1.2 · **Fecha:** 04/10/2026 · **Partes:** `wr-lab` (productor) ↔ `wr-guides-web` (consumidor)
 **Principio hexagonal:** el frontend consume ESTE contrato (puerto); nunca conoce el interior del
 lab. El lab produce Markdown + un índice JSON; nunca conoce al frontend.
 
 ---
 
-## 1. Frontmatter canónico de cada guía
+> **v1.2:** el esquema completo, con el propósito de cada campo y sus dueños/consumidores,
+> vive en `deploy/DICCIONARIO_METADATOS.md` (fuente de verdad del esquema). Aquí queda el
+> resumen operativo. Nuevos campos canónicos: `updated_at`, `verification`, `verified_patch`
+> (badges de vigencia del sitio) y orden canónico impuesto por `model/estandarizar_metadatos.py`.
+
+## 1. Frontmatter canónico de cada guía (resumen — ver DICCIONARIO_METADATOS.md)
 
 ```yaml
 ---
@@ -21,6 +26,9 @@ archetype: Crítico AoE       # BACKFILL (si el reporte tiene línea **Arquetipo
 engine: autos                # BACKFILL — autos | onhit | rotacion | aliado | none (validación del lab)
 published_at: 2026-09-27     # BACKFILL — de **Fecha del análisis:** (ISO 8601)
 custom: false                # BACKFILL (v1.1) — true si tags incluye Custom/Personalizado
+updated_at: "2026-10-04"     # v1.2 — última verificación/actualización del lab (ISO)
+verification: AL_DIA         # v1.2 — AL_DIA|ANOTAR|SIN_IMPACTO|REVISAR|REGENERAR|pending
+verified_patch: "7.3a"       # v1.2 — contra qué parche fue la verificación
 variant: pesadilla           # BACKFILL (v1.1) — sufijo del archivo; ausente = guía estándar del campeón
 generate: manual             # v1.1 — manual | auto (ausente = manual)
 mode: sr                     # v1.1 reservado — sr | aram (módulo ARAM AAA futuro)

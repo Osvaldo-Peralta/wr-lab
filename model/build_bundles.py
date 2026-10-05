@@ -222,6 +222,7 @@ def secciones_completo():
          fence("python", leer("wrlab.py"))
          + "\n\n" + fence("python", leer("model", "lint_reportes.py"))
          + "\n\n" + fence("python", leer("model", "backfill_frontmatter.py"))
+         + "\n\n" + fence("python", leer("model", "estandarizar_metadatos.py"))
          + "\n\n" + fence("python", leer("model", "extract_data.py"))
          + "\n\n" + fence("python", leer("model", "build_db.py"))
          + "\n\n" + fence("python", leer("model", "check_patch.py"))

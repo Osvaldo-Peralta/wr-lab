@@ -30,11 +30,19 @@
    "7.3A"
   ]
  },
+<<<<<<< Updated upstream
  "last_check": "2026-10-04T22:43:36",
+=======
+ "last_check": "2026-10-04T04:22:26",
+>>>>>>> Stashed changes
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
+<<<<<<< Updated upstream
+=======
+  "Ahri|MID": 50.92,
+>>>>>>> Stashed changes
   "Caitlyn|DUO": 49.68,
   "Cho'Gath|SOLO": 50.34,
   "Cho'Gath|JUNGLE": 50.38,
@@ -48,22 +56,47 @@
   "Malphite|SUPPORT": 51.47,
   "Malphite|SOLO": 55.3,
   "Mordekaiser|SOLO": 51.25,
+<<<<<<< Updated upstream
   "Norra|MID": 51.1,
+=======
+  "Nocturne|JUNGLE": 55.46,
+  "Norra|MID": 51.1,
+  "Orianna|MID": 51.72,
+>>>>>>> Stashed changes
   "Rammus|JUNGLE": 57.33,
   "Seraphine|SUPPORT": 49.56,
   "Shyvana|JUNGLE": 45.86,
   "Sivir|DUO": 48.4,
+<<<<<<< Updated upstream
+=======
+  "Syndra|MID": 51.21,
+>>>>>>> Stashed changes
   "Volibear|SOLO": 48.1,
   "Volibear|JUNGLE": 48.11,
   "Yunara|DUO": 51.84,
   "Yuumi|SUPPORT": 48.95
+<<<<<<< Updated upstream
+=======
  },
- "wrmeta_ids": {},
+ "wrmeta_ids": {
+  "ahri": "1",
+  "nocturne": "382",
+  "orianna": "33",
+  "syndra": "398"
+>>>>>>> Stashed changes
+ },
  "winrates_meta": {
   "bucket": "Diamond +",
   "updated_utc": "04 OCT 2026 UTC 00:00",
+<<<<<<< Updated upstream
   "n_champs": 17,
   "n_filas": 22
  },
  "winrates_checked": "2026-10-04T22:43:36"
+=======
+  "n_champs": 21,
+  "n_filas": 26
+ },
+ "winrates_checked": "2026-10-04T04:22:26"
+>>>>>>> Stashed changes
 }

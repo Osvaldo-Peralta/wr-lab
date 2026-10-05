@@ -7,11 +7,17 @@ Status: Beta
 champion: Diana
 slug: diana-mid
 role: mid
-patch: "7.3"
-archetype: AP Assassin híbrido
-engine: rotacion
-published_at: "2026-09-29"
 variant: "mid"
+patch: "7.3"
+archetype: "AP Assassin híbrido"
+engine: rotacion
+custom: false
+generate: manual
+mode: sr
+published_at: "2026-09-29"
+updated_at: "2026-10-04"
+verification: SIN_IMPACTO
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -20,7 +26,7 @@ variant: "mid"
 **Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (02/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.

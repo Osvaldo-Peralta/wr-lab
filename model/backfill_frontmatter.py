@@ -30,7 +30,7 @@ with contextlib.redirect_stdout(io.StringIO()):
     import sim_timings as ST
 
 MESES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "apr": 4, "may": 5, "jun": 6,
-         "jul": 7, "ago": 8, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dic": 12, "dec": 12}
+         "jul": 7, "ago": 8, "aug": 8, "sep": 9, "set": 9, "oct": 10, "nov": 11, "dic": 12, "dec": 12}
 
 
 def slugify(nombre_archivo):
@@ -49,6 +49,13 @@ def fecha_iso(txt):
         d, mo, y = m.groups()
         return f"{y}-{int(mo):02d}-{int(d):02d}"
     m = re.search(r"\*\*Fecha del análisis:\*\*[^\n]*?(\d{1,2})[- ]([A-Za-zñ]{3})[-.](\d{4})", txt)
+    if m:
+        d, mon, y = m.groups()
+        mo = MESES.get(mon.lower()[:3])
+        if mo:
+            return f"{y}-{mo:02d}-{int(d):02d}"
+    # formato largo español: "26 de septiembre de 2026"
+    m = re.search(r"(\d{1,2}) de ([a-z]+) de (\d{4})", txt, re.I)
     if m:
         d, mon, y = m.groups()
         mo = MESES.get(mon.lower()[:3])

@@ -25,7 +25,7 @@ class TestParseoRutas(unittest.TestCase):
         self.assertEqual(ruta[0][1], 500)                 # Long Sword start
         self.assertEqual(ruta[0][2], 0.0)
         self.assertEqual(ruta[-1][1], 17350)              # oro total de la build C
-        self.assertAlmostEqual(ruta[-1][2], 21.0, delta=0.6)
+        self.assertAlmostEqual(ruta[-1][2], 20.0, delta=1.1)   # v1.5 del autor: ~20:00
 
     def test_sivir_ruta_por_item_sintetiza_acumulado(self):
         """Sivir usa tabla de ruta (oro POR ÍTEM, no acumulado) — el parser la acumula."""

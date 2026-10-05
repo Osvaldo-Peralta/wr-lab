@@ -52,7 +52,7 @@ class TestEstadoVault(unittest.TestCase):
         with open(os.path.join(REP, "Jinx.md"), encoding="utf-8") as fh:
             fm = U.parse_frontmatter(fh.read())
         self.assertEqual(fm["patch"], "7.3a")        # existente: NO se modificó
-        self.assertEqual(fm["version"], "1.4")
+        self.assertEqual(fm["version"], "1.5")       # Jinx v1.5 del autor (variante legal)
 
     def test_yunara_renombrado(self):
         with open(os.path.join(REP, "Yunara.md"), encoding="utf-8") as fh:
@@ -63,8 +63,8 @@ class TestEstadoVault(unittest.TestCase):
     def test_custom_y_variant(self):
         for arch, esp_custom, esp_variant in (("Yuumi.md", "true", None),
                                               ("Volibear Pesadilla.md", "true", "pesadilla"),
-                                              ("Diana - Mid.md", None, "mid"),
-                                              ("Jinx.md", None, None)):
+                                              ("Diana - Mid.md", "false", "mid"),   # v1.15: default explícito
+                                              ("Jinx.md", "false", None)):
             with open(os.path.join(REP, arch), encoding="utf-8") as fh:
                 fm = U.parse_frontmatter(fh.read())
             self.assertEqual(fm.get("custom"), esp_custom, arch)
