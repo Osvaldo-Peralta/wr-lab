@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 04/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 05/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -1776,7 +1776,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 04 OCT 2026 UTC 00:00** · Refrescado por el vigía: 04/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 05 OCT 2026 UTC 00:00** · Refrescado por el vigía: 05/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1785,32 +1785,32 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.92 | 4.31 | 0.12 | ↑ 1 | Confidence Med |
-| Caitlyn | DUO | S | 49.68 | 22.38 | 17.37 | ↑ 2 | Confidence High |
-| Cho'Gath | SOLO | A | 50.34 | 11.63 | 34.40 | ↓ 4 | Confidence High |
-| Cho'Gath | JUNGLE | A | 50.38 | 8.32 | 34.40 | ↓ 2 | Confidence High |
-| Diana | MID | B | 46.57 | 1.17 | 0.19 | ↓ 3 | Confidence Low |
-| Diana | JUNGLE | A | 50.58 | 1.70 | 0.19 | ↑ 2 | Confidence Low |
-| Heimerdinger | MID | A | 49.62 | 1.58 | 1.11 | ↓ 5 | Confidence Low |
-| Jinx | DUO | A | 50.65 | 11.84 | 0.42 | 0 | Confidence High |
-| Kalista | DUO | S | 51.09 | 5.20 | 5.06 | ↑ 1 | Confidence Med |
-| Kalista | SOLO | S+ | 52.95 | 2.13 | 5.06 | ↑ 1 | Confidence Low |
-| Karma | SUPPORT | A | 49.20 | 5.06 | 0.37 | ↓ 1 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.47 | 7.23 | 45.22 | ↓ 1 | Confidence Med |
-| Malphite | SOLO | S+ | 55.30 | 7.67 | 45.22 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S | 51.25 | 10.43 | 27.99 | ↓ 1 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.46 | 9.57 | 37.99 | ↓ 1 | Confidence High |
-| Norra | MID | A | 51.10 | 1.54 | 7.80 | 0 | Confidence Low |
-| Orianna | MID | S | 51.72 | 4.58 | 0.26 | 0 | Confidence Med |
-| Rammus | JUNGLE | S+ | 57.33 | 4.97 | 6.65 | 0 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.56 | 6.45 | 0.97 | ↑ 3 | Confidence Med |
-| Shyvana | JUNGLE | B | 45.86 | 3.70 | 1.40 | ↓ 1 | Confidence Med |
-| Sivir | DUO | B | 48.40 | 3.46 | 0.05 | ↑ 1 | Confidence Med |
-| Syndra | MID | S+ | 51.21 | 6.84 | 26.19 | ↑ 2 | Confidence Med |
-| Volibear | SOLO | A | 48.10 | 5.51 | 4.65 | ↑ 1 | Confidence Med |
-| Volibear | JUNGLE | B | 48.11 | 2.54 | 4.65 | 0 | Confidence Low |
-| Yunara | DUO | S+ | 51.84 | 17.19 | 23.57 | ↑ 1 | Confidence High |
-| Yuumi | SUPPORT | A | 48.95 | 9.46 | 34.38 | ↑ 2 | Confidence High |
+| Ahri | MID | A | 50.77 | 4.28 | 0.13 | ↓ 2 | Confidence Med |
+| Caitlyn | DUO | A | 49.69 | 21.72 | 15.43 | ↓ 1 | Confidence High |
+| Cho'Gath | SOLO | S+ | 50.77 | 11.40 | 34.76 | ↑ 5 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.35 | 8.33 | 34.76 | ↑ 1 | Confidence High |
+| Diana | MID | B | 46.88 | 1.17 | 0.17 | 0 | Confidence Low |
+| Diana | JUNGLE | A | 50.23 | 1.62 | 0.17 | ↓ 1 | Confidence Low |
+| Heimerdinger | MID | A | 49.60 | 1.58 | 1.11 | 0 | Confidence Low |
+| Jinx | DUO | A | 50.55 | 11.99 | 0.44 | 0 | Confidence High |
+| Kalista | DUO | A | 50.88 | 5.35 | 5.31 | ↓ 1 | Confidence Med |
+| Kalista | SOLO | S | 52.58 | 2.10 | 5.31 | ↓ 2 | Confidence Low |
+| Karma | SUPPORT | A | 49.52 | 4.96 | 0.37 | ↑ 8 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.92 | 7.23 | 44.98 | ↑ 2 | Confidence Med |
+| Malphite | SOLO | S+ | 55.53 | 7.56 | 44.98 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S+ | 51.35 | 10.51 | 28.12 | ↑ 2 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.13 | 9.42 | 39.95 | 0 | Confidence High |
+| Norra | MID | A | 50.78 | 1.52 | 7.62 | ↓ 1 | Confidence Low |
+| Orianna | MID | A | 51.55 | 4.63 | 0.26 | ↓ 1 | Confidence Med |
+| Rammus | JUNGLE | S+ | 57.42 | 5.00 | 7.02 | 0 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.30 | 6.41 | 0.97 | ↓ 6 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.71 | 3.58 | 1.36 | ↑ 2 | Confidence Med |
+| Sivir | DUO | B | 48.65 | 3.49 | 0.05 | 0 | Confidence Med |
+| Syndra | MID | A | 50.76 | 6.77 | 25.33 | ↓ 6 | Confidence Med |
+| Volibear | SOLO | B | 47.74 | 5.41 | 4.65 | ↓ 1 | Confidence Med |
+| Volibear | JUNGLE | B | 47.40 | 2.47 | 4.65 | ↓ 5 | Confidence Low |
+| Yunara | DUO | S+ | 51.64 | 16.83 | 23.80 | ↓ 1 | Confidence High |
+| Yuumi | SUPPORT | A | 48.95 | 9.51 | 34.28 | ↓ 1 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -15538,6 +15538,27 @@ class TestContenidoBundles(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestHigieneRepo(unittest.TestCase):
+    def test_sin_marcadores_de_conflicto_git(self):
+        """Ningún archivo versionado puede contener marcadores de conflicto
+        (<<<<<<< / >>>>>>>). Incidente v1.15: un CSV con conflictos de stash se
+        commiteó, rompió los bundles (CI) y el .watch_state.json (patch-watch)."""
+        patron = re.compile(r"^(<{7} |>{7} )", re.M)
+        culpables = []
+        for root, dirs, files in os.walk(BB.ROOT):
+            dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "node_modules")]
+            for f in files:
+                if f.endswith((".md", ".py", ".csv", ".json", ".yml", ".yaml", ".txt", ".css", ".ts", ".js")):
+                    p = os.path.join(root, f)
+                    try:
+                        with open(p, encoding="utf-8", errors="ignore") as fh:
+                            if patron.search(fh.read()):
+                                culpables.append(os.path.relpath(p, BB.ROOT))
+                    except OSError:
+                        pass
+        self.assertEqual(culpables, [], f"archivos con conflictos git sin resolver: {culpables}")
 ```
 
 ```python
@@ -19886,4 +19907,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 04/10/2026 · completo · sha256(cuerpo)=ce7a3632d58eadb6 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 05/10/2026 · completo · sha256(cuerpo)=68161a999f0a46b6 · NO editar a mano: editar las fuentes y regenerar -->

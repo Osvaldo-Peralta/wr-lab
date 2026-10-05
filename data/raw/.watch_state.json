@@ -30,73 +30,49 @@
    "7.3A"
   ]
  },
-<<<<<<< Updated upstream
- "last_check": "2026-10-04T22:43:36",
-=======
- "last_check": "2026-10-04T04:22:26",
->>>>>>> Stashed changes
+ "last_check": "2026-10-05T01:09:19",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
-<<<<<<< Updated upstream
-=======
-  "Ahri|MID": 50.92,
->>>>>>> Stashed changes
-  "Caitlyn|DUO": 49.68,
-  "Cho'Gath|SOLO": 50.34,
-  "Cho'Gath|JUNGLE": 50.38,
-  "Diana|MID": 46.57,
-  "Diana|JUNGLE": 50.58,
-  "Heimerdinger|MID": 49.62,
-  "Jinx|DUO": 50.65,
-  "Kalista|DUO": 51.09,
-  "Kalista|SOLO": 52.95,
-  "Karma|SUPPORT": 49.2,
-  "Malphite|SUPPORT": 51.47,
-  "Malphite|SOLO": 55.3,
-  "Mordekaiser|SOLO": 51.25,
-<<<<<<< Updated upstream
-  "Norra|MID": 51.1,
-=======
-  "Nocturne|JUNGLE": 55.46,
-  "Norra|MID": 51.1,
-  "Orianna|MID": 51.72,
->>>>>>> Stashed changes
-  "Rammus|JUNGLE": 57.33,
-  "Seraphine|SUPPORT": 49.56,
-  "Shyvana|JUNGLE": 45.86,
-  "Sivir|DUO": 48.4,
-<<<<<<< Updated upstream
-=======
-  "Syndra|MID": 51.21,
->>>>>>> Stashed changes
-  "Volibear|SOLO": 48.1,
-  "Volibear|JUNGLE": 48.11,
-  "Yunara|DUO": 51.84,
+  "Ahri|MID": 50.77,
+  "Caitlyn|DUO": 49.69,
+  "Cho'Gath|SOLO": 50.77,
+  "Cho'Gath|JUNGLE": 50.35,
+  "Diana|MID": 46.88,
+  "Diana|JUNGLE": 50.23,
+  "Heimerdinger|MID": 49.6,
+  "Jinx|DUO": 50.55,
+  "Kalista|DUO": 50.88,
+  "Kalista|SOLO": 52.58,
+  "Karma|SUPPORT": 49.52,
+  "Malphite|SUPPORT": 51.92,
+  "Malphite|SOLO": 55.53,
+  "Mordekaiser|SOLO": 51.35,
+  "Nocturne|JUNGLE": 55.13,
+  "Norra|MID": 50.78,
+  "Orianna|MID": 51.55,
+  "Rammus|JUNGLE": 57.42,
+  "Seraphine|SUPPORT": 49.3,
+  "Shyvana|JUNGLE": 46.71,
+  "Sivir|DUO": 48.65,
+  "Syndra|MID": 50.76,
+  "Volibear|SOLO": 47.74,
+  "Volibear|JUNGLE": 47.4,
+  "Yunara|DUO": 51.64,
   "Yuumi|SUPPORT": 48.95
-<<<<<<< Updated upstream
-=======
  },
  "wrmeta_ids": {
   "ahri": "1",
   "nocturne": "382",
   "orianna": "33",
   "syndra": "398"
->>>>>>> Stashed changes
  },
  "winrates_meta": {
   "bucket": "Diamond +",
-  "updated_utc": "04 OCT 2026 UTC 00:00",
-<<<<<<< Updated upstream
-  "n_champs": 17,
-  "n_filas": 22
- },
- "winrates_checked": "2026-10-04T22:43:36"
-=======
+  "updated_utc": "05 OCT 2026 UTC 00:00",
   "n_champs": 21,
   "n_filas": 26
  },
- "winrates_checked": "2026-10-04T04:22:26"
->>>>>>> Stashed changes
+ "winrates_checked": "2026-10-05T01:09:19"
 }
