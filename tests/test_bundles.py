@@ -78,3 +78,24 @@ class TestContenidoBundles(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestHigieneRepo(unittest.TestCase):
+    def test_sin_marcadores_de_conflicto_git(self):
+        """Ningún archivo versionado puede contener marcadores de conflicto
+        (<<<<<<< / >>>>>>>). Incidente v1.15: un CSV con conflictos de stash se
+        commiteó, rompió los bundles (CI) y el .watch_state.json (patch-watch)."""
+        patron = re.compile(r"^(<{7} |>{7} )", re.M)
+        culpables = []
+        for root, dirs, files in os.walk(BB.ROOT):
+            dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "node_modules")]
+            for f in files:
+                if f.endswith((".md", ".py", ".csv", ".json", ".yml", ".yaml", ".txt", ".css", ".ts", ".js")):
+                    p = os.path.join(root, f)
+                    try:
+                        with open(p, encoding="utf-8", errors="ignore") as fh:
+                            if patron.search(fh.read()):
+                                culpables.append(os.path.relpath(p, BB.ROOT))
+                    except OSError:
+                        pass
+        self.assertEqual(culpables, [], f"archivos con conflictos git sin resolver: {culpables}")
