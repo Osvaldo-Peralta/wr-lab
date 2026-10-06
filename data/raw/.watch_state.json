@@ -1,5 +1,5 @@
 {
- "official_73_md5": "61e445a4761992c24d9fc4ab3f521f3f",
+ "official_73_md5": "6813a5a6afc35d79a2142f237c2ff0e9",
  "new_pages": [
   "7-3",
   "7-3a"
@@ -30,37 +30,37 @@
    "7.3A"
   ]
  },
- "last_check": "2026-10-05T16:38:23",
+ "last_check": "2026-10-06T01:07:02",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
-  "Ahri|MID": 50.77,
-  "Caitlyn|DUO": 49.69,
-  "Cho'Gath|SOLO": 50.77,
-  "Cho'Gath|JUNGLE": 50.35,
-  "Diana|MID": 46.88,
-  "Diana|JUNGLE": 50.23,
-  "Heimerdinger|MID": 49.6,
-  "Jinx|DUO": 50.55,
-  "Kalista|DUO": 50.88,
-  "Kalista|SOLO": 52.58,
-  "Karma|SUPPORT": 49.52,
-  "Malphite|SUPPORT": 51.92,
-  "Malphite|SOLO": 55.53,
-  "Mordekaiser|SOLO": 51.35,
-  "Nocturne|JUNGLE": 55.13,
-  "Norra|MID": 50.78,
-  "Orianna|MID": 51.55,
-  "Rammus|JUNGLE": 57.42,
-  "Seraphine|SUPPORT": 49.3,
-  "Shyvana|JUNGLE": 46.71,
-  "Sivir|DUO": 48.65,
-  "Syndra|MID": 50.76,
-  "Volibear|SOLO": 47.74,
-  "Volibear|JUNGLE": 47.4,
-  "Yunara|DUO": 51.64,
-  "Yuumi|SUPPORT": 48.95
+  "Ahri|MID": 50.97,
+  "Caitlyn|DUO": 49.79,
+  "Cho'Gath|SOLO": 50.67,
+  "Cho'Gath|JUNGLE": 50.44,
+  "Diana|MID": 47.44,
+  "Diana|JUNGLE": 50.36,
+  "Heimerdinger|MID": 50.24,
+  "Jinx|DUO": 50.68,
+  "Kalista|DUO": 51.19,
+  "Kalista|SOLO": 52.67,
+  "Karma|SUPPORT": 49.57,
+  "Malphite|SUPPORT": 51.3,
+  "Malphite|SOLO": 55.09,
+  "Mordekaiser|SOLO": 51.23,
+  "Nocturne|JUNGLE": 55.32,
+  "Norra|MID": 50.81,
+  "Orianna|MID": 51.39,
+  "Rammus|JUNGLE": 56.84,
+  "Seraphine|SUPPORT": 49.55,
+  "Shyvana|JUNGLE": 46.14,
+  "Sivir|DUO": 48.16,
+  "Syndra|MID": 51.08,
+  "Volibear|SOLO": 48.19,
+  "Volibear|JUNGLE": 47.85,
+  "Yunara|DUO": 51.54,
+  "Yuumi|SUPPORT": 48.89
  },
  "wrmeta_ids": {
   "ahri": "1",
@@ -70,9 +70,9 @@
  },
  "winrates_meta": {
   "bucket": "Diamond +",
-  "updated_utc": "05 OCT 2026 UTC 00:00",
+  "updated_utc": "06 OCT 2026 UTC 00:00",
   "n_champs": 21,
   "n_filas": 26
  },
- "winrates_checked": "2026-10-05T01:09:19"
+ "winrates_checked": "2026-10-06T01:07:02"
 }

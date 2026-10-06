@@ -1,6 +1,6 @@
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 05 OCT 2026 UTC 00:00** · Refrescado por el vigía: 05/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 06 OCT 2026 UTC 00:00** · Refrescado por el vigía: 06/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -9,32 +9,32 @@
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.77 | 4.28 | 0.13 | ↓ 2 | Confidence Med |
-| Caitlyn | DUO | A | 49.69 | 21.72 | 15.43 | ↓ 1 | Confidence High |
-| Cho'Gath | SOLO | S+ | 50.77 | 11.40 | 34.76 | ↑ 5 | Confidence High |
-| Cho'Gath | JUNGLE | S | 50.35 | 8.33 | 34.76 | ↑ 1 | Confidence High |
-| Diana | MID | B | 46.88 | 1.17 | 0.17 | 0 | Confidence Low |
-| Diana | JUNGLE | A | 50.23 | 1.62 | 0.17 | ↓ 1 | Confidence Low |
-| Heimerdinger | MID | A | 49.60 | 1.58 | 1.11 | 0 | Confidence Low |
-| Jinx | DUO | A | 50.55 | 11.99 | 0.44 | 0 | Confidence High |
-| Kalista | DUO | A | 50.88 | 5.35 | 5.31 | ↓ 1 | Confidence Med |
-| Kalista | SOLO | S | 52.58 | 2.10 | 5.31 | ↓ 2 | Confidence Low |
-| Karma | SUPPORT | A | 49.52 | 4.96 | 0.37 | ↑ 8 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.92 | 7.23 | 44.98 | ↑ 2 | Confidence Med |
-| Malphite | SOLO | S+ | 55.53 | 7.56 | 44.98 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S+ | 51.35 | 10.51 | 28.12 | ↑ 2 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.13 | 9.42 | 39.95 | 0 | Confidence High |
-| Norra | MID | A | 50.78 | 1.52 | 7.62 | ↓ 1 | Confidence Low |
-| Orianna | MID | A | 51.55 | 4.63 | 0.26 | ↓ 1 | Confidence Med |
-| Rammus | JUNGLE | S+ | 57.42 | 5.00 | 7.02 | 0 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.30 | 6.41 | 0.97 | ↓ 6 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.71 | 3.58 | 1.36 | ↑ 2 | Confidence Med |
-| Sivir | DUO | B | 48.65 | 3.49 | 0.05 | 0 | Confidence Med |
-| Syndra | MID | A | 50.76 | 6.77 | 25.33 | ↓ 6 | Confidence Med |
-| Volibear | SOLO | B | 47.74 | 5.41 | 4.65 | ↓ 1 | Confidence Med |
-| Volibear | JUNGLE | B | 47.40 | 2.47 | 4.65 | ↓ 5 | Confidence Low |
-| Yunara | DUO | S+ | 51.64 | 16.83 | 23.80 | ↓ 1 | Confidence High |
-| Yuumi | SUPPORT | A | 48.95 | 9.51 | 34.28 | ↓ 1 | Confidence High |
+| Ahri | MID | A | 50.97 | 4.27 | 0.14 | ↑ 2 | Confidence Med |
+| Caitlyn | DUO | A | 49.79 | 21.36 | 13.93 | 0 | Confidence High |
+| Cho'Gath | SOLO | S | 50.67 | 11.38 | 35.00 | ↓ 1 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.44 | 8.19 | 35.00 | ↑ 1 | Confidence High |
+| Diana | MID | B | 47.44 | 1.15 | 0.17 | ↑ 2 | Confidence Low |
+| Diana | JUNGLE | A | 50.36 | 1.67 | 0.17 | ↓ 1 | Confidence Low |
+| Heimerdinger | MID | A | 50.24 | 1.62 | 1.12 | ↑ 4 | Confidence Low |
+| Jinx | DUO | A | 50.68 | 12.07 | 0.44 | 0 | Confidence High |
+| Kalista | DUO | S | 51.19 | 5.43 | 5.48 | ↑ 1 | Confidence Med |
+| Kalista | SOLO | S+ | 52.67 | 2.10 | 5.48 | ↑ 2 | Confidence Low |
+| Karma | SUPPORT | A | 49.57 | 4.94 | 0.37 | ↓ 2 | Confidence Med |
+| Malphite | SUPPORT | S | 51.30 | 7.31 | 44.69 | ↓ 2 | Confidence Med |
+| Malphite | SOLO | S+ | 55.09 | 7.47 | 44.69 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S | 51.23 | 10.50 | 28.28 | ↓ 2 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.32 | 9.47 | 42.12 | 0 | Confidence High |
+| Norra | MID | A | 50.81 | 1.50 | 7.53 | ↓ 1 | Confidence Low |
+| Orianna | MID | A | 51.39 | 4.51 | 0.27 | ↓ 2 | Confidence Med |
+| Rammus | JUNGLE | S+ | 56.84 | 4.88 | 7.21 | 0 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.55 | 6.47 | 0.97 | ↑ 2 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.14 | 3.64 | 1.32 | ↓ 3 | Confidence Med |
+| Sivir | DUO | B | 48.16 | 3.52 | 0.05 | ↓ 1 | Confidence Med |
+| Syndra | MID | S+ | 51.08 | 6.63 | 24.64 | ↑ 7 | Confidence Med |
+| Volibear | SOLO | A | 48.19 | 5.30 | 4.58 | ↑ 2 | Confidence Med |
+| Volibear | JUNGLE | A | 47.85 | 2.41 | 4.58 | ↑ 3 | Confidence Low |
+| Yunara | DUO | S+ | 51.54 | 16.71 | 23.93 | 0 | Confidence High |
+| Yuumi | SUPPORT | A | 48.89 | 9.59 | 34.46 | ↓ 1 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
