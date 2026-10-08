@@ -27,6 +27,15 @@ verified_patch: 7.3a
 **Arquetipo:** Maga de burst AP con red de seguridad
 **Enfoque:** **Maximizar daño de burst en ventana de 2-3 s**. La build prioriza **daño > durabilidad pasiva**, pero incluye **Zhonya's** y **Cryptbloom** como red de seguridad para no morir al segundo engage.
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Norra:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
 > Win Rate 50.78 % | Pick Rate 1.52 % | Ban 7.62 % | Tendencia ↓ 1 | Tier A | Rol MID | Confianza Low.

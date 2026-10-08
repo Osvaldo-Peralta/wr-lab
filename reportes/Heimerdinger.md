@@ -24,6 +24,15 @@ verified_patch: 7.3a
 **Arquetipo:** Mago de zona
 **Enfoque:** Maximizar el daño sostenido de las torretas (AP + penetración mágica + mana para spamear Q)
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Heimerdinger:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
 > Win Rate 49.60 % | Pick Rate 1.58 % | Ban 1.11 % | Tendencia 0 | Tier A | Rol MID | Confianza Low.

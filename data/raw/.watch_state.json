@@ -30,7 +30,7 @@
    "7.3A"
   ]
  },
- "last_check": "2026-10-08T00:01:14",
+ "last_check": "2026-10-08T03:43:53",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
@@ -52,6 +52,8 @@
   "Nocturne|JUNGLE": 55.09,
   "Norra|MID": 50.75,
   "Orianna|MID": 51.65,
+  "Ornn|SOLO": 51.68,
+  "Ornn|SUPPORT": 48.33,
   "Rammus|JUNGLE": 56.8,
   "Seraphine|SUPPORT": 49.26,
   "Shyvana|JUNGLE": 46.26,
@@ -59,20 +61,19 @@
   "Syndra|MID": 51.14,
   "Volibear|SOLO": 48.3,
   "Volibear|JUNGLE": 48.65,
+  "Xayah|DUO": 50.17,
   "Yunara|DUO": 51.62,
   "Yuumi|SUPPORT": 49.09
  },
  "wrmeta_ids": {
-  "ahri": "1",
-  "nocturne": "382",
-  "orianna": "33",
-  "syndra": "398"
+  "ornn": "383",
+  "xayah": "165"
  },
  "winrates_meta": {
   "bucket": "Diamond +",
   "updated_utc": "08 OCT 2026 UTC 00:00",
-  "n_champs": 21,
-  "n_filas": 26
+  "n_champs": 23,
+  "n_filas": 29
  },
- "winrates_checked": "2026-10-08T00:01:14"
+ "winrates_checked": "2026-10-08T03:43:53"
 }
