@@ -57,23 +57,20 @@ class TestContenidoBundles(unittest.TestCase):
         self.assertNotIn("def cmd_baseline", self.lite)
 
     def test_reportes_con_verificacion_en_el_completo(self):
+        """Fidelidad de embebido: §14 lleva exactamente los bloques WRLAB-VERIF
+        que existen en los reportes fuente (ni uno fantasma ni uno perdido).
+        v1.15.2: antes comparaba contra "quién debería tener bloque", política
+        que ya vive en build_bundles.validar(); acá se prueba el embebido."""
         m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
         self.assertIsNotNone(m, "sección §14 no encontrada")
-        n = len(re.findall(r"WRLAB-VERIF:7\.3a:START", m.group(0)))
-        # esperan bloque todos los reportes que NO declaran patch ≥ 7.3a (los AL_DIA no llevan)
-        import sys as _sys
-        _sys.path.insert(0, os.path.join(BB.ROOT, "model"))
-        import update_reports as U
-        esperan = 0
+        n = len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", m.group(0))) // 2
+        en_fuentes = 0
         for f in sorted(os.listdir(os.path.join(BB.ROOT, "reportes"))):
             if not f.endswith(".md"):
                 continue
-            with open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8") as fh:
-                txt = fh.read()
-            pd = U.parche_declarado(U.parse_frontmatter(txt), txt)
-            if not (pd and U.patch_key(pd) >= U.patch_key("7.3a")):
-                esperan += 1
-        self.assertEqual(n, esperan)
+            txt = open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8").read()
+            en_fuentes += len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", txt)) // 2
+        self.assertEqual(n, en_fuentes)
 
 
 if __name__ == "__main__":

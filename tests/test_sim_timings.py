@@ -27,22 +27,67 @@ class TestParseoRutas(unittest.TestCase):
         self.assertEqual(ruta[-1][1], 17350)              # oro total de la build C
         self.assertAlmostEqual(ruta[-1][2], 20.0, delta=1.1)   # v1.5 del autor: ~20:00
 
+    TABLA_B_ACUM = """### Tabla B — Ruta de compra
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|---|---|---|
+| 1 | Long Sword + Poción | 500 | 0:00 |
+| 2 | Berserker's Greaves | 1 700 | ~4:30 |
+| 3 | **Nashor's Talons** | 3 400 | ~7:00 |
+| 4 | Cierre de build | 14 950 | ~17:30 |
+"""
+
+    TABLA_POR_ITEM = """### Tabla B — Ruta
+
+| Compra | Oro | Minuto |
+|---|---|---|
+| Ítem 1 | 2 900 | 4:00 |
+| Ítem 2 | 1 200 | 6:00 |
+| Ítem 3 | 1 000 | 7:00 |
+| Ítem 4 | 2 650 | 10:00 |
+| Ítem 5 | 3 400 | 14:00 |
+| Ítem 6 | 3 300 | 17:00 |
+"""
+
+    TABLA_SIN_MINUTOS = """### Tabla B — Ruta
+
+| Compra | Oro acum. |
+|---|---|
+| Ítem 1 | 2 900 |
+| Ítem 2 | 4 100 |
+"""
+
     def test_sivir_ruta_por_item_sintetiza_acumulado(self):
-        """Sivir usa tabla de ruta (oro POR ÍTEM, no acumulado) — el parser la acumula."""
-        ruta = S.parse_ruta(texto("Sivir.md"))
+        """v1.15.2: fixture sintética (oro POR ÍTEM) — el parser debe acumular.
+        Antes atado a la Tabla B de Sivir: cuando el autor la rehízo, rompió."""
+        ruta = S.parse_ruta(self.TABLA_POR_ITEM)
         self.assertGreaterEqual(len(ruta), 5)
         oros = [o for _, o, _ in ruta]
         self.assertEqual(max(oros), sum([2900, 1200, 1000, 2650, 3400, 3300]))  # 14 450
 
     def test_diana_jungla_rango_de_minutos(self):
-        ruta = S.parse_ruta(texto("Diana - Jungla.md"))
+        """v1.15.2: fixture sintética — ancla de minuto por ítem y oro exactos."""
+        ruta = S.parse_ruta(self.TABLA_B_ACUM)
         t_nashor = next(t for c, o, t in ruta if "Nashor" in c and o == 3400)
         self.assertAlmostEqual(t_nashor, 7.0, delta=0.01)
 
     def test_kalista_sin_minutos_no_aporta_anclas(self):
-        """Kalista.md no tiene columna de minuto — parse_ruta devuelve vacío o sin tiempos."""
-        ruta = S.parse_ruta(texto("Kalista.md"))
+        """v1.15.2: tabla sin columna de minuto → parse_ruta no inventa anclas."""
+        ruta = S.parse_ruta(self.TABLA_SIN_MINUTOS)
         self.assertTrue(all(t is None for _, _, t in ruta) or ruta == [])
+
+    def test_rutas_del_vault_monotonas(self):
+        """Invariante real sobre el vault vivo: el oro acumulado de toda Tabla B
+        parseada crece monótono (y los minutos también). Aguanta cualquier
+        reescritura de guías mientras la tabla sea una ruta cronológica."""
+        for f in sorted(os.listdir(REP)):
+            if not f.endswith(".md"):
+                continue
+            ruta = S.parse_ruta(texto(f))
+            oros = [o for _, o, _ in ruta]
+            # solo el ORO acumulado es monótono: los minutos NO (las filas de
+            # upgrade tipo "⬆️ Gunmetal" viven en su slot, no en su minuto)
+            self.assertEqual(oros, sorted(oros), f)
 
 
 class TestCurvas(unittest.TestCase):

@@ -1,0 +1,63 @@
+WR-LAB · FIX CI v1.15.2 — tests resilientes + vault resellado  (2026-10-08)
+══════════════════════════════════════════════════════════════════════
+
+DIAGNÓSTICO (por qué Actions estaba rojo con tu push)
+Los 23 fallos NO eran un solo bug: eran 5 causas distintas, todas del mismo
+tipo: tests que habían CONGELADO el estado del vault en lugar de verificar
+estándares. Tu instinto era correcto: "si algo deja de existir, no debería
+romper los tests" — y además: si algo se CORRIGE, tampoco.
+
+  C1 · Directorios eliminados (_auto, borradores): 2 tests listaban/leían
+       reportes/_auto como si fuera contenido obligatorio. Hoy: skip limpio
+       ("el vault no embarca derivados regenerables").
+  C2 · Conteos congelados (17 reportes): 3 tests. Hoy: el tamaño lo dicta el
+       directorio y el estándar es registry ↔ directorio en sincronía.
+  C3 · Guías congeladas: 8 tests usaban guías REALES como fixture de estándares
+       (Heimerdinger "no extraíble", Sivir "situacional", tablas de Diana/
+       Kalista/Sivir, veredictos de Rammus/Sivir/Kalista). Cuando vos corregiste
+       esas guías, los tests rompieron POR MEJORAR EL CONTENIDO. Hoy: fixtures
+       sintéticas para el linter y el parser (tests/fixtures/Rammus_pre73a.md
+       para el caso REGENERAR) + reglas estructurales para el triage
+       ("declara el parche ⇒ AL_DIA sin delta", "verification REGENERAR del
+       frontmatter ⇒ triage REGENERAR", cobertura total, oro acumulado
+       monótono).
+  C4 · Artefactos derivados desfasados: WR-LAB_completo.md y el registry no se
+       regeneraron tras tu ronda. Hoy: incluidos regenerados en este zip.
+       OJO: el bundle COMPLETO embebe TAMBIÉN tests/ — tras tocar tests o
+       model, SIEMPRE `python3 model/build_bundles.py` antes de commitear.
+  C5 · Dos bugs REALES de herramienta encontrados por el camino (no de tests):
+       · build_bundles.validar() exigía 1 bloque WRLAB-VERIF por reporte,
+         regla pre-v1.15: las guías que declaran el hotfix no llevan bloque →
+         publicar guías nuevas verificadas rompía CI. Regla corregida.
+       · update_reports: `baseline` pisaba los sellos de verificación de
+         `annotate` (y viceversa según orden) → el vault quedaba "sin
+         verificar contra 7.3a" y `wrlab.py estado` fallaba. Hoy el sello se
+         DERIVA del frontmatter (verification + verified_patch) y el preserve
+         del baseline es solo fallback. El orden de los comandos ya no importa.
+
+DATOS TOCADOS (necesarios, no cosméticos)
+  · reportes/Diana - Mid.md: recuperado `variant: mid` (se había perdido en la
+    ronda; sin él el web muestra DOS cards "Diana" idénticas).
+  · reportes/Cho'Gath - Titán de la Jungla.md: agregado el "## Pie de página"
+    legal que exigía el lint (Riot compliance).
+  · 5 reportes (Cho'Gath×2, Mordekaiser, Volibear Pesadilla, Yuumi): sellados
+    contra 7.3a vía triage→annotate (todos ✅ ANOTAR, Δ medidos < umbral).
+  · 20 reportes: frontmatter canonizado (estandarizar_metadatos --apply).
+  · model/check_patch.py: WRMETA_IDS += xayah:165, ornn:383 (sitemap wr-meta).
+  · registry + bundles regenerados.
+
+PASOS
+  1. cd "<tu-clon>/wr-lab" && unzip -o ruta/al/wr-lab-fix-ci-v1152.zip
+  2. python3 -m unittest discover tests -q     → OK (153 tests, 2 skips)
+     python3 model/lint_reportes.py            → 0 errores · 0 avisos
+     python3 model/update_reports.py check     → exit 0
+  3. git add -A && git commit -m "v1.15.2: tests resilientes al vault vivo + sellos derivados + reglas VERIF corregidas" && git push
+  4. Actions → WR-LAB CI verde. Después, correr "Sync lab → web" (o esperar el
+     cron) para que el web reciba: variant de Diana (títulos correctos), los
+     bloques VERIF 7.3a de las 5 guías y el frontmatter canonizado.
+
+FILOSOFÍA QUEDADA EN CÓDIGO (tu regla, formalizada)
+  · Ausencia de derivados (_auto, borradores) → skip, no fallo.
+  · Contenido corregido/crecido → los tests de estándar siguen pasando:
+    fixtures sintéticas para estándares, reglas derivadas para el vault.
+  · Lo congelado solo vive en tests/fixtures/ (con nombre y procedencia).

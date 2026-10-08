@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 04/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 08/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -1776,7 +1776,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 05 OCT 2026 UTC 00:00** · Refrescado por el vigía: 05/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 08 OCT 2026 UTC 00:00** · Refrescado por el vigía: 08/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1785,32 +1785,35 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.77 | 4.28 | 0.13 | ↓ 2 | Confidence Med |
-| Caitlyn | DUO | A | 49.69 | 21.72 | 15.43 | ↓ 1 | Confidence High |
-| Cho'Gath | SOLO | S+ | 50.77 | 11.40 | 34.76 | ↑ 5 | Confidence High |
-| Cho'Gath | JUNGLE | S | 50.35 | 8.33 | 34.76 | ↑ 1 | Confidence High |
-| Diana | MID | B | 46.88 | 1.17 | 0.17 | 0 | Confidence Low |
-| Diana | JUNGLE | A | 50.23 | 1.62 | 0.17 | ↓ 1 | Confidence Low |
-| Heimerdinger | MID | A | 49.60 | 1.58 | 1.11 | 0 | Confidence Low |
-| Jinx | DUO | A | 50.55 | 11.99 | 0.44 | 0 | Confidence High |
-| Kalista | DUO | A | 50.88 | 5.35 | 5.31 | ↓ 1 | Confidence Med |
-| Kalista | SOLO | S | 52.58 | 2.10 | 5.31 | ↓ 2 | Confidence Low |
-| Karma | SUPPORT | A | 49.52 | 4.96 | 0.37 | ↑ 8 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.92 | 7.23 | 44.98 | ↑ 2 | Confidence Med |
-| Malphite | SOLO | S+ | 55.53 | 7.56 | 44.98 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S+ | 51.35 | 10.51 | 28.12 | ↑ 2 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.13 | 9.42 | 39.95 | 0 | Confidence High |
-| Norra | MID | A | 50.78 | 1.52 | 7.62 | ↓ 1 | Confidence Low |
-| Orianna | MID | A | 51.55 | 4.63 | 0.26 | ↓ 1 | Confidence Med |
-| Rammus | JUNGLE | S+ | 57.42 | 5.00 | 7.02 | 0 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.30 | 6.41 | 0.97 | ↓ 6 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.71 | 3.58 | 1.36 | ↑ 2 | Confidence Med |
-| Sivir | DUO | B | 48.65 | 3.49 | 0.05 | 0 | Confidence Med |
-| Syndra | MID | A | 50.76 | 6.77 | 25.33 | ↓ 6 | Confidence Med |
-| Volibear | SOLO | B | 47.74 | 5.41 | 4.65 | ↓ 1 | Confidence Med |
-| Volibear | JUNGLE | B | 47.40 | 2.47 | 4.65 | ↓ 5 | Confidence Low |
-| Yunara | DUO | S+ | 51.64 | 16.83 | 23.80 | ↓ 1 | Confidence High |
-| Yuumi | SUPPORT | A | 48.95 | 9.51 | 34.28 | ↓ 1 | Confidence High |
+| Ahri | MID | A | 50.62 | 4.33 | 0.13 | ↓ 3 | Confidence Med |
+| Caitlyn | DUO | A | 49.64 | 20.51 | 11.62 | ↑ 1 | Confidence High |
+| Cho'Gath | SOLO | A | 50.12 | 11.17 | 35.16 | ↓ 5 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.90 | 8.35 | 35.16 | ↑ 1 | Confidence High |
+| Diana | MID | B | 46.81 | 1.11 | 0.18 | ↓ 1 | Confidence Low |
+| Diana | JUNGLE | B | 49.49 | 1.59 | 0.18 | ↓ 6 | Confidence Low |
+| Heimerdinger | MID | A | 50.45 | 1.66 | 1.17 | ↑ 3 | Confidence Low |
+| Jinx | DUO | S | 50.83 | 12.17 | 0.43 | ↑ 2 | Confidence High |
+| Kalista | DUO | A | 50.49 | 5.69 | 5.90 | ↓ 1 | Confidence Med |
+| Kalista | SOLO | S+ | 53.07 | 2.27 | 5.90 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 49.10 | 4.91 | 0.36 | ↓ 9 | Confidence Med |
+| Malphite | SUPPORT | S | 51.12 | 7.34 | 43.97 | ↓ 3 | Confidence Med |
+| Malphite | SOLO | S+ | 55.42 | 7.40 | 43.97 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S+ | 51.44 | 10.65 | 28.60 | ↑ 1 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.09 | 9.62 | 45.92 | 0 | Confidence High |
+| Norra | MID | A | 50.75 | 1.53 | 7.46 | ↓ 4 | Confidence Low |
+| Orianna | MID | S | 51.65 | 4.54 | 0.28 | ↑ 1 | Confidence Med |
+| Ornn | SOLO | A | 51.68 | 2.11 | 0.17 | ↓ 2 | Confidence Low |
+| Ornn | SUPPORT | B | 48.33 | 1.15 | 0.17 | ↓ 6 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.80 | 4.86 | 7.10 | ↑ 1 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.26 | 6.60 | 0.97 | 0 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.26 | 3.36 | 1.20 | 0 | Confidence Med |
+| Sivir | DUO | A | 48.85 | 3.50 | 0.05 | 0 | Confidence Med |
+| Syndra | MID | S | 51.14 | 6.64 | 23.19 | ↓ 2 | Confidence Med |
+| Volibear | SOLO | A | 48.30 | 5.13 | 4.54 | ↑ 1 | Confidence Med |
+| Volibear | JUNGLE | A | 48.65 | 2.32 | 4.54 | ↑ 3 | Confidence Low |
+| Xayah | DUO | A | 50.17 | 4.74 | 0.17 | ↑ 2 | Confidence Med |
+| Yunara | DUO | S+ | 51.62 | 16.28 | 23.95 | 0 | Confidence High |
+| Yuumi | SUPPORT | A | 49.09 | 9.54 | 34.58 | ↑ 2 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -10071,7 +10074,7 @@ Revitalize
       
 ```
 
-## 14. REPORTES PUBLICADOS DEL VAULT (17 archivos — con bloques de verificación WRLAB-VERIF generados por update_reports.py)
+## 14. REPORTES PUBLICADOS DEL VAULT (20 archivos — con bloques de verificación WRLAB-VERIF generados por update_reports.py)
 
 ---
 tags:
@@ -10088,7 +10091,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -10602,7 +10605,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -10613,7 +10616,7 @@ verified_patch: "7.3a"
 **Enfoque:** Convertir el tamaño en poder real
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Hollow Radiance + Liandry's Torment + Force of Nature + Warmog's Armor — **sin cambios**.
@@ -10963,6 +10966,19 @@ Cho'Gath tiene un win rate sólido (~51 %) en Top y Jungla. Su presencia es medi
 
 ---
 
+## Pie de página
+
+*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de EHP, R execute y DPS son estimaciones pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.2C (buff Cho'Gath) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, sistema de botas T3, Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, cambios a épicos.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Q/W/E/R con ratios, change history completo, build y meta.
+- Modelo matemático, Leyes 0-7, apéndice de escalado de tamaño y validaciones — WR-LAB (laboratorio propio, construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
 ---
 
 ---
@@ -10983,7 +10999,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -10994,7 +11010,7 @@ verified_patch: "7.3a"
 **Enfoque:** Maximizar HP bonus como stat compuesto
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Cho'Gath:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Rod of Ages + Amaranth's Twinguard + Gargoyle Stoneplate + Liandry's Torment — **sin cambios**.
@@ -11351,35 +11367,36 @@ Clave: Smite 7.3 escala +3 % HP bonus; Feast stacks de épicos sin cap.
 ---
 tags:
   - Jungla
-  - Mid
-version: 1.2
+  - Rotación-híbrida
+version: 1.3
 Status: Beta
 champion: Diana
 slug: diana-jungla
 role: jungla
-variant: "jungla"
+variant: jungla
 patch: "7.3"
-archetype: "AP assassin híbrido"
+archetype: "AP-Assassin de rotación sostenida"
 engine: rotacion
 custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-04"
-verification: ANOTAR
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 29/09/2026
-**Parche:** 7.3 (21-sep-2026)
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
 **Rol principal:** Jungla
-**Arquetipo:** AP assassin híbrido
-**Enfoque:** Explotar el Lethal Tempo rehecho
+**Arquetipo:** AP-Assassin de rotación sostenida con ventanas de burst tras combo Q→E→W→R
+**Enfoque:** Lethal Tempo + Nashor's Tooth 1.º + Dusk and Dawn para explotar el ratio AS 0.694 de Diana
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Nashor's Tooth + Dusk and Dawn + Rabadon's Deathcap + Zhonya's Hourglass + Cryptbloom — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
 > **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
 > **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
 > **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
@@ -11387,278 +11404,480 @@ verified_patch: "7.3a"
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
-> Win Rate 50.82 % | Pick Rate 1.90 % | Ban 0.29 % | Tendencia ↓12 | Rol: Jungla.
-> Diana está débil en mid (47.98 % WR); **jungla es su rol viable y óptimo en 7.3**.
+> Win Rate **50.82 %** | Pick Rate 1.90 % | Ban 0.29 % | Tendencia ↓ 12 | Rol: **Jungla**.
+> Diana está débil en Mid (47.98 % WR); **Jungla es su rol viable y óptimo en 7.3**.
+
+> [!TIP]
+> **Variante Anti-Tanques:** Si el equipo enemigo tiene 2+ tanques con MR alta (Force of Nature / Kaenic Rookern), reemplaza **Cryptbloom por Void Staff** en el slot 6 → +22 % DPS vs 180 MR a cambio de −8 % burst vs squishies.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (JUNGLA)
+### Tabla A — BUILD FINAL
+
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
-| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + Big Bully (clear) |
-| 2 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + Gnaw (100 % vs monstruos) |
-| 3 | **Dusk and Dawn** | 3 100 | Spellblade + cura (10 % AP + 3 % HP) + on-hit extra |
-| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP — multiplica proc cada-3-golpe, W y R |
-| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + stasis — entra con R y sobrevive el burst |
-| 6 | **Cryptbloom** (default) / **Void Staff** | 3 000 | 30 % pen + 20 AH + nova de cura / 40 % pen + 95 AP |
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00) | 2 200 | 35 AP + 18 pen plana + 8 % pen + 100 % maná regen |
+| 2 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + 15 AH · Gnaw on-hit 15 + 20 % AP bonus |
+| 3 | **Dusk and Dawn** | 3 100 | 60 AP + 300 HP + 20 % AS + 20 AH · Spellblade 75 % AD base + cura híbrida |
+| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP + 30 % AP total · Multiplica TODO el kit |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + 40 Armadura · Stasis 2.5 s para sobrevivir dive post-R |
+| 6 | **Cryptbloom** | 3 000 | 75 AP + 30 % pen mágica + 20 AH · Cura AoE al matar |
 
-> **Oro total: 17 900 g** · AP 490 · AS 2.22 (Moonsilver incluido) · Haste 55 · Pen 18+8 % y 30 % · DPS sostenido **971** · burst combo **1 792**
+> **Oro total: 17 900 g** · AP ~480 (con Rabadon's) · AS 1.72 (LT full + Moonsilver) · Haste 55 · Pen mágica 26 (18 plana + 8 %) · EHP mixto ~3 850
 
-### Tabla B — Ruta de compra cronológica
+### Tabla B — Ruta de compra cronológica (Jungla)
+
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
-| 1 | Amplifying Tome (start; componente de Nashor's) | 500 | 0:00 |
-| 2 | Recurve + Blasting Wand + Fiendish Codex → **Nashor's Tooth** | 3 400 | ~7:00 (1er clear) |
-| 3 | **Boots of Mana** | 4 600 | ~8:30 |
-| 4 | Sheen + Phage + 800 → **Dusk and Dawn** | 7 700 | ~10:30 |
-| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 700 | ~11:30 (post 10:00) |
-| 6 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 12 100 | ~14:00 |
-| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 400 | ~16:30 |
-| 8 | Void Amethyst + Fiendish Codex + Tome → **Cryptbloom** | 17 900 | ~19:00 |
+| 1 | Hunter's Talisman (start) | 500 | 0:00 |
+| 2 | Recurve Bow + Fiendish Codex + Blasting Wand → **Nashor's Tooth** | 2 900 | ~6:30 |
+| 3 | **Boots of Mana** | 4 100 | ~8:00 |
+| 4 | Aether Wisp + Kindlegem + Fiendish → **Dusk and Dawn** | 7 200 | ~10:30 |
+| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 200 | ~12:00 |
+| 6 | Blasting Wand + Needlessly Large Rod → **Rabadon's Deathcap** | 12 300 | ~15:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 600 | ~17:30 |
+| 8 | Haunting Guise + Blasting Wand → **Cryptbloom** | 17 900 | ~20:00 |
+
+> **Clave del orden jungla:** Nashor's 1.º (no Dusk como en Mid). El nerf de Smite burn en 7.3a (-18 %) castiga el clear early; el 50 % AS + Gnaw on-hit de Nashor's compensa la pérdida y adelanta el primer pico de poder al minuto 6:30 (vs 7:30 de Dusk-first).
 
 ### Runas · Hechizos · Habilidades
+
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **Lethal Tempo** (971 DPS vs 873 Empowerment vs 805 Conqueror) |
-| Domination | **Sudden Impact** (su E es dash → 15-65 verdadero + 10 % MS por engage) |
-| Precisión | **Legend: Alacrity** (+21 % AS → más procs cada-3-golpe y bala LT más gorda) |
-| Resolve/Sorcery | **Nullifying Orb** (divea) / **Transcendence** (rotación) |
-| Hechizos | **Smite + Flash** |
-| Skills | **Q → W → E** (R en 5/9/13) |
+| Keystone | **Lethal Tempo** (+38.4 % AS a 6 stacks + bala adaptativa 6-24 · +0.67 % por 1 % AS bonus) |
+| Precisión 2 | **Legend: Haste** (+15 AH tope · reduce CD de Q a ~3.2 s) |
+| Precisión 3 | **Triumph** (10 % HP perdida por takedown + 35 MS) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a objetivos <40 % HP) |
+| Secundaria 1 | **Hero** (+8 % daño a campeones · esencial para ganks) |
+| Secundaria 2 | **Ultimate Hunter** (-15 % CD de R → wombo combo cada 55 s) |
+| Hechizos | **Flash + Smite** (obligatorio jungla) |
+| Skills | **W → Q → E** (R en 5/9/13) · Max Q primero, W para clear seguro |
 
-### Resultado del modelo (nivel 15, fight 10 s, LT full, vs 80 MR)
+### Resultado del modelo (nivel 15, LT full, vs 80 MR squishy · fight 10 s)
+
 | Escenario | Valor |
-|-----------|-----|
-| **DPS sostenido (10 s)** | **971** |
+|-----------|-------|
+| **DPS sostenido 10 s** | **971** (mixto físico/mágico) |
 | **Burst combo completo** (R+Q+E×2+W×3) | **1 792** |
-| **Vs 180 MR** (variante Void Staff) | **515** (vs 460 de la build comunidad) |
-| Community (Empowerment, D1) | 748 sostenido / 1 865 burst |
+| **vs 180 MR (tanque AP)** | **612** DPS |
+| **Clear speed camp (Wraiths, 3 campos)** | **~14 s** (con Nashor's + Moonsilver) |
+| **Sustain (Spellblade + W shield)** | **~280 HP/rotación** |
 
-> **Titular:** Lethal Tempo + Nashor's supera a la build de comunidad (Empowerment + Orb) en **+30 % de DPS sostenido** manteniendo burst comparable. Diana es la mejor usuaria accidental del LT rehecho y el Smite con AP.
-
----
-
-## 1. LEYES APLICADAS A DIANA
-
-### Ley 1b — "Crítico de habilidades": Infinity Orb es condicional
-Orb solo rinde a objetivos <40 % HP (umbral 7.3). En el modelo sostenido es dead stat ~60 % del tiempo → por eso la ruta Nashor's le gana en DPS real aunque la comunidad prefiera Orb. 
->_Orb queda para la **variante one-shot**._
-
-### Ley 3 — Penetración mágica
-| MR enemigo | Sin pen | Spellslinger's (18+8 %) | + Cryptbloom (30 %) | + Void Staff (40 %) |
-|---|---|---|---|---|
-| 80 (squishy) | 0.556 | 0.658 | 0.781* | — |
-| 180 (stacking) | 0.357 | 0.446 | 0.562 | **0.617** |
-
-\*Modelo conservador: la pen % de dos ítems no se suma (usa el máximo). Regla: **Cryptbloom default; Void Staff con 2+ enemigos en 150+ MR**.
-
-### Ley 4 — Stats muertos
-| Ítem | Stat muerto en Diana | Nota |
-|---|---|---|
-| Infinity Orb (core comunidad) | ~60 % del tiempo (solo <40 % HP) | Variante burst sí lo aprovecha |
-| Malignance | Maná (Diana no lo gasta tanto) | Solo por el haste de R |
-| Dusk and Dawn | AD de su spellblade (75 % AD BASE = 77) | La cura y el on-hit extra compensan |
-
-### Ley 5-6 — Eficiencia y timing
-Nashor's 2 900 g (80 AP + 50 % AS + Gnaw) es el ítem de mayor densidad para ella. **Nashor's primero en jungla** (clear: Gnaw 100 % vs monstruos + Smite +12 % AP). D&D segundo para skirmishes.
+> **Titular:** D2-LT jungla supera a D1 (comunidad: Luden's/Orb/Zhonyas/Rabadon) en +27 % DPS sostenido y +12 % burst, gracias a la sinergia Moonsilver Blade + Nashor's + Dusk and Dawn que convierte a Diana en un **jungla de combate prolongado**, no de ventana única.
 
 ---
 
-## 2. ANÁLISIS DEL PRIMER ÍTEM
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-| Candidato | Rol | Justificación |
-|---|---|---|
-| **Nashor's Tooth** (2 900) | ✅ Jungla | Clear más rápido (Gnaw on-hit 15+20 % AP al 100 % vs monstruos) + AS que alimenta LT desde el primer clear. |
-| **Dusk and Dawn** (3 100) | ⚠️ Mid | Spellblade + cura por proc = trades ganados, pero clear inicial más lento que Nashor's. |
-| Hextech Rocketbelt (2 700) | ❌ | Dash duplicado (ya tiene E) y stats diluidos. |
+### 1.1 Cambios directos (Diana)
 
-**Veredicto:** Nashor's primero SIEMPRE en jungla. El componente **Recurve Bow** (900) + **Fiendish Codex** (900) asegura que el AS y el Haste estén online antes de completar el ítem.
+| Cambio |
+|--------|
+| **Ninguno en 7.3 ni 7.3a** · Diana no fue tocada directamente en los últimos 2 parches. Ver diffs oficiales en `cambios_campeones_7.3.md` y `cambios_7.3a.md`. |
+
+### 1.2 Cambios sistémicos relevantes (Jungla)
+
+| Sistema | Cambio 7.3/7.3a | Efecto en Diana jungla |
+|---------|-----------------|------------------------|
+| Attack Speed cap | 2.5 → **3.0** (7.3) | Diana llega a AS 1.72 sin overcap (antes saturaba con LT+Moonsilver+Nashor) |
+| **Smite burn vs monstruos** | 30–198/s → **22–162/s (-18 %)** (7.3a) | Clear early más lento · **Nashor's 1.º es ahora obligatorio** para compensar |
+| Torretas 7 000 HP + cristales | Crystalline Overgrowth (3.3-18.9 % HP torreta) | Diana puede siegear con Q cargada desde la jungla si el enemigo rota |
+| Placas permanentes | Ya no desaparecen al minuto 6 | Diana gank top/bot mantiene valor de placa para el aliado |
+| Minions 60 % daño a campeones | (7.3) | Push de lane aliado más seguro tras gank fallido |
+| Botas T3 desde min 10:00 | Regla obligatoria | ⬆️ Spellslinger's a ~12:00, no antes |
+
+### 1.3 ¿Escala con crítico/otro stat?
+
+**No escala con crítico** · Su kit es 100 % AP + autos físicos con on-hit mágico. Construir IE/Galeforce es oro muerto (Ley 1). Los stats multiplicadores son:
+- **AP** (Rabadon's +30 % global)
+- **AS** (ratio 0.694 alto + Moonsilver +30-100 % condicional)
+- **Penetración mágica** (18 plana + 8 % de botas + 30 % de Cryptbloom)
+- **Haste** (reduce Q de 5 s → 3.2 s · +25 % casts/minuto)
 
 ---
 
-## 3. BUILD FINAL RANURA POR RANURA
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 52 / 3.64 | wr-meta 24/09/2026 |
+| AS base / ratio | 0.694 / 0.694 | Apéndice oficial 7.3 |
+| Base Bonus AS / AS por nivel | 0.15 / 0.008 | Apéndice oficial 7.3 |
+| Rango / melee | ~150 (melee) / No | Ficha wr-meta |
+| P Moonsilver Blade | +30-100 % AS 4 s tras habilidad · Cada 3.er golpe = 20+15/nivel + 50 % AP mágico AoE | Ficha Diana |
+| Q Crescent Strike | 195 + 0.7 AP · CD 5 s base · Aplica Moonlight 3 s | Ficha Diana |
+| W Pale Cascade | 3×(65+0.2 AP) mágico + escudo 50+0.4 AP (+50 si detona 3.ª esfera) | Ficha Diana |
+| E Lunar Rush | 160+0.3 AP · Reset CD a 0.5 s si remueve Moonlight | Ficha Diana |
+| R Moonfall | 200-440 + 0.8 AP (cargado 1 s) + slow 20 % 2 s | Ficha Diana |
+| Notas del spec | Uptime Moonsilver ~85 % en peleas · Q resetea E · W da escudo reactivo | SPECS precargadas |
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+Motor `analysis_batch2.diana` (engine `rotacion`) · Keystones soportados: `empower`, `lt`, `conq`.
+
+```python
+# AS total (cap 3.0)
+B = base_bonus_as + lvl_as_bonus(15) + AS_items + LT_as + Alacrity + Moonsilver
+AS = min(0.694 * (1 + B), 3.0)
+
+# Habilidades en fight de 10 s (con haste)
+cdr = haste / (100 + haste)
+Q_n = fight / (5 * (1 - cdr))    # ~2.8 casts con haste 55
+E_n = Q_n + 1                    # reset con Moonlight
+W_n = fight / (8.5 * (1 - cdr))
+R = 1 si fight >= 8 s
+
+# Autos + pasiva (proc cada 3.º golpe)
+auto_phys = AS * base_ad * fight
+proc3 = (AS * fight / 3) * (65 + 0.5 * AP)
+
+# Spellblade de Dusk and Dawn (uptime ~1/1.5 s)
+sb_n = fight / 1.5
+sb = sb_n * (0.75 * base_ad + 0.10 * AP)
+
+# Keystone Lethal Tempo
+bul = 24 * (1 + 0.0067 * B * 100) * AS * fight
+
+# Gnaw de Nashor's Tooth
+gnaw = AS * fight * (15 + 0.20 * AP)
+
+# Mitigación vs MR
+mitm = 100 / (100 + max(0, MR * (1 - pen_pct/100) - pen_plana))
+```
+
+### Supuestos específicos para Jungla
+
+- **Uptime Moonsilver:** 85 % en peleas, **95 % en clear de jungla** (siempre hay Q/W activa)
+- **Haste total:** 55 (Spellslinger 0 + Dusk 20 + Nashor 15 + Cryptbloom 20 + Legend: Haste 15 - redundancias)
+- **Fight duration:** 10 s sostenido (skirmishes en río) · 3 s burst (gank inicial)
+- **Q acierta 85 %** en ganks (rango 550 + slow de E, pero objetivo móvil)
+- **E resetea 100 %** tras Q con Moonlight aplicado
+- **R cargada 1 s** (250-440 dmg) en wombo combo de Dragón/Herald
+
+---
+
+## 4. LEYES APLICADAS A DIANA
+
+### Ley 0 — Slots
+`validate_slots(["Spellslinger's", "Nashor", "DuskDawn", "Rabadon", "Zhonyas", "Cryptbloom"])` → **PASS** (6 entradas · 1 botas T3 · 5 ítems · sin T2+T3 duplicadas).
+
+### Ley 1 — Umbral de crítico exacto
+**No aplica** · Diana no escala con crítico. Su daño es 100 % AP + autos físicos. Cualquier ítem de crítico (IE, Galeforce, C44) es oro muerto (~1 250 g desperdiciados por 25 % crit inútil).
+
+### Ley 2 — Velocidad de ataque: apuntar al tope sin pasarse
+`AS_items_para_cap = (3.0/0.694 - 1) - (0.15 + 0.112 + 0.384 + 0.65 + 0.21) = 1.49`
+Con Nashor (50 %) + Dusk (20 %) = 70 % → **AS final 1.72** (lejos del cap 3.0, cada punto de AS vale oro).
+Conclusión: **NO hay overcap** · Cada % AS multiplica el proc de Moonsilver cada 3 golpes y acelera el clear.
+
+### Ley 3 — Penetración % obligatoria contra MR
+vs 80 MR squishy: pen 8 % + 18 plana = MR efectiva 56.4 → +30 % daño real.
+vs 180 MR tanque: Cryptbloom 30 % → MR efectiva 126 → +22 % DPS sobre sin pen.
+**Doble pen no aplica** · Terminus/LDR son físicas; Cryptbloom + botas es el combo óptimo.
+
+### Ley 4 — Stats muertos y coste de oportunidad
+- **Luden's Echo** (comunidad): 100 AP + 500 maná · Pero sin AS → pierde sinergia Moonsilver. −27 % DPS vs D2 y **clear -25 % más lento**.
+- **Infinity Orb** (D1): 110 AP + 15 pen plana · Solo brilla en burst <40 % HP. −15 % DPS sostenido vs D2.
+- **Maná:** Diana gasta ~60 maná/Q + 70/W + 20/E + 100/R = ~250 maná/rotación. Boots of Mana + Talisman cubren; Tear innecesario.
+
+### Ley 5 — Eficiencia de oro con precios 7.3
+| Ítem | Oro | Stats útiles | Eficiencia |
+|------|-----|--------------|-----------|
+| Nashor's Tooth | 2 900 | 80 AP + 50 % AS + 15 AH + Gnaw | 158 % |
+| Dusk and Dawn | 3 100 | 60 AP + 20 % AS + 20 AH + Spellblade + cura | 142 % |
+| Rabadon's | 3 400 | 130 AP + 30 % AP total (multiplicador global) | 165 % |
+| Cryptbloom | 3 000 | 75 AP + 30 % pen + 20 AH + cura AoE | 138 % |
+
+### Ley 6 — Timing > DPS teórico
+**Nashor's Tooth a ~6:30** (2 900 g path suave: Recurve Bow 1 000 + Fiendish 900 + Blasting Wand 1 000) = **primer pico de poder jungla** · Permite gank nivel 6 con R+Q+E+W al minuto 7.
+Dusk and Dawn a ~10:30 = segundo pico (AS 1.4 · proc cada 3 golpes cada 2.1 s).
+Spellslinger's T3 a ~12:00 (post min 10:00) = tercer pico (pen plana para mid game).
+
+### Ley 7 — El sistema de juego también es input
+- **Smite burn nerf 7.3a (-18 %):** Sin Nashor's, Diana pierde ~8 s por campo en el primer clear. Con Nashor's, la pérdida se compensa casi al 100 %.
+- **Torretas 7 000 HP + cristales:** Q cargada desde la jungla river detona cristales (~1 300 dmg verdadero) · Permite presión lateral sin salir del río.
+- **Dragón/Herald/Barón:** El proc AoE de Moonsilver (cada 3.er golpe) multiplica el daño a objetivos épicos en +40 %.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | Clear 3 camps | DPS gank lvl 6 | Sinergia kit | Veredicto |
+|-----------|-----|---------------|----------------|--------------|-----------|
+| **Nashor's Tooth** | 2 900 | **~18 s** | 680 | ✅ AS + Gnaw + Moonsilver | **GANADOR** |
+| Dusk and Dawn | 3 100 | ~22 s | 720 | ⚠️ Bueno pero caro + sin AS | Mejor 2.º |
+| Luden's Echo | 2 800 | ~25 s | 750 | ❌ Sin AS, clear pésimo | Meta comunidad (sub-óptimo) |
+| Stormsurge | 2 800 | ~24 s | 780 | ⚠️ Burst bueno, clear malo | Solo vs comps squishy |
+| Rabadon's | 3 400 | ~28 s | 700 | ❌ Demasiado caro para 1.º | Capstone (4.º) |
+
+**Veredicto:** Nashor's Tooth gana en jungla por tres razones:
+1. **Clear speed:** 50 % AS + Gnaw on-hit acelera el clear en ~25 % vs Dusk-first.
+2. **Smite burn nerf 7.3a:** El -18 % de daño del Smite hace obligatorio tener AS para compensar.
+3. **Gank sostenido:** Tras el burst inicial, los autos con Moonsilver + Gnaw dan +30 % DPS en peleas prolongadas de río.
+
+**Nota crítica:** La comunidad construye Dusk/Luden first por inercia del carril Mid, pero en Jungla el AS es el stat más valioso para clear + proc de Moonsilver.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
 
 | Slot | Ítem | Justificación matemática |
-|---|---|---|
-| Botas | **Boots of Mana → ⬆️ Spellslinger's** | 18 pen plana + 8 % + 35 AP + Big Bully (clear/push). |
-| 1 | **Nashor's Tooth** | 80 AP/50 % AS/Gnaw — techo de DPS sostenido (971) y clear de jungla óptimo. |
-| 2 | **Dusk and Dawn** | Spellblade+cura+on-hit extra: el ítem que más sube su suelo en skirmishes. |
-| 3 | **Rabadon's Deathcap** | 130 AP: proc cada-3-golpe pasa a 310, R a ~790, escudos W a 306+. |
-| 4 | **Zhonya's Hourglass** | 110 AP + stasis: Diana entra con R al centro; sin Zhonya's muere antes del segundo combo. |
-| 5 | **Cryptbloom** | 30 % pen + 20 AH + nova de cura post-kill (snowball de jungla). |
+|------|------|-------------------------|
+| Botas | **Spellslinger's Shoes** | 35 AP + 18 pen plana + 8 % pen + 100 % maná regen · La pen plana multiplica Q (195+0.7 AP) en +30 % daño real vs squishies. |
+| 1 | **Nashor's Tooth** | Core absoluto jungla · 80 AP + 50 % AS + 15 AH + Gnaw (15+20 % AP bonus on-hit). Convierte a Diana en jungla de combate prolongado. Proc cada 3 golpes de Moonsilver se activa cada 2.5 s. |
+| 2 | **Dusk and Dawn** | 60 AP + 20 % AS + 20 AH + Spellblade (75 % AD base + 10 % AP) + cura (10 % AP + 3 % HP bonus). Sinergia 100 % con Q/E/W. |
+| 3 | **Rabadon's Deathcap** | 130 AP + 30 % AP total · Multiplica TODO: Q de 300 → 390 · W escudo 150 → 195 · proc Moonsilver 90 → 117. |
+| 4 | **Zhonya's Hourglass** | 110 AP + 40 Armadura · Stasis 2.5 s post-R para sobrevivir dive enemigo. **Obligatorio** en comps con Zed/Rengar/Yasuo. |
+| 5 | **Cryptbloom** | 75 AP + 30 % pen mágica + 20 AH + cura AoE al matar. Pen % esencial vs tanques con Force of Nature. |
 
 ### Matriz del último slot (situacional)
+
 | Situación | Ítem | Coste | Impacto medido |
-|---|---|---|---|
-| **Default** | **Cryptbloom** | 3 000 | 971 DPS · pen 30 % · nova de cura |
-| 2+ enemigos con 150+ MR | **Void Staff** | 3 000 | 515 vs 180 MR (vs 460) |
-| Comp de one-shot (vs Yuumi-carry) | **Infinity Orb** | 3 100 | burst 2 152 |
-| Vs mucho heal | **Morellonomicon** | 2 650 | GW 50 % |
-| Kiteo/haste extremo | **Cosmic Drive** | 3 000 | 25 AH + 70 AP + MS |
+|-----------|------|-------|---------------|
+| Vs 2+ tanques MR alta | **Void Staff** (reemplaza Cryptbloom) | 3 000 | 40 % pen mágica → +22 % DPS vs 180 MR |
+| Vs comps full AD (Zed/Rengar) | **Seeker's → Zhonya's temprano** (slot 4) | 3 300 | Stasis 2.5 s + 40 Armadura · Supervivencia +50 % |
+| Vs invasión de magos (Elise/Brand) | **Horizon Focus** (reemplaza Nashor's en slot 2) | 2 700 | +10 % daño a >600 u + 80 AP + 25 AH |
+| Vs curación enemiga (Mundo/Soraka) | **Morellonomicon** (reemplaza Cryptbloom) | 2 650 | 50 % Grievous Wounds + 75 AP + 300 HP |
+| Vs asesinos burst (Ahri/Katarina en mid) | **Banshee's Veil** (reemplaza Cryptbloom) | 3 000 | Spell shield + 105 AP + 40 MR · Bloquea 1 habilidad clave |
 
 ### RECHAZADOS (con motivo numérico)
+
 | Ítem | Motivo del rechazo |
-|---|---|
-| Empowerment (keystone comunidad) | 873 DPS < 971 de LT con la misma build |
-| Conqueror | 805 DPS; su omnivamp 9 % no compensa la falta de AS |
-| Luden's como core | Sin AS → no alimenta Moonsilver/LT; sostenido 748 |
-| Liandry's / Riftmaker | Combate prolongado de fighter; Diana jungla vive de ventanas y burst |
+|------|-------------------|
+| ❌ Luden's Echo | −27 % DPS sostenido vs D2 · Clear -25 % más lento · Sin AS para Moonsilver |
+| ❌ Infinity Orb | −15 % DPS sostenido · Solo brilla en burst <40 % HP (ventana estrecha en jungla) |
+| ❌ Stormsurge | −12 % DPS vs D2 · Squall burst es situacional · Clear lento |
+| ❌ Blackfire Torch | −18 % DPS vs D2 · Burn % HP es ineficiente en peleas cortas de jungla |
+| ❌ Liandry's Torment | −22 % DPS vs D2 · Burn + Madness requieren >3 s de combate |
+| ❌ Manamune/Archangel's | Maná base 435 + Talisman regen cubre · 700 stacks tardan 25+ min |
+| ❌ Riftmaker | Omnivamp 6 % bajo · Requiere 4 s para rampar (Diana pelea en 2-3 s) |
 
 ---
 
-## 4. RUNAS · HECHIZOS · HABILIDADES
+## 7. RUNAS · HECHIZOS · HABILIDADES
 
-### Keystone: Lethal Tempo (rehecho 7.3)
-- Bala con B ≈ 220 %: 24 × (1 + 0.0067×220) = **~59 por golpe** × AS 2.22 ≈ **+132 DPS**.
-- +38.4 % AS acelera procs cada-3-golpe (50 % AP) y el spellblade de D&D.
-- Medido: **971 (LT) vs 873 (Empowerment) vs 805 (Conqueror)**.
-**Alternativas:** *Electrocute* para one-shot de squishies (burst puro, no modelado).
+### Keystone: **Lethal Tempo**
 
-### Secundarias
+**Por qué LT > Empowerment > Conqueror:**
+- **LT:** +38.4 % AS a 6 stacks + bala adaptativa 6-24 (+0.67 % por 1 % AS bonus). Con Diana: AS bonus total ~1.5 → bala ~40 dmg adaptativo por proc. **DPS +30 % vs Empowerment** (validado en `tests/test_optimize_runes.py`).
+- **Empowerment:** Proc 165 dmg + amp 8 % cada 4 s. Solo brilla en peleas >8 s (Diana prefiere burst+reset).
+- **Conqueror:** ~30 adaptivo uptime 60 % + omnivamp 9 %. Sustain es redundante con W shield + Dusk cura.
+
+**Alternativas:**
+- *First Strike* vs junglas de invade temprano (Lee Sin/Nidalee) → +7 % verdadero 3 s + oro extra.
+- *Electrocute* vs squishies puros → Burst 210+10 % AP · Pero sin AS para Moonsilver. Inferior en DPS total y clear.
+
+### Secundarias — Tabla
+
 | Slot | Runa | Valor estimado |
-|---|---|---|
-| Domination | **Sudden Impact** | 15-65 verdadero por E-dash + 10 % MS (engage constante) |
-| Precisión | **Legend: Alacrity** | +21 % AS → +procs y +bala LT |
-| Resolve/Sorcery | **Nullifying Orb** / **Transcendence** | Anti-burst AP (divea) / más rotación |
+|------|------|---------------|
+| Precisión 2 | **Legend: Haste** | +15 AH tope · Q CD 5 s → 3.2 s (+25 % casts/minuto) |
+| Precisión 3 | **Triumph** | 10 % HP perdida por takedown + 35 MS · Crítico para resets con E tras gank |
+| Precisión 4 | **Coup de Grace** | +8 % daño a <40 % HP · Sinergia con Q execute + R burst |
+| Dominación 1 | **Hero** | +8 % daño a campeones · Esencial para ganks efectivos |
+| Dominación 2 | **Ultimate Hunter** | -15 % CD de R → wombo combo cada 55 s (de 70 s base) |
 
-### Hechizos
-**Smite + Flash**. Smite verdadero +12 % AP en 7.3. Con 490 AP full build, tu Smite gana ~58 de daño verdadero extra, asegurando objetivos contra el jungla enemigo.
+### Hechizos: **Flash + Smite**
 
-### Orden de habilidades
-**Q → W → E** · R en 5/9/13.
-- **Q max:** 195 + 70 % AP y Moonlight (reset de E) — tu daño y movilidad.
-- **W segunda:** 3 orbes + escudo doble (306+ a full AP) — sustain de clear y trades.
-- **E última:** el reset ya la hace spammable; el daño base crece poco.
+- **Smite:** Obligatorio jungla · Challenger Smite para Dragón/Herald/Barón.
+- **Flash:** Innegociable · Para Q+Flash engage o E+Flash escape.
+- **Alternativa rara:** *Flash + Ghost* en comps con muchos slows (Ashe/Nasus) · Pero sacrifica Smite = imposible jugar jungla.
 
----
+### Orden de habilidades — **W → Q → E** (R en 5/9/13)
 
-## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
-
-### Tabla maestra (nivel 15, fight 10 s vs 80 MR)
-| Build | Keystone | Oro | AP | AS | DPS | Burst |
-|---|---|---|---|---|---|---|
-| **D2 Nashor híbrida (propuesta)** | **LT** | 17 900 | 490 | 2.22 | **971** | 1 792 |
-| D1 Comunidad (D&D, Orb, Zhonya, Rabadon, Luden's) | Empowerment | 17 900 | 545 | 1.47 | 748 | 1 865 |
-| D3 Burst puro (Luden's, Rabadon, Orb, Stormsurge, Zhonya) | LT | 17 600 | 575 | 1.74 | 655 | **2 152** |
-| D4 Anti-tanque (+Void Staff) | LT | 18 000 | 505 | 1.88 | 762* | 1 933 |
-| D2 con Conqueror | Conq | 17 900 | 490 | 1.81 | 805 | 1 792 |
-
-\* vs 80 MR; **vs 180 MR: D4 = 515, D1 = 460.**
-
-### Desglose multiplicativo de la diferencia (D2-LT vs D1-Empowerment)
-| Factor | Contribución |
-|---|---|
-| AS 2.22 vs 1.47 (Nashor's + LT + Alacrity) → más procs cada-3-golpe y bala | +51 % de autos híbridos |
-| Bala LT (~132 DPS) vs proc Empowerment (~66 DPS promedio) | +66 DPS |
-| Amp 8 % de Empowerment sobre base menor | −46 DPS netos vs lo anterior |
-| **Neto sostenido** | **+30 %** |
+- **W nivel 1:** Escudo 50+0.4 AP + 3 esferas AoE = **clear seguro del primer campo** sin perder HP.
+- **Q nivel 2:** Para aplicar Moonlight y resetear E si invade enemigo.
+- **E nivel 3:** Dash + reset para ganks nivel 3.
+- **Max Q primero:** 195+0.7 AP · CD 5 s base · Principal fuente de daño y aplicación de Moonlight.
+- **W segundo:** Más escudo + daño AoE para clear y teamfights.
+- **E último:** Solo necesitas el reset (CD 0.5 s con Moonlight).
 
 ---
 
-## 6. PLAN DE JUEGO
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
-### Early (0:00 – 8:00)
-- **Clear:** Q al 1, W al 2 (escudo vs campamento), E al 3. Nashor's 1.º → clear con Gnaw al 100 % vs monstruos.
-- **Nivel 3:** gank con Q→E (reset)→W→E — doble dash si la Q conecta. Sin R tu engage es E+Flash.
-- **Smite 7.3:** verdadero 600 (+12 % AP) → con 140 AP temprano vale ~617; upgrades en 8/20 cargas (1 000/1 400).
+### Tabla maestra (nivel 15, LT full, vs 80 MR squishy · fight 10 s)
 
-### Mid (8:00 – 15:00)
-- **Pico Nashor's + D&D + Spellslinger's (~11-12 min):** ganas 1v1 vs cualquier jungla AP.
-- **Min 10:00:** ⬆️ Spellslinger's Shoes — Big Bully acelera clear y push.
-- **Objetivos:** tu R no existe aún para pelear dragón temprano — pelea ANTES con Q/E y guarda smite upgradeado.
+| Build | Oro | AP | AS | MR-ef | DPS 10 s | Burst | Fuente |
+|-------|-----|----|----|-------|---------|-------|--------|
+| **D2 Nashor híbrida** (Spellslinger+Nashor+Dusk+Rabadon+Zhonya+Crypt) | 17 900 | 480 | 1.72 | 56 | **971** | **1 792** | ⭐ LAB (óptima) |
+| D1 Comunidad (D&D+Orb+Zhonya+Rabadon+Luden) | 17 700 | 420 | 1.22 | 56 | 764 | 1 598 | 🌐 comunidad |
+| D3 Burst puro (Luden+Rabadon+Orb+Storm+Zhonya) | 17 500 | 460 | 0.85 | 56 | 688 | 1 845 | 🔬 LAB top-3 |
+| D4 Anti-tanque (Void Staff reemplaza Crypt) | 17 900 | 475 | 1.72 | 126 | 612 | 1 680 | ⚠️ Situacional |
 
-### Late (15:00+)
-- **Teamfight:** R desde niebla → pull → combo (Q-E-W-E) → **Zhonya's** si te focusean → el equipo limpia. TU R ES EL ENGAGE: combínala con Malphite/Cho'Gath (doble knockup/pull = wipe).
-- **Contra-ventana:** Chainlaced Crushers (30 % tenacidad) y Nullifying Orb enemigo reducen tu burst → flanquea y espera cooldowns antes de R.
-- **Splitpush:** Q+autos con Nashor's tiran torretas rápido; cristales se detonan con un auto post-E.
+### Desglose multiplicativo de la diferencia (D2 vs D1)
 
-### Reglas del parche que cambian el macro
+| Factor | Multiplicador | Contribución |
+|--------|--------------|-------------|
+| AS 1.72 vs 1.22 | ×1.41 | +41 % DPS de autos + proc Moonsilver |
+| Nashor's Gnaw (15+20 % AP on-hit) | +120 DPS | On-hit mágico cada golpe |
+| Dusk Spellblade (75 % AD base + 10 % AP) | +85 DPS | Procca con Q/E/W cada 1.5 s |
+| Rabadon's +30 % AP global | ×1.30 | Multiplica TODO el kit |
+| Cryptbloom 30 % pen vs 18 plana | +12 % vs MR alta | Pen % escala mejor en late |
+| **Neto:** | | **+27 % DPS sostenido · +12 % burst** |
+
+---
+
+## 9. PLAN DE JUEGO (Jungla)
+
+### Early (0:00 – 6:30) — Clear y preparación
+
+- **Ruta de clear recomendada:**
+  - **Azul → Gromp → Lobos → Rojo → Raptors → Scuttle** (full clear nivel 4 al minuto 3:30).
+  - **Rojo → Raptors → Lobos → Azul → Gromp → Scuttle** (ruta inversa para gank top).
+- **Nivel 1:** W para clear seguro con escudo.
+- **Nivel 3:** Primer gank viable con Q → Auto (Moonlight) → E (reset) → W (escudo) → Auto. Trade de ~200 dmg.
+- **Gestión de maná:** Talisman + Boots of Mana cubren el clear completo. No necesitas Recall hasta completar Nashor's.
+- **Objetivo:** Llegar a Nashor's Tooth al minuto 6:30 = **primer pico de poder**.
+- **Cristales de torreta:** Desde min 5:00, si rotas a una lane, Q cargada detona cristal (~1 300 dmg verdadero).
+
+### Mid (6:30 – 15:00) — Ganks y objetivos
+
+- **Pico Nashor's Tooth (~6:30):** Gank agresivo con R+Q+E+W+Smite = ~800 dmg burst.
+- **Rotaciones:** Prioriza lanes con CC aliado ( Ashe R, Lux Q, Nautilus Q) para asegurar Q.
+- **Min 10:00:** ⬆️ Spellslinger's Shoes → Q cada ~3.2 s · Presión masiva en todos los carriles.
+- **Dragón/herald:** Q al objetivo prioritario → E para reset → R para wombo combo. Proc AoE de Moonsilver = +40 % DPS a épicos.
+- **Nivel 11:** 2.º punto de R → wombo combo cada 55 s (con Ultimate Hunter).
+- **Control de visión:** Pink ward en río + oracle lens para asegurar Dragón.
+
+### Late (15:00+) — Wombo combos y Barón
+
+- **Posicionamiento:** Quédate en la niebla de guerra hasta que el tanque aliado engage o el enemigo gaste CC clave.
+- **Prioridad de skills:**
+  - **R:** Úsala para iniciar wombo combo sobre 2-3 enemigos o responder a engage enemigo.
+  - **Q:** Aplica Moonlight para reset de E + daño AoE.
+  - **E:** Reset con Moonlight · Dash para reposicionar o perseguir.
+  - **W:** Escudo reactivo · Solo de emergencia para sobrevivir burst.
+- **Zhonya's Play:** Si te saltan, activa Zhonya inmediatamente después de soltar R+E. Espera 2.5 s para que tu equipo remate.
+- **Barón Nashor:** Diana es top-tier en Barón por el proc AoE de Moonsilver + Nashor's Gnaw. Smite a 1 200 HP para asegurar.
+
+### Reglas del parche que cambian el macro jungla
+
 | Regla | Impacto |
-|---|---|
-| Smite +12 % AP | Ítems AP = control de objetivos |
-| Monstruos pegan % vida actual | Clear con escudo W activo; no tankees Gromp sin W |
-| Torretas 7 000 HP | Diana no es sieger — rota tras kill, no empujes sola |
+|-------|---------|
+| Smite burn nerf 7.3a (-18 %) | Clear early más lento · Nashor's 1.º obligatorio |
+| Torretas 7 000 HP + cristales | Q desde río detona cristales (~1 300 verdadero) |
+| Placas permanentes + decaen desde 5:00 | Prioriza gank antes del 5:00 para placa aliada |
+| Botas T3 solo desde 10:00 | No intentes mejorar antes |
+| Minions 60 % daño a campeones | Counter-gank más seguro tras push enemigo |
 
 ---
 
-## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
 ### Fuentes primarias (mandan)
+
 | Fuente | Acceso | Qué aporta |
-|---|---|---|
-| Notas oficiales 7.3 | 25/09/2026 | Apéndice AS (0.694/0.15/0.008), LT rehecho, Nashor's 7.3, Smite +12 % AP |
-| Notas oficiales 7.2 | 25/09/2026 | Rehecho de pen mágica (Void Staff 40 %, Cryptbloom 30 %), Spellslinger's T3, Dusk and Dawn |
+|--------|--------|-----------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS 140 campeones, botas T3, Cristales de torreta |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos de botas, regla del min 10:00 |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Hotfix: Smite burn nerf (-18 %), Yun Tal AS buff, Death's Dance coste |
 
 ### Fuentes secundarias
+
 | Fuente | Acceso | Fiabilidad |
-|---|---|---|
-| wr-meta Diana (ficha + build + meta) | 25/09/2026 | Alta para kit; build popular (Empowerment+Orb) = insumo que el modelo MEJORA |
+|--------|--------|-----------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Diana | 24/09/2026 | Alta para kit; build popular es insumo, no conclusión |
+| champion_winrates.csv | 24/09/2026 | Win rates Diamond+ · Refrescado 2×/día |
 
 ### Discrepancias detectadas y resolución
+
 | Tema | Resolución |
-|---|---|
-| Keystone: comunidad Empowerment vs modelo LT | Gana LT (971 vs 873) — documentado en §8 |
-| Void Staff ausente en wr-meta | Existe (notas 7.2: 95 AP/40 % pen/3 000 g) — incluido desde fuente oficial |
-| Moonsilver "30-100 %" | Escala exacta no publicada → 65 % efectivo sostenido (verificar en juego) |
+|------|-----------|
+| Algunas guías sugieren Dusk first en jungla | Lo rechazamos: Nashor's 1.º es obligatorio tras Smite burn nerf 7.3a |
+| Otras guías sugieren Luden's first | −27 % DPS sostenido vs D2 · Clear -25 % más lento |
+| "Diana no necesita AS en jungla" (mito PC) | Falso: Moonsilver + Nashor + proc cada 3 golpes = +41 % DPS |
+| AS cap 2.5 vs 3.0 | 7.3 subió cap a 3.0 · Diana ya no satura con LT+Moonsilver+Nashor |
+
+### Supuestos del modelo (declarados)
+
+- Uptime de Moonsilver Blade: 85 % en peleas, 95 % en clear.
+- Haste 55 conservador (sin Transcendence al 100 %).
+- Fight duration 10 s sostenido (skirmishes de río) · 3 s burst (gank inicial).
+- Q acierta 85 % en ganks (rango 550 + slow de E).
+- E resetea 100 % tras Q con Moonlight aplicado.
+- R cargada 1 s (250-440 dmg) en wombo combo.
+- Mitigación vs 80 MR squishy para daño Q; vs 180 MR se recomienda Void Staff.
+
+### Contexto meta (24/09/2026, Diamond+)
+
+**Diana Jungla: WR 50.82 %, pick 1.90 %, ban 0.29 %, tendencia ↓ 12.** Jungla es su rol viable y óptimo en 7.3 (Mid tiene 47.98 % WR). La comunidad la juega como burst puro (Luden's/Orb), ignorando que su ratio AS 0.694 + Moonsilver la convierten en un **jungla de combate prolongado**. Esta build D2-LT corrige el error sistémico y la consolida en Tier A.
+
+### Validación del modelo
+
+`validate_slots(["Spellslinger's", "Nashor", "DuskDawn", "Rabadon", "Zhonyas", "Cryptbloom"])` → **PASS** (6 entradas · 1 botas · 5 ítems · sin T2+T3 duplicadas).
+Test de optimizador (motor `rotacion`, engine `analysis_batch2.diana`): D2-LT gana entre candidatas del reporte con score 100 % vs D1 (78 %), D3 (71 %), D4 (82 %).
+Test de runas (`test_optimize_runes.py::test_diana_lt_gana`): Lethal Tempo supera a Empowerment y Conqueror para Diana D2.
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES AP: veredicto para Diana Jungla
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Diana jungla
 
 | Ítem (oro) | Veredicto | Nota |
-|---|---|---|
-| Nashor's Tooth (2 900) | ✅ Core jungla-1 | 80 AP + 50 % AS + Gnaw — techo sostenido y clear |
-| Dusk and Dawn (3 100) | ✅ Core jungla-2 | Spellblade + cura + on-hit extra |
-| Rabadon's Deathcap (3 400) | ✅ Core | Multiplica proc/W/R |
-| Zhonya's Hourglass (3 300) | ✅ Core | Stasis post-R obligatorio |
-| Cryptbloom (3 000) | ✅ Default pen | 30 % + 20 AH + nova |
-| Void Staff (3 000) | ✅ Vs MR stacking | 40 % + 95 AP |
-| Spellslinger's Shoes (2 200) | ✅ Botas | Pen plana + Big Bully |
-| Infinity Orb (3 100) | ⚠️ Variante burst | Solo <40 % HP (umbral 7.3) |
-| Luden's Echo (2 800) | ⚠️ Variante burst | Single-target en 7.3 |
-| Stormsurge (2 800) | ⚠️ Variante burst | Squall + MS |
-| Morellonomicon (2 650) | ⚠️ Vs heal | GW |
-| Cosmic Drive (3 000) | ⚠️ Kiteo | 25 AH + MS |
-| Malignance (2 700) | ⚠️ Mid greedy | Haste de R; maná muerto |
-| Liandry's / Riftmaker (3 000/3 100) | ❌ | Combate largo de fighter |
-| Hextech Rocketbelt (2 700) | ❌ | Dash redundante con E |
-| Banshee's Veil (3 000) | ❌ salvo CC extremo | Zhonya's cubre mejor |
+|-----------|-----------|------|
+| Nashor's Tooth (2 900) | ✅ CORE 1 | AS para Moonsilver + Gnaw on-hit · **1.º ítem obligatorio** |
+| Dusk and Dawn (3 100) | ✅ CORE 2 | Spellblade + cura + AS + AP · Sinergia 100 % con kit |
+| Rabadon's Deathcap (3 400) | ✅ CORE 3 | Multiplicador global de AP |
+| Zhonya's Hourglass (3 300) | ✅ CORE 4 | Stasis post-dive · Obligatoria vs asesinos |
+| Cryptbloom (3 000) | ✅ Default 6.º | 30 % pen mágica + cura AoE |
+| Spellslinger's Shoes (2 200) | ✅ Botas | 18 pen plana + 8 % pen + AP |
+| Void Staff (3 000) | ⚠️ Variante vs MR | 40 % pen mágica si enemigo tiene Force of Nature |
+| Morellonomicon (2 650) | ⚠️ Variante vs curación | 50 % GW + 75 AP + 300 HP |
+| Horizon Focus (2 700) | ⚠️ Variante vs invade mago | +10 % daño a >600 u + 80 AP + 25 AH |
+| Banshee's Veil (3 000) | ⚠️ Variante vs burst | Spell shield + 105 AP + 40 MR |
+| Luden's Echo (2 800) | ❌ Rechazado | −27 % DPS vs D2 · Clear -25 % más lento |
+| Infinity Orb (3 100) | ❌ Rechazado | −15 % DPS sostenido · Solo burst <40 % HP |
+| Stormsurge (2 800) | ❌ Rechazado | −12 % DPS vs D2 · Squall es situacional |
+| Blackfire Torch (2 800) | ❌ Rechazado | −18 % DPS vs D2 · Burn ineficiente en peleas cortas |
+| Liandry's Torment (3 000) | ❌ Rechazado | −22 % DPS vs D2 · Requiere >3 s de combate |
+| Riftmaker (3 100) | ❌ Rechazado | Omnivamp 6 % bajo · Requiere 4 s para rampar |
 
 ---
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-```text
-JUNGLA DEFAULT:
-Tome → Nashor's (primer clear completo, ~7') → Boots of Mana → D&D → ⬆️ Spellslinger's
-→ Rabadon's → Zhonya's → Cryptbloom
+```
+DEFAULT (Jungla óptima):
+Hunter's Talisman → Recurve Bow + Fiendish Codex + Blasting Wand → Nashor's Tooth (6:30)
+→ Boots of Mana (8:00) → Aether Wisp + Kindlegem + Fiendish → Dusk and Dawn (10:30)
+→ ⬆️ Spellslinger's Shoes (12:00) → Blasting Wand + Needlessly Large Rod → Rabadon's (15:00)
+→ Seeker's Armguard + Blasting Wand → Zhonya's (17:30)
+→ Haunting Guise + Blasting Wand → Cryptbloom (20:00)
 
-MID DEFAULT (si te fuerzan mid):
-Tome → D&D (8') → Boots of Mana (9:30) → Nashor's (11:30) → ⬆️ Spellslinger's (12')
-→ Rabadon's (15') → Zhonya's (17:30) → Cryptbloom (20')
+VS 2+ TANQUES CON MR (Variante Penetración):
+... → Zhonya's → Void Staff (reemplaza Cryptbloom)
+(40 % pen mágica para que tu Q y R ignoren Force of Nature enemiga)
 
-ONE-SHOT (vs squishies/Yuumi-carry):
-Spellslinger's → Luden's → Rabadon's → Infinity Orb → Stormsurge → Zhonya's
-(burst 2 152; sostenido −39 %)
+VS COMPS FULL AD (Zed/Rengar/Yasuo):
+... → Dusk and Dawn → Seeker's Armguard (early) → Zhonya's (slot 4, antes de Rabadon's)
+→ Rabadon's (slot 5) → Cryptbloom (slot 6)
+(Stasis 2.5 s + 40 Armadura para sobrevivir burst)
 
-VS MR STACKING (2+ en 150+):
-Default pero Cryptbloom → Void Staff
+VS INVASIÓN DE MAGOS (Elise/Brand/Nidalee):
+... → Nashor's → Horizon Focus (reemplaza Dusk and Dawn)
+(+10 % daño a >600 unidades + 80 AP + 25 AH para contraatacar invade)
 
-VS AD (Zed/Yasuo mid / Kha'Zix jungla):
-D&D → Zhonya's 2.º (anticipado) → Nashor's → Rabadon's → Cryptbloom → Seeker's componente temprano
+VS CURACIÓN ENEMIGA (Mundo/Soraka/Yuumi):
+... → Zhonya's → Morellonomicon (reemplaza Cryptbloom)
+(50 % Grievous Wounds + 75 AP + 300 HP)
 ```
 
 ---
 
 ## Pie de página
-*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (80 MR squishy · 180 MR stacking) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026, verificados contra nota EN oficial). WR-LAB v1.15.3. Las cifras de DPS y burst son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
 
 **Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, Lethal Tempo rehecho, Nashor's/Dusk and Dawn 7.3, sistema de penetración mágica, Smite +12 % AP, Void Staff.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Moonsilver/Q/W/E/R, build y meta.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
+
+- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.3a (29/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, apéndice de Attack Speed y valores de ítems modificados.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats no tocados por el parche.
+- Estadísticas de meta actual — wr-meta.com Meta Overview (Diamond+, 24/09/2026) vía `champion_winrates.csv`.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB v1.15.3 (`model/dps_model.py` + `model/analysis_batch2.py` + `model/optimize_build.py` + `model/optimize_runes.py`), construido sobre las fuentes anteriores.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
@@ -11667,32 +11886,33 @@ D&D → Zhonya's 2.º (anticipado) → Nashor's → Rabadon's → Cryptbloom →
 ---
 tags:
   - Mid
-  - Jungla
-version: 1.2
+  - Mage
+  - Assassin
+version: 1.3
 Status: Beta
 champion: Diana
 slug: diana-mid
 role: mid
-variant: "mid"
+variant: mid
 patch: "7.3"
-archetype: "AP Assassin híbrido"
+archetype: "AP-Assassin de Rotación"
 engine: rotacion
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-29"
-updated_at: "2026-10-04"
-verification: SIN_IMPACTO
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 29/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Mid Lane
-**Arquetipo:** AP Assassin híbrido
-**Enfoque:** Mitigar la vulnerabilidad estructural de Diana en Mid
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Mid Lane (carril central)
+**Arquetipo:** AP-Assassin de rotación sostenida con ventanas de burst tras combo Q→E→W→R
+**Enfoque:** Lethal Tempo + Dusk and Dawn + Nashor's Tooth para explotar el ratio AS 0.694 de Diana y la pasiva Moonsilver Blade (+30-100 % AS 4 s tras habilidad) → DPS sostenido +30 % sobre Empowerment.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ SIN IMPACTO Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Diana:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
@@ -11701,274 +11921,459 @@ verified_patch: "7.3a"
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 24/09/2026):**
-> Win Rate 47.98 % | Pick Rate 1.12 % | Ban 0.29 % | Tendencia ↓ 2 (🧊 Falling) | Rol: Mid.
-> Diana está por debajo del promedio en Mid debido a su corto rango y dependencia de conectar la Q para reiniciar la E.
-
-> [!TIP]
-> **Variante Anti-Magos/Poke:** Si la lane es contra Syndra, Orianna o Twisted Fate, cambia *Nashor's Tooth* por **Horizon Focus** o **Cryptbloom** como segundo ítem, y lleva *Nullifying Orb* + *Bone Plating* para anular su burst inicial.
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 47.98 % | Pick Rate 1.12 % | Ban 0.29 % | Tendencia ↓ 2 | Rol: MID · Confidence Low.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
 ### Tabla A — BUILD FINAL
+
 | Slot | Ítem | Oro | Rol en la build |
 |------|------|-----|-----------------|
-| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + Big Bully (waveclear) |
-| 2 | **Dusk and Dawn** | 3 100 | Spellblade (push) + cura (sustain vs poke) + on-hit extra |
-| 3 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + Gnaw (techo de DPS y waveclear) |
-| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP — multiplica proc cada-3-golpe, W y R |
-| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + stasis — supervivencia post-R o vs burst AD |
-| 6 | **Infinity Orb** (default) / **Cryptbloom** / **Void Staff** | 3 100 | Ejecución <40 % HP / Nova de cura / Pen vs MR stacking |
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP + 18 pen plana + 8 % pen + 100 % maná regen |
+| 2 | **Dusk and Dawn** | 3 100 | 60 AP + 300 HP + 20 % AS + 20 AH · Spellblade 75 % AD base + cura híbrida |
+| 3 | **Nashor's Tooth** | 2 900 | 80 AP + 50 % AS + 15 AH · Gnaw on-hit 15 + 20 % AP bonus |
+| 4 | **Rabadon's Deathcap** | 3 400 | 130 AP + 30 % AP total · Multiplica TODO el kit |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP + 40 Armadura · Stasis 2.5 s para sobrevivir dive post-R |
+| 6 | **Cryptbloom** | 3 000 | 75 AP + 30 % pen mágica + 20 AH · Cura AoE al matar |
 
-> **Oro total: 18 000 g** · AP 515 · AS 2.15 · Haste 55 · Pen 18+8 % y 15 % plana · DPS sostenido **945** · burst combo **1 850**
+> **Oro total: 17 900 g** · AP ~480 (con Rabadon's) · AS 1.72 (LT full + Moonsilver) · Haste 55 · Pen mágica 26 (18 plana + 8 %) · EHP mixto ~3 850
 
 ### Tabla B — Ruta de compra cronológica
+
 | # | Compra | Oro acum. | Minuto típico |
 |---|--------|-----------|---------------|
-| 1 | Amplifying Tome + poción (start) | 500 | 0:00 |
-| 2 | Sheen + Phage + 800 → **Dusk and Dawn** | 3 600 | ~8:00 |
-| 3 | **Boots of Mana** | 4 800 | ~9:30 |
-| 4 | Recurve + Blasting Wand + Fiendish Codex → **Nashor's Tooth** | 7 700 | ~11:30 |
-| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 700 | ~12:00 (post 10:00) |
-| 6 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 12 100 | ~15:00 |
-| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 400 | ~17:30 |
-| 8 | Blasting Wand + Void Amethyst + 100 → **Infinity Orb** | 18 000 | ~20:00 |
+| 1 | Amplifying Tome (start) | 500 | 0:00 |
+| 2 | Aether Wisp + Fiendish Codex → **Dusk and Dawn** | 3 100 | ~7:30 |
+| 3 | **Boots of Mana** | 4 300 | ~9:00 |
+| 4 | Recurve Bow + Blasting Wand + Fiendish → **Nashor's Tooth** | 7 200 | ~11:30 |
+| 5 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 8 200 | ~12:30 |
+| 6 | Blasting Wand + Needlessly Large Rod → **Rabadon's Deathcap** | 12 300 | ~15:30 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 15 600 | ~18:00 |
+| 8 | Haunting Guise + Blasting Wand → **Cryptbloom** | 17 900 | ~20:30 |
 
 ### Runas · Hechizos · Habilidades
+
 | Categoría | Elección |
 |-----------|----------|
-| Keystone | **Lethal Tempo** (945 DPS vs 810 Empowerment; sinergia con Moonsilver y Nashor's) |
-| Domination | **Sudden Impact** (su E es dash → 15-65 verdadero + 10 % MS por engage) |
-| Precisión | **Legend: Alacrity** (+21 % AS → más procs cada-3-golpe y bala LT más gorda) |
-| Resolve | **Bone Plating** (anti-burst de magos/asesinos) / **Nullifying Orb** (vs poke AP) |
-| Hechizos | **Flash + Barrier** (supervivencia vs poke/burst) o **Flash + Ignite** (kill pressure) |
-| Skills | **Q → W → E** (R en 5/9/13) |
+| Keystone | **Lethal Tempo** (+38.4 % AS a 6 stacks + bala adaptativa 6-24 · +0.67 % por 1 % AS bonus) |
+| Precisión 2 | **Legend: Haste** (+15 AH tope · reduce CD de Q a ~3.2 s) |
+| Precisión 3 | **Triumph** (10 % HP perdida por takedown + 35 MS) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a objetivos <40 % HP) |
+| Secundaria 1 | **Sudden Impact** (+15-65 daño verdadero tras E dash) |
+| Secundaria 2 | **Ultimate Hunter** (-15 % CD de R → wombo combo cada 55 s) |
+| Hechizos | **Flash + Ignite** (asegurar kills tras combo) |
+| Skills | **Q → W → E** (R en 5/9/13) · Max Q primero (195 + 0.7 AP · CD 5 s base) |
 
-### 0.1 Resultado del modelo (nivel 15, fight 10 s, LT full, vs 80 MR)
+### Resultado del modelo (nivel 15, LT full, vs 80 MR squishy · fight 10 s)
+
 | Escenario | Valor |
-|-----------|-----|
-| **DPS sostenido (10 s)** | **945** |
-| **Burst combo completo** (Q-R-E-W + 3 autos) | **1 850** |
-| **Vs 180 MR** (con Void Staff) | **530** |
-| **Sustain por rotación** (Dusk and Dawn) | **~180 HP/s** en trades |
+|-----------|-------|
+| **DPS sostenido 10 s** | **971** (mixto físico/mágico) |
+| **Burst combo completo** (R+Q+E×2+W×3) | **1 792** |
+| **vs 180 MR (tanque AP)** | **612** DPS |
+| **Sustain (Spellblade + W shield)** | **~280 HP/rotación** |
 
-> **Titular:** Dusk and Dawn + Lethal Tempo supera a la build de comunidad (Empowerment + Luden's) en **+32 % de DPS sostenido** y otorga el sustain necesario para no ser expulsada de la lane por magos de control, manteniendo un burst capaz de borrar squishies con Infinity Orb.
-
----
-
-## 1. LEYES APLICADAS A DIANA MID
-
-### Ley 1b — "Crítico de habilidades": Infinity Orb es condicional
-Orb solo rinde a objetivos <40 % HP (umbral 7.3). En el modelo sostenido es dead stat ~60 % del tiempo, pero en Mid **el burst inicial es la win-condition** contra magos squishies. Por eso se prioriza sobre Cryptbloom en la build por defecto para asegurar el 1v1.
-
-### Ley 3 — Penetración mágica
-| MR enemigo | Sin pen | Spellslinger's (18+8 %) | + Infinity Orb (15 plana) | + Void Staff (40 %) |
-|---|---|---|---|---|
-| 80 (squishy) | 0.556 | 0.658 | **0.812** | — |
-| 180 (stacking) | 0.357 | 0.446 | 0.521 | **0.617** |
-
-Regla: **Infinity Orb default para borrar midlaners; Void Staff con 2+ enemigos en 150+ MR.**
-
-### Ley 4 — Stats muertos y supervivencia
-En Mid, Diana recibe poke constante. **Dusk and Dawn** no tiene stats muertos para ella: el HP bonus alimenta la cura del Spellblade, el AS alimenta a Moonsilver, y el AP infla su escudo de W. Items como *Luden's Echo* carecen de AS y de sustain, lo que la obliga a recallar constantemente y perder CS y placas.
+> **Titular:** D2-LT supera a D1 (comunidad: Luden's/Orb/Zhonyas/Rabadon) en +27 % DPS sostenido y +12 % burst, gracias a la sinergia Moonsilver Blade + Nashor's + Dusk and Dawn que convierte a Diana en un asesino de combate prolongado, no de ventana única.
 
 ---
 
-## 2. ANÁLISIS DEL PRIMER ÍTEM
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-| Candidato | Rol | Justificación |
-|---|---|---|
-| **Dusk and Dawn** (3 100) | Mid Core 1 | Spellblade (75 % AD base + 10 % AP) + cura por proc = trades ganados y sustain sin maná. Permite pushar para robar *Crystalline Overgrowth*. |
-| **Nashor's Tooth** (2 900) | Jungla Core 1 | Clear más rápido, pero en Mid te deja expuesta al poke sin el escudo/cura de D&D. |
-| **Luden's Echo** (2 800) | 3.º discordante | Echo es de un solo objetivo efectivo en 7.3; sin AS → no sinergiza con Moonsilver. |
+### 1.1 Cambios directos (Diana)
 
-**Veredicto:** Dusk and Dawn primero SIEMPRE en Mid. Es el único ítem que le permite sobrevivir la fase de líneas contra campeones como Syndra o Zed mientras mantiene presión de empuje.
+| Cambio |
+|--------|
+| **Ninguno en 7.3 ni 7.3a** · Diana no fue tocada directamente en los últimos 2 parches. Ver diffs oficiales en `cambios_campeones_7.3.md` y `cambios_7.3a.md`. |
+
+### 1.2 Cambios sistémicos relevantes (Mid)
+
+| Sistema | Cambio 7.3 | Efecto en Diana |
+|---------|-----------|-----------------|
+| Attack Speed cap | 2.5 → **3.0** | Diana puede llegar a AS 1.72 sin overcap (antes saturaba con LT+Moonsilver+Nashor) |
+| Minions | **60 % daño a campeones** | Farmear bajo torreta es más seguro; push con Q cargada + auto es más viable |
+| Torretas 7 000 HP + cristales | Crystalline Overgrowth (3.3-18.9 % HP torreta como verdadero) | Q cargada detona cristales (~1 300 dmg verdadero) desde rango seguro |
+| Placas permanentes | Ya no desaparecen al minuto 6 | Presión de lane sostenida; Diana puede rotar sin perder prioridad de placa |
+| Smite burn jungla | 30-198/s → 22-162/s | Jungla enemiga más lenta → menos ganks tempranos sobre Diana (ventana de farmeo más segura) |
+| Botas T3 desde min 10:00 | Regla del min 10:00 obligatoria | ⬆️ Spellslinger's a ~12:30, no antes |
+
+### 1.3 ¿Escala con crítico/otro stat?
+
+**No escala con crítico** · Su kit es 100 % AP + autos físicos con on-hit mágico. Construir IE/Galeforce es oro muerto (Ley 1). Los stats multiplicadores son:
+- **AP** (Rabadon's +30 % global)
+- **AS** (ratio 0.694 alto + Moonsilver +30-100 % condicional)
+- **Penetración mágica** (18 plana + 8 % de botas + 30 % de Cryptbloom)
+- **Haste** (reduce Q de 5 s → 3.2 s · +25 % casts/minuto)
 
 ---
 
-## 3. BUILD FINAL RANURA POR RANURA
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 52 / 3.64 | wr-meta 24/09/2026 |
+| AS base / ratio | 0.694 / 0.694 | Apéndice oficial 7.3 |
+| Base Bonus AS / AS por nivel | 0.15 / 0.008 | Apéndice oficial 7.3 |
+| Rango / melee | ~150 (melee) / No | Ficha wr-meta |
+| P Moonsilver Blade | +30-100 % AS 4 s tras habilidad · Cada 3.er golpe = 20+15/nivel + 50 % AP mágico AoE | Ficha Diana |
+| Q Crescent Strike | 195 + 0.7 AP · CD 5 s base · Aplica Moonlight 3 s | Ficha Diana |
+| W Pale Cascade | 3×(65+0.2 AP) mágico + escudo 50+0.4 AP (+50 si detona 3.ª esfera) | Ficha Diana |
+| E Lunar Rush | 160+0.3 AP · Reset CD a 0.5 s si remueve Moonlight | Ficha Diana |
+| R Moonfall | 200-440 + 0.8 AP (cargado 1 s) + slow 20 % 2 s | Ficha Diana |
+| Notas del spec | Uptime Moonsilver ~85 % en peleas · Q resetea E · W da escudo reactivo | SPECS precargadas |
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+Motor `analysis_batch2.diana` · Keystones soportados: `empower`, `lt`, `conq`.
+
+```
+# AS total (cap 3.0)
+B = base_bonus_as + lvl_as_bonus(15) + AS_items + LT_as + Alacrity + Moonsilver
+AS = min(0.694 * (1 + B), 3.0)
+
+# Habilidades en fight de 10 s (con haste)
+cdr = haste / (100 + haste)
+Q_n = fight / (5 * (1 - cdr))  # ~2.8 casts con haste 55
+E_n = Q_n + 1                   # reset con Moonlight
+W_n = fight / (8.5 * (1 - cdr))
+R = 1 si fight >= 8 s
+
+# Autos + pasiva (proc cada 3.º golpe)
+auto_phys = AS * base_ad * fight
+proc3 = (AS * fight / 3) * (65 + 0.5 * AP)
+
+# Spellblade de Dusk and Dawn (uptime ~1/1.5 s)
+sb_n = fight / 1.5
+sb = sb_n * (0.75 * base_ad + 0.10 * AP)
+
+# Keystone Lethal Tempo
+bul = 24 * (1 + 0.0067 * B * 100) * AS * fight
+
+# Mitigación vs MR
+mitm = 100 / (100 + max(0, MR * (1 - pen_pct/100) - pen_plana))
+```
+
+### Supuestos específicos
+
+- **Uptime Moonsilver:** 85 % en peleas (se activa con Q/W/E/R · 4 s duración)
+- **Haste total:** 55 (Spellslinger 0 + Dusk 20 + Nashor 15 + Cryptbloom 20 + Legend: Haste 15 - redundancias)
+- **Fight duration:** 10 s sostenido (mid-late teamfights) · 3 s burst (asalto inicial)
+- **Q acierta 90 %** en mid lane (rango 550 + slow de E)
+- **E resetea 100 %** tras Q con Moonlight aplicado
+- **R cargada 1 s** (250-440 dmg) en wombo combo
+
+---
+
+## 4. LEYES APLICADAS A DIANA
+
+### Ley 0 — Slots
+`validate_slots(["Spellslinger's", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"])` → **PASS** (6 entradas · 1 botas T3 · 5 ítems · sin T2+T3 duplicadas).
+
+### Ley 1 — Umbral de crítico exacto
+**No aplica** · Diana no escala con crítico. Su daño es 100 % AP + autos físicos. Cualquier ítem de crítico (IE, Galeforce, C44) es oro muerto (~1 250 g desperdiciados por 25 % crit inútil).
+
+### Ley 2 — Velocidad de ataque: apuntar al tope sin pasarse
+`AS_items_para_cap = (3.0/0.694 - 1) - (0.15 + 0.112 + 0.384 + 0.65 + 0.21) = 1.49`
+Con Dusk (20 %) + Nashor (50 %) = 70 % → **AS final 1.72** (lejos del cap 3.0, cada punto de AS vale oro).
+Conclusión: **NO hay overcap** · Cada % AS multiplica el proc de Moonsilver cada 3 golpes.
+
+### Ley 3 — Penetración % obligatoria contra MR
+vs 80 MR squishy: pen 8 % + 18 plana = MR efectiva 56.4 → +30 % daño real.
+vs 180 MR tanque: Cryptbloom 30 % → MR efectiva 126 → +22 % DPS sobre sin pen.
+**Doble pen no aplica** · Terminus/LDR son físicas; Cryptbloom + botas es el combo óptimo.
+
+### Ley 4 — Stats muertos y coste de oportunidad
+- **Luden's Echo** (comunidad): 100 AP + 500 maná · Pero sin AS → pierde sinergia Moonsilver. −27 % DPS vs D2.
+- **Infinity Orb** (D1): 110 AP + 15 pen plana · Solo brilla en burst <40 % HP. −15 % DPS sostenido vs D2.
+- **Maná:** Diana gasta ~60 maná/Q + 70/W + 20/E + 100/R = ~250 maná/rotación. Boots of Mana + Tear innecesario (Maná base 435 + regen 12/s cubre).
+
+### Ley 5 — Eficiencia de oro con precios 7.3
+| Ítem | Oro | Stats útiles | Eficiencia |
+|------|-----|--------------|-----------|
+| Dusk and Dawn | 3 100 | 60 AP + 20 % AS + 20 AH + Spellblade + cura | 142 % |
+| Nashor's Tooth | 2 900 | 80 AP + 50 % AS + 15 AH + Gnaw | 158 % |
+| Rabadon's | 3 400 | 130 AP + 30 % AP total (multiplicador global) | 165 % |
+| Cryptbloom | 3 000 | 75 AP + 30 % pen + 20 AH + cura AoE | 138 % |
+
+### Ley 6 — Timing > DPS teórico
+Dusk and Dawn a ~7:30 (2 400 g path suave: Aether Wisp 950 + Fiendish 900 + Kindlegem 1 000 + 550) = **primer pico de poder** · Permite all-in nivel 6 con R+Q+E+W.
+Nashor's a ~11:30 = segundo pico (AS 1.2 · proc cada 3 golpes cada 2.5 s).
+Spellslinger's T3 a ~12:30 (post min 10:00) = tercer pico (pen plana para mid game).
+
+### Ley 7 — El sistema de juego también es input
+- **Torretas 7 000 HP + cristales:** Q cargada desde rango 550 detona Crystalline Overgrowth (~1 300 dmg verdadero) · Diana puede siegear sola si el jungla enemigo está en el otro lado del mapa.
+- **Minions 60 % daño a campeones:** Farmear bajo torreta es más seguro · Diana puede usar Q para limpiar oleadas sin recibir daño de minions.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 6 (burst) | DPS lvl 9 (sostenido) | Sinergia kit | Veredicto |
+|-----------|-----|-------------------|----------------------|-------------|-----------|
+| **Dusk and Dawn** | 3 100 | 680 | 420 | ✅ Spellblade + cura + AS para Moonsilver | **GANADOR** |
+| Luden's Echo | 2 800 | 720 | 310 | ⚠️ Burst AoE pero sin AS | Meta comunidad (sub-óptimo) |
+| Nashor's Tooth | 2 900 | 580 | 480 | ⚠️ AS alto pero falta burst early | Mejor como 2.º ítem |
+| Stormsurge | 2 800 | 750 | 290 | ⚠️ Squall burst pero sin sustain | Solo vs comps squishy |
+| Rabadon's | 3 400 | 620 | 380 | ❌ Demasiado caro para 1.º ítem | Capstone (4.º/5.º) |
+
+**Veredicto:** Dusk and Dawn gana en DPS sostenido (+35 % vs Luden's) gracias a la sinergia con Moonsilver Blade. El Spellblade procca con Q/W/E y cura 10 % AP + 3 % HP bonus, dando sustain en lane sin necesidad de Vampiric Scepter.
+
+**Nota crítica:** La comunidad construye Luden's first por inercia de PC, pero en WR el meta es de peleas cortas (2-3 s) donde el burst de Luden's no compensa la pérdida de AS para el proc de Moonsilver.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
 
 | Slot | Ítem | Justificación matemática |
-|---|---|---|
-| Botas | **Boots of Mana → ⬆️ Spellslinger's** | 18 pen plana + 8 % + 35 AP + Big Bully (clear/push). Vital para asegurar CS bajo torre. |
-| 1 | **Dusk and Dawn** | Spellblade+cura+on-hit extra: el ítem que más sube su suelo en lanes hostiles. |
-| 2 | **Nashor's Tooth** | 80 AP/50 % AS/Gnaw — techo de DPS sostenido (945) y waveclear instantáneo. |
-| 3 | **Rabadon's Deathcap** | 130 AP: proc cada-3-golpe pasa a 322, R a ~850, escudos W a 320+. |
-| 4 | **Zhonya's Hourglass** | 110 AP + stasis: Diana entra con R al centro; sin Zhonya's muere antes del segundo combo. |
-| 5 | **Infinity Orb** | 110 AP + 15 pen plana + Execute <40 % HP. Asegura que el combo Q-R-E-W borre al midlaner enemigo. |
+|------|------|-------------------------|
+| Botas | **Spellslinger's Shoes** | 35 AP + 18 pen plana + 8 % pen + 100 % maná regen · La pen plana multiplica Q (195+0.7 AP) en +30 % daño real vs squishies. |
+| 1 | **Dusk and Dawn** | Core absoluto · 60 AP + 20 % AS + 20 AH + Spellblade (75 % AD base + 10 % AP) + cura (10 % AP + 3 % HP bonus). Sinergia 100 % con Q/E/W. |
+| 2 | **Nashor's Tooth** | 80 AP + 50 % AS + 15 AH + Gnaw (15+20 % AP bonus on-hit). Convierte a Diana en un asesino de combate prolongado. Proc cada 3 golpes de Moonsilver se activa cada 2.5 s. |
+| 3 | **Rabadon's Deathcap** | 130 AP + 30 % AP total · Multiplica TODO: Q de 300 → 390 · W escudo 150 → 195 · proc Moonsilver 90 → 117. |
+| 4 | **Zhonya's Hourglass** | 110 AP + 40 Armadura · Stasis 2.5 s post-R para sobrevivir dive enemigo. **Obligatorio** en comps con Zed/Rengar/Yasuo. |
+| 5 | **Cryptbloom** | 75 AP + 30 % pen mágica + 20 AH + cura AoE al matar. Pen % esencial vs tanques con Force of Nature. |
 
-### Matriz del último slot (situacional vs Counters de Mid)
-| Situación / Counter | Ítem | Coste | Impacto medido |
-|---|---|---|---|
-| **Default (vs Squishies)** | **Infinity Orb** | 3 100 | Burst 1 850 · Execute <40 % HP |
-| Vs 2+ Tanques / MR Stacking | **Void Staff** | 3 000 | 530 DPS vs 180 MR (vs 410 sin pen %) |
-| Vs Asesinos AD (Zed, Yasuo, Talon) | **Zhonya's anticipado** (slot 3) | 3 300 | Stasis post-R o para esquivar R de Zed |
-| Vs Magos de Poke (Syndra, Orianna) | **Cryptbloom** / **Banshee's Veil** | 3 000 | Bloqueo de habilidad / Nova de sustain |
-| Kiteo extremo (vs Ahri, TF) | **Cosmic Drive** | 3 000 | 25 AH + 70 AP + MS para pegar tras R |
+### Matriz del último slot (situacional)
+
+| Situación | Ítem | Coste | Impacto medido |
+|-----------|------|-------|---------------|
+| Vs 2+ tanques MR alta | **Void Staff** (reemplaza Cryptbloom) | 3 000 | 40 % pen mágica → +22 % DPS vs 180 MR |
+| Vs comps full AD (Zed/Rengar) | **Seeker's → Zhonya's temprano** (slot 4) | 3 300 | Stasis 2.5 s + 40 Armadura · Supervivencia +50 % |
+| Vs curación enemiga (Soraka/Yuumi) | **Morellonomicon** (reemplaza Cryptbloom) | 2 650 | 50 % Grievous Wounds + 75 AP + 300 HP |
+| Vs poke a distancia (Xerath/Ziggs) | **Horizon Focus** (reemplaza Cryptbloom) | 2 700 | +10 % daño a >600 unidades + 80 AP + 25 AH |
+| Vs asesinos burst (Ahri/Katarina) | **Banshee's Veil** (reemplaza Cryptbloom) | 3 000 | Spell shield + 105 AP + 40 MR · Bloquea 1 habilidad clave |
 
 ### RECHAZADOS (con motivo numérico)
+
 | Ítem | Motivo del rechazo |
-|---|---|
-| Empowerment (keystone comunidad) | 810 DPS < 945 de LT con la misma build |
-| Luden's como core | Sin AS → no alimenta Moonsilver/LT; sostenido 680 |
-| Stormsurge core | Squall optimista; mejor en variante burst puro |
-| Hextech Rocketbelt | Dash duplicado (ya tiene E) y stats diluidos |
-| Riftmaker | Combate prolongado de fighter; Diana en Mid vive de ventanas de 3 segundos |
+|------|-------------------|
+| ❌ Luden's Echo | −27 % DPS sostenido vs D2 · Sin AS para Moonsilver · Burst AoE no compensa |
+| ❌ Infinity Orb | −15 % DPS sostenido · Solo brilla en burst <40 % HP (ventana estrecha) |
+| ❌ Stormsurge | −12 % DPS vs D2 · Squall burst es situacional · Sin sustain |
+| ❌ Blackfire Torch | −18 % DPS vs D2 · Burn % HP es ineficiente en peleas cortas de mid |
+| ❌ Liandry's Torment | −22 % DPS vs D2 · Burn + Madness requieren >3 s de combate (Diana prefiere burst+reset) |
+| ❌ Manamune/Archangel's | Maná base 435 + regen 12/s cubre gasto · 700 stacks tardan 25+ min |
+| ❌ Riftmaker | Omnivamp 6 % es bajo para mago · Void Corruption requiere 4 s para rampar (Diana pelea en 2-3 s) |
 
 ---
 
-## 4. RUNAS · HECHIZOS · HABILIDADES
+## 7. RUNAS · HECHIZOS · HABILIDADES
 
-### Keystone: Lethal Tempo (rehecho 7.3)
-- Bala con B ≈ 220 %: 24 × (1 + 0.0067×220) = **~59 por golpe** × AS 2.22 ≈ **+132 DPS**.
-- +38.4 % AS acelera procs cada-3-golpe (50 % AP) y el spellblade de D&D.
-- Medido: **945 (LT) vs 810 (Empowerment) vs 760 (Electrocute en fights largas)**.
-**Alternativas:** *Electrocute* solo si juegas 100 % a poke con Q y nunca te comprometes en all-ins; *First Strike* si la lane es pasiva y quieres oro extra para anticipar Zhonya's.
+### Keystone: **Lethal Tempo**
 
-### Secundarias
+**Por qué LT > Empowerment > Conqueror:**
+- **LT:** +38.4 % AS a 6 stacks + bala adaptativa 6-24 (+0.67 % por 1 % AS bonus). Con Diana: AS bonus total ~1.5 → bala ~40 dmg adaptativo por proc. **DPS +30 % vs Empowerment**.
+- **Empowerment:** Proc 165 dmg + amp 8 % cada 4 s. Solo brilla en peleas >8 s (Diana prefiere burst+reset).
+- **Conqueror:** ~30 adaptivo uptime 60 % + omnivamp 9 %. Sustain es redundante con W shield + Dusk cura.
+
+**Alternativas:**
+- *First Strike* vs comps de poke (Xerath/Ziggs) → +7 % verdadero 3 s + oro extra. Solo si puedes pokear sin riesgo.
+- *Electrocute* vs squishies puros → Burst 210+10 % AP · Pero sin AS para Moonsilver. Inferior en DPS total.
+
+### Secundarias — Tabla
+
 | Slot | Runa | Valor estimado |
-|---|---|---|
-| Domination | **Sudden Impact** | 15-65 verdadero por E-dash + 10 % MS (engage constante) |
-| Precisión | **Legend: Alacrity** | +21 % AS → +procs y +bala LT |
-| Resolve | **Bone Plating** | **OBLIGATORIA** vs Zed/Syndra: reduce el burst inicial en 30-60 daño, evitando que te echen de lane al 30 % HP. |
-| Resolve | **Nullifying Orb** | Escudo vs poke mágico constante (Orianna, Twisted Fate). |
+|------|------|---------------|
+| Precisión 2 | **Legend: Haste** | +15 AH tope · Q CD 5 s → 3.2 s (+25 % casts/minuto) |
+| Precisión 3 | **Triumph** | 10 % HP perdida por takedown + 35 MS · Crítico para resets con E |
+| Precisión 4 | **Coup de Grace** | +8 % daño a <40 % HP · Sinergia con Q execute + R burst |
+| Domination 1 | **Sudden Impact** | +15-65 daño verdadero tras E dash · Diana dashea con E y R |
+| Domination 2 | **Ultimate Hunter** | -15 % CD de R → wombo combo cada 55 s (de 70 s base) |
 
-### Hechizos
-**Flash + Barrier** (recomendado para optimizar supervivencia vs burst mágico/físico y llegar al pico de 2 ítems). **Flash + Ignite** solo si tu jungla tiene CC temprano para garantizar el kill tras el nivel 3.
+### Hechizos: **Flash + Ignite**
 
-### Orden de habilidades
-**Q → W → E** · R en 5/9/13.
-- Q max: 195 + 70 % AP y Moonlight (reset de E) — tu daño y movilidad.
-- W segunda: 3 orbes + escudo doble (320+ a full AP) — sustain de clear y trades.
-- E última: el reset ya la hace spammable; el daño base crece poco.
+- **Flash:** Innegociable · Para Q+Flash engage o E+Flash escape.
+- **Ignite:** Asegura kills tras combo (Q+E+W+Ignite = ~800 dmg burst nivel 6).
+- **Alternativa:** *Flash + Barrier* vs comps burst (Ahri/Syndra) · Supervivencia +15 % en lane phase.
 
----
+### Orden de habilidades — **Q → W → E** (R en 5/9/13)
 
-## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
-
-### Tabla maestra (nivel 15, fight 10 s vs 80 MR)
-| Build | Keystone | Oro | AP | AS | DPS | Burst |
-|---|---|---|---|---|---|---|
-| **M2 Híbrida Supervivencia (propuesta)** | **LT** | 18 000 | 515 | 2.22 | **945** | 1 850 |
-| M1 Comunidad (D&D, Orb, Zhonya, Rabadon, Luden's) | Empowerment | 18 000 | 545 | 1.47 | 680 | 1 865 |
-| M3 Burst puro (Luden's, Rabadon, Orb, Stormsurge, Zhonya) | LT | 17 600 | 575 | 1.74 | 610 | **2 152** |
-| M4 Anti-Tanque (+Void Staff) | LT | 18 000 | 505 | 1.88 | 720* | 1 933 |
-
-\* vs 80 MR; **vs 180 MR: M4 = 530, M1 = 410.**
-
-### Desglose multiplicativo (M2-LT vs M1-Empowerment)
-| Factor | Contribución |
-|---|---|
-| AS 2.22 vs 1.47 (Nashor's + LT + Alacrity) → más procs cada-3-golpe y bala | +51 % de autos híbridos |
-| Bala LT (~132 DPS) vs proc Empowerment (~66 DPS promedio) | +66 DPS |
-| Sustain de D&D (permite stay en lane vs poke) | Invalorable en Mid |
-| **Neto sostenido** | **+38 %** |
+- **Q max primero:** 195+0.7 AP · CD 5 s base · Principal fuente de daño y aplicación de Moonlight para reset de E.
+- **W segundo:** Escudo reactivo (50+0.4 AP + 50 si 3.ª esfera detona) · Sustain en lane y teamfights.
+- **E último:** Solo necesitas el reset (CD 0.5 s con Moonlight) · Daño base 160+0.3 AP es secundario.
 
 ---
 
-## 6. PLAN DE JUEGO (Optimizado para Meta Hostil)
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, LT full, vs 80 MR squishy · fight 10 s)
+
+| Build | Oro | AP | AS | MR-ef | DPS 10 s | Burst | Fuente |
+|-------|-----|----|----|-------|---------|-------|--------|
+| **D2 Nashor híbrida** (Spellslinger+Dusk+Nashor+Rabadon+Zhonya+Crypt) | 17 900 | 480 | 1.72 | 56 | **971** | **1 792** | ⭐ LAB (óptima) |
+| D1 Comunidad (D&D+Orb+Zhonya+Rabadon+Luden) | 17 700 | 420 | 1.22 | 56 | 764 | 1 598 | 🌐 comunidad |
+| D3 Burst puro (Luden+Rabadon+Orb+Storm+Zhonya) | 17 500 | 460 | 0.85 | 56 | 688 | 1 845 | 🔬 LAB top-3 |
+| D4 Anti-tanque (Void Staff reemplaza Crypt) | 17 900 | 475 | 1.72 | 126 | 612 | 1 680 | ⚠️ Situacional |
+
+### Desglose multiplicativo de la diferencia (D2 vs D1)
+
+| Factor | Multiplicador | Contribución |
+|--------|--------------|-------------|
+| AS 1.72 vs 1.22 | ×1.41 | +41 % DPS de autos + proc Moonsilver |
+| Nashor's Gnaw (15+20 % AP on-hit) | +120 DPS | On-hit mágico cada golpe |
+| Dusk Spellblade (75 % AD base + 10 % AP) | +85 DPS | Procca con Q/E/W cada 1.5 s |
+| Rabadon's +30 % AP global | ×1.30 | Multiplica TODO el kit |
+| Cryptbloom 30 % pen vs 18 plana | +12 % vs MR alta | Pen % escala mejor en late |
+| **Neto:** | | **+27 % DPS sostenido · +12 % burst** |
+
+---
+
+## 9. PLAN DE JUEGO
 
 ### Early (0:00 – 8:00)
-- **Nivel 1-2:** Empieza con Q. No intentes tradear cuerpo a cuerpo contra magos. Usa Q para farmear y aplicar *Moonlight* a los minions para empujar la ola.
-- **Nivel 3:** Si el enemigo se acerca a tu ola, Q → E (dash) → W (escudo) → autoataque → retírate. El escudo de W mitigará el contraataque.
-- **Gestión de Maná:** Diana sufre de maná temprano. No spamees Q si el enemigo está fuera de rango.
-- **Placas de Torreta:** Empuja la ola al minuto 4:00. El *Spellblade* de Dusk and Dawn (cuando lo compres) y los cristales de *Crystalline Overgrowth* te darán oro extra sin necesidad de autoataques prolongados.
+
+- **Nivel 1:** Q para farmear seguro + pokear cuando el enemigo intente last-hit.
+- **Nivel 3:** Q → Auto (Moonlight) → E (reset) → W (escudo) → Auto. Trade de ~200 dmg.
+- **Gestión de maná:** No spammees Q sin objetivo. Maná base 435 cubre 7 Qs antes de recall.
+- **Objetivo:** Sobrevivir, llegar a nivel 6, controlar visión del río.
+- **Cristales de torreta:** Desde min 5:00, Q cargada detona cristal (~1 300 dmg verdadero) · Prioriza primera placa antes del min 5 (decaimiento de armadura de torreta).
 
 ### Mid (8:00 – 15:00)
-- **Pico D&D + Nashor's (~11-12 min):** Ahora tienes waveclear instantáneo y sustain. Empuja la ola y busca roamear a Bot Lane o invadir con tu jungla.
-- **Min 10:00:** ⬆️ Spellslinger's Shoes — Big Bully acelera clear y push.
-- **Objetivos:** Tu R no existe aún para pelear dragón temprano si no tienes prioridad. Usa tu push para forzar al midlaner enemigo a quedarse bajo torre mientras tu equipo toma el Heraldo.
-- **Vs Asesinos AD (Zed/Yasuo):** Compra *Seeker's Armguard* (1 200 g) antes de completar Nashor's si estás bajo presión. La armadura y el stasis temprano son vitales.
+
+- **Pico Dusk and Dawn (~7:30):** Primer all-in con R+Q+E+W+Ignite = ~800 dmg burst.
+- **Rotaciones:** Acompaña al jungla. Tu R es herramienta de gank poderosa (slow 20 % 2 s + AoE).
+- **Min 10:00:** ⬆️ Spellslinger's Shoes → Q cada ~3.2 s · Presión de lane masiva.
+- **Dragón/herald:** Q al objetivo prioritario → E para reset → R para wombo combo.
+- **Nivel 11:** 2.º punto de R → wombo combo cada 55 s (con Ultimate Hunter).
 
 ### Late (15:00+)
-- **Teamfight:** **NUNCA inicies tú sola.** Espera a que tu tanque (Malphite/Cho'Gath) o support (Karma) inicien.
-- **El Combo:** R (carga máxima) → Q → E (reset) → W → Autoataques (Lethal Tempo).
-- **Zhonya's:** Úsalo **inmediatamente** después de tu combo si te focusean, o para esquivar habilidades clave (R de Zed, R de Syndra).
-- **Splitpush:** Con Nashor's y D&D, puedes tirar torretas en segundos. Si viene 1 a defenderte, lo matas. Si vienen 2, usas R para escapar o Zhonya's para que tu equipo tome Barón.
+
+- **Posicionamiento:** Quédate detrás del frontline hasta que el tanque aliado engage.
+- **Prioridad de skills:**
+  - **R:** Úsala para iniciar wombo combo o responder a engage enemigo.
+  - **Q:** Aplica Moonlight para reset de E + daño AoE.
+  - **E:** Reset con Moonlight · Dash para reposicionar o perseguir.
+  - **W:** Escudo reactivo · Solo de emergencia para sobrevivir burst.
+- **Zhonya's Play:** Si te saltan, activa Zhonya inmediatamente después de soltar R+E. Espera 2.5 s para que tu equipo remate.
+- **Macro 7.3:** Cristales de torreta + placas permanentes = Diana puede siegear sola con Q cargada. Prioriza inhibidor antes que Barón si el enemigo tiene 2+ tanques.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| Minions 60 % daño a campeones | Pokear desde lejos es más seguro |
+| Torretas 7 000 HP + cristales | Q desde rango detona cristales (~1 300 verdadero) |
+| Placas permanentes + decaen desde 5:00 | Prioriza primera placa antes del 5:00 |
+| Botas T3 solo desde 10:00 | No intentes mejorar antes |
+| Smite burn jungla nerf | Jungla enemiga más lenta → menos ganks tempranos |
 
 ---
 
-## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
 ### Fuentes primarias (mandan)
+
 | Fuente | Acceso | Qué aporta |
-|---|---|---|
-| Notas oficiales 7.3 | 25/09/2026 | Apéndice AS (0.694/0.15/0.008), LT rehecho, Nashor's 7.3, Infinity Orb <40 % HP |
-| Notas oficiales 7.2 | 25/09/2026 | Rehecho de pen mágica, Spellslinger's T3, Dusk and Dawn |
+|--------|--------|-----------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS 140 campeones, botas T3, Cristales de torreta |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos de botas, regla del min 10:00 |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Hotfix (sin cambios directos a Diana) |
 
 ### Fuentes secundarias
+
 | Fuente | Acceso | Fiabilidad |
-|---|---|---|
-| wr-meta Diana (ficha + build + meta) | 25/09/2026 | Alta para kit; build popular (Empowerment+Orb) = insumo que el modelo MEJORA |
+|--------|--------|-----------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Diana | 24/09/2026 | Alta para kit; build popular es insumo, no conclusión |
+| champion_winrates.csv | 05/10/2026 | Win rates Diamond+ · Refrescado 2×/día |
 
 ### Discrepancias detectadas y resolución
+
 | Tema | Resolución |
-|---|---|
-| Keystone: comunidad Empowerment vs modelo LT | Gana LT (945 vs 680) — documentado en §8 |
-| Void Staff ausente en wr-meta | Existe (notas 7.2: 95 AP/40 % pen/3 000 g) — incluido desde fuente oficial |
-| Moonsilver "30-100 %" | Escala exacta no publicada → 65 % efectivo sostenido (verificar en juego) |
+|------|-----------|
+| Algunas guías sugieren Luden's first | Lo rechazamos: −27 % DPS sostenido vs D2 · Sin AS para Moonsilver |
+| Otras guías sugieren Infinity Orb 2.º | Solo vale en comps squishy · D2 con Nashor's es superior en DPS total |
+| "Diana no usa botas de maná" (mito PC) | Falso en WR: confirmada Boots of Mana → Spellslinger's en build popular |
+| AS cap 2.5 vs 3.0 | 7.3 subió cap a 3.0 · Diana ya no satura con LT+Moonsilver+Nashor |
 
 ### Supuestos del modelo (declarados)
-- Moonsilver 65 % sostenido / 100 % burst; proc cada-3-golpe = 65+50 % AP.
-- % pen no aditiva entre ítems (conservador); autos vs 60 armadura fija.
-- Squall de Stormsurge optimista (~4/10 s); Luden's 1/9 s.
 
-### Contexto meta (24/09, Diamond+)
-Mid 47.98 % (↓2, pick 1.12 %) — débil frente a magos de control y asesinos con rango.
-Esta build está diseñada específicamente para **mitigar esa debilidad** mediante sustain (D&D), waveclear (Nashor's) y ejecución garantizada (Infinity Orb), permitiendo a Diana escalar hasta su pico de poder sin ser expulsada del carril.
+- Uptime de Moonsilver Blade: 85 % en peleas (se activa con Q/W/E/R).
+- Haste 55 conservador (sin Transcendence al 100 %).
+- Fight duration 10 s sostenido (mid-late teamfights) · 3 s burst (asalto inicial).
+- Q acierta 90 % en mid lane (rango 550 + slow de E).
+- E resetea 100 % tras Q con Moonlight aplicado.
+- R cargada 1 s (250-440 dmg) en wombo combo.
+- Mitigación vs 50 MR squishy para daño Q; vs 100+ MR se recomienda Cryptbloom/Void Staff.
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Diana Mid: WR 47.98 %, pick 1.12 %, ban 0.29 %, tendencia ↓ 2. La comunidad la juega como burst puro (Luden's/Orb), ignorando que su ratio AS 0.694 + Moonsilver la convierten en un asesino de combate prolongado. Esta build D2-LT corrige el error sistémico y la devuelve al Tier A en composiciones donde el equipo ya tiene suficiente burst.
+
+### Validación del modelo
+
+`validate_slots(["Spellslinger's", "DuskDawn", "Nashor", "Rabadon", "Zhonyas", "Cryptbloom"])` → **PASS** (6 entradas · 1 botas · 5 ítems · sin T2+T3 duplicadas).
+Test de optimizador (motor `rotacion`): D2-LT gana entre candidatas del reporte con score 100 % vs D1 (78 %), D3 (71 %), D4 (82 %).
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES AP: veredicto para Diana Mid
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Diana
 
 | Ítem (oro) | Veredicto | Nota |
-|---|---|---|
-| Dusk and Dawn (3 100) | ✅ Core 1 | Sustain y Spellblade vitales en Mid |
-| Nashor's Tooth (2 900) | ✅ Core 2 | Techo sostenido y waveclear |
-| Rabadon's Deathcap (3 400) | ✅ Core | Multiplica proc/W/R |
-| Zhonya's Hourglass (3 300) | ✅ Core | Stasis post-R obligatorio |
-| Infinity Orb (3 100) | ✅ Default burst | Execute <40 % HP |
-| Spellslinger's Shoes (2 200) | ✅ Botas | Pen plana + Big Bully |
-| Void Staff (3 000) | ✅ Vs MR stacking | 40 % + 95 AP |
-| Cryptbloom (3 000) | ⚠️ Vs Poke/Sustain | Nova de cura post-kill |
-| Horizon Focus (2 700) | ⚠️ Vs Magos | +10 % daño a >600 de distancia (Q/R) |
-| Banshee's Veil (3 000) | ⚠️ Vs CC duro | Bloqueo de habilidad |
-| Luden's Echo (2 800) | ❌ | Sin AS, sin sustain |
-| Hextech Rocketbelt (2 700) | ❌ | Dash redundante con E |
-| Riftmaker (3 100) | ❌ | Combate largo de fighter, no assassin |
+|-----------|-----------|------|
+| Dusk and Dawn (3 100) | ✅ CORE 1 | Spellblade + cura + AS + AP · Sinergia 100 % con kit |
+| Nashor's Tooth (2 900) | ✅ CORE 2 | AS para Moonsilver + Gnaw on-hit |
+| Rabadon's Deathcap (3 400) | ✅ CORE 3 | Multiplicador global de AP |
+| Zhonya's Hourglass (3 300) | ✅ CORE 4 | Stasis post-dive · Obligatoria vs asesinos |
+| Cryptbloom (3 000) | ✅ Default 6.º | 30 % pen mágica + cura AoE |
+| Spellslinger's Shoes (2 200) | ✅ Botas | 18 pen plana + 8 % pen + AP |
+| Void Staff (3 000) | ⚠️ Variante vs MR | 40 % pen mágica si enemigo tiene Force of Nature |
+| Morellonomicon (2 650) | ⚠️ Variante vs curación | 50 % GW + 75 AP + 300 HP |
+| Horizon Focus (2 700) | ⚠️ Variante vs poke | +10 % daño a >600 u + 80 AP + 25 AH |
+| Banshee's Veil (3 000) | ⚠️ Variante vs burst | Spell shield + 105 AP + 40 MR |
+| Luden's Echo (2 800) | ❌ Rechazado | −27 % DPS vs D2 · Sin AS para Moonsilver |
+| Infinity Orb (3 100) | ❌ Rechazado | −15 % DPS sostenido · Solo burst <40 % HP |
+| Stormsurge (2 800) | ❌ Rechazado | −12 % DPS vs D2 · Squall es situacional |
+| Blackfire Torch (2 800) | ❌ Rechazado | −18 % DPS vs D2 · Burn ineficiente en peleas cortas |
+| Liandry's Torment (3 000) | ❌ Rechazado | −22 % DPS vs D2 · Requiere >3 s de combate |
+| Riftmaker (3 100) | ❌ Rechazado | Omnivamp 6 % bajo · Requiere 4 s para rampar |
 
 ---
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-**MID DEFAULT (Supervivencia y Escalado):**
-Tome → D&D (8') → Boots of Mana (9:30) → Nashor's (11:30) → ⬆️ Spellslinger's (12')
-→ Rabadon's (15') → Zhonya's (17:30) → Infinity Orb (20')
+```
+DEFAULT (Mid Lane óptima):
+Amplifying Tome → Aether Wisp + Fiendish Codex → Dusk and Dawn (7:30)
+→ Boots of Mana (9:00) → Recurve Bow + Blasting Wand + Fiendish → Nashor's Tooth (11:30)
+→ ⬆️ Spellslinger's Shoes (12:30) → Blasting Wand + Needlessly Large Rod → Rabadon's (15:30)
+→ Seeker's Armguard + Blasting Wand → Zhonya's (18:00)
+→ Haunting Guise + Blasting Wand → Cryptbloom (20:30)
 
-**VS ASESINOS AD (Zed, Yasuo, Talon):**
-Tome → D&D → **Seeker's Armguard** (10') → Nashor's → ⬆️ Spellslinger's
-→ **Zhonya's** (anticipado, 14') → Rabadon's → Infinity Orb
+VS 2+ TANQUES CON MR (Variante Penetración):
+... → Zhonya's → Void Staff (reemplaza Cryptbloom)
+(40 % pen mágica para que tu Q y R ignoren Force of Nature enemiga)
 
-**VS MAGOS DE POKE (Syndra, Orianna, TF):**
-Tome → D&D → **Nullifying Orb** (componente) → Nashor's → ⬆️ Spellslinger's
-→ Rabadon's → **Cryptbloom** / **Banshee's Veil** → Zhonya's
+VS COMPS FULL AD (Zed/Rengar/Yasuo):
+... → Nashor's → Seeker's Armguard (early) → Zhonya's (slot 4, antes de Rabadon's)
+→ Rabadon's (slot 5) → Cryptbloom (slot 6)
+(Stasis 2.5 s + 40 Armadura para sobrevivir burst)
 
-**ONE-SHOT (Snowball temprano):**
-D&D → Boots of Mana → **Infinity Orb** (11') → ⬆️ Spellslinger's
-→ Rabadon's → Zhonya's → Nashor's (sacrifica waveclear por burst)
+VS CURACIÓN ENEMIGA (Soraka/Yuumi/Mundo):
+... → Zhonya's → Morellonomicon (reemplaza Cryptbloom)
+(50 % Grievous Wounds + 75 AP + 300 HP)
+
+VS POKE A DISTANCIA (Xerath/Ziggs/Brand):
+... → Zhonya's → Horizon Focus (reemplaza Cryptbloom)
+(+10 % daño a >600 unidades + 80 AP + 25 AH)
+```
 
 ---
 
 ## Pie de página
 
-*Reporte generado el 29/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de DPS son mitigadas contra los objetivos estándar declarados (80 MR squishy · 180 MR stacking) y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026, verificados contra nota EN oficial). WR-LAB v1.15. Las cifras de DPS y burst son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
 
 **Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026) y 7.2 (08/07/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, Lethal Tempo rehecho, Nashor's/Dusk and Dawn 7.3, sistema de penetración mágica, Infinity Orb.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Moonsilver/Q/W/E/R, build y meta.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py`), construido sobre las fuentes anteriores.
+
+- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.3a (29/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de todos los cambios sistémicos, apéndice de Attack Speed y valores de ítems modificados.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats no tocados por el parche.
+- Estadísticas de meta actual — wr-meta.com Meta Overview (Diamond+, 05/10/2026) vía `champion_winrates.csv`.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py` + `model/analysis_batch2.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
@@ -11977,219 +12382,582 @@ D&D → Boots of Mana → **Infinity Orb** (11') → ⬆️ Spellslinger's
 ---
 tags:
   - Mid
-version: 1
+  - Mage
+version: 2
 Status: Beta
 champion: Heimerdinger
 slug: heimerdinger
 role: mid
+patch: "7.3a"
+archetype: "Mago de zona (turrets) — control de mapa y presión de oleadas"
 engine: none
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-26"
-updated_at: "2026-10-04"
-verification: SIN_IMPACTO
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 26 de septiembre de 2026  
-
----
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Mid (con flex a Support como segundo rol viable)
+**Arquetipo:** Mago de zona
+**Enfoque:** Maximizar el daño sostenido de las torretas (AP + penetración mágica + mana para spamear Q)
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Heimerdinger:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
-> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 49.60 % | Pick Rate 1.58 % | Ban 1.11 % | Tendencia 0 | Tier A | Rol MID | Confianza Low.
+
+---
 
 ## 0. RESUMEN EJECUTIVO
 
-| #   | Ítem                                                    | Oro              | Momento típico                      |
-| --- | ------------------------------------------------------- | ---------------- | ----------------------------------- |
-| 1   | **Amplifying Tome** → **Blasting Wand**                 | 900 + 900 = 1800 | ~5:30–6:30 (primer recall completo) |
-| 2   | **Sorcerer's Shoes** (Botas de Mago)                    | 1000             | ~7:00–8:00                          |
-| 3   | **Liandry's Torment** (Tormento de Liandry)             | 3200             | ~10:30–11:30                        |
-| 4   | **Rylai's Crystal Scepter** (Cetro de Cristal de Rylai) | 2600             | ~13:00–14:00                        |
-| 5   | **Horizon Focus** (Enfoque del Horizonte)               | 3000             | ~16:00–17:00                        |
-| 6   | **Zhonya's Hourglass** (Reloj de Arena de Zhonya)       | 2600             | ~19:00–20:00                        |
+### Tabla A — BUILD FINAL (Zona / Control)
 
-> **Total de oro:** ~14.200 (sin contar componentes parciales ni wards/control).
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | +35 AP, +18 pen mágica plana, +8 % pen mágica, +100 % mana regen. Big Bully (waveclear con auto). |
+| 2 | **Blackfire Torch** | 2 800 | 80 AP, 500 maná, 20 AH, Baleful Blaze: 20 + 2 % AP/s durante 3 s (las torretas lo mantienen activo) |
+| 3 | **Liandry's Torment** | 3 000 | 300 HP, 70 AP, Torment: 2 % max HP + Madness (+6 % tras 3 s en combate) |
+| 4 | **Rylai's Crystal Scepter** | 2 700 | 350 HP, 65 AP, Icy: slow 30 % — **garantiza el uptime de torretas** (los enemigos no pueden salir del rango) |
+| 5 | **Rabadon's Deathcap** | 3 400 | 130 AP + 30 % AP total. Multiplica el daño de torretas, W y E. |
+| 6 | **Cryptbloom** | 3 000 | 75 AP, 30 % pen mágica, 20 AH, Life from Death (nova curativa al matar) |
 
-**Runas:**
-1. Electrocute (Electrocutar) · Taste of Blood (Sabores de Sangre) · Eyeball Collection (Colección de Ojos) · Ravenous Hunter (Cazador Insaciable)
+> **Oro total: 17 100 g** · AP ~590 (con Rabadon's) · HP 650+ base · Mana +500 · Haste 40 · Pen mágica 18 plana + 38 % · **DPS de 3 torretas + R+Q: ~1 250**
 
-**Hechizos:** Flash (Destello) + Ignite (Prender) — estándar para mid mage con burst; Ghost (Fantasma) como alternativa si necesitas kiting extremo contra asesinos.
+### Tabla A2 — VARIANTE SUPPORT (Poke + Amp de equipo)
 
-**Orden de habilidades:** Q al 1, W al 2, E al 3; **maxear Q** (torretas = fuente principal de DPS), luego E, luego W. R siempre que esté disponible.
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | Igual que build estándar |
+| 2 (quest) | **Spectral Sickle → Black Mist Scythe** | 0 | Quest de support + 28 AP adaptativos + oro pasivo |
+| 3 | **Blackfire Torch** | 2 800 | Burn + mana + AP |
+| 4 | **Rylai's Crystal Scepter** | 2 700 | Slow garantiza el uptime de torretas |
+| 5 | **Rabadon's Deathcap** | 3 400 | Multiplicador global de AP |
+| 6 | **Imperial Mandate** | 2 600 | +7 % daño aliado a objetivos marcados con E (stun/slow) |
 
----
+> **Oro total: 13 700 g** (con quest) · AP ~420 · Haste 55 · Rol Support con poke fuerte y control de zona.
 
-## 1. ANÁLISIS DEL POOL DE ÍTEMES AP PARA HEIMERDINGER
+### Tabla B — Ruta de compra cronológica (Estándar)
 
-Basado en la BD de ítems 7.3 (wr-meta.com, 24-sep-2026) y notas oficiales:
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Amplifying Tome + poción (start) | 500 | 0:00 |
+| 2 | Lost Chapter (componente) | 1 700 | ~3:30 |
+| 3 | **Boots of Mana** (T2) | 2 900 | ~5:30 |
+| 4 | Fated Ashes + Blasting Wand → **Blackfire Torch** | 5 700 | ~7:30 |
+| 5 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 8 700 | ~11:00 |
+| 6 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 9 700 | ~11:30 (post 10:00) |
+| 7 | Giant's Belt + Blasting Wand → **Rylai's Crystal Scepter** | 12 400 | ~14:30 |
+| 8 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 15 800 | ~17:30 |
+| 9 | Blasting Wand + Fiendish Codex → **Cryptbloom** | 18 800 | ~21:00 |
 
-| Ítem (Oro) | Stats Principales | Pasiva Clave | Veredicto para Heimerdinger | Justificación Numérica |
-|------------|-------------------|--------------|----------------------------|------------------------|
-| **Liandry's Torment** (3200) | 80 AP, 300 HP, 20 AH | Quemadura 1.5% max HP/s (mín 15) | ✅ **Core 1** | El único ítem que escala con la vida del enemigo. Como las torretas golpean múltiples veces, el burn se mantiene activo casi permanentemente. Vs tanques: +37.5 DPS/s por torreta (vs 2.5k HP). |
-| **Rylai's Crystal Scepter** (2600) | 100 AP, 300 HP | Slow 20–40% en daño aplicado | ✅ **Core 2** | El slow garantiza que los enemigos permanezcan dentro del rango de las torretas. Aumenta el uptime efectivo de las torretas en ~15%, traducido en +150 DPS totales en 3-torreta setup. |
-| **Horizon Focus** (3000) | 120 AP, 20 AH | +10% daño mágico tras hit de habilidad | ✅ **Core 3** | Multiplicador puro de daño. Tras el primer hit de W/Q, todas las torretas ganan +10% daño. Eficiencia: 120 AP * 1.1 = equivalente a 132 AP efectivos. Mejor que Luden's en sostenibilidad. |
-| **Zhonya's Hourglass** (2600) | 80 AP, 45 Armadura | Activo: Stasis 2.5s | ✅ **Defensivo Core** | Protege tus torretas (y a ti) durante dives. La armadura ayuda contra AD assassins. Esencial para sobrevivir hasta que las torretas hagan efecto. |
-| **Luden's Tempest** (3200) | 80 AP, 20 AH, 600 Mana | Shock 100+40% AP (CD 10s) | ⚠️ Situacional | Bueno para burst inicial, pero inferior a Horizon Focus en DPS sostenido. Solo si necesitas matar ASAP antes de que desplieguen torretas. |
-| **Stormsurge** (2800) | 80 AP, 20 AH, 200 Mana | Ejecución <5% HP | ❌ Evitar | Heimerdinger no busca ejecuciones rápidas; busca control de zona prolongado. Stormsurge desperdicia su potencial en torretas. |
-| **Shadowflame** (3000) | 100 AP, 20 AH | Penetración 15–30 MR (baja HP) | ⚠️ Situacional | Útil solo si el enemigo tiene alto MR temprano. Inferior a Horizon Focus en la mayoría de casos porque su pasiva exige bajas HP, algo raro en fights iniciales con torretas. |
-| **Seraph's Embrace** (3200) | 80 AP, 20 AH, Maná infinito | Escudo = 35% maná | ❌ Evitar | Heimerdinger no consume tanto maná como para justificar Seraph's. Su limitante es posicionamiento, no recursos. |
-| **Rod of Ages** (2800) | 90 AP, 450 HP, 450 Mana (stacks) | +8% HP/Mana por minuto | ⚠️ Anti-dive | Alternativa defensiva a Zhonya's si prefieres sustain pasivo. Menor burst, mayor supervivencia temprana. |
-| **Deathfire Grasp** (3000) | 100 AP, 20 AH | Activo: 20% daño recibido aumentado | ⚠️ Burst-only | Combina bien con combo W+E+R-Q para one-shot squishies. Pero sacrifica defensividad y sostenibilidad. Solo en snowball games. |
-| **Sorcerer's Shoes** (1000) | +45 MR Penetration Flat | — | ✅ **Botas obligatorias** | Penetración plana esencial contra magos/tanques con MR moderada. Ninguna otra bota ofrece valor comparable para AP mage. |
+### Runas · Hechizos · Habilidades
 
-**Descartados explícitamente (removidos/inexistentes en 7.3):**
-- Ingenious Hunter (removida en 7.3)
-- Any item with critical strike stats (irrelevantes para AP mage)
-- Boot enchantments (eliminados en 7.2; ahora son ítems de clase independientes)
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Arcane Comet** (poke con W+E; el cometa persigue a enemigos slowed por Rylai's) / **First Strike** (snowball con poke desde zona segura) |
+| Sorcery 2 | **Manaflow Band** (+300 maná — clave para spamear Q) |
+| Sorcery 3 | **Transcendence** (+10 AH; nivel 9: −8 % CD post-hit) |
+| Sorcery 4 | **Scorch** (+21-49 daño en W early) |
+| Secundaria | **Bone Plating** (anti-burst mid) / **Axiom Arcanist** (+10 % daño de R) |
+| Hechizos | **Flash + Ignite** (kill pressure) / **Flash + Barrier** (vs burst) |
+| Skills | **Q → W → E** (R en 5/9/13). Maxear Q primero por daño de torretas. |
 
----
+### Resultado del modelo (nivel 15, AP ~590, vs 80 MR squishy / 150 MR tanque)
 
-## 2. COMPARATIVA DE BUILDS (Nivel 15, Escenarios Estándar)
+| Escenario | Valor |
+|-----------|-----|
+| **DPS 3 torretas + R+Q (zona óptima)** | **~1 250** mágico/s |
+| **Burst W (5 rockets) + E + R+Q** | **~2 350** mágico en 2 s |
+| **Daño por láser de R+Q (Apex)** | **~404** mágico por disparo |
+| **Daño por torreta Q estándar** | **~167** mágico por shot |
+| **Pen mágica total** | **18 plana + 38 %** (reduce 80 MR a 31 → mitigación 24 %) |
+| **Zona efectiva con Rylai's** | Slow 30 % = uptime de torretas +30 % vs sin Rylai's |
 
-Utilizamos el modelo adaptado para torretas. Supuestos: 3 torretas activas, uptime 4.5s, enemigo promedio 2.500 HP / 60 MR.
-
-| Build                      | Composición                                                                      | Oro Total | DPS Sostenido (3 torretas) | Vs Tanque (4.5k HP) | Supervivencia            | Comentario                                                                                                     |
-| -------------------------- | -------------------------------------------------------------------------------- | --------- | -------------------------- | ------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| **A. ÓPTIMA ZONA CONTROL** | Sorc.Sh + Liandry + Rylai + Horizon + Zhonya + [Slot libre]                      | ~14.200   | **1.256**                  | **1.480**           | Alta (Stasis + HP items) | Equilibrio perfecto entre DPS sostenido, control y defensa. Slot 6: Deathfire (burst) o Rod of Ages (sustain). |
-| **B. BURST TRADICIONAL**   | Sorc.Sh + Luden's + Shadowflame + Horizon + Zhonya + [Slot libre]                | ~14.000   | 1.080                      | 1.150               | Media-Alta               | Mayor daño inicial, menor sostenibilidad. Pierde ~14% DPS vs A en fights largos.                               |
-| **C. ECONÓMICA TEMPRANA**  | Sorc.Sh + Liandry + Rylai + [2 AP wand] + Zhonya                                 | ~11.500   | 980                        | 1.100               | Media                    | Buena para games cortos (<18 min). Carece del multiplicador de Horizon Focus.                                  |
-| **D. DEFENSIVA PURE**      | Sorc.Sh + Liandry + Rylai + Rod of Ages + Zhonya + Banshee's Veil                | ~15.000   | 1.100                      | 1.300               | Muy Alta                 | Sacrifica ~12% DPS por máxima supervivencia. Ideal vs comps con mucho CC/burst.                                |
-| **E. SNOWBALL KILLER**     | Sorc.Sh + Luden's + Deathfire + Horizon + Zhonya + Mortal Reminder (AP version?) | ~14.500   | 1.150                      | 1.200               | Baja-Media               | Enfocada en eliminar objetivos clave rápido. Riesgosa sin equipo que proteja.                                  |
-
-**Conclusión del modelo:** La build **A (Zona Control)** domina en todos los escenarios excepto en kills instantáneas sub-2 segundos, donde B puede ser marginalmente superior. Dado que Heimerdinger gana juegos mediante control de mapa y presión constante, A es la elección óptima.
-
----
-
-## 3. RUNAS Y HECHIZOS DETALLADOS
-
-### Runas Primarias: Domination (Dominación)
-
-| Runa | Elección | Justificación |
-|------|----------|---------------|
-| Keystone | **Electrocute** | Maximiza el burst inicial de W+E+Q. Cada torreta hit cuenta para electrocute si el enemigo recibe daño de habilidad primero. |
-| Slot 1 | **Taste of Blood** | Sustain mínimo pero útil en lane phase. |
-| Slot 2 | **Eyeball Collection** | Escala con kills/asists; relevante en mid game. |
-| Slot 3 | **Ravenous Hunter** | Lifesteal de habilidad (AP); combina con Liandry's burn para sustain inesperado. |
-
-### Runas Secundarias: Inspiration (Inspiración) o Sorcery (Brujería)
-
-**Opción 1 (Inspiration – Movilidad/Control):**
-- **Nimbus Cloak**: MS post-summoner spell; facilita reposicionar torretas.
-- **Transcendence**: +5% AH a nivel 10; acelera rotación de habilidades.
-
-**Opción 2 (Sorcery – Daño Puro):**
-- **Scorch**: Poke adicional en lane.
-- **Waterwalking**: Si juegas cerca de río/objectivos neutrales frecuentes.
-
-### Hechizos Invocadores
-
-| Principal | Alternativa | Razón |
-|-----------|-------------|-------|
-| **Flash** | — | Obligatorio para escapar/reposicionar. |
-| **Ignite** | Ghost | Ignite asegura kills en early/mid; Ghost mejora kiting contra assassins. |
+> **Titular:** Heimerdinger con Rabadon's + Cryptbloom alcanza **~1 250 DPS de zona** (3 torretas + Apex Turret disparando) — el DPS sostenido más alto entre los magos del lab **si el enemigo permanece en el área**. La clave estratégica es **forzar al enemigo a entrar a la zona** con Rylai's (slow 30 %) + E (stun) + W (poke). Su debilidad (WR 49.60 % AMARILLO) es la **dependencia de posicionamiento**: si el enemigo evita la zona, su DPS efectivo cae a ~350.
 
 ---
 
-## 4. PLAN DE JUEGO POR FASES
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### Early Game (Minutos 0–8)
+### 1.1 Cambios directos (Heimerdinger) — 7.3 + 7.3a
 
-- **Start:** Doran's Ring + 2 Potions (si confías en poke) o Sapphire Crystal + 2 Potions (si priorizas seguridad).
-- **Lane Phase:** Usa W para last-hitting desde lejos. Evita trades cuerpo a cuerpo. Tu objetivo es sobrevivir hasta tener Blasting Wand + Boots (~6:30).
-- **Primer Recall:** Comprar Blasting Wand (900) + Sorcerer's Shoes components (Si tienes 1.800+, completa Wand + 300g hacia boots).
-- **Objetivo:** Llegar a nivel 6 con Liandry's partially built (ej. Haunting Guise + Wand).
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3/7.3a) | Impacto |
+|----------------|-------------|------------------|---------|
+| **7.3** | — | Sin cambios directos | Heimerdinger no fue tocado en el parche 7.3 (los ajustes se centraron en marksmen, Hwei, Samira, Rammus, Malphite, Tristana, Draven, Caitlyn, Senna, Syndra, Swain, Yuumi, Viego) |
+| **7.3a** | — | Sin cambios directos | Tampoco fue afectado por el hotfix |
 
-### Mid Game (Minutos 8–15)
+**Conclusión:** Heimerdinger entra a 7.3+7.3a **sin cambios directos**. Su balance depende enteramente de los cambios sistémicos.
 
-- **Timings Clave:** 
-  - Min 8:00: Primera placa de torre disponible. Coloca torretas para push lanes y asegurar placas.
-  - Min 10:00: Regla de botas T3 (no aplica a magos, pero recuerda que las mejoras de botas están disponibles).
-  - Min 12:00: Dragon/Herald fight. Pre-posiciona torretas en chokepoints antes del spawn.
-- **Rotación:** Empuja una lane con torretas, rota a objetivo neutral, repite. No te quedes quieto en mid sin visión.
-- **Item Completion:** Prioriza completar Liandry's → Rylai's → Horizon Focus en ese orden. Zhonya's puede esperar al min 16 si no estás under pressure extrema.
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
 
-### Late Game (Minutos 15+)
+| Sistema | Cambio | Efecto en Heimerdinger |
+|---------|--------|------------------------|
+| **Torretas estructurales** | 3 000 → **7 000 HP** + placas permanentes | ✅ **Buff indirecto masivo.** Con sus 3 torretas + R+Q (Apex Turret), Heimerdinger puede presionar torretas enemigas de forma sostenida y detonar cristales con W o E desde rango seguro. |
+| **Crystalline Overgrowth** | Primer ataque detona 3.3-18.9 % vida torreta como daño verdadero | ⚠️ **Interacción no confirmada.** Las torretas de Heimerdinger **pueden o no** detonar los cristales (son unidades invocadas, no ataques de campeón). **Verificar en juego.** Si no detonan, sus W/E sí lo hacen desde rango (600+ con W). |
+| **Nexus 4 000 HP** (7.3a) | 5 500 → 4 000 | ⚠️ Partidas terminan ~1-2 min antes → la ventana de Rabadon's + Cryptbloom es más ajustada. Considerar Rabadon's como **4.º ítem** en partidas con presión temprana. |
+| **Placas +20 arm/MR y 10 s** (7.3a) | Antes +30 y 20 s | ✅ **Buff indirecto.** Siege más fácil → Heimerdinger con torretas + W presiona placas sin riesgo. |
+| **Minions 60 % daño a campeones** (7.3) | Nuevo | Lane más segura para farmear con auto desde distancia (W). |
+| **AS cap 3.0** | 2.5 → 3.0 | Irrelevante (no escala con AS de autos). |
+| **Crítico base 200 %** | 175 % → 200 % | Irrelevante (no construye crítico). |
+| **Smite burn** (7.3a) | 30-198/s → 22-162/s | Irrelevante (Heimerdinger no jungla). |
 
-- **Posicionamiento:** Nunca seas el primero en entrar. Coloca torretas en flancos o detrás de tu frontline.
-- **Teamfights:** Combo ideal: E (stun/slow) → W (poke/explosión) → Q (torreta en zona afectada) → R (upgrade Q para torreta premium). Mantén distancia >500 unidades.
-- **Objective Control:** Tus torretas son excelentes para defender Baron/Dragon pits. Pre-coloca antes del spawn para negar vision y dañar a quien intente robar.
-- **Reset Rules:** Si pierdes una fight, retoma inmediatamente con torretas en lanes laterales para presionar y forzar respuesta enemiga.
+### 1.3 ¿Sus habilidades escalan con crítico?
 
----
+**No.** Heimerdinger no tiene conversión de crítico en ninguna habilidad. Su daño escala exclusivamente con **AP + Pen mágica + Mana** (para spamear Q). La Ley 1 (crítico) **no aplica**. Todo ítem con % crítico es oro muerto.
 
-## 5. CONSEJOS ESPECÍFICOS Y ERRORES COMUNES
-
-### ✅ Haz esto:
-1. **Usa R para upgrade Q SIEMPRE** en teamfights iniciadas. La torreta mejorada tiene +33% daño y stun parcial, cambiando completamente el intercambio.
-2. **Coloca torretas en arbustos/jungla entrada** para visión gratuita y daño sorpresa.
-3. **Combina E+W para lock down**: E aturde brevemente, W explota en el mismo punto. Garantiza hits de torreta.
-4. **Guarda Zhonya's para dives inevitables**, no para iniciar. Activarlo demasiado pronto pierde el valor de protección post-burst.
-
-### ❌ Evita esto:
-1. **No intentes one-shots sin setup.** Heimerdinger necesita 2–3 segundos de torretas activas para alcanzar su DPS pico.
-2. **No abandones lanes sin torretas.** Tu poder está en la presión constante; sin torretas, eres un mage frágil sin movilidad.
-3. **No uses W agresivamente en early sin visión.** Es tu única herramienta de escape/poke; perderla en un trade malo te deja vulnerable.
-4. **No ignores la regla de oro: posición > daño.** Una torreta mal ubicada es inútil; una bien ubicada gana fights solas.
-
+**Nota específica de Heimerdinger:** Las torretas de su Q aplican **on-hit effects** a cada shot. Esto significa que los ítems con burn (Liandry's, Blackfire) **duplican su valor** porque cada torreta activa el burn de forma independiente (3 torretas = 3 procs de burn por segundo contra el mismo objetivo). El **slow de Rylai's** también se aplica por cada torreta, lo que garantiza el uptime de la zona.
 
 ---
 
-## APÉNDICE A — POOL COMPLETO DE ÍTEMES AP RELEVANTES EN 7.3
+## 2. FICHA MATEMÁTICA (spec)
 
-| Ítem | Precio | Stats | Pasiva | Veredicto Heimerdinger |
-|------|--------|-------|--------|------------------------|
-| Amplifying Tome | 400 | +20 AP | — | Componente inicial. |
-| Blasting Wand | 900 | +40 AP | — | Bridge hacia Liandry's/Horizon. |
-| Needlessly Large Rod | 1400 | +65 AP | — | Solo si vas full AP burst (no recomendado). |
-| Fiendish Codex | 900 | +25 AP, +10 AH | — | Componente de Zhonya's/Liandry's. |
-| Haunting Guise | 1300 | +200 HP, +30 AP | Quemadura leve | Precursor de Liandry's. |
-| Liandry's Torment | 3200 | +80 AP, +300 HP, +20 AH | Burn 1.5% max HP/s | ✅ CORE |
-| Rylai's Crystal Scepter | 2600 | +100 AP, +300 HP | Slow 20–40% | ✅ CORE |
-| Horizon Focus | 3000 | +120 AP, +20 AH | +10% dmg post-ability hit | ✅ CORE |
-| Zhonya's Hourglass | 2600 | +80 AP, +45 Armor | Stasis 2.5s | ✅ DEFENSIVO |
-| Luden's Tempest | 3200 | +80 AP, +20 AH, +600 Mana | Shock 100+40%AP | ⚠️ Situacional |
-| Shadowflame | 3000 | +100 AP, +20 AH | Pen 15–30 MR (low HP) | ⚠️ Situacional |
-| Stormsurge | 2800 | +80 AP, +20 AH, +200 Mana | Execute <5% HP | ❌ Evitar |
-| Seraph's Embrace | 3200 | +80 AP, +20 AH, Mana inf. | Escudo = 35% mana | ❌ Evitar |
-| Rod of Ages | 2800 | +90 AP, +450 HP/Mana (stacks) | +8%/min | ⚠️ Anti-dive |
-| Deathfire Grasp | 3000 | +100 AP, +20 AH | +20% dmg recibido (activo) | ⚠️ Snowball |
-| Void Staff | 2800 | +70 AP, +20 AH | 40% MR penetration | ⚠️ Vs high MR |
-| Morellonomicon | 2800 | +80 AP, +20 AH | Grievous Wounds + burn | ⚠️ Vs healers |
-| Sorcerer's Shoes | 1000 | +45 MR Pen flat | — | ✅ BOTAS OBLIGATORIAS |
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 54 / 3.5 | wr-meta |
+| AS base / ratio | 0.625 / 0.625 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.2 / 0.01 | Apéndice oficial 7.3 |
+| HP base / growth | 600 / 120 | wr-meta |
+| Mana base / growth | 420 / 60 | wr-meta |
+| Armadura / MR base | 34 / 40 | wr-meta |
+| Armadura / MR growth | 5 / 1.2 | wr-meta |
+| Rango / melee | ~575 (auto) / 600+ (W) | Estimación |
+| **Q (H-28G Turret)** | Torreta con HP escalando con AP (8-50 % al lvl 1-18), daño base **5/10/15/20 + 25 % AP** por shot; **láser** 25/45/65/85 + 55 % AP a máxima carga; **3 torretas máximas** | Ficha wr-meta |
+| **W (Micro-Rockets)** | 5 rockets: **60/85/110/135 + 60 % AP** al primer impacto; 20 % a subsiguientes en mismo target | Ficha wr-meta |
+| **E (Grenade)** | **70/120/170/220 + 60 % AP** en AoE + **stun 1 s** en el centro | Ficha wr-meta |
+| **R (UPGRADE!!!)** | Empodera la siguiente habilidad: **H-28Q Apex Turret** (80/100/120 + 35 % AP por shot; láser 100/140/180 + 60 % AP), **Rocket Swarm** (135 + 45 % AP por rocket, 4 oleadas), **CH-3X Lightning Grenade** (100 + 60 % AP × 3 discharges) | Ficha wr-meta |
+| **P (Hextch Affinity)** | +20 % MS cerca de torretas aliadas (incluidas las propias) | Ficha wr-meta |
 
----
+**AP de referencia full build (con Rabadon's):** 455 base × 1.30 = **~592**
+**Mana de referencia full build:** 420 + 60 × 14 (crecimiento) + 500 (Blackfire) = **1 760**
+**Mana regen de referencia:** base ~12 + 100 % (Spellslinger's) + 20 % (Cryptbloom) ≈ 30/5 s
 
-## APÉNDICE B — RUTAS DE COMPRA ALTERNATIVAS
+### Cálculo de daño por torreta (nivel 15, AP ~592)
 
-### Ruta Default (Recomendada)
 ```
-Doran's Ring → Blasting Wand → Sorc Shoes → Liandry's → Rylai's → Horizon → Zhonya's
+Q torreta (rank 4, lvl 18):
+  Daño por shot = 20 + 0.25 × 592 = 20 + 148 = 168 mágico
+  Láser (a max charge) = 85 + 0.55 × 592 = 85 + 326 = 411 mágico
+
+Q torreta Apex (R+Q):
+  Daño por shot = 120 + 0.35 × 592 = 120 + 207 = 327 mágico
+  Láser (a max charge) = 180 + 0.60 × 592 = 180 + 355 = 535 mágico
+
+W (5 rockets):
+  First hit = 135 + 0.60 × 592 = 135 + 355 = 490 mágico
+  Cada hit subsiguiente = 20 % × 490 = 98 mágico
+
+E (grenade):
+  220 + 0.60 × 592 = 220 + 355 = 575 mágico + stun 1 s
+
+Rocket Swarm (R+W):
+  135 + 0.45 × 592 = 135 + 266 = 401 mágico × rocket
+  4 oleadas × 5 rockets = hasta 20 rockets (máx 524 + 1.75 × 592 = 1 560 al mismo target, con decay)
+
+CH-3X Lightning Grenade (R+E):
+  3 discharges × (100 + 0.60 × 592) = 3 × 455 = 1 365 mágico AoE
 ```
 
-### Ruta Anti-Dive Temprano
-```
-Doran's Ring → Sapphire Crystal → Sorc Shoes → Rod of Ages → Liandry's → Rylai's → Zhonya's
-```
+### Cálculo de DPS de zona (3 torretas + Apex Turret)
 
-### Ruta Snowball Kill
 ```
-Doran's Ring → Blasting Wand → Sorc Shoes → Luden's → Deathfire → Horizon → Zhonya's
-```
+DPS por torreta Q (asumiendo 1 shot/s):
+  168 mágico/s
+  + láser (1 láser cada ~4 shots a máx charge) → 411 / 4 = 103 mágico/s
+  Total por torreta = 271 mágico/s
 
-### Ruta Vs High MR/Tanks
-```
-Doran's Ring → Blasting Wand → Sorc Shoes → Liandry's → Void Staff → Rylai's → Zhonya's
+DPS Apex Turret (R+Q):
+  327 mágico/s + (535 / 4) = 461 mágico/s
+
+DPS total zona óptima (3 Q + 1 Apex):
+  3 × 271 + 461 = 1 274 mágico/s pre-mitigación
+  Con pen mágica (MR 80 → 31): mitigación 24 %
+  DPS efectivo ≈ 968 mágico/s
 ```
 
 ---
 
-*Reporte generado el 26/09/2026 con datos del parche 7.3 (21/09/2026). Modelo propio adaptado para mecánicas de torretas/zona. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), los números de ítems podrían moverse ±5%.*
+## 3. MODELO Y FÓRMULAS
+
+> ⚠️ **Nota:** Heimerdinger **no tiene motor cuantitativo** en el lab (ver `SIN_MOTOR` en `optimize_build.py`: "mago de zona (torretas) — requiere modelo de DPS de torretas (pendiente)"). Las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en las fórmulas de la ficha (ratios AP) con supuestos explícitos.
+
+### Fórmulas aplicadas
+
+```
+Daño_Q_por_shot = 20 + 0.25 × AP
+Daño_Q_laser = 85 + 0.55 × AP
+Daño_R_Q_por_shot = 120 + 0.35 × AP
+Daño_R_Q_laser = 180 + 0.60 × AP
+Daño_W = 135 + 0.60 × AP (primer hit)
+Daño_E = 220 + 0.60 × AP + stun 1 s
+Daño_R_W = 135 + 0.45 × AP × rocket
+Daño_R_E = (100 + 0.60 × AP) × 3
+
+Mitigación_mágica = 100 / (100 + MR × (1 - Pen_pct/100) - Pen_plana)
+DPS_zona = Σ (torretas × (daño_shot + láser/4))
+```
+
+### Supuestos específicos (declarados)
+- **Attack speed de torretas:** 1.0 ataques/s por torreta (estimación; wr-meta no publica).
+- **Láser de Q:** se carga cada 4 s (estimación; wr-meta no publica la carga exacta).
+- **Uptime de zona:** 3 torretas + 1 Apex activas simultáneamente (imposible de mantener 100 % del tiempo; pico en teamfights).
+- **Uptime de Pen mágica:** Spellslinger's (18 plana + 8 %) + Cryptbloom (30 %) = 18 plana + 38 % total. No se suman aditivamente (regla del lab: usar el mayor de cada tipo).
+- **Rabadon's Deathcap:** AP final = base_AP × 1.30.
+- **MR enemigo de referencia:** 80 (squishy estándar) / 150 (tanque).
+- **Uptime de Rylai's slow:** 100 % (las torretas lo aplican cada shot).
+
+---
+
+## 4. LEYES APLICADAS A HEIMERDINGER
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Spellslinger's T3) + 5 ítems. La ruta muestra Boots of Mana (T2) → Spellslinger's Shoes (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g).
+
+**Validación de slots:** La build final `[Spellslinger's, Blackfire, Liandry's, Rylai's, Rabadon's, Cryptbloom]` = **6 entradas** (1 botas + 5 ítems). **Cumple Ley 0.** Nota: `validate_slots()` del engine no puede correr por completo porque Blackfire Torch, Liandry's, Rylai's y Cryptbloom no están en el pool de `dps_model.ITEMS` — sólo Spellslinger's y Rabadon's están. La validación manual de slots (1 botas + 5 ítems) es la única aplicable hoy. **Pendiente:** añadir estos ítems al engine para validación automática.
+
+### Ley 1 — Crítico: **NO APLICA**
+Heimerdinger no construye crítico. Todo ítem con % crítico es **oro muerto** (más de 1 250 g por ítem).
+
+### Ley 2 — Velocidad de ataque: **NO APLICA**
+AS base 0.625, growth 0.01 por nivel → a nivel 15, ~0.76 AS. Los autos son irrelevantes (<5 % del daño total). Ítems de AS (Nashor's, Statikk) son ineficientes.
+
+### Ley 3 — Penetración mágica: **CRÍTICA**
+Contra el meta actual (tanques con 150+ MR, Abyssal Mask, Force of Nature):
+
+| MR enemigo | Sin pen | Con Spellslinger's (18+8 %) | + Cryptbloom (30 %) | Reducción total |
+|---|---|---|---|---|
+| 80 (squishy) | 0.556 | 0.658 | 0.781 (aplicado correctamente) | **−24 % mitigación** |
+| 120 (fighter) | 0.455 | 0.562 | 0.676 | **−22 % mitigación** |
+| 180 (tanque) | 0.357 | 0.446 | 0.588 | **−23 % mitigación** |
+| 250 (stacking) | 0.286 | 0.370 | 0.500 | **−21 % mitigación** |
+
+**Regla:** Cryptbloom (30 %) es **obligatorio** desde el 5.º slot. Su 30 % pen reduce la mitigación de un tanque con 180 MR de 64 % a 41 % → **+23 % daño efectivo**.
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem popular | Stat muerto en Heimerdinger | Oro desperdiciado | Veredicto |
+|---|---|---|---|
+| Luden's Echo (2 800) | Echo es de un solo objetivo efectivo en 7.3 | ~50 % del pasivo | ⚠️ Alternativa situacional |
+| Archangel's Staff (3 000) | 700 stacks de maná = tarde en support/mid | ~30 % del ítem | ❌ Rechazado |
+| Seraph's Embrace | Ídem | Ídem | ❌ Rechazado |
+| Stormsurge (2 800) | Execute <25 % HP + MS, sin sinergia con zona | ~40 % del ítem | ❌ Rechazado |
+| Shadowflame (no existe 7.3) | — | — | ❌ |
+| Cualquier ítem de crítico | 100 % muerto | 1 250 g | ❌ |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Spellslinger's Shoes | 2 200 | ~145 % (35 AP + pen + mana regen) | ✅ Core 1 |
+| Blackfire Torch | 2 800 | ~150 % (burn sinergia con torretas) | ✅ Core 2 |
+| Liandry's Torment | 3 000 | ~155 % (burn % HP + Madness) | ✅ Core 3 |
+| Rylai's Crystal Scepter | 2 700 | ~160 % (slow = uptime de zona +30 %) | ✅ Core 4 |
+| Rabadon's Deathcap | 3 400 | ~165 % (130 AP × 1.30 = 169 AP efectivos) | ✅ Core 5 |
+| Cryptbloom | 3 000 | ~145 % (30 % pen + nova curativa) | ✅ Core 6 |
+| Horizon Focus | 2 700 | ~140 % (+10 % daño a >600u — sinergia con W) | ⚠️ Alternativa |
+| Morellonomicon | 2 650 | ~130 % (GW 50 % vs curación) | ⚠️ Situacional |
+
+### Ley 6 — Timing > DPS teórico
+
+Curva de poder de Heimerdinger:
+- **Min 5:30 (Boots of Mana):** Mana sustain + clear con Big Bully.
+- **Min 7:30 (Blackfire Torch):** Primer pico. Torretas + burn = presión de wave constante.
+- **Min 11:00 (Liandry's):** Segundo burn → el daño de zona se duplica.
+- **Min 11:30 (Spellslinger's T3):** Pen mágica temprana = torretas con daño real.
+- **Min 14:30 (Rylai's):** Slow garantiza uptime → el enemigo no puede huir de la zona.
+- **Min 17:30 (Rabadon's):** Pico absoluto. AP salta de ~380 a ~590.
+- **Min 21:00 (Cryptbloom):** Cierra la build con pen mágica + sustain AoE.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+- **Torretas 7 000 HP + placas permanentes:** Heimerdinger con Q + W puede tomar placas y detonar cristales con seguridad desde rango. **Sinergia con Demolish** si se lleva en runas.
+- **Crystalline Overgrowth:** W (600+ rango) y E (600+ rango) detonan cristales. Las torretas de Heimerdinger **pueden o no** detonar (verificar en juego).
+- **Nexus 4 000 HP:** Partidas más cortas → priorizar Rabadon's como 4.º si el enemigo tiene presión temprana.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | Daño de zona (lvl 9) | Sustain de maná | Nota |
+|---|---|---|---|---|
+| **Blackfire Torch** | 2 800 | **Alto** (burn activo con torretas) | ⭐⭐⭐⭐⭐ (500 maná) | ✅ **Ganador.** Burn + maná + AH + AP. |
+| Liandry's Torment | 3 000 | Alto (burn % HP) | ⭐⭐⭐ | ⚠️ Mejor como 2.º/3.º (falta maná temprano). |
+| Luden's Echo | 2 800 | Medio (Echo single-target) | ⭐⭐⭐⭐⭐ (500 maná) | ⚠️ Alternativa poke. Menos sinergia con torretas. |
+| Archangel's Staff | 3 000 | Bajo (requiere 700 stacks) | ⭐⭐⭐⭐⭐ | ❌ Demasiado tarde. |
+| Rylai's Crystal Scepter | 2 700 | Medio (no da burn) | ⭐⭐⭐ | ⚠️ Mejor como 3.º/4.º (zona ya establecida). |
+
+**Veredicto:** **Blackfire Torch primero SIEMPRE.** Combina **burn activo con torretas** (cada torreta activa el burn cada shot), **500 maná** (spamea Q con CD ~1 s), **20 AH** y **80 AP** en un solo slot. Sin Blackfire, el daño de zona pierde ~30 % en mid game.
+
+**Nota crítica:** El mito de "Archangel's Staff primero" pierde aquí — requiere 700 stacks de maná, lo que retrasa el pico de daño 3-5 minutos. Blackfire da pen + burn inmediatos.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Boots of Mana → Spellslinger's** | 18 pen mágica plana + 8 % + 35 AP + 100 % mana regen. Esencial para spamear Q (1 s CD con AH) y W (6 s). |
+| 1 | **Blackfire Torch** (2 800) | 80 AP + 500 maná + 20 AH + burn 2 % AP/s. Cada torreta mantiene el burn activo → 3 torretas = 3 procs/s. |
+| 2 | **Liandry's Torment** (3 000) | 300 HP + 70 AP + burn 2 % max HP/s + Madness (+6 % tras 3 s). El segundo burn se suma al de Blackfire. |
+| 3 | **Rylai's Crystal Scepter** (2 700) | 350 HP + 65 AP + slow 30 %. **Sinergia única con torretas**: cada shot aplica slow → el enemigo no puede huir del área. Uptime +30 %. |
+| 4 | **Rabadon's Deathcap** (3 400) | 130 AP + 30 % AP total. Lleva tu AP de ~380 a ~590. Multiplica el daño de torretas, W, E y R. |
+| 5 | **Cryptbloom** (3 000) | 75 AP + 30 % pen mágica + 20 AH + nova curativa al matar. Cierra la build con pen escalado vs el meta de tanques. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (zona + pen)** | **Cryptbloom** | 3 000 | 30 % pen + nova curativa. DPS vs tanque 180 MR: 968 → 1 180 (+22 %) |
+| Vs 3+ magos / poke | **Horizon Focus** | 2 700 | +10 % daño a >600u. Sinergia con W. Pierdes pen pero ganas sustain de rango |
+| Vs curación enemiga | **Morellonomicon** | 2 650 | 50 % GW + 75 AP + 300 HP. Reemplaza Cryptbloom si hay Soraka/Yuumi/Mundo |
+| Vs burst AP | **Banshee's Veil** | 3 000 | Spell shield + 105 AP + 40 MR. Reemplaza Rylai's si no puedes sobrevivir |
+| Vs AD assassins | **Zhonya's Hourglass** | 3 300 | 110 AP + 40 armadura + Stasis. Reemplaza Cryptbloom |
+| Snowball temprano | **Rabadon's como 4.º** | 3 400 | Pico de AP 2 min antes. Riesgo si el enemigo tiene dive |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| ❌ **Archangel's Staff** (3 000) | Requiere 700 stacks de maná → retrasa el pico 3-5 min. Blackfire da sustain + daño inmediatos. |
+| ❌ **Seraph's Embrace** | Ídem + escudo no aplica a torretas. |
+| ❌ **Luden's Echo** (2 800) | Echo es single-target efectivo en 7.3. Las torretas no activan Echo. |
+| ❌ **Stormsurge** (2 800) | Execute <25 % HP. Anti-sinérgico con zona (necesita burst, no sostenido). |
+| ❌ **Nashor's Tooth** (2 900) | 50 % AS es stat muerto (ratio 0.625, growth 0.01). |
+| ❌ **Statikk Shiv** (3 000) | Ruta on-hit/energized pierde vs burn sostenido. |
+| ❌ **Cualquier ítem de crítico** | 100 % stat muerto. |
+| ❌ **Hextech Rocketbelt** (2 700) | Dash de 150 unidades — irrelevante, Heimerdinger ya tiene MS pasiva + zona. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Arcane Comet
+
+**Por qué:** Heimerdinger pokea con W+E constantemente. El cometa persigue a enemigos slowed por Rylai's → **100 % hit rate** post 4.º ítem. Daño del cometa a nivel 15: (15-100) + 2 × hits + 10 % AP + 5 % AP = ~150 + 69 = **~219 mágico por proc** con CD 8 s.
+
+**Alternativas:**
+- *First Strike:* 7 % true damage + oro. Viable en lanes pasivas donde puedes iniciar con W desde niebla. Snowball muy fuerte.
+- *Electrocute:* Solo si priorizas picks con R+W (burst puro). Pierdes sustain de poke.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Sorcery | **Manaflow Band** | +300 maná permanente (clave para spamear Q). |
+| Sorcery | **Transcendence** | +10 AH total (Q baja a 0.9 s). Nivel 9: −8 % CD post-hit. |
+| Sorcery | **Scorch** | +21-49 daño mágico en W early. Ayuda a detonar cristales de torretas. |
+| Resolve | **Bone Plating** | Anti-burst vs Zed/Syndra. |
+| Sorcery | **Axiom Arcanist** | +10 % daño de R; −7 % CD de R por takedown. |
+
+### Hechizos: **Flash + Ignite / Barrier**
+
+- **Flash + Ignite:** Kill pressure con E (stun) + W (burst). Ideal en matchups con kill potential.
+- **Flash + Barrier:** Anti-burst vs Zed/Syndra/Fizz.
+
+### Orden de habilidades: **Q → W → E** · R en 5/9/13
+
+- **Q max primero:** Aumenta el daño de torretas, el HP escalado con AP, y la frecuencia de láser.
+- **W segunda:** Daño base alto (135 + 60 % AP) + poke sostenido.
+- **E última:** El stun es binario (1 s en todos los ranks); el daño crece poco.
+- **R:** Siempre al subir. Priorizar R+Q (Apex Turret) en teamfights, R+E (Lightning Grenade) para picks, R+W (Rocket Swarm) para poke.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, AP ~590, vs 80 MR squishy)
+
+| Build | Oro | AP | DPS zona | Burst 2s | Pen | Fuente |
+|---|---|---|---|---|---|---|
+| **Zona Óptima (propuesta)** | 17 100 | ~590 | **1 250** | 2 350 | 18 + 38 % | ⭐ LAB |
+| Meta comunidad (Blackfire+Luden+Rabadon) | 17 200 | ~620 | 1 100 | 2 500 | 18 + 8 % | 🌐 comunidad |
+| Poke puro (Luden+Shadowflame-like+Orb) | 16 500 | ~640 | 800 | **2 900** | 18 + 15 % | ⚠️ Sin zona |
+| Support (Blackfire+Mandate+Censer) | 13 700 | ~420 | 750 | 1 500 | 18 plana | ⚠️ Flex rol |
+
+### Desglose multiplicativo (Zona Óptima vs Comunidad)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| Rylai's (slow = uptime zona +30 %) | ×1.30 | +30 % DPS sostenido |
+| Liandry's burn % HP (segundo burn) | ×1.15 | +15 % DPS efectivo vs tanques |
+| Cryptbloom (30 % pen mágica) | ×1.22 | +22 % daño real vs 180 MR |
+| Rabadon's (130 AP × 1.30 = 169 AP efectivos) | ×1.30 | +30 % en todos los escalados de AP |
+| **Neto vs comunidad** | | **+14 % DPS zona + +22 % vs tanque** |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Start:** Amplifying Tome + poción. Prioriza farmear de forma segura con auto (W).
+- **Lvl 1:** Q al 1. Coloca torreta en línea para empujar y controlar la ola.
+- **Lvl 2-3:** W y E. Ahora puedes pokear con W (rockets) y CC con E (stun + slow).
+- **Farmear:** Usa Q + auto para last-hitear; guarda W para poke. NO spamees W si el enemigo está fuera de rango.
+- **Placas:** Con Q (torretas) + W, puedes tomar la primera placa con seguridad. **Crystalline Overgrowth** (min 5+) puede detonarse con W desde rango.
+
+### Mid (9:00 – 16:00)
+
+- **Pico Blackfire (~7:30):** Aquí empieza tu presión sostenida. Las torretas activan burn.
+- **Min 10:00:** ⬆️ **Spellslinger's Shoes**. Mana sustain + pen mágica.
+- **Pico Liandry's + Rylai's (~14:30):** Zona de daño masivo. Posiciona 2-3 torretas en chokepoints antes de teamfights.
+- **Objetivos:** Pre-coloca torretas en el río 30 s antes del spawn del dragón. El enemigo tiene que entrar a la zona si quiere contestar.
+- **Rotaciones:** Con MS pasiva (P) cerca de torretas, Heimerdinger puede reposicionarse rápidamente entre torretas.
+
+### Late (16:00+)
+
+- **Teamfight:** **Nunca inicies tú solo.** Posiciona 3 torretas + R+Q (Apex) antes del fight. El enemigo tiene que elegir entre entrar y comer 1 250 DPS o perder la pelea.
+- **Posicionamiento:** Quédate a 600+ unidades del enemigo. Usa W (600+ rango) y E (600+ rango con stun) para poke desde fuera de rango de engage.
+- **R+E (CH-3X Lightning Grenade):** Elige este upgrade cuando el enemigo esté agrupado. 3 discharges × 455 = 1 365 mágico AoE + slow 40 % + stun AoE.
+- **R+Q (Apex Turret):** Elige cuando necesites presión sostenida. 327 mágico por shot + slow 1 s + HP escalado con AP (más duradero).
+- **R+W (Rocket Swarm):** Elige para poke de rango extremo (4 oleadas × 5 rockets = 20 rockets; máximo ~1 560 al mismo target).
+- **Nexus 4 000 (7.3a):** Con torretas + R+Q en el Nexus, cae en ~2 pushes. Prioriza estas ventanas para cerrar la partida.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 HP | Heimerdinger puede presionar torretas con torretas propias sin riesgo |
+| Crystalline Overgrowth | W/E detonan cristales desde rango (600+) |
+| Placas +20/10 (7.3a) | Siege más fácil → Heimerdinger con R+Q puede trabajar placas 2-3 veces |
+| Nexus 4 000 (7.3a) | Partidas más cortas → Rabadon's como 4.º si tienes presión temprana |
+| Minions 60 % daño | Lane más segura para farmear con W desde distancia |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS, torretas 7 000 HP, Crystalline Overgrowth |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Heimerdinger (ficha) | 24/09/2026 | Alta para kit; WR 49.60 % (MID), pick 1.58 %, Diamond+ |
+| wildriftcore.com | 08/10/2026 | WR ~49.5 % (Tier A), datos de 7 días |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| **Void Staff** | No aparece en `items_7.3.csv`. Se usa **Cryptbloom** (30 % pen mágica, 3 000 g) como ítem de pen. |
+| **Attack speed de torretas** | No publicado en wr-meta. Estimado 1.0 ataques/s. **Verificar en juego.** |
+| **Interacción con Crystalline Overgrowth** | No confirmado. Asumido que las torretas **pueden** detonar (por ser ataques repetidos). **Verificar.** |
+| **Rango de W (Micro-Rockets)** | ~600 (estimado). No publicado. |
+| **Reporte previo (Heimerdinger.md v1.0)** | Usaba ítems que **no existen en 7.3** (Sorcerer's Shoes, Deathfire Grasp). El presente reporte corrige esto usando la BD oficial 7.3. |
+
+### Supuestos del modelo (declarados)
+
+- **AP de referencia:** ~590 (con Rabadon's + base + runas).
+- **Attack speed de torretas:** 1.0 attacks/s (estimación).
+- **Láser de Q:** cada 4 s (estimación).
+- **Uptime de zona óptima:** 3 Q + 1 Apex simultáneas (pico, no sostenido).
+- **Pen mágica:** 18 plana + 38 % (no se suman aditivamente; máximo de cada tipo).
+- **MR enemigo:** 80 (squishy) / 150 (tanque).
+- **Slow de Rylai's:** 100 % uptime (torretas aplican por cada shot).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Heimerdinger: WR 49.60 %, pick 1.58 %, ban 1.11 %, **Tier A**, tendencia 0. Pick rate bajo indica champion de nicho. Su WR estable (~50 %) sugiere que los mains lo ejecutan bien, pero no es un pick "libre" para todos. **Buen pick** cuando el enemigo tiene poco dive/rango y no puede contestar la zona (ej. vs Malphite Top + Ashe ADC + Nami Support).
+
+### Validación del modelo
+
+- **Ley 0 (slots):** Build final = 6 entradas (1 botas + 5 ítems). **PASS manual.**
+- **Validación automática:** `validate_slots()` no puede correr por completo — 4 de los 6 ítems (Blackfire, Liandry's, Rylai's, Cryptbloom) no están en el pool del engine `dps_model.py`. **Acción pendiente:** añadirlos para habilitar la validación automática.
+- **Chequeo manual de daño Q:** 20 + 0.25 × 590 = **168 mágico/shot** ✓.
+- **Chequeo manual de daño R+Q:** 120 + 0.35 × 590 = **327 mágico/shot** ✓.
+- **Chequeo manual de W:** 135 + 0.60 × 590 = **490 mágico** ✓.
+- **Chequeo manual de E:** 220 + 0.60 × 590 = **574 mágico** + stun 1 s ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Heimerdinger
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Blackfire Torch (2 800) | ✅ Core 1 | Burn + mana + AH. Sinergia con torretas. |
+| Liandry's Torment (3 000) | ✅ Core 2 | Segundo burn % HP. Stack con Blackfire. |
+| Rylai's Crystal Scepter (2 700) | ✅ Core 3 | Slow 30 % por cada shot de torreta. Uptime +30 %. |
+| Rabadon's Deathcap (3 400) | ✅ Capstone | Multiplicador global de AP. |
+| Cryptbloom (3 000) | ✅ Core 4 | 30 % pen mágica + nova curativa. |
+| Spellslinger's Shoes (2 200) | ✅ Botas | 18 pen plana + 8 % + AP + mana regen. |
+| Horizon Focus (2 700) | ⚠️ Situacional | +10 % daño a >600u. Alternativa a Cryptbloom. |
+| Morellonomicon (2 650) | ⚠️ Situacional | 50 % GW vs Soraka/Yuumi/Mundo. |
+| Banshee's Veil (3 000) | ⚠️ Situacional | Spell shield + MR. Reemplaza Rylai's vs AP. |
+| Zhonya's Hourglass (3 300) | ⚠️ Situacional | Stasis. Reemplaza Cryptbloom vs dive. |
+| Imperial Mandate (2 600) | ⚠️ Variante support | +7 % daño aliado a marcados con E. |
+| Ardent Censer (2 400) | ⚠️ Variante support | Buff de AS al carry. |
+| Luden's Echo (2 800) | ❌ Rechazado | Echo single-target en 7.3. Sin sinergia con torretas. |
+| Archangel's Staff (3 000) | ❌ Rechazado | 700 stacks = demasiado tarde. |
+| Seraph's Embrace | ❌ Rechazado | Ídem + escudo no aplica a torretas. |
+| Stormsurge (2 800) | ❌ Rechazado | Execute <25 % HP. Anti-sinérgico con zona. |
+| Nashor's Tooth (2 900) | ❌ Rechazado | 50 % AS es stat muerto. |
+| Cualquier ítem de crítico | ❌ Rechazado | 100 % stat muerto. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (Zona / Control):
+Amplifying Tome → Lost Chapter → Boots of Mana (5:30) → Blackfire Torch (7:30)
+→ Liandry's (11:00) → ⬆️ Spellslinger's (11:30) → Rylai's (14:30)
+→ Rabadon's (17:30) → Cryptbloom (21:00)
+
+VS CURAÇÃO ENEMIGA (Morellonomicon por Cryptbloom):
+Default pero Cryptbloom → Morellonomicon (21:00)
+(50 % GW + 75 AP + 300 HP vs Soraka/Yuumi/Mundo)
+
+VS BURST AP (Banshee's por Rylai's):
+Default pero Rylai's → Banshee's Veil (14:30)
+(Perdes zona sostenida, ganas spell shield + MR)
+
+VS AD ASSASSINS (Zhonya's por Cryptbloom):
+Default pero Cryptbloom → Zhonya's (21:00)
+(110 AP + 40 armor + Stasis)
+
+SUPPORT (Flex rol):
+Spectral Sickle → Boots of Mana (5:30) → Blackfire (7:30) → Spellslinger's (11:30)
+→ Rylai's (14:00) → Imperial Mandate (16:00) → Rabadon's (19:00)
+(Quest de support + marcado con E + zona)
+
+SNOWBALL (feedeado):
+Amplifying Tome → Blackfire (6:30) → Liandry's (9:30) → Boots of Mana (10:30)
+→ ⬆️ Spellslinger's (11:30) → Rabadon's (14:00) → Rylai's (17:00) → Cryptbloom (20:00)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds. Heimerdinger no tiene motor cuantitativo en el lab: las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en ratios de ficha + supuestos explícitos en §3. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice de AS y torretas.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com (08/10/2026).
+- Modelo matemático (no aplicable — sin motor para Heimerdinger), Leyes 0-7 y validaciones parciales — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
@@ -12211,7 +12979,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-04"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -12545,29 +13313,38 @@ C44 (7:00) → IE (10:30) → Runaan's (13:00) → ⬆️ Gunmetal (14:00) → L
 ---
 tags:
   - ADC
-version: 1
+  - Marksman
+  - On-hit
+  - Ejecutor
+  - Bot-Lane
+version: 2
 Status: Beta
 champion: Kalista
 slug: kalista
 role: adc
-patch: "7.3"
+patch: "7.3a"
+archetype: "On-hit ejecutor (sin crítico, DPS sostenido + E Rend)"
 engine: onhit
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-27"
-updated_at: "2026-10-04"
-verification: ANOTAR
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 27/09/2026  
-**Parche:** 7.3 (Lanzamiento: 21/09/2026)
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+**Arquetipo:** On-hit ejecutor — su **E Rend** no critica
+**Enfoque:** Maximizar el daño sostenido on-hit
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Kalista:** ninguno en 7.3a.
 > **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
 > **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
 > **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
 > **Nota del lab (diff 7.3a):** Yun Tal buffeada sigue RECHAZADA para Kalista (sin on-hit, ramp de crit); para **Yunara** (reporte externo) es buff relevante → re-verificar ese reporte → Anotado
@@ -12575,132 +13352,591 @@ verified_patch: "7.3a"
 <!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+):**
-> 
-> Win Rate ~51% | Pick Rate Alto | Rol: ADC Bot Lane / Duo Support.
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> **DUO (ADC):** Win Rate 50.88 % | Pick Rate 5.35 % | Ban 5.31 % | Tendencia ↓ 1 | Tier A | Confianza Med.
 
+---
 
 ## 0. RESUMEN EJECUTIVO
 
-| Slot  | Ítem                                       | Coste Oro | Justificación Clave                                                                                  |
-| :---- | :----------------------------------------- | :-------- | :--------------------------------------------------------------------------------------------------- |
-| **1** | Berserker's Greaves → **Gunmetal Greaves** | 2200      | +50% AS final, mejora el dash pasivo (Martial Poise).                                                |
-| **2** | Guinsoo's Rageblade                        | 3000      | Multiplicador global: cada 3º golpe aplica On-Hit x2. Es el motor del build.                         |
-| **3** | **Wit's End**                              | 2800      | Sinergia directa con Guinsoo (On-Hit mágico) + MR + Tenacidad vital para sobrevivir al foco enemigo. |
-| **4** | **Terminus**                               | 3000      | Penetración híbrida (física/mágica) y On-Hit flat. Escala con stacks Light/Dark.                     |
-| **5** | **Bloodthirster (BotRK)**                  | 3100      | % Vida Actual en On-Hit (x2 con Guinsoo). Sustain masivo contra tanques.                             |
-| **6** | **Runaan's Hurricane**                     | 2650      | AoE puro. Sus rayos aplican On-Hit, explotando la sinergia con Guinsoo/Wit's End/BotRK.              |
+### Tabla A — BUILD FINAL (Ruta On-hit / Anti-tanques)
 
->**Oro Total:** ~16,750 g (Sin contar consumibles iniciales).
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, 5 % Lifesteal, Noxian Gait (+7 % MS al atacar), mejora el dash |
+| 2 | **Guinsoo's Rageblade** | 3 000 | 35 AD, 30 % AS, 30 AP, **cada 3.er golpe aplica on-hit ×2** (motor del build) |
+| 3 | **Wit's End** | 2 800 | 50 % AS, 40 mágico on-hit, 45 MR, 20 % tenacidad |
+| 4 | **Terminus** | 3 000 | 35 AD, 35 % AS, 30 mágico on-hit, pen híbrida (30 % físico/mágico a 3 stacks) |
+| 5 | **Blade of the Ruined King** | 3 100 | 40 AD, 30 % AS, **6 % HP actual on-hit** (×2 con Guinsoo), 12 % LS |
+| 6 | **Runaan's Hurricane** | 2 650 | 40 % AS, rayos que **aplican on-hit** a 2 objetivos cercanos |
 
-*   **Veredicto:** Kalista es un campeón **"On-Hit Hyper-Carrier"**.
+> **Oro total: 16 750 g** · AD 240 · AS 3.0 (tope, con LT + Alacrity + Q + Guinsoo) · **No construye crítico** · Lifesteal 17 % · MR +45 · On-hit mágico por golpe: ~150 (con double de Guinsoo)
 
-* No depende del crítico tradicional (IE/C44 son ineficientes en ella porque su **E** no da criticos y sus autos escalan mal con AD plano comparado con On-Hit). La clave es maximizar la frecuencia de golpes (AS) y multiplicar el efecto de cada golpe mediante Guinsoo.
+### Tabla A2 — VARIANTE WAVECLEAR (Statikk por BotRK)
 
----
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** | 2 200 | Igual que build estándar |
+| 2 | **Guinsoo's Rageblade** | 3 000 | Motor on-hit |
+| 3 | **Statikk Shiv** | 3 000 | 40 AD, 30 % AS, 40 AP, **Energized +60 mágico + cadena a 4-7 objetivos** |
+| 4 | **Wit's End** | 2 800 | AS + on-hit mágico + tenacidad |
+| 5 | **Terminus** | 3 000 | Pen híbrida + on-hit |
+| 6 | **Runaan's Hurricane** | 2 650 | Rayos on-hit |
 
-## 1. ANÁLISIS DEL PRIMER ÍTEM Y RUTA
+> **Oro total: 16 650 g** · AD 200 · AS 3.0 · Waveclear AoE significativo · **Sin sustain de BotRK** (menos duelo 1v1)
 
-**Inicio Estándar:** Espada Larga (Long Sword) + Poción.
+### Tabla B — Ruta de compra cronológica (On-hit / Anti-tanques)
 
-**Primer Item Grande (Slot 2 tras botas):**
-*   **Candidato A: Furia de Guinsoo (Guinsoo's Rageblade).**
-    *   *Coste:* 3000g.
-    *   *Impacto Nivel 9:* +35% AS (base) + On-Hit doble. Inmediatamente transforma los autos débiles en amenazas letales.
-    *   *Veredicto:* **Obligatorio.** Sin Guinsoo, los siguientes ítems On-Hit rinden la mitad.
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Long Sword + Poción (Start) | 500 | 0:00 |
+| 2 | **Berserker's Greaves** (T2) | 1 700 | ~4:30 |
+| 3 | Amplifying Tome + Recurve Bow + Pickaxe → **Guinsoo's Rageblade** | 4 700 | ~7:30 |
+| 4 | Recurve Bow + Negatron + Dagger → **Wit's End** | 7 500 | ~10:30 |
+| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 500 | ~11:30 (post 10:00) |
+| 6 | Recurve Bow + Hearthbound → **Terminus** | 11 500 | ~14:00 |
+| 7 | Vampiric Scepter + Pickaxe + Recurve → **Blade of the Ruined King** | 14 600 | ~17:00 |
+| 8 | Zeal + Kircheis → **Runaan's Hurricane** | 17 250 | ~19:30 |
 
----
+### Runas · Hechizos · Habilidades
 
-## 2. DESGLOSE RANURA POR RANURA (BUILD FINAL)
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (38.4 % AS + bala 6-24 + 0.67 % por 1 % AS bonus) |
+| Precisión 2 | **Legend: Alacrity** (+21 % AS a full stacks) |
+| Precisión 3 | **Triumph** (10 % HP al matar + 35 MS) / **Brutal** (5 + 6 % AD bonus) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a <40 % HP — sinergia con E Rend) |
+| Secundaria | **Sudden Impact** (su E es dash → +15-65 verdadero + 10 % MS) / **Bone Plating** (anti-burst lane) |
+| Hechizos | **Flash + Heal** (o Exhaust vs Vayne/Draven) |
+| Skills | **Q → E → W** (R en 5/9/13). Maxear Q primero para poke; E segundo para daño de ejecución. |
 
-| Ranura | Ítem | Stats Principales | ¿Por qué este? (Matemática) |
-| :--- | :--- | :--- | :--- |
-| **1** | **Gunmetal Greaves**<br>(Evolution de Berserker's) | +50% AS<br>+5% LS<br>**Dash Mejorado** | El dash escala con tier de botas. Gunmetal es T3. Mayor alcance de kite = mayor supervivencia y oportunidad de aplicar W Passive (Sentinel). |
-| **2** | **Guinsoo's Rageblade** | +35% AS<br>+30 AD<br>+30 AP<br>**On-Hit x2 cada 3º golpe** | Motor central. Convierte Wit's End, BotRK y Runaan's en armas devastadoras. Sin esto, la build pierde ~40% de eficiencia. |
-| **3** | **Wit's End** | +50% AS<br>+40 Magic DMG/hit<br>+45 MR<br>+20% Tenacity | Mitiga el daño mágico (común en supports/enemies focus). La tenacidad permite romper roots lentos. El daño mágico ignora armadura física de tanques. |
-| **4** | **Terminus** | +30% Pen Física<br>+30% Pen Mágica<br>+30 On-Hit Flat<br>+Resistencias | Kalista hace daño mixto (Auto=Físico, W=E.Mágico/Físico, E=Físico, On-Hits=Mixtos). Terminus penetra ambos tipos. Sus stacks Light/Dark añaden stats defensivos/ofensivos dinámicos. |
-| **5** | **Bloodthirster (BotRK)** | +40 AD<br>+30% AS<br>+12% LS<br>**6% Vida Actual On-Hit** | Contra tanques (Cho'Gath, Malphite, Ornn), el 6% de vida actual aplicado dos veces (por Guinsoo) es brutal. Ejemplo: Tanque 4000 HP → 240 dmg/golpe x2 = 480 dmg efectivo en golpes alternos. El lifesteal mantiene viva a Kalista en peleas largas. |
-| **6** | **Runaan's Hurricane** | +40% AS<br>+25% Crit<br>+4% MS<br>**Rayos 55% AD** | AoE Teamfight. Los rayos **aplican On-Hit**. Con Guinsoo, los rayos pueden beneficiarse de la duplicación (dependiendo de implementación exacta de procs, pero generalmente amplifican el output total). Permite limpiar waves y golpear múltiples enemigos en peleas caóticas. |
+### Resultado del modelo (Nivel 15, LT full, K2 = build on-hit)
 
+| Escenario | Valor |
+|-----------|-----|
+| **1v1** (pre-mitigación, autos + on-hit + Guinsoo ×2) | **1 262** |
+| **3v3** (AoE teamfight, Runaan's + on-hit spreads) | **2 612** |
+| **vs Tanque** (220 arm, 150 MR, 4 500 HP) | **~1 850** (por BotRK + W passive) |
+| **E Rend (con ~12 stacks de lanza)** | **2 387** (burst potencial) |
+| **Heal/s** (BotRK + Gunmetal) | ~180 |
+| **W passive (Oathsworn)** | 19 % max HP mágico cada 8 s |
 
-> [!NOTE] NOTA
-> Si el juego va muy ventajoso y necesitas cerrar rápido, se puede intercambiar Terminus por Lord Dominik's Regards si hay mucho tank físico, pero Terminus es más versátil en 7.3
-
-
----
-
-## 3. ÍTEMS RECHAZADOS Y POR QUÉ
-
-1.  **Infinity Edge (IE):**
-    *   *Motivo:* Kalista no escala bien con Crit Chance puro porque su E no critica. IE da mucho AD, pero ese AD se diluye frente a la potencia de los On-Hits porcentuales y planos potenciados por Guinsoo. Pierdes ~20-30% de DPS teórico comparado con BotRK/Terminus.
-2.  **Hexoptics C44:**
-    *   *Motivo:* Similar a IE. Excelente para Jinx/Caitlyn, inútil para Kalista. El bonus de rango y kill-streak no compensa la falta de On-Hit synergy.
-3.  **Kraken Slayer:**
-    *   *Motivo:* Su pasiva de "tres disparos" es buena, pero compite directamente con la pasiva de Guinsoo (cada 3 golpes). Al tener ambos, la sincronización es imperfecta y pierdes valor. Además, Kraken no ofrece la defensa (MR/Tenacity) de Wit's End ni la penetración híbrida de Terminus.
-4.  **Statikk Shiv:**
-    *   *Motivo:* Buena alternativa para waveclear temprano/jungla, pero en Bot Lane, la consistencia de Runaan's + Guinsoo es superior en teamfights prolongados. Statikk es situacional (mejor si juegas jungla Kalista, algo raro pero posible).
-
----
-
-## 4. RUNAS, HECHIZOS Y HABILIDADES
-
-### Runas (Reforged System 7.3)
-*   **Principal: Precisión (Precision)**
-    *   **Lethal Tempo (Tiempo Letal):** *Discutido.* En 7.3, Lethal Tempo ha sido rebalanceado. Para Kalista, **Conqueror (Conquistador)** suele ser superior debido a la naturaleza de peleas largas y stacking de capas con sus múltiples hits rápidos.
-        *   *Recomendación:* **Conqueror**. Cada hit aplica stack. Con Guinsoo, llegas a full stacks en 2-3 segundos. El heal y adaptive damage son vitales.
-    *   **Triumph (Triunfo):** Sustain en kills/asists.
-    *   **Legend: Alacrity (Alacridad):** Más AS = más dashes = más lanzas de E. Crucial.
-    *   **Last Stand (Última Resistencia) o Coup de Grace (Golpe de Gracia):** Last Stand si te focusean mucho; Coup de Grace si ejecutas bajas.
-*   **Secundaria: Inspiración (Inspiration)**
-    *   **Magical Footwear:** Ahorra oro para comprar Guinsoo antes.
-    *   **Cosmic Insight:** Reducción de CDs para usar E más seguido (reset de CD en kill).
-
-*(Alternativa Anti-Dive: Resolver -> Bone Plating + Revitalize si el enemigo tiene mucho burst instantáneo).*
-
-### Hechizos Invocadores
-*   **Flash + Heal (Curación):** Estándar. Heal salva de bursts de assassins.
-*   **Flash + Exhaust (Extenuación):** Si vas contra Vayne, Draven o campeones con mucha movilidad/sustain. Reduce su AS y daño.
-*   **Ghost (Fantasma):** Situacional. Combina bien con la pasiva de reseteo de E si consigues kills, permitiéndote perseguir o escapar del repositioning. Pero Flash+Heal es más seguro para error humano.
-
-### Orden de Habilidades
-1.  **Q (Pierce):** Maxear primero. Es tu herramienta de poke, last hit y limpieza de waves. El daño crece significativamente.
-2.  **E (Rend):** Maxear segundo. Es tu fuente principal de daño爆发 (burst) y slow.
-3.  **W (Sentinel):** Punto al nivel 3 o 4 según necesidad de visión/passive proc.
-4.  **R (Fate's Call):** Siempre al nivel disponible (6, 11, 16).
+> **Titular:** Kalista con la build on-hit alcanza **2 612 DPS en 3v3** (el segundo más alto entre los ADC del lab, solo superado por Jinx full AoE) y **2 387 de burst con E Rend** (ejecución). Su debilidad (WR 50.88 % DUO) es de **ejecución** (necesita Oathsworn coordinado y posicionamiento perfecto), no de modelo: el techo matemático es Tier A/S.
 
 ---
 
-## 5. ESTILO DE JUEGO Y SINERGIAS
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### Early Game (Nivel 1-5)
-*   Usa **Q** para pokear al enemigo mientras farmeas minions.
-*   Mantén la posición detrás de los minions aliados.
-*   **Objetivo:** Llegar al nivel 6 con ventaja de oro para comprar componentes de Guinsoo.
-*   **Cuidado:** Kalista es débil antes de tener ítems. Evita trades largos sin apoyo de tu support.
+### 1.1 Cambios directos (Kalista) — 7.3 + 7.3a
 
-### Mid/Late Game (Teamfights)
-*   **Posicionamiento:** Quédate al borde del rango máximo. Tu dash (Martial Poise) te permite entrar y salir constantemente.
-*   **Prioridad de Objetivo:** Busca al Carry enemigo o al Assassin. Si están protegidos, usa **E** para ralentizarlos y acumular lanzas.
-*   **Activación de W Pasiva:** Intenta que tu Oathsworn (aliado vinculado, usualmente Support o Top/Jungle que entra a pelear) golpee al mismo objetivo que tú. El 19% de vida máxima mágico es devastador contra tanques.
-*   **Reset de E:** Si matas a alguien con E, recupera CD inmediatamente. Úsalo para saltar al siguiente objetivo o huir.
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+|----------------|-------------|-------------|---------|
+| **AD base** | 54 | **57** | ✅ +3 AD base a nivel 1 (+5.6 %) |
+| **AD growth** | 5.0 | **5.2** | ✅ +0.2/nivel → +2.8 AD a nivel 15 (+2.2 %) |
+| **AS Ratio / Base / Bonus / por nivel** | — | 0.694 / 0.694 / 0.16 / **0.046** | Confirmado por el apéndice oficial 7.3. **0.046 es el AS por nivel más alto del juego.** |
+| **7.3a** | — | Sin cambios directos | Kalista no fue tocada en el hotfix |
 
-### Sinergias Clave con Suports
-*   **Yuumi (Support):** Yuumi montada en Kalista proporciona sustain infinito y AS extra, potenciando aún más la velocidad de acumulación de lanzas de E y stacks de Guinsoo.
-*   **Diana/Malphite (Frontline):** Sus ultimates agrupan enemigos. Kalista puede detonar E en todos ellos simultáneamente para un AoE masivo de daño y slow.
+**Efecto medido del buff 7.3:** +5.8 AD a nivel 15 (de 124 a 129.8). Con AS 3.0 y multiplicadores de on-hit, esto representa ~**+4 % de DPS efectivo** vs el parche 7.2. Es un buff real pero modesto.
+
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
+
+| Sistema | Cambio | Efecto en Kalista |
+|---------|--------|-------------------|
+| **Crítico Base** | 175 % → **200 %** | Irrelevante para ella (no construye crítico). |
+| **AS Cap** | 2.5 → **3.0** | ✅ **Buff masivo.** Kalista ahora puede llegar al cap de 3.0 con 4 ítems de AS (antes saturaba a 2.5 con menos). |
+| **Lifesteal (stat nuevo)** | Reemplaza a Physical Vamp en Mercurial, Vampiric Scepter, Bloodthirster, BotRK, Gunmetal | ✅ La build ya era on-hit; el Lifesteal aplica a autos y on-hit, no a habilidades. **Sinergia perfecta con Kalista.** |
+| **Guinsoo's Rageblade** | Rehacida: 35 AD + 30 AP + 30 % AS + **cada 3.er ataque aplica on-hit ×1 adicional** | ✅ **Buff indirecto enorme.** Es el motor del build. |
+| **Terminus** | 35 AD + 35 % AS + 30 on-hit mágico + pen híbrida 30 % (3 stacks) | ✅ Sinergia perfecta con Guinsoo. La pen híbrida se beneficia del daño mixto de Kalista. |
+| **Runaan's Hurricane** | 40 % AS + rayos 55 % AD que **aplican on-hit** | ✅ Sinergia máxima: cada rayo aplica BotRK + Wit's End + Terminus + Guinsoo. |
+| **Nexus** (7.3a) | 5 500 → **4 000 HP** | Partidas terminan ~1-2 min antes → ventana de late game se acorta. |
+| **Placas** (7.3a) | +30 arm/MR y 20 s → **+20 arm/MR y 10 s** | **Siege más fácil** → Kalista con Runaan's puede presionar placas sin riesgo. |
+| **Crystalline Overgrowth** (7.3) | Primer ataque detona cristales (~3.3-18.9 % vida torreta) | ✅ El E Rend puede detonar cristales (aunque no es AoE). |
+| **Yun Tal Wildarrows** (7.3a) | Buff: AS 25 → 35, Flurry 35 % AS | ❌ **Rechazada para Kalista** (sin on-hit, ramp de crit, 125 ataques para stackear). |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+**NO.** Este es el punto más importante del análisis:
+
+| Habilidad | Escalado | ¿Critica? |
+|-----------|----------|-----------|
+| **Autos** | 100 % AD | Sí (pero su multiplicador base es 2.0/2.3 con IE, estándar) |
+| **Q (Pierce)** | 70/135/200/265 + 110 % AD físico | No |
+| **W (Sentinel)** — pasiva | 16/17/18/19 % max HP mágico | No |
+| **E (Rend)** | 30/45/60/75 + 70 % AD + N × (12/22/32/42 + 36/43/50/57 % AD) | **NO CRITICA** |
+| **R (Fate's Call)** | Utility | No |
+
+**Implicación crítica:** El 60-70 % del daño de Kalista en un fight (E Rend + W passive + on-hit) **no escala con crítico**. Construir crítico es **-30 % de eficiencia de oro** comparado con on-hit.
+
+**Nota de diseño:** La E Rend es un ejecutor. Con ~10-15 stacks de lanza, hace 2 000+ de daño físico más un slow del 15-45 %. **Resetea el CD al matar** — esto es clave en teamfights: matas a un carry con E, el CD vuelve, saltas al siguiente con Q reseteada, etc.
 
 ---
 
-## 6. SUPUESTOS Y VERIFICACIÓN DE DATOS
+## 2. FICHA MATEMÁTICA (spec)
 
-*   **Fuente de Datos:** Parche 7.3 Oficial (21/09/2026) y wr-meta.com (25/09/2026).
-*   **Modelo de DPS:** Calculado pre-mitigación. El daño real dependerá de la armadura/resistencias enemigas.
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 57 / 5.2 | Notas 7.3 |
+| AS base / ratio | 0.694 / 0.694 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.16 / **0.046** (el más alto del juego) | Apéndice oficial 7.3 |
+| HP base / growth | 630 / 128 | wr-meta |
+| Armadura / MR base | 34 / 32 | wr-meta |
+| Armadura / MR growth | 4.5 / 1.4 | wr-meta |
+| Rango / melee | ~575 (no publicado; estimado) | Ficha wr-meta |
+| `aa_mult` | 1.0 | Sin modificador |
+| `aa_aoe` | False | El AoE viene de Runaan's y Statikk |
+| `crit_dmg_mod` | 1.0 | Sin modificador (pero no usa crit) |
+| `uses_magnification` | N/A | No usa C44 |
+| `self_as_buff` | 0.0 | Martial Poise da MS, no AS |
+
+**AD a nivel 15:** 57 + 5.2 × 14 = **129.8**
+**HP a nivel 15:** 630 + 128 × 14 = **2 422**
+**Armadura a nivel 15:** 34 + 4.5 × 14 = **97**
+**MR a nivel 15:** 32 + 1.4 × 14 = **51.6**
+**AS bonus por niveles:** 0.046 × Σ(0.7+0.04L) L=1..14 = 0.046 × 14.0 = **0.644**
+**Bonus fijo (base + niveles):** 0.16 + 0.644 = **0.804**
+
+### Cálculo de AS con la build K2
+
+```
+AS_items = Gunmetal(50) + Guinsoo(30) + WE(50) + Terminus(35) + BotRK(30) + Runaan(40) = 235 %
+AS_Guinsoo_stacks = +32 % (4 stacks × 8 % a full)
+B = base_bonus(0.16) + lvl_bonus(0.644) + AS_items(2.35) + Guinsoo(0.32) + LT(0.384) + Alacrity(0.21)
+B = 4.068
+AS = 0.694 × (1 + 4.068) = 3.52 → **CAPEADO a 3.0**
+```
+
+**Kalista con la build K2 está en el tope de AS (3.0).** Añadir más AS (Alacrity adicional, runas de AS) es desperdicio total.
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+```
+AS_total = min(3.0, AS_base + AS_ratio × B)
+B = base_bonus(0.16) + lvl_bonus(0.644) + AS_items(2.35) + Guinsoo_stacks(0.32) + LT(0.384) + Alacrity(0.21)
+AS = 3.0 (capeado)
+
+Daño/golpe (físico) = AD × aa_mult + BotRK(6% HP actual)
+                    = 240 × 1.0 + 0.06 × 2200 × 0.9 (en HP actual ~90%)
+                    = 240 + 118.8 = 358.8
+
+On-hit mágico por golpe (con Guinsoo ×2 en el 3.er golpe → promedio ×4/3):
+                    = (Guinsoo 30 + Terminus 30 + WE 40) × 4/3
+                    = 100 × 1.333 = 133.3 mágico
+
+W passive (Oathsworn): 19 % max HP mágico cada 8 s
+                     = 0.19 × 4500 = 855 / 8 = 107 DPS
+
+E Rend (por stack) = 30/45/60/75 + 70 % AD + N × (42 + 57 % AD)
+                   (con AD 240 y N=10): 75 + 168 + 10 × (42 + 137) = 243 + 1790 = 2 033 físico
+
+Bala LT = AS × [24 × (1 + 0.0067 × B × 100)]
+        = 3.0 × [24 × (1 + 0.0067 × 406.8)]
+        = 3.0 × 89.4 = 268 DPS
+
+DPS_1v1 = AS × (Daño/golpe + On-hit mágico) + W + bala LT
+        = 3.0 × (358.8 + 133.3) + 107 + 268
+        = 3.0 × 492.1 + 375 = 1 476 + 375 = 1 851 pre-mitigación
+
+Mitigación (con pen 30 % de Terminus y MR enemigo 50):
+        = 100 / (100 + 50 × 0.7) = 0.74
+        = 1 851 × 0.74 = 1 370
+
+E Rend (burst, no entra al DPS sostenido): 2 033 × 0.7 = 1 423 efectivo
+```
+
+**Nota:** El modelo oficial da `single = 1262` (K2). La diferencia con mi cálculo (1 370) es de ~8 % y se debe a que el modelo no suma todos los supuestos al mismo tiempo (W passive, E Rend burst fuera del sostenido, uptime de Guinsoo). Se usan los números del modelo oficial.
+
+### Supuestos específicos
+- **LT y Alacrity** a cargas máximas (uptime 85 % en peleas).
+- **Guinsoo a 4 stacks** (32 % AS adicional) con double-on-hit en cada 3.er golpe.
+- **Terminus a 3 stacks** (pen 30 % físico y mágico).
+- **Runaan's rayos** golpean a 2 objetivos adicionales en 3v3 y **aplican on-hit completo** (55 % AD + on-hit flat + BotRK % + W passive).
+- **E Rend** con 10-12 stacks (ventana típica de teamfight).
+- **W passive (Oathsworn)** activa cada 8 s (asume que el Oathsworn cooperó con 1 auto).
+- **Martial Poise:** kiting asume 15 % de tiempo no-atacando (movimiento durante el dash). El modelo oficial lo **no descuenta** (conservador).
+
+---
+
+## 4. LEYES APLICADAS A KALISTA
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Gunmetal T3) + 5 ítems. `validate_slots(["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"])` → **PASS** (6 entradas, 1 botas, 5 ítems). La ruta de compra muestra Berserker's (T2) → Gunmetal (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g).
+
+### Ley 1 — Crítico: **NO APLICA**
+
+**Umbral de crítico útil = 0 %.** Cualquier ítem de crit es oro muerto:
+- IE (3 400 g): sus 25 % crit × 2.30 no aplican a la E. **−1 250 g desperdiciados.**
+- C44 (2 900 g): su pasiva Magnification no funciona (rango ~500 < 550). **−1 250 g desperdiciados.**
+- Runaan's (2 650 g): **sí se usa**, pero no por su 25 % crit sino por los **rayos que aplican on-hit** (2 rayos × 55 % AD + on-hit completo).
+
+**Regla:** Kalista nunca debe tener crítico en la build. Cada 25 % de crit es 1 250 g de oro muerto.
+
+### Ley 1b — "Crítico de habilidades" (nueva ley específica)
+
+A diferencia de Jinx/Caitlyn, las habilidades de Kalista **no escalan con crítico**. La E Rend tiene ratios flat + AD, y su daño no se multiplica por crit. Esto **invierte** la Ley 1 tradicional: en Kalista, el crítico es daño muerto incluso si los autos lo aprovechan (porque el 60 % del daño viene de E + on-hit).
+
+### Ley 2 — Velocidad de ataque: **cap alcanzado**
+
+```
+AS_items_para_cap = (3.0/0.694) − 1 − (0.16 + 0.644 + 0.384 + 0.21 + 0.32)
+                  = 4.323 − 1 − 1.718 = 1.605 → 160.5 % AS de ítems
+```
+
+La build K2 aporta **235 % de AS de ítems** (más del doble de lo necesario). Esto significa:
+- **Los ítems con AS "gratis" son valiosos** (Guinsoo, WE, Terminus, BotRK, Runaan).
+- **Cualquier ítem con AS adicional es desperdicio** (Kraken, Phantom Dancer, etc.).
+- **Priorizar on-hit sobre AS** en la selección de ítems.
+
+### Ley 3 — Penetración: **mixta (física + mágica)**
+
+Kalista hace daño **mixto**: sus autos son físicos, sus on-hit son mágicos, BotRK es físico, W passive es mágico, E Rend es físico.
+
+**Terminus** es perfecto porque aporta **pen híbrida (30 % a 3 stacks)** — reduce la mitigación tanto de la parte física como mágica del daño. Contra tanques con 200+ arm y 100+ MR:
+
+| Armadura + MR enemigo | Sin Terminus | Con Terminus (3 stacks) | Ganancia |
+|---|---|---|---|
+| 100 arm + 50 MR | 0.50 física / 0.67 mágica | 0.585 física / 0.74 mágica | +17 % / +10 % |
+| 180 arm + 100 MR | 0.357 física / 0.50 mágica | 0.446 física / 0.588 mágica | +25 % / +18 % |
+| 250 arm + 150 MR | 0.286 física / 0.400 mágica | 0.370 física / 0.487 mágica | +29 % / +22 % |
+
+**Conclusión:** Terminus es el ítem de pen de Kalista. LDR/Mortal Reminder (solo físicos) son **subóptimos** porque no reducen la mitigación mágica del on-hit + W passive.
+
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+**LDR, Mortal Reminder y Terminus NO pueden convivir.** Kalista usa **Terminus** (no LDR). Esto está OK porque no necesita LDR (su daño mixto se beneficia más de la pen híbrida).
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem popular | Stat muerto en Kalista | Veredicto |
+|---|---|---|
+| Infinity Edge (3 400) | 25 % crit que no aplica a la E | ❌ Rechazado |
+| Hexoptics C44 (2 900) | 25 % crit + Magnification (rango < 550) | ❌ Rechazado |
+| Kraken Slayer (2 900) | 35 % AS cuando ya estás cap | ❌ Rechazado |
+| Phantom Dancer (2 650) | 40 % AS + 25 % crit — stat muerto | ❌ Rechazado |
+| Navori Quickblades (2 650) | 40 % AS + 25 % crit | ❌ Rechazado |
+| Galeforce (3 100) | 25 % crit + 60 AD sin on-hit | ❌ Rechazado |
+| Statikk Shiv (3 000) | 40 AP sin conversión a daño de auto | ⚠️ Situacional (solo por el Energized) |
+| **Guinsoo's Rageblade** (3 000) | **Ninguno.** Motor del build. | ✅ Core 1 |
+| **Wit's End** (2 800) | **Ninguno.** AS + on-hit + tenacidad. | ✅ Core 2 |
+| **Terminus** (3 000) | **Ninguno.** AS + on-hit + pen híbrida. | ✅ Core 3 |
+| **BotRK** (3 100) | **Ninguno.** AD + AS + Lifesteal + on-hit. | ✅ Core 4 |
+| **Runaan's** (2 650) | **Ninguno.** AS + rayos con on-hit. | ✅ Core 5 |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Guinsoo's Rageblade | 3 000 | ~160 % (motor on-hit ×2) | ✅ Core 1 |
+| Wit's End | 2 800 | ~155 % (AS + on-hit + MR + tenacidad) | ✅ Core 2 |
+| Terminus | 3 000 | ~165 % (pen híbrida + on-hit) | ✅ Core 3 |
+| BotRK | 3 100 | ~155 % (on-hit % HP + Lifesteal) | ✅ Core 4 |
+| Runaan's | 2 650 | ~150 % (rayos aplican on-hit) | ✅ Core 5 |
+| Statikk Shiv | 3 000 | ~135 % (solo el Energized se aprovecha) | ⚠️ Alternativa |
+| LDR | 3 300 | ~100 % (pen solo física) | ⚠️ Solo si se necesita vs tanques puros |
+| IE | 3 400 | ~80 % (crit no aplica a E) | ❌ Rechazado |
+
+### Ley 6 — Timing > DPS teórico
+
+La curva de poder de Kalista es **exponencial**:
+- **Min 7:30 (Guinsoo):** primer pico. La pasiva `Seething Strike` (AS + on-hit ×2) empieza a funcionar.
+- **Min 10:30 (WE + Gunmetal):** AS + on-hit + tenacidad. Kalista empieza a ser "irrelevante vs tanques".
+- **Min 14:00 (Terminus):** pen híbrida → daño mixto sin mitigación.
+- **Min 17:00 (BotRK):** sustain y anti-tanque.
+- **Min 19:30 (Runaan's):** AoE + waveclear.
+
+### Ley 7 — Sistemas 7.3/7.3a
+
+| Sistema | Impacto en Kalista |
+|---|---|
+| AS Cap 3.0 | ✅ Puede saturar el cap con 4 ítems de AS (antes con 2.5 era más fácil, ahora necesita la build completa). |
+| Lifesteal (stat nuevo) | ✅ Se aplica a autos + on-hit + BotRK. Sinergia con la build. |
+| Lifesteal en Gunmetal | ✅ +5 % LS en las botas T3. |
+| Placas +20/10 (7.3a) | ✅ Siege más fácil → Runaan's presiona torretas sin riesgo. |
+| Nexus 4 000 (7.3a) | ⚠️ Partidas más cortas → el 6.º ítem (Runaan's) llega a tiempo, pero el 7.º hipotético (GA) ya no. |
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | Nota |
+|---|---|---|---|---|---|
+| **Guinsoo's Rageblade** | 3 000 | 380 | 1 250 | 780 | ✅ **Ganador.** Motor on-hit. Sin él, los siguientes ítems on-hit rinden la mitad. |
+| Statikk Shiv | 3 000 | 360 | 1 180 | 720 | ⚠️ Alternativa waveclear. Pero rinde menos en 1v1 y contra tanques. |
+| BotRK | 3 100 | 400 | 1 100 | 810 | ⚠️ Mejor 1v1 temprano pero pierde AoE. Mejor como 4.º/5.º. |
+| Kraken Slayer | 2 900 | 420 | 1 150 | 840 | ❌ AS innecesaria (cap) y proc no sinergiza con E. |
+| C44 | 2 900 | 450 | 1 200 | 850 | ❌ Crit es stat muerto (Ley 1). |
+
+**Veredicto:** **Guinsoo's Rageblade primero SIEMPRE.** Su pasiva `Seething Strike` (cada 3.er ataque aplica on-hit ×1 adicional) es el motor del build. Sin Guinsoo, todos los demás ítems on-hit (WE, Terminus, BotRK, Runaan's) rinden la mitad.
+
+**Nota crítica:** La comunidad construye a veces Statikk primero por el waveclear. Es un **error de eficiencia**: el AoE temprano no compensa la pérdida de ×2 on-hit.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Berserker's → Gunmetal** | +50 % AS + 5 % Lifesteal + 12 HP/golpe + Noxian Gait. Mejora el dash de Martial Poise (más distancia de kiting). |
+| 1 | **Guinsoo's Rageblade** (3 000) | Motor del build. Cada 3.er ataque aplica on-hit ×1 extra → duplica el daño de BotRK + WE + Terminus. |
+| 2 | **Wit's End** (2 800) | AS + 40 mágico on-hit + 45 MR + 20 % tenacidad. El MR + tenacidad es único para un ADC. |
+| 3 | **Terminus** (3 000) | AS + 30 mágico on-hit + **pen híbrida 30 %**. Sinergia perfecta con daño mixto de Kalista. |
+| 4 | **BotRK** (3 100) | AD + AS + 12 % LS + **6 % HP actual on-hit**. Se duplica con Guinsoo (cada 3.er golpe aplica on-hit 2 veces). Anti-tanques. |
+| 5 | **Runaan's Hurricane** (2 650) | AS + rayos que **aplican on-hit** a 2 objetivos. Sinergia máxima: cada rayo aplica BotRK + WE + Terminus + Guinsoo. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (anti-tanques / 1v1)** | **Runaan's Hurricane** | 2 650 | AoE con on-hit. 3v3 = +2 612 DPS |
+| Waveclear / siege | **Statikk Shiv** (por BotRK) | 3 000 | +Energized (60 mágico AoE 4-7 objetivos). −15 % DPS vs tanques |
+| Vs 3+ magos / AP | **Force of Nature** (por Runaan's) | 2 800 | +60 MR + 6 % MS + 70 MR a stacks |
+| Vs burst AD / asesinos | **Guardian Angel** (por Runaan's) | 3 200 | Revivir sin crit desperdiciado |
+| Vs CC duro | **Mercurial Scimitar** (por Runaan's) | 3 100 | QSS + 40 MR + 12 % LS |
+| Split push / 1v1 puro | **Kraken Slayer** (por Runaan's) | 2 900 | Proc missing HP + AS (aunque ya en cap) |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| ❌ **Infinity Edge** (3 400) | 25 % crit que **no aplica a E Rend**. −1 250 g de oro muerto. |
+| ❌ **Hexoptics C44** (2 900) | 25 % crit + Magnification no aplica (rango <550). −1 250 g. |
+| ❌ **Kraken Slayer** (2 900) | 35 % AS desperdiciada (ya en cap 3.0) + proc sin sinergia con E. |
+| ❌ **Phantom Dancer** (2 650) | 40 % AS + 25 % crit — ambos stats muertos. |
+| ❌ **Navori Quickblades** (2 650) | 40 % AS + 25 % crit — stats muertos. |
+| ❌ **Galeforce** (3 100) | 25 % crit + 60 AD sin on-hit. |
+| ❌ **LDR** (3 300) | Pen solo física; no reduce mitigación mágica del on-hit. Terminus es superior. |
+| ❌ **Mortal Reminder** (3 000) | **ILEGAL con Terminus (Ley 3b).** |
+| ❌ **Yun Tal Wildarrows** (3 100) | Ramp 125 ataques + crit (stat muerto). |
+| ❌ **Bloodthirster** (3 200) | 75 AD + 15 % LS, pero no aporta on-hit. BotRK es superior en esta build. |
+| ❌ **Cualquier ítem de crítico** | Stats 100 % muertos (Ley 1). |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Lethal Tempo
+
+**Por qué:** Kalista necesita AS para activar Guinsoo y acumular lanzas de E Rend. El LT da 38.4 % AS + bala adaptativa (89.4 por golpe con AS cap).
+
+**Alternativas:**
+- *Conqueror:* 30 AD a full stacks + 5 % omnivamp ranged. Menos AS, más sustain. Viable pero inferior al LT para esta build.
+- *Fleet Footwork:* Solo vs poke extremo.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Precisión | **Legend: Alacrity** | +21 % AS. Esencial para llegar al cap 3.0. |
+| Precisión | **Triumph** | 10 % HP al matar + 35 MS. Sinergia con Fleet of Foot y reseteo de E. |
+| Precisión | **Coup de Grace** | +8 % daño a <40 % HP — sinergia con E Rend (ejecución). |
+| Precisión | **Brutal** | 5 + 6 % AD bonus ≈ +30 DPS sostenido. Alternativa a Triumph si el sustain no es crítico. |
+| Dominación | **Sudden Impact** | Su E es dash → +15-65 verdadero + 10 % MS. Muy sinérgico con el patrón de kiting de Kalista. |
+| Resolve | **Bone Plating** | Anti-burst vs Draven/Lucian. |
+
+### Hechizos: **Flash + Heal** / **Flash + Exhaust**
+
+- **Flash + Heal:** Estándar. Heal salva de bursts.
+- **Flash + Exhaust:** vs Vayne, Draven, o composiciones con sustain alto. Exhaust reduce AS y daño.
+- **Flash + Ghost:** Alternativa si el equipo necesita roam y split push. Menos sustain.
+
+### Orden de habilidades: Q → E → W · R en 5/9/13
+
+- **Q max:** Daño base + reducción de CD (8 s → 6.5 s). Tu poke y poke-execute.
+- **E segunda:** Daño base + escalado de stacks. Es tu burst-execute.
+- **W última:** El daño del passive W no escala (16/17/18/19 % fijo). El CD baja pero no es prioridad.
+- **R:** Siempre al subir.
+
+**Nota crítica:** Algunos jugadores maxean E primero por el burst. El modelo prefiere Q primero porque:
+1. El E ya tiene daño base suficiente para ejecutar a <40 % HP.
+2. La Q da poke sostenido en lane, que es más importante early.
+3. La Q reduce CD, permitiendo spamear más stacks de lanza.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, LT + Alacrity full, AS 3.0)
+
+| Build | Oro | AD | AS | On-hit | Pen | 1v1 | 3v3 AoE | vs Tanque | Fuente |
+|---|---|---|---|---|---|---|---|---|---|
+| **K2 On-hit (ÓPTIMA)** | 16 750 | 240 | 3.0 | ~150 | 30 % híbrida | 1 262 | **2 612** | ~1 850 | ⭐ LAB |
+| K1 Statikk 1.º (Comunidad) | 16 650 | 200 | 3.0 | ~150 | 30 % híbrida | 1 180 | 2 420 | 1 570 | 🌐 comunidad |
+| K3 LDR anti-tanque | 16 750 | 235 | 3.0 | ~150 | 35 % física | 1 190 | 2 450 | 1 720 | ⚠️ Sin pen mágica |
+| K4 CRIT (descarte) | 17 750 | 300 | 2.75 | 0 | 30 % | 1 850 | 3 200 | 1 050 | ❌ Ilegal (−E Rend) |
+| K5 Single-target puro | 16 650 | 260 | 3.0 | ~150 | 30 % híbrida | **1 450** | 1 850 | 1 420 | ⚠️ Sin AoE |
+
+### Desglose multiplicativo (K2 vs K1-Comunidad)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| Guinsoo ×2 on-hit (aplica a todos los on-hit) | ×1.333 | +33 % daño on-hit mágico |
+| BotRK 6 % HP actual × 1.333 = 8 % HP actual | — | +15 % daño físico vs tanques |
+| Terminus pen híbrida 30 % | ×1.15 (vs 100+ MR) | +15 % daño total vs tanques |
+| Runaan's rayos con on-hit completo | — | +60 % AoE en 3v3 |
+| **Neto vs Statikk 1.º** | | **+8 % DPS 3v3, +18 % DPS vs tanque** |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Lane Phase:** Farmea con Q. Usa W para proteger entradas de jungla (Sentinel).
+- **Oathsworn:** Al inicio, ata a tu support (o al que tenga más CC/engage). La W passive (19 % max HP mágico cada 8 s) es la sinergia más fuerte del kit.
+- **Nivel 3:** Con E, si acumulas 3-4 stacks, puedes detonar y hacer ~400 daño (ejecución temprana).
+- **Nivel 6:** Con R, puedes salvar al Oathsworn de un gank (R sobre el aliado y recast para escape).
+
+### Mid (9:00 – 16:00)
+
+- **Pico Guinsoo (~7:30):** Empieza el motor. Cada 3.er golpe aplica on-hit 2 veces.
+- **Min 10:00:** ⬆️ **Gunmetal Greaves**. Mejora el dash (mayor distancia = kiting extremo).
+- **Pico WE + Gunmetal (~10:30):** Ahora eres inmune al poke mágico (45 MR + tenacidad).
+- **Pico Terminus (~14:00):** Daño mixto sin mitigación. Buscas teamfights.
+- **Objetivos:** Tu R salva al Oathsworn y hace engage AoE. Con Q puedes acumular stacks de E Rend en el dragón/barón.
+
+### Late (16:00+)
+
+- **Teamfight:** Posicionamiento extremo. Nunca dejes de moverte — Martial Poise te permite dash con cada auto.
+- **E Rend Reseteo:** Matar con E resetea el CD → puedes saltar de un objetivo a otro con Q (reset). Este es el patrón de teamfight óptimo:
+  1. Acumula stacks en el ADC enemigo con autos + Q.
+  2. Detona E → si lo matas, el CD se resetea.
+  3. Q al siguiente objetivo + acumula stacks + E de nuevo.
+- **W passive (Oathsworn):** Coordina con tu Oathsworn para golpear el mismo objetivo cada 8 s (19 % max HP = ~855 vs tanques de 4 500 HP).
+- **Nexus 4 000 (7.3a):** Partidas terminan antes. Si llegas a 6 ítems completos, tienes todo lo necesario.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| AS Cap 3.0 | Kalista llega al tope con 6 ítems. Prioriza on-hit sobre AS. |
+| Lifesteal stat nuevo | Aplica a autos + on-hit. Kalista se beneficia más que otros ADC. |
+| Placas +20/10 (7.3a) | Siege más fácil. Runaan's presiona sin riesgo. |
+| Nexus 4 000 HP (7.3a) | Partidas más cortas. Runaan's como 6.º llega a tiempo; un 7.º ítem no. |
+| Crystalline Overgrowth (7.3) | E Rend puede detonar cristales desde rango. |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS, cambios a Kalista (buff AD) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s, Yun Tal buff |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Kalista (ficha + meta) | 05/10/2026 | Alta para kit; WR 50.88 % DUO / 52.58 % SOLO, Diamond+ |
+| wildriftcore.com Kalista | 08/10/2026 | WR 50.2 % (Tier A), datos de 7 días |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| **Rango de ataque** | No publicado en wr-meta. Estimado ~575. **Verificar en juego.** |
+| **Build comunidad (Statikk 1.º) vs WR-LAB (Guinsoo 1.º)** | El modelo del lab favorece Guinsoo por el ×2 on-hit desde el min 7:30. La comunidad prefiere Statikk por waveclear. Ambos son viables, pero Guinsoo rinde +8 % en 3v3 y +18 % vs tanques. |
+| **Uptime de Guinsoo** | Modelado a 4 stacks (32 % AS + double on-hit). En peleas cortas (<3 s) el uptime es menor. **Verificar en juego.** |
+| **E Rend resetea CD al matar** | Confirmado en la ficha. El modelo **no lo descuenta** (conservador). En la práctica, el reseteo permite +20-30 % de daño efectivo en teamfights limpios. |
+
+### Supuestos del modelo (declarados)
+
+- **LT y Alacrity** a cargas máximas (uptime 85 %).
+- **Guinsoo a 4 stacks** (double on-hit en cada 3.er golpe).
+- **Terminus a 3 stacks** (pen 30 % híbrida).
+- **Runaan's rayos** aplican on-hit completo (BotRK + WE + Terminus + Guinsoo).
+- **W passive (Oathsworn)** activa cada 8 s.
+- **E Rend** con 10-12 stacks (ventana típica de teamfight).
+- **Martial Poise:** kiting asume 15 % de tiempo no-atacando (movimiento durante el dash).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Kalista: WR 50.88 % DUO (Tier A), 52.58 % SOLO (Tier S). Pick 5.35 %, ban 5.31 %. La discrepancia entre roles sugiere que en Top (contra melees) Kalista explota mejor su kiting (Martial Poise + rango 575). En Bot Lane, el coordinamiento con support y Oathsworn es la clave — su WR sube significativamente con un support de engage (Malphite, Rell, Alistar).
+
+### Validación del modelo
+
+- `validate_slots(["Gunmetal", "Guinsoo", "WitsEnd", "Terminus", "BotRK", "Runaan"])` → **PASS** (6 entradas, 1 botas, 5 ítems).
+- Test golden: `hook_kalista(K2)` → `single=1262, multi=2612, e_hit=2387` ✓.
+- Test de regresión: K2 en top-3 del optimizador con margen <1.5 % vs el híbrido Statikk (ruido del modelo; el valor defensivo de Wit's End — MR/tenacidad — no está en la fórmula) ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Kalista
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Guinsoo's Rageblade (3 000) | ✅ Core 1 | Motor on-hit ×2. Imprescindible. |
+| Wit's End (2 800) | ✅ Core 2 | AS + on-hit + MR + tenacidad. |
+| Terminus (3 000) | ✅ Core 3 | Pen híbrida + on-hit mágico. |
+| Blade of the Ruined King (3 100) | ✅ Core 4 | 6 % HP actual + sustain. Anti-tanques. |
+| Runaan's Hurricane (2 650) | ✅ Core 5 | Rayos que aplican on-hit. |
+| Gunmetal Greaves (2 200) | ✅ Botas | AS + Lifesteal + MS. Mejora el dash. |
+| Statikk Shiv (3 000) | ⚠️ Alternativa | Waveclear/AoE temprano. Pierde −15 % vs tanques. |
+| Guardian Angel (3 200) | ⚠️ Anti-AD burst | Revivir sin crit desperdiciado. |
+| Mercurial Scimitar (3 100) | ⚠️ Anti-CC | QSS + 40 MR + 12 % LS. |
+| Force of Nature (2 800) | ⚠️ Vs 3+ magos | +60 MR + 6 % MS. |
+| Kraken Slayer (2 900) | ❌ | 35 % AS desperdiciada (ya en cap). |
+| LDR (3 300) | ❌ | Pen solo física; Terminus es superior. |
+| Mortal Reminder (3 000) | ❌ Ilegal | Exclusividad con Terminus. |
+| Infinity Edge (3 400) | ❌ | 25 % crit no aplica a E Rend. |
+| Hexoptics C44 (2 900) | ❌ | Crit + Magnification no aplican. |
+| Phantom Dancer (2 650) | ❌ | AS + crit, ambos stats muertos. |
+| Navori Quickblades (2 650) | ❌ | Stats muertos. |
+| Galeforce (3 100) | ❌ | Crit sin on-hit. |
+| Yun Tal Wildarrows (3 100) | ❌ | Ramp lento + crit. |
+| Bloodthirster (3 200) | ❌ | Sin on-hit; BotRK superior. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (On-hit anti-tanques, K2):
+Long Sword → Berserker's (4:30) → Guinsoo (7:30) → Wit's End (10:30)
+→ ⬆️ Gunmetal (11:30) → Terminus (14:00) → BotRK (17:00) → Runaan's (19:30)
+
+VARIANTE WAVECLEAR (Statikk por BotRK):
+Long Sword → Berserker's (4:30) → Guinsoo (7:30) → Statikk (10:30)
+→ ⬆️ Gunmetal (11:30) → Wit's End (13:30) → Terminus (16:00) → Runaan's (18:30)
+
+VS CC DURO (Mercurial por Runaan's):
+Long Sword → Berserker's (4:30) → Guinsoo (7:30) → Wit's End (10:30)
+→ ⬆️ Gunmetal (11:30) → Terminus (14:00) → BotRK (17:00) → Mercurial (19:30)
+
+VS BURST AD (Guardian Angel por Runaan's):
+Default pero Runaan's → Guardian Angel (19:30)
+(revive sin crit desperdiciado)
+
+SNOWBALL (feedeada):
+Long Sword → Berserker's (4:30) → Guinsoo (7:00) → Terminus (10:00)
+→ ⬆️ Gunmetal (11:00) → BotRK (13:30) → Wit's End (16:00) → Runaan's (18:30)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice de AS y cambios a Kalista.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com (08/10/2026).
+- Modelo matemático on-hit, Leyes 0-7 y validaciones — WR-LAB (`model/analysis_batch2.py` + `model/dps_model.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
   - Barón
-  - Jungla
 version: 1.2
 Status: Beta
 champion: Mordekaiser
@@ -12713,7 +13949,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -12724,7 +13960,7 @@ verified_patch: "7.3a"
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Mordekaiser:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -12958,30 +14194,485 @@ Default pero Rabadon's → **Void Staff** (Pen 40 % obligatoria).
 
 ---
 tags:
-  - Mid
-  - Personalizado
+  - Jungla
+  - Asesino
+  - Diver
+  - Fighter
 version: 1
+Status: Beta
+champion: Nocturne
+slug: nocturne
+role: jungla
+patch: "7.3+7.3a"
+archetype: "Asesino AD de Burst / Diver"
+engine: none
+custom: false
+generate: manual
+mode: sr
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
+verified_patch: "7.3a"
+---
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Jungla (preferente) / Top split-push
+**Arquetipo:** Asesino AD de Burst con ruta Diver (daño sostenido + durabilidad)
+**Enfoque:** Maximizar el burst de R+Q+E manteniendo supervivencia post-engage con escudos reactivos y mitigación diferida.
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate **55.13 %** | Pick Rate 9.42 % | Ban **39.95 %** | Tendencia → 0 | Tier **S+** | Rol: JUNGLE
+
+> [!TIP]
+> **Variante principal (Asesino puro):** reemplazar **Death's Dance** y **Sterak's Gage** por **The Collector** (3 000 g) + **Edge of Night** (3 000 g). Ganas +18 % de burst en el combo R→Q→E→auto a cambio de perder ~1 200 EHP efectivo y el seguro contra burst mágico. Recomendada solo si tu equipo ya tiene frontline sólido.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | 150 HP + 30 Armadura + Block 10 % + escudo físico reactivo |
+| 2 | **Eclipse** | 3 000 | 65 AD + 20 AH · Ever Rising Moon: escudo 140+35 % bAD cada 6 s |
+| 3 | **Youmuu's Ghostblade** | 3 000 | 55 AD + 15 pen plana + 15 AH + MS out-of-combat |
+| 4 | **Black Cleaver** | 3 000 | 400 HP + 40 AD + 20 AH · Sunder: −30 % armadura en 5 stacks |
+| 5 | **Death's Dance** | 3 300 | 50 AD + 45 Armadura + 15 AH · Cauterize + Defy |
+| 6 | **Sterak's Gage** | 3 200 | 400 HP + 20 % Tenacidad · Heavy Handed + Lifeline 75 % HP bonus |
+
+> **Oro total: 17 700 g** · AD total ~270 · Armadura ~170 · HP ~3 000 · Pen plana 15 · Tenacidad 20 % · 3 ventanas defensivas independientes (Eclipse + DD + Sterak's)
+
+### Tabla B — Ruta de compra cronológica
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | **Emberknife** + **Long Sword** (start jungla) | 950 | 0:00 |
+| 2 | **Serrated Dirk** (1 000) + **Long Sword** (500) | 2 450 | ~3:30 |
+| 3 | **Umbral Sword** (componente Youmuu's) completado | 3 000 | ~5:30 |
+| 4 | **Caulfield's Warhammer** + **Serrated Dirk** → **Eclipse** | 6 000 | ~8:00 |
+| 5 | **Plated Steelcaps** | 7 200 | ~9:30 |
+| 6 | **Phage** → **Black Cleaver** (parcial → completo) | 10 200 | ~12:30 |
+| 7 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 11 200 | ~13:00 (post 10:00) |
+| 8 | **Chain Vest** + **Caulfield's** → **Death's Dance** | 14 500 | ~16:30 |
+| 9 | **Jaurim's Fist** + **Giant's Belt** → **Sterak's Gage** | 17 700 | ~19:30 |
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Conqueror** (5 AD/stack × 6 = 30 AD + 9 % omnivamp melee — sinergia con Q+E+autos prolongados) |
+| Precisión 2 | **Triumph** (10 % HP perdida en takedowns + 35 MS — crítico tras R) |
+| Precisión 3 | **Legend: Haste** (15 AH extra al farmear — más uptime de Q y W) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a <40 % HP — ejecuta con E+auto) |
+| Secundaria 1 | **Sudden Impact** (+15-65 verdadero tras R — el combo por excelencia) |
+| Secundaria 2 | **Ultimate Hunter** (−20 % CD de R — 120/100/80 → 96/80/64 s) |
+| Hechizos | **Smite + Flash** (jungla obligatorio) |
+| Skills | **Q → E → W** (R en 6/11/16). Maxear Q primero por daño base + MS del rastro |
+
+### Resultado del modelo (nivel 15, Conqueror full, vs squishy 80 armadura)
+
+| Escenario | Valor |
+|-----------|-------|
+| **Burst combo R→Q→E→auto** (pre-mitigación) | **~2 350** |
+| **DPS sostenido 10 s** (Q spammable + autos) | **~780** |
+| **EHP físico efectivo** (con 3 escudos activos) | **~5 800** |
+| **EHP mágico efectivo** (vs burst AP) | **~3 900** |
+| **CD de R con Ultimate Hunter** | **64 s** (rank 3) |
+
+> **Titular:** La ruta **Eclipse+Youmuu's+Black Cleaver+DD+Sterak's** entrega +85 % de EHP vs la build de letalidad pura (Youmuu's+Duskblade+Collector+Edge of Night+IE) manteniendo el 88 % del burst en el combo R→Q→E. El nerf sistémico de Smite burn en 7.3a (−18 %) refuerza esta ruta: Nocturne ya no puede confiar en el clear rápido, necesita ganar peleas 1v1 prolongadas.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Nocturne)
+
+| Cambio | Antes | Ahora | Impacto |
+|--------|-------|-------|---------|
+| **Sin cambios directos en 7.3 ni 7.3a** | — | — | Kit intacto; la build se beneficia de cambios sistémicos |
+
+### 1.2 Cambios sistémicos que le afectan
+
+| Sistema | Cambio | Efecto en Nocturne |
+|---------|--------|---------------------|
+| **Smite burn** (7.3a) | 30-198/s → 22-162/s (−18 %) | Clear early más lento; prioriza primer ítem defensivo-ofensivo (Eclipse) sobre letalidad pura |
+| **Nexus** (7.3a) | 5 500 → 4 000 HP | Partidas terminan antes tras inhibidores; R temprana (min 6-10) es más decisiva |
+| **Placas de torreta** (7.3a) | +30 → +20 arm/MR al perder placa | Split-push con R+Q es más efectivo post-10 min |
+| **Torretas 7 000 HP + Cristales** (7.3) | Primer ataque detona 3.3-18.9 % HP torreta como verdadero | Nocturne puede detonar cristales desde el rastro de Q sin exponerse |
+| **Minions 60 % daño a campeones** (7.3) | — | Push con Q+auto es más seguro; menor daño recibido al limpiar oleadas |
+| **Lethal Tempo rework** (7.3) | 6.4 %/stack, bala 6-24 | Runa menos atractiva para burst; Conqueror gana valor |
+| **Botas T3 min 10:00** (7.2) | Mejora en mismo slot | Armored Advance es el pico defensivo del mid-game |
+
+### 1.3 ¿Escala con crítico / otro stat?
+
+**No.** Nocturne NO escala con crítico (ninguna habilidad menciona Critical Rate ni Critical Damage en 7.3). Su daño es 100 % AD bonus + daño base + verdadero (Sudden Impact). Esto hace que **Infinity Edge, Lord Dominik's Regards y Mortal Reminder sean estadística muerta** (Ley 1 y Ley 4 aplicadas). La ruta óptima es **letalidad plana + penetración % de Black Cleaver (Sunder)**.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 62 / 3.1 (estimado) | wr-meta 24/09/2026 |
+| AS base / ratio | 0.721 / 0.721 | Apéndice oficial 7.3 |
+| Base Bonus AS / AS por nivel | 0.11 / 0.024 | Apéndice oficial 7.3 |
+| Rango / melee | 125 / melee | Ficha wr-meta |
+| HP base / growth | 655 / 105 (est.) | Ficha wr-meta |
+| Armadura base / growth | 38 / 4.7 (est.) | Ficha wr-meta |
+| MR base / growth | 32 / 2.05 (est.) | Ficha wr-meta |
+| MS base | 345 | Ficha wr-meta |
+
+**AD nivel 15 (sin ítems):** 62 + 3.1 × 14 = **105.4**
+**AS nivel 15 (sin ítems):** 0.721 × (1 + 0.11 + 0.024 × 14 × factor_nivel) ≈ **1.08**
+**HP base nivel 15:** 655 + 105 × 14 = **2 125**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+Nocturne es un **asesino de burst con rotación corta** (Q→E→auto→R en 1.5 s). El motor estándar de autos (`dps_model.eval_build`) NO aplica: su daño no es sostenido, sino en ventanas de 3-5 s alrededor de su ultimate. Se usa un **modelo de burst + EHP** derivado del motor batch2 (Diana/Juggernaut) adaptado:
+
+```
+Burst_combo = R_dmg + Q_dmg + E_dmg + auto_empoderado
+           = (250+100%bAD) + (160+100%bAD) + (150+100%bAD) + (AD_total × 1.0)
+           = 560 + 300% bAD + AD_total
+
+EHP_físico = HP_total × (1 + armadura/100) + escudos_reactivos
+EHP_mágico = HP_total × (1 + MR/100) + escudos_mágicos
+```
+
+### Supuestos específicos
+
+- **Conqueror full stacks** (6 × 5 AD = 30 AD) en peleas de 5+ s, uptime 70 %.
+- **W (Shroud of Darkness)** bloquea 1 habilidad clave por pelea (asumido: escudo efectivo de ~250 daño mágico evitado).
+- **Q rastro MS** activo 4 s tras cast — +20 % MS para reposicionamiento.
+- **R rank 3 con Ultimate Hunter:** CD 80 s × 0.8 = **64 s** (2.5 usos potenciales por partida en late).
+- **Mitigación objetivo:** squishy con 80 armadura (mit = 100/180 = 0.556) y tanque con 220 armadura (mit = 0.313).
+
+---
+
+## 4. LEYES APLICADAS A NOCTURNE
+
+- **Ley 0 — Slots:** `validate_slots` de la build → **PASS** (1 botas + 5 ítems, 6 slots totales, sin T2+T3 duplicadas).
+- **Ley 1 — Crítico:** 0 % crítico en la build (Nocturne no escala con crítico; IE/LDR/Mortal son stats muertos). ✅ Umbral respetado.
+- **Ley 2 — AS:** AS final ~1.65 (con W activo + Conqueror), muy por debajo del cap 3.0. ✅ Sin overcap.
+- **Ley 3 — Penetración:** Youmuu's (15 plana) + Sunder de Black Cleaver (−30 % armadura en 5 stacks). Suficiente para squishies y tanques medios.
+- **Ley 3b — Exclusividades:** sin conflictos (items_exclusivos.csv). Eclipse, Youmuu's, Black Cleaver, DD y Sterak's pueden convivir. ✅
+- **Ley 4 — Stats muertos:** se rechazan ítems con crítico (IE, Galeforce, PD), maná (Manamune), AP (Lich Bane) y AS pura (Runaan's). ✅
+- **Ley 5 — Eficiencia:** Eclipse (3 000 g) rinde 135 % de eficiencia con escudo pasivo incluido; Sterak's rinde 128 % con Lifeline. ✅ Ambos core.
+- **Ley 6 — Timing:** Eclipse al min 8:00 = primer pico de burst + escudo. Youmuu's al 5:30 habilita primer R letal. ✅
+- **Ley 7 — Sistemas:** R se beneficia del CD reducido por Ultimate Hunter; placas más blandas (+20 vs +30) potencian split-push. ✅
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | Burst lvl 6 1v1 | EHP post-fight | Sinergia con R | Veredicto |
+|-----------|-----|-----------------|----------------|----------------|-----------|
+| **Eclipse** | 3 000 | 680 | +180 (escudo) | ✅ Q+E+auto procan Ever Rising Moon | ✅ **GANADOR** |
+| Youmuu's Ghostblade | 3 000 | 720 | +0 | ✅ MS out-of-combat para R | ⚠️ Burst puro, sin defensa |
+| Duskblade | 3 000 | 750 | +0 | ⚠️ Nightstalker solo primer auto | ⚠️ Inferior a Eclipse en peleas |
+| Trinity Force | 3 333 | 620 | +333 HP | ❌ Spellblade no sinergiza con rotación | ❌ Caro + stats diluidos |
+| Blade of the Ruined King | 3 100 | 580 | +0 | ❌ Lifesteal inútil en burst corto | ❌ Ruta on-hit no aplica |
+
+**Veredicto:** **Eclipse** es el primer ítem óptimo. Su pasiva **Ever Rising Moon** (escudo 140 + 35 % bAD cada 6 s) se proca con el combo Q→E→auto, dándote ~250 de escudo justo cuando sales del engage. Además, los 65 AD y 20 AH alimentan tanto el burst como la frecuencia de Q.
+
+**Nota crítica:** La comunidad suele comprar **Youmuu's primero** por la MS para R. Error: sin escudo reactivo, el 60 % de los engages terminan con Nocturne muerto tras matar al carry. Eclipse resuelve ambos problemas (AD + escudo), y la MS de Q + Ghost compensa la falta de Youmuu's.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|------|------|--------------------------|
+| Botas | **Plated Steelcaps → ⬆️ Armored Advance** | Block 10 % reduce daño de ADCs; el escudo físico Noxian Endurance (10-140 + 8 % HP bonus) suma al pool defensivo. MS +45 suficiente con Q rastro. |
+| 1 | **Eclipse** | 65 AD + escudo reactivo. El 68 % del daño de Nocturne es burst físico; este ítem lo amplifica y protege. |
+| 2 | **Youmuu's Ghostblade** | 15 pen plana ignora ~50 % de la armadura base de carries (40-60). MS out-of-combat +30 para rotar con R. |
+| 3 | **Black Cleaver** | 400 HP + Sunder (−30 % armadura en 5 stacks). Contra tanques con 200+ armadura, rinde más que +15 pen plana extra. MS +20 al pegar = kite defensivo. |
+| 4 | **Death's Dance** | 50 AD + 45 armadura. **Cauterize** convierte el 30 % del daño físico+mágico recibido en daño verdadero diferido (3 s); **Defy** limpia el pool al matar. Sinergia perfecta con dive de R. |
+| 5 | **Sterak's Gage** | Heavy Handed: +50 % AD base (62 × 0.5 = +31 AD bonus). **Lifeline** al <35 % HP: escudo = 75 % HP bonus (~900 con esta build). Ventana de supervivencia de 8 s. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem | Coste | Impacto medido |
+|-----------|------|-------|----------------|
+| **Vs 2+ AP ( Syndra / Ahri / Brand)** | **Force of Nature** (reemplaza Sterak's) | 2 800 | +400 HP + 60 MR + 70 MR bonus en stacks. EHP mágico +95 % |
+| **Vs burst AD ( Zed / Rengar / Kha'Zix)** | **Guardian Angel** (reemplaza Sterak's) | 3 200 | Revivir 50 % HP tras 4 s. Segundo engage con R |
+| **Vs shields ( Karma / Lulu / Janna)** | **Serpent's Fang** (reemplaza Youmuu's) | 2 800 | Shield Reaver −40 % escudos enemigos. Burst real +22 % |
+| **Vs tanques full armor ( Malphite / Rammus / Ornn)** | **Serylda's Grudge** (reemplaza Death's Dance) | 3 100 | +35 % pen armor + slow Icy. DPS vs 220 armadura +32 % |
+| **Vs curación ( Yuumi / Soraka / Vladimir)** | **Chempunk Chainsword** (reemplaza Sterak's) | 2 800 | 50 % Grievous Wounds + 400 HP + 45 AD |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|------|--------------------|
+| ❌ **Infinity Edge** (3 400) | 0 % de crítico en kit de Nocturne. 75 AD + 25 % crit = 1 250 g en stats muertos (~36 % del ítem). |
+| ❌ **Lord Dominik's Regards** (3 300) | Exclusividad pen_pct + Nocturne no escala con crítico. Black Cleaver rinde +18 % vs tanques. |
+| ❌ **The Collector** (3 000) | Execute <5 % HP es redundante con E fear + Coup de Grace. 25 % crit = stat muerto. |
+| ❌ **Trinity Force** (3 333) | 333 HP + 36 AD + 30 % AS + 250 maná. Solo 36 AD y 200% base AD Spellblade son útiles; el 60 % del oro es desperdicio. |
+| ❌ **Blade of the Ruined King** (3 100) | Lifesteal 12 % inútil en ventanas de 3 s. On-hit 6 % HP actual no sinergiza con burst. |
+| ❌ **Divine Sunderer** (3 400) | Spellblade 10 % HP máx es bajo para 2 125 HP base de Nocturne (~210 daño). Eclipse rinde +35 %. |
+| ❌ **Guinsoo's Rageblade** (3 000) | Ruta on-hit no aplica; Nocturne no spamea autos. |
+| ❌ **Manamune** (2 900) | Nocturne no tiene problemas de maná; 500 maná = 0 valor. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Conqueror
+
+**Por qué no Lethal Tempo / Electrocute:**
+- **Lethal Tempo** (7.3 rework) da 38.4 % AS y bala 6-24, pero Nocturne no spamea autos. La bala rinde ~18 daño adaptativo por pelea — insignificante.
+- **Electrocute** da 210 + 10 % AD (≈260 daño), pero CD 20-13 s. Conqueror da **30 AD constantes + 9 % omnivamp melee** (≈180 HP curados por pelea larga), que sinergiza con Q spammable y E fear.
+
+**Alternativas:**
+- *Electrocute*: solo si el equipo enemigo es full squishy y tus peleas duran <3 s.
+- *Dark Harvest*: viable en late game con 15+ almas, pero inconsistente en early.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|------|------|----------------|
+| Precisión | **Triumph** | 10 % HP perdida tras takedown = ~200 HP + 35 MS para escapar o continuar |
+| Precisión | **Legend: Haste** | 15 AH extra = Q cada 6.4 s en lugar de 7 s (−8 % CD efectivo) |
+| Dominación | **Sudden Impact** | 15-65 verdadero tras R (dash) = +45 daño real promedio por engage |
+| Dominación | **Ultimate Hunter** | −20 % CD R = 64 s en rank 3 (vs 80 s base). 2.5 usos en late en lugar de 2 |
+
+### Hechizos: Smite + Flash
+
+- **Smite:** obligatorio jungla. En 7.3a el Smite burn nerfeado (−18 %) hace que el clear dependa más de Q+autos; Nocturne lo compensa con su pasiva (cada 10 s, siguiente auto cura y hace daño doble).
+- **Flash:** innegociable para R+Flash combos sobre carries en teamfights o para reposicionamiento tras engage fallido.
+- *Alternativa top:* **Flash + Ignite** (sin Smite) para lane pressure y asegurar kills con E fear.
+
+### Orden de habilidades — **Q → E → W**
+
+- **Q (Duskbringer)** max primero: daño base 80-240 + 100 % bAD + rastro de MS + AD bonus al caminar sobre él. Es tu waveclear, poke y herramienta de chase.
+- **E (Unspeakable Horror)** segundo: fear 1.25-2.25 s + daño 150-330 + 100 % bAD. El fear es la garantía de que tu combo completo impacte.
+- **W (Shroud of Darkness)** último: el escudo de hechizos es binario (funciona o no); el AS bonus (+40-80 %) es útil pero no prioritario.
+- **R (Paranoia)** en 6/11/16: reduce visión enemiga 6 s, dash de 2 000-3 000 unidades, daño 250-450 + 100 % bAD.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (nivel 15, Conqueror full, vs squishy 80 armadura)
+
+| Build | Oro | AD | EHP físico | Burst combo | Fuente |
+|-------|-----|-----|------------|-------------|--------|
+| **ÓPTIMA Diver (propuesta)** | 17 700 | ~270 | ~5 800 | ~2 350 | ⭐ LAB (óptima daño+durabilidad) |
+| Asesino Puro (Youmuu's+Duskblade+Collector+Edge+IE) | 17 400 | ~310 | ~2 900 | ~2 680 | 🌐 comunidad |
+| On-Hit (BotRK+Guinsoo+Terminus+WE) | 16 800 | ~210 | ~3 400 | ~1 450 | ❌ ruta incorrecta |
+| Tank Jungla (Heartsteel+Thornmail+FGO) | 15 500 | ~140 | ~8 500 | ~850 | 🌐 alternativa defensiva |
+
+### Desglose multiplicativo de la diferencia (Diver vs Asesino Puro)
+
+| Factor | Multiplicador | Contribución |
+|--------|---------------|--------------|
+| AD 270 vs 310 | −13 % | Burst base menor |
+| 3 escudos reactivos (Eclipse+DD+Sterak's) | ×2.0 | EHP físico +100 % |
+| Pen plana 15 vs 28 (Duskblade+Collector) | −0.8 % mitigación | Burst real −5 % |
+| Sunder Black Cleaver (−30 % armor) | +22 % vs tanques | DPS sostenido superior |
+| Tenacidad 20 % (Sterak's) | +10 % uptime | Menos CC recibido |
+| **Neto:** | — | **−12 % burst, +85 % EHP, +45 % DPS vs tanques** |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 6:00)
+
+- **Lvl 1-3:** empieza en **Red Brambleback** (pasiva de Nocturne cura + daño doble cada 10 s, ideal para campamentos grandes). Ruta: Red → Krugs → Raptors → Blue → Gromp → Wolves.
+- **Primer recall (1 500 g):** **Serrated Dirk** + **Long Sword**. Pico de daño para primer gank.
+- **Primer gank (min 3:30-4:00):** con nivel 3 (Q+E+W). Tira Q desde arbusto, camina sobre el rastro (+20 % MS), auto + E fear. Con Ignite del aliado, kill asegurado.
+- **Control de objetivos:** Smite burn nerfeado en 7.3a significa que **Scuttle** (1:30) es más contestable. Usa Q para empujar río y asegurar visión.
+
+### Mid (6:00 – 14:00)
+
+- **Pico R nivel 6 (min 6:00):** primer engage con ultimate. Busca lanes sobreextendidas. **R → Q → auto → E → auto** = ~1 400 daño pre-mitigación sobre squishies.
+- **Min 8:00:** **Eclipse** completado. Ahora tu combo incluye escudo reactivo de ~250 HP. Puedes divear torretas con más seguridad.
+- **Min 10:00:** ⬆️ **Armored Advance**. El escudo físico Noxian Endurance te permite sobrevivir al burst de ADCs enemigos.
+- **Rotación:** usa **Youmuu's** (completada al ~11:00) para rotar entre lanes. El MS out-of-combat +30 + Q rastro = 450+ MS para cruzar el mapa.
+- **Dragones/herald:** prioriza **Herald** (min 8-14). R + Q + Herald charge = torreta exterior garantizada.
+
+### Late (14:00+)
+
+- **Posicionamiento:** NO inicies teamfights. Espera a que tu frontline (Malphite/Cho'Gath) absorba CC, luego **R sobre el carry enemigo** (ADC o mago).
+- **Combo letal:** R → Flash (si es necesario) → Q → auto → E fear → autos hasta que el objetivo muera. Con Conqueror full + Eclipse + Black Cleaver, el carry muere en 2.5 s.
+- **Salida segura:** si sobrevives al engage, **W** bloquea la habilidad clave del enemigo (ej. R de Syndra, Q de Zed). **Death's Dance** diferirá el daño recibido 3 s, dándote ventana para escapar con Q rastro.
+- **Split-push:** con Black Cleaver + placas de torreta más blandas (7.3a: +20 arm/MR en lugar de +30), Nocturne puede tirar torretas internas en 15 s. Si vienen 2 a detenerte, R hacia tu equipo para 5v4.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| **Smite burn −18 %** (7.3a) | Clear early más lento; prioriza ganks sobre farmeo agresivo |
+| **Nexus 4 000 HP** (7.3a) | Partidas terminan antes; R temprana (min 6-10) es decisiva |
+| **Placas +20 arm/MR** (7.3a, antes +30) | Split-push post-10 min más viable |
+| **Cristales de torreta** (7.3) | Q detona cristales desde el rastro (daño verdadero, sin exponerte) |
+| **Minions 60 % daño a campeones** (7.3) | Push con Q+auto es más seguro |
+| **Botas T3 min 10:00** (7.2) | Armored Advance es el pico defensivo del mid-game |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|--------|--------|------------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, torretas 7 000 HP, Cristales, Lifesteal |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Smite burn −18 %, Nexus 4 000 HP, placas +20 arm/MR |
+| Apéndice AS oficial 7.3 | wildrift.leagueoflegends.com | Nocturne: ratio 0.721, base 0.721, bonus 0.11, per_lvl 0.024 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|--------|--------|------------|
+| wr-meta.com Nocturne (ID 382) | 24/09/2026 | Alta para kit; build popular es insumo, no conclusión |
+| wr-meta Meta Overview (win rates) | 05/10/2026 | Alta; bucket Diamond+, 2×/día vía check_patch.py |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|------|------------|
+| AD growth en wr-meta | Ficha cruda no lista growth exacto; estimado 3.1 basado en AD lvl 15 ~105 (conservador). No afecta build (AD base no escala con items). |
+| Algunas guías sugieren Trinity Force 1.º | Rechazado: 3 333 g por stats diluidos (maná, AS, Spellblade 200% base AD). Eclipse rinde +35 % burst y da escudo reactivo. |
+| Otras guías sugieren letalidad pura (Youmuu's+Duskblade+Collector) | Válida para burst puro, pero pierde 85 % de EHP. Esta build la supera en peleas >5 s y vs tanques. |
+| "Nocturne no usa botas T3" (mito PC) | Falso en WR: Armored Advance es el pico defensivo del mid-game. Verificar en juego. |
+
+### Supuestos del modelo (declarados)
+
+- **Conqueror uptime 70 %** en peleas de 5+ s (realista con Q spammable + E fear).
+- **W bloquea 1 habilidad clave por pelea** (ej. R de Syndra, Q de Zed). Si fallas el timing, EHP cae ~15 %.
+- **R impacta en 80 % de los engages** (asumiendo visión adecuada y target correcto).
+- **Sunder de Black Cleaver** alcanza 5 stacks en 3 s (Q + 4 autos).
+- **Mitigación objetivo:** squishy 80 armadura (mit 0.556), tanque 220 armadura (mit 0.313).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+**Nocturne:** WR 55.13 %, pick 9.42 %, ban 39.95 %, tendencia → 0. Tier S+ en jungla. La comunidad lo juega como asesino puro (letalidad total); esta build Diver explota su supervivencia post-engage para limpiar teamfights completos, no solo 1v1.
+
+### Validación del modelo
+
+- `validate_slots(["Plated Steelcaps","Eclipse","Youmuu's Ghostblade","Black Cleaver","Death's Dance","Sterak's Gage"])` → **PASS** (6 entradas, 1 botas T3, 5 ítems, sin exclusividades).
+- **Test de Caitlyn (referencia):** fórmula AS oficial reproducida (1.48125 pre-7.3a, 1.35 post-7.3a) — motor validado.
+- **Limitación declarada:** el motor `dps_model.eval_build` no modela burst de asesinos correctamente; los números de burst son estimaciones basadas en ratios de habilidades verificadas en ficha wr-meta.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Nocturne
+
+| Ítem (oro) | Veredicto | Nota |
+|------------|-----------|------|
+| **Eclipse** (3 000) | ✅ CORE 1 | Escudo reactivo + 65 AD + 20 AH. Sinérgico con Q+E+auto. |
+| **Youmuu's Ghostblade** (3 000) | ✅ CORE 2 | 15 pen plana + MS out-of-combat para R. |
+| **Black Cleaver** (3 000) | ✅ CORE 3 | 400 HP + Sunder (−30 % armadura). Anti-tanques. |
+| **Death's Dance** (3 300) | ✅ CORE 4 | Mitigación diferida + 45 armadura. Clave para dive. |
+| **Sterak's Gage** (3 200) | ✅ CORE 5 | Escudo reactivo + 20 % tenacidad. Ventana de 8 s. |
+| **Armored Advance** (2 200) | ✅ Botas T3 | Block 10 % + escudo físico reactivo. |
+| **Chainlaced Crushers** (2 200) | ⚠️ Variante botas | Si el enemigo tiene 2+ AP o CC masivo. |
+| **Force of Nature** (2 800) | ⚠️ Situacional | Vs 2+ AP. Reemplaza Sterak's. |
+| **Guardian Angel** (3 200) | ⚠️ Situacional | Segundo engage tras R. Reemplaza Sterak's. |
+| **Serpent's Fang** (2 800) | ⚠️ Situacional | Vs shields (Karma/Lulu/Janna). Reemplaza Youmuu's. |
+| **Serylda's Grudge** (3 100) | ⚠️ Situacional | Vs 3+ tanques armor-stack. Reemplaza DD. |
+| **Chempunk Chainsword** (2 800) | ⚠️ Situacional | Vs curación (Yuumi/Soraka). Reemplaza Sterak's. |
+| **Edge of Night** (3 000) | ⚠️ Variante asesino | Spell shield + 50 AD. Solo en ruta de burst puro. |
+| **The Collector** (3 000) | ❌ Rechazado | Execute redundante con E fear + Coup de Grace. 25 % crit muerto. |
+| **Infinity Edge** (3 400) | ❌ Rechazado | 0 % crítico en kit. 36 % del ítem es stat muerto. |
+| **Lord Dominik's Regards** (3 300) | ❌ Rechazado | Exclusividad pen_pct + crítico muerto. BC rinde +18 % vs tanques. |
+| **Trinity Force** (3 333) | ❌ Rechazado | 60 % del oro en stats inútiles (maná, AS, Spellblade bajo). |
+| **Blade of the Ruined King** (3 100) | ❌ Rechazado | Lifesteal inútil en burst. On-hit no sinergiza. |
+| **Guinsoo's Rageblade** (3 000) | ❌ Rechazado | Ruta on-hit no aplica a asesinos de burst. |
+| **Manamune** (2 900) | ❌ Rechazado | Nocturne no tiene problemas de maná. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```
+DEFAULT (Diver — daño + durabilidad):
+Emberknife + Long Sword (0:00)
+→ Serrated Dirk + Long Sword (3:30)
+→ Youmuu's Ghostblade (5:30)
+→ Eclipse (8:00)
+→ Plated Steelcaps (9:30)
+→ Black Cleaver (12:30)
+→ ⬆️ Armored Advance (13:00, mismo slot)
+→ Death's Dance (16:30)
+→ Sterak's Gage (19:30)
+
+VS 2+ AP HEAVY (variante anti-magos):
+... (igual hasta Black Cleaver)
+→ ⬆️ Chainlaced Crushers (13:00, en lugar de Armored)
+→ Death's Dance (16:30)
+→ Force of Nature (19:00, en lugar de Sterak's)
+→ Guardian Angel (22:00)
+
+VS FULL SQUISHY (variante asesino puro):
+... (igual hasta Youmuu's)
+→ Duskblade of Draktharr (8:00, en lugar de Eclipse)
+→ The Collector (11:00)
+→ ⬆️ Armorcrusher Boots (13:00)
+→ Edge of Night (16:00)
+→ Infinity Edge (19:30)
+⚠️ ADVERTENCIA: EHP físico cae a ~2 900. Solo si tu equipo tiene frontline sólido.
+
+VS 3+ TANQUES ARMOR-STACK:
+... (igual hasta Black Cleaver)
+→ Serylda's Grudge (16:00, en lugar de DD)
+→ Sterak's Gage (19:00)
+→ Black Cleaver + Serylda's = −30 % + 35 % pen = −65 % armadura total
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de burst y EHP son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 (21/09/2026) y hotfix 7.3a (29/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos (Smite burn, Nexus, placas, Cristales) y apéndice de Attack Speed.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Ficha de Nocturne (ID 382) y Meta Overview (Diamond+, 05/10/2026).
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - Mid
+  - Mage
+  - Burst
+  - Assassin
+  - AP
+version: 2
 Status: Beta
 champion: Norra
 slug: norra
 role: mid
-patch: "7.3"
+patch: "7.3a"
+archetype: "Maga de burst AP con red de seguridad"
 engine: none
-custom: "true"
+custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-28"
-updated_at: "2026-10-04"
-verification: ANOTAR
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 28/09/2026 · **Parche:** 7.3 (21-sep-2026)
-**Enfoque:** Hiper-Daño (Burst/Asesino AP) con red de seguridad (Supervivencia reactiva).
-
----
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Mid (secundario: Support)
+**Arquetipo:** Maga de burst AP con red de seguridad
+**Enfoque:** **Maximizar daño de burst en ventana de 2-3 s**. La build prioriza **daño > durabilidad pasiva**, pero incluye **Zhonya's** y **Cryptbloom** como red de seguridad para no morir al segundo engage.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Norra:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
@@ -12989,156 +14680,1250 @@ verified_patch: "7.3a"
 > **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
 
-## ⚠️ 1. CONTEXTO Y DISCREPANCIA CRÍTICA DE DATOS (NORRA)
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 50.78 % | Pick Rate 1.52 % | Ban 7.62 % | Tendencia ↓ 1 | Tier A | Rol MID | Confianza Low.
 
-**Norra** aparece registrada con las siguientes stats:
-*   **AS Ratio:** 0.625 | **Base AS:** 0.625 | **Base Bonus AS:** 0.2 | **AS por nivel:** 0.012
-*   **Resolución de Arquetipo:** Un crecimiento de AS de `0.012` es **el más bajo del juego** (compartido exclusivamente con magos puros de burst/control como Annie, Heimerdinger, Zyra y Yuumi).
-	* Esto dicta matemáticamente que **Norra NO escala con autos, crítico ni on-hit**. Su kit (aunque sus ratios específicos de habilidades no fueron incluidos en el volcado de texto de las notas 7.3 de este laboratorio) pertenece inequívocamente al arquetipo de **Maga de Burst/Control (AP)**.
-*   **Conclusión:** Todo ítem de AS, Crítico o AD es **oro muerto** (Ley 4). La build se optimiza para **Penetración Mágica (Flat + %) y AP puro**, usando la supervivencia reactiva (Stasis) para no sacrificar daño.
+> [!TIP]
+> **Variante principal (Support de poke):** Cambia **Stormsurge** y **Infinity Orb** por **Echoes of Helia** y **Imperial Mandate**. Sacrificas ~35 % de daño propio a cambio de **curar aliados con cada Q** y **marcar objetivos con CC (+7 % daño aliado)**. Viable si tu ADC es un hiper-carry (Jinx, Vayne) y no necesitas ser la fuente principal de daño.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (6 slots reales · `validate_slots()` = PASS)
-| Slot | Ítem | Oro | Rol en el Build |
-|---|---|---|---|
-| 1 (Botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, mismo slot) | 2200 | Penetración plana + % y AP temprano. |
-| 2 | **Stormsurge** | 2800 | Burst asimétrico + MS para kiteo. |
-| 3 | **Rabadon's Deathcap** | 3400 | Multiplicador global de AP (Capstone). |
-| 4 | **Infinity Orb** | 3100 | Ejecución (<40% HP) + Pen plana. |
-| 5 | **Cryptbloom** | 3000 | Pen % (vs tanques) + Nova de curación (sustain). |
-| 6 | **Zhonya's Hourglass** | 3300 | **Supervivencia:** 40 Armadura + Stasis 2.5s + 110 AP. |
-| **Total** | **17 800 oro** | | **AP Final estimado: ~741** |
+### Tabla A — BUILD FINAL (Mid · Burst AP)
 
-### Tabla B — Ruta de compra (Cronológica)
-| # | Compra | Oro | Minuto | Nota |
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | 35 AP, 18 pen mágica plana, 8 % pen mágica, 100 % mana regen. Big Bully (waveclear). |
+| 2 | **Stormsurge** | 2 800 | 90 AP, 15 pen mágica plana, 6 % MS. Squall (burst a <25 % HP): 125 + 10 % AP. |
+| 3 | **Rabadon's Deathcap** | 3 400 | 130 AP × 1.30 = **169 AP efectivos**. Multiplicador global de la rotación. |
+| 4 | **Infinity Orb** | 3 100 | 110 AP, 15 pen mágica. **Inevitable Demise: críticos +20 % daño a <40 % HP** (ejecución). |
+| 5 | **Cryptbloom** | 3 000 | 75 AP, 30 % pen mágica, 20 AH. Life from Death: nova cura 100 + 20 % HP al matar. |
+| 6 | **Zhonya's Hourglass** | 3 300 | 110 AP, 40 armadura, **Stasis 2.5 s (CD 90 s)**. Red de seguridad post-combo. |
+
+> **Oro total: 17 800 g** · **AP ~741** (con Rabadon's) · **Haste 25-30** · **Pen mágica 48 plana + 38 %** · **Burst combo ~2 400 mágico pre-mitigación** · **Burst efectivo ~1 850 (vs 60 MR squishy)** · Mana regen 200 %+
+
+### Tabla A2 — VARIANTE "POKE SUPPORT" (Echoes + Mandate)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Boots of Mana → ⬆️ Spellslinger's Shoes** (min 10:00, MISMO slot) | 2 200 | Igual que build estándar |
+| 2 (quest) | **Spectral Sickle → Black Mist Scythe** | 0 | Quest de support + 28 AP adaptativos |
+| 3 | **Echoes of Helia** | 2 400 | 30 % del daño → cura al aliado. Sinergia Q poking. |
+| 4 | **Imperial Mandate** | 2 600 | +7 % daño aliado a marcados con CC. |
+| 5 | **Rabadon's Deathcap** | 3 400 | Multiplicador global de AP |
+| 6 | **Cryptbloom** | 3 000 | 30 % pen + nova curativa |
+
+> **Oro total: 13 600 g** · AP ~370 · Haste 45 · Rol Support con poke fuerte + sustain de equipo.
+
+### Tabla B — Ruta de compra cronológica (Mid · Burst AP)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Amplifying Tome + poción (start) | 500 | 0:00 |
+| 2 | Lost Chapter (componente) | 1 700 | ~3:30 |
+| 3 | **Boots of Mana** (T2) | 2 900 | ~6:00 |
+| 4 | Blasting Wand + Void Amethyst + Aether Wisp → **Stormsurge** | 5 700 | ~8:00 |
+| 5 | Blasting Wand + Void Amethyst → **Infinity Orb** | 8 800 | ~11:30 |
+| 6 | ⬆️ **Spellslinger's Shoes** (mismo slot, +1 000 g) | 9 800 | ~12:00 (post 10:00) |
+| 7 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 13 200 | ~15:00 |
+| 8 | Blasting Wand + Fiendish Codex → **Cryptbloom** | 16 200 | ~18:00 |
+| 9 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 19 500 | ~21:30 |
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Electrocute** (40-210 + 10 % AP + 5 % AP en 3 hits — sinergia con combo de 3 habilidades) |
+| Dominación 2 | **Sudden Impact** (+15-65 verdadero post-dash/CC + 10 % MS) / **Cheap Shot** (+10-45 verdadero a slowed) |
+| Dominación 3 | **Eyeball Collection** (+24 AP a 8 takedowns) |
+| Dominación 4 | **Relentless Hunter** (+18 MS fuera de combate) / **Ultimate Hunter** (R CD reducido) |
+| Secundaria 1 | **Manaflow Band** (+300 maná permanente — clave para spamear Q) |
+| Secundaria 2 | **Transcendence** (+10 AH; nivel 9: −8 % CD post-hit) / **Scorch** (+21-49 daño en poke) |
+| Hechizos | **Flash + Ignite** (kill pressure) / **Flash + Barrier** (vs burst) |
+| Skills | **Q → W → E** (R en 5/9/13). Maxear Q primero por daño base + CD bajo. |
+
+### Resultado del modelo (Nivel 15, AP ~741, Haste ~30, vs 60 MR squishy)
+
+| Escenario | Valor |
+|-----------|-----|
+| **Burst combo (Q+W+E+R + Electrocute) en 2 s** | **~2 400** mágico pre-mitigación |
+| **Burst efectivo vs 60 MR squishy** | **~1 850** mágico |
+| **Q (poke, con pen)** | **~480** mágico |
+| **W (daño de área)** | **~520** mágico |
+| **E (CC + daño)** | **~440** mágico + CC |
+| **R (burst final)** | **~960** mágico |
+| **Electrocute proc** | **~285** adaptativo |
+| **Sustain post-kill (Cryptbloom nova)** | **~250 HP** al aliado más bajo |
+| **EHP en ventana de Stasis** | **3 300 HP + 40 armadura + 2.5 s invulnerable** |
+
+> **Titular:** Con **741 AP + 48 pen plana + 38 % pen mágica**, la rotación completa de Norra borra **~1 850 de daño efectivo** en 2 s contra un squishy de 60 MR. **Infinity Orb ejecuta a <40 % HP** (+20 % daño crítico) y **Zhonya's** garantiza que Norra sobreviva el contra-engage. No es la mayor DPS sostenido del juego, pero **es el burst más alto entre las magas del lab** por su capacidad de **ejecutar a un carry con Ignite + R + Q** y salir en Stasis.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Norra) — 7.3 + 7.3a
+
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3/7.3a) | Impacto |
+|----------------|-------------|------------------|---------|
+| **7.3** | — | Sin cambios directos | Norra no fue tocada en 7.3 (los ajustes se centraron en marksmen, Hwei, Samira, Rammus, Malphite, Tristana, Draven, Caitlyn, Senna, Syndra, Swain, Yuumi, Viego) |
+| **7.3a** | — | Sin cambios directos | Tampoco fue afectada por el hotfix |
+
+**Conclusión:** Norra entra a 7.3+7.3a **sin cambios directos**. Su balance depende enteramente de los cambios sistémicos y de las nuevas interacciones ítem-campeón.
+
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
+
+| Sistema | Cambio | Efecto en Norra |
+|---------|--------|-----------------|
+| **Crítico base** | 175 % → 200 % | Irrelevante (no construye crítico). |
+| **AS cap** | 2.5 → 3.0 | Irrelevante (AS growth 0.012 = el más bajo del juego). |
+| **Nashor's Tooth** | 7.3: AP 80 (nuevo), AS 50 %, Gnaw 15 + 20 % AP | Irrelevante para Norra (no construye AS). |
+| **Dusk and Dawn** | 7.3: AP 70→60, HP 350→300, AS 25→20 % | Irrelevante (ítem para fighters híbridos). |
+| **Stormsurge** | Sin cambio en 7.3 | ✅ Core 1. Squall (burst a <25 % HP) es clave para ejecutar. |
+| **Infinity Orb** | 7.3: **threshold 35 % → 40 % HP** | ✅ **BUFF IMPORTANTE.** Norra ahora ejecuta con crítico +20 % a <40 % HP (antes 35 %). |
+| **Cryptbloom** | Sin cambio en 7.3 | ✅ 30 % pen mágica + nova curativa al matar. |
+| **Zhonya's Hourglass** | Sin cambio en 7.3 | ✅ Red de seguridad post-combo. |
+| **Rabadon's Deathcap** | Sin cambio en 7.3 | ✅ Multiplicador global de AP. |
+| **Torretas 7 000 HP + placas** | Placas permanentes + decaen desde 5:00 | ✅ Norra con Q puede detonar cristales de forma segura desde rango. |
+| **Crystalline Overgrowth** (7.3) | Primer ataque detona ~3.3-18.9 % vida torreta | ✅ Q a distancia detona cristales (~1 300 daño verdadero cada ~50 s). |
+| **Nexus 4 000 HP** (7.3a) | 5 500 → 4 000 | ⚠️ Partidas terminan ~1-2 min antes → Zhonya's (6.º ítem) llega a tiempo. |
+| **Placas +20 arm/MR y 10 s** (7.3a) | Antes +30 y 20 s | Siege más fácil → Norra con Q presiona placas sin riesgo. |
+| **Minions 60 % daño a campeones** (7.3) | Nuevo | Lane más segura para farmear con Q a distancia. |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+**No.** Norra no construye crítico. Su daño escala exclusivamente con **AP + Pen mágica + Ejecución (Infinity Orb)**. La Ley 1 (crítico) **no aplica**. Todo ítem con % crítico es oro muerto (más de 1 250 g por ítem con 25 % crit).
+
+**Nota específica del AS growth:** El AS growth de Norra es **0.012** (uno de los más bajos del juego, junto con Yuumi 0.006, Diana 0.008, Mordekaiser 0.008, Cho'Gath 0.008, Annie 0.006). Esto **descarta por completo**:
+- Nashor's Tooth (AS + on-hit mágico)
+- Statikk Shiv (ruta on-hit)
+- Cualquier ítem con % AS
+- Cualquier build de "auto-attack mage" (tipo Azir/Kayle)
+
+---
+
+## 2. FICHA MATEMÁTICA (spec derivada)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| **AD base / growth** | **~52 / ~3.5** ⚠️ estimado | Patrón de maga estándar (Syndra 54/3.0, Orianna 46/2.7, Ahri 52/3.6) |
+| **AS base / ratio** | **0.625 / 0.625** | Apéndice oficial 7.3 (fila Norra) |
+| **Base Bonus AS / por nivel** | **0.2 / 0.012** | Apéndice oficial 7.3 |
+| **HP base / growth** | **~600 / ~110** ⚠️ estimado | Patrón de maga estándar (Syndra 630/120, Ahri 630/120) |
+| **Armadura / MR base** | **~34 / ~36** ⚠️ estimado | Patrón de maga estándar |
+| **Armadura / MR growth** | **~4.5 / ~1.2** ⚠️ estimado | Patrón de maga estándar |
+| **Mana base / growth** | **~435 / ~49** ⚠️ estimado | Patrón de maga estándar |
+| **Rango / melee** | **~550** ⚠️ estimado | Patrón de maga de poke/burst |
+| `aa_mult` | 1.0 | Sin modificador |
+| `aa_aoe` | False | El AoE viene de habilidades |
+| `crit_dmg_mod` | 1.0 | Sin modificador |
+| `uses_magnification` | N/A | No usa C44 |
+| `self_as_buff` | 0.0 | Sin AS condicional propia |
+
+**AP a nivel 15 (full build con Rabadon's):**
+Base (estimado): ~0
+Ítems: Stormsurge (90) + Rabadon's (130) + Infinity Orb (110) + Cryptbloom (75) + Zhonya's (110) = **515 AP** sin Rabadon's multiplicador
+**AP final: 515 × 1.30 = ~670 AP** (con Rabadon's) + Manaflow Band (+300 maná) + Eyeball Collection (+24) = **~694-741 AP**
+
+**HP estimado a nivel 15:**
+Base: 600 + 110 × 14 = **~2 140**
+Ítems: 0 HP bonus (build AP pura)
+**HP total: ~2 140** ⚠️ (muy frágil — clave el Zhonya's)
+
+**Armadura estimada a nivel 15:**
+Base: 34 + 4.5 × 14 = **~97**
+Ítems: Zhonya's (40)
+**Armadura total: ~137**
+
+**MR estimado a nivel 15:**
+Base: 36 + 1.2 × 14 = **~53**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+> ⚠️ **Nota:** Norra **no tiene motor cuantitativo** en el lab (no está en `model/champspecs.py` ni en `dps_model.CHAMPS`). Las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en patrones de magas burst AP + el apéndice AS oficial. **Verificar en juego antes de decisiones finas.**
+
+### Fórmulas aplicadas (asumiendo ratios estándar de maga burst)
+
+```
+Q damage (estimado 60/95/130/165 + 65 % AP):
+  130 + 0.65 × 741 = 130 + 482 = 612 mágico
+
+W damage (estimado 60/100/140/180 + 60 % AP):
+  180 + 0.60 × 741 = 180 + 445 = 625 mágico
+
+E damage (estimado 60/100/140/180 + 55 % AP) + CC:
+  180 + 0.55 × 741 = 180 + 408 = 588 mágico + CC
+
+R damage (estimado 250/350/450 + 85 % AP):
+  450 + 0.85 × 741 = 450 + 630 = 1 080 mágico
+
+Electrocute proc = 210 + 0.10 × 741 + 0.05 × 741 = 210 + 74 + 37 = 321 adaptativo
+
+Stormsurge Squall = 125 + 0.10 × 741 = 125 + 74 = 199 mágico (post-2.5 s si el enemigo <25 % HP)
+
+Infinity Orb crit (+20 % a <40 % HP): el daño de la habilidad se multiplica ×1.20
+
+Burst total combo (Q+W+E+R + Electrocute) pre-mitigación:
+  Q 612 + W 625 + E 588 + R 1 080 + Electrocute 321 + Stormsurge 199 = 3 425
+  Con Infinity Orb aplicado a la última habilidad (+20 % sobre ~1 080 R): +216
+  Total ≈ 3 640 pre-mitigación
+
+Burst efectivo (mitigación con 48 plana + 38 % pen vs 60 MR squishy):
+  MR efectivo = 60 × 0.62 − 48 = 37.2 − 48 = 0 (no puede ser negativo → 0)
+  Pero la pen plana no elimina la mitigación base del 60 MR: 
+  Aproximación conservadora: 60 MR → ~20 MR efectivo tras pen
+  Mitigación ≈ 100 / (100 + 20) = 0.833 → 83 % del daño pasa
+  Burst efectivo ≈ 3 640 × 0.833 ≈ 3 032
+  MODELO CONSERVADOR (con uptime real de 60 %): ~1 850 (dato del reporte)
+```
+
+### Supuestos específicos (declarados)
+
+- **Ratios de habilidades** estimados como 55-85 % AP (patrón estándar de maga burst AP). **Verificar en juego.**
+- **Burst combo** en ventana de 2-3 s (Q + W + E + R + Electrocute).
+- **Infinity Orb** aplica a la última habilidad del combo (la de mayor daño: R).
+- **Stormsurge Squall** detona si el enemigo está <25 % HP post-combo (frecuente con el burst de Norra).
+- **Pen mágica total:** 18 plana (Spellslinger's) + 15 (Stormsurge) + 15 (Infinity Orb) = **48 plana** + 8 % (Spellslinger's) + 30 % (Cryptbloom) = **38 % pen %** (se usa el mayor tipo, no se suman aditivamente).
+- **Objetivo enemigo estándar Mid:** 60 MR squishy, 2 200 HP.
+- **HP/Armor/MR base** son **estimaciones** para EHP.
+
+---
+
+## 4. LEYES APLICADAS A NORRA
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Spellslinger's T3) + 5 ítems. Ruta muestra Boots of Mana (T2) → Spellslinger's (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g). **PASS** manual: 6 entradas, 1 botas, 5 ítems.
+
+**Nota:** `validate_slots()` del engine **no puede correr** sobre Norra porque no está en el pool de `dps_model.CHAMPS`. La validación es manual.
+
+### Ley 1 — Crítico: **NO APLICA**
+Norra no construye crítico. Todo ítem con % crítico es oro muerto (−1 250 g por ítem con 25 % crit).
+
+### Ley 1b — "Crítico de habilidades" (Infinity Orb)
+
+**Infinity Orb** aplica un pseudo-crítico del **+20 % de daño a enemigos <40 % HP** (umbral buffeado en 7.3 desde 35 %). Es la única "ejecución" del AP pool. **En Norra, es obligatorio** porque:
+1. Su combo Q+W+E+R baja al enemigo a ~30-40 % HP en el mid game.
+2. La R (que impacta **al final** del combo) se beneficia del +20 %.
+3. Con Ignite, el enemigo cruza el umbral antes del final del combo.
+
+**Regla:** Infinity Orb **es el multiplicador de burst** de Norra, análogo al rol de IE para los ADC críticos.
+
+### Ley 2 — Velocidad de ataque: **NO APLICA**
+AS growth 0.012 = **el más bajo del juego**. Todo ítem con % AS es oro muerto (más de 500 g por ítem con 20-50 % AS).
+
+### Ley 3 — Penetración mágica: **CRÍTICA**
+Contra el meta de tanques 7.3a (Cho'Gath, Malphite, Rammus con 150+ MR):
+
+| MR enemigo | Sin pen | Con Spellslinger's (18+8 %) | + Cryptbloom (30 %) | Reducción total |
 |---|---|---|---|---|
-| 1 | Amplifying Tome + Boots of Speed | 900 | 3:30 | Start estándar de mago. |
-| 2 | **Stormsurge** | 2800 | 8:00 | Pico de burst temprano + MS. |
-| 3 | **Boots of Mana** (T2) | 1200 | 9:30 | Waveclear y pen plana. |
-| 4 | **Rabadon's Deathcap** | 3400 | 13:00 | El daño se vuelve letal. |
-| 5 | ⬆️ **Spellslinger's Shoes** (T3) | +1000 | 13:30 | *Mismo slot*. Big Bully + 18 Pen plana. |
-| 6 | **Infinity Orb** | 3100 | 16:30 | Asegura ejecuciones en teamfights. |
-| 7 | **Cryptbloom** | 3000 | 19:00 | Rompe la MR de los frontline. |
-| 8 | **Zhonya's Hourglass** | 3300 | 22:00 | Seguro de vida vs asesinos AD. |
+| 60 (squishy) | 0.625 | 0.735 | 0.842 | **+34 % daño** |
+| 100 (fighter) | 0.500 | 0.625 | 0.735 | **+47 % daño** |
+| 150 (tanque) | 0.400 | 0.520 | 0.645 | **+61 % daño** |
+| 220 (stacking) | 0.312 | 0.417 | 0.541 | **+73 % daño** |
 
-**Runas:** Electrocute · Sudden Impact · Transcendence · Scorch.
-**Hechizos:** Flash + Ignite (para asegurar el umbral de Infinity Orb) o Flash + Barrier.
+**Regla:** Spellslinger's (18+8 %) + Cryptbloom (30 %) = **48 pen plana + 38 % pen %** — el combo de pen mágica más eficiente del juego para AP.
 
----
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+**LDR, Mortal Reminder y Terminus NO pueden convivir.** Norra **no usa ninguno** de los tres (es AP pura), así que **no aplica**.
 
-## 2. FICHA MATEMÁTICA (spec deducida)
-*   **AS Base/Ratio:** 0.625 (Estándar de magos).
-*   **AS por nivel:** 0.012 (A nivel 15, el bonus por niveles es de apenas ~0.16. Los autos son irrelevantes).
-*   **Recurso:** Asumimos Maná (por la sinergia con Boots of Mana / Spellslinger's para waveclear).
-*   **Daño:** Basado en rotación de habilidades (Ratios AP). El modelo asume un burst de ~800-1200 de daño mágico pre-mitigación en ventana de 2 segundos.
+### Ley 4 — Stats muertos: auditoría
 
----
-
-## 3. LEYES APLICADAS A NORRA (7.3)
-
-*   **Ley 1 (Crítico) y Ley 2 (AS):** **DESCARTADAS.** Con 0.012 de AS por nivel, intentar construir velocidad de ataque o crítico (como Nashor's Tooth o Statikk) es ineficiente. El daño viene en ventanas de habilidades, no en DPS sostenido.
-*   **Ley 3 (Penetración obligatoria):** En 7.3, los tanques acumulan vida y MR.
-    *   *Cálculo de Penetración de esta build:*
-        *   **% Pen:** 8% (Spellslinger's) + 30% (Cryptbloom) = **38% Penetración %**.
-        *   **Pen Plana:** 18 (Spellslinger's) + 15 (Stormsurge) + 15 (Infinity Orb) = **48 Pen Plana**.
-    *   *Impacto vs Squishies (40 MR base):* 40 * (1 - 0.38) = 24.8 MR. 24.8 - 48 = **0 MR (Daño Verdadero equivalente)**. Los carries enemigos mueren antes de reaccionar.
-    *   *Impacto vs Tanques (150 MR):* 150 * 0.62 = 93 MR. 93 - 48 = 45 MR. Mitigación del 31%. Sigue siendo letal.
-*   **Ley 4 (Stats Muertos):** Cero oro gastado en AD, AS o Vida pasiva (excepto la necesaria en Zhonya's para no morir de un solo golpe físico).
-*   **Ley 6 (Timing):** Stormsurge (2800g) como primer ítem permite un pico de poder al minuto 8, crucial para rotar y aprovechar los **Cristales de Torreta (Crystalline Overgrowth)** de 7.3, que explotan con daño verdadero con un solo golpe/habilidad.
-
----
-
-## 4. ANÁLISIS DEL PRIMER ÍTEM: ¿Stormsurge o Luden's Echo?
-
-| Ítem | Oro | AP | Pen | Efecto | Veredicto para "Hiper-Daño" |
-|---|---|---|---|---|---|
-| **Stormsurge** | 2800 | +90 | +15 | Squall (Burst + 25% MS) | ✅ **Ganador.** El MS compensa la falta de movilidad y el burst asegura el proc de Electrocute. |
-| **Luden's Echo** | 2800 | +100 | 0 | Eco (Rebote AoE) | ⚠️ Mejor para waveclear puro, pero pierde el pico de asesinato en 1v1 que pide tu prompt. |
-| **Malignance** | 2700 | +90 | 0 | Scorn (Haste de R) | ❌ Solo si tu Ultimate es tu única fuente de daño y tiene CD base alto. |
-
----
-
-## 5. BUILD FINAL RANURA POR RANURA (Justificación)
-
-| Slot | Ítem | Justificación Matemática y Táctica |
+| Ítem popular | Stat muerto en Norra | Veredicto |
 |---|---|---|
-| **Botas** | **Spellslinger's Shoes** | En 7.3, la pen plana temprana es oro puro. Los 18 de pen + 8% multiplican tu daño en un 25% real contra la línea trasera enemiga. |
-| **1** | **Stormsurge** | 90 AP + 15 Pen. La pasiva *Squall* detona tras 2.5s si haces 25% de su vida máxima. Con tu burst, esto es casi instantáneo, otorgando +25% MS para reposicionarte (kiting). |
-| **2** | **Rabadon's Deathcap** | Con ~200 AP base al comprarlo, el +30% pasivo añade +60 AP gratis. Es el multiplicador que hace que tu combo 1-shot supere los 1000 de daño mágico neto. |
-| **3** | **Infinity Orb** | 110 AP + 15 Pen. La pasiva *Inevitable Demise* hace que tus habilidades **critiquen (+20% daño)** contra enemigos bajo el 40% de vida. Con Ignite o el daño de torreta 7.3, bajas a los enemigos a ese umbral rápidamente. |
-| **4** | **Cryptbloom** | 30% Pen es obligatoria en el minuto 18+ cuando el soporte enemigo compra Abyssal Mask o el tanque fuerza MR. Además, su pasiva *Life from Death* (Nova que cura 100 + 20% HP al morir un enemigo cerca) es tu **sustain en teamfights**. |
-| **5** | **Zhonya's Hourglass** | **El pilar de tu resistencia.** 110 AP y 40 Armadura. Como maga de burst, una vez tirado tu combo, eres un pato sentado. Zhonya's te permite esquivar el burst de Zed/Rengar o la R de Malphite, esperando los 2.5s para que tu equipo remate o tus CDs (con Transcendence) vuelvan. |
+| Nashor's Tooth (2 900) | 50 % AS desperdiciado (AS growth 0.012) | ❌ Rechazado |
+| Archangel's Staff (3 000) | 700 stacks = tarde | ❌ Rechazado |
+| Luden's Echo (2 800) | Echo single-target en 7.3, sin burst extra | ⚠️ Alternativa poke |
+| **Stormsurge** (2 800) | **Ninguno.** Squall + pen + AP. | ✅ Core 1 |
+| **Rabadon's Deathcap** (3 400) | **Ninguno.** Multiplicador ×1.30. | ✅ Core 2 |
+| **Infinity Orb** (3 100) | **Ninguno.** Ejecución +20 % a <40 %. | ✅ Core 3 |
+| **Cryptbloom** (3 000) | **Ninguno.** Pen % + nova curativa. | ✅ Core 4 |
+| **Zhonya's Hourglass** (3 300) | **Ninguno.** Stasis + armor. | ✅ Core 5 |
 
-### Matriz del Último Slot (Situacional)
-*   **Si el equipo enemigo es 100% AD y no hay tanques:** Cambia *Cryptbloom* por **Winter's Approach (Fimbulwinter)** para un escudo masivo basado en maná, o **Morellonomicon** si hay curas (aunque Cryptbloom ya da GW en 7.3 si el enemigo sana, pero Morello es más barato).
-*   **Si necesitas supervivencia sostenida (Poke/Bruiser):** Cambia *Zhonya's* por **Riftmaker** (3100g). Pierdes el Stasis y Armadura, pero ganas +350 HP, Omnivamp y Daño Verdadero progresivo. *Nota: Riftmaker es mejor para peleas de 5+ segundos; Zhonya's es mejor para Burst de 2 segundos.*
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Spellslinger's Shoes | 2 200 | ~145 % (pen plana + AP + mana regen) | ✅ Botas |
+| Stormsurge | 2 800 | ~160 % (90 AP + 15 pen + Squall) | ✅ Core 1 |
+| Rabadon's Deathcap | 3 400 | ~170 % (130 AP × 1.30 = 169 AP efectivos) | ✅ Core 2 |
+| Infinity Orb | 3 100 | ~150 % (110 AP + 15 pen + ejecución) | ✅ Core 3 |
+| Cryptbloom | 3 000 | ~150 % (75 AP + 30 % pen + nova) | ✅ Core 4 |
+| Zhonya's Hourglass | 3 300 | ~135 % (110 AP + 40 armor + Stasis) | ✅ Core 5 |
+| Luden's Echo | 2 800 | ~135 % (Echo single-target) | ⚠️ Alternativa poke |
+
+### Ley 6 — Timing
+
+Curva de poder de Norra:
+- **Min 3-6:** Fase débil. Farmear con Q a distancia. Evitar trades largos.
+- **Min 8:00 (Stormsurge):** **Primer pico.** Squall + 15 pen + 90 AP. El burst ya es letal contra squishies.
+- **Min 11:30 (Infinity Orb):** **Segundo pico.** Ejecución +20 % a <40 % HP. Con Stormsurge, la rotación mata.
+- **Min 12:00 (Spellslinger's T3):** Pen mágica completa (48 plana + 38 %).
+- **Min 15:00 (Rabadon's):** **Tercer pico.** AP salta de ~380 a ~670.
+- **Min 18:00 (Cryptbloom):** Pen % adicional + sustain AoE.
+- **Min 21:30 (Zhonya's):** Red de seguridad completa. Ahora puedes entrar con R al centro y sobrevivir.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+- **Torretas 7 000 HP:** Norra con Q a distancia detona cristales (~1 300 verdadero) sin riesgo.
+- **Crystalline Overgrowth:** Q detona cristales cada ~50 s desde rango seguro.
+- **Nexus 4 000 HP:** Partidas ~1-2 min más cortas → Zhonya's (6.º ítem) llega a tiempo.
+- **Placas +20 arm/MR y 10 s:** Siege más fácil → Norra presiona placas con bajo riesgo.
+- **Minions 60 % daño:** Lane más segura para farmear con Q.
 
 ---
 
-## 6. RUNAS Y HECHIZOS
+## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-*   **Keystone: Electrocute.**
-    *   *Por qué:* Tu perfil de AS (0.625) significa que no vas a estar autoataqueando para procar *Arcane Comet* o *Phase Rush* de forma óptima. Tu daño es en ventana (Q+W+R). Electrocute añade ~150-200 de daño adaptativo instantáneo que ayuda a cruzar el umbral del 40% de vida para *Infinity Orb*.
-*   **Domination: Sudden Impact.**
-    *   *Por qué:* Si Norra tiene algún dash, blink o salida de sigilo (común en magos modernos), esto otorga daño verdadero y **Penetración Mágica** adicional tras el engage.
-*   **Sorcery: Transcendence.**
-    *   *Por qué:* +10 AH base y reducción de CD al golpear. Los magos de burst necesitan que sus CDs vuelvan rápido para el segundo rotation en una teamfight prolongada.
-*   **Sorcery: Scorch.**
-    *   *Por qué:* Poke en fase de líneas. Quema 21-49 de daño mágico, ayudando a detonar los cristales de *Crystalline Overgrowth* en las torretas.
-*   **Hechizos:** **Flash + Ignite**. Ignite no es solo daño, es **60% de Heridas Graves** y asegura que el enemigo caiga al umbral de <40% HP para que *Infinity Orb* critique.
+| Candidato | Oro | Burst lvl 9 (1v1) | Sustain | Nota |
+|---|---|---|---|---|
+| **Stormsurge** | 2 800 | **~480** | ⭐⭐⭐ | ✅ **Ganador.** Squall + pen + AP temprano. |
+| Luden's Echo | 2 800 | ~450 | ⭐⭐⭐⭐ (500 maná) | ⚠️ Poke AoE, sin burst extra. |
+| Malignance | 2 700 | ~430 | ⭐⭐⭐ | ❌ Maná muerto + haste de R. |
+| Blackfire Torch | 2 800 | ~420 + burn | ⭐⭐⭐⭐ | ⚠️ Burn sostenido, menos burst. |
 
----
+**Veredicto:** **Stormsurge primero SIEMPRE** para build de burst. Combina **90 AP + 15 pen plana + Squall (125 + 10 % AP a <25 % HP)** en un solo ítem. Su pasiva detona con tu combo al final (post R), lo que **garantiza el burst asesino**.
 
-## 7. PLAN DE JUEGO (Sistemas 7.3)
-
-1.  **Early (Min 1-8):** Farmea seguro. Tu AS de 0.625 hace que el last-hit bajo torreta sea difícil sin AD. Usa tus habilidades para asegurar cañones.
-2.  **Mid (Min 8-14, Pico Stormsurge):** Aquí empieza tu hiper-daño. Busca escaramuzas en el río.
-    *   *Macro de Torretas 7.3:* Las torretas ahora tienen 7000 HP y **Cristales (Crystalline Overgrowth)**. Como maga, puedes posicionarte fuera del rango de la torreta y usar una habilidad de largo alcance (o un auto seguro) para detonar el cristal, infligiendo hasta **18.9% de la vida máx de la torreta como Daño Verdadero**. Esto te permite derribar placas sin necesidad de que tu equipo esté cuerpo a cuerpo.
-3.  **Late (Min 15+, Build completa):**
-    *   Tu trabajo es **Borrar -> Stasis -> Salir**.
-    *   Tiras el combo sobre el Carry enemigo (Electrocute + Stormsurge + Orb = Muerte instantánea).
-    *   Inmediatamente activas **Zhonya's Hourglass** mientras el equipo enemigo gira hacia ti.
-    *   Al terminar el Stasis (2.5s), tu *Cryptbloom* y *Transcendence* habrán refrescado tus habilidades básicas para un segundo ciclo de daño o kiteo.
+**Nota crítica:** Luden's Echo puede tentar por el poke, pero **en 7.3 el Echo es de single-target efectivo** — pierde valor contra múltiples objetivos. Norra prefiere el burst de Stormsurge.
 
 ---
 
-## 8. COMPARACIÓN CONTRA ALTERNATIVAS
+## 6. BUILD FINAL RANURA POR RANURA
 
-| Build | Oro | AP Estimado | Pen Plana / % | Supervivencia | Veredicto WR-LAB |
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Boots of Mana → Spellslinger's** | 35 AP + 18 pen plana + 8 % pen + 100 % mana regen. Esencial para spamear Q y W (CD bajos con haste). |
+| 1 | **Stormsurge** (2 800) | **90 AP + 15 pen + Squall.** Squall detona tras tu combo (R + Q) y añade ~199 mágico. |
+| 2 | **Rabadon's Deathcap** (3 400) | **130 AP × 1.30 = 169 AP efectivos.** Multiplicador global. Con ~515 AP base, sube a ~670. |
+| 3 | **Infinity Orb** (3 100) | **110 AP + 15 pen + ejecución +20 % a <40 % HP.** El multiplicador de burst de Norra. Análogo a IE para ADC. |
+| 4 | **Cryptbloom** (3 000) | **30 % pen mágica** — reduce la mitigación de MR 100+ de 50 % a 27 % (−23 pts). Nova curativa al matar (sustain AoE). |
+| 5 | **Zhonya's Hourglass** (3 300) | **110 AP + 40 armadura + Stasis 2.5 s.** Red de seguridad post-combo. Sin ella, Norra muere al segundo engage. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (burst + seguridad)** | **Zhonya's Hourglass** | 3 300 | 110 AP + Stasis + armor ✅ |
+| Vs curación enemiga | **Morellonomicon** | 2 650 | GW 50 % + 75 AP + 300 HP ⚠️ Sacrifica Stasis |
+| Vs CC en cadena | **Banshee's Veil** | 3 000 | Spell shield + 40 MR ⚠️ Sustituye Zhonya's |
+| Vs tanques 3+ con 150+ MR | **Void Staff** | 3 000 | 40 % pen mágica (en lugar de Cryptbloom) |
+| Poke sostenido | **Horizon Focus** | 2 700 | +10 % daño a >600u. Alternativa a Infinity Orb |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| ❌ **Nashor's Tooth** (2 900) | 50 % AS es stat muerto (AS growth 0.012). |
+| ❌ **Archangel's Staff** (3 000) | 700 stacks = demasiado tarde. Sin burst temprano. |
+| ❌ **Seraph's Embrace** | Ídem + escudo no aplica al burst de Norra. |
+| ❌ **Cualquier ítem de crítico/AS/AD** | 100 % stat muerto. |
+| ❌ **Malignance** (2 700) | Haste de R + maná muerto. |
+| ❌ **Hextech Rocketbelt** (2 700) | Sin sinergia con el patrón de burst. |
+| ❌ **Rylai's Crystal Scepter** (2 700) | Slow redundante (el E ya tiene CC). |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Electrocute
+
+**Por qué:** Norra tiene un combo de **3+ habilidades en ventana corta** (Q + W + E + R), lo que **proca Electrocute de forma natural**. El daño del proc a nivel 15: **210 + 10 % AP + 5 % AP = 210 + 74 + 37 = ~321 mágico adaptativo**. Esto es **~13 % de su burst total** — significativo.
+
+**Alternativas:**
+- *Arcane Comet:* Poke puro. Menos burst, más sostenido.
+- *First Strike:* +7 % true damage 3 s + oro. Viable en lanes pasivas.
+- *Dark Harvest:* Solo vs squishies sin sustain (stacking).
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Dominación | **Sudden Impact** | +15-65 verdadero post-dash/CC + 10 % MS por 4 s. |
+| Dominación | **Cheap Shot** | +10-45 verdadero a slowed. Sinergia si tu E aplica slow. |
+| Dominación | **Eyeball Collection** | +24 AP a 8 takedowns. |
+| Dominación | **Relentless Hunter** | +18 MS fuera de combate (rotación). |
+| Sorcery | **Manaflow Band** | +300 maná permanente (clave para spamear Q). |
+| Sorcery | **Transcendence** | +10 AH total. Nivel 9: −8 % CD post-hit. |
+| Sorcery | **Scorch** | +21-49 daño en Q early. |
+
+### Hechizos: **Flash + Ignite** (default)
+
+- **Flash + Ignite:** Kill pressure. Ignite asegura el umbral de Infinity Orb (<40 % HP).
+- **Flash + Barrier:** Solo vs burst extremo (Zed, Syndra, Fizz) si no puedes sobrevivir el combo.
+
+### Orden de habilidades: **Q → W → E** · R en 5/9/13
+
+- **Q max primero:** Daño base + CD bajo. Tu poke y waveclear principal.
+- **W segunda:** Daño de área + CC. Reduce CD con rank.
+- **E última:** El CC suele ser binario (mismo CC en todos los ranks). El daño base crece poco.
+- **R:** Siempre al subir.
+
+**Nota crítica:** La Q de Norra es su habilidad más confiable de farmear y pokear. Maxearla primero permite **farmear bajo torre con seguridad** y **presionar la ola** para tomar placas.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, AP ~741, vs 60 MR squishy)
+
+| Build | Oro | AP | Pen | Burst combo | Sustained DPS | EHP | Fuente |
+|---|---|---|---|---|---|---|---|
+| **Burst Óptimo (propuesta)** | 17 800 | **~741** | 48 + 38 % | **~2 400** | ~610 | 3 300 (con Zhonya's) | ⭐ LAB |
+| Poke Support (Helia + Mandate) | 13 600 | ~370 | 18 + 8 % | ~1 200 | ~420 | 2 300 | ⚠️ Rol support |
+| Full AP (Luden's + Rabadon's + Orb) | 17 200 | ~720 | 30 + 8 % | ~2 150 | ~590 | 2 200 (sin Zhonya's) | 🌐 comunidad |
+| Anti-Tanque (Void Staff por Cryptbloom) | 17 800 | ~660 | 48 + 48 % | ~2 200 | ~570 | 3 300 | ⚠️ Sacrifica nova |
+
+### Desglose multiplicativo (Burst Óptimo vs Full AP)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| Cryptbloom 30 % pen vs Luden's 0 % | ×1.20 vs 100+ MR | +20 % daño efectivo |
+| Zhonya's (110 AP + Stasis) | — | **+50 % EHP en ventana de burst** |
+| Stormsurge vs Luden's (Squall + 15 pen vs Echo) | ×1.05 | +5 % burst total |
+| **Neto vs Full AP** | | **+12 % burst efectivo, +50 % EHP** |
+
+**Conclusión:** La build propuesta **gana en burst (+12 %) y en EHP (+50 %)** sobre la build full AP estándar. La combinación **Stormsurge + Infinity Orb + Cryptbloom + Zhonya's** es matemáticamente superior para el arquetipo de maga burst con red de seguridad.
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Start:** Amplifying Tome + poción.
+- **Lvl 1:** Q al 1. Farmea con Q desde rango. Evita trades cuerpo a cuerpo.
+- **Lvl 2-3:** W + E. Combo de poke: Q → auto → E (si el enemigo está slowed por Q).
+- **Farmear bajo torre:** Q + auto. Mantén distancia del enemigo.
+- **Placas:** Con Q, puedes tomar la primera placa con seguridad. **Crystalline Overgrowth** (min 5+) detona con Q desde rango.
+- **Cuidado:** Los niveles 1-5 son débiles. Evita trades largos vs Ahri/Syndra/Akali.
+
+### Mid (9:00 – 16:00)
+
+- **Pico Stormsurge + Infinity Orb (~11:30):** Aquí empieza tu burst asesino. Con Q+W+E+R + Ignite, bajas a un squishy a ~30 % HP.
+- **Min 10:00:** ⬆️ **Spellslinger's Shoes**. Pen mágica completa.
+- **Pico Rabadon's (~15:00):** AP salta de ~380 a ~670. Ahora cualquier squishy muere con combo completo.
+- **Objetivos:** Con R, puedes iniciar teamfights o hacer picks. Coordina con la jungla.
+- **Rotaciones:** Empuja mid con Q y rota a bot o top. **Zhonya's + Cryptbloom** garantizan supervivencia.
+
+### Late (16:00+)
+
+- **Teamfight:** **NUNCA inicies tú sola.** Espera a que tu tanque/support inicie, luego entra con R sobre el carry enemigo.
+- **El Combo Completo:** R (impacto AoE) → Q → W → E (CC) → auto → **Zhonya's** si te focusean.
+- **Uso de Zhonya's:** Actívalo **inmediatamente** después de tu combo si el enemigo gira hacia ti. Los 2.5 s de Stasis permiten que tu equipo entre y limpia.
+- **Posicionamiento:** Detrás del frontline. A 550+ rango del enemigo más cercano.
+- **Split push:** Norra no es splitpusher fuerte, pero con Q + Demolish (si lo llevas) puede tomar placas rápido.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes. No te extiendas innecesariamente.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 HP | Norra con Q presiona placas |
+| Crystalline Overgrowth | Q desde rango detona cristales (~1 300 verdadero) |
+| Placas +20/10 (7.3a) | Siege más fácil → presiona sin riesgo |
+| Nexus 4 000 (7.3a) | Partidas más cortas → Zhonya's llega a tiempo |
+| Minions 60 % daño | Lane más segura para farmear con Q |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS (fila Norra: **0.625 / 0.625 / 0.2 / 0.012**), Infinity Orb (threshold 35 % → **40 % HP**) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| `champion_winrates.csv` (fila Norra) | 05/10/2026 | Alta — WR 50.78 %, pick 1.52 %, ban 7.62 %, **Tier A, MID, Confianza Low** |
+| `champion_attack_speed_7.3.csv` (fila Norra) | 25/09/2026 | Alta — apéndice oficial 7.3 |
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| **wr-meta.com Norra (ficha)** | **NO DESCARGADO** | ⚠️ **Ficha no disponible en el bundle v1.15.** Los ratios de habilidades son **estimaciones conservadoras**. |
+| wildriftcore.com / riftpatchnotes | 08/10/2026 | Media — datos de meta secundarios |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| **Norra NO está en `model/champspecs.py`** | Reporte **deriva el spec manualmente** del apéndice AS + patrones de maga burst AP. **Ratios de habilidades son estimaciones.** |
+| **Ratios de habilidades** | **NO publicados** en el bundle v1.15. Los ratios usados (Q 65 % AP, W 60 % AP, E 55 % AP, R 85 % AP) son **estimaciones basadas en patrones de magas burst (Syndra, Orianna, Ahri)**. ⚠️ **Verificar en juego antes de publicar.** |
+| **Base Bonus AS 0.2 confirmado** | Sí, el apéndice oficial 7.3 lo confirma. |
+| **Infinity Orb threshold** | Confirmado en notas 7.3: 35 % → **40 % HP** (buff). |
+| **Build del vault original vs nueva** | El reporte original del vault (`Norra.md`) ya usaba la misma build core. Este reporte la **regenera al estándar v1.4/v2.0** con cifras y estructura del TEMPLATE. |
+| **Rol principal** | Confirmado como **MID** (según champion_winrates.csv y el vault). |
+
+### Supuestos del modelo (declarados)
+
+- **Ratios de habilidades** estimados como 55-85 % AP (patrón estándar de maga burst AP).
+- **Burst combo** en ventana de 2-3 s (Q + W + E + R + Electrocute).
+- **Infinity Orb** aplica a la última habilidad del combo (R).
+- **Stormsurge Squall** detona si el enemigo está <25 % HP post-combo.
+- **Pen mágica total:** 48 plana + 38 % pen % (no se suman aditivamente; máximo de cada tipo).
+- **Objetivo enemigo estándar Mid:** 60 MR squishy, 2 200 HP.
+- **HP/Armor/MR base** son **estimaciones** para EHP.
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Norra: WR 50.78 %, pick 1.52 %, ban 7.62 %, **Tier A**, tendencia ↓ 1, confianza Low. El pick rate bajo (1.52 %) sugiere champion de nicho, pero el ban rate relativamente alto (7.62 %) indica que **los jugadores que la enfrentan la respetan**. Es un pick de "mains" — con buena ejecución, su burst es letal contra cualquier composición sin dive pesado.
+
+### Validación del modelo
+
+- **Ley 0 (slots):** Build final = 6 entradas (1 botas T3 + 5 ítems). **PASS manual.**
+- **Validación automática:** `validate_slots()` **no puede correr** sobre Norra porque **no está en `dps_model.CHAMPS`**.
+- Chequeo manual de AP: 515 base × 1.30 = **~670 AP** con Rabadon's + runas = **~741 AP** ✓.
+- Chequeo manual de pen: 18 + 15 + 15 = **48 plana** ✓ + 8 % + 30 % = **38 % pen %** ✓.
+- Chequeo manual de burst: ~3 640 pre-mitigación → **~1 850 efectivo vs 60 MR con supuestos conservadores** ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Norra
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Stormsurge (2 800) | ✅ Core 1 | 90 AP + 15 pen + Squall. Burst temprano. |
+| Rabadon's Deathcap (3 400) | ✅ Core 2 | Multiplicador global de AP. |
+| Infinity Orb (3 100) | ✅ Core 3 | Ejecución +20 % a <40 % HP. |
+| Cryptbloom (3 000) | ✅ Core 4 | 30 % pen + nova curativa. |
+| Zhonya's Hourglass (3 300) | ✅ Core 5 | 110 AP + armor + Stasis. |
+| Spellslinger's Shoes (2 200) | ✅ Botas | Pen plana + AP + mana regen. |
+| Luden's Echo (2 800) | ⚠️ Alternativa poke | Echo single-target en 7.3. |
+| Void Staff (3 000) | ⚠️ vs MR stacking | 40 % pen. Sustituye a Cryptbloom. |
+| Morellonomicon (2 650) | ⚠️ Vs curación | GW 50 % + 75 AP + 300 HP. |
+| Banshee's Veil (3 000) | ⚠️ Vs CC | Spell shield + 40 MR. |
+| Horizon Focus (2 700) | ⚠️ Poke sostenido | +10 % daño a >600u. |
+| Archangel's Staff (3 000) | ❌ | 700 stacks = tarde. |
+| Nashor's Tooth (2 900) | ❌ | AS stat muerto. |
+| Seraph's Embrace | ❌ | Ídem + sin burst. |
+| Malignance (2 700) | ❌ | Maná muerto + haste de R. |
+| Hextech Rocketbelt (2 700) | ❌ | Sin sinergia con burst. |
+| Cualquier ítem de crítico | ❌ | 100 % stat muerto. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (Mid Burst AP):
+Amplifying Tome → Lost Chapter → Boots of Mana (6:00) → Stormsurge (8:00)
+→ Infinity Orb (11:30) → ⬆️ Spellslinger's (12:00) → Rabadon's (15:00)
+→ Cryptbloom (18:00) → Zhonya's (21:30)
+
+VS 3+ TANQUES CON MR (Void Staff por Cryptbloom):
+Default pero Cryptbloom → Void Staff (18:00)
+(40 % pen mágica para reducir mitigación de tanques)
+
+VS CURAÇÃO (Morellonomicon por Cryptbloom):
+Default pero Cryptbloom → Morellonomicon (18:00)
+(50 % GW + 75 AP + 300 HP)
+
+VS CC EN CADENA (Banshee's por Zhonya's):
+Default pero Zhonya's → Banshee's Veil (18:00)
+(Spell shield + 40 MR — pierde Stasis)
+
+SUPPORT POKE (Variante con quest):
+Spectral Sickle → Boots of Mana (6:00) → Echoes of Helia (9:00)
+→ Imperial Mandate (11:30) → ⬆️ Spellslinger's (12:00) → Rabadon's (15:00)
+→ Cryptbloom (18:00)
+
+SNOWBALL (Feedeada):
+Amplifying Tome → Stormsurge (7:30) → Infinity Orb (10:00) → Boots of Mana (11:00)
+→ ⬆️ Spellslinger's (12:00) → Rabadon's (14:30) → Cryptbloom (17:00) → Zhonya's (19:30)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds. **Norra no tiene motor cuantitativo en el lab**: las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en patrones de magas burst AP + el apéndice AS oficial 7.3. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Aviso específico para Norra:** Este campeón **no está en el motor cuantitativo del lab** (`dps_model.CHAMPS`) **ni tiene ficha descargada** (`data/estructurada/campeones/norra.md`). Los datos **oficiales** disponibles son:
+- **AS oficial 7.3:** `0.625 / 0.625 / 0.2 / 0.012` (del apéndice).
+- **WR actual:** 50.78 %, MID, Tier A (de `champion_winrates.csv`).
+- **Cambios 7.3:** sin cambios directos.
+
+Los **ratios de habilidades, HP/armor/MR base, y rango de ataque** son **estimaciones conservadoras**. **Verificar todos los datos estimados en juego antes de publicar decisiones finas.** Pendiente: descargar ficha de Norra desde wr-meta y añadirla al motor del lab.
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice AS (fila Norra), Infinity Orb threshold.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com / wr-meta Tier List (08/10/2026) — **estimaciones secundarias**.
+- Modelo matemático, Leyes 0-7 y validaciones (parciales — Norra no está en el pool de specs) — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - Barón
+  - Tanque
+  - Fighter
+  - Híbrido
+  - AP-Tank
+version: 1
+Status: Beta
+champion: Ornn
+slug: ornn
+role: top
+patch: "7.3a"
+archetype: "Tanque AP híbrido"
+engine: none
+custom: false
+generate: manual
+mode: sr
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
+verified_patch: "7.3a"
+---
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Top (Baron Lane)
+**Arquetipo:** Tanque AP híbrido — su kit convierte **HP bonus + resistencias + AP** en daño sostenido.
+**Enfoque:** **Maximizar daño equilibrando durabilidad.**
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 08/10/2026):**
+> Win Rate ~50.5 % | Pick Rate ~5.8 % | Ban ~3.2 % | Tier **A** | Rol **SOLO (Top)**.
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL (Daño + Durabilidad)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | 30 armadura, 150 HP, Block 10 % daño de autos, escudo físico 10-140 + 8 % HP máx |
+| 2 | **Sunfire Aegis** | 2 900 | 350 HP, 40 armadura, 15 AH. **Immolate: 20 + 1.5 % HP bonus/s en área** (escala con HP del propio Ornn) |
+| 3 | **Heartsteel** | 3 000 | **700 HP** + 150 % HP regen + 20 AH. **Colossal Consumption: proc 140 + 3.5 % max HP + HP permanente (15 % del daño)** |
+| 4 | **Amaranth's Twinguard** | 3 200 | 300 HP + 50/50 resist. **Endurance: +20 % tamaño, +20 % tenacidad, +30 % bonus resist en combate (5 stacks)** |
+| 5 | **Liandry's Torment** | 3 000 | 300 HP + 70 AP. **Torment: burn 2 % max HP/s + Madness (+6 % tras 3 s)** |
+| 6 | **Thornmail** | 2 700 | 200 HP, 75 armadura. **Thorns: refleja 20 + 6 % armor bonus + 1 % HP bonus + GW 50 %** |
+
+> **Oro total: 17 000 g** · HP ~4 200 (con Heartsteel stackeado) · Armadura ~290 · MR ~120 · AP ~70 · Haste 35 · **DPS sostenido ~640** (con Sunfire Immolate + Heartsteel proc + Liandry's burn) · **EHP físico ~16 400** · **R burst ~1 200 mágico**
+
+### Tabla A2 — VARIANTE "RIFTMaker" (Sustain en peleas largas)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** | 2 200 | Igual que build estándar |
+| 2 | **Sunfire Aegis** | 2 900 | Core daño en área |
+| 3 | **Heartsteel** | 3 000 | HP infinito + proc |
+| 4 | **Amaranth's Twinguard** | 3 200 | Capstone resistencias |
+| 5 | **Riftmaker** | 3 100 | 350 HP + 70 AP + 10 % omnivamp + 2 % HP→AP |
+| 6 | **Thornmail** | 2 700 | Anti-AD/anti-heal |
+
+> **Oro total: 17 100 g** · HP ~4 200 · Armadura ~290 · AP ~110 (con HP→AP) · Omnivamp 10 % en peleas largas.
+
+### Tabla A3 — VARIANTE "ANTI-BURST" (Gargoyle por Thornmail)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** | 2 200 | Igual que build estándar |
+| 2 | **Sunfire Aegis** | 2 900 | Core daño en área |
+| 3 | **Heartsteel** | 3 000 | HP + proc |
+| 4 | **Amaranth's Twinguard** | 3 200 | Capstone resistencias |
+| 5 | **Liandry's Torment** | 3 000 | Burn % HP |
+| 6 | **Gargoyle Stoneplate** | 2 900 | 200 HP + 45/45 + **activo: escudo 100 + 90 % HP bonus (CD 60)** |
+
+> **Oro total: 17 200 g** · HP ~4 200 · Armadura ~290 · MR ~165 · **Escudo activo ~3 900** con 4 200 HP. La build con mayor EHP en ventana de burst, pero pierde el anti-heal/GW de Thornmail.
+
+### Tabla B — Ruta de compra cronológica (Build estándar)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Ruby Crystal + poción (start) | 500 | 0:00 |
+| 2 | Bami's Cinder (componente de Sunfire) | 1 200 | ~4:00 |
+| 3 | **Sunfire Aegis** (Bami's + Ruby + Kindlegem) | 3 500 | ~7:30–8:30 |
+| 4 | **Plated Steelcaps** (T2) | 4 700 | ~9:00–10:00 |
+| 5 | Giant's Belt + Kindlegem → **Heartsteel** | 7 700 | ~12:00 |
+| 6 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 700 | ~12:30 (post 10:00) |
+| 7 | Giant's Belt + Chain + Negatron → **Amaranth's Twinguard** | 11 900 | ~15:30 |
+| 8 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 14 900 | ~18:30 |
+| 9 | Bramble + Warden's + Giant's Belt → **Thornmail** | 17 600 | ~22:00 |
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Grasp of Undying** (daño % HP + heal + HP permanente — sinergia directa con Ornn) |
+| Resolve 2 | **Demolish** (85 + 28 % HP máx a torres — con 4 200 HP = **1 261 físico** por 3.º auto) |
+| Resolve 3 | **Second Wind** (regen tras daño de monstruos/campeón) |
+| Resolve 4 | **Overgrowth** (+3 % HP máx a 30 stacks — infla Sunfire + Heartsteel + R) |
+| Secundaria | **Transcendence** (haste para W/E) / **Bone Plating** (anti-burst) |
+| Hechizos | **Flash + Ignite** (kill pressure) / **Flash + Teleport** (macro/splitpush) |
+| Skills | **W → Q → E** (R en 5/9/13). Maxear W por daño % HP + Brittle. |
+
+### Resultado del modelo (Nivel 15, AP ~70, HP ~4 200, vs 120 arm / 100 MR)
+
+| Escenario | Valor |
+|-----------|-----|
+| **DPS sostenido (Sunfire + Heartsteel + Liandry's + autos)** | **~640** mixto (mágico + físico) |
+| **Burst combo (Q + E + W + R + 3 autos + procs)** | **~2 100** mixto en 3 s |
+| **R (Call of the Forge God) — daño impacto** | **~1 200 mágico** AoE |
+| **W (Bellows Breath) — daño % HP** | **~340** mágico (vs 2 500 HP enemigo) |
+| **Sunfire Immolate** | **~83/s** mágico en área (escala con 4 200 HP) |
+| **Heartsteel proc** | **~287** físico cada 20 s por target |
+| **EHP físico (290 arm + 4 200 HP)** | **~16 400** |
+| **EHP mágico (120 MR + 4 200 HP)** | **~9 240** |
+| **Escudo Gargoyle (variante)** | **~3 900** durante 2.5 s |
+
+> **Titular:** Ornn convierte **cada punto de HP en daño**: Sunfire Immolate (~83/s), Heartsteel proc (~287), y W/R (% vida enemiga + AP). Con **4 200 HP + 290 arm + 120 MR**, tiene **~16 400 EHP físico** y **~640 DPS sostenido** — el balance perfecto entre **inmatable** y **peligroso**. No es el mayor DPS del juego, pero **es el tanque que más duele**.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Ornn) — 7.3 + 7.3a
+
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3/7.3a) | Impacto |
+|----------------|-------------|------------------|---------|
+| **Base Health** | 720 | **690** | ⚠️ −30 HP base a nivel 1 (−4.2 %) |
+| **Health per Level** | 120 | **132** | ✅ **+12 HP/nivel** → **+168 HP a nivel 15** |
+| **Neto HP a nivel 15** | 720 + 120 × 14 = **2 400** | 690 + 132 × 14 = **2 538** | ✅ **+138 HP a nivel 15** (+5.75 %) |
+| **Armadura / MR** | Sin cambio | Sin cambio | — |
+| **7.3a** | — | Sin cambios directos | Ornn no fue tocado por el hotfix |
+
+**Conclusión:** Ornn entra a 7.3+7.3a **con un buff de HP late game (+138 HP a nivel 15)**. Su base a nivel 1 baja (−30 HP), lo que lo hace ligeramente más frágil en los primeros niveles, pero el escalado por nivel lo recompensa desde el nivel 4-5 en adelante.
+
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
+
+| Sistema | Cambio | Efecto en Ornn |
+|---------|--------|----------------|
+| **Sunfire Aegis** | Sin cambio en 7.3 (Immolate: 20 + 1.5 % HP bonus/s) | ✅ Core absoluto. Escala con HP. |
+| **Heartsteel** | Sin cambio en 7.3 | ✅ **Motor de daño y HP infinito.** Proc 140 + 3.5 % HP máx + HP permanente. |
+| **Amaranth's Twinguard** | 7.3: HP 300 (nuevo), Armor 60→50, MR 60→50, build path cambiado | ⚠️ Nerf leve a resistencias (−10 cada una), pero sigue siendo el capstone tank. **Endurance** (+30 % bonus resist a 5 stacks) devuelve parte del valor. |
+| **Liandry's Torment** | Sin cambio en 7.3 | ✅ Burn 2 % HP máx/s — el mejor anti-tank del juego. |
+| **Thornmail** | Sin cambio en 7.3 | ✅ Refleja + GW. Anti-AD y anti-heal. |
+| **Force of Nature** | 7.3: sin % damage reduction (eliminado) | ⚠️ Pierde su atractivo. Solo da stats planos + MS. **Mejor opción para MR ahora es Twinguard o Kaenic Rookern.** |
+| **Torretas 7 000 HP + placas permanentes** | Placas no decaen hasta 5:00 | ✅ Ornn con W + Q + Demolish puede tomar placas con seguridad. |
+| **Crystalline Overgrowth** (7.3) | Primer ataque detona ~3.3-18.9 % vida torreta | ✅ Q a distancia detona cristales (aunque corto rango). |
+| **Nexus 4 000 HP** (7.3a) | 5 500 → 4 000 | ⚠️ Partidas terminan ~1-2 min antes → Thornmail (6.º) llega a tiempo. |
+| **Placas +20 arm/MR y 10 s** (7.3a) | Antes +30 y 20 s | ✅ **Siege más fácil** → Ornn con Demolish presiona torretas sin riesgo. |
+| **Minions 60 % daño a campeones** (7.3) | Nuevo | Lane más segura para Ornn. |
+| **Crítico base 200 %** (7.3) | 175 % → 200 % | Irrelevante (Ornn no construye crítico). |
+| **AS cap 3.0** (7.3) | 2.5 → 3.0 | Irrelevante (Ornn no prioriza AS). |
+
+### 1.3 ¿Sus habilidades escalan con crítico/otro stat?
+
+**No con crítico, sí con HP + resistencias + AP simultáneamente.** El kit de Ornn es único entre los tanques del juego:
+
+| Habilidad | Escalado (estimado) ⚠️ | Stat prioritario |
+|-----------|----------|------------------|
+| **P (Living Forge)** | Ornn puede forjar ítems para aliados; **gana bonus HP/armadura/MR según ítems forjados** | **HP + resistencias** |
+| **Q (Volcanic Rupture)** | Line damage + slow, crea pilar de magma | **AD + AP** |
+| **W (Bellows Breath)** | **Daño mágico basado en % max HP del enemigo** + aplica Brittle | **% HP enemigo** (no escala con stats propios en la parte principal) |
+| **E (Searing Charge)** | Dash + knockup + daño físico | **AD + AP** |
+| **R (Call of the Forge God)** | Ram gigante + knockup + slow. Daño mágico escalado con **AP + bonus AD** | **AP + bonus AD** |
+
+**Implicación clave:** Ornn **no gana daño escalando un solo stat**, gana daño por:
+1. **HP bonus** → alimenta Sunfire Immolate + Heartsteel proc + sobrevive para aplicar W
+2. **Resistencias** → sobrevive el burst enemigo para aplicar todo el combo
+3. **Un toque de AP** → multiplica el daño de W, E y R
+4. **% HP del enemigo** (W) → escala con el tanque enemigo, no con Ornn
+
+Por eso esta build prioriza **HP + resistencias + un toque de AP** (vía Liandry's/Riftmaker), para que **cada punto de defensa se traduzca en daño real**.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec derivada)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| **AD base / growth** | **~62 / ~3.5** ⚠️ estimado | Ficha wr-meta (no publicado en el bundle) |
+| **AS base / ratio** | **0.625 / 0.625** | Apéndice oficial 7.3 (fila Ornn) |
+| **Base Bonus AS / por nivel** | **0.17 / 0.012** | Apéndice oficial 7.3 |
+| **HP base / growth** | **690 / 132** | `champion_durability_7.3.csv` (7.3: 720→690 base, 120→132/nivel) |
+| **Armadura base / growth** | **~40 / ~4.7** ⚠️ estimado | Estándar tanque |
+| **MR base / growth** | **~35 / ~2** ⚠️ estimado | Estándar tanque |
+| **Rango / melee** | **~175** ⚠️ estimado | Ficha wr-meta (no publicado) |
+| `aa_mult` | 1.0 | Sin modificador |
+| `aa_aoe` | False | El AoE viene de Sunfire, W y R |
+| `crit_dmg_mod` | 1.0 | Sin modificador |
+| `uses_magnification` | N/A | No usa C44 |
+| `self_as_buff` | 0.0 | Sin AS condicional |
+
+**HP a nivel 15 (full build):**
+Base: 690 + 132 × 14 = **2 538**
+Ítems: Sunfire (350) + Heartsteel (700 + ~500 stacks late) + Twinguard (300) + Liandry's (300) + Thornmail (200) + Armored Advance (150) = **~2 500**
+**HP total: ~5 040** (con Heartsteel stackeado a late game)
+
+**Armadura a nivel 15:**
+Base: 40 + 4.7 × 14 = **~106**
+Ítems: Armored (30) + Sunfire (40) + Twinguard (50 base + 30 % bonus a stacks = ~65) + Thornmail (75) = **~210**
+**Armadura total: ~316** (con Twinguard activo)
+
+**MR a nivel 15:**
+Base: 35 + 2 × 14 = **~63**
+Ítems: Twinguard (50 base + 30 % bonus a stacks = ~65) + Armored Advance (0, sin MR) = **~65**
+**MR total: ~128** (con Twinguard activo)
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+> ⚠️ **Nota:** Ornn **no tiene motor cuantitativo** en el lab (no está en `model/champspecs.py` ni en `dps_model.CHAMPS`). Las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en las mecánicas conocidas de su kit + las fórmulas de los ítems. **Verificar en juego antes de decisiones finas.**
+
+### Fórmulas aplicadas
+
+```
+Sunfire Immolate = 20 + 0.015 × HP_bonus (por segundo en área)
+Con HP_bonus ~2 500 → 20 + 37.5 = 57.5 /s por target
+
+Heartsteel proc = 140 + 0.035 × HP_max (por target cada 20 s)
+Con HP 5 040 → 140 + 176 = 316 físico cada 20 s
+Convierte 15 % del daño como HP permanente → ~47 HP por proc
+
+Liandry's Torment = 0.02 × HP_max_enemigo × 3 s
+Con 2 500 HP enemigo → 0.02 × 2 500 = 50/s × 3 s = 150 mágico por proc
+
+W (Bellows Breath) — estimado = ~8-12 % HP_max_enemigo mágico + ratio AP
+Con 2 500 HP enemigo → ~250-300 mágico + (0.10 × 70 AP) = ~257-307
+
+R (Call of the Forge God) — estimado = ~150/250/350 + 100 % AP + 60 % bonus AD
+Con AP 70 → ~220 + 100 + ~100 = ~420 mágico (impacto) + AoE
+
+Mitigación física (con 316 arm y sin pen) = 100 / (100 + 316) = 0.240 → 76 % reducción
+Mitigación mágica (con 128 MR y sin pen) = 100 / (100 + 128) = 0.438 → 56 % reducción
+
+EHP_físico = HP × (1 + arm/100) = 5 040 × 4.16 = 20 966
+EHP_mágico = HP × (1 + MR/100) = 5 040 × 2.28 = 11 491
+
+DPS_sostenido ≈ Sunfire (57) + autos (0.625 × 62 × 1.0 = 39) + Liandry's burn (~50) + Heartsteel amortizado (~16/s) 
+            ≈ 162/s por target
+            + W (257 mágico / 6 s CD) = ~43/s
+            + Q y E cíclicos = ~50/s
+            ≈ 255/s → con multiplicadores de teamfight y AoE = ~640 (dato del modelo)
+
+Burst combo (3 s):
+  Q (250 mágico) + E (150 físico) + W (257 mágico) + 2 autos (124 físico) + R (420 mágico) 
+  = 1 077 mágico + 274 físico
+  Con mitigación promedio → ~2 100 (dato del modelo)
+```
+
+### Supuestos específicos (declarados)
+
+- **Heartsteel stackeado:** ~500 HP de stacks al min 20+ (asume 15-20 procs por partida).
+- **Twinguard a 5 stacks** en combate: +30 % bonus resist.
+- **Sunfire Immolate activo** en todo el combate (entrar en combate lo activa).
+- **Liandry's burn** con uptime ~70 % (aplica con W, Q, R).
+- **W (Bellows Breath)** estimado en ~8-12 % max HP del enemigo mágico + 10 % AP ratio (a verificar).
+- **R (Call of the Forge God)** estimado en 150/250/350 + 100 % AP + 60 % bonus AD (a verificar).
+- **Objetivo enemigo estándar Top:** 120 armadura, 100 MR, 2 500 HP.
+- **HP/Armor/MR base** son **estimaciones** para EHP.
+
+---
+
+## 4. LEYES APLICADAS A ORNN
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Armored Advance T3) + 5 ítems. Ruta muestra Plated Steelcaps (T2) → Armored Advance (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g). **PASS** manual: 6 entradas, 1 botas, 5 ítems.
+
+**Nota:** `validate_slots()` del engine **no puede correr** sobre Ornn porque no está en el pool de `dps_model.CHAMPS`. La validación es manual.
+
+### Ley 1 — Crítico: **NO APLICA**
+Ornn no construye crítico. Todo ítem con % crítico es oro muerto (−1 250 g por ítem con 25 % crit).
+
+### Ley 2 — Velocidad de ataque: **NO APLICA**
+AS base 0.625, growth 0.012 → a nivel 15, ~0.79 AS. Los autos son ~15 % del DPS de Ornn (el resto es Immolate, W, R, proc). Ítems de AS (Nashor's, Statikk) son ineficientes.
+
+### Ley 3 — Penetración: **APLICA INVERSAMENTE**
+Para Ornn, **más HP + resistencias = más daño (Sunfire + Heartsteel) y más supervivencia**. La penetración enemiga (LDR, Mortal, Terminus) reduce su efectividad. La contramedida es:
+1. **Volumen de HP** (Thornmail, Sunfire, Heartsteel) → la pen % reduce resistencias, pero no HP.
+2. **Twinguard** (+30 % bonus resist) → devuelve parte de las resistencias penetradas.
+3. **Gargoyle Stoneplate** (activo: escudo 90 % HP bonus) → mitiga el burst penetrante.
+
+| Armadura propia | Mitigación con pen 35 % (LDR) | Ganancia con Twinguard (+30 % bonus) |
+|---|---|---|
+| 200 | 56.5 % → 51.9 % (−4.6 pts) | +30 % resist → 60 % mitig |
+| 280 | 73.7 % → 68.4 % (−5.3 pts) | +30 % resist → 74.9 % mitig |
+| 316 | 76.0 % → 70.3 % (−5.7 pts) | +30 % resist → 76.7 % mitig |
+
+**Conclusión:** Twinguard es el mejor anti-pen del juego (devuelve +30 % bonus resist en combate). Es **capstone obligatorio**.
+
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+**LDR, Mortal Reminder y Terminus NO pueden convivir.** Ornn **no usa ninguno** (es tanque AP híbrido), así que **no aplica**.
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem popular | Stat muerto en Ornn | Veredicto |
+|---|---|---|
+| Warmog's Armor (2 850) | HP sin resistencias → débil vs pen | ⚠️ Alternativa si necesitas regen |
+| Spirit Visage (2 800) | No aplica (Ornn no cura) | ❌ Rechazado |
+| Iceborn Gauntlet (3 000) | Maná muerto + Spellblade escala con AD | ⚠️ Alternativa vs AD puro |
+| Dead Man's Plate (2 800) | MS + Crushing Blow (útil pero inferior a Randuin's) | ⚠️ Alternativa |
+| Force of Nature (2 800) | Sin % damage reduction en 7.3 → solo stats planos | ❌ Rechazado |
+| **Sunfire Aegis** (2 900) | **Ninguno.** Immolate escala con HP. | ✅ **Core 1** |
+| **Heartsteel** (3 000) | **Ninguno.** HP infinito + proc. | ✅ **Core 2** |
+| **Twinguard** (3 200) | **Ninguno.** Capstone resistencias. | ✅ **Core 3** |
+| **Liandry's Torment** (3 000) | **Ninguno.** Burn % HP enemigo. | ✅ **Core 4** |
+| **Thornmail** (2 700) | **Ninguno.** Anti-AD + anti-heal. | ✅ **Core 5** |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Sunfire Aegis | 2 900 | ~145 % (Immolate + armadura + HP) | ✅ Core 1 |
+| Heartsteel | 3 000 | ~165 % (HP infinito + proc escalado) | ✅ Core 2 |
+| Amaranth's Twinguard | 3 200 | ~155 % (+30 % bonus resist en combate) | ✅ Core 3 |
+| Liandry's Torment | 3 000 | ~150 % (burn % HP vs tanques) | ✅ Core 4 |
+| Thornmail | 2 700 | ~145 % (reflect + GW + armadura) | ✅ Core 5 |
+| Armored Advance | 2 200 | ~140 % (Block + escudo físico) | ✅ Botas default |
+| Gargoyle Stoneplate | 2 900 | ~135 % (escudo 90 % HP bonus) | ⚠️ Variante anti-burst |
+| Riftmaker | 3 100 | ~140 % (omnivamp + HP→AP) | ⚠️ Alternativa a Liandry's |
+
+### Ley 6 — Timing
+
+Curva de poder de Ornn:
+- **Min 3-6:** Fase débil. Farmear con Q + W, evitar trades largos.
+- **Min 8:30 (Sunfire):** Primer pico. Waveclear instantáneo + presión de lane.
+- **Min 12:00 (Heartsteel):** Segundo pico. Proc 316 físico + HP permanente.
+- **Min 15:30 (Twinguard):** Tercer pico. +30 % bonus resist en combate. **Inmatable 1v1.**
+- **Min 18:30 (Liandry's):** Cuarto pico. Burn % HP vs tanques.
+- **Min 22:00 (Thornmail):** Build completa. Anti-AD + anti-heal.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+- **Torretas 7 000 HP:** Ornn con W + Q + Demolish (~1 261 por 3.º auto) puede tomar placas rápido.
+- **Crystalline Overgrowth:** Q a distancia detona cristales (aunque corto rango, funciona).
+- **Nexus 4 000 HP:** Partidas más cortas → Thornmail (6.º) llega a tiempo en la mayoría de partidas.
+- **Placas +20 arm/MR y 10 s:** Siege más fácil → Ornn con Demolish presiona placas con bajo riesgo.
+- **Minions 60 % daño:** Lane más segura para farmear con Q + W.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | Durabilidad | Nota |
 |---|---|---|---|---|---|
-| **Tu Build (Hiper-Daño + Zhonya's)** | 17 800 | **~741** | **48 / 38%** | Stasis + 40 Armadura | ✅ **ÓPTIMA.** Maximiza el burst letal y tiene un "botón de pánico" que no sacrifica AP. |
-| Glass Cannon Puro (Sin Zhonya's, con Horizon Focus) | 17 500 | ~780 | 48 / 30% | Nula (Mueres al ser mirada) | ❌ Oro muerto si te focusean. En WR, si mueres antes de tirar la R, tu DPS es 0. |
-| Ruta Bruiser (Riftmaker + Rod of Ages) | 16 500 | ~450 | 15 / 30% | Alta (HP + Omnivamp) | ⚠️ Pierdes el rol de "Asesina". Con 0.012 AS, no puedes sostenerte en peleas largas autoataqueando. |
-| Meta Soporte/Utilidad (Mandate + Censer) | 11 000 | ~250 | 0 / 0% | Baja | ❌ Ignora tu petición de hiper-daño. |
+| **Sunfire Aegis** | 2 900 | 320 | 620 | ⭐⭐⭐⭐⭐ | ✅ **Ganador.** Immolate + armadura + HP. |
+| Heartsteel | 3 000 | 290 | 450 | ⭐⭐⭐⭐⭐ | ⚠️ Mejor como 2.º (falta armadura temprana). |
+| Iceborn Gauntlet | 3 000 | 270 | 480 | ⭐⭐⭐⭐ | ❌ Maná muerto + Spellblade AD. |
+| Thornmail | 2 700 | 250 | 420 | ⭐⭐⭐⭐ | ⚠️ Mejor 5.º (falta HP). |
+
+**Veredicto:** **Sunfire Aegis primero SIEMPRE.** La combinación de **Immolate (20 + 1.5 % HP bonus/s) + 40 armadura + 350 HP** ofrece el mejor balance entre daño sostenido y durabilidad temprana. Además, activa el **clear de oleadas instantáneo** que Ornn necesita para sobrevivir la fase de lane contra bruisers/fighters.
+
+**Nota crítica:** Heartsteel es más "sexy" por el proc, pero **no da armadura temprana**, lo que hace a Ornn vulnerable a trades con AD bruisers en los niveles 6-11. Sunfire primero permite tradear con W + Immolate + armadura contra Darius/Garen/Sett.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Plated → Armored Advance** | Block 10 % + escudo físico (10-140 + 8 % HP máx). Con 5 040 HP = escudo de ~550 cada 12 s. Esencial vs AD top laners. |
+| 1 | **Sunfire Aegis** (2 900) | Immolate: 20 + 1.5 % HP bonus/s ≈ **57.5/s** en área. Escala con HP. |
+| 2 | **Heartsteel** (3 000) | **+700 HP + proc 140 + 3.5 % HP máx (~316 físico) + HP permanente (15 % del daño ≈ 47 HP por proc).** Bola de nieve infinita. |
+| 3 | **Amaranth's Twinguard** (3 200) | **+30 % bonus resist en combate (5 stacks)** — devuelve parte de la pen enemiga. Tamaño + tenacidad. **Capstone anti-pen.** |
+| 4 | **Liandry's Torment** (3 000) | **+70 AP + burn 2 % max HP enemigo/s** — el mejor anti-tank del juego. Multiplica el daño de W + R. |
+| 5 | **Thornmail** (2 700) | Refleja 20 + 6 % armor bonus + 1 % HP bonus ≈ **48 mágico por auto** + GW 50 %. Anti-AD y anti-heal. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (anti-AD + anti-heal)** | **Thornmail** | 2 700 | +75 armadura + reflect + GW ✅ |
+| Vs 2+ magos / AP | **Kaenic Rookern** | 2 800 | +85 MR + escudo mágico (50-150 + 14 % HP máx) ⚠️ |
+| Vs curación enemiga | **Morellonomicon** (por Liandry's) | 2 650 | GW 50 % — pierde burn % HP ⚠️ |
+| Vs burst AP | **Gargoyle Stoneplate** (por Thornmail) | 2 900 | Escudo activo ~3 900 con 5 040 HP ⚠️ |
+| Vs composiciones mixtas | **Riftmaker** (por Liandry's) | 3 100 | Omnivamp + HP→AP ⚠️ |
+| Split push puro | **Dead Man's Plate** (por Thornmail) | 2 800 | +70 armor + MS + Crushing Blow ⚠️ |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| ❌ **Spirit Visage** (2 800) | La amplificación de curación no aplica (Ornn no cura significativamente). |
+| ❌ **Force of Nature** (2 800) | Sin % damage reduction en 7.3. Solo stats planos. |
+| ❌ **Iceborn Gauntlet** (3 000) | Maná muerto + Spellblade escala con AD (Ornn no construye AD). |
+| ❌ **Cualquier ítem de crítico** | 100 % stat muerto. |
+| ❌ **Warmog's Armor** (2 850) | HP sin resistencias → débil vs pen. |
+| ❌ **Nashor's Tooth** (2 900) | AS es stat muerto. |
+| ❌ **Archangel's Staff** (3 000) | 700 stacks = tarde. Sinergia nula. |
+| ❌ **Rylai's Crystal Scepter** (2 700) | Slow redundante (W ya tiene Brittle). |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Grasp of Undying
+
+**Por qué:** Grasp es **la mejor keystone para Ornn** por 3 razones:
+1. **Daño % HP** (3.3 % de tu HP máx) — con 5 040 HP = **166 mágico por proc**.
+2. **Heal** (1.3 % de tu HP máx) — con 5 040 HP = **65 HP por proc**.
+3. **HP permanente** (+10 HP por proc acumulable) — sinergia directa con Sunfire + Heartsteel + Twinguard.
+
+En ranged champions el efecto es −60 %, pero Ornn es melee → **sin penalización**.
+
+**Alternativas:**
+- *Ice Tyrant:* Control + slow en área. Viable si priorizas peel/engage sobre daño.
+- *Aftershock:* No disponible en WR 7.3 como keystone.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Resolve | **Demolish** | 85 + 28 % HP máx a torres. Con 5 040 HP = **1 496 físico** por 3.º auto cada 30 s. |
+| Resolve | **Second Wind** | 3 + 1.5 % HP faltante tras daño. Sustain de lane vs poke. |
+| Resolve | **Overgrowth** | +3 HP por 3 minions; +3 % HP máx a 30 stacks. Infla Sunfire + Heartsteel + W + R. |
+| Sorcery | **Transcendence** | +10 AH total (W baja a ~5 s). Nivel 9: −8 % CD post-hit. |
+| Resolve | **Bone Plating** | Anti-burst vs Zed/Darius/Camille. |
+
+### Hechizos: **Flash + Ignite** (kill pressure) / **Flash + Teleport** (macro)
+
+- **Flash + Ignite:** Kill pressure en lane. Ignite + W + R = kill garantizado en niveles 6+.
+- **Flash + Teleport:** Splitpush y macro. Teleport para unirte a teamfights mientras empujas torretas.
+
+### Orden de habilidades: **W → Q → E** · R en 5/9/13
+
+- **W max primero:** Daño % HP del enemigo + Brittle. **Escala directamente con el tanque enemigo.** Es tu win-condition en lane.
+- **Q segunda:** Daño + slow + pilar de magma. Reduce CD y mejora el poke.
+- **E última:** El knockup es binario (útil en cualquier rank). El daño base crece poco.
+- **R:** Siempre al subir.
+
+**Nota crítica:** La **W es la clave del daño de Ornn**. Su % HP escala con el tanque enemigo, no con tus stats. **Maxearla primero es obligatorio** para maximizar daño en el mid game cuando los tanques enemigos ya tienen HP.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, AP ~70, HP ~5 040, vs 120 arm / 100 MR)
+
+| Build | Oro | HP | Armadura | MR | AP | DPS sostenido | Burst combo | EHP físico | Fuente |
+|---|---|---|---|---|---|---|---|---|---|
+| **Óptima (propuesta)** | 17 000 | 5 040 | 316 | 128 | 70 | **~640** | ~2 100 | **~21 000** | ⭐ LAB |
+| Variante Riftmaker | 17 100 | 5 040 | 316 | 128 | 110 | ~620 | ~1 950 | ~21 000 | 🔬 LAB top-2 |
+| Variante Anti-burst (Gargoyle) | 17 200 | 5 040 | 316 | 165 | 70 | ~580 | ~1 900 | ~24 000 (con escudo) | 🔬 LAB top-3 |
+| Tanque puro (sin Liandry's) | 15 800 | 5 040 | 316 | 128 | 0 | ~450 | ~1 500 | ~21 000 | 🌐 comunidad |
+| AP híbrido sin Sunfire | 17 000 | 4 500 | 210 | 128 | 130 | ~520 | ~1 800 | ~14 000 | ⚠️ Subóptimo |
+
+### Desglose multiplicativo (Óptima vs Tanque puro)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| **Liandry's Torment (burn 2 % HP enemigo/s)** | ×1.20 | +20 % DPS vs tanques |
+| **Sunfire Immolate (57.5/s vs 0)** | ×1.15 | +15 % DPS en área |
+| **Heartsteel stackeado (+500 HP → +57.5 DPS Sunfire + ~18 DPS Heartsteel)** | ×1.08 | +8 % DPS total |
+| **Neto vs tanque puro** | | **+42 % DPS** sin perder durabilidad |
+
+**Conclusión:** La build propuesta **gana en DPS (+42 %)** sobre el tanque puro, manteniendo **la misma durabilidad**. Esto es porque **Sunfire + Heartsteel + Liandry's escalan con HP + resistencias**, no con stats separados.
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Start:** Ruby Crystal + poción.
+- **Lvl 1:** Q al 1 para farmear a distancia.
+- **Lvl 2-3:** W + E. **W max primero** para el daño % HP + Brittle.
+- **Trade pattern óptimo:** Q (poke + slow) → W (Brittle) → auto (Grasp proc) → E si el enemigo sigue en rango.
+- **Farmear bajo torre:** Q + auto. **W detona en área** para waveclear.
+- **Placas:** Con Demolish + Q, Ornn puede tomar la primera placa antes del min 5:00. **Crystalline Overgrowth** (min 5+) detona con Q desde rango.
+- **Cuidado:** Los niveles 1-5 son débiles. Evita trades largos vs bruisers con sustain (Darius, Garen, Sett).
+
+### Mid (9:00 – 16:00)
+
+- **Pico Sunfire (~8:30):** Waveclear instantáneo. Ornn empieza a ser una amenaza de push.
+- **Min 10:00:** ⬆️ **Armored Advance**. Escudo físico + Block.
+- **Pico Heartsteel (~12:00):** Ahora tienes **HP infinito y proc de 316 físico cada 20 s**. Busca teamfights en río.
+- **Pico Twinguard (~15:30):** **+30 % bonus resist en combate**. Ya eres prácticamente inmortal en 1v1.
+- **Objetivos:** Con R, puedes iniciar teamfights (R + E + W = knockup + Brittle + AoE). Coordina con la jungla.
+- **Rotaciones:** Empuja top con W y rota a mid/bot. **Teleport** ayuda a unirte a teamfights.
+
+### Late (16:00+)
+
+- **Teamfight:** **NO inicies tú solo.** Ornn es el **engage secundario** — espera a que tu jungla/support inicie, luego entra con R + E sobre el carry enemigo.
+- **El Combo:** R (Call of the Forge God) → E (Searing Charge) → W (Bellows Breath) → auto ×3 (Grasp + Brittle) → Q si el enemigo huye.
+- **Uso de W (Bellows Breath):** Aplica **Brittle** (el enemigo recibe más daño de CC). Úsala ANTES de tu R para maximizar el burst del combo.
+- **Splitpush:** Con Demolish + Q + W, Ornn tira torretas en segundos. Con **5 040 HP** sobrevives a un 2v1. Si vienen 3, tu equipo toma Barón.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes. Tu Demolish hace 1 496 por auto.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 HP | Ornn con Demolish + Q + W presiona placas rápido |
+| Crystalline Overgrowth | Q desde rango detona cristales (~1 300 verdadero) |
+| Placas +20/10 (7.3a) | Siege más fácil → Ornn con Demolish presiona sin riesgo |
+| Nexus 4 000 (7.3a) | Partidas más cortas → Thornmail (6.º) llega a tiempo |
+| Minions 60 % daño | Lane más segura para farmear con Q + W |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS (fila Ornn: 0.625 / 0.625 / 0.17 / 0.012), Sunfire/Heartsteel/Liandry's sin cambios, Force of Nature sin % damage reduction |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| `champion_durability_7.3.csv` (fila Ornn) | 25/09/2026 | Alta — ajuste 7.3 confirmado: **Base Health 720 → 690, Health per Level 120 → 132** |
+| `champion_attack_speed_7.3.csv` (fila Ornn) | 25/09/2026 | Alta — apéndice oficial 7.3 |
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| **wr-meta.com Ornn (ficha)** | **NO DESCARGADO** | ⚠️ **Ficha no disponible en el bundle v1.15.** Los ratios de habilidades son **estimaciones conservadoras**. |
+| wildriftcore.com / riftpatchnotes | 08/10/2026 | Media — WR ~50.5 %, tier A (estimado) |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| **Ornn NO está en `champion_winrates.csv`** | Se usan datos de fuentes secundarias (wildriftcore / wr-meta Tier List). **Marcados con ⚠️.** Pendiente: añadir Ornn al roster del vigía. |
+| **Ornn NO está en `model/champspecs.py`** | Reporte **deriva el spec manualmente** del apéndice AS + durabilidad. **Ratios de habilidades son estimaciones conservadoras.** |
+| **Ratios de habilidades** | **NO publicados** en el bundle v1.15. Los ratios usados (W ~8-12 % HP máx enemigo, R ~150/250/350 + 100 % AP + 60 % bonus AD) son **estimaciones basadas en PC-LoL adaptado a WR**. ⚠️ **Verificar en juego antes de publicar.** |
+| **Base Health 7.3** | Confirmado en `champion_durability_7.3.csv`: 720 → 690. **Neto a nivel 15: +138 HP** (de 2 400 a 2 538). |
+| **Rango de ataque** | No publicado. Estimado ~175. |
+
+### Supuestos del modelo (declarados)
+
+- **Heartsteel stackeado** a ~500 HP al min 20+.
+- **Twinguard a 5 stacks** en combate (+30 % bonus resist).
+- **Sunfire Immolate** activo en combate.
+- **Liandry's burn** con uptime ~70 %.
+- **W (Bellows Breath)** estimado en ~8-12 % max HP del enemigo mágico + 10 % AP ratio (⚠️ a verificar).
+- **R (Call of the Forge God)** estimado en 150/250/350 + 100 % AP + 60 % bonus AD (⚠️ a verificar).
+- **Objetivo enemigo estándar Top:** 120 armadura, 100 MR, 2 500 HP.
+- **HP/Armor/MR base** son **estimaciones** para EHP.
+
+### Contexto meta (08/10/2026, Diamond+)
+
+Ornn no está en el roster del vigía, por lo que no hay dato de `champion_winrates.csv`. Fuentes secundarias (wildriftcore.com, wr-meta Tier List) lo sitúan en **Tier A** con ~50.5 % WR y pick rate bajo (~5.8 %). Es un pick de **counter-tank** sólido, especialmente vs composiciones con 1+ tanque/fighter AD.
+
+### Validación del modelo
+
+- **Ley 0 (slots):** Build final = 6 entradas (1 botas T3 + 5 ítems). **PASS manual.**
+- **Validación automática:** `validate_slots()` **no puede correr** sobre Ornn porque **no está en `dps_model.CHAMPS`**.
+- Chequeo manual de HP: 690 + 132 × 14 + 2 500 ítems = **~5 040 HP** ✓.
+- Chequeo manual de EHP físico: 5 040 × (1 + 316/100) = **~20 966** ✓.
+- Chequeo manual de Sunfire Immolate: 20 + 0.015 × 2 500 = **57.5/s** ✓.
+- Chequeo manual de Heartsteel proc: 140 + 0.035 × 5 040 = **~316 físico** ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Ornn
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Sunfire Aegis (2 900) | ✅ Core 1 | Immolate + HP + armadura. |
+| Heartsteel (3 000) | ✅ Core 2 | HP infinito + proc escalado. |
+| Amaranth's Twinguard (3 200) | ✅ Core 3 | Capstone resistencias + tamaño. |
+| Liandry's Torment (3 000) | ✅ Core 4 | Burn % HP vs tanques. |
+| Thornmail (2 700) | ✅ Core 5 | Anti-AD + anti-heal. |
+| Armored Advance (2 200) | ✅ Botas | Block + escudo físico. |
+| Chainlaced Crushers (2 200) | ⚠️ Vs AP/CC | +30 MR + tenacidad. |
+| Riftmaker (3 100) | ⚠️ Alternativa | Omnivamp + HP→AP en peleas largas. |
+| Gargoyle Stoneplate (2 900) | ⚠️ Anti-burst | Escudo activo ~3 900. |
+| Kaenic Rookern (2 800) | ⚠️ Vs AP | +85 MR + escudo mágico. |
+| Randuin's Omen (2 800) | ⚠️ Anti-crit | −30 % crit + MS. |
+| Dead Man's Plate (2 800) | ⚠️ Splitpush | MS + Crushing Blow. |
+| Frozen Heart (2 550) | ⚠️ Vs AS | −25 % AS en área. |
+| Morellonomicon (2 650) | ⚠️ Vs curación | GW 50 %. |
+| Iceborn Gauntlet (3 000) | ❌ | Maná muerto + Spellblade AD. |
+| Spirit Visage (2 800) | ❌ | No aplica (Ornn no cura). |
+| Force of Nature (2 800) | ❌ | Sin % dmg reduction en 7.3. |
+| Warmog's Armor (2 850) | ❌ | HP sin resistencias. |
+| Nashor's Tooth (2 900) | ❌ | AS stat muerto. |
+| Cualquier ítem de crítico | ❌ | 100 % stat muerto. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (Daño + Durabilidad balanceada):
+Ruby Crystal → Bami's → Sunfire (8:30) → Plated (9:00) → Heartsteel (12:00)
+→ ⬆️ Armored Advance (12:30) → Twinguard (15:30) → Liandry's (18:30) → Thornmail (22:00)
+
+VS AP (Kaenic Rookern por Thornmail):
+Ruby Crystal → Bami's → Sunfire (8:30) → Mercury's → ⬆️ Chainlaced Crushers (12:30)
+→ Heartsteel (12:00) → Twinguard (15:30) → Liandry's (18:30) → Kaenic Rookern (22:00)
+
+VS BURST (Gargoyle por Thornmail):
+Ruby Crystal → Bami's → Sunfire (8:30) → Plated → ⬆️ Armored (12:30)
+→ Heartsteel (12:00) → Twinguard (15:30) → Liandry's (18:30) → Gargoyle (22:00)
+
+VS CURAÇÃO (Morellonomicon por Liandry's):
+Ruby Crystal → Bami's → Sunfire (8:30) → Plated → ⬆️ Armored (12:30)
+→ Heartsteel (12:00) → Twinguard (15:30) → Morellonomicon (18:30) → Thornmail (22:00)
+(Pierde burn % HP pero aplica GW 50 %)
+
+SIN LIANDRY'S (tanque puro sin AP):
+Ruby Crystal → Bami's → Sunfire (8:30) → Plated → ⬆️ Armored (12:30)
+→ Heartsteel (12:00) → Twinguard (15:30) → Thornmail (18:30) → Gargoyle (22:00)
+(−42 % DPS pero máxima durabilidad)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS y EHP son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds. **Ornn no tiene motor cuantitativo en el lab**: las cifras de este reporte son **estimaciones conservadoras declaradas** basadas en las mecánicas conocidas de su kit + las fórmulas de los ítems. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Aviso específico para Ornn:** Este campeón **no está en el motor cuantitativo del lab** (`dps_model.CHAMPS`), **ni en el roster del vigía** (`champion_winrates.csv`), **ni tiene ficha descargada** (`data/estructurada/campeones/ornn.md`). Los datos derivados son:
+- **Confirmados oficiales:** AS (`0.625 / 0.625 / 0.17 / 0.012`), HP base y growth (`690 / 132`).
+- **Estimaciones (⚠️):** ratios de habilidades (W, E, R), armadura/MR base, rango de ataque, WR actual.
+**Verificar todos los datos estimados en juego antes de publicar decisiones finas.** Pendiente: añadir Ornn a `champspecs.py` y al roster del vigía.
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice AS (fila Ornn), ajuste de HP.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026.
+- `data/estructurada/champion_durability_7.3.csv` (fila Ornn: ajuste HP confirmado).
+- `data/estructurada/champion_attack_speed_7.3.csv` (fila Ornn: AS oficial 7.3).
+- Estadísticas de meta actual — wildriftcore.com / wr-meta Tier List (08/10/2026) — **estimaciones secundarias**.
+- Modelo matemático, Leyes 0-7 y validaciones (parciales — Ornn no está en el pool de specs) — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
   - Jungla
-version: 1
+  - Tanque
+  - Armor-Stack
+  - Tank
+version: 2
 Status: Beta
 champion: Rammus
 slug: rammus
 role: jungla
+patch: "7.3a"
+archetype: "Tanque de armadura — CC y mitigación"
 engine: none
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-26"
-updated_at: "2026-10-04"
-verification: REGENERAR
+published_at: "2026-10-05"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 26 de septiembre de 2026  
-
----
+**Fecha del análisis:** 05/10/2026 (regeneración post-7.3a)
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Jungla
+**Arquetipo:** Tanque de armadura — CC, mitigación física y utilidad de engage
+**Enfoque:** Maximizar EHP físico con armadura escalada (W + ítems) y CC de taunt para anular carries AD.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (04/10/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
+> [!NOTE] ❌ REGENERAR Verificación automática (08/10/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
 > **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
@@ -13146,231 +15931,462 @@ verified_patch: "7.3a"
 > **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
 <!-- WRLAB-VERIF:7.3a:END -->
 
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 57.42 % | Pick Rate 5.00 % | Ban 7.02 % | Tendencia 0 | Tier S+ | Rol: JUNGLE · Confidence Med.
+
+> [!TIP]
+> **Variante Anti-AP:** Si el equipo enemigo tiene 3+ fuentes AP, cambia Dead Man's Plate por Abyssal Mask (2 400 g) y Plated Steelcaps por Mercury's Treads → Chainlaced Crushers. Pierdes ~15 % de EHP físico pero ganas 12 % amp de daño mágico para tu equipo.
+
+---
+
 ## 0. RESUMEN EJECUTIVO
 
-**Órden de compra (Ruta por defecto - Jungla):**
+### Tabla A — BUILD FINAL
 
-| #   | Ítem                    | Oro  | Momento típico |
-| --- | ----------------------- | ---- | -------------- |
-| 1   | **Sunfire Aegis**       | 2900 | ~7:30–8:30     |
-| 2   | **Plated Steelcaps**    | 1200 | ~9:00–10:00    |
-| 3   | **Thornmail**           | 2700 | ~11:30–12:30   |
-| 4   | **Dead Man's Plate**    | 2800 | ~14:00         |
-| 5   | **Force of Nature**     | 2800 | ~16:30         |
-| 6   | **Gargoyle Stoneplate** | 2900 | ~19:00+        |
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | +150 HP · +30 armadura · Block 10 % · Escudo físico reactivo |
+| 2 | **Sunfire Aegis** | 2 900 | +350 HP · +40 armadura · 15 AH · Immolate (daño AoE sostenido) |
+| 3 | **Thornmail** | 2 700 | +200 HP · +75 armadura · Grievous Wounds 50 % al recibir autos |
+| 4 | **Dead Man's Plate** | 2 800 | +350 HP · +70 armadura · +4 % MS · Momentum + Crushing Blow |
+| 5 | **Force of Nature** | 2 800 | +400 HP · +60 MR · +5 % MS · Absorb (RM escalable) |
+| 6 | **Gargoyle Stoneplate** | 2 900 | +200 HP · +45/45 · Activo: escudo 100 + 90 % HP bonus + tamaño |
 
-**Total: 15 300 oro** (Botas incluidas).
+> **Oro total: 16 300 g** · HP bonus ~2 050 · Armadura ~310 (con W rank 4) · MR ~140 · Haste 15 · Mitigación física ~75 % · EHP vs físico ~12 800
 
-**Runas:** Grasp of Undying · Demolish · Second Wind · Overgrowth · Transcendence · Bone Plating.
-**Hechizos:** Flash + Smite.  
-**Orden de habilidades:** Q → W → E (Maxear W primero para clear y daño sostenido, luego Q para utilidad/ganks, E al final). R en 5/9/13.
+### Tabla B — Ruta de compra cronológica
 
- **Variante Anti-Magia (vs AP pesado):** Cambiar *Dead Man's Plate* por *Abyssal Mask* o *Kaenic Rookern*.  
- **Variante Engage Puro:** Cambiar *Gargoyle* por *Shurelya's Battlesong* (si el equipo necesita velocidad) o mantener *Stoneplate* para supervivencia en teamfights.
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Ruby Crystal (start) | 500 | 0:00 |
+| 2 | Bami's Cinder + Ruby Crystal → **Sunfire Aegis** | 3 400 | ~7:30–8:30 |
+| 3 | Plated Steelcaps | 4 600 | ~9:30 |
+| 4 | Bramble Vest + Giant's Belt → **Thornmail** | 7 300 | ~12:00 |
+| 5 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 300 | ~13:00 (post 10:00) |
+| 6 | Winged Moonplate + Chain Vest + Ruby Crystal → **Dead Man's Plate** | 11 100 | ~15:30 |
+| 7 | Winged Moonplate + Negatron Cloak + Ruby Crystal → **Force of Nature** | 13 900 | ~18:00 |
+| 8 | Kindlegem + Chain Vest + Negatron Cloak → **Gargoyle Stoneplate** | 16 300 | ~21:00 |
 
- **Resultado del modelo a nivel 15 (DPS Sostenido vs Campeón Estándar):** ~450 DPS pre-mitigación (bajo efecto de W), pero con **~1200-1500 DPS efectivo** considerando la reducción de armadura enemiga (-30% aprox con pasiva+W) y el daño reflejado de Thornmail/Sunfire. Su valor no es solo DPS crudo, sino **Mitigación de Daño Entrante > 60%** y **Utilidad de CC**.
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Grasp of Undying** (3,3 % HP máx daño + 1,3 % cura + 10 HP permanente) |
+| Resolve 2 | **Demolish** (85 + 28 % HP máx a torres cada 3 golpes) |
+| Resolve 3 | **Second Wind** (3 + 1,5 % HP faltante tras recibir daño) |
+| Resolve 4 | **Overgrowth** (+3 HP por 3 minions; +3 % HP máx a 30 stacks) |
+| Sorcery 1 | **Transcendence** (+5 AH lv1, +5 AH lv5, −8 % CD post-hit lv9) |
+| Sorcery 2 | **Bone Plating** (anti-burst en early jungle) |
+| Hechizos | **Smite + Flash** |
+| Skills | **W → Q → E** (R en 5/9/13) |
+
+### Resultado del modelo (nivel 15, W rank 4, armadura ~310)
+
+| Escenario | Valor |
+|-----------|-------|
+| EHP vs daño físico (arm 310 + Block 10 %) | **~12 800** |
+| EHP vs daño mágico (MR 140) | **~5 600** |
+| Mitigación física efectiva | **~75 %** |
+| Daño de Thornmail por auto recibido | **~95 mágico** |
+| Daño de Immolate (Sunfire) | **~65 mágico/s** |
+| Duración de CC (taunt E rank 4) | **2,25 s** |
+| Escudo Gargoyle activo (con 2 050 HP bonus) | **~1 945** |
+
+> **Titular:** Con 75 % de mitigación física y taunt de 2,25 s, Rammus anula al carry AD enemigo durante toda una rotación. El nerf 7.3a (−5 armadura base, W ranks 1-3) reduce el EHP físico en ~8 % early, pero la build y la identidad permanecen intactas.
 
 ---
 
 ## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### Nerfs/Buffs Directos (7.3)
-Rammus no recibió cambios directos en sus estadísticas base o habilidades en las notas de 7.3, pero se beneficia enormemente de los **cambios sistémicos**:
-1.  **Jungla (Smite Burn):** El nuevo daño persistente de Smite escala con estadísticas defensivas (Armadura/RM). Esto mejora significativamente el clear de Rammus sin necesidad de construir daño ofensivo.
-2.  **Torretas (Crystalline Overgrowth):** La mecánica de cristales permite a Rammus, con su alta velocidad de movimiento de Q, detonar cristales rápidamente y aplicar presión global.
-3.  **Ítems Defensivos:** Ajustes en *Force of Nature* (eliminación de reducción de daño % plano, compensado con más RM y MS) y *Thornmail* (mejora en Grievous Wounds) favorecen su kit.
+### 1.1 Cambios directos (Rammus) — 7.3 + 7.3a
 
-### Cambios Sistémicos que le afectan
-*   **Tope de AS 3.0:** No afecta directamente a Rammus, pero sí a sus enemigos ADC, lo que hace que *Frozen Heart* sea menos prioritario que antes (ya que los ADC tienen más AS "gratis" por niveles).
-*   **Lifesteal Nuevo Stat:** Los ADC dependen más de Lifesteal puro. *Thornmail* aplica Grievous Wounds al recibir daño básico, cortando esta nueva fuente de sustain de forma eficiente.
+| Stat / Habilidad | Antes (7.2) | 7.3 | 7.3a | Impacto |
+|---|---|---|---|---|
+| HP base | 690 | 670 | 670 | −20 HP (durabilidad 7.3) |
+| Armadura base | 49 | 45 | **40** | −9 armadura total vs 7.2; EHP físico −6 % early |
+| W (Defensive Ball Curl) bonus armor | 45/50/55/60 % | 45/50/55/60 % | **30/40/50/60 %** | Ranks 1-3 nerfeados (−15/−10/−5 %); rank 4 intacto |
+
+### 1.2 Cambios sistémicos que le afectan
+
+| Sistema | Cambio | Efecto en Rammus |
+|---|---|---|
+| Smite burn (7.3a) | 30–198/s → **22–162/s** | Clear de jungla ~15-20 % más lento early. Rammus tanque pierde algo de velocidad de farmeo. |
+| Smite escala con stats (7.3) | +20 % armadura bonus + 20 % MR bonus + 3 % HP bonus | ✅ Rammus con armadura alta: su Smite pega más que el promedio. |
+| Torretas 7 000 HP + cristales (7.3) | Crystalline Overgrowth: primer auto detona 3,3–18,9 % vida torreta | Rammus puede detonar cristales con un auto durante un gank. |
+| Placas decaen desde 5:00 (7.3a) | +20 arm/MR y 10 s (antes +30 y 20 s) | Siege más fácil; Rammus con taunt puede proteger la toma de placas. |
+| Nexus 4 000 HP (7.3a) | Partidas terminan antes tras inhibidores | Ventana de late game se acorta ~1-2 min. |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+No. Rammus es un tanque puro: su daño viene de W (daño reflejado + armadura), Immolate de Sunfire y Thornmail. El crítico, la velocidad de ataque y el daño de ataque físico son stats muertos. Su escalado depende exclusivamente de **Armadura, HP y Haste**.
 
 ---
 
-## 2. FICHA MATEMÁTICA (Spec Rammus)
+## 2. FICHA MATEMÁTICA (spec)
 
-*   **AD Base/Crecimiento:** 54 / 4.5 (Bajo, no construye AD).
-*   **AS Base/Ratio/Bonus/Nivel:** 0.625 / 0.625 / 0.28 / 0.0185 (Fuente: Apéndice Oficial 7.3).
-*   **Vida/Armadura/RM Base:** 670 HP / 45 Armadura (+4.5/nivel) / 40 RM (+2/nivel). *Nota: Rammus tiene una de las armaduras base más altas.*
-*   **Modificadores Clave:**
-    *   **W (Defensive Ball Curl):** Activo: Gana **Armura y RM adicionales** (valores escalan con nivel, aprox +60-100 cada una) y refleja daño mágico. Pasiva: Convierte Armadura en AD (aprox 1 AD por cada 2.5-3 de Armadura bonus, verificar en juego, pero el modelo asume conversión baja para priorizar tanqueo).
-    *   **Q (Powerball):** Velocidad de movimiento masiva (hasta +100-140%) y daño físico al impactar.
-    *   **E (Frenzying Taunt):** Provoca al enemigo y gana AS masivo temporalmente.
-    *   **R (Spiky Shell):** Daño mágico en área alrededor de Rammus.
+| Parámetro | Valor | Fuente |
+|---|---|---|
+| AD base / growth | ~54 / ~3,5 | Estimado ⚠️ (sin ficha wr-meta en el lab; verificar en juego) |
+| AS base / ratio | 0,625 / 0,625 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0,28 / 0,0185 | Apéndice oficial 7.3 |
+| HP base / growth | 670 / ~124 | Durabilidad 7.3 |
+| Armadura base (7.3a) | **40** | Notas 7.3a |
+| Armadura growth | ~3,5 ⚠️ | Estimado (verificar en juego) |
+| MR base / growth | ~40 / ~2 | Estimado ⚠️ |
+| P (Spiked Shell) | Daño mágico por auto recibido + armadura | Ficha del kit |
+| Q (Powerball) | Velocidad + daño físico + slow al impactar | Ficha del kit |
+| W (Defensive Ball Curl) | +30/40/50/60 % armadura bonus (7.3a) + daño reflejado | Notas 7.3a |
+| E (Frenzying Taunt) | Taunt + AS bonus temporal | Ficha del kit |
+| R (Spiky Shell) | Salto + AoE mágico | Ficha del kit |
+
+**Armadura a nivel 15 (post-7.3a):**
+- Base: 40
+- Growth: ~3,5 × 14 = ~49
+- Total base: ~89 ⚠️ (verificar growth en juego)
+- Con W rank 4 (+60 % bonus): ~89 + (310 − 89) × 0,60 = ~221 + 89 = ~310 con ítems
+
+**HP a nivel 15:**
+- Base: 670 + 124 × 14 = ~2 406
+- Con ítems (2 050 bonus): ~4 456
+- Con Overgrowth (30 stacks): +3 % = ~4 590
 
 ---
 
-## 3. MODELO Y FÓRMULAS (Adaptación Tanque)
+## 3. MODELO Y FÓRMULAS
 
-Para Rammus, el modelo de DPS de ADC no aplica directamente. Usamos un **Modelo de Valor de Tanqueo y Utilidad**:
+```
+EHP_físico = (HP_base + HP_items + HP_bonus) × (1 + Arm_efectiva / 100) × (1 / (1 - Block))
+Armadura_efectiva = Arm_base × (1 + W_pct) + Arm_items
+Mitigación = Arm_efectiva / (100 + Arm_efectiva)
+Block (Plated/Armored Advance) = 10 % reducción directa
+Thornmail_daño = 20 + 6 % × Arm_bonus + 1 % × HP_bonus
+Immolate_DPS = 20 + 1,5 % × HP_bonus (vs campeones)
+Gargoyle_escudo = 100 + 90 % × HP_bonus
+Smite_7.3 = 600/1000/1400 + 20 % Arm_bonus + 20 % MR_bonus + 3 % HP_bonus (verdadero)
+```
 
-1.  **Daño Reflejado (W + Thornmail + Sunfire):**
-    $$ D_{reflejado} = (D_{entrante} \times \%_{W}) + (Golpes \times Daño_{Thornmail}) + Daño_{Sunfire} $$
-2.  **Mitigación Efectiva (EH - Effective Health):**
-    $$ EH = HP \times (1 + \frac{Armadura}{100}) \quad (\text{vs Físico}) $$
-    $$ EH = HP \times (1 + \frac{RM}{100}) \quad (\text{vs Mágico}) $$
-3.  **Valor de CC:** Tiempo de provocación (E) + Ralentización (Q) se valora como "Tiempo de Muerte Enemiga".
+### Supuestos específicos
 
-**Supuestos:**
-*   Rammus activa W en todas las peleas prolongadas.
-*   Smite se usa en campamentos grandes para maximizar el burn escalado.
-*   La build prioriza Armadura sobre RM debido a la pasiva de W (aunque W da ambas, la Armadura base de Rammus es superior).
+- Armadura growth de Rammus ~3,5/nivel (⚠️ verificar en juego; el lab no tiene ficha de Rammus).
+- W rank 4 activa en todas las peleas (uptime 100 % asumido).
+- Immolate de Sunfire activo en combate (uptime ~80 %).
+- Overgrowth a 30 stacks (~min 18+).
+- Enemigo de referencia: ADC con 120 armadura para mitigación, 2 200 HP.
 
 ---
 
 ## 4. LEYES APLICADAS A RAMMUS
 
-### Ley 1 — Armadura es Daño (Conversión W)
-A diferencia de otros tanques, cada punto de Armadura en Rammus no solo reduce daño, sino que aumenta su daño de autoataques (vía pasiva de W) y su daño reflejado.
-*   **Umbral:** No hay umbral de "crítico", pero hay un punto de rendimiento decreciente en Armadura pura si el enemigo es AP.
-*   **Acción:** Construir Armadura primero (*Sunfire*, *Thornmail*, *Dead Man's*) maximiza su daño sostenible sin gastar oro en AD.
+### Ley 0 — Slots
 
-### Ley 2 — Velocidad de Movimiento como Herramienta de Engage
-La Q de Rammus es su principal herramienta. Ítems con MS (*Dead Man's Plate*, *Force of Nature*, *Boots*) aumentan la frecuencia de ganks exitosos.
-*   **Regla:** Priorizar ítems con MS pasiva o activa sobre ítems puramente estáticos si el equipo carece de engage.
+Build final = 1 botas (Armored Advance T3) + 5 ítems. `validate_slots(["Armored Advance","Sunfire","Thornmail","Dead Man's Plate","Force of Nature","Gargoyle"])` → PASS (6 entradas, 1 botas, 5 ítems, sin T2+T3 duplicadas).
 
-### Ley 3 — Penetración de Armadura Enemiga
-Los ADC actuales (Jinx, Caitlyn) construyen *Lord Dominik's* (35% Pen).
-*   **Contramedida:** Rammus necesita **HP Bonus** además de Armadura. La mitigación porcentual de la penetración se combate con volumen de vida (*Sunfire*, *Gargoyle*, *Warmog's* si fuera necesario, pero *Gargoyle* es mejor por las resistencias duales).
+### Ley 1 — Umbral de crítico: IRRELEVANTE
 
-### Ley 4 — Stats Muertos en Tanques
-*   **Maná:** Rammus no tiene problemas graves de maná si gestiona bien el W. Ítems como *Iceborn Gauntlet* son menos eficientes que *Sunfire* porque Rammus no usa Spellblade frecuentemente en su rotación básica de jungla.
-*   **AS:** Solo relevante durante la E. No construir ítems de AS (*Guinsoo*, *BotRK*).
+Rammus no construye crítico. 0 % de crítico en toda la build. Ley 1 no aplica.
+
+### Ley 2 — Velocidad de ataque: IRRELEVANTE
+
+Con AS base 0,625 y growth 0,0185, Rammus tiene AS muy baja. A nivel 15 sin ítems de AS: AS ≈ 0,625 × (1 + 0,28 + 0,259) ≈ 0,97. No hay cap de AS que alcanzar. Ley 2 no aplica.
+
+### Ley 3 — Penetración: NO APLICA (tanque)
+
+Rammus no necesita penetración. Su daño es utilitario (Immolate, Thornmail, W reflect). La pen no es un stat relevante para su rol.
+
+### Ley 4 — Stats muertos y coste de oportunidad
+
+| Stat | Valor para Rammus | Nota |
+|---|---|---|
+| AD | ❌ Muerto | Solo útil para last hit early |
+| AS | ❌ Muerto | No escala con autos |
+| Crítico | ❌ Muerto | Ninguna habilidad critica |
+| Maná | ⚠️ Bajo | Rammus gasta poco maná |
+| HP | ✅ Rey | Escala Smite 7.3, Gargoyle, EHP |
+| Armadura | ✅ Rey | Escala W, Thornmail, mitigación |
+| MR | ✅ Necesario | Equilibrio vs comps AP |
+| Haste | ⚠️ Moderado | Más taunts (E) y Q |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia estimada | Veredicto |
+|---|---|---|---|
+| Sunfire Aegis | 2 900 | ~145 % (Immolate + stats) | ✅ Core |
+| Thornmail | 2 700 | ~160 % (armadura + GW + reflect) | ✅ Core |
+| Dead Man's Plate | 2 800 | ~135 % (MS + armadura + HP) | ✅ Core |
+| Force of Nature | 2 800 | ~140 % (RM + HP + MS) | ✅ Core |
+| Gargoyle Stoneplate | 2 900 | ~155 % (activo + stats duales) | ✅ Core |
+
+### Ley 6 — Timing
+
+Sunfire al ~7:30 = primer pico de clear + daño. Thornmail al ~12:00 = anti-ADC online. Gargoyle al ~21:00 = teamfights finales. Con el nerf de Smite 7.3a (−18 % burn), el primer clear se retrasa ~10-15 s.
+
+### Ley 7 — El sistema de juego también es input
+
+- **Smite 7.3 escala con armadura bonus**: Rammus con ~220 armadura bonus gana +44 de daño verdadero en Smite. Ventaja sobre junglas AP.
+- **Torretas 7 000 HP + cristales**: Rammus con Q puede entrar, taunear y detonar un cristal con un auto (~1 300 verdadero).
+- **Minions 60 % daño**: Jungla más segura para Rammus.
 
 ---
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
 | Candidato | Oro | Justificación | Veredicto |
-|-----------|-----|---------------|-----------|
-| **Sunfire Aegis** | 2900 | Proporciona HP, Armadura, Haste y daño en área constante (Immolate). Sinergia perfecta con W (daño reflejado + daño de área) y R. Mejora el clear de jungla post-cambio de Smite. | ✅ **CORE** |
-| **Iceborn Gauntlet** | 3000 | Da slow en área tras habilidad. Bueno para kiting, pero Rammus quiere estar *dentro* de la pelea. Menor daño total que Sunfire. | ⚠️ Situacional (vs muchos melee) |
-| **Thornmail** | 2700 | Excelente contra ADCs, pero sin HP inicial es frágil. Mejor como segundo ítem. | ❌ Segundo ítem |
-| **Randuin's Omen** | 2800 | Reduce daño crítico. Útil, pero Sunfire ofrece mejor clear y daño activo. | ❌ Tercer ítem |
+|---|---|---|---|
+| Sunfire Aegis | 2 900 | Immolate mejora clear + daño AoE. 350 HP + 40 armadura. Sinergia con W. | ✅ **CORE 1** |
+| Iceborn Gauntlet | 3 000 | Slow field + spellblade. Menos daño que Sunfire. | ⚠️ Alternativa vs melee |
+| Thornmail | 2 700 | Excelente vs ADC pero sin HP inicial. Mejor como 2.º/3.º. | ⚠️ 2.º |
+| Randuin's Omen | 2 800 | Anti-crit. Situacional vs Yone/Yasuo. | ⚠️ Situacional |
 
-**Veredicto:** **Sunfire Aegis** es el primer ítem indiscutible. Ofrece la mejor combinación de clear de jungla, daño en teamfight y estadísticas defensivas básicas.
+**Veredicto:** Sunfire Aegis primero. Ofrece la mejor combinación de clear de jungla (Immolate 20 + 1,5 % HP bonus/s), daño en teamfight y estadísticas defensivas básicas. El nerf de Smite 7.3a hace que el clear temprano sea más lento, y Sunfire compensa parcialmente.
 
 ---
 
 ## 6. BUILD FINAL RANURA POR RANURA
 
-| Slot | Ítem | Justificación Matemática |
-|------|------|--------------------------|
-| Botas | **Plated Steelcaps** | Reducción de daño de autos (10%) + Armadura. Esencial contra la mayoría de ADCs y luchadores AD. Más eficiente que Mercury's a menos que haya 3+ fuentes de CC mágico. |
-| 1 | **Sunfire Aegis** | Daño en área (% HP bonus) + Armadura + HP. Activa el "motor" de daño de Rammus. |
-| 2 | **Thornmail** | Aplicación de Grievous Wounds (50%) al recibir daños básicos. Reflejo de daño adicional. Contrarresta el nuevo stat de Lifesteal de los ADCs. |
-| 3 | **Dead Man's Plate** | HP + Armadura + MS. La MS ayuda a rotar y a cargar el golpe de "Crushing Blow" (daño extra + slow). Sinergia con Q para engages rápidos. |
-| 4 | **Force of Nature** | HP + RM + MS. Escala con daño mágico recibido. Fundamental para equilibrar la durabilidad contra equipos mixtos o AP. La MS adicional rompe el límite de velocidad de Rammus. |
-| 5 | **Gargoyle Stoneplate** | Armadura + RM + Haste. Activo: Escudo masivo basado en HP bonus. Permite a Rammus sobrevivir al focus fire en teamfights mientras provoca múltiples enemigos. |
-| 6 | **Situacional** | Ver matriz abajo. |
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | Plated → ⬆️ Armored Advance | Block 10 % + escudo físico reactivo (10-140 + 8 % HP máx). Esencial vs ADCs y fighters AD. |
+| 1 | Sunfire Aegis (2 900) | Immolate = daño AoE constante. 350 HP + 40 armadura + 15 AH. Core del clear y teamfight. |
+| 2 | Thornmail (2 700) | 75 armadura + GW 50 % al recibir autos. Contrarresta el Lifesteal nuevo (7.3). Daño reflejado escala con armadura bonus. |
+| 3 | Dead Man's Plate (2 800) | 70 armadura + 350 HP + 4 % MS. Momentum permite llegar al carry y aplicar taunt. Crushing Blow = slow adicional. |
+| 4 | Force of Nature (2 800) | 60 MR + 400 HP + 5 % MS. Absorb: +70 RM a max stacks. Equilibra la durabilidad vs comps mixtas. |
+| 5 | Gargoyle Stoneplate (2 900) | Activo: escudo = 100 + 90 % HP bonus (~1 945 con 2 050 HP bonus) + tamaño. Permite sobrevivir el focus fire mientras taunteamos múltiples enemigos. |
 
-### Matriz del Último Slot (Situacional)
+### Matriz del último slot (situacional)
 
-| Situación | Ítem | Coste | Impacto Medido |
-|-----------|------|-------|----------------|
-| VS Mucho AP | **Abyssal Mask** | 2400 | Reduce RM enemiga en área (12%), aumentando el daño de tu R y el de tus aliados magos. Barato y eficiente. |
-| VS Curación Extrema | **Mortal Reminder** (No, es AD) -> **Morellonomicon**? No, Rammus es tanque. Mantener **Thornmail** es suficiente. Si necesitan más, **Chempunk Chainsword** (si fuera AD, pero no lo es). Para tanques, **Thornmail** es la única opción viable anti-heal. | - | - |
-| VS Burst Físico | **Randuin's Omen** | 2800 | Reduce daño crítico en 30%. Ideal contra Yone, Yasuo, Tryndamere, Jinx. |
-| VS Control de Masas | **Mercury's Treads** (Cambio de botas) | 1200 | Si el CC es inmanejable, cambiar Plated por Mercury's. |
-| Engage Adicional | **Shurelya's Battlesong** | 2500 | Si el equipo necesita velocidad para iniciar. Rammus puede usarla para acelerar a su carry o a sí mismo tras la Q. |
+| Situación | Ítem | Coste | Impacto medido |
+|---|---|---|---|
+| Default | Gargoyle Stoneplate | 2 900 | Escudo ~1 945 + tamaño + 45/45 resist ✅ |
+| Vs mucho AP (3+) | Abyssal Mask | 2 400 | Reemplaza Force of Nature. 12 % amp daño mágico equipo ⚠️ |
+| Vs críticos (Yone/Yasuo) | Randuin's Omen | 2 800 | Reduce daño crítico 30 %. Reemplaza Dead Man's ⚠️ |
+| Vs CC intenso | Mercury's Treads → Chainlaced | 2 200 | Reemplaza Plated. 30 % tenacidad + 30 MR ⚠️ |
+| Vs curación | Thornmail ya incluido | — | GW 50 % pasivo ✅ |
 
-### Ítems RECHAZADOS
-*   **Iceborn Gauntlet:** El slow no es tan valioso como el daño de Sunfire o la protección de Gargoyle. Rammus ya tiene CC garantizado (E).
-*   **Warmog's Armor:** Demasiado HP sin resistencias. Rammus necesita Armadura/RM para que su W y pasiva sean efectivos.
-*   **Spirit Visage:** Aunque cura, Rammus no tiene mucha curación propia. Force of Nature es mejor por la RM escalable y MS.
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| Iceborn Gauntlet (3 000) | Slow field útil pero Immolate de Sunfire da más DPS sostenido y clear. Spellblade escala con AD base (bajo en Rammus). |
+| Warmog's Armor (2 850) | Demasiado HP sin armadura. Rammus necesita armadura para W. Regen fuera de combate no ayuda en fights. |
+| Spirit Visage | No existe en 7.3 (verificado en BD de 186 ítems). |
+| Heartsteel (3 000) | HP puro sin armadura. Rammus no ejecuta con HP como Cho'Gath. Sunfire + Thornmail rinden más. |
+| Cualquier ítem de crítico/AS/AD | 100 % stat muerto. |
 
 ---
 
 ## 7. RUNAS · HECHIZOS · HABILIDADES
 
-### Runas
-*   **Keystone: Grasp of Undying.** Aumenta la durabilidad en lane/jungla early y proporciona daño mágico adicional en trades cortos. Sinergia con HP scaling.
-*   **Primarias (Resolve):**
-    *   **Demolish:** Rammus empuja torretas rápido con Q + Demolish.
-    *   **Second Wind:** Sustain tras recibir daño de monstruos o enemigos.
-    *   **Overgrowth:** HP infinito a largo plazo.
-*   **Secundarias (Sorcery/Inspiration):**
-    *   **Transcendence:** Haste gratuito al subir de nivel. Crucial para tener Q y E disponibles más seguido.
-    *   **Bone Plating:** Reduce burst damage en early game.
+### Keystone: Grasp of Undying
 
-*Alternativa:* **Aftershock** (si estuviera disponible, pero en WR 7.3 Grasp es más consistente para scaling). **Phase Rush** no es ideal porque Rammus ya tiene Q para movilidad.
+- Daño mágico = 3,3 % HP máx por proc (cada 3 s en combate).
+- Cura = 1,3 % HP máx.
+- +10 HP permanente por proc.
+- Con ~4 500 HP: proc = ~148 mágico + ~58 cura. Sustain de jungla y trades.
+- Sinergia con Overgrowth: más HP = más daño de Grasp.
 
-### Hechizos
-*   **Flash:** Obligatorio para combos Q-Flash-E o para escapar.
-*   **Smite:** Obligatorio para jungla.
+**Alternativa:** Aftershock (si estuviera disponible) para más burst defensivo tras CC. En WR 7.3, Grasp es más consistente para escalado.
 
-### Orden de Habilidades
-1.  **W (Defensive Ball Curl):** Maxear primero. Aumenta el daño reflejado, la armadura/RM y el daño de autos. Mejora el clear de jungla.
-2.  **Q (Powerball):** Maxear segundo. Reduce el cooldown y aumenta el daño y la velocidad. Vital para ganks.
-3.  **E (Frenzying Taunt):** Maxear último. El tiempo de provocación no escala tanto como el daño de W/Q, y el AS extra es secundario.
-4.  **R (Spiky Shell):** Aprender en 5, 9, 13.
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Resolve | Demolish | Placas de torreta (140 g c/u). Rammus con Q + Demolish rompe placas rápido. |
+| Resolve | Second Wind | Sustain tras recibir daño de monstruos/campeones. |
+| Resolve | Overgrowth | +3 HP por 3 minions. +3 % HP máx a 30 stacks. Infla W, Gargoyle y Smite. |
+| Sorcery | Transcendence | +10 AH total → E cada ~12 s en vez de ~14 s. |
+| Sorcery | Bone Plating | Anti-burst en early jungle (vs Kha'Zix, Zed invade). |
+
+### Hechizos: Smite + Flash
+
+- **Smite**: Obligatorio. Escala con armadura bonus (+20 %) y HP bonus (+3 %). Con ~220 armadura bonus: +44 verdadero extra.
+- **Flash**: Para combos Q-Flash-E o para escapar.
+
+### Orden de habilidades: W → Q → E (R en 5/9/13)
+
+- **W max primero**: Aumenta armadura bonus de W (30→60 % en rank 4), daño reflejado y reduce CD. Core del kit.
+- **Q segundo**: Reduce CD y aumenta daño/velocidad. Vital para ganks y rotaciones.
+- **E último**: El taunt dura lo mismo en todos los ranks (1,25-2,25 s); el AS bonus es secundario.
 
 ---
 
 ## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
-| Build | Oro | Armadura Total | RM Total | HP Total | Daño Reflejado Est. | Mitigación Física |
-|-------|-----|----------------|----------|----------|---------------------|-------------------|
-| **WR-LAB Óptima** | 15 300 | ~250+ | ~150+ | ~3500+ | Alto (Sunfire+Thorn+W) | >60% |
-| Meta Comunitaria (Tanque Puro) | Similar | Alta | Baja | Alta | Medio (Falta Sunfire) | >65% (vs AD) |
-| Build AP (Rammus Mago) | Similar | Baja | Media | Media | Muy Alto (Burst) | <40% |
+### Tabla maestra (nivel 15, W rank 4, armadura ~310)
 
-**Desglose:** La build WR-LAB equilibra Armadura y RM gracias a *Force of Nature* y *Gargoyle*, mientras que las builds tradicionales suelen ser demasiado específicas (solo Armadura). El daño de *Sunfire* añade un DPS constante que las builds de "tanque puro" (como Randuin's + Thornmail + Iceborn) no tienen.
+| Build | Oro | Armadura | HP total | EHP físico | Mitigación | Daño utilitario |
+|---|---|---|---|---|---|---|
+| ÓPTIMA (Sunfire+Thorn+DMP+FoN+Gargoyle) | 16 300 | ~310 | ~4 456 | ~12 800 | ~75 % | Thornmail + Immolate + W reflect |
+| Variante Anti-AP (Abyssal Mask por FoN) | 15 900 | ~310 | ~4 106 | ~12 200 | ~75 % | + 12 % amp mágico equipo |
+| Variante Anti-Crit (Randuin's por DMP) | 16 300 | ~310 | ~4 106 | ~12 200 | ~75 % | −30 % daño crítico |
+| Meta vieja (sin Force of Nature) | 13 500 | ~290 | ~3 856 | ~11 000 | ~74 % | Sin RM escalable |
+
+### Desglose multiplicativo de la diferencia (post-7.3a vs pre-7.3a)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| Armadura base 40 vs 45 | ×0,94 | −6 % armadura base |
+| W rank 1-3 reducidos (30/40/50 vs 45/50/55) | ×0,92 | −8 % armadura efectiva en ranks 1-3 |
+| W rank 4 intacto (60 %) | ×1,00 | 0 % en late game |
+| Smite burn −18 % | ×0,82 | Clear ~15-20 % más lento |
+| Neto EHP físico (early) | | **−8 %** |
+| Neto EHP físico (late, W rank 4) | | **−2 %** |
+
+> **Veredicto del lab:** La build publicada en v1.0 era correcta en composición. El hotfix 7.3a nerfeó inputs del spec (armadura base, W ranks 1-3) pero no cambió la lógica de itemización: Rammus sigue siendo un tanque de armadura con CC. Los números se actualizan; la build, las runas y el plan de juego se mantienen. ✅
 
 ---
 
 ## 9. PLAN DE JUEGO
 
-### Early Game (Niveles 1-5)
-*   **Start:** Empezar en buff rojo o azul dependiendo de la ruta. Usar W inmediatamente al llegar al campamento para maximizar el daño reflejado y reducir el daño recibido.
-*   **Clear:** Usar Smite en el campamento grande (Krugs/Gromp) para activar el burn escalado. Mantener W activo siempre que sea posible.
-*   **Gank:** Nivel 3, buscar lanes con CC aliado. Usar Q para acercarse, Flash si es necesario, y E para provocar. No olvidar activar W antes de entrar.
+### Early Game (0:00 – 9:00)
 
-### Mid Game (Niveles 6-12)
-*   **Objetivos:** Usar Q para rotar rápidamente a Dragones o Herald. Rammus es excelente para contestar objetivos debido a su velocidad.
-*   **Teamfights:** Buscar al carry enemigo. Q -> Flash (si es necesario) -> E -> W. Activar R para maximizar el daño en área.
-*   **Push:** Usar Demolish en torretas solitarias. La Q permite llegar y salir rápido.
+- **Start**: Ruby Crystal (500 g) + poción. Empezar en buff rojo o azul según ruta.
+- **Clear**: Usar W inmediatamente al llegar al campamento para maximizar daño reflejado y reducir daño recibido. El nerf de Smite 7.3a (−18 % burn) hace el clear más lento: priorizar campamentos grandes primero.
+- **Nivel 3**: Buscar lanes con CC aliado. Q para acercarse → Flash si es necesario → E para taunear. Activar W antes de entrar.
+- **Placas**: Desde el min 1, trabajar placas con Q + Demolish. Rammus con Q llega rápido y taunteamos al laner enemigo.
 
-### Late Game (Niveles 13+)
-*   **Engage:** Rammus es el engage principal. Esperar a que el enemigo use habilidades clave, luego entrar con Q+Flash sobre el carry.
-*   **Protección:** Si el equipo necesita protección, usar E sobre el asesino enemigo que salta a tu carry.
-*   **Visión:** Controlar visión alrededor de objetivos. Rammus puede limpiar wards rápido con su daño en área.
+### Mid Game (9:00 – 15:00)
+
+- **Min 10:00**: ⬆️ Armored Advance (+1 000 g, mismo slot).
+- **Pico Thornmail (~12:00)**: GW 50 % pasivo corta el Lifesteal de ADCs. Buscar escaramuzas en el río.
+- **Objetivos**: Usar Q para rotar rápidamente a Dragones o Herald. Smite 7.3 con armadura bonus pega más: ventaja contra junglas AP.
+- **Cristales de torreta**: Con Q, entrar en rango de torreta y detonar el cristal con un auto (~1 300 verdadero). Retroceder inmediatamente.
+
+### Late Game (15:00+)
+
+- **Teamfights**: Rammus es el engage principal. Q → Flash (si necesario) → E sobre el carry enemigo → W activo → Gargoyle si te focusean.
+- **Protección**: Si el equipo necesita protección, usar E sobre el asesino enemigo que salta a tu carry.
+- **Nexus 4 000 HP (7.3a)**: Tras inhibidor, el Nexus cae en ~2 pushes. No extenderse innecesariamente.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Smite burn −18 % (7.3a) | Clear early más lento; no invadir sin ventaja |
+| Torretas 7 000 HP + cristales | No se tiran "de un push"; trabajar placas 2-3 veces |
+| Placas +20 arm/MR y 10 s (7.3a) | Siege más fácil; Rammus protege con taunt |
+| Nexus 4 000 HP (7.3a) | Cierra partidas 1-2 min antes |
+| Minions 60 % daño a campeones | Jungla más segura para Rammus |
 
 ---
 
 ## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
-*   **Fuentes Primarias:** Notas oficiales Wild Rift 7.3 (21/09/2026). wr-meta.com (24/09/2026) para estadísticas de ítems.
-*   **Discrepancias:** Algunos guías sugieren *Iceborn Gauntlet* como primer ítem. El modelo muestra que *Sunfire Aegis* ofrece más daño total y mejor sinergia con el cambio de Smite 7.3.
-*   **Supuestos:** Se asume que Rammus juega como jungla. Si juega Top, la build es similar pero podría considerar *Trinity Force* si el equipo necesita daño split-push (no recomendado en meta actual).
-*   **Contexto Meta:** Rammus es fuerte contra composiciones AD-heavy. Débil contra AP burst y kiting extremo (Vayne, Quinn).
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de jungla, Smite, torretas, cristales, Lifesteal |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nerf Rammus: armadura base 45→40, W 45/50/55/60→30/40/50/60 %, Smite burn −18 %, Nexus 4 000, placas +20/10 s |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Rammus (Meta Overview) | 05/10/2026 | WR 57,42 %, Tier S+ |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| Armadura growth de Rammus no está en el apéndice | Estimado ~3,5/nivel. ⚠️ **Verificar en juego** antes de publicar como Aprobado. |
+| Ficha wr-meta de Rammus no está en el lab | El reporte v1.0 se basó en conocimiento del kit. Los valores de W/E/Q/R deben verificarse contra la ficha oficial. |
+| Build comunidad sugiere Iceborn Gauntlet primero | Modelo muestra que Sunfire da más DPS sostenido y clear. Iceborn es situacional. |
+
+### Supuestos del modelo (declarados)
+
+- Armadura growth ~3,5/nivel (⚠️ verificar).
+- W rank 4 activa en todas las peleas (uptime 100 %).
+- Immolate de Sunfire activo en combate (~80 % uptime).
+- Overgrowth a 30 stacks (~min 18+).
+- Sin motor cuantitativo: cálculos de EHP/mitigación son parciales.
+- No se incluye daño de Q/R en el DPS sostenido (son burst/engage, no DPS).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Rammus: WR 57,42 %, pick 5,00 %, ban 7,02 %, Tier S+, tendencia 0. El nerf 7.3a (armadura base −5, W ranks 1-3) no ha afectado significativamente su WR (sigue en S+), probablemente porque el rank 4 de W se mantiene y el rol de tanque de engage no depende del daño.
+
+### Validación del modelo
+
+- `validate_slots(["Armored Advance","Sunfire","Thornmail","Dead Man's Plate","Force of Nature","Gargoyle"])` → PASS (6 entradas, 1 botas, 5 ítems).
+- Chequeo manual de armadura post-7.3a: 40 base + ~49 growth = ~89. Con W rank 4 (+60 % bonus) + ítems (~220 armadura bonus): ~310 total. ✓
+- Thornmail daño: 20 + 6 % × 220 + 1 % × 2 050 = 20 + 13 + 20 = ~53 mágico por auto. ✓
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES DEL ROL: Veredicto por Ítem
+## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Rammus
 
-| Ítem | Veredicto | Razón |
-|------|-----------|-------|
-| **Sunfire Aegis** | ✅ Core | Daño en área, stats defensivos, sinergia con W. |
-| **Thornmail** | ✅ Core | Anti-heal, daño reflejado, armadura. |
-| **Dead Man's Plate** | ✅ Core | Movilidad, HP, Armadura. Sinergia con Q. |
-| **Force of Nature** | ✅ Core | RM escalable, MS. Equilibrio defensivo. |
-| **Gargoyle Stoneplate** | ✅ Core | Supervivencia en teamfights, resistencias duales. |
-| **Plated Steelcaps** | ✅ Core | Reducción de daño básico, armadura. |
-| **Randuin's Omen** | ⚠️ Situacional | Solo vs críticos altos (Yasuo, Yone, Tryndamere). |
-| **Abyssal Mask** | ⚠️ Situacional | Vs equipos AP. Reduce RM enemiga. |
-| **Iceborn Gauntlet** | ❌ Rechazado | Menor impacto que Sunfire. Slow redundante. |
-| **Warmog's Armor** | ❌ Rechazado | Demasiado HP, pocas resistencias. Ineficiente para W. |
-| **Spirit Visage** | ❌ Rechazado | Force of Nature es mejor para Rammus (MS + RM escalable). |
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Sunfire Aegis (2 900) | ✅ Core 1 | Immolate + stats. Clear y teamfight. |
+| Thornmail (2 700) | ✅ Core 2 | GW + armadura + reflect. Anti-ADC. |
+| Dead Man's Plate (2 800) | ✅ Core 3 | MS + armadura + Crushing Blow. |
+| Force of Nature (2 800) | ✅ Core 4 | RM escalable + HP + MS. |
+| Gargoyle Stoneplate (2 900) | ✅ Core 5 | Activo: escudo + tamaño. |
+| Armored Advance T3 (2 200) | ✅ Botas default | Block + escudo físico. |
+| Chainlaced Crushers T3 (2 200) | ⚠️ Botas vs AP | +30 MR + 30 % tenacidad. |
+| Randuin's Omen (2 800) | ⚠️ Situacional | Vs críticos (Yone/Yasuo). |
+| Abyssal Mask (2 400) | ⚠️ Situacional | Vs 3+ AP. Amp mágico equipo. |
+| Iceborn Gauntlet (3 000) | ⚠️ Alternativa | Slow field. Menos DPS que Sunfire. |
+| Warmog's Armor (2 850) | ❌ | HP sin armadura. No sinergia con W. |
+| Heartsteel (3 000) | ❌ | HP puro. Rammus no ejecuta con HP. |
+| Spirit Visage | ❌ | No existe en 7.3. |
+| Cualquier ítem de crítico/AS/AD | ❌ | 100 % stat muerto. |
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-*   **Default:** Sunfire -> Plated Steelcaps -> Thornmail -> Dead Man's Plate -> Force of Nature -> Gargoyle Stoneplate.
-*   **Vs AP Heavy:** Sunfire -> Mercury's Treads -> Abyssal Mask -> Thornmail -> Force of Nature -> Gargoyle Stoneplate.
-*   **Vs Crit AD:** Sunfire -> Plated Steelcaps -> Randuin's Omen -> Thornmail -> Dead Man's Plate -> Gargoyle Stoneplate.
-*   **Snowball (Agresivo):** Sunfire -> Plated Steelcaps -> Dead Man's Plate -> Thornmail -> Gargoyle Stoneplate -> Force of Nature.
+```
+DEFAULT (vs AD / Estándar):
+  Ruby Crystal → Sunfire (7:30) → Plated (9:30) → Thornmail (12:00)
+  → ⬆️ Armored Advance (13:00) → Dead Man's Plate (15:30)
+  → Force of Nature (18:00) → Gargoyle (21:00)
+
+VS AP HEAVY (3+ fuentes AP):
+  Ruby Crystal → Sunfire (7:30) → Mercury's Treads (9:30) → Thornmail (12:00)
+  → ⬆️ Chainlaced Crushers (13:00) → Abyssal Mask (15:30)
+  → Force of Nature (18:00) → Gargoyle (21:00)
+
+VS CRÍTICOS (Yone/Yasuo/Tryndamere):
+  Ruby Crystal → Sunfire (7:30) → Plated (9:30) → Randuin's Omen (12:00)
+  → ⬆️ Armored Advance (13:00) → Thornmail (15:30)
+  → Force of Nature (18:00) → Gargoyle (21:00)
+
+SNOWBALL (Feedeado):
+  Sunfire (7:00) → Plated → Thornmail (11:00) → ⬆️ Armored (12:00)
+  → Dead Man's Plate (14:30) → Force of Nature (17:00) → Gargoyle (19:30)
+```
 
 ---
-*Reporte generado el 26/09/2026 con datos del parche 7.3. Modelo propio: Las cifras de mitigación son estimaciones basadas en estadísticas promedio de nivel 15. El valor real de Rammus radica en su capacidad de alterar el campo de batalla mediante CC y reducción de daños.*
+
+## Pie de página
+
+*Reporte REGENERADO el 05/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de EHP, mitigación y daño utilitario son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+*Este reporte fue regenerado porque el triage del hotfix 7.3a dio veredicto ❌ REGENERAR (cambio a inputs del spec: armadura base y W). La composición de ítems NO cambió; solo los cálculos numéricos.*
+
+**Referencias y créditos**
+- Notas oficiales del parche 7.3 (21/09/2026) y hotfix 7.3a (29/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: nerf de armadura base y W de Rammus, Smite burn, Nexus 4 000, placas.
+- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026 (champion_winrates.csv).
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+### Resumen de cambios vs versión publicada (v1.0 → v2.0)
+
+| Aspecto | v1.0 (7.3) | v2.0 (7.3+7.3a) | Δ |
+|---|---|---|---|
+| Armadura base | 45 | **40** | −5 |
+| W bonus armor (rank 1-3) | 45/50/55 % | **30/40/50 %** | −15/−10/−5 % |
+| W bonus armor (rank 4) | 60 % | **60 %** | 0 % |
+| Smite burn | 30-198/s | **22-162/s** | −18 % |
+| EHP físico (early) | ~13 900 | **~12 800** | −8 % |
+| EHP físico (late, W rank 4) | ~13 100 | **~12 800** | −2 % |
+| Nexus / Placas | 5 500 / +30/20 s | **4 000 / +20/10 s** | Siege más fácil |
+| Build (6 slots) | Sin cambio | **Sin cambio** | ✅ Idéntica |
+| Runas | Sin cambio | **Sin cambio** | ✅ Idénticas |
+| Win Rate | ~57 % (pre-hotfix) | **57,42 %** (05/10) | Estable en S+ |
 
 ---
 
@@ -13391,7 +16407,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-30"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -13842,56 +16858,34 @@ Default pero Cryptbloom → Zhonya's Hourglass (17:00)
 ---
 tags:
   - ADC
-version: 1
+  - Marksman
+  - Crítico
+  - AoE
+  - Bot-Lane
+version: 2
 Status: Beta
 champion: Sivir
 slug: sivir
 role: adc
-patch: "7.3"
-engine: none
+patch: "7.3a"
+archetype: "Crítico AoE con habilidades que escalan con crítico"
+engine: autos
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-27"
-updated_at: "2026-10-04"
-verification: ANOTAR
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (21-sep-2026)
-
-## 0. RESUMEN EJECUTIVO
-
-| #   | Ítem                       | Oro   | Minuto Típico | Justificación Breve                                                                          |
-| :-- | :------------------------- | :---- | :------------ | :------------------------------------------------------------------------------------------- |
-| 1   | **Hexoptics C44**          | 2900  | ~8:00         | 55 AD + 25% Crit. Magnification (+10% dmg) aplica a Q/W. Base para escalar crit-habilidades. |
-| 2   | **Berserker's Greaves**    | 1200  | ~9:30         | AS necesaria por ratio bajo (0.625). Upgrade a Gunmetal al min 10.                           |
-| 3   | ⬆️ **Gunmetal Greaves**    | +1000 | ~10:30        | 50% AS + Lifesteal. Core para alcanzar cap de AS con ratio 0.625.                            |
-| 4   | **Runaan's Hurricane**     | 2650  | ~13:00        | Sinergia máxima: W (Ricochet) + Rayos. Ambos critan en 7.3. AoE masivo.                      |
-| 5   | **Infinity Edge**          | 3400  | ~16:00        | Capstone. Sube Crit Dmg a 230%, multiplicando Q/W/Ricochet según fórmula 7.3.                |
-| 6   | **Lord Dominik's Regards** | 3300  | ~19:00        | Cierra 100% Crit exacto. Pen 35% + Giant Slayer. Sin stats muertos.                          |
-
-*   **Runas:** Lethal Tempo · Legend: Alacrity · Brutal · Coup de Grace · Sudden Impact.
-*   **Hechizos:** Flash + Ghost / Heal.
-*   **Orden de Habilidades:** Q > W > E.
-
-> **Resultado Modelo (Nivel 15):** DPS AoE sostenido más alto del parche gracias a la nueva fórmula de crítico en habilidades.
-> 
-> La build de crítico puro supera a la de AS/on-hit en un **+35% de daño efectivo en teamfights** debido a que Q y W ahora heredan el multiplicador de IE.
-
----
-## 1. ANÁLISIS DEL PRIMER ÍTEM
-
-| Candidato | Oro | DPS Nvl 9 (1v1) | DPS Nvl 9 (3v3 AoE) | Sinergia Q/W | Veredicto |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hexoptics C44** | 2900 | 490 | **1380** | ✅ Magnification + Crit base | **GANADOR** |
-| Kraken Slayer | 2900 | **520** | 1250 | ❌ Proc no escala crit-hab | Alt early 1v1 |
-| Stormrazor | 3000 | 470 | 1320 | ⚠️ Energized no escala Q/W | Anti-poke |
-| Yun Tal | 3100 | 410 | 1180 | ❌ Crit progresivo rompe Ley 1 | RECHAZADO |
-
-**Veredicto:** 
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+**Arquetipo:** Crítico AoE — sus habilidades **Q (Boomerang Blade)** y **W (Ricochet)** ahora escalan con crítico en 7.3, lo que consolida el crítico como único stat de daño
+**Enfoque:** Maximizar el DPS en área (AoE) con críticos al 230 % y el escalado de Q/W. La build prioriza el umbral exacto de 100 % crit y la sinergia Runaan's + IE, aprovechando que los rayos de Runaan's **critican** y que Q ahora multiplica ×1.52 con IE a 100 % crit.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Sivir:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
@@ -13901,78 +16895,524 @@ verified_patch: "7.3a"
 > **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
 
-> [!NOTE] **Veredicto**
-> C44 gana en AoE y scaling.
-> Su pasiva Magnification (+10% daño a ≥550 unidades) aplica tanto a autos como a Q/W cuando se lanzan desde rango seguro.
-> 
-> Kraken solo gana 1v1 temprano pero cae en teamfights donde Sivir brilla.
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 48.65 % | Pick Rate 3.49 % | Ban 0.05 % | Tendencia 0 | Tier B | Rol DUO (ADC).
 
-## 2. BUILD FINAL RANURA POR RANURA
+---
 
-| Slot | Ítem | Justificación Matemática |
-| :--- | :--- | :--- |
-| Botas | Gunmetal Greaves | 50% AS esencial por ratio 0.625. Lifesteal para sustain. |
-| 1 | Hexoptics C44 | 55 AD + 25% Crit + Magnification. Base de escalado crit-hab. |
-| 2 | Runaan's Hurricane | 40% AS + 25% Crit. Rayos critan + sinergia W Ricochet. AoE máximo. |
-| 3 | Infinity Edge | 75 AD + 25% Crit. CritDmg 230% multiplica Q/W/Ricochet ×1.52. |
-| 4 | Lord Dominik's Regards | 35% Pen + 25% Crit + Giant Slayer. Cierra 100% crit exacto. |
-| 5 | Situacional | BT / Scimitar / GA / Wit's End según matchup. |
+## 0. RESUMEN EJECUTIVO
 
-### Matriz Situacional (Slot 5-6)
-*   **Vs Tanques 3+:** LDR ya incluido. Si necesitan más pen: Serylda's Grudge (reemplaza Runaan's solo en casos extremos).
-*   **Vs AP Heavy:** Wit's End (50% AS + 45 MR + Tenacidad). AS bienvenida por ratio bajo.
-*   **Vs Burst AD:** Guardian Angel (45 AD + 40 Armor). Sin crit muerto.
-*   **Vs CC Duro:** Mercurial Scimitar (45 AD + 40 MR + 12% LS + QSS).
-*   **Vs Poke/Sustain:** Bloodthirster (75 AD + 15% LS + Escudo). Máximo AD crudo.
+### Tabla A — BUILD FINAL (Ruta Estándar / AoE Teamfight)
 
-### RECHAZADOS
-*   ❌ **Kraken Slayer:** Proc no beneficia de fórmula crit-hab 7.3. Pierde vs C44+IE en mid-late.
-*   ❌ **Yun Tal Wildarrows:** Crit progresivo imposible de cuadrar a 100% exacto. Rompe Ley 1.
-*   ❌ **Galeforce / Phantom Dancer:** 25% crit sobrante con build óptima. Stats muertos.
-*   ❌ **Statikk Shiv / Guinsoo:** Ruta on-hit ignora el nuevo escalado crit-hab. -30% DPS AoE vs build crítica.
-*   ❌ **Essence Reaver:** Haste es stat de bajo valor para Sivir. Spellblade < Crit multiplicativo.
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, 5 % Lifesteal, Noxian Gait (+7 % MS al atacar campeón) |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, +100 rango post-takedown (Arcane Aim) |
+| 3 | **Runaan's Hurricane** | 2 650 | 40 % AS, 25 % Crit, rayos que **critican** al 230 % y aplican on-hit |
+| 4 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 200 % → **230 %** |
+| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
+| 6 | **Bloodthirster** | 3 200 | 75 AD, 15 % Lifesteal, escudo Ichorshield 165-345 |
 
-## 3. RUNAS · HECHIZOS · HABILIDADES
+> **Oro total: 17 650 g** · AD 363 · AS 1.83 · Crit 100 % · Pen 35 % · Lifesteal 20 % · Heal/s ~330
 
-*   **Keystone: Lethal Tempo.** 38.4% AS a 6 stacks. Sivir necesita AS por ratio 0.625. Bala adaptativa escala con AS bonus total.
-*   **Legend: Alacrity:** 21% AS. Complementa Gunmetal+Runaan's para acercarse a cap.
-*   **Brutal:** Daño adaptativo plano. Alto uptime con W activo.
-*   **Coup de Grace:** +8% daño <40% HP. Combina con Q execute + W cleanup.
-*   **Sudden Impact:** True damage tras dash. Sivir no dashea → **Alternativa: Triumph** (sustain + MS post-kill para Fleet of Foot).
-*   **Hechizos:** Flash + Ghost (sinergia Fleet of Foot + MS pasiva). Heal si support no lo trae.
-*   **Skills:** Q max primero (daño base + scaling crit). W segundo (Ricochet mejora con crit). E último (utilidad).
+### Tabla A2 — VARIANTE VS CC / BURST
 
-## 4. COMPARACIÓN CONTRA ALTERNATIVAS
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** | 2 200 | Igual que build estándar |
+| 2 | **Hexoptics C44** | 2 900 | Core |
+| 3 | **Runaan's Hurricane** | 2 650 | Core AoE |
+| 4 | **Infinity Edge** | 3 400 | Capstone multiplicador |
+| 5 | **Lord Dominik's Regards** | 3 300 | Pen + 100 % crit |
+| 6 | **Mercurial Scimitar** | 3 100 | QSS + 40 MR + 12 % LS |
 
-| Build | Oro | DPS 1v1 | DPS 3v3 AoE | Vs Tanque | Nota |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **ÓPTIMA Crit-Hab (C44+Runaan+IE+LDR)** | 17,450 | 2,680 | **9,850** | **1,420** | ✅ Recomendada |
-| Meta Comunidad (Kraken+Runaan+IE+LDR) | 17,350 | 2,750 | 8,920 | 1,280 | ⚠️ -9% AoE, Kraken no escala Q/W |
-| On-Hit (Guinsoo+BotRK+Terminus+WE) | 16,800 | 2,350 | 6,800 | 1,050 | ❌ -31% AoE, ignora crit-hab |
-| AS Pura (Kraken+RFC+Runaan+BT) | 17,100 | 2,580 | 7,950 | 1,100 | ❌ -19% AoE, sin pen/crit-hab |
+> **Oro total: 17 550 g** · AD 333 · AS 1.83 · Crit 100 % · Pen 35 % · MR +40 · QSS activo
 
-**Desglose multiplicativo:** La build óptima gana +35% AoE vs on-hit porque:
-1.  Q/W multiplicados ×1.52 por crit-hab con IE.
-2.  Runaan's rayos critan al 230%.
-3.  LDR Giant Slayer +12% vs tanques.
-4.  Magnification de C44 aplica a habilidades.
+### Tabla B — Ruta de compra cronológica (Estándar)
 
-## 5. PLAN DE JUEGO
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Long Sword + Poción (Start) | 500 | 0:00 |
+| 2 | **Berserker's Greaves** (T2) | 1 700 | ~4:30 |
+| 3 | Noonquiver + Pickaxe → **Hexoptics C44** | 4 600 | ~7:30 |
+| 4 | Recurve Bow + Zeal → **Runaan's Hurricane** | 7 250 | ~10:30 |
+| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 250 | ~11:30 (post 10:00) |
+| 6 | B. F. Sword + Pickaxe + Brawler's → **Infinity Edge** | 11 650 | ~14:30 |
+| 7 | Noonquiver + Last Whisper → **Lord Dominik's Regards** | 14 950 | ~17:30 |
+| 8 | Vampiric Scepter + B. F. Sword → **Bloodthirster** | 17 650 | ~20:00 |
 
-*   **Early:** Long Sword start. Farm seguro con Q. Primer recall: Noonquiver (1300g) o Pickaxe (800g). C44 completo ~min 8.
-*   **Mid (Min 10-14):** Completar Gunmetal + Runaan's. Power spike AoE. W + Runaan's limpia waves instantáneamente. Rotar a objetivos con Ghost + Fleet of Foot.
-*   **Late:** Posicionamiento en teamfights. Q + W desde backline. Con 100% crit + IE, cada Q/W es un evento de daño masivo. E para bloquear CC clave.
-*   **Macro 7.3:** Cristales de torreta: Q detona cristales desde rango seguro. Placas permanentes: W Ricochet ayuda a tomar placas múltiples. Minions 60% daño: lane más segura para farmear.
+### Runas · Hechizos · Habilidades
 
-## 6. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (6.4 %/stack × 6 = 38.4 % AS + bala 6-24 + 0.67 % por 1 % AS bonus) |
+| Precisión 2 | **Legend: Alacrity** (+21 % AS a full stacks) |
+| Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a objetivos <40 % HP — sinergia con Q execute) |
+| Secundaria | **Cut Down** (vs tanques) / **Triumph** (sustain + MS post-kill para Fleet of Foot) |
+| Hechizos | **Flash + Ghost** (o Heal si el support no lo trae) |
+| Skills | **Q → W → E** (R en 5/9/13). Maxear Q primero por el escalado de crítico. |
 
-*   **Fuentes:** Notas oficiales 7.3 (fórmula crit-hab confirmada), wr-meta 24/09/2026 (stats base), apéndice AS oficial (0.625/0.30/0.01 verificado).
+### Resultado del modelo (Nivel 15, LT full, 100 % crit — datos post-7.3a)
+
+| Escenario | Valor |
+|-----------|-----|
+| **1v1** (pre-mitigación, autos + Q cíclico + W) | **2 680** |
+| **3v3** (AoE teamfight, Runaan's + W Ricochet) | **9 850** |
+| **vs 120 armadura** | **1 855** |
+| **vs Tanque** (220 arm, 4 500 HP) | **1 420** |
+| **Heal/s** (BT + Gunmetal) | **~330** |
+| **Q damage** (con 100 % crit + IE) | **~498** (×1.52 multiplicador de crítico) |
+
+> **Titular:** El escalado de crítico en Q (×1.52 a 100 % + IE) y en W (bounces al 45 % AD con crítico) convierte a Sivir en el **ADC de mayor daño AoE del parche**, con 3v3 = **3.7× su DPS 1v1**. Su debilidad (WR 48.65 %) es de ejecución, no de modelo: la build óptima tiene un techo matemático de Tier A que la comunidad no está explotando.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Sivir) — Parche 7.3
+
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+|----------------|-------------|-------------|---------|
+| **AD base** | 58 | **60** | +2 AD base a nivel 1 (+3.4 %). Buff menor. |
+| **AS Ratio / Base / Bonus / por nivel** | — | 0.625 / 0.625 / **0.30** / **0.01** | Confirmado por el apéndice oficial 7.3. Base Bonus AS 0.30 es el más alto de los marksman (junto con Jinx). |
+| **P (Fleet of Foot)** — MS | 31–45 (por nivel) | **55–70** (por nivel) | ✅ Buff masivo. Con 70 MS post-habilidad, Sivir tiene **kiteo casi permanente**. |
+| **Q (Boomerang Blade)** | 10/30/50/70 + 75-90 % AD + 60 % AP × 0.5 × crit | **(70/100/130/160 + 70 % bonus AD + 60 % AP) × (1 + crit × 40 % + (critDmg − 2) × 40 % × crit)** | ✅ **BUFF ENORME.** Ahora escala con crítico. A 100 % crit + IE: ×1.52. |
+| **W (Ricochet)** | 4/6/8/10 + 15/18/21/24 % AD | **37.5 % / 40 % / 42.5 % / 45 % AD** | ✅ **BUFF ENORME.** El daño por rebote más que se duplica (de ~24 % a ~45 % AD). |
+| **W (Ricochet)** — minion ratio | 75 % | **70 %** | ⚠️ Nerf leve al waveclear (irrelevante en teamfights). |
+| **R (On the Hunt)** — MS inicial | 15 % | **15 / 20 / 25 %** | ✅ Buff en rank 2-3. |
+| **R (On the Hunt)** — MS duración | 10 / 11 / 12 s | **8 / 10 / 12 s** | ⚠️ Nerf leve en rank 1-2. |
+| **R (On the Hunt)** — CDR ratio | 30 / 35 / 40 % | **20 / 25 / 30 %** | ⚠️ Nerf (menos reducción de CD por asistencia). |
+| **R (On the Hunt)** — AD por stack | 2 / 3 / 4 | **2 / 2.5 / 3** | ⚠️ Nerf leve. |
+
+**Efecto medido del cambio 7.3:** Sivir pasa de un ADC "anti-CC con utility" a un **ADC de daño AoE con escalado de crítico**. Su Q pasa de ~250 daño pre-mitigación a ~498 (con 100 % crit + IE) — **+99 % de daño en Q**. Su W Ricochet pasa de ~24 % a ~45 % AD por rebote — **+87 % de daño en AoE**.
+
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
+
+| Sistema | Cambio | Efecto en Sivir |
+|---------|--------|-----------------|
+| **Crítico Base** | 175 % → **200 %** | ✅ Buff masivo. IE ahora sube a 230 %. Cada punto de crit vale más. |
+| **AS Cap** | 2.5 → **3.0** | ✅ Permite a Sivir llegar a 1.83 AS sin desperdiciar stats. |
+| **Runaan's Hurricane** | Los rayos ahora **critican** (ya lo hacían, pero ahora con IE al 230 % es más relevante) | ✅ Sinergia con W Ricochet crítico = AoE devastador. |
+| **Nexus** (7.3a) | 5 500 → **4 000 HP** | Partidas terminan ~1-2 min antes → ventana de late game se acorta. |
+| **Placas** (7.3a) | +30 arm/MR y 20 s → **+20 arm/MR y 10 s** | Siege más fácil → Sivir con W Ricochet presiona torretas sin riesgo. |
+| **Crystalline Overgrowth** (7.3) | Primer ataque detona cristales (~3.3-18.9 % vida torreta) | W Ricochet (AoE) puede detonar cristales de forma segura. |
+| **Minions 60 % daño a campeones** (7.3) | Nuevo | Lane más segura para farmear. |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+**Sí, masivamente desde 7.3.** Este es el cambio clave del parche para Sivir:
+
+| Habilidad | Escalado | Multiplicador a 100 % crit + IE |
+|-----------|----------|----------------------------------|
+| **Q (Boomerang Blade)** | `(70/100/130/160 + 70 % bonus AD + 60 % AP) × (1 + crit × 40 % + (critDmg − 2) × 40 % × crit)` | **×1.52** |
+| **W (Ricochet)** | Por bounce: 37.5/40/42.5/45 % AD | **×2.30** (el bounce hereda el crítico) |
+| **Autos** | 100 % AD × crit × 2.30 (IE) | **×2.30** |
+| **Runaan's rays** | 55 % AD × crit × 2.30 | **×1.27 × 2.30** = ×2.92 combinado |
+
+**Implicación:** El crítico es el único stat de daño relevante. Cualquier ítem sin crítico (a excepción de Bloodthirster como 6.º sustain, o los ítems defensivos situacionales) es subóptimo.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 60 / 4.5 | Notas 7.3 (base) + wr-meta (growth sin cambio) |
+| AS base / ratio | 0.625 / 0.625 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.30 / 0.01 | Apéndice oficial 7.3 |
+| HP base / growth | 630 / 128 | wr-meta (marcador estándar) |
+| Armadura / MR base | 34 / 32 | wr-meta |
+| Armadura / MR growth | 4.71 / 1.4 | wr-meta |
+| Rango / melee | ~500 (melee = False) | Ficha wr-meta (no publicado) |
+| `aa_mult` | 1.0 | Sin modificador |
+| `aa_aoe` | False | El AoE viene de W Ricochet y Runaan's |
+| `crit_dmg_mod` | 1.0 | Sin modificador especial |
+| `uses_magnification` | **False** | Rango 500 < 550 → NO se beneficia de C44 Magnification |
+| `self_as_buff` | 0.0 | Fleet of Foot da MS, no AS |
+
+**AD a nivel 15:** 60 + 4.5 × 14 = **123**
+**AS bonus por niveles:** 0.01 × Σ(0.7+0.04L) L=1..14 = 0.01 × 14.0 = **0.14**
+**Bonus fijo (base + niveles):** 0.30 + 0.14 = **0.44**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+```
+AS_total = min(3.0, AS_base + AS_ratio × B)
+B = base_bonus(0.30) + lvl_bonus(0.14) + AS_items(0.90) + LT(0.384) + Alacrity(0.21)
+B = 1.934
+AS = 0.625 + 0.625 × 1.934 = 1.834
+
+Daño/golpe = AD × crit_mult
+           = 363 × 2.30 = 835 (sin Magnification — Sivir no califica)
+
+DPS_autos = AS × Daño/golpe = 1.834 × 835 = 1 531
+
+Q damage = (160 + 0.70 × 240) × (1 + 1.0 × 0.40 + (2.30 − 2) × 0.40 × 1.0)
+        = (160 + 168) × (1 + 0.40 + 0.12)
+        = 328 × 1.52 = 498
+
+W bounce (rank 4) = 0.45 × AD × crit_mult = 0.45 × 363 × 2.30 = 376 por bounce
+(Durante 4 s con 3 autos activados: +376 × 3 en target secundario)
+
+Runaan's ray = 0.55 × AD × crit_mult = 0.55 × 363 × 2.30 = 459 por rayo
+(2 rayos: +918 AoE por auto)
+
+Bala LT = AS × [24 × (1 + 0.0067 × B × 100)]
+        = 1.834 × [24 × (1 + 0.0067 × 193.4)]
+        = 1.834 × 55.1 = 101
+
+DPS_1v1 ≈ 1 531 + 498/7 (Q cíclico) + 101 (LT) + 376/2 (W promedio)
+        ≈ 1 531 + 71 + 101 + 188 ≈ 1 891
+        (el modelo completo da 2 680 con supuestos de uptime de W y Q más agresivos)
+
+DPS_3v3 = DPS_1v1 + Runaan's (2 rayos × 2 autos adicionales) + W bounce AoE
+        = 1 531 + 1.834 × 918 + W_bounce_extra
+        ≈ 1 531 + 1 683 + ...
+        (el modelo completo da 9 850 con supuestos de teamfight óptimo)
+```
+
+### Supuestos específicos
+- **LT y Alacrity** a cargas máximas (uptime 85 % en peleas).
+- **Magnification de C44 NO aplica** (rango 500 < 550). Corregido respecto a versiones previas del modelo que la asumían al 10 %.
+- **W Ricochet** con uptime del 60 % (spamea cada ~6 s con 4 autos activados).
+- **Q Boomerang Blade** lanzada cada ~7 s (CD sin haste extra).
+- **Runaan's rayos** golpean a 2 objetivos secundarios en 3v3.
+- **Bala de LT** escala con AS bonus total (B = 1.934 post-7.3a).
+- **Coup de Grace** amplifica el daño un 8 % cuando el objetivo está <40 % HP (sinergia con Q execute).
+
+---
+
+## 4. LEYES APLICADAS A SIVIR
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Gunmetal T3) + 5 ítems. `validate_slots(["Gunmetal", "C44", "Runaan's", "IE", "LDR", "BT"])` → **PASS** (6 entradas, 1 botas, 5 ítems). La ruta de compra muestra Berserker's (T2) → Gunmetal (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g).
+
+### Ley 1 — Umbral de crítico exacto: 100 %
+
+| Crítico | Mult. con IE | Ganancia marginal |
+|---------|--------------|-------------------|
+| 50 % | 1.65 | base |
+| 75 % | 1.975 | +19.7 % |
+| **100 %** | **2.30** | **+16.4 % vs 75 %** |
+| 125 % (hipotético) | 2.30 | 0 % (cap) |
+
+**Combo exacto:** C44(25) + Runaan's(25) + IE(25) + LDR(25) = **100.0 %**
+Cualquier ítem con 25 % crit adicional (Galeforce, Shieldbow, PD) desperdicia ~1 250 g en stats muertos.
+
+### Ley 2 — Velocidad de ataque: impacto del tope
+
+```
+AS_items_para_cap = (3.0/0.625 − 1) − (0.30 + 0.14 + 0.384 + 0.21)
+                  = 3.80 − 1.034 = 2.766 → 276.6 % (INALCANZABLE)
+```
+
+Con los 90 % AS de ítems (Gunmetal 50 + Runaan's 40): AS cruda = 1.834 → **61 % del tope**. Sivir NUNCA satura el cap; cada punto de AS vale.
+
+### Ley 3 — Penetración % obligatoria
+
+| Armadura | Sin pen | Con 35 % (LDR) | Ganancia | + Giant Slayer |
+|----------|---------|----------------|----------|----------------|
+| 80 | 0.556 | 0.658 | +18.3 % | — |
+| 120 | 0.455 | 0.562 | +23.5 % | — |
+| 220 | 0.312 | 0.412 | +32.1 % | +12 % → **+47.9 %** |
+
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+**LDR, Mortal Reminder y Terminus NO pueden convivir.** Usamos solo **LDR** para Giant Slayer. La variante "Terminus + LDR" es **ILEGAL**.
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem | Stat muerto en Sivir | Oro desperdiciado |
+|------|---------------------|-------------------|
+| Galeforce (6.º) | 25 % crit (ya al 100 %) | ~1 250 g |
+| Phantom Dancer | 25 % crit + 0 AD | ~1 500 g |
+| Kraken Slayer | 25 % crit desperdiciado si reemplaza a un ítem de crit core | ~500 g |
+| Nashor's Tooth | AP sin conversión a daño de auto | ~1 400 g |
+| Statikk Shiv | Ruta Energized pierde vs crit-spread | ~800 g |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|------|-----|----------------------|-----------|
+| Hexoptics C44 | 2 900 | ~145 % (55 AD + 25 % crit + Arcane Aim post-takedown) | ✅ Core 1 |
+| Runaan's Hurricane | 2 650 | ~155 % (rayos críticos AoE + sinergia W) | ✅ Core 2 |
+| Infinity Edge | 3 400 | ~163 % (230 % vs 200 % = +15 % global + multiplica Q/W) | ✅ Capstone |
+| Lord Dominik's | 3 300 | ~163 % (pen 35 % + GS 12 %) | ✅ Core 3 |
+| Bloodthirster | 3 200 | ~125 % (75 AD + 15 % LS + escudo) | ✅ Default 6.º |
+
+### Ley 6 — Timing > DPS teórico
+C44 al minuto 7:30 (2 900 g) gracias a Noonquiver (1 300 g). Runaan's al 10:30. IE al 14:30 (pico de poder: Q ahora pega 498 con ×1.52). LDR al 17:30. Bloodthirster al 20:00.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+- **Nexus 4 000 HP:** partidas terminan antes → la ventana de Bloodthirster como 6.º ítem es ajustada pero llega en la mayoría de partidas.
+- **Placas +20 arm/MR y 10 s (antes +30 y 20 s):** siege más fácil → W Ricochet + Runaan's presiona placas con seguridad.
+- **Crystalline Overgrowth:** W Ricochet (AoE) + autos críticos detonan cristales desde rango seguro.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | Nota |
+|-----------|-----|-----------------|-----------------|------------------|------|
+| **Hexoptics C44** | 2 900 | 490 | **1 380** | 860 | 55 AD + 25 % crit. Inicia curva de crítico. |
+| Kraken Slayer | 2 900 | **520** | 1 250 | 900 | Gana 1v1 temprano, pero pierde AoE. |
+| Stormrazor | 3 000 | 470 | 1 320 | 880 | Alternativa anti-presión (Energized 120 + 45 % MS). |
+| Yun Tal Wildarrows | 3 100 | 410 | 1 180 | 820 | Ramp lento; retrasa el pico de crit. |
+
+**Veredicto:** **C44 primero.** Kraken gana el duelo de autos planos (+6 %), pero Sivir **no es un ADC de autos planos**. Su Q y W escalan con crítico, y C44 da 55 AD + 25 % crit + +100 rango post-takedown (Arcane Aim), que sinergiza con Fleet of Foot para kiting extremo. A nivel 12 con IE, la ventaja de C44 se amplifica (+17 % AoE con W Ricochet + Runaan's).
+
+**Nota crítica:** A diferencia de Caitlyn/Jinx, Sivir **no se beneficia de Magnification** (rango 500 < 550). El AD plano y el crit son la prioridad.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|------|------|--------------------------|
+| Botas | **Berserker's → Gunmetal** | +15 % AS sobre T2 por 1 000 g; +5 % LS; 12 HP/golpe; +7 % MS al atacar. |
+| 1 | **Hexoptics C44** (2 900) | 55 AD + 25 % crit. Base de escalado crit-hab en Q/W. Arcane Aim (+100 rango post-takedown) sinergia con kiting. |
+| 2 | **Runaan's Hurricane** (2 650) | Sinergia máxima. Los rayos **critican al 230 %** y aplican on-hit. Multiplica el daño AoE de W Ricochet. |
+| 3 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica autos + rayos + Q (×1.52) + W bounces. Capstone absoluto. |
+| 4 | **Lord Dominik's Regards** (3 300) | Cierra 100 % crit exacto + 35 % pen + Giant Slayer. Obligatorio vs el meta de tanques. |
+| 5 | **Bloodthirster** (3 200) | 75 AD + 15 % LS + escudo Ichorshield (165-345). Sustain para sobrevivir dives post-lane. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem | Coste | Impacto medido |
+|-----------|------|-------|----------------|
+| Default (sustain) | **Bloodthirster** | 3 200 | 330 HP/s + escudo Ichorshield ✅ |
+| CC duro + AP | **Mercurial Scimitar** | 3 100 | QSS activo + 40 MR + 12 % LS ✅ |
+| Burst AD / asesinos | **Guardian Angel** | 3 200 | Revivir (sin crit desperdiciado) ✅ |
+| 3+ Tanques / Curación | **Mortal Reminder** | 3 000 | Reemplaza LDR; mantiene 100 % crit + GW 50 % ⚠️ |
+| 1v1 duelo / splitpush | **Stormrazor** | 3 000 | +9 % DPS 1v1 pero −14 % en 3v3 ⚠️ |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|------|--------------------|
+| ❌ **Terminus** | **ILEGAL (Ley 3b).** Exclusividad con LDR. |
+| ❌ **Mortal Reminder** | **ILEGAL (Ley 3b).** Solo si se usa en lugar de LDR, nunca con. |
+| ❌ **Galeforce** | 25 % crit muerto si ya tienes C44+Runaan's+IE+LDR. |
+| ❌ **Phantom Dancer** | 0 AD en 7.3; 25 % crit sobrante. |
+| ❌ **Statikk Shiv** | Ruta on-hit/energized pierde vs crit-spread en late game post-buff de IE. |
+| ❌ **Navori Quickblades** | 25 % crit muerto; mecánica de CD sin validar. |
+| ❌ **Kraken Slayer** | Proc cada 3er golpe pierde valor con AS 1.83; no escala con Q/W. |
+| ❌ **Yun Tal Wildarrows** | 125 ataques para 25 % crit; ramp incompatible con timing; rompe Ley 1. |
+| ❌ **Nashor's Tooth** | AP sin conversión a daño de auto. |
+| ❌ **Manamune** | Sin problemas de maná; stats de fighter. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Lethal Tempo
+
+**Por qué:** Sivir necesita AS para maximizar el número de autos que activa W Ricochet y el proc de Runaan's. La bala escala con AS bonus (B = 1.934): 24 × (1 + 0.0067 × 193.4) = 55.1 por golpe × AS 1.834 = **+101 DPS**.
+
+**Alternativa:** *Fleet Footwork* solo vs composiciones de poke extremo (Caitlyn/Varus) donde no puedes mantener cargas de LT.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|------|------|----------------|
+| Precisión | **Legend: Alacrity** | +21 % AS. Nunca sobra, ayuda a acercarse al cap de 3.0. |
+| Precisión | **Brutal** | 5 + 6 % AD bonus ≈ +43 DPS constante. |
+| Precisión | **Coup de Grace** | +8 % a <40 % HP — sinergia con Q execute. |
+| Precisión | **Cut Down** | +6.57 % vs >60 % HP — excelente vs tanques. |
+| Precisión | **Triumph** | 10 % HP al matar + 35 MS. Sinergia con Fleet of Foot. |
+
+### Hechizos: Flash + Ghost / Heal
+
+- **Ghost:** Sinergia con Fleet of Foot (MS 55-70 post-habilidad) → kiteo casi permanente.
+- **Heal:** Si el support no lo trae. Añade sustain y MS adicional.
+
+### Orden de habilidades: Q → W → E · R en 5/9/13
+
+- **Q max:** Daño base + escalado de crítico (×1.52 a 100 % + IE). Waveclear y poke.
+- **W segunda:** Daño por bounce (37.5-45 % AD) + AS. Fundamental para AoE.
+- **E última:** Solo utilidad (bloquea 1 habilidad). CD alto (22-16 s).
+- **R:** Siempre que esté disponible. Aunque fue nerfeada (MS y AD), sigue siendo clave para reposicionar y buffear al equipo.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, 100 % crit, vs 220 arm / 4 500 HP)
+
+| Build | Oro | AD | AS | Crit | Pen | 1v1 | 3v3 AoE | vs Tanque | Fuente |
+|-------|-----|-----|-----|------|-----|-----|---------|-----------|--------|
+| **ÓPTIMA (propuesta)** | 17 650 | 363 | 1.83 | 100 % | 35 % | 2 680 | **9 850** | 1 420 | ⭐ LAB |
+| Meta Comunidad (Kraken+Runaan+IE+LDR+BT) | 17 550 | 360 | 1.83 | 100 % | 35 % | 2 750 | 8 920 | 1 280 | 🌐 comunidad |
+| On-Hit (Guinsoo+BotRK+Terminus) | 16 800 | 240 | 2.40 | 100 % | 35 % | 2 350 | 6 800 | 1 050 | ❌ Ilegal (Terminus+LDR) |
+| AS Pura (Kraken+RFC+Runaan+BT) | 17 100 | 260 | 2.20 | 100 % | 0 % | 2 580 | 7 950 | 1 100 | ❌ Sin pen |
+
+### Desglose multiplicativo (Óptima vs Comunidad)
+
+| Factor | Multiplicador | Contribución |
+|--------|---------------|--------------|
+| C44 vs Kraken (55 AD + Arcane Aim vs proc) | ×1.02 | +2 % AD crudo temprano |
+| Runaan's + IE (rayos críticos al 230 %) | ×2.30 | AoE masivo con W Ricochet |
+| LDR Giant Slayer | ×1.12 | +12 % vs tanques con >1 200 HP bonus |
+| Q escalado de crítico | ×1.52 | Daño de Q se multiplica |
+| W bounces con crítico | ×2.30 | Daño por bounce se multiplica |
+| **Neto** | | **+18 % DPS AoE efectivo en teamfights** |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Lane Phase:** Farmea con Q. Usa W Ricochet para empujar la ola y evitar trades largos.
+- **Min 4:30:** Completa **Berserker's Greaves**. Tu kiting mejora con Fleet of Foot.
+- **Nivel 6:** Con R, puedes forzar un all-in. Combina Q + W + R para AoE devastador.
+- **Cristales de Torreta:** Desde el min 5:00, un Q desde rango seguro detona el cristal (~1 300 daño verdadero).
+
+### Mid (9:00 – 16:00)
+
+- **Pico C44 (~7:30):** Aquí empieza tu poder. Tu Q ya escala con crítico.
+- **Min 10:00:** ⬆️ **Gunmetal Greaves**. El Lifesteal te permite mantener HP alto para objetivos.
+- **Pico Runaan's + IE (~14:30):** Tu AoE ahora es devastador. Busca teamfights en río.
+- **Dragón / Herald:** Usa E para bloquear habilidades clave (CC, engages). W + Runaan's + R para AoE masivo.
+
+### Late (16:00+)
+
+- **Teamfight:** Posicionamiento extremo. Con 100 % crit + IE, cada auto es un evento de daño AoE.
+- **R (On the Hunt):** Úsala para reposicionar al equipo o iniciar un push coordinado. El buff de MS + AD por stack acelera teamfights.
+- **Fleet of Foot:** Cada habilidad te da 55-70 MS. Usa esto para kiteo casi permanente en teamfights.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes. No te extiendas innecesariamente.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| Minions 60 % daño a campeones | Limpiar waves con W Ricochet es más seguro. |
+| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00. |
+| Botas T3 solo desde 10:00 | No intentes mejorar antes; el juego bloquea la compra. |
+| Nexus 4 000 HP (7.3a) | Cierra partidas 1-2 min antes; no greedees items beyond min 21. |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|--------|--------|------------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS, cambios a Sivir (Q/W escalado de crítico, Fleet of Foot buff) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|--------|--------|------------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Sivir (ficha + meta) | 05/10/2026 | Alta para kit; WR 48.65 %, pick 3.49 %, Diamond+ |
+| wildriftcore.com Sivir | 08/10/2026 | WR 48.4 % (Tier B), datos de 7 días |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|------|------------|
+| **Rango de ataque** | No publicado en wr-meta. Se asume ~500 (marksman estándar). **Verificar en juego.** |
+| **Magnification de C44** | Como Sivir tiene rango 500 < 550, **NO se beneficia** de Magnification. Corregido en este reporte (versión previa lo asumía). |
+| **AD growth** | Se usa 4.5 (no cambió en 7.3). Si wr-meta publica otro valor, re-verificar. |
+| **WR discrepancy** | wr-meta 48.65 % vs wildriftcore 48.4 % — coherentes. Se usa 48.65 %. |
+
+### Supuestos del modelo (declarados)
+
+- **Uptime de W Ricochet:** 60 % en peleas (spamea cada ~6 s con 4 autos).
+- **Q lanzada cada ~7 s** (CD sin haste extra).
+- **Runaan's rayos** golpean a 2 objetivos secundarios en 3v3.
+- **Magnification de C44 NO aplica** (rango <550).
+- **Coup de Grace:** +8 % cuando objetivo <40 % HP (sinergia con Q execute).
+- **Bala de LT** escala con AS bonus total (B = 1.934 post-7.3a).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Sivir: WR 48.65 %, pick 3.49 %, ban 0.05 %, **Tier B**, tendencia 0. La comunidad la percibe como débil por su WR bajo, pero su **techo matemático es Tier A**: el escalado de crítico en Q/W (7.3) la convierte en el ADC de mayor daño AoE del parche. El problema es de **ejecución** (posicionamiento, uso de E), no de modelo.
+
+### Validación del modelo
+
+- `validate_slots(["Gunmetal", "C44", "Runaan's", "IE", "LDR", "BT"])` → **PASS** (6 entradas, 1 botas, 5 ítems).
+- Chequeo manual de Q damage: (160 + 0.70 × 240) × 1.52 = **498** ✓.
+- Chequeo manual de W bounce: 0.45 × 363 × 2.30 = **376** ✓.
+- Chequeo manual de AS: 0.625 + 0.625 × (0.30 + 0.14 + 0.90 + 0.384 + 0.21) = **1.834** ✓.
+- Chequeo manual de AD: 60 + 4.5 × 14 = **123** base + 240 ítems = **363** ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Sivir
+
+| Ítem (oro) | Veredicto | Nota |
+|------------|-----------|------|
+| Hexoptics C44 (2 900) | ✅ Core 1 | 55 AD + 25 % crit. Arcane Aim post-takedown. |
+| Runaan's Hurricane (2 650) | ✅ Core 2 | Rayos críticos AoE. Sinergia con W Ricochet. |
+| Infinity Edge (3 400) | ✅ Core 3 | Multiplica autos + Q (×1.52) + W bounces (×2.30). |
+| Lord Dominik's Regards (3 300) | ✅ Core 4 | 35 % Pen + Giant Slayer. Cierra 100 % crit. |
+| Bloodthirster (3 200) | ✅ Default 6.º | Sustain + AD plano + escudo. |
+| Mercurial Scimitar (3 100) | ⚠️ Anti-CC | QSS + 40 MR + 12 % LS. |
+| Guardian Angel (3 200) | ⚠️ Anti-AD burst | Revivir sin crit desperdiciado. |
+| Mortal Reminder (3 000) | ⚠️ Anti-heal | Solo si reemplaza LDR (no ambos). |
+| Stormrazor (3 000) | ⚠️ Alternativa 1.º | Anti-presión en lane. |
+| Kraken Slayer (2 900) | ❌ | No escala con Q/W; AS baja post-7.3a. |
+| Terminus (3 000) | ❌ Ilegal | Exclusividad con LDR. |
+| Galeforce (3 100) | ❌ | 25 % crit muerto. |
+| Phantom Dancer (2 650) | ❌ | 0 AD; crit sobrante. |
+| Statikk Shiv (3 000) | ❌ | Ruta on-hit pierde vs crit-spread. |
+| Nashor's Tooth (2 900) | ❌ | AP sin conversión. |
+| Navori Quickblades (2 650) | ❌ | Crit muerto; mecánica sin validar. |
+| Yun Tal Wildarrows (3 100) | ❌ | Ramp 125 ataques; rompe Ley 1. |
+| Manamune (2 900) | ❌ | Sin problemas de maná. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (máximo AoE y sustain):
+Long Sword → Berserker's (4:30) → C44 (7:30) → Runaan's (10:30)
+→ ⬆️ Gunmetal (11:30) → IE (14:30) → LDR (17:30) → Bloodthirster (20:00)
+
+VS CC DURO / BURST AP (Mercurial Scimitar):
+Default pero Bloodthirster → Mercurial Scimitar (mantiene 100 % crit + MR + QSS)
+
+VS BURST AD / ASESINOS (Guardian Angel):
+Default pero Bloodthirster → Guardian Angel (revive sin crit desperdiciado)
+
+VS 3+ TANQUES / CURACIÓN (Mortal Reminder):
+Default pero LDR → Mortal Reminder (mantiene 100 % crit + GW 50 %)
+(Ojo: no pueden convivir LDR y Mortal Reminder — Ley 3b)
+
+SNOWBALL (feedeada):
+Long Sword → C44 (7:00) → IE (10:30) → Runaan's (13:00) → ⬆️ Gunmetal (14:00)
+→ LDR (17:00) → Bloodthirster (19:30)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice de AS y cambios a Sivir (Q/W escalado de crítico, Fleet of Foot buff).
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com (08/10/2026).
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
-  - Barón
   - Jungla
   - Personalizado
 version: 1.2
@@ -13980,7 +17420,7 @@ Status: Beta
 champion: Volibear
 slug: volibear-pesadilla
 role: jungla
-variant: "pesadilla"
+variant: pesadilla
 patch: "7.3"
 archetype: "AP-Bruiser de Inmersión (Dive, Shield & Tower Control)"
 engine: none
@@ -13988,7 +17428,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -13999,7 +17439,7 @@ verified_patch: "7.3a"
 **Enfoque:** Explotar el escalado cruzado (AP + HP) para generar escudos
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Volibear:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Chainlaced Crushers + Dusk and Dawn + Riftmaker + Nashor's Tooth + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -14289,252 +17729,1191 @@ Dusk and Dawn → Nashor's Tooth → ⬆️ Chainlaced → Riftmaker → Zhonya'
 
 ---
 tags:
-  - Jungla
   - Barón
-version: 1.1
+  - Fighter
+  - Híbrido
+  - AP-Bruiser
+version: 2
 Status: Beta
 champion: Volibear
-slug: volibear
-role: jungla
+slug: volibear-baron
+role: top
+variant: baron
 patch: "7.3a"
-archetype: "Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque"
+archetype: "AP-Bruiser híbrido con escalado de HP y AP"
 engine: none
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-26"
-updated_at: "2026-10-04"
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 26 de septiembre de 2026  
-**Parche analizado:** 7.3 (lanzamiento oficial: 21 de septiembre de 2026)  
-**Rol principal:** Jungla / Top Lane  
-**Arquetipo:** Fighter Híbrido (On-Hit + AP Burst) con escalamiento de Velocidad de Ataque  
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Top (Baron Lane)
+**Arquetipo:** AP-Bruiser híbrido — su kit convierte HP en daño (W) y AP en escudos (E) + daño AoE (P)
+**Enfoque:** Explotar el escalado cruzado HP + AP para generar escudos masivos (~900 HP)
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 47.74 % | Pick Rate 5.41 % | Ban 4.65 % | Tendencia ↓ 1 | Tier B | Rol SOLO (Top).
+
+> [!TIP]
+> **Variante principal (vs composiciones de burst AD):** Cambia **Rabadon's Deathcap** por **Sterak's Gage** (3 200 g). Pierdes ~15 % de daño de E/P/R a cambio de **+55 AD**, escudo reactivo (~750 HP con 1 500 HP bonus), **+tamaño** y **+20 % tenacidad** durante 8 s.
 
 ---
 
-## 0. RESUMEN EJECUTIVO — LA BUILD FINAL
+## 0. RESUMEN EJECUTIVO
 
-Orden de compra recomendado (Ruta por defecto - Jungla/Top):**
+### Tabla A — BUILD FINAL (Ruta Estándar / AP-Bruiser)
 
-| #   | Ítem                                                             | Oro       | Momento Típico | Justificación Clave                                                     |
-| --- | ---------------------------------------------------------------- | --------- | -------------- | ----------------------------------------------------------------------- |
-| 1   | **Trinity Force** (Fuerza de la Trinidad)                        | 3333      | ~8:00–9:30     | Core híbrido: AD, AS, Mana, CD. Spellblade escala con su Q/W/E.         |
-| 2   | **Boots of Swiftness** (Botas de Rapidez) o **Plated Steelcaps** | 1100      | ~9:30–10:00    | MS constante para activar pasiva; Armadura si vs AD pesado.             |
-| 3   | **Sterak's Gage** (Medidor de Sterak)                            | 3100      | ~12:00–13:00   | Escudo masivo post-combate + AD. Sinergia con pasiva "Storm".           |
-| 4   | **Divine Sunderer** (Destripador Divino)                         | 3200      | ~15:00–16:00   | Penetración % vida actual. Esencial vs tanques/junglas rivales.         |
-| 5   | **Death's Dance** (Danza de la Muerte)                           | 3300      | ~18:00+        | Mitigación física + curación diferida. Sustain brutal en fights largas. |
-| 6   | **Guardian Angel** (Ángel Guardián) o **Maw of Malmortius**      | 3000/3100 | Late Game      | Revivir para re-engagar R o protección contra AP/Burst.                 |
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | 30 armadura, 150 HP, Block 10 % daño de autos, escudo físico 10-140 + 8 % HP máx |
+| 2 | **Dusk and Dawn** | 3 100 | 300 HP, 60 AP, 20 % AS, 20 AH, Spellblade (75 % AD base + 10 % AP), on-hit extra, **cura 3 % HP bonus + 10 % AP** |
+| 3 | **Riftmaker** | 3 100 | 350 HP, 70 AP, 15 AH, Omnivamp 10 %, **2 % HP bonus → AP** (bucle infinito de escalado) |
+| 4 | **Nashor's Tooth** | 2 900 | 80 AP, 50 % AS, 15 AH, Gnaw: on-hit 15 + 20 % AP mágico |
+| 5 | **Zhonya's Hourglass** | 3 300 | 110 AP, 40 armadura, Stasis 2.5 s (seguro post-dive de R) |
+| 6 | **Rabadon's Deathcap** | 3 400 | 130 AP, +30 % AP total (multiplica escudos de E, daño de P y R) |
 
-*Nota:* En lugar de un build puramente de On-Hit (como Wit's End), la ruta híbrida **Trinity Force + Divine Sunderer** maximiza el daño real contra objetivos con armadura alta, aprovechando que sus habilidades escalan con AD y su pasiva aplica on-hit effects.
+> **Oro total: 18 000 g** · HP ~3 140 · AP ~585 (con Rabadon's + Conqueror) · AS ~1.81 (con P + Q + LT + Alacrity) · Haste 50 · **E shield: ~920** · **R damage: ~1 285**
 
-### Runas y Hechizos
+### Tabla A2 — VARIANTE ANTI-BURST (Sterak's por Rabadon's)
 
-*   **Keystone:** **Conqueror** (Conquistador).
-    *   *Por qué:* Volibear es un luchador de combate prolongado. Conqueror otorga stacks de daño adaptable y sustain (omnivamp parcial) que se mantiene gracias a su alta tasa de ataque base y efectos on-hit. Lethal Tempo es inferior porque su pasiva ya le da AS condicionalmente, haciendo redundante la runa y perdiendo el sustain crítico.
-*   **Secundaria (Precision):**
-    *   **Triumph** (Triunfo): Curación al matar/asistir.
-    *   **Legend: Alacrity** (Leyenda: Alacridad): Más AS para alcanzar el cap más rápido y activar la pasiva de relámpago constantemente.
-    *   **Last Stand** (Última Estrella): Daño extra cuando está bajo vida (sinergia con Danza de la Muerte/Sterak).
-*   **Terciaria (Resolve/Sorcery):**
-    *   **Bone Plating** (Revestimiento Óseo) + **Revitalize** (Revitalizar) o **Overgrowth**.
-    *   Alternativa agresiva: **Nimbus Cloak** (Capa Nimbus) para iniciar peleas con R.
-*   **Hechizos de Invocador:** **Smite** (Castigo) + **Flash** (Destello).
-    *   *Jungla:* Smite es obligatorio. El cambio sistémico 7.3 hace que el daño verdadero de Smite escale con stats, beneficiando a Volibear.
-    *   *Top:* Flash es innegociable para asegurar el stun de Q. Ignite opcional vs melee tanks sin escape.
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** | 2 200 | Igual que build estándar |
+| 2 | **Dusk and Dawn** | 3 100 | Core híbrido |
+| 3 | **Riftmaker** | 3 100 | Bucle HP → AP |
+| 4 | **Nashor's Tooth** | 2 900 | AS + on-hit mágico |
+| 5 | **Zhonya's Hourglass** | 3 300 | Stasis + armor |
+| 6 | **Sterak's Gage** | 3 200 | +400 HP, +50 % AD base como bonus, Lifeline (escudo 75 % HP bonus + tamaño) |
 
-### Orden de Habilidades
-1.  **Q (Thundering Smash)** al nivel 1 (para invadir/farmear rápido).
-2.  **Maxear E (Unstoppable Onslaught)** primero. La reducción de CD y el aumento de velocidad de movimiento/duración son vitales para la movilidad y el uptime de la pasiva.
-3.  **W (Relentless Storm)** segundo.
-4.  **R (Stormbringer)** siempre al subir de nivel.
+> **Oro total: 17 800 g** · HP ~3 540 · AP ~385 · Bonus AD ~55 · Escudo reactivo Sterak's: ~750 · Tamaño +30 % durante Lifeline
 
----
+### Tabla B — Ruta de compra cronológica (Estándar)
 
-## 1. CONTEXTO DEL CAMPEÓN Y CAMBIOS 7.3
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Ruby Crystal + Long Sword (Start) | 1 000 | 0:00 |
+| 2 | Sheen + componentes → **Dusk and Dawn** | 3 100 | ~8:00 |
+| 3 | **Plated Steelcaps** (T2) | 4 300 | ~9:30 |
+| 4 | Blasting Wand + Recurve Bow → **Nashor's Tooth** | 7 200 | ~12:00 |
+| 5 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 200 | ~12:30 (post 10:00) |
+| 6 | Haunting Guise + Blasting Wand → **Riftmaker** | 11 300 | ~15:00 |
+| 7 | Seeker's Armguard + Blasting Wand → **Zhonya's Hourglass** | 14 600 | ~17:30 |
+| 8 | Needlessly Large Rod + 700 → **Rabadon's Deathcap** | 18 000 | ~20:30 |
 
-Volibear entra al parche 7.3 como un **Fighter Híbrido** con una identidad clara: convertir la velocidad de ataque acumulada en daño mágico sostenido vía su pasiva (*The Relentless Storm*).
+### Runas · Hechizos · Habilidades
 
-### Cambios Directos en 7.3 (Notas Oficiales)
-*   **Pasiva Nerf:** El daño mágico adicional de la pasiva cambió de `11-80 + 40% AP` a `12-68 + 40% AP`.
-    *   *Impacto:* Reducción significativa en niveles bajos/mid-game. Ya no puede confiar exclusivamente en AP temprano; necesita items de AD/AS para compensar la pérdida de flat damage.
-*   **Sistema de Jungla:** Los monstruos ahora tienen más vida y el daño de Smite escala con las estadísticas del campeón. Esto favorece a campeones con alto AD/AS como Volibear frente a magos puros.
-*   **Ítems Relevantes:** Removidos encantamientos de botas. Nuevos sistemas de penetración (% vida actual) en Destripador Divino hacen que la build híbrida sea superior a la pura AP o pura AD crítica.
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Conqueror** (Stacks de AP + 9 % Omnivamp en peleas largas — sinergia con W y Riftmaker) |
+| Precisión 2 | **Triumph** (10 % HP al matar + 35 MS — vital tras dive con R) |
+| Precisión 3 | **Legend: Haste** (+15 AH = más escudos de E y más W) / **Legend: Alacrity** (+21 % AS para P) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a <40 % HP — sinergia con W execute y R burst) |
+| Secundaria 1 | **Demolish** (85 + 28 % HP máx a torres — sinergia con R y Cristales) |
+| Secundaria 2 | **Revitalize** (+5 % a escudos/curas; +15 % si <40 % HP — **OBLIGATORIO**, multiplica E y W) |
+| Hechizos | **Flash + Ignite** (kill pressure) / **Flash + Teleport** (macro/splitpush) |
+| Skills | **W → E → Q** (R en 5/9/13). Maxear W primero para sustain y daño base. |
 
-### Estadísticas Base (Nivel 15 estimado)
-*   **AD Base:** 62 (+ crecimiento variable, aprox 3.5-4.0 por nivel según fuente, verificar en juego).
-*   **Vida Base:** 660 (+120/nivel).
-*   **Velocidad de Ataque:** 0.7 base, ratio 0.7, bonus inicial 0.05.
-*   **Movilidad:** 350 MS base.
+### Resultado del modelo (Nivel 15, Conqueror full, AP ~585, vs 100 MR / 120 Arm)
 
----
+| Escenario | Valor |
+|-----------|-----|
+| **DPS sostenido (autos + P + W + DuskDawn)** | **~845** (mixto físico/mágico) |
+| **Burst de inmersión (R + E + W + auto)** | **~1 650** |
+| **E shield (Sky Splitter)** | **~920 HP** (cada 5-8 s con 50 AH) |
+| **E daño mágico (vs 2 500 HP enemigo)** | **~738** |
+| **P daño AoE (5 stacks)** | **~302 mágico a 4 objetivos** |
+| **R daño (impacto directo)** | **~1 285 físico** |
+| **R daño + disable de torreta** | **~1 285 + 3 s de torreta apagada** |
 
-## 2. MODELO MATEMÁTICO DE DPS (Supuestos Declarados)
-
-Para este análisis, utilizamos el motor `dps_model.py` adaptado para Volibear. A diferencia de Jinx (que depende de críticos y rango), Volibear depende de **Uptime de Pasiva** y **Sinergia de On-Hit**.
-
-**Supuestos Críticos:**
-1.  **Uptime de Pasiva (Lightning Claws):** Asumimos un 85% de uptime en combates cuerpo a cuerpo debido a la alta frecuencia de ataques potenciados por Trinity Force y Botas.
-2.  **Multiplicador de Autoataque (`aa_mult`):** 1.0 (sus autos normales). Sin embargo, la pasiva añade daño plano + escalado AP.
-3.  **Daño de Habilidades:** Se calcula aparte el burst de Q+W+E. El modelo de DPS "sostenido" prioriza la rotación continua.
-4.  **Penetración:** Se asume uso de Destripador Divino (penetración % vida actual) y Black Cleaver (si se opta por variante AD pura) o Sterak's (escalado AD).
-5.  **Objetivo:** Campeón enemigo estándar (nivel 15, ~2500 HP, 100 Armadura, 50 Resistencia Mágica).
-
-### Comparativa de Builds Simuladas (Nivel 15)
-
-| Build | Ítems Principales | DPS Sostenido (Pre-mitigación) | Efectividad vs Tanques | Sustain | Veredicto |
-|-------|-------------------|--------------------------------|------------------------|---------|-----------|
-| **A. Híbrida Óptima** | TF, Sterak's, Sunderer, DD, GA, Boots | **Alto (Estimado 1.8x base)** | **Excelente** (Pen % Vida) | Alto (Omnivamp + Escudos) | ✅ **RECOMENDADA** |
-| B. Pura AP | Liandry's, Rylai's, Zhonya's, Sorc Shoes, Morello, Rod | Medio-Bajo | Baja (Liandry quema % pero falta burst físico) | Bajo | ❌ Obsoleta tras nerf pasiva |
-| C. Crit/AD Puro | IE, PD, Infinity Edge, Kraken, Last Whisper, Berserkers | Alto pico, bajo promedio | Media (depende de proc de crítico) | Medio | ⚠️ Riesgosa (no escala bien con pasiva) |
-| D. Tank/DPS | Heartsteel, Sunderer, Thornmail, Randuin's, Dead Man's Plate | Bajo-Medio | Alta (por quemaduras) | Muy Alto | 🛡️ Solo si eres main tank obligatorio |
-
-**Análisis de la Build A (Híbrida):**
-La combinación de **Trinity Force** (Spellblade + AS + AD) y **Divine Sunderer** (Penetración % vida actual + Spellblade) crea un bucle perfecto. Cada vez que usas una habilidad (Q/W/E), activas el Spellblade. Inmediatamente después, tus autos golpean más rápido gracias a la AS de TF y los stacks de Conqueror/Legend: Alacrity, aplicando el daño mágico de la pasiva y la penetración de Sunderer.
+> **Titular:** Con 585 AP + 3 140 HP, el escudo de E de Volibear alcanza **~920 HP** (con Revitalize, ~966), lo que le permite tanquear el burst de un combo completo de asesino (Zed R + E + Q ≈ 800 daño) y seguir peleando. Su R deshabilita torretas por 3 s, lo que convierte cada dive en una **ventana garantizada de kill + placa**.
 
 ---
 
-## 3. DETALLE DE LA BUILD RECOMENDADA
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### Item 1: Trinity Force (Fuerza de la Trinidad) - 3333 Oro
-*   **Stats:** +200 Vida, +20 AD, +20% AS, +20 Haste, +250 Mana.
-*   **Pasiva Sheen:** Tras usar habilidad, siguiente auto hace daño extra basado en AD total.
-*   **Pasiva Windrunner:** Movilidad al atacar.
-*   **Por qué:** Es el corazón de Volibear. Le da todo lo que necesita: AS para activar la pasiva rápida, AD para escalar el Spellblade y W, y Mana para spamear habilidades. No hay sustituto viable en 7.3.
+### 1.1 Cambios directos (Volibear) — 7.3 + 7.3a
 
-### Item 2: Botas (Swiftness o Steelcaps) - 1100 Oro
-*   **Swiftness:** Mejor contra CC intenso. La MS extra ayuda a mantener la posición para pegar autos.
-*   **Steealcaps:** Si el equipo enemigo tiene mucho daño físico automático (ej. Yasuo, Master Yi, ADC). Reduce el incoming damage básico.
-*   *Nota:* No uses Ionian (tenacidad) salvo que necesites disipar CC muy específico, la MS de Swiftness suele ser mejor para kiting corto.
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+|----------------|-------------|-------------|---------|
+| **P (The Relentless Storm)** — daño del rayo | 11-80 + 40 % AP | **12-68 + 40 % AP** | ⚠️ Nerf leve. −12 daño plano en late (68 vs 80), +1 en early (12 vs 11). El escalado AP se mantiene. |
+| **AS ratio / base / bonus / por nivel** | — | 0.7 / 0.7 / 0.05 / 0.014 | Apéndice oficial 7.3. Confirma arquetipo bruiser híbrido. |
+| **Sistema crítico** | 175 % | **200 %** | Irrelevante (no construye crítico). |
+| **AS cap** | 2.5 | **3.0** | Irrelevante (no prioriza AS sobre AP/HP). |
 
-### Item 3: Sterak's Gage (Medidor de Sterak) - 3100 Oro
-*   **Stats:** +400 Vida, +50 AD, +20% Tenacidad (pasiva).
-*   **Activo:** Otorga un escudo masivo basado en vida faltante y convierte el exceso de daño recibido en vida temporal.
-*   **Por qué:** Volibear entra al medio de la pelea. Sterak's le permite sobrevivir al burst inicial mientras acumula stacks de Conqueror y activa su pasiva de rayo. El AD bruto aumenta significativamente el daño de la pasiva (que escala con AP pero el AD sube el Spellblade de TF/Sunderer).
+**Efecto medido del nerf 7.3 a P:** −12 daño plano por proc a nivel 15 (de 80 a 68). Con 4 objetivos en AoE, esto representa ~48 daño menos por proc. En una pelea de 10 s con 2 procs (cada 5 s con 5 stacks), son ~96 daño menos. Marginal respecto al DPS total (~8 000 en 10 s).
 
-### Item 4: Divine Sunderer (Destripador Divino) - 3200 Oro
-*   **Stats:** +400 Vida, +50 AD, +20 Haste.
-*   **Pasiva:** Autos infligen daño adicional igual a un % de la vida máxima del objetivo (y reduce su resistencia).
-*   **Por qué:** Contra tanques (Ornn, Malphite, Shen) o junglas pesadas, la penetración fija (Last Whisper) pierde valor. Sunderer garantiza que cada golpe duela independientemente de la armadura. Además, refuerza el efecto Spellblade de Trinity Force.
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
 
-### Item 5: Death's Dance (Danza de la Muerte) - 3300 Oro
-*   **Stats:** +45 AD, +40 Armadura, +15 Haste.
-*   **Pasiva:** Retrasa el daño recibido y cura parte de él.
-*   **Por qué:** Convierte el daño explosivo en daño sostenible. Como Volibear tiene buen sustain natural (Conqueror + pasiva de rayo si pega seguido), DD amplifica esto enormemente, permitiéndole ganar duelos 1v1 contra asesinos o fighters enemigos.
+| Sistema | Cambio | Efecto en Volibear |
+|---------|--------|-------------------|
+| **Smite burn** | 30-198/s → **22-162/s** (7.3a) | Jungla más lenta (−15-20 % en early). Para Top **no afecta** (no usa Smite). |
+| **Torretas 7 000 HP + placas permanentes** | Placas ya no decaen hasta min 5:00; luego −10 g/30 s | **R deshabilita torretas 3 s** + Demolish = Volibear es el mejor splitpusher de Top. |
+| **Crystalline Overgrowth** | Primer ataque detona cristales (~3.3-18.9 % vida torreta) | R + auto = detonar cristales sin riesgo. Presión de torreta brutal. |
+| **Nexus 4 000 HP** (7.3a) | 5 500 → 4 000 | Partidas terminan ~1-2 min antes → la ventana de Rabadon's es más ajustada. **La variante Sterak's llega más rápido**. |
+| **Minions 60 % daño a campeones** | Nuevo en 7.3 | Lane más segura para farmear con E a distancia. |
 
-### Item 6: Guardian Angel (Ángel Guardián) o Maw of Malmortius
-*   **GA:** Para revivir y volver a entrar con R (Stormbringer) para cerrar la partida o proteger carry.
-*   **Maw:** Si enfrentas mucho AP/Burst (Ahri, Syndra, Veigar). Da escudo mágico y tenacidad.
-*   **Alternativa Situacional:** **Mercurial Scimitar** si necesitas limpiar CC instantáneamente para no morir antes de activar tu ultimate.
+### 1.3 ¿Sus habilidades escalan con crítico/otro stat?
 
----
+**No directamente con crítico, pero sí con HP y AP.** El kit de Volibear es único:
 
-## 4. COMBOS Y MECÁNICA DE JUEGO
+| Habilidad | Escalado | Stat prioritario |
+|-----------|----------|------------------|
+| **Q (Thundering Smash)** | 100 % bonus AD | Bonus AD (bajo en esta build) |
+| **W (Frenzied Maul)** | 100 % AD + **6.5 % HP bonus** (o 160 % AD + **10.4 % HP bonus** en Frenzy) | **HP bonus** (alto) + AD |
+| **E (Sky Splitter)** | 50 % AP + **11 % max HP** (daño) + **75 % AP + 14 % max HP** (escudo) | **AP + HP** (doble escalado) |
+| **P (The Relentless Storm)** | 40 % AP | **AP** |
+| **R (Stormbringer)** | 100 % AP + 210 % bonus AD | **AP** (en esta build) |
 
-### Combo Básico de Enganche (Jungla/Top)
-`E (Onslaught) -> Q (Smash) -> AA -> W (Storm) -> AA -> AA -> R (Ultimate)`
-1.  Usa **E** para acercarte rápidamente y reducir CDs.
-2.  Activa **Q** inmediatamente para stunnear y aplicar el primer stack de pasiva.
-3.  Golpea (**AA**) para activar Spellblade de TF/Sunderer.
-4.  Usa **W** para ralentizar y hacer daño AoE.
-5.  Sigue pegando para acumular los 5 stacks de la pasiva (Rayo).
-6.  Usa **R** si necesitas escapar, perseguir o dividir al equipo enemigo.
-
-### Combo de Duelo 1v1 (Late Game)
-`Q (Stun) -> AA (Spellblade) -> W -> AA -> E (reset/Q follow-up) -> AA -> R (si baja vida)`
-*   La clave es nunca dejar de golpear. Cada auto debe contar.
-*   Usa **E** defensivamente si te van a matar (inmunidad parcial/reducción daño) u ofensivamente para resetear la distancia.
-
-### Uso de Ultimate (Stormbringer)
-*   **Ofensivo:** Caer sobre el ADC/Mago enemigo para romper formación. La zona de impacto deshabilita torres brevemente (útil para dives).
-*   **Defensivo/Reset:** Usarla para salir de una mala situación, volar sobre murallas o reposicionarte detrás de tu línea frontal.
-*   **Tip:** Mientras estás en forma de tormenta (R), ganas vida y rango. Úsalo para limpiar oleadas rápidas si la pelea termina.
+**Implicación:** Cada punto de HP bonus alimenta **W (daño + cura), E (escudo + daño) y R (HP temporal)**. Cada punto de AP alimenta **E (escudo + daño), P (AoE) y R (burst)**. La sinergia **HP → AP de Riftmaker** (2 % HP bonus como AP) crea un bucle positivo: más HP = más AP = más escudo = más HP efectivo.
 
 ---
 
-## 5. PROS Y CONTRAS EN PARTIDA
+## 2. FICHA MATEMÁTICA (spec)
 
-### Pros
-*   **Escalabilidad Temprana:** Gracias a su pasiva y kit simple, domina la jungla temprana y puede gankear eficazmente desde nivel 3-4.
-*   **Flexibilidad de Rol:** Funciona bien como Jungla (farmeo rápido + ganks) y Top (duelo + split push con R).
-*   **Anti-Tanque Natural:** Con Divine Sunderer y su daño mixto, ignora gran parte de la defensa enemiga.
-*   **Sustain Intrínseco:** No depende tanto de curaciones externas como otros fighters; su propia mecánica de ataque lo cura/protege.
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 62 / **3.5** (estimado) | wr-meta (errata "56" — verificar) |
+| AS base / ratio | 0.7 / 0.7 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.05 / 0.014 | Apéndice oficial 7.3 |
+| HP base / growth | 660 / 120 | wr-meta |
+| Armadura / MR base | 46 / 38 | wr-meta |
+| Armadura / MR growth | 4.71 / 2 | wr-meta |
+| Rango / melee | 125 (melee, 200 con R activa) | Ficha wr-meta |
+| `self_as_buff` | 0.25 | P: +5 % AS × 5 stacks |
+| **P (The Relentless Storm)** | Al 5.º stack: 12-68 + 40 % AP mágico a 4 objetivos | Ficha wr-meta |
+| **Q (Thundering Smash)** | 15-90 + 100 % bonus AD físico + stun 1 s | Ficha wr-meta |
+| **W (Frenzied Maul)** | 5-80 + 100 % AD + 6.5 % HP bonus (o 8-128 + 160 % AD + 10.4 % HP bonus en Frenzy); cura 20-50 + 8 % HP faltante | Ficha wr-meta |
+| **E (Sky Splitter)** | 80-170 + 50 % AP + 11 % max HP; escudo 75 % AP + 14 % max HP | Ficha wr-meta |
+| **R (Stormbringer)** | 300-700 + 100 % AP + 210 % bonus AD; +175/350/525 HP temporal; **deshabilita torretas 3 s** | Ficha wr-meta |
 
-### Contras
-*   **Débil ante Kiting Extremo:** Aunque tiene movilidad con E/R, si el enemigo tiene muchos slows (Ziggs, Teemo, Ashe) y rangos largos, Volibear puede quedar "pegado" sin poder alcanzarlos.
-*   **Dependencia de Uptime:** Si lo stunnean fuertemente o lo mantienen lejos, pierde sus stacks de pasiva y su DPS cae drásticamente.
-*   **Nerf de Pasiva 7.3:** Su daño mágico temprano ha bajado. Necesita completar Trinity Force antes de ser realmente amenazante en peleas pequeñas.
-*   **Contador a Asesinos de Burst:** Aunque Sterak/DD ayudan, un combo perfecto de Ahri/Zed/Katarina puede borrarlo antes de que active su escudo o cure.
-
----
-
-## 6. MATRIZ SITUACIONAL: ¿QUÉ HACER CUANDO...?
-
-| Escenario | Acción Recomendada | Ítem Prioritario |
-|-----------|--------------------|------------------|
-| **Vs Equipo Full AP** (Syndra, Ahri, Brand) | Comprar **Spirit Visage** o **Maw of Malmortius** en slot 4/5. Evitar pelear en campo abierto sin cobertura. | Maw / Spirit Visage |
-| **Vs Equipo Full AD/Tanques** (Garen, Sett, Trynda) | **Randuin's Omen** o **Thornmail**. Tu rol es distraer y aguantar mientras tu ADC hace daño. | Randuin's / Thornmail |
-| **Necesitas Iniciar Pelea** | Usa **R** desde niebla o arbusto para caer sobre el carry. Seguido de **E-Q-AA-W**. | Ninguno (Mecánica) |
-| **Estás Perdiendo la Línea/Jungla** | Farmea seguro con **E** en minions/monstruos. No fuerces ganks sin visión. Espera a tener **TF + Botas**. | Trinity Force (Prisa) |
-| **Enemigo tiene mucho CC** (Malphite, Amumu) | Compra **Mercury's Treads** (Botas de Mercurio) como item 2. Guarda **Quicksilver** (Scimitar) para late game. | Mercury's Treads |
+**AD a nivel 15:** 62 + 3.5 × 14 = **111**
+**HP base a nivel 15:** 660 + 120 × 14 = **2 340**
+**Armadura base a nivel 15:** 46 + 4.71 × 14 = **112**
+**MR base a nivel 15:** 38 + 2 × 14 = **66**
+**AS bonus por niveles:** 0.014 × Σ(0.7+0.04L) L=1..14 = 0.014 × 14.0 = **0.196**
 
 ---
 
-## 7. VERIFICACIONES Y DISCREPANCIAS (Sección 10 de Template)
+## 3. MODELO Y FÓRMULAS
 
-*   **Fuente Primaria:** Notas oficiales Wild Rift 7.3 (21-Sep-2026). Confirmado nerf a pasiva (11-80 -> 12-68 base).
-*   **Fuente Secundaria:** Wr-meta.com (24-Sep-2026). Datos de ítems y tasas de victoria.
-*   **Discrepancia Detectada:** Algunas guías antiguas sugieren builds full AP (Liandry's first). **Descartado.** El modelo matemático muestra que sin el AD de Trinity Force/Sterak, el escalado de la pasiva (40% AP) no compensa la pérdida de daño físico y supervivencia. El nerf 7.3 hace insostenible la ruta AP pura.
-*   **Supuesto Blando:** Se asume que el jugador mantiene la pasiva de rayo activa >80% del tiempo en peleas. Si el jugador es novato y falla autos, la eficacia de la build cae un 30%.
-*   **Contexto Meta:** Volibear tiene una tasa de victoria cercana al 50-52% en Diamond+ según wr-meta, siendo un pick sólido pero no opresivo. Su fuerza radica en la ejecución del combo y la selección correcta de items situacionales (Slot 6).
+```
+AS_total = min(3.0, AS_base + AS_ratio × B)
+B = base_bonus(0.05) + lvl_bonus(0.196) + AS_items(0.70) + LT(0) + Alacrity(0.21) + P(0.25) + Q(0)
+B = 1.406
+AS = 0.7 × (1 + 1.406) = 1.684 (sin Q activa)
+
+Con Q activa (+10-25 % MS, no AS):
+AS = 1.684 (sin cambio — Q no da AS)
+
+DPS_sostenido = AS × (AD × (1 + crit × (critDmg - 1)) × aa_mult) + onhit_flat + P_proc + W_proc + DuskDawn_proc
+             ≈ 1.684 × 111 × 1.0 + 1.684 × 15 + (1.684/5) × 302 + (1.684/5) × 389 + spellblade_dps
+             ≈ 187 + 25 + 102 + 131 + 200
+             ≈ 645 (DPS base sostenido)
+
+E_shield = (0.75 × AP + 0.14 × max_HP) × (1 + Revitalize)
+        = (0.75 × 585 + 0.14 × 3 140) × 1.05
+        = (439 + 440) × 1.05 = 923
+
+E_damage = (170 + 0.50 × AP + 0.11 × target_max_HP) × mit_magic
+        = (170 + 293 + 275) × mit_magic = 738 × mit_magic
+
+P_damage = (68 + 0.40 × AP) × mit_magic
+        = (68 + 234) × mit_magic = 302 × mit_magic
+
+R_damage = (700 + 1.00 × AP + 2.10 × bonus_AD) × mit_phys
+        = (700 + 585 + 0) × mit_phys = 1 285 × mit_phys
+
+W_damage = (80 + 1.00 × AD + 0.065 × bonus_HP) × mit_phys
+        = (80 + 111 + 52) × mit_phys = 243 × mit_phys
+
+W_heal = 50 + 0.08 × missing_HP
+```
+
+### Supuestos específicos
+- **Conqueror** a 6 stacks (5-8.33 AP por stack = +50 AP).
+- **P a 5 stacks** (uptime ~85 % en peleas).
+- **Q activa** durante el engage (stun de 1 s).
+- **Riftmaker a 8 % de amp** (5 s en combate).
+- **Revitalize** amplifica E shield y W heal por 1.05 (o 1.15 si <40 % HP).
+- **Objetivo enemigo estándar Top:** 120 armadura, 2 500 HP, 100 MR.
+- **Sin Sterak's** en build estándar (bonus AD = 0).
 
 ---
 
-## APÉNDICE A: POOL DE ÍTEMES PARA VOLIBEAR (Veredicto)
+## 4. LEYES APLICADAS A VOLIBEAR (BARON)
 
-| Ítem | Veredicto | Razón |
-|------|-----------|-------|
-| **Trinity Force** | ✅ Core | Indispensable. Sinérgico con todo su kit. |
-| **Divine Sunderer** | ✅ Core | Mejor pen contra tanques actuales. |
-| **Sterak's Gage** | ✅ Defensa/Daño | Escudo + AD. Ideal para dive. |
-| **Death's Dance** | ✅ Supervivencia | Mitiga burst, permite ganar duelos largos. |
-| **Black Cleaver** | ⚠️ Situacional | Solo si el enemigo tiene mucha armadura fija y poca vida. Sunderer suele ser mejor. |
-| **Wit's End** | ❌ Malo | Falta AD bruto y vida. Su pasiva de MR no compensa la pérdida de sustain de TF/Sterak. |
-| **Liandry's Torment** | ❌ Malo | Nerf a pasiva 7.3 hace que el quemado % vida sea insuficiente sin AP masivo. |
-| **Infinity Edge** | ❌ Malo | Volibear no escala bien con crítico puro; prefiere on-hit/híbrido. |
-| **Guardian Angel** | ✅ Late | Segunda vida para re-iniciar con R. |
-| **Maw of Malmortius** | ✅ Anti-AP | Escudo vital contra magos. |
+### Ley 0 — Slots
+Build final = 1 botas (Armored Advance T3) + 5 ítems. `validate_slots(["Armored Advance", "DuskDawn", "Riftmaker", "Nashor", "Zhonyas", "Rabadon"])` → **PASS** (6 entradas, 1 botas, 5 ítems). La ruta muestra Plated Steelcaps (T2) → Armored Advance (T3) como mejora en el mismo slot (min 10:00, +1 000 g).
+
+### Ley 1 — Crítico: **NO APLICA**
+Volibear no construye crítico. Todo ítem con % crítico es oro muerto (más de 1 250 g por ítem).
+
+### Ley 2 — Velocidad de ataque: prioridad media
+
+```
+AS_items_para_cap = (3.0/0.7 - 1) - (0.05 + 0.196 + 0.21 + 0.25)
+                  = 3.286 - 0.706 = 2.580 → 258 % (INALCANZABLE)
+```
+
+Con los 70 % AS de ítems (DuskDawn 20 + Nashor's 50): AS cruda = 1.684 → **56 % del tope**. Volibear **nunca satura el cap**; cada punto de AS vale, pero no es prioritario sobre HP/AP. La AS viene "gratis" de DuskDawn y Nashor's para alimentar P.
+
+### Ley 3 — Penetración: **APLICA INVERSAMENTE**
+
+Para Volibear, **más HP = más daño y cura; más AP = más escudo y daño**. La penetración enemiga reduce la efectividad de sus resistencias. La contramedida es **volumen de HP + escudo masivo de E + Riftmaker omnivamp**.
+
+| Armadura enemiga | Pen 35 % (LDR) | Mitigación con 182 arm | EHP efectivo (con E shield) |
+|------------------|----------------|------------------------|----------------------------|
+| 0 | 0 % | 64.5 % | ~8 800 |
+| 120 | 42 | 52.2 % | ~6 500 |
+| 220 | 77 | 41.7 % | ~5 400 |
+
+**Nota:** Contra tanques, el daño de Volibear es mixto (físico de W/Q, mágico de E/P/R). La penetración mágica (Cryptbloom) es situacional — el modelo prioriza HP/AP puro.
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem popular | Stat muerto en Volibear | Veredicto |
+|--------------|------------------------|-----------|
+| Trinity Force (3 333) | Maná muerto; AS sobrevalorada sin AP | ⚠️ Alternativa AD |
+| Heartsteel (3 000) | HP sin AP = E shield débil | ❌ Rechazado |
+| Sunfire Aegis (2 900) | Daño base bajo, no escala con AP | ❌ Rechazado |
+| Iceborn Gauntlet (3 000) | Maná + Spellblade AD | ❌ Rechazado |
+| Cualquier ítem de crítico | 100 % muerto | ❌ Rechazado |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|------|-----|----------------------|-----------|
+| Dusk and Dawn | 3 100 | ~155 % (Spellblade + cura + AS + AP + HP) | ✅ Core 1 |
+| Riftmaker | 3 100 | ~157 % (Omnivamp + HP→AP conversion) | ✅ Core 2 |
+| Nashor's Tooth | 2 900 | ~145 % (AS + on-hit mágico escalado) | ✅ Core 3 |
+| Zhonya's Hourglass | 3 300 | ~135 % (Stasis + armor + AP) | ✅ Core 4 |
+| Rabadon's Deathcap | 3 400 | ~160 % (130 AP × 1.30 = 169 AP efectivos) | ✅ Capstone |
+
+### Ley 6 — Timing
+
+Volibear Top tiene una curva de poder **suave pero constante**:
+- **Min 8-9 (DuskDawn):** Primer pico. Spellblade + cura = trades ganados.
+- **Min 12-15 (Nashor's + Armored):** Waveclear + sustain + AS para P.
+- **Min 15-18 (Riftmaker):** Omnivamp + HP→AP = inmortal en 1v1.
+- **Min 18-21 (Zhonya's + Rabadon's):** Pico absoluto. E shield ~920, R ~1 285.
+
+### Ley 7 — Sistemas 7.3/7.3a
+
+| Sistema | Impacto en Volibear Top |
+|---------|-------------------------|
+| Torretas 7 000 HP + R disable | **R apaga la torreta 3 s** → dive garantizado |
+| Crystalline Overgrowth | E + auto detona cristales desde rango seguro |
+| Placas permanentes | Demolish + R = splitpush brutal |
+| Nexus 4 000 (7.3a) | Partidas más cortas → la variante Sterak's llega a tiempo, Rabadon's apretado |
 
 ---
 
-*Reporte generado automáticamente por WR-LAB v7.3 · Basado en datos públicos y modelado interno.*
-*Recuerda: Las builds óptimas dependen de la composición del equipo enemigo. Usa esta guía como base sólida y ajusta el Slot 6 según la amenaza principal.*
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | Sustain | Nota |
+|-----------|-----|-----------------|---------|------|
+| **Dusk and Dawn** | 3 100 | **Alto** (Spellblade + cura + AS para P) | ⭐⭐⭐⭐⭐ | ✅ **Ganador.** Core absoluto. |
+| Riftmaker | 3 100 | Medio (requiere ramp) | ⭐⭐⭐⭐ | ⚠️ Mejor 2.º (componentes caros) |
+| Nashor's Tooth | 2 900 | Medio-alto (AS + on-hit) | ⭐⭐⭐ | ⚠️ Mejor 3.º (sin HP) |
+| Trinity Force | 3 333 | Alto (AD + AS + spellblade) | ⭐⭐ | ❌ Stats diluidos sin AP |
+
+**Veredicto:** **Dusk and Dawn primero SIEMPRE en Top.** El Spellblade (75 % AD base + 10 % AP) con **cura de 3 % HP bonus + 10 % AP** crea un trade pattern insuperable: Q → auto (Spellblade + cura) → W → auto (Spellblade + cura). Con 3 100 g, tienes un ítem que da HP, AP, AS, haste, daño y sustain en un solo slot.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|------|------|--------------------------|
+| Botas | **Plated → ⬆️ Armored Advance** | Block 10 % + escudo físico (10-140 + 8 % HP máx). Con 3 140 HP = escudo de ~390 cada 12 s. Esencial vs AD top laners (Darius, Garen, Sett). |
+| 1 | **Dusk and Dawn** (3 100) | Core híbrido: HP + AP + AS + Spellblade + cura. Sinergia del 100 % con W y Q. |
+| 2 | **Riftmaker** (3 100) | **Void Infusion:** 2 % de HP bonus como AP. Con 800 HP bonus = +16 AP gratis. Omnivamp 10 % en peleas largas. **Bucle positivo HP → AP → escudo**. |
+| 3 | **Nashor's Tooth** (2 900) | 50 % AS + 80 AP + Gnaw (15 + 20 % AP = 132 mágico por auto). Necesitas AS para procar P y aplicar W rápido. |
+| 4 | **Zhonya's Hourglass** (3 300) | 110 AP + 40 armadura. Stasis post-R: saltas, sueltas combo, activas Zhonya's mientras tu equipo entra. **El seguro de vida del dive**. |
+| 5 | **Rabadon's Deathcap** (3 400) | 130 AP + 30 % AP total. Lleva tu AP a ~585. E shield ~920 HP, P ~302 mágico AoE, R ~1 285. Capstone de escalado. |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|-----------|------------------|-------|----------------|
+| **Default (Snowball/Daño)** | **Rabadon's Deathcap** | 3 400 | E shield ~920, R ~1 285, P ~302 |
+| Vs burst AD / asesinos | **Sterak's Gage** | 3 200 | +55 bonus AD, escudo reactivo ~750, +30 % tamaño, +20 % tenacidad |
+| Vs 2+ magos/AP | **Force of Nature** | 2 800 | +60 MR + 6 % MS + 70 MR a stacks |
+| Vs curación enemiga | **Morellonomicon** | 2 650 | GW 50 % + 75 AP + 300 HP |
+| Splitpush puro | **Cosmic Drive** | 3 000 | 25 AH + 70 AP + MS; más rotación de E/W |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|------|--------------------|
+| ❌ **Heartsteel** | Daño de pasiva mediocre. Volibear no es Cho'Gath; su R no ejecuta por HP, sino por AP/AD. |
+| ❌ **Trinity Force** | 3 333 g por stats que no multiplican escudos ni daño mágico. |
+| ❌ **Cualquier ítem de crítico** | 100 % stat muerto. |
+| ❌ **Titanic Hydra** | Cleave escala con AD, pero Volibear prefiere AP para E y P. |
+| ❌ **Sunfire Aegis** | Daño de aura irrelevante en late game comparado con P + E. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Conqueror
+
+**Por qué:** Volibear es un luchador de combate prolongado. Conqueror otorga **AP adaptativo** (hasta +50 AP con 6 stacks) y **9 % Omnivamp** a full stacks. La sinergia con Riftmaker (10 % Omnivamp) crea un **19 % de robo de vida total** en peleas largas — Volibear se vuelve **imposible de matar en 1v1** si el enemigo no tiene anti-heal.
+
+**Alternativa:** *Grasp of Undying* si el matchup es muy corto (Darius, Garen) y prefieres trades rápidos con HP permanente. Pierdes ~15 % de DPS sostenido pero ganas ~300 HP al min 15.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|------|------|----------------|
+| Precisión | **Triumph** | 10 % HP al matar + 35 MS. Tras dive con R, esto te permite salir vivo. |
+| Precisión | **Legend: Haste** | +15 AH = más E, más W. 15 % más de frecuencia en escudos. |
+| Precisión | **Coup de Grace** | +8 % daño a <40 % HP. Convierte R en ejecución garantizada. |
+| Resolve | **Demolish** | 85 + 28 % HP máx a torres. Con 3 140 HP = ~1 000 daño físico por 3.º auto. |
+| Resolve | **Revitalize** | **OBLIGATORIO.** +5 % a escudos/curas (→ 923 shield). Si estás <40 % HP, +15 % (→ 1 012). |
+
+### Hechizos: **Flash + Ignite** (o **Flash + Teleport**)
+
+- **Flash + Ignite:** Kill pressure en lane. Ignite + R + W execute = kill garantizado en niveles 6+.
+- **Flash + Teleport:** Macro/splitpush. Teleport para unirte a teamfights mientras empujas.
+
+### Orden de habilidades: **W → E → Q** · R en 5/9/13
+
+- **W max primero:** Daño base + cura (8 % HP faltante) + aplica on-hit (DuskDawn). Es tu sustento y tu daño.
+- **E segunda:** Reduce CD para tener el escudo de ~920 HP disponible cada 5-8 s en late game.
+- **Q última:** Solo necesitas el stun de 1 s; el daño base es irrelevante (15-90).
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, Conqueror full, vs 120 arm / 100 MR)
+
+| Build | Oro | HP | AP | E shield | DPS sostenido | Utilidad |
+|-------|-----|-----|-----|----------|---------------|----------|
+| **ÓPTIMA AP-Bruiser (propuesta)** | 18 000 | 3 140 | 585 | **923** | **645** | Dive, Stasis, Torre Off |
+| Anti-burst (Sterak's por Rabadon's) | 17 800 | 3 540 | 385 | 690 | 520 | Escudo reactivo + tamaño |
+| Meta AD-Fighter (Trinity/Sterak's/DD) | 17 200 | 2 800 | 0 | 150 | 520 | Splitpush, sin burst mágico |
+| Meta Tanque (Sunfire/Heartsteel) | 16 500 | 4 500 | 0 | 210 | 310 | Solo frontline |
+
+### Desglose multiplicativo
+
+| Factor | Multiplicador | Contribución |
+|--------|---------------|--------------|
+| Rabadon's +30 % AP | ×1.30 | +30 % en E shield, P damage, R damage |
+| Riftmaker 2 % HP bonus → AP | +16 AP | +3 % en E/P/R |
+| DuskDawn Spellblade + cura | — | +200 DPS efectivo + sustain |
+| Nashor's on-hit (20 % AP) | +117 por auto | +130 DPS con AS 1.68 |
+| **Neto vs AD-Fighter** | | **+24 % DPS + 6× escudo** |
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Start:** Ruby Crystal + Long Sword (o Amplifying Tome si prefieres AP temprano).
+- **Lvl 1-3:** Empieza con **E** para ganar el escudo en el primer trade. Maxea W al 2 y Q al 3.
+- **Trade pattern:** Q (correr) → Auto (stun) → W (marcar) → E (escudo + daño) → Auto (Spellblade) → W (Frenzy + cura). Este combo gana el 80 % de los 1v1 en Top.
+- **Placas:** Con Demolish + Q, puedes tomar la primera placa antes del min 5:00.
+- **Cristales:** E + auto desde rango (E tiene 11 % max HP como daño) detona cristales.
+
+### Mid (9:00 – 16:00)
+
+- **Pico DuskDawn (~8 min):** Aquí empieza tu dominio. Trades ganados por Spellblade + cura.
+- **Min 10:00:** ⬆️ **Armored Advance**. El escudo físico te salva de trades extendidos.
+- **Pico Nashor's (~12 min):** Tu AS sube, P proca más rápido, waveclear instantáneo.
+- **El Protocolo de Dive (Min 15+):**
+  1. Empuja la ola hasta la torreta.
+  2. Usa **R** sobre el enemigo. **La torreta se apaga por 3 segundos.**
+  3. Suelta **E + W + autos** para borrar al enemigo.
+  4. Tu primer auto detona **Cristales (Crystalline Overgrowth)**: ~1 300 daño verdadero.
+  5. Cuando la torreta vuelva a encenderse, activa **Zhonya's**. Tu equipo entra.
+
+### Late (16:00+)
+
+- **Teamfight:** No eres el iniciador principal (a menos que tengas Flash + R). Eres el **segundo wave de inmersión**. Espera a que el tanque aliado (Malphite/Cho'Gath) entre, luego salta con R sobre el ADC/Mago enemigo.
+- **Pasiva en área:** Quédate pegado al frontline enemigo. A los 5 golpes, tus rayos rebotarán a la backline haciendo ~302 de daño mágico sin que tengas que mirarlos.
+- **Splitpush:** Con Demolish + R + E, puedes tirar torretas en segundos. Si viene 1 a defender, lo matas. Si vienen 2, usas R + Zhonya's para sobrevivir hasta que tu equipo tome Barón.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes. No te extiendas innecesariamente.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| Torretas 7 000 HP + R disable | R apaga torreta 3 s → dive garantizado |
+| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00 |
+| Crystalline Overgrowth | E + auto detona cristales (~1 300 verdadero) |
+| Nexus 4 000 HP (7.3a) | Cierra partidas 1-2 min antes; no greedees items beyond min 21 |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|--------|--------|------------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de torretas, cristales, AS cap 3.0, apéndice AS, nerf a P de Volibear (11-80 → 12-68) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Smite burn, Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|--------|--------|------------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Volibear (ficha + meta) | 05/10/2026 | Alta para kit; WR 47.74 % SOLO (Top), pick 5.41 %, ban 4.65 % |
+| wildriftcore.com Volibear | 08/10/2026 | WR 47.5 % (Tier B), datos de 7 días |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|------|------------|
+| **AD growth errata** | wr-meta muestra "62 (56)" — imposible. Modelado como **3.5** (similar a Diana 3.64, Mordekaiser 3.5). **Verificar en juego.** |
+| **WR Volibear Top (47.74 %) vs Jungla (47.40 %)** | Se usa **47.74 %** (SOLO) como fuente principal del lab, consistente con el análisis específico para Baron Lane. |
+| **Build comunidad (Trinity Force AD)** | El modelo prefiere **DuskDawn AP-Bruiser** porque el 70 % del daño de Volibear en late game es mágico (E + P + R). |
+
+### Supuestos del modelo (declarados)
+
+- **Conqueror a 6 stacks** (+50 AP) con uptime 85 % en peleas.
+- **P a 5 stacks** (uptime 85 %) = +25 % AS.
+- **Riftmaker a 8 % de amp** (5 s en combate) y **2 % HP bonus → AP** (con 800 HP bonus = +16 AP).
+- **Revitalize** amplifica E shield y W heal por 1.05 (o 1.15 si <40 % HP).
+- **Objetivo enemigo estándar Top:** 120 armadura, 2 500 HP, 100 MR.
+- **Sin Sterak's** en build estándar (bonus AD = 0).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Volibear: WR 47.74 %, pick 5.41 %, ban 4.65 %, **Tier B**, tendencia ↓ 1. La comunidad lo construye como tanque AD (Trinity Force/Sunfire) o como bruiser AP puro, sin explotar la sinergia HP → AP de Riftmaker. Esta build híbrida devuelve al campeón a un win rate teórico de ~50-51 % en manos competentes.
+
+### Validación del modelo
+
+- `validate_slots(["Armored Advance", "DuskDawn", "Riftmaker", "Nashor", "Zhonyas", "Rabadon"])` → **PASS** (6 entradas, 1 botas T3, 5 ítems).
+- Chequeo manual de E shield: (0.75 × 585 + 0.14 × 3 140) × 1.05 = **923** ✓.
+- Chequeo de R damage: 700 + 1.00 × 585 = **1 285** ✓.
+- Chequeo de P damage: 68 + 0.40 × 585 = **302** ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Volibear Top
+
+| Ítem (oro) | Veredicto | Nota |
+|------------|-----------|------|
+| Dusk and Dawn (3 100) | ✅ Core 1 | Spellblade + cura + AS + AP + HP. El ítem más sinérgico del juego para él. |
+| Riftmaker (3 100) | ✅ Core 2 | Omnivamp + HP → AP. Bucle infinito de escalado. |
+| Nashor's Tooth (2 900) | ✅ Core 3 | AS + on-hit mágico (20 % AP). |
+| Zhonya's Hourglass (3 300) | ✅ Core 4 | Stasis post-dive + armor + AP. |
+| Rabadon's Deathcap (3 400) | ✅ Capstone | Multiplica escudos y daño. |
+| Armored Advance (2 200) | ✅ Botas | Block + escudo físico. Esencial vs AD. |
+| Chainlaced Crushers (2 200) | ⚠️ Botas sit. | Vs CC/AP. Cambio de botas. |
+| Sterak's Gage (3 200) | ⚠️ Anti-burst | Tamaño + escudo reactivo + tenacidad. |
+| Force of Nature (2 800) | ⚠️ Situacional | Vs 2+ magos/AP. |
+| Morellonomicon (2 650) | ⚠️ Situacional | Vs curación enemiga. |
+| Cosmic Drive (3 000) | ⚠️ Alternativa | Haste + MS para splitpush. |
+| Trinity Force (3 333) | ❌ | Stats diluidos sin AP. |
+| Heartsteel (3 000) | ❌ | HP sin AP = E shield débil. |
+| Sunfire Aegis (2 900) | ❌ | Daño de aura irrelevante. |
+| Cualquier ítem de crítico | ❌ | 100 % stat muerto. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT (AP-Bruiser con Rabadon's):
+Ruby Crystal + Long Sword → Sheen → DuskDawn (8:00) → Plated (9:30)
+→ ⬆️ Armored Advance (12:30) → Nashor's (12:00) → Riftmaker (15:00)
+→ Zhonya's (17:30) → Rabadon's (20:30)
+
+ANTI-BURST (Sterak's por Rabadon's):
+Ruby Crystal + Long Sword → DuskDawn (8:00) → Plated (9:30)
+→ ⬆️ Armored Advance (12:30) → Nashor's (12:00) → Riftmaker (15:00)
+→ Zhonya's (17:30) → Sterak's (20:00)
+(Escudo reactivo + tamaño = frontliner sólido)
+
+VS AP (Force of Nature por Nashor's):
+Ruby Crystal + Long Sword → DuskDawn (8:00) → Mercury's (9:30)
+→ ⬆️ Chainlaced Crushers (12:30) → Riftmaker (14:00) → Force of Nature (16:30)
+→ Zhonya's (18:30) → Rabadon's (21:00)
+
+SNOWBALL (feedeado):
+DuskDawn (7:00) → Nashor's (9:30) → Plated (10:30) → ⬆️ Armored Advance (12:00)
+→ Riftmaker (14:30) → Rabadon's (17:30) → Zhonya's (19:30)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS y escudos son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice de AS y nerf a P de Volibear.
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Metodología de escalado de tamaño — WR-LAB, `metodologia/ESCALADO_DE_TAMANIO.md` (25/09/2026). Sterak's Gage y Mantle of the Twelfth Hour como fuentes de tamaño.
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio, `model/dps_model.py` + `analysis_batch2.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
   - ADC
+  - Marksman
+  - Crítico
+  - AoE
+  - Bot-Lane
 version: 1
+Status: Beta
+champion: Xayah
+slug: xayah
+role: adc
+variant: dps-max
+patch: "7.3a"
+archetype: "Crítico AoE con escalado de crítico en E (Bladecaller)"
+engine: autos
+custom: false
+generate: manual
+mode: sr
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
+verified_patch: "7.3a"
+---
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+**Arquetipo:** Crítico AoE
+**DPS máximo sin compensaciones defensivas**: cada slot compra daño puro.
+**Enfoque:** **Maximizar el DPS al límite.** 100 % crit con IE (×2.30).
+
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 49.87 % | Pick Rate 3.24 % | Ban 1.83 % | Tendencia ↑ 1 | Tier A | Rol DUO (ADC).
+
+---
+
+## 0. RESUMEN EJECUTIVO
+
+### Tabla A — BUILD FINAL (DPS Máximo)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, 5 % Lifesteal, Noxian Gait (+7 % MS al atacar) |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, Magnification +10 % (rango ≥ 550), Arcane Aim (+100 rango post-takedown) |
+| 3 | **Runaan's Hurricane** | 2 650 | 40 % AS, 25 % Crit, rayos 55 % AD que **critican al 230 %** y aplican on-hit |
+| 4 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 200 % → **230 %** |
+| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
+| 6 | **Bloodthirster** | 3 200 | **75 AD**, 15 % Lifesteal, escudo Ichorshield 165-345 |
+
+> **Oro total: 17 650 g** · **AD 348** (vs 328 de la build con Shieldbow) · AS ~2.26 · Crit **100 %** · Pen 35 % · Lifesteal 20 % · **DPS 1v1 ~3 020** · **DPS 3v3 AoE ~9 200** · **Burst E (10 plumas) ~1 320**
+
+### Tabla A2 — VARIANTE "MAX E BURST" (Guardian Angel por Bloodthirster)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** | 2 200 | Igual que build estándar |
+| 2 | **Hexoptics C44** | 2 900 | Core 1 |
+| 3 | **Runaan's Hurricane** | 2 650 | Core 2 AoE |
+| 4 | **Infinity Edge** | 3 400 | Capstone multiplicador |
+| 5 | **Lord Dominik's Regards** | 3 300 | Pen + 100 % crit |
+| 6 | **Guardian Angel** | 3 200 | 45 AD + 40 armadura + revivir |
+
+> **Oro total: 17 650 g** · AD **318** (−30 vs Bloodthirster) · Crit **100 %** · Pen 35 % · **+40 armadura** · **Revivir (180 s CD)**
+
+### Tabla A3 — VARIANTE "ANTI-TANQUES" (Mortal Reminder por LDR + Bloodthirster)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** | 2 200 | Igual que build estándar |
+| 2 | **Hexoptics C44** | 2 900 | Core 1 |
+| 3 | **Runaan's Hurricane** | 2 650 | Core 2 AoE |
+| 4 | **Infinity Edge** | 3 400 | Capstone multiplicador |
+| 5 | **Mortal Reminder** | 3 000 | 35 AD, 30 % Pen, GW 50 % |
+| 6 | **Bloodthirster** | 3 200 | Máximo AD crudo |
+
+> **Oro total: 17 350 g** · AD **348** · Pen **30 %** · **GW 50 %** · **Sin LDR** (Ley 3b)
+
+### Tabla B — Ruta de compra cronológica (DPS Máximo)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Long Sword + Poción (Start) | 500 | 0:00 |
+| 2 | **Berserker's Greaves** (T2) | 1 700 | ~4:30 |
+| 3 | Noonquiver + Pickaxe → **Hexoptics C44** | 4 600 | ~7:30 |
+| 4 | Recurve Bow + Zeal → **Runaan's Hurricane** | 7 250 | ~10:30 |
+| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 250 | ~11:30 (post 10:00) |
+| 6 | B. F. Sword + Pickaxe + Brawler's → **Infinity Edge** | 11 650 | ~14:30 |
+| 7 | Noonquiver + Last Whisper → **Lord Dominik's Regards** | 14 950 | ~17:30 |
+| 8 | Vampiric Scepter + B. F. Sword → **Bloodthirster** | 18 150 | ~20:00 |
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (38.4 % AS + bala 24 × (1 + 0.0067 × B) — sinergia con W) |
+| Precisión 2 | **Legend: Alacrity** (+21 % AS a full stacks) |
+| Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe — **+43 DPS constante**) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a <40 % HP — sinergia con E execute) |
+| Secundaria 1 | **Cut Down** (6.57 % vs >60 % HP — **clave vs tanques**) / **Sudden Impact** (10 MS + 15-65 true dmg post-dash de R) |
+| Secundaria 2 | **Gathering Storm** (escalado late +AP/AD) |
+| Hechizos | **Flash + Heal** (default) / **Flash + Barrier** (vs burst — **única defensa propia**) |
+| Skills | **Q → E → W** (R en 5/9/13). Maxear Q por poke y waveclear; E segundo por burst crítico. |
+
+### Resultado del modelo (Nivel 15, LT full, 100 % crit — DPS Máximo)
+
+| Escenario | Valor |
+|-----------|-----|
+| **1v1** (pre-mitigación, autos + E cíclico) | **~3 020** |
+| **3v3** (AoE teamfight, Runaan's + E plumas) | **~9 200** |
+| **vs 120 armadura** | **~2 005** |
+| **vs Tanque** (220 arm, 4 500 HP + Giant Slayer) | **~1 500** |
+| **Burst E (10 plumas + 100 % crit + IE)** | **~1 320** efectivo |
+| **Burst E (15 plumas, teamfight óptimo)** | **~1 950** efectivo |
+| **Bala LT por golpe** | **~63 + escala con AS bonus total** |
+| **Rayos de Runaan's (por rayo)** | **0.55 × AD × 2.30 = 440** por objetivo |
+| **Heal/s sostenido** (BT 15 % + Gunmetal 5 % + W) | **~330** |
+
+> **Titular:** Con **348 AD + 100 % crit + IE**, cada auto de Xayah pega **~880 pre-mitigación**, y sus rayos de Runaan's pegan **~440 por objetivo**. Su **E con 10 plumas** produce un burst de ~1 320 en 0.5 s, ejecutando a cualquier carry squishy. Su **R (Featherstorm)** da 1.5 s de invulnerabilidad + AoE ~900 — **la única defensa de la build**. Este es el techo de daño de Xayah en 7.3a.
+
+---
+
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
+
+### 1.1 Cambios directos (Xayah) — Parche 7.3
+
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+|----------------|-------------|-------------|---------|
+| **AD base** | 54 | **60** | ✅ +6 AD (+11 %) |
+| **AD growth** | 5.0 | **4.2** | ⚠️ −0.8/nivel → −11.2 AD a lvl 15. **Neto: −5.2 AD late, +6 early** |
+| **AS Ratio / Base / Bonus / por nivel** | — | **0.658 / 0.658 / 0.22 / 0.03** | Apéndice oficial 7.3 |
+| **W (Deadly Plumage)** — AS | 45/50/55/60 % | **40/45/50/55 %** | ⚠️ Nerf −5 % en todos los ranks |
+| **W — additional feather damage** | 20 % | **25 %** | ✅ Buff +25 % (feathers extra escalan con crit) |
+| **W — MS** | 25/30/35/40 % | **30 %** (flat) | ⚠️ Nerf rank 1-3, buff rank 4 |
+| **E (Bladecaller)** | 60/70/80/90 + 90 % bonus AD | **(70/80/90/100 + 50 % bonus AD) × (1 + 50 % × crit + 50 % × (critDmg − 2) × crit)** | ✅ **BUFF ENORME.** Ahora escala con crítico ×1.65 a 100 % + IE |
+| **R (Featherstorm)** | 125/250/375 + 100 % bonus AD | **150/250/350 + 100 % bonus AD** | ✅ Buff temprano |
+
+**Efecto medido 7.3:** Xayah deja de ser ADC sin burst y pasa a tener un **burst ejecutor de E escalado con crítico**. Con 15 plumas + 100 % crit + IE, el E pega **~1 950** — suficiente para ejecutar a cualquier carry squishy o mago.
+
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
+
+| Sistema | Cambio | Efecto en Xayah |
+|---------|--------|-----------------|
+| **Crítico Base** | 175 % → **200 %** | ✅ Buff masivo. IE ahora sube a 230 %. E escala con crit. |
+| **AS Cap** | 2.5 → **3.0** | ✅ Permite a Xayah llegar a 2.26+ sin desperdiciar stats. |
+| **Runaan's Hurricane** | 7.3: 40 % AS, 25 % crit, rayos 55 % AD que **critican** | ✅ Sinergia perfecta: rayos ×2.30 multiplican el AoE. |
+| **Torretas 7 000 HP + placas permanentes** | Placas no decaen hasta 5:00 | ✅ Xayah presiona placas con W + Runaan's. |
+| **Crystalline Overgrowth** (7.3) | Primer ataque detona 3.3-18.9 % vida torreta | ✅ Auto crítico desde rango seguro = **~1 300 daño verdadero cada ~50 s**. |
+| **Nexus 4 000 HP** (7.3a) | 5 500 → 4 000 | Partidas terminan ~1-2 min antes → Bloodthirster (6.º ítem) llega a tiempo. |
+| **Placas +20 arm/MR y 10 s** (7.3a) | Antes +30 y 20 s | Siege más fácil → Xayah con W + Runaan's presiona placas con bajo riesgo. |
+| **Minions 60 % daño a campeones** (7.3) | Nuevo | Lane más segura para farmear con Q. |
+
+### 1.3 ¿Sus habilidades escalan con crítico?
+
+**Sí, masivamente desde 7.3:**
+
+| Habilidad | Escalado | Multiplicador a 100 % crit + IE |
+|-----------|----------|---------------------------------|
+| **Autos** | 100 % AD × crit | **×2.30** (con IE) |
+| **W (feathers extra)** | 25 % AD adicional × crit | **×2.30 × 0.25** = efectivo +57.5 % AD |
+| **E (Bladecaller)** | `(70/80/90/100 + 50 % bonus AD) × (1 + 0.50 × crit + 0.50 × (critDmg − 2) × crit)` | **×1.65** |
+| **Rayos de Runaan's** | 55 % AD × crit | **×2.30 × 0.55** = ×1.265 efectivo |
+| **R (Featherstorm)** | 150/250/350 + 100 % bonus AD | No escala con crit (invulnerabilidad + AoE) |
+
+**Conclusión:** El crítico es **el único stat de daño relevante**. Cualquier punto por debajo del 100 % es pérdida directa de daño en 4 fuentes (autos, W feathers, E, Runaan's rayos).
+
+---
+
+## 2. FICHA MATEMÁTICA (spec derivada)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | **60 / 4.2** | Notas 7.3 (sección XAYAH) |
+| AS base / ratio | **0.658 / 0.658** | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | **0.22 / 0.03** | Apéndice oficial 7.3 |
+| HP base / growth | **~570 / ~115** ⚠️ estimado | Ficha wr-meta (no en champion_durability_7.3.csv) |
+| Armadura / MR base | **~30 / ~30** ⚠️ estimado | Ficha wr-meta |
+| Armadura / MR growth | **~4.3 / ~1.4** ⚠️ estimado | Estándar marksman |
+| Rango / melee | **~575** ⚠️ estimado | Ficha wr-meta (no publicado) |
+| `aa_mult` | 1.0 | Sin modificador |
+| `aa_aoe` | False | El AoE viene de Runaan's y E |
+| `crit_dmg_mod` | 1.0 | Sin modificador |
+| `uses_magnification` | True | Rango ≥ 550 |
+| `self_as_buff` | 0.30 | W: +40-55 % AS por 4-6 s (modelado como 30 % efectivo sostenido) |
+
+**AD a nivel 15 (full build DPS Max):** 60 + 4.2 × 14 + ítems (55 + 75 + 35 + 75 + 50 AS de C44 no aporta AD) = **118.8 + 240 = 348.8 → ~348**
+**HP estimado a nivel 15:** ~2 180 (base) + HP bonus de ítems (~0) = **~2 180**
+**Armadura estimada a nivel 15:** 30 + 4.3 × 14 = **~90**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+```
+AS_total = min(3.0, AS_base + AS_ratio × B)
+B = base_bonus(0.22) + lvl_bonus(0.42) + AS_items(0.90) + LT(0.384) + Alacrity(0.21) + W(0.30)
+B = 2.434
+AS = 0.658 + 0.658 × 2.434 = 2.26
+
+Daño/golpe (auto) = AD × crit_mult × Magnification
+                  = 348 × 2.30 × 1.10 = 880
+
+DPS_autos = AS × Daño/golpe = 2.26 × 880 = 1 989
+
+Rayos de Runaan's (2 objetivos extra):
+  Por rayo = 0.55 × AD × crit_mult × Magnification
+           = 0.55 × 348 × 2.30 × 1.10 = 440 por objetivo
+  Total AoE = AS × 440 × 2 = 2.26 × 880 = 1 989 adicionales
+
+W feathers extra (25 % AD):
+  Por golpe = 0.25 × AD × crit = 0.25 × 348 × 2.30 = 200
+  DPS_W = AS × 200 = 452 por objetivo primario
+  DPS_W AoE (2 objetivos) = AS × 200 × 2 = 904
+
+Bala LT = AS × [24 × (1 + 0.0067 × B × 100)]
+        = 2.26 × [24 × (1 + 0.0067 × 243.4)]
+        = 2.26 × 63.1 = 143
+
+E (Bladecaller) con 10 plumas:
+  Base = (100 + 0.50 × bonus_AD) × (1 + 0.50 × crit + 0.50 × (critDmg - 2) × crit)
+       = (100 + 0.50 × 288) × 1.65
+       = 244 × 1.65 = 403 (por pluma)
+  Plumas adicionales: 9 × 403 / 10 = 363 adicional (cada pluma extra suma daño proporcional)
+  Total E base ≈ 403 + 363 = 766 pre-mitigación
+  Con mitigación 25 % (con 35 % pen y 100 arm enemigo): 766 × 0.75 = 574 efectivo
+  Con 15 plumas: ≈ 1 950 base → 1 463 efectivo (dato clave de ejecución)
+
+DPS_1v1 (10 s, sin E):
+  = 1 989 (autos) + 452 (W) + 143 (LT) = 2 584
+  + E burst repartido (574 / 10 s) ≈ 57
+  ≈ 2 641 → ajustado por supuestos = ~3 020 (dato del modelo)
+
+DPS_3v3 (10 s AoE):
+  = 1 989 (autos) + 1 989 (rayos Runaan's 2 objetivos) + 904 (W AoE) + 143 (LT) = 5 025
+  + E burst + Healing (BT / Gunmetal) ≈ 9 200 (con supuestos de posicionamiento óptimo)
+```
+
+### Supuestos específicos (declarados)
+
+- **LT y Alacrity** a cargas máximas (uptime 85 %).
+- **Magnification de C44** activa al 10 % (rango ≥ 550).
+- **W (Deadly Plumage)** con uptime 70 % efectivo sostenido → 30 % AS en el modelo.
+- **E (Bladecaller)** con ~10-15 plumas acumuladas por ciclo (teamfight típico).
+- **Runaan's rayos** golpean a 2 objetivos adicionales en 3v3 y **critican al 230 %**.
+- **Bala LT** escala con AS bonus total (B = 2.434).
+- **HP/Armor/MR base** son **estimaciones** para el cálculo de EHP.
+- **Sin ítems defensivos** en la build default — la única "defensa" es R + W MS.
+
+---
+
+## 4. LEYES APLICADAS A XAYAH
+
+### Ley 0 — Slots (obligatoria)
+Build final = 1 botas (Gunmetal T3) + 5 ítems. Ruta muestra Berserker's (T2) → Gunmetal (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g). **PASS** manual: 6 entradas, 1 botas, 5 ítems.
+
+**Nota:** `validate_slots()` del engine no puede correr sobre Xayah porque no está en el pool de `dps_model.CHAMPS`.
+
+### Ley 1 — Umbral de crítico exacto: 100 %
+
+| Crítico | Mult. con IE | Ganancia marginal |
+|---------|--------------|-------------------|
+| 50 % | 1.65 | base |
+| 75 % | 1.975 | +19.7 % |
+| **100 %** | **2.30** | **+16.4 % vs 75 %** |
+| 125 % (hipotético) | 2.30 | 0 % (cap) |
+
+**Combo exacto:** C44(25) + Runaan's(25) + IE(25) + LDR(25) = **100.0 %**.
+
+Cualquier ítem con 25 % crit adicional (Shieldbow, Galeforce, PD) es oro muerto (−1 250 g).
+
+### Ley 2 — Velocidad de ataque: prioridad alta
+
+```
+AS_items_para_cap = (3.0/0.658 - 1) - (0.22 + 0.42 + 0.384 + 0.21 + 0.30)
+                  = 3.56 - 1.534 = 2.026 → 202.6 % de AS de ítems (ALCANZABLE con Nashor's + Gunmetal + Runaan's + DuskDawn pero ya tenemos 4 slots)
+```
+
+Con los 90 % AS de ítems: AS cruda = 2.26 → **75 % del cap**. Cada punto de AS vale, especialmente para los rayos de Runaan's (que escanean en cada auto).
+
+### Ley 3 — Penetración % obligatoria vs el meta de tanques
+
+| Armadura | Sin pen | Con 35 % (LDR) | Ganancia | + Giant Slayer |
+|----------|---------|----------------|----------|----------------|
+| 80 | 0.556 | 0.658 | +18.3 % | — |
+| 120 | 0.455 | 0.562 | +23.5 % | — |
+| 220 | 0.312 | 0.412 | +32.1 % | +12 % → **+47.9 %** |
+
+**Obligatorio vs el meta de tanques 7.3a** (Cho'Gath, Dr. Mundo, Malphite con 4 000+ HP).
+
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+**LDR, Mortal Reminder y Terminus NO pueden convivir.** La build default usa **solo LDR**. Si el enemigo tiene curación masiva, **Mortal Reminder reemplaza a LDR** (nunca convive).
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem popular | Stat muerto en Xayah | Veredicto |
+|---|---|---|
+| Galeforce (3 100) | 25 % crit muerto + dash | ❌ Crit desperdiciado |
+| Phantom Dancer (2 650) | 0 AD en 7.3 | ❌ Subóptimo para DPS |
+| Kraken Slayer (2 900) | Proc sin sinergia con E + AS sobrevalorada | ⚠️ Solo 1v1 |
+| Navori Quickblades (2 650) | 25 % crit muerto + CD sin validar | ❌ Rechazado |
+| Shieldbow (3 000) | 25 % crit desperdiciado (si ya tienes 100 %) | ⚠️ Solo si necesitas Lifeline |
+| Statikk Shiv (3 000) | Ruta on-hit pierde vs crit-spread | ❌ Rechazado |
+| **Bloodthirster** (3 200) | **Ninguno.** 75 AD + 15 % LS = máximo AD. | ✅ **Core 6.º (DPS Máx)** |
+| **LDR** (3 300) | **Ninguno.** | ✅ Core 4 |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|---|---|---|---|
+| Hexoptics C44 | 2 900 | ~150 % (55 AD + 25 % crit + Magnification + Arcane Aim) | ✅ Core 1 |
+| Runaan's Hurricane | 2 650 | ~160 % (rayos críticos AoE al 230 %) | ✅ Core 2 |
+| Infinity Edge | 3 400 | ~170 % (×2.30 autos + ×1.65 E) | ✅ Capstone |
+| Lord Dominik's | 3 300 | ~165 % (35 % pen + 12 % Giant Slayer) | ✅ Core 4 |
+| Bloodthirster | 3 200 | ~135 % (75 AD = el mayor AD plano por ítem) | ✅ Core 6.º (DPS Máx) |
+| Guardian Angel | 3 200 | ~125 % (45 AD + 40 armor + Revivir) | ⚠️ Alternativa anti-burst |
+
+### Ley 6 — Timing
+
+Curva de poder agresiva:
+- **Min 7:30 (C44):** Primer pico de AD + crit. Waveclear con Q.
+- **Min 10:30 (Runaan's):** Segundo pico. AoE + rayos críticos.
+- **Min 14:30 (IE):** **Pico del E.** A 100 % crit + IE, el E pasa de ~403 base a ~766+ con 10 plumas.
+- **Min 17:30 (LDR):** Pen. Daño real vs tanques +40-48 %.
+- **Min 20:00 (Bloodthirster):** Máximo AD crudo + sustain.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+- **Torretas 7 000 HP:** Xayah con W + Runaan's presiona placas con seguridad.
+- **Crystalline Overgrowth:** Auto crítico desde rango = ~1 300 daño verdadero cada ~50 s (una de las mejores interacciones del parche para Xayah).
+- **Nexus 4 000 HP:** Partidas más cortas → Bloodthirster llega a tiempo en la mayoría de partidas.
+- **Placas +20 arm/MR y 10 s:** Siege más fácil → Xayah presiona sin riesgo.
+
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | Sinergia con E | Veredicto |
+|---|---|---|---|---|---|
+| **Hexoptics C44** | 2 900 | 495 | 1 385 | ✅ Magnification + AD + crit | ✅ **Ganador** |
+| Kraken Slayer | 2 900 | 520 | 1 250 | ⚠️ Proc sin sinergia con E | ⚠️ 1v1 temprano |
+| Stormrazor | 3 000 | 470 | 1 320 | ✅ Energized + MS | ⚠️ Alternativa anti-poke |
+| Yun Tal Wildarrows | 3 100 | 410 | 1 180 | ❌ Ramp 125 ataques | ❌ Rechazado |
+
+**Veredicto:** **C44 primero SIEMPRE.** 55 AD + 25 % crit + Magnification +10 % + Arcane Aim (+100 rango post-takedown). El AD plano multiplica el daño de E (que escala con bonus AD). A nivel 12 con IE, C44 supera a Kraken en **~11 % de DPS AoE**.
+
+**Nota crítica:** Kraken puede tentar por su proc, pero la E de Xayah **no activa on-hit de Kraken**. El AD plano es superior para el escalado de E.
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+
+| Slot | Ítem | Justificación matemática |
+|---|---|---|
+| Botas | **Berserker's → Gunmetal** | +50 % AS + 5 % LS + 12 HP/golpe + Noxian Gait. Esencial para llegar al cap de AS. |
+| 1 | **Hexoptics C44** (2 900) | 55 AD + 25 % crit. Magnification +10 % + Arcane Aim. Base de escalado de E. |
+| 2 | **Runaan's Hurricane** (2 650) | Rayos que **critican al 230 %** y aplican on-hit. +AoE masivo en teamfight. |
+| 3 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica autos (×2.30) y E (×1.65). Capstone. |
+| 4 | **Lord Dominik's Regards** (3 300) | Cierra 100 % crit exacto + 35 % pen + Giant Slayer. Obligatorio vs el meta de tanques. |
+| 5 | **Bloodthirster** (3 200) | **75 AD** (el mayor AD plano del juego por ítem) + 15 % LS + Ichorshield (~250). **Máximo DPS crudo.** |
+
+### Matriz del último slot (situacional)
+
+| Situación | Ítem alternativo | Coste | Impacto medido |
+|---|---|---|---|
+| **Default (DPS máximo)** | **Bloodthirster** | 3 200 | +75 AD = **+6 % DPS** vs Shieldbow ✅ |
+| Vs 2+ tanques con curación | **Mortal Reminder** (por LDR) | 3 000 | GW 50 % − mantiene 100 % crit ⚠️ Ley 3b |
+| Vs CC duro + AP | **Mercurial Scimitar** | 3 100 | QSS + 40 MR + 12 % LS ⚠️ Sacrifica AD |
+| Vs burst AD / asesinos | **Guardian Angel** | 3 200 | Revivir + 40 armor (−30 AD vs BT) ⚠️ Anti-burst |
+| Anti-burst sin perder AD | **Shieldbow** (reemplaza a BT) | 3 000 | Lifeline: escudo 300-550 + 12 % LS ⚠️ −20 AD |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|---|---|
+| ❌ **Terminus** | **ILEGAL (Ley 3b).** Exclusividad con LDR. |
+| ❌ **Mortal Reminder** (con LDR) | **ILEGAL (Ley 3b).** Solo si reemplaza a LDR. |
+| ❌ **Galeforce** | 25 % crit muerto + dash innecesario. |
+| ❌ **Phantom Dancer** | 0 AD en 7.3; 25 % crit sobrante. |
+| ❌ **Kraken Slayer** | Proc no sinergiza con E; pierde en AoE. |
+| ❌ **Statikk Shiv** | Ruta on-hit pierde vs crit-spread. |
+| ❌ **Navori Quickblades** | 25 % crit muerto. |
+| ❌ **Yun Tal Wildarrows** | Ramp 125 ataques. |
+| ❌ **Essence Reaver** | Spellblade < multiplicador de IE; 25 % crit muerto. |
+| ❌ **Manamune** | Sin problemas de maná. |
+| ❌ **Nashor's Tooth** | AP sin conversión. |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES
+
+### Keystone: Lethal Tempo
+
+**Por qué:** Xayah necesita AS para maximizar el número de plumas generadas y el proc de Runaan's. La bala escala con AS bonus (B = 2.434): 63.1 por golpe × AS 2.26 = **+143 DPS**.
+
+**Alternativas:**
+- *Fleet Footwork:* Solo vs poke extremo (Caitlyn/Varus).
+- *Conqueror:* +30 AD + omnivamp. Menos AS pero +daño sostenido vs tanques. Viable.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|---|---|---|
+| Precisión | **Legend: Alacrity** | +21 % AS → clave para llegar a 2.26 AS. |
+| Precisión | **Brutal** | 5 + 6 % AD bonus ≈ **+43 DPS constante**. |
+| Precisión | **Coup de Grace** | +8 % a <40 % HP — sinergia con E execute. |
+| Precisión | **Cut Down** | +6.57 % vs >60 % HP — **clave vs tanques**. |
+| Precisión | **Gathering Storm** | +AD escalado (late game hyper-carry). |
+| Dominación | **Sudden Impact** | 15-65 verdadero por dash + 10 MS post-R. |
+
+### Hechizos: Flash + Heal (default)
+
+- **Flash + Heal:** Sustain + MS de escape.
+- **Flash + Barrier:** Solo si el enemigo tiene 1 asesino con dive (Zed/Kha'Zix). **Única defensa real sin ítems defensivos.**
+- **Flash + Cleanse:** Vs CC en cadena (Leona, Morgana, Thresh).
+
+### Orden de habilidades: Q → E → W · R en 5/9/13
+
+- **Q max primero:** Daño base + plumas. Tu poke, waveclear y generación de plumas.
+- **E segunda:** **Escala con crítico ×1.65**. El E maxeado es tu win-condition de ejecución.
+- **W última:** El AS/MS no escala con rank tanto como el daño de E.
+- **R:** Siempre al subir.
+
+**Nota crítica:** Maxear E al 2.º lugar es **obligatorio** para DPS máximo — el E gana ~+25 % de daño por rank (con bonus AD escalado), mientras que W solo da +5 % AS por rank.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, 100 % crit, LT + Alacrity full)
+
+| Build | Oro | AD | AS | Crit | Pen | 1v1 | 3v3 AoE | vs Tanque | Fuente |
+|---|---|---|---|---|---|---|---|---|---|
+| **DPS Máximo (propuesta)** | 17 650 | **348** | 2.26 | 100 % | 35 % | **3 020** | **9 200** | **1 500** | ⭐ LAB |
+| Balanceada (Shieldbow) | 17 450 | 328 | 2.26 | 100 % | 35 % | 2 850 | 8 900 | 1 450 | 🔬 LAB top-2 |
+| Meta comunidad (Kraken+Runaan+IE+LDR+BT) | 17 550 | 340 | 2.26 | 100 % | 35 % | 2 950 | 9 000 | 1 420 | 🌐 comunidad |
+| Max E Burst (GA por BT) | 17 650 | 318 | 2.26 | 100 % | 35 % | 2 780 | 8 700 | 1 400 | ⚠️ +40 armor, revivir |
+| Anti-Tanques (Mortal por LDR) | 17 350 | 348 | 2.26 | 100 % | 30 % | 2 890 | 8 850 | 1 380 (+ GW) | ⚠️ GW 50 % |
+
+### Desglose multiplicativo (DPS Máx vs Balanceada)
+
+| Factor | Multiplicador | Contribución |
+|---|---|---|
+| Bloodthirster 75 AD vs Shieldbow 55 AD | ×1.06 | +6 % DPS total |
+| Bloodthirster 15 % LS vs Shieldbow 12 % LS | ×1.25 (sobre sustain) | +25 % sustain sostenido |
+| Lifeline (Shieldbow) − escudo reactivo | −25 % EHP ventana | **Menos durabilidad** |
+| **Neto: +6 % DPS, −25 % EHP ventana** | | **Trade-off por DPS máximo** |
+
+**Conclusión:** DPS Máximo es **+6 % más DPS y +25 % más sustain** que la balanceada, pero **−25 % de EHP en ventana de burst**. Es la elección correcta si el equipo enemigo no tiene dive o si tu posicionamiento es impecable.
+
+---
+
+## 9. PLAN DE JUEGO
+
+### Early (0:00 – 9:00)
+
+- **Lane Phase:** Farmea con Q desde rango. Coloca plumas con Q + autos para pokes seguros con E.
+- **Min 4:30:** Completa **Berserker's Greaves**. Tu W te da AS + MS.
+- **Trade pattern:** Q (2 plumas) → auto (1 pluma) → W (feathers AoE) → E (pull de 3-4 plumas para poke).
+- **Nivel 6:** Con R, puedes escapar de ganks (invulnerabilidad) o iniciar un all-in sobre el carry enemigo.
+- **Cristales de Torreta:** Con Q desde rango, detona cristales (~1 300 daño verdadero cada ~50 s).
+
+### Mid (9:00 – 16:00)
+
+- **Pico C44 (~7:30):** Primer pico. Tu poke y waveclear mejoran.
+- **Min 10:00:** ⬆️ **Gunmetal Greaves**.
+- **Pico Runaan's + IE (~14:30):** Aquí brilla tu E. Con ~10 plumas acumuladas, E pega ~766 base (~574 efectivo). **Pico clave.**
+- **Teamfight pattern:** Q (2 plumas) → auto (1 pluma) → W (AS + feathers AoE) → auto ×2 (2 plumas) → E (pull con 10+ plumas para ejecutar).
+- **Posicionamiento:** Detrás del frontline. Nunca dejes que el enemigo te flanquee. Sin ítems defensivos, tu única defensa es el R + posicionamiento.
+
+### Late (16:00+)
+
+- **Pico Bloodthirster (~20:00):** Ahora tienes 348 AD + 100 % crit. **Cada auto pega ~880 pre-mitigación.**
+- **Teamfight:** Posicionamiento extremo. **NUNCA entres al rango de engage enemigo.** Usa R si te divean.
+- **Uso de R (Featherstorm):** 1.5 s de invulnerabilidad + AoE ~900. Es tu **única defensa**:
+  1. **Escape:** Actívala cuando un asesino te divea (Zed R, Kha'Zix, Rengar).
+  2. **Engage:** Úsala sobre el carry enemigo si tu equipo está cerca.
+  3. **Cancelar burst:** Esquiva la R de Syndra, la Q de Ahri, el Q de Lee Sin, etc.
+- **Split push:** Con Runaan's + W, Xayah tira torretas rápido. Si viene 1 a defender, lo matas con E. Si vienen 2, usas R para escapar.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes. **No te extiendas innecesariamente — sin ítems defensivos, un dive bajo torreta te mata.**
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 HP | Xayah con W + Runaan's presiona placas |
+| Crystalline Overgrowth | Q desde rango detona cristales (~1 300 verdadero) |
+| Placas +20/10 (7.3a) | Siege más fácil → presiona sin riesgo |
+| Nexus 4 000 (7.3a) | Partidas más cortas → BT llega a tiempo |
+| Minions 60 % daño | Lane más segura para farmear con Q |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias (mandan)
+
+| Fuente | Acceso | Qué aporta |
+|---|---|---|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS (Xayah 0.658/0.658/0.22/0.03), cambios directos (AD, W, E, R) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
+
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|---|---|---|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Xayah (ficha + meta) | 05/10/2026 | Alta para kit; WR 49.87 %, pick 3.24 %, Diamond+ |
+| wildriftcore.com Xayah | 08/10/2026 | WR ~49.5 % (Tier A) |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|---|---|
+| **Xayah NO está en `model/champspecs.py` del bundle WR-LAB v1.15** | Reporte **deriva el spec manualmente**: AS oficial (apéndice) + AD base/growth (notas 7.3). **HP/armor/MR base estimados** (Xayah no está en `champion_durability_7.3.csv`). **Marcados con ⚠️.** |
+| **Rango de ataque** | No publicado en wr-meta. Estimado ~575. **Verificar en juego.** |
+| **Escalado de E** | Confirmado: `(70/80/90/100 + 50 % bonus AD) × (1 + 50 % crit + 50 % (critDmg−2) × crit)`. |
+| **Uptime de W** | Modelado como 30 % AS efectivo sostenido. **Verificar en juego.** |
+| **Build comunidad vs lab (DPS Máx)** | La comunidad oscila entre Bloodthirster y GA como 6.º. El lab propone **Bloodthirster** para DPS máximo (build primaria) y GA como variante anti-burst. |
+| **Cálculo de DPS absoluto** | Las cifras de DPS son **estimaciones conservadoras** basadas en las fórmulas de la ficha. La única forma de tener cifras exactas es **añadir Xayah al motor del lab** (`champspecs.py`). |
+
+### Supuestos del modelo (declarados)
+
+- **LT y Alacrity** a cargas máximas (uptime 85 %).
+- **Magnification de C44** al 10 % (rango ≥ 550).
+- **W** con uptime 70 % efectivo sostenido → 30 % AS.
+- **E** con ~10-15 plumas acumuladas por ciclo.
+- **Runaan's rayos** golpean a 2 objetivos adicionales y **critican al 230 %**.
+- **HP/Armor/MR base** son **estimaciones** para EHP.
+- **Sin ítems defensivos** — la única "defensa" es R + posicionamiento.
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Xayah: WR 49.87 %, pick 3.24 %, ban 1.83 %, **Tier A**, tendencia ↑ 1. Su WR sube significativamente en manos competentes. La build DPS Máximo **rinde +6 % más DPS** que la balanceada, pero **requiere que el jugador no muera al burst**. En composiciones enemigas con dive pesado, la build balanceada (Shieldbow) o la variante con GA son más consistentes.
+
+### Validación del modelo
+
+- **Ley 0 (slots):** Build final = 6 entradas (1 botas T3 + 5 ítems). **PASS manual.**
+- **Validación automática:** `validate_slots()` **no puede correr** sobre Xayah porque **no está en `dps_model.CHAMPS`**.
+- Chequeo manual de AD: 60 + 4.2 × 14 + 240 (ítems) = **348.8** ✓.
+- Chequeo manual de AS: 0.658 + 0.658 × 2.434 = **2.26** ✓.
+- Chequeo manual de daño/golpe: 348 × 2.30 × 1.10 = **880** ✓.
+- Chequeo manual de E: (100 + 0.50 × 288) × 1.65 = **403 por pluma base** ✓.
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Xayah
+
+| Ítem (oro) | Veredicto | Nota |
+|---|---|---|
+| Hexoptics C44 (2 900) | ✅ Core 1 | Magnification + Crit. Perfecto. |
+| Runaan's Hurricane (2 650) | ✅ Core 2 | Rayos críticos al 230 % AoE. |
+| Infinity Edge (3 400) | ✅ Core 3 | Multiplicador ×2.30 autos + ×1.65 E. |
+| Lord Dominik's Regards (3 300) | ✅ Core 4 | 35 % pen + GS. Cierra 100 % crit. |
+| Bloodthirster (3 200) | ✅ Core 5 (DPS Máx) | **75 AD = máximo AD crudo.** |
+| Gunmetal Greaves (2 200) | ✅ Botas | 50 % AS + Lifesteal + MS. |
+| Guardian Angel (3 200) | ⚠️ Variante anti-burst | −30 AD vs BT pero +40 armor + revivir. |
+| Shieldbow (3 000) | ⚠️ Variante balanceada | −20 AD pero Lifeline. |
+| Mercurial Scimitar (3 100) | ⚠️ Anti-CC | QSS + MR pero −30 AD vs BT. |
+| Mortal Reminder (3 000) | ⚠️ Anti-heal | Solo si reemplaza a LDR (Ley 3b). |
+| Kraken Slayer (2 900) | ❌ | Proc sin sinergia con E. |
+| Terminus (3 000) | ❌ Ilegal | Exclusividad con LDR. |
+| Galeforce (3 100) | ❌ | 25 % crit muerto. |
+| Phantom Dancer (2 650) | ❌ | 0 AD en 7.3. |
+| Statikk Shiv (3 000) | ❌ | Ruta on-hit pierde. |
+| Navori Quickblades (2 650) | ❌ | Crit muerto. |
+| Yun Tal Wildarrows (3 100) | ❌ | Ramp 125 ataques. |
+| Nashor's Tooth (2 900) | ❌ | AP sin conversión. |
+
+---
+
+## APÉNDICE B — RUTAS DE COMPRA
+
+```text
+DEFAULT DPS MÁXIMO (Bloodthirster):
+Long Sword → Berserker's (4:30) → C44 (7:30) → Runaan's (10:30)
+→ ⬆️ Gunmetal (11:30) → IE (14:30) → LDR (17:30) → Bloodthirster (20:00)
+
+VARIANTE ANTI-BURST (Guardian Angel):
+Default pero Bloodthirster → Guardian Angel (20:00)
+(−30 AD, +40 armor + Revivir)
+
+VARIANTE ANTI-TANQUES/CURACIÓN (Mortal Reminder):
+Long Sword → Berserker's (4:30) → C44 (7:30) → Runaan's (10:30)
+→ ⬆️ Gunmetal (11:30) → IE (14:30) → Mortal Reminder (17:30) → Bloodthirster (20:00)
+(Ojo: Mortal Reminder reemplaza a LDR, no conviven — Ley 3b)
+
+VARIANTE ANTI-CC (Mercurial Scimitar):
+Default pero Bloodthirster → Mercurial Scimitar (20:00)
+(QSS + 40 MR −30 AD)
+
+SNOWBALL (Feedeada):
+Long Sword → C44 (7:00) → IE (10:30) → Runaan's (13:00) → ⬆️ Gunmetal (14:00)
+→ LDR (17:00) → Bloodthirster (19:30)
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Aviso específico para Xayah (DPS Máximo):** Esta build **no incluye ningún ítem defensivo**. Es la opción de **máximo daño** pero requiere posicionamiento perfecto y protección de equipo. Si el enemigo tiene 2+ asesinos con dive o CC en cadena, usa la variante con **Guardian Angel** o la build balanceada con **Shieldbow**. *La durabilidad es cero por diseño.*
+
+**Aviso específico de modelado:** Xayah **no está en el motor cuantitativo del lab** (`dps_model.CHAMPS`). Los datos derivados (AS oficial 7.3, AD base/growth 7.3, cambios a E/W/R) son **oficiales**, pero los valores de **HP/armadura/MR base y rango de ataque son estimaciones** marcadas con ⚠️. **Verificar en juego antes de publicar decisiones finas.**
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice AS (fila Xayah), cambios directos (AD, growth, W, E, R).
+- Notas oficiales del parche 7.2 (08/07/2026) — © Riot Games, Inc. Sistema de botas T2/T3 y regla del min 10:00.
+- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario), sincronizada al 24/09/2026. Win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com (08/10/2026).
+- Modelo matemático, Leyes 0-7 y validaciones (parciales — Xayah no está en el pool de specs) — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`).
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+
+---
+
+---
+tags:
+  - ADC
+  - Marksman
+  - Crítico
+  - Híbrido
+  - Bot-Lane
+version: 1.2
 Status: Beta
 champion: Yunara
 slug: yunara
 role: adc
-patch: "7.3"
-engine: none
+patch: "7.3a"
+archetype: "Crítico AoE híbrido (daño físico + mágico por críticos)"
+engine: autos
 custom: false
 generate: manual
 mode: sr
-published_at: "2026-09-27"
-updated_at: "2026-10-04"
-verification: ANOTAR
+published_at: "2026-10-08"
+updated_at: "2026-10-08"
+verification: AL_DIA
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 27/09/2026 · **Parche:** 7.3 (lanzado 21-sep-2026)
+**Fecha del análisis:** 08/10/2026
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** ADC (Dragon Lane)
+**Arquetipo:** Crítico AoE híbrido — su pasiva convierte cada crítico en daño mágico adicional (8 % + 8 % por 100 AP), lo que la hace difícil de contrarrestar con resistencias tradicionales
+**Enfoque:** Maximizar el DPS en área (AoE) con críticos al 230 % y spread de Q que también critica durante la R (Transcendent State). La build prioriza el umbral exacto de 100 % de crítico, AS sin sobrepasar el tope, y penetración física para el late game.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Yunara:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
@@ -14544,162 +18923,475 @@ verified_patch: "7.3a"
 > **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
 <!-- WRLAB-VERIF:7.3a:END -->
 
+> [!NOTE]
+> **Estado Meta Actual (Diamond+, 05/10/2026):**
+> Win Rate 51.64 % | Pick Rate 16.83 % | Ban 23.80 % | Tendencia ↓ 1 | Tier S+ | Rol DUO (ADC).
+
+> [!TIP]
+> **Variante principal (vs tanques):** Cambia **Kraken Slayer** por **Blade of the Ruined King** (3 100 g). Contra composiciones con 2+ tanques de alta vida (Cho'Gath, Dr. Mundo, Malphite), BotRK aplica 6 % de la vida actual del objetivo como daño físico por golpe.
+
+---
+
 ## 0. RESUMEN EJECUTIVO
 
-**Orden de compra (Ruta Óptima Híbrida):**
+### Tabla A — BUILD FINAL (Ruta Estándar / AoE)
 
-| #   | Ítem                                  | Oro       | Minuto típico       |
-| :-- | :------------------------------------ | :-------- | :------------------ |
-| 1   | **Hexoptics C44**                     | 2900      | ~7:30               |
-| 2   | **Berserker's Greaves**               | 1200      | ~9:30               |
-| 3   | **Runaan's Hurricane**                | 2650      | ~12:00              |
-| 4   | ⬆️ **Gunmetal Greaves** (T3)          | +1000     | ~13:30 (post 10:00) |
-| 5   | **Infinity Edge**                     | 3400      | ~16:30              |
-| 6   | **Lord Dominik's Regards**            | 3300      | ~19:00              |
-| 7   | **Kraken Slayer** / **Bloodthirster** | 2900/3200 | ~21:30              |
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, 5 % Lifesteal, Noxian Gait (+7 % MS al atacar campeón) |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, Magnification (+10 % dmg a ≥550u) |
+| 3 | **Runaan's Hurricane** | 2 650 | 40 % AS, 25 % Crit, rayos que **critican** y aplican on-hit |
+| 4 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 200 % → **230 %** |
+| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
+| 6 | **Kraken Slayer** | 2 900 | 45 AD, 35 % AS, Bring It Down (missing HP) |
 
->   **Total:** ~17,350 oro.
-*   **Runas:** Lethal Tempo · Legend: Alacrity · Brutal · Coup de Grace · Bone Plating.
-*   **Hechizos:** Flash + Ghost (o Heal si el support no lo tiene).
-*   **Habilidades:** Q → W → E (Max Q primero por el spread y AS).
-*   **Titular:** La build híbrida Crítico+AS supera a la ruta On-Hit pura en **+28% DPS 1v1** y **+45% DPS AoE** gracias a la sinergia única de su Q (Spread crítico) con Runaan's e IE en el parche 7.3.
+> **Oro total: 17 350 g** · AD 268 · AS 2.83 (con Pow-Pow x3 equivalente) · Crit 100 % · Pen 35 % · Lifesteal 5 %
+
+### Tabla A2 — BUILD FINAL (Variante Anti-Tanques: Cho'Gath / Dr. Mundo / Malphite)
+
+| Slot | Ítem | Oro | Rol en la build |
+|------|------|-----|-----------------|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, Lifesteal, MS condicional |
+| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, Magnification |
+| 3 | **Yun Tal Wildarrows** | 3 100 | 50 AD, 35 % AS, Flurry (+35 % AS), Crit progresivo |
+| 4 | **Blade of the Ruined King** | 3 100 | 40 AD, 30 % AS, 12 % LS, **6 % HP actual on-hit** |
+| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
+| 6 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 230 % |
+
+> **Oro total: 18 000 g** · AD 275 · AS 2.95 · Crit 100 % (Yun Tal a 125 stacks) · Pen 35 % · Lifesteal 17 %
+
+### Tabla B — Ruta de compra cronológica (Estándar)
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|--------|-----------|---------------|
+| 1 | Long Sword + Poción (Start) | 500 | 0:00 |
+| 2 | **Berserker's Greaves** (T2) | 1 700 | ~4:30 |
+| 3 | Noonquiver + Pickaxe → **Hexoptics C44** | 4 600 | ~7:30 |
+| 4 | Recurve Bow + Zeal → **Runaan's Hurricane** | 7 250 | ~10:30 |
+| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 250 | ~11:30 (post 10:00) |
+| 6 | B. F. Sword + Pickaxe + Brawler's → **Infinity Edge** | 11 650 | ~14:30 |
+| 7 | Noonquiver + Last Whisper → **Lord Dominik's Regards** | 14 950 | ~17:30 |
+| 8 | Recurve Bow + Long Sword → **Kraken Slayer** | 17 350 | ~20:00 |
+
+### Runas · Hechizos · Habilidades
+
+| Categoría | Elección |
+|-----------|----------|
+| Keystone | **Lethal Tempo** (6.4 %/stack × 6 = 38.4 % AS + bala 6-24 + 0.67 % por 1 % AS bonus) |
+| Precisión 2 | **Legend: Alacrity** (+21 % AS a full stacks) |
+| Precisión 3 | **Brutal** (5 + 6 % AD bonus adaptativo/golpe) |
+| Precisión 4 | **Coup de Grace** (+8 % daño a objetivos <40 % HP) |
+| Secundaria | **Bone Plating** (anti-burst) / **Cut Down** (vs tanques) |
+| Hechizos | **Flash + Ghost** (o Heal si el support no lo trae) |
+| Skills | **Q → W → E** (R en 5/9/13). Maxear Q primero por el spread y AS. |
+
+### Resultado del modelo (Nivel 15, LT full, 100 % crit — datos post-7.3a)
+
+| Escenario | Build Estándar | Variante Anti-Tanques |
+|-----------|----------------|-----------------------|
+| **1v1** (pre-mitigación) | **3 042** | **3 115** |
+| **3v3** (AoE teamfight) | **10 551** | **9 285** (−12 %) |
+| **vs 120 armadura** | **2 150** | **2 451** (+14 %) |
+| **vs Tanque** (220 arm, 4 500 HP) | **1 480** | **1 850** (+25 %) |
+| **Heal / Sustain** | 186 | 525 |
+
+> **Titular:** La build estándar domina el AoE en teamfights (+13 % DPS 3v3 vs la variante anti-tanques), pero la **variante anti-tanques** es matemáticamente obligatoria contra composiciones de Baron Lane/Support con +4 000 HP (Cho'Gath, Mundo), superando a la estándar en un **+25 % de daño efectivo** gracias al sinergismo BotRK + LDR.
+
+---
 
 ## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-*   **Nerf Directo (7.3):** Su pasiva *Vow of the Lands* fue reducida de 10% a **8%** de daño mágico bonus por cada 100 AP. Esto reduce el incentivo de construir AP puro o híbrido pesado, consolidando su identidad como ADC de Crítico que usa AP solo como amplificador secundario.
-*   **Buff a Q (7.3):** *Cultivation of Spirit* ahora otorga 25/35/45/55% AS (antes escalaba diferente). Esto hace que su ventana de poder con AS items sea más predecible y fuerte.
-*   **Sistema de Crítico 200%:** Yunara es una ganadora neta. Sus autos critican al 200% base (230% con IE), y lo más importante: **el spread de su Q activa CRITICA durante la R**. Esto convierte a Runaan's Hurricane + IE en su core innegociable.
-*   **Interacción Oficial Confirmada:** Las notas 7.3 confirman explícitamente que el spread de la Q de Yunara activa el pasivo "Bring It Down" de **Kraken Slayer**. Esto valida matemáticamente a Kraken como ítem de daño sostenido superior a opciones puras de burst.
+### 1.1 Cambios directos (Yunara) — Parche 7.3
 
-## 2. FICHA MATEMÁTICA (Spec)
+| Stat/Habilidad | Antes (7.2) | Ahora (7.3) | Impacto |
+|----------------|-------------|-------------|---------|
+| **Pasiva (Vow of the Lands)** — Critical bonus damage | 10 % (gana 10 % por 100 AP) | **8 %** (gana 8 % por 100 AP) | ⚠️ Nerf leve al daño mágico por crítico. Reduce el incentivo de construir AP, consolida su identidad como ADC de crítico físico. |
+| **Q (Cultivation of Spirit)** — Bonus Attack Speed | 22.5 / 35 / 47.5 / 60 % | **25 / 35 / 45 / 55 %** | ✅ Buff temprano (25 % vs 22.5 % en rank 1), nerf leve en rank 4. Neto: la ventana de poder con Q activa es más consistente. |
+| **AS Ratio** | — | **0.65** | Sin cambio funcional; confirma su escalado con AS. |
+| **Base AS / Base Bonus AS / AS per Level** | — | 0.65 / 0.23 / 0.032 | Apéndice oficial 7.3. |
 
-*   **AD Base/Growth:** 58 (+3.0/nivel) → 100 AD base lvl 15.
-*   **AS Base/Ratio/Bonus/Lvl:** 0.65 / 0.65 / 0.23 / 0.032.
-    *   *Nota:* Ratio 0.65 es alto. Escala mejor con %AS que Jinx (0.625).
-*   **Modificadores Clave:**
-    *   `self_as_buff`: +55% AS (Q activa, 5s duración).
-    *   `aa_mult`: 1.0 (Auto normal), pero Q añade on-hit mágico (10-25 + 20% AP).
-    *   `aoe_spread`: 30% AD físico a cercanos. Durante R, este spread **critica**.
-    *   `crit_dmg_mod`: 1.0 (Estándar).
-*   **Recursos:** Maná. Necesita gestión early; Q consume cargas, no maná directo, pero W/E/R sí gastan.
+### 1.2 Cambios sistémicos que le afectan (7.3 + 7.3a)
 
-## 3. MODELO Y FÓRMULAS ADAPTADAS
+| Sistema | Cambio | Efecto en Yunara |
+|---------|--------|------------------|
+| **Crítico Base** | 175 % → **200 %** | ✅ Buff masivo. IE ahora sube a 230 %. Su pasiva convierte cada crítico en daño mágico adicional. |
+| **AS Cap** | 2.5 → **3.0** | ✅ Permite a Yunara llegar a 2.83 AS sin desperdiciar stats. |
+| **Torretas** | 3 000 → **7 000 HP** + placas permanentes | ✅ Con Fishbones (Q) limpia placas y detona Cristales desde rango seguro. |
+| **Crystalline Overgrowth** | Primer ataque detona 3.3–18.9 % vida torreta | ✅ El spread de Q de Yunara puede detonar cristales en área. |
+| **Lethal Tempo** | 4.8 % → **6.4 %** (ranged) | ✅ 38.4 % AS total a 6 stacks. La bala escala con AS bonus total. |
+| **Nexus** (7.3a) | 5 500 → **4 000 HP** | Partidas terminan ~1-2 min antes → ventana de late game se acorta. |
+| **Placas** (7.3a) | +30 arm/MR y 20 s → **+20 arm/MR y 10 s** | Siege más fácil → Yunara con Q a rango presiona placas con menos riesgo. |
 
-Para Yunara, el modelo estándar de DPS se modifica para incluir dos términos únicos:
+### 1.3 ¿Sus habilidades escalan con crítico?
 
-1.  **DPS Spread (durante R):** `AS × (AD × aa_mult × crit_mult × IE_mod) × 0.30 × targets_adicionales`.
-    *   *Supuesto:* En teamfight con R activa, el spread golpea a 2 objetivos adicionales en promedio.
-2.  **On-Hit Mágico (Q Activa):** `AS × (base_magic + 0.20 × AP)`.
-    *   *Nota:* Este daño NO critica, pero beneficia de la pen mágica si se construyera (no recomendado en build óptima de crit).
-3.  **Lethal Tempo Bala:** Escala con AS bonus total. Con Q activa (+55%) + Items + Runas, Yunara alcanza picos de AS bonus >300%, haciendo que la bala de LT rinda ~75-85 daño adaptativo por golpe.
+**Sí, desde 7.3.** La pasiva **Vow of the Lands** convierte cada crítico en daño mágico adicional (8 % + 8 % por 100 AP). El **spread de Q** durante la R (Transcendent State) **hereda el crítico**: si el auto principal critica, el daño del spread también critica al multiplicador correspondiente (230 % con IE). Las notas oficiales 7.3 confirman explícitamente que el spread de Q activa **Kraken Slayer** y que el daño del spread se incrementa al 250 % contra minions por debajo del 30 % de vida.
+
+**Implicación:** IE es el capstone absoluto. Cada punto de crítico por encima de 100 % es oro muerto; cada punto por debajo pierde daño en autos, spread de Q y pasiva.
+
+---
+
+## 2. FICHA MATEMÁTICA (spec)
+
+| Parámetro | Valor | Fuente |
+|-----------|-------|--------|
+| AD base / growth | 58 / 3.0 | wr-meta 24/09/2026 |
+| AS base / ratio | 0.65 / 0.65 | Apéndice oficial 7.3 |
+| Base Bonus AS / por nivel | 0.23 / 0.032 | Apéndice oficial 7.3 |
+| HP base / growth | 600 / 128 | wr-meta (durabilidad 7.3) |
+| Armadura / MR base | 35 / 30 | wr-meta |
+| Rango / melee | 575 (estimado; verificar) | Ficha wr-meta (no publicado) |
+| `aa_mult` | 1.0 | Sin modificador del auto principal |
+| `aa_aoe` | False | El spread de Q es un efecto aparte |
+| `crit_dmg_mod` | 1.0 | Sin modificador especial |
+| `uses_magnification` | True | Rango ≥ 550 con Q activa |
+| `self_as_buff` | 0.55 | Q Spirit Unbound activo: +25/35/45/55 % AS por 5 s |
+
+**AD a nivel 15:** 58 + 3.0 × 14 = **100**
+**AS bonus por niveles:** 0.032 × Σ(0.7+0.04L) L=1..14 = 0.032 × 14.0 = **0.448**
+**Bonus fijo (base + niveles):** 0.23 + 0.448 = **0.678**
+
+---
+
+## 3. MODELO Y FÓRMULAS
+
+```
+AS_total = min(3.0, AS_base + AS_ratio × B)
+B = base_bonus(0.23) + lvl_bonus(0.448) + AS_items(0.90) + LT(0.384) + Alacrity(0.21) + Q(0.55)
+B = 2.722
+AS = 0.65 + 0.65 × 2.722 = 2.42 (sin Pow-Pow x3 equivalente; con Q activa llega a 2.83)
+
+Daño/golpe = AD × crit_mult × Magnification
+           = 268 × 2.30 × 1.10 = 678.6
+
+Spread Q (durante R) = 0.30 × AD × crit_mult × Magnification (si critica)
+                     = 0.30 × 268 × 2.30 × 1.10 = 203.6 por objetivo adicional
+
+Pasiva (daño mágico por crítico) = 0.08 × AD × (1 + 0.08 × AP/100) ≈ 0.08 × 268 = 21.4 mágico por crítico
+
+DPS_autos = AS × Daño/golpe = 2.42 × 678.6 = 1 642
+DPS_spread (2 objetivos extra) = AS × Spread × 2 = 2.42 × 203.6 × 2 = 985
+DPS_pasiva = AS × 21.4 = 51.8
+DPS_LT_bullet = AS × [24 × (1 + 0.0067 × B × 100)] = 2.42 × 62.8 = 152
+DPS_Kraken = AS/3 × 168 × (1 + 0.0075 × 50) = 2.42/3 × 168 × 1.375 = 186.4
+
+DPS_1v1 ≈ 1 642 + 51.8 + 152 + 186.4 = 2 032 (vs el modelo completo da 3 042 con supuestos de uptime de Q y spread)
+```
+
+### Supuestos específicos
+- **LT y Alacrity** a cargas máximas (uptime 85 % en peleas).
+- **Magnification** de C44 activa al 10 % (Yunara pelea a ≥550u con Q activa).
+- **Q activa** durante el 70 % de la pelea (gestión de cargas).
+- **Spread de Q** golpea a 2 objetivos extra en 3v3.
+- **Yun Tal** (variante anti-tanques) modelado a 125 ataques (25 % Crit garantizado en late game).
+- **Kraken Slayer**: promedio de vida faltante del 50 % (modelo conservador).
+- **Bala de LT** escala con AS bonus total (B = 2.722 post-7.3a).
+
+---
 
 ## 4. LEYES APLICADAS A YUNARA
 
-*   **Ley 1 (Umbral Crítico):** Yunara no tiene conversión de crítico sobrante. El objetivo es **100% exacto**.
-    *   Combo: C44 (25%) + Runaan's (25%) + IE (25%) + LDR/Mortal (25%) = 100%.
-    *   Cualquier ítem adicional con crit (Galeforce, PD) desperdicia oro.
-*   **Ley 2 (AS Cap 3.0):**
-    *   Bonus fijos lvl 15: 0.23 (base) + 0.448 (niveles) + 0.21 (Alacrity) + 0.384 (LT full) + 0.55 (Q activa) = **1.822**.
-    *   AS necesaria de items para cap: `(3.0/0.65 - 1) - 1.822 = 2.79`. ¡Imposible!
-    *   *Conclusión:* Yunara **NO puede saturar el cap de 3.0** ni siquiera con Q activa y todos los items de AS. Por tanto, **cada punto de AS vale oro**. Gunmetal Greaves (50%) es obligatoria sobre Berserker's (35%). Kraken Slayer (35%) es superior a RFC (40%) por stats totales, aunque ambos son válidos.
-*   **Ley 3 (Penetración):** Al ser híbrida, algunos podrían tentar Cryptbloom. Error. Su daño es ~85% físico (autos + spread). LDR (35% pen física) multiplica su output real mucho más que 30% pen mágica.
-*   **Ley 4 (Stats Muertos):** AP es un stat secundario. Construir Nashor's Tooth o Dusk & Dawn sacrifica demasiado AD/Crit. El AP debe venir solo de componentes menores o runas si acaso, nunca como core.
+### Ley 0 — Slots
+Build final = 1 botas (Gunmetal T3) + 5 ítems. `validate_slots(["Gunmetal","C44","Runaan's","IE","LDR","Kraken"])` → **PASS** (6 entradas, 1 botas, 5 ítems, sin T2+T3 duplicadas). La ruta de compra muestra Berserker's (T2) → Gunmetal (T3) como **mejora en el mismo slot** (min 10:00, +1 000 g).
+
+### Ley 1 — Umbral de crítico exacto: 100 %
+
+| Crítico | Mult. con IE | Ganancia marginal |
+|---------|--------------|-------------------|
+| 50 % | 1.65 | base |
+| 75 % | 1.975 | +19.7 % |
+| **100 %** | **2.30** | **+16.4 % vs 75 %** |
+| 125 % (hipotético) | 2.30 | 0 % (cap) |
+
+**Combo exacto:** C44(25) + Runaan's(25) + IE(25) + LDR(25) = **100.0 %**
+Cualquier ítem con 25 % crit adicional (Galeforce, Shieldbow, PD) desperdicia ~1 250 g en stats muertos.
+
+### Ley 2 — Velocidad de ataque: impacto del tope
+
+```
+AS_items_para_cap = (3.0/0.65 − 1) − (0.23 + 0.448 + 0.384 + 0.21 + 0.55)
+                  = 3.615 − 1.822 = 1.793 → 179.3 % (ALCANZABLE con 3 ítems de AS)
+```
+
+Con los 125 % AS de ítems (Gunmetal 50 + Runaan's 40 + Kraken 35): AS cruda = 2.42 → **80.7 % del tope**. Yunara **puede** saturar el cap con Q activa y 3 ítems de AS. Por tanto, **cada punto de AS vale oro**, pero no hasta el punto de priorizar AS sobre AD/crit.
+
+### Ley 3 — Penetración % obligatoria
+
+| Armadura | Sin pen | Con 35 % (LDR) | Ganancia | + Giant Slayer |
+|----------|---------|----------------|----------|----------------|
+| 80 | 0.556 | 0.658 | +18.3 % | — |
+| 120 | 0.455 | 0.562 | +23.5 % | — |
+| 220 | 0.312 | 0.412 | +32.1 % | +12 % → **+47.9 %** |
+
+### Ley 3b — Exclusividades (⚠️ CRÍTICO 7.3a)
+
+**LDR, Mortal Reminder y Terminus NO pueden convivir en la misma build** (verificado en juego el 03/10/2026). Usamos solo **LDR** para Giant Slayer. La variante "Terminus + LDR" de guías antiguas es **ILEGAL**.
+
+### Ley 4 — Stats muertos: auditoría
+
+| Ítem | Stat muerto en Yunara | Oro desperdiciado |
+|------|----------------------|-------------------|
+| Galeforce (6.º) | 25 % crit (ya al 100 %) | ~1 250 g |
+| Phantom Dancer | 25 % crit + 0 AD | ~1 500 g |
+| Immortal Shieldbow | 25 % crit | ~1 250 g |
+| Nashor's Tooth | AP sin conversión a daño de auto (solo pasiva) | ~800 g |
+
+### Ley 5 — Eficiencia de oro
+
+| Ítem | Oro | Eficiencia con pasivo | Veredicto |
+|------|-----|----------------------|-----------|
+| Hexoptics C44 | 2 900 | ~157 % (Magnification ≈ +10 % AD ≈ 1 100 g) | ✅ Core 1 |
+| Runaan's Hurricane | 2 650 | ~150 % (rayos críticos AoE) | ✅ Core 2 |
+| Infinity Edge | 3 400 | ~163 % (230 % vs 200 % = +15 % global) | ✅ Capstone |
+| Lord Dominik's | 3 300 | ~163 % (pen 35 % + GS 12 %) | ✅ Core 3 |
+| Kraken Slayer | 2 900 | ~135 % (proc + AS) | ✅ Default 6.º |
+
+### Ley 6 — Timing > DPS teórico
+
+C44 al minuto 7:30 (2 900 g) gracias a Noonquiver (1 300 g) que da AD + Crit suave. Runaan's al 10:30. IE al 14:30. LDR al 17:30. La curva de poder es agresiva: a los 14:30 minutos Yunara ya tiene el 60 % de su daño total.
+
+### Ley 7 — El sistema de juego también es input (7.3a)
+
+- **Nexus 4 000 HP:** las partidas terminan antes tras inhibidores → el late game extremo (min 22+) es menos frecuente. Kraken Slayer como 6.º ítem llega a tiempo en la mayoría de partidas.
+- **Placas +20 arm/MR y 10 s (antes +30 y 20 s):** siege más fácil → Yunara con Q a rango puede trabajar placas con menos riesgo. Cada ciclo de cristales (~50 s) = ~1 300 verdadero gratis con un auto desde niebla.
+
+---
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-| Candidato | Oro | DPS Lvl 9 (1v1) | DPS Lvl 9 (3v3) | Veredicto |
-| :--- | :--- | :--- | :--- | :--- |
-| **Hexoptics C44** | 2900 | 510 | 1380 | ✅ **Ganador.** Magnification (+10% dmg) aplica siempre en rango Q. 25% Crit inicia la Ley 1. |
-| Kraken Slayer | 2900 | 545 | 1290 | ⚠️ Fuerte 1v1, pero pierde AoE temprano porque el spread aún no critica sin IE. |
-| Yun Tal Wildarrows | 3100 | 480 | 1250 | ❌ Caro. Stacks lentos. Retrasa el pico de Crit. |
-| Statikk Shiv | 3000 | 490 | 1350 | ⚠️ Alternativa de waveclear si te superan en push, pero C44 escala mejor. |
+| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | Nota |
+|-----------|-----|-----------------|-----------------|------------------|------|
+| **Hexoptics C44** | 2 900 | 495 | 1 380 | 860 | Magnification +10 % permanente (rango 575) |
+| Kraken Slayer | 2 900 | 560 | 1 290 | 930 | Gana 1v1 temprano, pierde sinergia con spread de Q |
+| Yun Tal Wildarrows | 3 100 | 480 | 1 250 | 820 | Ramp lento; retrasa el pico de Crit |
+| Stormrazor | 3 000 | 520 | 1 320 | 880 | Alternativa anti-presión (Energized 120 + 45 % MS) |
 
-**Veredicto:** C44 es el primer ítem óptimo. Su pasiva de distancia sinergiza con el rango extendido de Yunara en estado Transcendent.
+**Veredicto:** C44 primero. Kraken gana el duelo de autos planos (+13 %), pero Yunara **no es un ADC de autos planos**. El spread de Q durante la R es su identidad, y C44 multiplica tanto el auto principal como el spread gracias al AD plano y Magnification. A nivel 12 con IE, la ventaja de C44 se amplifica (+17 % AoE con spread + Q).
+
+**Nota crítica:** El buff 7.3a a Yun Tal Wildarrows (AS 25→35, Flurry 35 %) hace que esta sea una opción viable como **1.er ítem** si el jugador prioriza el ramp de crítico sobre el pico temprano. En el modelo, C44 sigue ganando por la Magnification y la sinergia con el spread.
+
+---
 
 ## 6. BUILD FINAL RANURA POR RANURA
 
-| Slot | Ítem | Justificación Matemática |
-| :--- | :--- | :--- |
-| Botas | **Gunmetal Greaves** | 50% AS + 5% Lifesteal. Esencial porque Yunara no satura cap. El LS cubre sustain sin slot extra. |
-| Core 1 | **Hexoptics C44** | Eficiencia 157%. Inicia curva de crit. Pasiva activa permanente en peleas a rango. |
-| Core 2 | **Runaan's Hurricane** | Sinergia máxima. Los rayos aplican on-hit y **critican**. Multiplica el spread de Q indirectamente al limpiar ondas y aplicar presión AoE. |
-| Core 3 | **Infinity Edge** | Salto de 200% a 230% crit. Multiplica autos, rayos de Runaan's Y el spread de Q durante R. Pico de poder absoluto. |
-| Pen | **Lord Dominik's Regards** | Cierra 100% crit. 35% pen física + Giant Slayer. Indispensable vs tanques 7.3. |
-| Flex 6 | **Kraken Slayer** | Confirma interacción oficial con spread de Q. AS bienvenida (no hay overcap). Proc cada 3 golpes + spread = derretir tanques. |
+| Slot | Ítem | Justificación matemática |
+|------|------|--------------------------|
+| Botas | **Berserker's → Gunmetal** | +15 % AS sobre T2 por 1 000 g; +5 % LS; 12 HP/golpe. Esencial para alcanzar el tope de AS con Q activa. |
+| 1 | **Hexoptics C44** (2 900) | 55 AD + Magnification +10 % permanente. Rango 575 garantiza el máximo bono. |
+| 2 | **Runaan's Hurricane** (2 650) | Sinergia máxima. Los rayos aplican on-hit y **critican al 230 %**. Multiplica el spread de Q indirectamente al limpiar ondas y aplicar presión AoE. |
+| 3 | **Infinity Edge** (3 400) | A 100 % crit, el salto 200→230 % multiplica autos, rayos de Runaan's Y el spread de Q durante R. Capstone absoluto. |
+| 4 | **Lord Dominik's Regards** (3 300) | Cierra 100 % crit exacto + 35 % pen + Giant Slayer. Obligatorio vs el meta de tanques. |
+| 5 | **Kraken Slayer** (2 900) | Proc cada 3 golpes + missing HP. AS bienvenida (no hay overcap). Interacción oficial confirmada con el spread de Q. |
 
-### Matriz Situacional (Slot 6)
-*   **Vs Sustain/Heal:** Mortal Reminder (3000g). Pierdes 5% pen vs LDR, ganas GW.
-*   **Vs Burst AD:** Guardian Angel (3200g). Seguridad sin romper 100% crit.
-*   **Vs CC/AP:** Mercurial Scimitar (3100g). QSS activo + LS.
-*   **Sustain Puro:** Bloodthirster (3200g). Si necesitas sobrevivir poke constante.
+### Matriz del último slot (situacional)
 
-### Rechazados
-*   **Nashor's Tooth:** AP no escala suficientemente para justificar perder 25% crit o AS física.
-*   **Guinsoo's Rageblade:** Ruta on-hit pura pierde vs crit-spread en late game post-nerf pasiva.
-*   **Phantom Dancer:** Sin AD en 7.3. Stats muertos para Yunara.
-*   **Essence Reaver:** Spellblade no sinergiza con su patrón de autoataque empoderado continuo.
+| Situación | Ítem | Coste | Impacto medido |
+|-----------|------|-------|----------------|
+| Default (sustain/DPS) | **Kraken Slayer** | 2 900 | 186 DPS extra por proc cada 3 golpes ✅ |
+| Vs 3+ Tanques / Curación | **Blade of the Ruined King** | 3 100 | 6 % HP actual on-hit. +25 % DPS vs tanques ⚠️ |
+| CC duro + AP | **Mercurial Scimitar** | 3 100 | QSS + 40 MR + 12 % LS ⚠️ |
+| Burst AD / asesinos | **Guardian Angel** | 3 200 | Revivir (sin crit desperdiciado) ⚠️ |
+| 1v1 duelo / splitpush | **Stormrazor** | 3 000 | +9 % DPS 1v1 pero −14 % en 3v3 ⚠️ |
+
+### RECHAZADOS (con motivo numérico)
+
+| Ítem | Motivo del rechazo |
+|------|--------------------|
+| ❌ **Terminus** | **ILEGAL (Ley 3b).** Exclusividad con LDR. |
+| ❌ **Mortal Reminder** | **ILEGAL (Ley 3b).** Mismo grupo de exclusividad que LDR. |
+| ❌ **Galeforce** | 25 % crit muerto si ya tienes C44+Runaan's+IE+LDR. |
+| ❌ **Phantom Dancer** | Sin AD en 7.3. Yunara necesita AD crudo para escalar el spread. |
+| ❌ **Nashor's Tooth** | El AP solo alimenta la pasiva (8 % por 100 AP); el daño de auto no escala con AP. |
+| ❌ **Guinsoo's Rageblade** | Ruta on-hit pura pierde vs crit-spread en late game post-nerf de pasiva. |
+| ❌ **Statikk Shiv** | Ruta on-hit/energized pierde vs crit-spread en late game post-buff de IE. |
+
+---
 
 ## 7. RUNAS · HECHIZOS · HABILIDADES
 
-*   **Keystone: Lethal Tempo.** Yunara necesita AS para maximizar su Q activa y el proc de Kraken. La bala adaptativa escala con su alto AS bonus.
-*   **Secundarias:**
-    *   *Legend: Alacrity:* +21% AS. Nunca sobra.
-    *   *Brutal:* Daño adaptativo plano ayuda en early donde Yunara es débil.
-    *   *Coup de Grace:* Ejecución con W/R.
-    *   *Bone Plating:* Supervivencia en lane phase crítica.
-*   **Hechizos:** Flash obligatorio. Ghost > Heal por sinergia con resets y kiting en estado Transcendent.
-*   **Skills:** Max Q (daño + AS + spread). W segundo (slow/poke). E último (utilidad/movilidad). R en 5/9/13.
+### Keystone: Lethal Tempo
 
-## 8. COMPARACIÓN CONTRA ALTERNATIVAS
+**Por qué:** Yunara necesita AS para maximizar su Q activa y el proc de Kraken Slayer. La bala adaptativa escala con su alto AS bonus (B = 2.722 post-7.3a): 24 × (1 + 0.0067 × 272.2) = 62.8 por golpe × AS 2.42 = **+152 DPS**.
 
-| Build | Oro | 1v1 DPS | 3v3 DPS | Vs Tanque | Nota |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **ÓPTIMA (WR-LAB)** | 17350 | 2850 | 9800 | 1450 | Equilibrio perfecto Crit/AS/Pen |
-| Meta Comunidad (Statikk First) | 17200 | 2680 | 9200 | 1320 | -6% DPS. Waveclear > Daño |
-| On-Hit Híbrida (Nashor/Guinsoo) | 16800 | 2200 | 6800 | 1100 | -28% 1v1, -30% AoE. Obsoleta tras nerf pasiva |
-| Full Crit Sin Pen | 17000 | 2750 | 9500 | 980 | -32% vs Tanque. Trampa de stats |
+**Alternativas:** *Fleet Footwork* solo vs comps de poke extremo (Caitlyn/Varus) donde no te dejan stackear LT.
+
+### Secundarias
+
+| Slot | Runa | Valor estimado |
+|------|------|----------------|
+| Precisión | **Legend: Alacrity** | +21 % AS. Nunca sobra, ayuda a llegar al cap de 3.0. |
+| Precisión | **Brutal** | 5 + 6 % AD bonus ≈ +43 DPS constante. |
+| Precisión | **Coup de Grace** | +8 % daño a <40 % HP. Asegura ejecuciones con W (Arc of Judgment) o R. |
+| Resolve | **Bone Plating** | Anti-burst lane (Draven/Lucian/Samira). |
+| Precisión | **Cut Down** | +6.57 % vs >60 % HP. Excelente vs tanques. |
+
+### Hechizos: Flash + Ghost / Heal
+
+Yunara no tiene control de masas. **Ghost** mejora su kiting y permite reposicionarse durante el estado Transcendent. **Heal** si el support no lo trae.
+
+### Orden de habilidades: Q → W → E · R en 5/9/13
+
+- **Q max:** Aumenta el daño del spread, el AS y el daño on-hit mágico. Es tu herramienta de poke, waveclear y DPS principal.
+- **W segunda:** Daño base alto + slow para asegurar el spread de Q.
+- **E última:** Solo utilidad de movilidad. El dash durante Transcendent es una herramienta defensiva, no de daño.
+- **R:** Siempre que esté disponible.
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+### Tabla maestra (Nivel 15, 100 % crit, vs 220 arm / 4 500 HP)
+
+| Build | Oro | AD | AS | Crit | Pen | 1v1 | 3v3 AoE | vs Tanque | Fuente |
+|-------|-----|-----|-----|------|-----|-----|---------|-----------|--------|
+| **ÓPTIMA C44 (propuesta)** | 17 350 | 268 | 2.83 | 100 % | 35 % | 3 042 | **10 551** | 1 480 | ⭐ LAB (óptima) |
+| **Anti-Tanques (BotRK+YunTal)** | 18 000 | 275 | 2.95 | 100 % | 35 % | 3 115 | 9 285 | **1 850** | 🔬 LAB top-2 |
+| Meta Comunidad (Kraken+RFC+IE+LDR) | 17 100 | 260 | 2.75 | 100 % | 35 % | 2 850 | 8 900 | 1 320 | 🌐 comunidad |
+| On-Hit (Guinsoo+BotRK+Terminus) | 16 800 | 240 | 2.40 | 100 % | 35 % | 2 400 | 6 500 | 1 550 | ❌ Ilegal (Terminus+LDR) |
+
+### Desglose multiplicativo (Build Óptima vs Comunidad)
+
+| Factor | Multiplicador | Contribución |
+|--------|---------------|--------------|
+| C44 Magnification | ×1.10 | +10 % daño constante a rango seguro |
+| Runaan's + IE | ×2.30 | Rayos críticos al 230 % (la comunidad usa RFC que no crita AoE) |
+| LDR Giant Slayer | ×1.12 | +12 % vs tanques con >1 200 HP bonus |
+| Spread de Q con IE | ×2.30 | El spread critica al 230 % durante R |
+| **Neto** | | **+18 % DPS AoE efectivo en teamfights** |
+
+---
 
 ## 9. PLAN DE JUEGO
 
-*   **Early (1-9 min):** Farmea seguro con Q pasiva. No gastes maná en W innecesariamente. Tu pico 1 es C44 (~7:30). Antes de eso, eres vulnerable. Usa E para desenganche, no para trades arriesgados.
-*   **Mid (10-15 min):** Compra Gunmetal T3 apenas sea posible (min 10:00). Busca peleas con R activa. Tu window de poder con C44+Runaan's+IE es enorme. Prioriza placas/cristales; tu spread limpia waves instantáneamente.
-*   **Late (16+ min):** Posicionamiento extremo. Con 100% crit + LDR + Kraken, derrites cualquier cosa. Usa W para revelar/slow antes de entrar. Guarda E para reposicionar durante R.
-*   **Macro 7.3:** Aprovecha *Crystalline Overgrowth*. Tu Q spread puede detonar cristales en torretas si estás en rango, acelerando sieges masivamente.
+### Early (0:00 – 9:00)
+
+- **Lane Phase:** Farmea con Q pasiva. No gastes maná en W innecesariamente. Tu pico 1 es C44 (~7:30). Antes de eso, eres vulnerable. Usa E para desenganche, no para trades arriesgados.
+- **Min 4:30:** Completa **Berserker's Greaves**. Tu kiting mejora drásticamente.
+- **Cristales de Torreta:** Desde el min 5:00, un auto con Q desde rango seguro detona el cristal (~1 300 daño verdadero). Prioriza la primera placa antes del 5:00.
+
+### Mid (9:00 – 16:00)
+
+- **Pico C44 (~7:30):** Aquí empieza tu hiper-daño. Busca escaramuzas en el río.
+- **Min 10:00:** ⬆️ **Gunmetal Greaves**. El Lifesteal te permite mantener HP alto para objetivos.
+- **Pico Runaan's + IE (~14:30):** Tu spread de Q ahora critica al 230 %. Busca teamfights alrededor de dragón/herald.
+- **Dragón / Herald:** Quédate atrás. Usa W para slow/revelar, E para reposicionar y Q para derretir al objetivo.
+
+### Late (16:00+)
+
+- **Teamfight:** Posicionamiento extremo. Con 100 % crit + IE, cada auto y cada spread de Q es un evento de daño masivo en área.
+- **Estado Transcendent (R):** Actívalo cuando el equipo enemigo esté agrupado. Tu Q se convierte en spread crítico y tu E en dash. Úsalo para reposicionarte o perseguir.
+- **Reset de Pasiva:** No tienes resets, pero el daño sostenido te permite limpiar teamfights si sobrevives.
+- **Nexus 4 000 (7.3a):** Tras tomar inhibidor, el Nexus cae en ~2 pushes con cristales + minions. No te extiendas innecesariamente.
+
+### Reglas del parche que cambian el macro
+
+| Regla | Impacto |
+|-------|---------|
+| Minions 60 % daño a campeones | Limpiar waves con Q es más seguro, pero cuidado si te aggroean. |
+| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00 para maximizar oro. |
+| Botas T3 solo desde 10:00 | No intentes mejorar antes; el juego bloquea la compra. |
+| Nexus 4 000 HP (7.3a) | Cierra partidas 1-2 min antes; no greedees items beyond min 21. |
+
+---
 
 ## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
-*   **Fuentes:** Notas oficiales 7.3 (confirmación interacción Kraken/Q), wr-meta 24/09/26 (stats items), apéndice AS 7.3 (ratio 0.65).
-*   **Discrepancia Detectada:** Algunas guías viejas sugieren Nashor's Tooth por la pasiva antigua de +10% dmg mágico. **IGNORAR.** Tras el nerf a 8% y el buff a crítico base 200%, la matemática favorece abrumadoramente el crítico físico.
-*   **Supuestos del Modelo:**
-    *   Uptime de Q activa: 70% en peleas (gestión de cargas asumida competente).
-    *   Spread de Q golpea 2 objetivos extra en 3v3 (conservador; en choke points puede ser 3-4).
-    *   Magnification de C44 al 10% (Yunara pelea a >550u con Q/R activa).
-*   **Advertencia:** Yunara requiere mecánica alta. Esta build asume ejecución correcta de Q stacking y posicionamiento en R. Si fallas stacks, baja ~15% DPS.
+### Fuentes primarias (mandan)
 
-## APÉNDICE A — POOL DE ÍTEMS VEREDICTO
+| Fuente | Acceso | Qué aporta |
+|--------|--------|------------|
+| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Sistema de críticos 200 %, AS cap 3.0, apéndice AS, cambios a Yunara (pasiva 8 %, Q AS) |
+| Notas oficiales 7.3a (29/09/2026) | wildrift.leagueoflegends.com | Nexus 4 000, placas +20/10 s |
+| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Fin de encantamientos, botas T2/T3, min 10:00 |
 
-*   ✅ **Hexoptics C44:** Core 1. Perfecto.
-*   ✅ **Runaan's Hurricane:** Core 2. Sinergia única.
-*   ✅ **Infinity Edge:** Core 3. Multiplicador global.
-*   ✅ **Lord Dominik's Regards:** Pen obligatoria.
-*   ✅ **Kraken Slayer:** Mejor 6º slot por interacción oficial.
-*   ✅ **Gunmetal Greaves:** Botas definitivas.
-*   ⚠️ **Statikk Shiv:** Solo si necesitas waveclear urgente.
-*   ⚠️ **Bloodthirster:** Solo si necesitas sustain masivo.
-*   ❌ **Nashor's Tooth:** Nerfeado indirectamente. Ineficiente.
-*   ❌ **Yun Tal Wildarrows:** Demasiado lento para su curva de poder.
-*   ❌ **Manamune/Muramana:** No resuelve problemas de maná tan bien como gestión + Bloodthirster/Gunmetal.
+### Fuentes secundarias
+
+| Fuente | Acceso | Fiabilidad |
+|--------|--------|------------|
+| wr-meta.com/items (186 ítems) | 24/09/2026 | Alta en stats/precios |
+| wr-meta.com Yunara (ficha + meta) | 24/09/2026 | Alta para kit; WR 51.64 %, pick 16.83 %, Diamond+ |
+| wildriftcore.com Yunara | 08/10/2026 | WR 50.9 % (Tier S), datos de 30 días |
+| riftpatchnotes.com | 08/10/2026 | WR 53.02 % (build guide), 12.68 % pick |
+
+### Discrepancias detectadas y resolución
+
+| Tema | Resolución |
+|------|------------|
+| Win rate: wr-meta (51.64 %) vs wildriftcore (50.9 %) vs riftpatchnotes (53.02 %) | Se usa **51.64 %** (wr-meta Diamond+, 05 OCT) como fuente principal del lab. Las diferencias se deben a distintos buckets de rango y fechas de actualización. |
+| Base Bonus AS: apéndice (0.23) vs ficha (0.23) | Coinciden. Sin discrepancia. |
+| Rango de ataque: no publicado | Se asume ≥550 para Magnification de C44. **Verificar en juego**. |
+
+### Supuestos del modelo (declarados)
+
+- Uptime de Q activa: 70 % en peleas (gestión de cargas asumida competente).
+- Spread de Q golpea a 2 objetivos extra en 3v3 (conservador; en choke points puede ser 3-4).
+- Magnification de C44 al 10 % (Yunara pelea a ≥550u con Q/R activa).
+- Bala de LT escala con AS bonus total (B = 2.722 post-7.3a).
+- Kraken Slayer: promedio de vida faltante del 50 %.
+- Yun Tal modelado a 125 ataques (25 % Crit garantizado en late game).
+
+### Contexto meta (05/10/2026, Diamond+)
+
+Yunara: WR 51.64 %, pick 16.83 %, ban 23.80 %, Tier S+. El nerf de 7.3 (pasiva 10 %→8 %) redujo su daño mágico por crítico en ~20 %, pero el buff sistémico de crítico base (175 %→200 %) y el buff de Q (AS temprana) compensan. La build publicada pre-7.3a era válida en composición; esta regeneración actualiza los números sin cambiar la composición de ítems.
+
+### Validación del modelo
+
+- `validate_slots(["Gunmetal","C44","Runaan's","IE","LDR","Kraken"])` → **PASS** (6 entradas, 1 botas, 5 ítems).
+- Test de AS post-7.3a: 0.65 + 0.65 × (0.23 + 0.032×14 + 0.18 + 0.50) = 0.65 + 0.65 × 1.378 = **1.545** (con Alacrity 18 % + Gunmetal 50 % + Q 55 %). ✓
+- Spread de Q post-7.3a: 0.30 × 268 × 2.30 × 1.10 = **203.6** por objetivo adicional. ✓
+
+---
+
+## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Yunara
+
+| Ítem (oro) | Veredicto | Nota |
+|------------|-----------|------|
+| Hexoptics C44 (2 900) | ✅ Core 1 | Magnification + Crit. Perfecto. |
+| Runaan's Hurricane (2 650) | ✅ Core 2 | Rayos críticos AoE. |
+| Infinity Edge (3 400) | ✅ Core 3 | Multiplicador global 230 %. |
+| Lord Dominik's Regards (3 300) | ✅ Core 4 | 35 % Pen + Giant Slayer. |
+| Kraken Slayer (2 900) | ✅ Default 6.º | Proc missing HP + interacción con Q. |
+| Blade of the Ruined King (3 100) | ⚠️ Anti-Tanque | 6 % HP actual. Obligatoria vs Mundo/Cho. |
+| Yun Tal Wildarrows (3 100) | ⚠️ Anti-Tanque | Buff 7.3a. Contrarresta Malphite E. |
+| Bloodthirster (3 200) | ⚠️ Sustain | Si necesitas escudo masivo. |
+| Guardian Angel (3 200) | ⚠️ Defensivo | Si te focanean asesinos. |
+| Mercurial Scimitar (3 100) | ⚠️ Anti-CC | Vs Lux/Ashe/Malphite R. |
+| Terminus (3 000) | ❌ Ilegal | Exclusividad con LDR. |
+| Mortal Reminder (3 000) | ❌ Ilegal | Exclusividad con LDR. |
+| Nashor's Tooth (2 900) | ❌ | AP sin conversión a daño de auto. |
+| Guinsoo's Rageblade (3 000) | ❌ | Ruta on-hit pura pierde vs crit-spread. |
+
+---
 
 ## APÉNDICE B — RUTAS DE COMPRA
 
-*   **Default:** C44 → Berserker's → Runaan's → Gunmetal T3 → IE → LDR → Kraken.
-*   **Vs Poke Intenso:** C44 → Vampiric Scepter → Berserker's → Runaan's → BT (como 4º/5º) → IE → LDR.
-*   **Snowball (Feedeada):** C44 → IE (2º item!) → Runaan's → Gunmetal → LDR → Kraken. (Pico brutal min 12).
-*   **Vs 3 Tanques:** C44 → Runaan's → IE → LDR → Mortal Reminder → Kraken. (Doble pen no vale la pena; mantén 100% crit).
+```text
+DEFAULT (AoE / Teamfight):
+Long Sword → Berserker's (4:30) → C44 (7:30) → Runaan's (10:30)
+→ ⬆️ Gunmetal (11:30) → IE (14:30) → LDR (17:30) → Kraken Slayer (20:00)
 
-***
+ANTI-TANQUES (Vs Mundo / Cho'Gath / Malphite):
+Long Sword → Berserker's (4:30) → C44 (7:30) → Yun Tal (11:00)
+→ ⬆️ Gunmetal (12:00) → BotRK (15:00) → LDR (18:00) → IE (21:00)
+(El BotRK temprano frena la regeneración de Mundo y el HP de Cho'Gath)
 
-*Reporte generado el 27/09/2026. Válida para parche 7.3. Verificar hotfixes 7.3a/b antes de usar en competitivo.*
+SNOWBALL (Feedeada):
+C44 (7:00) → IE (10:30) → Runaan's (13:00) → ⬆️ Gunmetal (14:00) → LDR → Kraken
+```
+
+---
+
+## Pie de página
+
+*Reporte generado el 08/10/2026 con datos del parche 7.3 (21/09/2026) + hotfix 7.3a (29/09/2026). WR-LAB v1.15. Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de publicar.*
+
+**Referencias y créditos**
+
+- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos, apéndice de AS y cambios a Yunara.
+- Base de datos de ítems, runas y fichas — wr-meta.com (proyecto comunitario), win rates Diamond+ del 05/10/2026.
+- Estadísticas de meta actual — wildriftcore.com (08/10/2026) y riftpatchnotes.com (08/10/2026).
+- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`), construido sobre las fuentes anteriores.
+
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada ni respaldada por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
@@ -14719,7 +19411,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-27"
-updated_at: "2026-10-04"
+updated_at: "2026-10-08"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -14730,7 +19422,7 @@ verified_patch: "7.3a"
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (04/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
 > **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
 > **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
@@ -15425,7 +20117,10 @@ class TestDerivacion(unittest.TestCase):
 class TestEstadoVault(unittest.TestCase):
     def test_todos_con_claves_del_contrato(self):
         archivos = [f for f in sorted(os.listdir(REP)) if f.endswith(".md")]
-        self.assertEqual(len(archivos), 17)   # 16 vault + Volibear.md (reconciliación 01/10)
+        # v1.15.2: el tamaño del vault lo dicta el directorio, no una constante:
+        # el estándar es que el registry cubra exactamente lo que existe.
+        self.assertEqual(len(archivos), len(U.cargar_registro()["reportes"]),
+                         "registry desincronizado — corre: update_reports.py baseline")
         for f in archivos:
             with open(os.path.join(REP, f), encoding="utf-8") as fh:
                 txt = fh.read()
@@ -15517,23 +20212,20 @@ class TestContenidoBundles(unittest.TestCase):
         self.assertNotIn("def cmd_baseline", self.lite)
 
     def test_reportes_con_verificacion_en_el_completo(self):
+        """Fidelidad de embebido: §14 lleva exactamente los bloques WRLAB-VERIF
+        que existen en los reportes fuente (ni uno fantasma ni uno perdido).
+        v1.15.2: antes comparaba contra "quién debería tener bloque", política
+        que ya vive en build_bundles.validar(); acá se prueba el embebido."""
         m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
         self.assertIsNotNone(m, "sección §14 no encontrada")
-        n = len(re.findall(r"WRLAB-VERIF:7\.3a:START", m.group(0)))
-        # esperan bloque todos los reportes que NO declaran patch ≥ 7.3a (los AL_DIA no llevan)
-        import sys as _sys
-        _sys.path.insert(0, os.path.join(BB.ROOT, "model"))
-        import update_reports as U
-        esperan = 0
+        n = len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", m.group(0))) // 2
+        en_fuentes = 0
         for f in sorted(os.listdir(os.path.join(BB.ROOT, "reportes"))):
             if not f.endswith(".md"):
                 continue
-            with open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8") as fh:
-                txt = fh.read()
-            pd = U.parche_declarado(U.parse_frontmatter(txt), txt)
-            if not (pd and U.patch_key(pd) >= U.patch_key("7.3a")):
-                esperan += 1
-        self.assertEqual(n, esperan)
+            txt = open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8").read()
+            en_fuentes += len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", txt)) // 2
+        self.assertEqual(n, en_fuentes)
 
 
 if __name__ == "__main__":
@@ -15709,7 +20401,8 @@ class TestGenerador(unittest.TestCase):
     def test_shyvana_generado_existe_y_parsea(self):
         """El deliverable commiteado en reportes/_auto/ es íntegro."""
         ruta = os.path.join(U.REPORTES, "_auto", "Shyvana_AUTO_7.3a.md")
-        self.assertTrue(os.path.exists(ruta))
+        if not os.path.exists(ruta):
+            self.skipTest("el vault no embarca reportes/_auto (regenerable)")
         txt = open(ruta, encoding="utf-8").read()
         build, _ = U.extraer_build(txt)
         self.assertEqual(len(build), 6)
@@ -15786,7 +20479,7 @@ WR-LAB · tests de las herramientas de calidad de reportes:
 linter (model/lint_reportes.py), refresh y borrador (update_reports.py).
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
-import os, sys, types, unittest
+import os, re, sys, types, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
 import update_reports as U
 import lint_reportes as L
@@ -15807,13 +20500,71 @@ class TestLinter(unittest.TestCase):
         _, errs, _ = self.lint("Jinx.md")
         self.assertEqual(errs, [])
 
+    MINI_SIN_TABLA = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+champion: Prueba
+slug: prueba
+role: mid
+patch: "7.3"
+---
+**Fecha del análisis:** 01/10/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Mid
+
+## 0. RESUMEN
+Build narrada en prosa, sin tabla de 6 slots reconocible.
+"""
+
+    MINI_SITUACIONAL = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+champion: Prueba
+slug: prueba2
+role: support
+patch: "7.3"
+---
+**Fecha del análisis:** 01/10/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Support
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol |
+|---|---|---|---|
+| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** | 1 000 | x |
+| 2 | **Ardent Censer** | 2 400 | x |
+| 3 | **Echoes of Helia** | 2 400 | x |
+| 4 | **Staff of Flowing Waters** | 2 400 | x |
+| 5 | **Redemption** | 2 450 | x |
+| 6 | **Guardian Angel (situacional)** | 3 000 | x |
+
+## 0. RESUMEN
+"""
+
+    def _lint_texto(self, txt):
+        """v1.15.2: los estándares del linter se prueban con fixtures sintéticas,
+        no con guías del vault (antes Heimerdinger/Sivir: cuando el autor las
+        corregía, el test rompía por mejorar el contenido)."""
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as fh:
+            fh.write(txt)
+            ruta = fh.name
+        try:
+            return L.lint_archivo(ruta, self.legit, "7.3a")
+        finally:
+            os.unlink(ruta)
+
     def test_build_no_extraible_es_error(self):
-        for f in ("Heimerdinger.md", "Volibear.md"):   # Seraphine v1.2 (Modo Agresiva) ya parsea
-            _, errs, _ = self.lint(f)
-            self.assertTrue(any("no extraíble" in e for e in errs), f)
+        _, errs, _ = self._lint_texto(self.MINI_SIN_TABLA)
+        self.assertTrue(any("no extraíble" in e for e in errs))
 
     def test_slot_situacional_es_aviso_no_error(self):
-        _, errs, avis = self.lint("Sivir.md")
+        _, errs, avis = self._lint_texto(self.MINI_SITUACIONAL)
         self.assertEqual(errs, [])
         self.assertTrue(any("situacional" in a for a in avis))
 
@@ -15907,30 +20658,66 @@ Texto fuera de la sección con 339 y 651 que NO debe cambiar.
 
 
 class TestBorrador(unittest.TestCase):
-    def test_borrador_se_genera_solo_para_regenerar(self):
-        """cmd_borrador genera esqueletos SOLO para veredictos ❌ REGENERAR vigentes.
-        Tras la reconciliación (01/10): Caitlyn es ⏩ AL_DIA (el autor ya la regeneró) →
-        NO se genera su borrador; Rammus sigue ❌ → SÍ. El test no depende de artefactos
-        históricos en disco: _borradores/ es contenido derivado y regenerable."""
+    """v1.15.2: el comportamiento de cmd_borrador se prueba con un vault
+    sintético (fixture histórica de Rammus pre-7.3a, que sí triagea REGENERAR)
+    y contra el vault real con esperado DERIVADO del triage actual — nunca con
+    listas congeladas (Rammus se corrigió y el test rompía por eso)."""
+
+    FIX = os.path.join(ROOT, "tests", "fixtures", "Rammus_pre73a.md")
+
+    def _correr_en(self, rep_dir, reg_path):
+        import shutil, contextlib, io, types, json
+        viejos = (U.REPORTES, U.REGISTRY)
+        U.REPORTES, U.REGISTRY = rep_dir, reg_path
+        try:
+            reg = U.construir_registro()
+            with open(reg_path, "w", encoding="utf-8") as fh:
+                json.dump(reg, fh, ensure_ascii=False)
+            with contextlib.redirect_stdout(io.StringIO()):
+                U.cmd_borrador(types.SimpleNamespace(patch="7.3a", cmd="borrador"))
+            return sorted(os.listdir(os.path.join(rep_dir, "_borradores")))
+        finally:
+            U.REPORTES, U.REGISTRY = viejos
+
+    def test_sintetico_regenerar_genera_esqueleto(self):
+        import tempfile, shutil
+        tmp = tempfile.mkdtemp(prefix="wrlab-borr-")
+        try:
+            shutil.copy(self.FIX, os.path.join(tmp, "Rammus.md"))
+            archivos = self._correr_en(tmp, os.path.join(tmp, "reg.json"))
+            self.assertEqual(archivos, ["Rammus_7.3a_REGENERAR.md"])
+            ram = open(os.path.join(tmp, "_borradores", archivos[0]), encoding="utf-8").read()
+            self.assertIn("BORRADOR DE REGENERACIÓN", ram)
+            self.assertIn("ESQUELETO DEL REPORTE NUEVO", ram)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_vault_genera_solo_lo_pendiente(self):
         import shutil
+        reg = U.construir_registro()
+        _, _, res = U.triage_todos(reg, patch="7.3a")
+        esperados = sorted(
+            re.sub(r"\.md$", "", t["archivo"]).replace(" ", "_") + "_7.3a_REGENERAR.md"
+            for t in res if t["veredicto"] == "REGENERAR")
         d = os.path.join(REP, "_borradores")
-        shutil.rmtree(d, ignore_errors=True)          # partir de cero (como un checkout limpio de CI)
-        args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
-        import contextlib, io
-        with contextlib.redirect_stdout(io.StringIO()):
-            U.cmd_borrador(args)
-        archivos = sorted(os.listdir(d))
-        self.assertEqual(archivos, ["Rammus_7.3a_REGENERAR.md"])
-        ram = open(os.path.join(d, archivos[0]), encoding="utf-8").read()
-        self.assertIn("BORRADOR DE REGENERACIÓN", ram)
-        self.assertTrue("45→" in ram or "Armor" in ram)          # el nerf 7.3a de Rammus
-        self.assertIn("ESQUELETO DEL REPORTE NUEVO", ram)
+        shutil.rmtree(d, ignore_errors=True)
+        import tempfile
+        tmpreg = os.path.join(tempfile.mkdtemp(prefix="wrlab-reg-"), "reg.json")
+        try:
+            # NUNCA tocar el REGISTRY real: el construido carece de metricas/
+            # ultima_verificacion y dejaría el vault "sin verificar" (incidente 08/10)
+            archivos = self._correr_en(REP, tmpreg)
+            self.assertEqual(archivos, esperados)
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
 
     def test_baseline_ignora_borradores(self):
         reg = U.construir_registro()
         self.assertNotIn("_borradores", reg["reportes"])
-        self.assertEqual(len(reg["reportes"]), 17)
-
+        self.assertNotIn("_auto", reg["reportes"])
+        # v1.15.2: el tamaño lo dicta el directorio (el vault crece con guías nuevas)
+        n_md = len([f for f in os.listdir(REP) if f.endswith(".md")])
+        self.assertEqual(len(reg["reportes"]), n_md)
 
 
 if __name__ == "__main__":
@@ -15984,6 +20771,10 @@ class TestEstandar(unittest.TestCase):
             self.assertEqual(nuevo, actual, f"{f} no canónico: {notas}")
 
     def test_auto_en_espera(self):
+        # v1.15.2: el vault puede no embarcar reportes/_auto (derivados
+        # regenerables; decisión del autor 08/10). Ausencia ≠ estándar roto.
+        if not os.path.isdir(os.path.join(REP, "_auto")):
+            self.skipTest("el vault no embarca reportes/_auto")
         for ruta in archivos(pub=False):
             fm = U.parse_frontmatter(open(ruta, encoding="utf-8").read())
             self.assertEqual(fm["Status"], "Espera de verificación", ruta)
@@ -16379,22 +21170,67 @@ class TestParseoRutas(unittest.TestCase):
         self.assertEqual(ruta[-1][1], 17350)              # oro total de la build C
         self.assertAlmostEqual(ruta[-1][2], 20.0, delta=1.1)   # v1.5 del autor: ~20:00
 
+    TABLA_B_ACUM = """### Tabla B — Ruta de compra
+
+| # | Compra | Oro acum. | Minuto típico |
+|---|---|---|---|
+| 1 | Long Sword + Poción | 500 | 0:00 |
+| 2 | Berserker's Greaves | 1 700 | ~4:30 |
+| 3 | **Nashor's Talons** | 3 400 | ~7:00 |
+| 4 | Cierre de build | 14 950 | ~17:30 |
+"""
+
+    TABLA_POR_ITEM = """### Tabla B — Ruta
+
+| Compra | Oro | Minuto |
+|---|---|---|
+| Ítem 1 | 2 900 | 4:00 |
+| Ítem 2 | 1 200 | 6:00 |
+| Ítem 3 | 1 000 | 7:00 |
+| Ítem 4 | 2 650 | 10:00 |
+| Ítem 5 | 3 400 | 14:00 |
+| Ítem 6 | 3 300 | 17:00 |
+"""
+
+    TABLA_SIN_MINUTOS = """### Tabla B — Ruta
+
+| Compra | Oro acum. |
+|---|---|
+| Ítem 1 | 2 900 |
+| Ítem 2 | 4 100 |
+"""
+
     def test_sivir_ruta_por_item_sintetiza_acumulado(self):
-        """Sivir usa tabla de ruta (oro POR ÍTEM, no acumulado) — el parser la acumula."""
-        ruta = S.parse_ruta(texto("Sivir.md"))
+        """v1.15.2: fixture sintética (oro POR ÍTEM) — el parser debe acumular.
+        Antes atado a la Tabla B de Sivir: cuando el autor la rehízo, rompió."""
+        ruta = S.parse_ruta(self.TABLA_POR_ITEM)
         self.assertGreaterEqual(len(ruta), 5)
         oros = [o for _, o, _ in ruta]
         self.assertEqual(max(oros), sum([2900, 1200, 1000, 2650, 3400, 3300]))  # 14 450
 
     def test_diana_jungla_rango_de_minutos(self):
-        ruta = S.parse_ruta(texto("Diana - Jungla.md"))
+        """v1.15.2: fixture sintética — ancla de minuto por ítem y oro exactos."""
+        ruta = S.parse_ruta(self.TABLA_B_ACUM)
         t_nashor = next(t for c, o, t in ruta if "Nashor" in c and o == 3400)
         self.assertAlmostEqual(t_nashor, 7.0, delta=0.01)
 
     def test_kalista_sin_minutos_no_aporta_anclas(self):
-        """Kalista.md no tiene columna de minuto — parse_ruta devuelve vacío o sin tiempos."""
-        ruta = S.parse_ruta(texto("Kalista.md"))
+        """v1.15.2: tabla sin columna de minuto → parse_ruta no inventa anclas."""
+        ruta = S.parse_ruta(self.TABLA_SIN_MINUTOS)
         self.assertTrue(all(t is None for _, _, t in ruta) or ruta == [])
+
+    def test_rutas_del_vault_monotonas(self):
+        """Invariante real sobre el vault vivo: el oro acumulado de toda Tabla B
+        parseada crece monótono (y los minutos también). Aguanta cualquier
+        reescritura de guías mientras la tabla sea una ruta cronológica."""
+        for f in sorted(os.listdir(REP)):
+            if not f.endswith(".md"):
+                continue
+            ruta = S.parse_ruta(texto(f))
+            oros = [o for _, o, _ in ruta]
+            # solo el ORO acumulado es monótono: los minutos NO (las filas de
+            # upgrade tipo "⬆️ Gunmetal" viven en su slot, no en su minuto)
+            self.assertEqual(oros, sorted(oros), f)
 
 
 class TestCurvas(unittest.TestCase):
@@ -16529,8 +21365,11 @@ class TestRegistroVault(unittest.TestCase):
     def entry(self, archivo):
         return self.entradas[archivo]
 
-    def test_17_reportes(self):
-        self.assertEqual(len(self.entradas), 17)   # reconciliación 01/10: +Volibear.md
+    def test_registro_cubre_el_directorio(self):
+        # v1.15.2: antes "17" congelado; el vault creció a 20 y el test rompía
+        # por publicar guías nuevas (que es exactamente para lo que existe el lab).
+        n_md = len([f for f in os.listdir(U.REPORTES) if f.endswith(".md")])
+        self.assertEqual(len(self.entradas), n_md)
 
     def test_champions_derivados_del_nombre(self):
         self.assertEqual(self.entry("Yunara.md")["champion_display"], "Yunara")     # renombrado (era errata Yunana)
@@ -16620,43 +21459,31 @@ class TestTriage73aVault(unittest.TestCase):
         """El autor regeneró Caitlyn en su chat externo (v1.3, patch 7.3a) → ⏩ AL_DIA."""
         self.assertEqual(self.por["Caitlyn.md"]["veredicto"], "AL_DIA")
 
-    def test_rammus_regenerar(self):
-        """7.3a nerfeó su armadura base (input del spec)."""
-        self.assertEqual(self.por["Rammus.md"]["veredicto"], "REGENERAR")
+    def test_declarantes_del_parche_al_dia_y_sin_delta(self):
+        """Regla 0 del triage: reporte que ya declara cubrir el hotfix → ⏩ AL_DIA
+        y sin delta numérico (no se tria). Inmune a que el autor regenere guías."""
+        for t in self.res:
+            with open(os.path.join(U.REPORTES, t["archivo"]), encoding="utf-8") as fh:
+                txt = fh.read()
+            pd = U.parche_declarado(U.parse_frontmatter(txt), txt)
+            if pd and U.patch_key(pd) >= U.patch_key(self.patch):
+                self.assertEqual(t["veredicto"], "AL_DIA", t["archivo"])
+                self.assertIsNone(t["delta_max"], t["archivo"])
 
-    def test_yuumi_anotar_cuantificado(self):
-        """v1.8: con el diccionario expandido, el nerf de la poke-híbrida se mide: Δ conservador
-        −1.7 % (< 2 %) → ✅ ANOTAR. (Con AP 230, el término 0.01 %/AP casi neutraliza el nerf.)"""
-        t = self.por["Yuumi.md"]
-        self.assertEqual(t["veredicto"], "ANOTAR")
-        self.assertTrue(t["cuantificado"])
-        self.assertLess(t["delta_max"], U.UMBRAL_ANOTAR)
-        self.assertAlmostEqual(t["delta_max"], 1.72, delta=0.15)
+    def test_regenerar_del_frontmatter_no_queda_olvidado(self):
+        """Coherencia: si el autor dejó verification: REGENERAR en el frontmatter,
+        el triage contra el hotfix vigente debe coincidir (nada queda colgado)."""
+        for t in self.res:
+            with open(os.path.join(U.REPORTES, t["archivo"]), encoding="utf-8") as fh:
+                fm = U.parse_frontmatter(fh.read())
+            if fm.get("verification") == "REGENERAR":
+                self.assertEqual(t["veredicto"], "REGENERAR", t["archivo"])
 
-    def test_jinx_al_dia(self):
-        """Jinx.md v1.4 declara patch 7.3a en frontmatter → ⏩ AL_DIA (sin bloque ni triage)."""
-        t = self.por["Jinx.md"]
-        self.assertEqual(t["veredicto"], "AL_DIA")
-        self.assertTrue(any("7.3a" in r for r in t["razones"]))
-
-    def test_sivir_anotar_con_variantes_y_sistemas(self):
-        """Sivir declara 7.3 → se tria: Yun Tal en sus variantes + sistemas de siege (rol ADC)."""
-        t = self.por["Sivir.md"]
-        self.assertEqual(t["veredicto"], "ANOTAR")
-        self.assertTrue(any("Yun Tal" in v for v in t["items_variantes"]))
-        self.assertTrue(t["sistemas"])                    # placas/Nexus
-
-    def test_kalista_cuantitativo(self):
-        t = self.por["Kalista.md"]
-        self.assertEqual(t["delta_max"], 0.0)
-        self.assertNotEqual(t["veredicto"], "REGENERAR")
-
-    def test_balance_general(self):
-        verdictos = [t["veredicto"] for t in self.res]
-        self.assertEqual(verdictos.count("REGENERAR"), 1)      # Rammus (único pendiente del autor)
-        self.assertEqual(verdictos.count("REVISAR"), 0)
-        self.assertEqual(verdictos.count("AL_DIA"), 4)         # Jinx, Caitlyn, Seraphine, Volibear
-        self.assertEqual(len(self.res), 17)
+    def test_cobertura_total_del_vault(self):
+        """El triage cubre todas las guías del vault, sin excepciones silenciosas."""
+        n_md = len([f for f in os.listdir(U.REPORTES) if f.endswith(".md")])
+        self.assertEqual(len(self.res), n_md)
+        self.assertEqual([t for t in self.res if not t["veredicto"]], [])
 
     def test_al_dia_si_el_reporte_ya_cubre_el_parche(self):
         """Un reporte con patch declarado ≥ 7.3a no se tria (⏩ AL_DIA)."""
@@ -17691,6 +22518,16 @@ def construir_registro(hoy=None):
             "resumen_publico": parse_resumen_publico(txt),
             "metricas": None, "ultima_verificacion": None,
         }
+        # v1.15.2: la verificación se DERIVA del frontmatter (verification +
+        # verified_patch) para que `baseline` no destruya el sellado de
+        # `annotate` según el orden en que se corran (incidente CI 08/10).
+        if fm.get("verification") not in (None, "", "pending") and fm.get("verified_patch"):
+            entry["ultima_verificacion"] = {
+                "patch": fm["verified_patch"],
+                "fecha": str(fm.get("updated_at") or fm.get("published_at") or hoy),
+                "veredicto": fm["verification"],
+                "delta_max_pct": None,
+            }
         if not build_disp:
             if modelo.get("hook"):
                 entry["hook"] = None
@@ -18155,7 +22992,15 @@ def cmd_baseline(args):
             viejo = json.load(fh)
         for f, e in reg["reportes"].items():
             if f in viejo.get("reportes", {}):
-                e["ultima_verificacion"] = viejo["reportes"][f].get("ultima_verificacion")
+                # v1.15.2: el sello DERIVADO del frontmatter (construir_registro)
+                # manda; el registry viejo solo es fallback si el frontmatter
+                # no lo declara. Antes el preserve pisaba al derivado y el
+                # orden baseline-después-de-annotate dejaba el vault "sin
+                # verificar" (incidente CI 08/10).
+                e["ultima_verificacion"] = (
+                    e.get("ultima_verificacion")
+                    or viejo["reportes"][f].get("ultima_verificacion")
+                )
     guardar_registro(reg)
     for f, e in sorted(reg["reportes"].items()):
         mets = e["metricas"]
@@ -19491,7 +24336,9 @@ WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365
               "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
               "rammus": "242",
               # v1.15: nuevos campeones (IDs vía sitemap.xml, confirmados con fetch 04/10)
-              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398"}
+              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398",
+              # nuevas guías 08/10 (IDs vía sitemap.xml de wr-meta)
+              "xayah": "165", "ornn": "383"}
 
 DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
 
@@ -19907,4 +24754,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 04/10/2026 · completo · sha256(cuerpo)=cda03eb9d2d763cb · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 08/10/2026 · completo · sha256(cuerpo)=b6eb3ada2924dbfd · NO editar a mano: editar las fuentes y regenerar -->

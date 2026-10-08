@@ -53,7 +53,9 @@ WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365
               "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
               "rammus": "242",
               # v1.15: nuevos campeones (IDs vía sitemap.xml, confirmados con fetch 04/10)
-              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398"}
+              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398",
+              # nuevas guías 08/10 (IDs vía sitemap.xml de wr-meta)
+              "xayah": "165", "ornn": "383"}
 
 DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
 

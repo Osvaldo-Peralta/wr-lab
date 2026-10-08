@@ -4,7 +4,7 @@ WR-LAB · tests de las herramientas de calidad de reportes:
 linter (model/lint_reportes.py), refresh y borrador (update_reports.py).
 Ejecutar:  python3 -m unittest discover -s tests -v
 """
-import os, sys, types, unittest
+import os, re, sys, types, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
 import update_reports as U
 import lint_reportes as L
@@ -25,13 +25,71 @@ class TestLinter(unittest.TestCase):
         _, errs, _ = self.lint("Jinx.md")
         self.assertEqual(errs, [])
 
+    MINI_SIN_TABLA = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+champion: Prueba
+slug: prueba
+role: mid
+patch: "7.3"
+---
+**Fecha del análisis:** 01/10/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Mid
+
+## 0. RESUMEN
+Build narrada en prosa, sin tabla de 6 slots reconocible.
+"""
+
+    MINI_SITUACIONAL = """---
+tags:
+  - Test
+version: 1
+Status: Beta
+champion: Prueba
+slug: prueba2
+role: support
+patch: "7.3"
+---
+**Fecha del análisis:** 01/10/2026
+**Parche:** 7.3 (21-sep-2026)
+**Rol principal:** Support
+
+### Tabla A — BUILD FINAL
+
+| Slot | Ítem | Oro | Rol |
+|---|---|---|---|
+| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** | 1 000 | x |
+| 2 | **Ardent Censer** | 2 400 | x |
+| 3 | **Echoes of Helia** | 2 400 | x |
+| 4 | **Staff of Flowing Waters** | 2 400 | x |
+| 5 | **Redemption** | 2 450 | x |
+| 6 | **Guardian Angel (situacional)** | 3 000 | x |
+
+## 0. RESUMEN
+"""
+
+    def _lint_texto(self, txt):
+        """v1.15.2: los estándares del linter se prueban con fixtures sintéticas,
+        no con guías del vault (antes Heimerdinger/Sivir: cuando el autor las
+        corregía, el test rompía por mejorar el contenido)."""
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as fh:
+            fh.write(txt)
+            ruta = fh.name
+        try:
+            return L.lint_archivo(ruta, self.legit, "7.3a")
+        finally:
+            os.unlink(ruta)
+
     def test_build_no_extraible_es_error(self):
-        for f in ("Heimerdinger.md", "Volibear.md"):   # Seraphine v1.2 (Modo Agresiva) ya parsea
-            _, errs, _ = self.lint(f)
-            self.assertTrue(any("no extraíble" in e for e in errs), f)
+        _, errs, _ = self._lint_texto(self.MINI_SIN_TABLA)
+        self.assertTrue(any("no extraíble" in e for e in errs))
 
     def test_slot_situacional_es_aviso_no_error(self):
-        _, errs, avis = self.lint("Sivir.md")
+        _, errs, avis = self._lint_texto(self.MINI_SITUACIONAL)
         self.assertEqual(errs, [])
         self.assertTrue(any("situacional" in a for a in avis))
 
@@ -125,30 +183,66 @@ Texto fuera de la sección con 339 y 651 que NO debe cambiar.
 
 
 class TestBorrador(unittest.TestCase):
-    def test_borrador_se_genera_solo_para_regenerar(self):
-        """cmd_borrador genera esqueletos SOLO para veredictos ❌ REGENERAR vigentes.
-        Tras la reconciliación (01/10): Caitlyn es ⏩ AL_DIA (el autor ya la regeneró) →
-        NO se genera su borrador; Rammus sigue ❌ → SÍ. El test no depende de artefactos
-        históricos en disco: _borradores/ es contenido derivado y regenerable."""
+    """v1.15.2: el comportamiento de cmd_borrador se prueba con un vault
+    sintético (fixture histórica de Rammus pre-7.3a, que sí triagea REGENERAR)
+    y contra el vault real con esperado DERIVADO del triage actual — nunca con
+    listas congeladas (Rammus se corrigió y el test rompía por eso)."""
+
+    FIX = os.path.join(ROOT, "tests", "fixtures", "Rammus_pre73a.md")
+
+    def _correr_en(self, rep_dir, reg_path):
+        import shutil, contextlib, io, types, json
+        viejos = (U.REPORTES, U.REGISTRY)
+        U.REPORTES, U.REGISTRY = rep_dir, reg_path
+        try:
+            reg = U.construir_registro()
+            with open(reg_path, "w", encoding="utf-8") as fh:
+                json.dump(reg, fh, ensure_ascii=False)
+            with contextlib.redirect_stdout(io.StringIO()):
+                U.cmd_borrador(types.SimpleNamespace(patch="7.3a", cmd="borrador"))
+            return sorted(os.listdir(os.path.join(rep_dir, "_borradores")))
+        finally:
+            U.REPORTES, U.REGISTRY = viejos
+
+    def test_sintetico_regenerar_genera_esqueleto(self):
+        import tempfile, shutil
+        tmp = tempfile.mkdtemp(prefix="wrlab-borr-")
+        try:
+            shutil.copy(self.FIX, os.path.join(tmp, "Rammus.md"))
+            archivos = self._correr_en(tmp, os.path.join(tmp, "reg.json"))
+            self.assertEqual(archivos, ["Rammus_7.3a_REGENERAR.md"])
+            ram = open(os.path.join(tmp, "_borradores", archivos[0]), encoding="utf-8").read()
+            self.assertIn("BORRADOR DE REGENERACIÓN", ram)
+            self.assertIn("ESQUELETO DEL REPORTE NUEVO", ram)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_vault_genera_solo_lo_pendiente(self):
         import shutil
+        reg = U.construir_registro()
+        _, _, res = U.triage_todos(reg, patch="7.3a")
+        esperados = sorted(
+            re.sub(r"\.md$", "", t["archivo"]).replace(" ", "_") + "_7.3a_REGENERAR.md"
+            for t in res if t["veredicto"] == "REGENERAR")
         d = os.path.join(REP, "_borradores")
-        shutil.rmtree(d, ignore_errors=True)          # partir de cero (como un checkout limpio de CI)
-        args = types.SimpleNamespace(patch="7.3a", cmd="borrador")
-        import contextlib, io
-        with contextlib.redirect_stdout(io.StringIO()):
-            U.cmd_borrador(args)
-        archivos = sorted(os.listdir(d))
-        self.assertEqual(archivos, ["Rammus_7.3a_REGENERAR.md"])
-        ram = open(os.path.join(d, archivos[0]), encoding="utf-8").read()
-        self.assertIn("BORRADOR DE REGENERACIÓN", ram)
-        self.assertTrue("45→" in ram or "Armor" in ram)          # el nerf 7.3a de Rammus
-        self.assertIn("ESQUELETO DEL REPORTE NUEVO", ram)
+        shutil.rmtree(d, ignore_errors=True)
+        import tempfile
+        tmpreg = os.path.join(tempfile.mkdtemp(prefix="wrlab-reg-"), "reg.json")
+        try:
+            # NUNCA tocar el REGISTRY real: el construido carece de metricas/
+            # ultima_verificacion y dejaría el vault "sin verificar" (incidente 08/10)
+            archivos = self._correr_en(REP, tmpreg)
+            self.assertEqual(archivos, esperados)
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
 
     def test_baseline_ignora_borradores(self):
         reg = U.construir_registro()
         self.assertNotIn("_borradores", reg["reportes"])
-        self.assertEqual(len(reg["reportes"]), 17)
-
+        self.assertNotIn("_auto", reg["reportes"])
+        # v1.15.2: el tamaño lo dicta el directorio (el vault crece con guías nuevas)
+        n_md = len([f for f in os.listdir(REP) if f.endswith(".md")])
+        self.assertEqual(len(reg["reportes"]), n_md)
 
 
 if __name__ == "__main__":

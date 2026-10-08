@@ -44,6 +44,10 @@ class TestEstandar(unittest.TestCase):
             self.assertEqual(nuevo, actual, f"{f} no canónico: {notas}")
 
     def test_auto_en_espera(self):
+        # v1.15.2: el vault puede no embarcar reportes/_auto (derivados
+        # regenerables; decisión del autor 08/10). Ausencia ≠ estándar roto.
+        if not os.path.isdir(os.path.join(REP, "_auto")):
+            self.skipTest("el vault no embarca reportes/_auto")
         for ruta in archivos(pub=False):
             fm = U.parse_frontmatter(open(ruta, encoding="utf-8").read())
             self.assertEqual(fm["Status"], "Espera de verificación", ruta)

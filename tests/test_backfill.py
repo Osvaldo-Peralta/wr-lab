@@ -39,7 +39,10 @@ class TestDerivacion(unittest.TestCase):
 class TestEstadoVault(unittest.TestCase):
     def test_todos_con_claves_del_contrato(self):
         archivos = [f for f in sorted(os.listdir(REP)) if f.endswith(".md")]
-        self.assertEqual(len(archivos), 17)   # 16 vault + Volibear.md (reconciliación 01/10)
+        # v1.15.2: el tamaño del vault lo dicta el directorio, no una constante:
+        # el estándar es que el registry cubra exactamente lo que existe.
+        self.assertEqual(len(archivos), len(U.cargar_registro()["reportes"]),
+                         "registry desincronizado — corre: update_reports.py baseline")
         for f in archivos:
             with open(os.path.join(REP, f), encoding="utf-8") as fh:
                 txt = fh.read()

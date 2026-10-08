@@ -558,6 +558,16 @@ def construir_registro(hoy=None):
             "resumen_publico": parse_resumen_publico(txt),
             "metricas": None, "ultima_verificacion": None,
         }
+        # v1.15.2: la verificación se DERIVA del frontmatter (verification +
+        # verified_patch) para que `baseline` no destruya el sellado de
+        # `annotate` según el orden en que se corran (incidente CI 08/10).
+        if fm.get("verification") not in (None, "", "pending") and fm.get("verified_patch"):
+            entry["ultima_verificacion"] = {
+                "patch": fm["verified_patch"],
+                "fecha": str(fm.get("updated_at") or fm.get("published_at") or hoy),
+                "veredicto": fm["verification"],
+                "delta_max_pct": None,
+            }
         if not build_disp:
             if modelo.get("hook"):
                 entry["hook"] = None
@@ -1022,7 +1032,15 @@ def cmd_baseline(args):
             viejo = json.load(fh)
         for f, e in reg["reportes"].items():
             if f in viejo.get("reportes", {}):
-                e["ultima_verificacion"] = viejo["reportes"][f].get("ultima_verificacion")
+                # v1.15.2: el sello DERIVADO del frontmatter (construir_registro)
+                # manda; el registry viejo solo es fallback si el frontmatter
+                # no lo declara. Antes el preserve pisaba al derivado y el
+                # orden baseline-después-de-annotate dejaba el vault "sin
+                # verificar" (incidente CI 08/10).
+                e["ultima_verificacion"] = (
+                    e.get("ultima_verificacion")
+                    or viejo["reportes"][f].get("ultima_verificacion")
+                )
     guardar_registro(reg)
     for f, e in sorted(reg["reportes"].items()):
         mets = e["metricas"]
