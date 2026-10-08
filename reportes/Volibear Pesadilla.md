@@ -1,6 +1,5 @@
 ---
 tags:
-  - Barón
   - Jungla
   - Personalizado
 version: 1.2
@@ -8,17 +7,17 @@ Status: Beta
 champion: Volibear
 slug: volibear-pesadilla
 role: jungla
-variant: "pesadilla"
+variant: pesadilla
 patch: "7.3"
-archetype: "AP-Bruiser de Inmersión (Dive, Shield & Tower Control)"
+archetype: AP-Bruiser de Inmersión (Dive, Shield & Tower Control)
 engine: none
 custom: "true"
 generate: manual
 mode: sr
-published_at: "2026-09-29"
-updated_at: "2026-10-04"
+published_at: 2026-09-29
+updated_at: 2026-10-04
 verification: ANOTAR
-verified_patch: "7.3a"
+verified_patch: 7.3a
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
