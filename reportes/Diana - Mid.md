@@ -3,7 +3,7 @@ tags:
   - Mid
   - Mage
   - Assassin
-version: 1
+version: 1.3
 Status: Beta
 champion: Diana
 slug: diana-mid
