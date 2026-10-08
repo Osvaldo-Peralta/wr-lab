@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 05/10/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 04/10/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -4949,4 +4949,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 05/10/2026 · lite · sha256(cuerpo)=77e5b889db1bf704 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 04/10/2026 · lite · sha256(cuerpo)=be0c6e1ddf6909f1 · NO editar a mano: editar las fuentes y regenerar -->

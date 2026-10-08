@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 05/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 04/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -19907,4 +19907,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 05/10/2026 · completo · sha256(cuerpo)=68161a999f0a46b6 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 04/10/2026 · completo · sha256(cuerpo)=cda03eb9d2d763cb · NO editar a mano: editar las fuentes y regenerar -->
