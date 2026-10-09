@@ -16,7 +16,8 @@ Desde v1.6 el hash es del TEXTO del artículo, cortado antes del pie dinámico.
 Desde v1.11 las win rates viajan en el mismo ciclo del vigía (petición del autor:
 "dato vital siempre actualizado, fundamental para los reportes").
 
-Uso:  python3 model/check_patch.py [--quiet] [--winrates-only]
+Uso:  python3 model/check_patch.py [--quiet] [--winrates-only] [--roster full]
+      --roster full     refresco masivo de TODO el roster conocido (manual)
       --winrates-only   solo el paso 4 (refresco manual: wrlab.py winrates)
 """
 import csv, datetime, hashlib, html as htmllib, io, json, os, re, sys, time, urllib.request
@@ -47,15 +48,44 @@ WINRATE_ROSTER = ["ahri", "caitlyn", "chogath", "diana", "heimerdinger", "jinx",
 
 # IDs de página wr-meta conocidos (FUENTES.md + verificados en vivo el 01/10/2026).
 # Lo que falte se descubre con el sitemap y se persiste en state["wrmeta_ids"].
-WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365",
-              "kalista": "349", "diana": "216", "karma": "323", "heimerdinger": "346",
-              "volibear": "411", "seraphine": "34", "shyvana": "23", "chogath": "339",
-              "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
-              "rammus": "242",
-              # v1.15: nuevos campeones (IDs vía sitemap.xml, confirmados con fetch 04/10)
-              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398",
-              # nuevas guías 08/10 (IDs vía sitemap.xml de wr-meta)
-              "xayah": "165", "ornn": "383"}
+# v1.15.3: mapa COMPLETO del roster de wr-meta (sitemap 09/10). Antes solo los
+# campeones estudiados: una guía nueva de un campeón ajeno al lab no tenía
+# win rates ni id (fricción real al crear Xayah). Con el mapa completo,
+# `wrlab.py winrates --roster full` puebla el CSV de todo el roster y el
+# vigía sigue vigilando solo el subconjunto de WINRATE_ROSTER + registro.
+WRMETA_IDS = {
+              "aatrox": "332", "ahri": "1", "akali": "2", "akshan": "311", "alistar": "42", "ambessa": "528",
+              "amumu": "46", "ancient-coin": "435", "anivia": "333", "annie": "45", "aphelios": "334", "ashe": "41",
+              "aurelion-sol": "24", "aurora": "526", "azir": "335", "bard": "336", "belveth": "337", "berserkers-greaves": "431",
+              "blitzcrank": "43", "boots-of-dynamism": "433", "boots-of-mana": "432", "brand": "313", "braum": "44", "briar": "497",
+              "caitlyn": "317", "camille": "18", "cassiopeia": "338", "chempunk-chainsword": "421", "chogath": "339", "corki": "57",
+              "darius": "49", "diana": "216", "dr-mundo": "17", "draven": "51", "duskblade-of-draktharr": "66", "ekko": "328",
+              "elise": "340", "evelynn": "10", "ezreal": "40", "fiddlesticks": "341", "fiora": "9", "fizz": "8",
+              "galio": "238", "gangplank": "342", "garen": "13", "gnar": "343", "gragas": "26", "graves": "14",
+              "gwen": "344", "heartsteel": "504", "hecarim": "345", "heimerdinger": "346", "horizon-focus": "420", "hwei": "505",
+              "ignite": "493", "illaoi": "347", "irelia": "282", "ivern": "348", "janna": "28", "jarvan-iv": "16",
+              "jax": "15", "jayce": "316", "jhin": "27", "jinx": "39", "kaisa": "5", "kalista": "349",
+              "karma": "323", "karthus": "350", "kassadin": "329", "katarina": "211", "kayle": "319", "kayn": "351",
+              "kennen": "58", "kha-zix": "253", "kindred": "352", "kled": "353", "kogmaw": "354", "ksante": "419",
+              "leblanc": "355", "lee-sin": "6", "leona": "215", "lillia": "356", "lissandra": "357", "locke": "577",
+              "lucian": "295", "lulu": "56", "lux": "30", "malphite": "47", "malzahar": "361", "maokai": "364",
+              "master-yi": "7", "mejais-soulstealer": "499", "mel": "536", "milio": "426", "miss-fortune": "31", "mordekaiser": "365",
+              "morgana": "318", "naafiri": "488", "nami": "32", "nashors-talon": "429", "nasus": "20", "nautilus": "327",
+              "neeko": "366", "nidalee": "367", "nilah": "368", "nocturne": "382", "noonquiver": "430", "norra": "552",
+              "nunu-amp-willump": "314", "olaf": "21", "orianna": "33", "ornn": "383", "pantheon": "217", "poppy": "384",
+              "pyke": "326", "qiyana": "385", "quinn": "386", "rakan": "166", "rammus": "242", "reksai": "387",
+              "rell": "388", "renata-glasc": "389", "renekton": "264", "rengar": "252", "riven": "283", "rumble": "390",
+              "runaans-hurricane": "64", "ryze": "391", "samira": "330", "sejuani": "392", "senna": "296", "seraphine": "34",
+              "sett": "320", "shaco": "393", "shen": "322", "shimmering-spark": "437", "shyvana": "23", "singed": "35",
+              "sion": "331", "sivir": "394", "skarner": "395", "smolder": "506", "sona": "36", "soraka": "37",
+              "swain": "396", "sylas": "397", "syndra": "398", "tahm-kench": "399", "talisman-of-ascension": "436", "taliyah": "400",
+              "talon": "401", "taric": "402", "teemo": "59", "the-collector": "428", "thresh": "312", "tristana": "55",
+              "trundle": "403", "tryndamere": "22", "twisted-fate": "38", "twitch": "404", "udyr": "405", "urgot": "406",
+              "varus": "25", "vayne": "3", "vejgar": "315", "velkoz": "407", "vex": "381", "vi": "12",
+              "viego": "408", "viktor": "409", "vladimir": "410", "volibear": "411", "vukong": "50", "warwick": "362",
+              "xayah": "165", "xerath": "412", "xin-zhao": "19", "yasuo": "11", "yone": "363", "yorick": "413",
+              "yunara": "545", "yuumi": "321", "zaahen": "551", "zac": "414", "zed": "4", "zeri": "415",
+              "ziggs": "29", "zilean": "416", "zoe": "417", "zyra": "418"}
 
 DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
 
@@ -279,12 +309,14 @@ def deltas_winrate(filas, prev):
     return findings
 
 
-def actualizar_winrates(state, findings, quiet=False):
+def actualizar_winrates(state, findings, quiet=False, roster_full=False):
     """Paso 4 del vigía. Devuelve (n_champs_ok, n_filas). Falla suave: si wr-meta no
     responde, conserva los valores previos y NO rompe los pasos 1-3."""
     ids = dict(WRMETA_IDS)
     ids.update(state.get("wrmeta_ids", {}))
-    roster = roster_winrates()
+    # v1.15.3: modo full = refrescar TODO el roster conocido (poblado inicial,
+    # onboarding de campeones nuevos); vigilado = el subset de siempre.
+    roster = sorted(ids) if roster_full else roster_winrates()
     faltan = [c for c in roster if c not in ids]
     if faltan:
         descubiertos = descubrir_ids()
@@ -322,8 +354,11 @@ def actualizar_winrates(state, findings, quiet=False):
     hoy = datetime.date.today().isoformat()
     for f in filas:
         f["actualizado"] = hoy
-    # drift contra el estado previo (antes de sobrescribirlo)
-    findings.extend(deltas_winrate(filas, state.get("winrates", {})))
+    # drift contra el estado previo (antes de sobrescribirlo).
+    # En modo full NO se generan findings: es un refresco masivo manual,
+    # no una señal de vigilia (evita 100+ alertas de una vez).
+    if not roster_full:
+        findings.extend(deltas_winrate(filas, state.get("winrates", {})))
     # escribe CSV + MD solo si los VALORES cambian (la columna 'actualizado' no cuenta:
     # así el vigía no genera commits/fechas parásitos cuando wr-meta no ha movido datos)
     csv_txt = winrates_csv_text(filas)
@@ -346,12 +381,15 @@ def actualizar_winrates(state, findings, quiet=False):
 def main():
     quiet = "--quiet" in sys.argv
     solo_wr = "--winrates-only" in sys.argv
+    argv = sys.argv[1:]
+    roster_full = "--roster" in argv and argv.index("--roster") + 1 < len(argv) \
+        and argv[argv.index("--roster") + 1] == "full"
     state = load_state()
     findings = []
 
     if not solo_wr:
         chequear_parches(state, findings)          # pasos 1-3
-    n_ch, n_filas = actualizar_winrates(state, findings, quiet)   # paso 4 (mismo proceso)
+    n_ch, n_filas = actualizar_winrates(state, findings, quiet, roster_full)  # paso 4
 
     state["last_check"] = datetime.datetime.now().isoformat(timespec="seconds")
     json.dump(state, open(STATE, "w"), indent=1)

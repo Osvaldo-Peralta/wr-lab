@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 08/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 09/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -1785,35 +1785,185 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
+| Aatrox | SOLO | A | 49.47 | 6.43 | 7.22 | ↓ 3 | Confidence Med |
+| Aatrox | JUNGLE | B | 45.51 | 1.11 | 7.22 | ↓ 1 | Confidence Low |
 | Ahri | MID | A | 50.52 | 4.26 | 0.12 | ↑ 3 | Confidence Med |
+| Akali | MID | B | 47.45 | 4.32 | 0.69 | ↑ 1 | Confidence Med |
+| Alistar | SUPPORT | A | 48.90 | 3.90 | 0.54 | ↑ 2 | Confidence Med |
+| Ambessa | SOLO | A | 51.86 | 1.65 | 0.71 | ↑ 1 | Confidence Low |
+| Ambessa | JUNGLE | S | 53.11 | 1.11 | 0.71 | ↑ 2 | Confidence Low |
+| Amumu | JUNGLE | S+ | 56.33 | 2.62 | 0.10 | 0 | Confidence Low |
+| Annie | MID | A | 50.52 | 1.91 | 0.09 | ↓ 6 | Confidence Low |
+| Ashe | DUO | S+ | 53.54 | 9.43 | 0.15 | 0 | Confidence High |
+| Aurelion-Sol | MID | S | 51.72 | 5.94 | 2.32 | 0 | Confidence Med |
+| Aurora | MID | A | 50.13 | 3.99 | 3.11 | ↓ 2 | Confidence Med |
+| Blitzcrank | SUPPORT | B | 47.76 | 6.85 | 2.16 | 0 | Confidence Med |
+| Brand | MID | S+ | 52.86 | 10.32 | 9.39 | ↑ 1 | Confidence High |
+| Brand | SUPPORT | S | 51.70 | 2.67 | 9.39 | ↑ 1 | Confidence Low |
+| Braum | SUPPORT | S | 52.66 | 4.63 | 1.10 | 0 | Confidence Med |
 | Caitlyn | DUO | A | 49.70 | 20.58 | 10.79 | ↑ 1 | Confidence High |
+| Camille | SOLO | B | 48.54 | 2.41 | 0.15 | ↓ 3 | Confidence Low |
 | Cho'Gath | SOLO | S | 50.46 | 11.10 | 35.10 | ↑ 3 | Confidence High |
 | Cho'Gath | JUNGLE | S | 50.85 | 8.52 | 35.10 | ↑ 1 | Confidence High |
+| Darius | SOLO | A | 48.63 | 15.36 | 13.01 | 0 | Confidence High |
+| Darius | JUNGLE | A | 49.57 | 5.99 | 13.01 | ↓ 4 | Confidence Med |
 | Diana | MID | B | 47.14 | 1.10 | 0.16 | ↑ 1 | Confidence Low |
 | Diana | JUNGLE | A | 49.67 | 1.45 | 0.16 | ↑ 1 | Confidence Low |
+| Dr-Mundo | SOLO | A | 50.79 | 7.66 | 2.63 | ↓ 1 | Confidence Med |
+| Dr-Mundo | JUNGLE | S+ | 53.89 | 2.06 | 2.63 | 0 | Confidence Low |
+| Draven | DUO | B | 46.16 | 5.84 | 2.36 | 0 | Confidence Med |
+| Ekko | MID | A | 50.16 | 5.20 | 2.31 | ↓ 5 | Confidence Med |
+| Ekko | JUNGLE | S+ | 53.96 | 6.83 | 2.31 | 0 | Confidence Med |
+| Evelynn | JUNGLE | B | 48.40 | 1.93 | 1.00 | ↑ 2 | Confidence Low |
+| Ezreal | DUO | A | 49.85 | 7.52 | 0.24 | 0 | Confidence Med |
+| Fiddlesticks | JUNGLE | A | 50.37 | 1.94 | 0.87 | ↑ 1 | Confidence Low |
+| Fiora | SOLO | A | 49.94 | 3.61 | 0.73 | ↓ 6 | Confidence Med |
+| Fizz | MID | A | 48.69 | 2.32 | 2.48 | 0 | Confidence Low |
+| Fizz | JUNGLE | A | 48.82 | 1.88 | 2.48 | ↑ 1 | Confidence Low |
+| Galio | MID | S | 51.41 | 10.58 | 2.64 | ↓ 1 | Confidence High |
+| Galio | SUPPORT | A | 50.24 | 2.36 | 2.64 | ↓ 2 | Confidence Low |
+| Garen | SOLO | A | 49.20 | 12.62 | 2.71 | ↓ 1 | Confidence High |
+| Gnar | SOLO | A | 50.02 | 3.49 | 0.55 | ↑ 4 | Confidence Med |
+| Gragas | SOLO | B | 46.01 | 1.38 | 0.04 | 0 | Confidence Low |
+| Graves | JUNGLE | B | 47.49 | 7.07 | 0.59 | ↑ 1 | Confidence Med |
+| Gwen | SOLO | A | 51.15 | 3.58 | 3.81 | ↓ 4 | Confidence Med |
+| Gwen | JUNGLE | S+ | 54.01 | 2.44 | 3.81 | 0 | Confidence Low |
+| Hecarim | JUNGLE | A | 50.24 | 1.73 | 1.49 | ↓ 3 | Confidence Low |
 | Heimerdinger | MID | A | 50.16 | 1.70 | 1.23 | ↓ 1 | Confidence Low |
+| Hwei | MID | S+ | 55.02 | 9.82 | 65.94 | 0 | Confidence High |
+| Hwei | SUPPORT | S+ | 53.51 | 1.62 | 65.94 | 0 | Confidence Low |
+| Irelia | SOLO | B | 47.94 | 1.43 | 0.86 | ↓ 1 | Confidence Low |
+| Janna | SUPPORT | A | 50.60 | 3.02 | 0.20 | ↓ 2 | Confidence Med |
+| Jarvan-Iv | JUNGLE | S | 52.29 | 6.69 | 0.51 | 0 | Confidence Med |
+| Jax | JUNGLE | B | 48.69 | 1.92 | 0.42 | ↓ 3 | Confidence Low |
+| Jax | SOLO | S | 51.47 | 3.96 | 0.42 | ↑ 2 | Confidence Med |
+| Jayce | SOLO | A | 49.84 | 4.13 | 1.53 | ↓ 4 | Confidence Med |
+| Jayce | MID | A | 49.74 | 2.13 | 1.53 | 0 | Confidence Low |
+| Jhin | DUO | B | 48.28 | 9.88 | 0.26 | ↓ 3 | Confidence High |
 | Jinx | DUO | A | 50.69 | 12.16 | 0.46 | ↓ 2 | Confidence High |
+| Kaisa | DUO | A | 49.96 | 13.07 | 0.36 | 0 | Confidence High |
 | Kalista | DUO | A | 50.70 | 5.70 | 6.30 | ↑ 1 | Confidence Med |
 | Kalista | SOLO | S+ | 53.35 | 2.38 | 6.30 | 0 | Confidence Low |
 | Karma | SUPPORT | A | 49.77 | 4.76 | 0.37 | ↑ 7 | Confidence Med |
+| Kassadin | MID | A | 51.05 | 1.65 | 0.35 | ↓ 2 | Confidence Low |
+| Katarina | MID | B | 48.41 | 1.43 | 0.39 | ↑ 2 | Confidence Low |
+| Kayle | SOLO | A | 50.33 | 2.16 | 0.24 | ↓ 2 | Confidence Low |
+| Kayn | JUNGLE | A | 50.60 | 7.38 | 2.79 | ↓ 3 | Confidence Med |
+| Kennen | SOLO | A | 50.88 | 2.02 | 0.44 | ↑ 5 | Confidence Low |
+| Kennen | MID | A | 51.33 | 1.42 | 0.44 | ↓ 2 | Confidence Low |
+| Kha-Zix | JUNGLE | A | 48.95 | 4.91 | 0.34 | ↓ 1 | Confidence Med |
+| Kindred | JUNGLE | A | 50.88 | 2.56 | 0.43 | 0 | Confidence Low |
+| Kogmaw | DUO | S | 52.45 | 2.15 | 0.26 | 0 | Confidence Low |
+| Ksante | SOLO | S | 51.66 | 7.10 | 16.53 | 0 | Confidence Med |
+| Lee-Sin | JUNGLE | B | 45.88 | 12.53 | 7.04 | ↓ 3 | Confidence High |
+| Leona | SUPPORT | S | 51.51 | 10.12 | 6.54 | ↑ 1 | Confidence High |
+| Lillia | JUNGLE | S | 52.70 | 2.73 | 0.85 | 0 | Confidence Low |
+| Lissandra | MID | S | 51.36 | 4.22 | 4.13 | ↑ 4 | Confidence Med |
+| Lucian | DUO | B | 47.12 | 3.42 | 0.04 | 0 | Confidence Med |
+| Lulu | SUPPORT | A | 48.90 | 10.26 | 9.61 | ↓ 2 | Confidence High |
+| Lux | MID | A | 48.92 | 5.60 | 14.77 | 0 | Confidence Med |
+| Lux | SUPPORT | A | 49.34 | 7.90 | 14.77 | ↑ 1 | Confidence Med |
 | Malphite | SUPPORT | S | 51.07 | 7.53 | 42.85 | ↓ 1 | Confidence Med |
 | Malphite | SOLO | S+ | 55.55 | 7.24 | 42.85 | 0 | Confidence Med |
+| Maokai | SUPPORT | A | 49.72 | 4.55 | 0.49 | ↓ 1 | Confidence Med |
+| Master-Yi | JUNGLE | A | 47.63 | 10.01 | 54.34 | ↑ 1 | Confidence High |
+| Mel | MID | B | 45.53 | 9.52 | 30.42 | ↑ 1 | Confidence High |
+| Milio | SUPPORT | A | 49.16 | 4.63 | 5.24 | ↑ 1 | Confidence Med |
+| Miss-Fortune | DUO | A | 48.67 | 13.75 | 2.47 | ↓ 1 | Confidence High |
 | Mordekaiser | SOLO | S+ | 51.73 | 10.59 | 29.24 | ↑ 3 | Confidence High |
+| Morgana | SUPPORT | S | 50.57 | 6.66 | 37.35 | ↑ 1 | Confidence Med |
+| Morgana | MID | S+ | 52.44 | 6.45 | 37.35 | ↓ 3 | Confidence Med |
+| Nami | SUPPORT | A | 50.49 | 4.63 | 0.09 | ↑ 2 | Confidence Med |
+| Nasus | SOLO | B | 46.13 | 6.38 | 3.47 | ↓ 1 | Confidence Med |
+| Nautilus | SUPPORT | A | 49.28 | 11.79 | 3.81 | ↓ 3 | Confidence High |
+| Nautilus | SOLO | A | 51.32 | 1.24 | 3.81 | ↓ 7 | Confidence Low |
+| Nidalee | JUNGLE | A | 49.74 | 2.18 | 2.52 | ↑ 1 | Confidence Low |
 | Nocturne | JUNGLE | S+ | 55.46 | 10.42 | 46.04 | 0 | Confidence High |
 | Norra | MID | S | 51.21 | 1.50 | 7.62 | ↑ 5 | Confidence Low |
+| Nunu-Amp-Willump | JUNGLE | S | 53.04 | 1.79 | 0.57 | ↓ 1 | Confidence Low |
+| Olaf | JUNGLE | A | 50.77 | 1.84 | 1.63 | ↓ 3 | Confidence Low |
+| Olaf | SOLO | A | 51.04 | 1.01 | 1.63 | 0 | Confidence Low |
 | Orianna | MID | A | 51.67 | 4.50 | 0.27 | 0 | Confidence Med |
 | Ornn | SOLO | A | 51.76 | 2.08 | 0.17 | ↑ 1 | Confidence Low |
 | Ornn | SUPPORT | A | 48.90 | 1.14 | 0.17 | ↑ 4 | Confidence Low |
+| Pantheon | JUNGLE | A | 50.57 | 6.02 | 4.06 | ↑ 1 | Confidence Med |
+| Poppy | SOLO | A | 49.80 | 1.81 | 0.22 | ↓ 3 | Confidence Low |
+| Pyke | SUPPORT | B | 48.49 | 4.08 | 2.83 | ↓ 3 | Confidence Med |
+| Rakan | SUPPORT | B | 49.15 | 2.73 | 0.23 | ↓ 4 | Confidence Low |
 | Rammus | JUNGLE | S+ | 57.13 | 4.80 | 6.60 | 0 | Confidence Med |
+| Rell | SUPPORT | A | 51.11 | 3.28 | 1.25 | ↑ 2 | Confidence Med |
+| Renekton | SOLO | B | 48.13 | 3.15 | 0.37 | 0 | Confidence Med |
+| Rengar | JUNGLE | B | 47.61 | 2.28 | 1.38 | ↓ 3 | Confidence Low |
+| Riven | SOLO | B | 49.07 | 1.74 | 0.28 | ↓ 1 | Confidence Low |
+| Riven | JUNGLE | B | 47.25 | 1.24 | 0.28 | ↓ 1 | Confidence Low |
+| Rumble | SOLO | B | 48.06 | 1.92 | 0.41 | ↓ 3 | Confidence Low |
+| Ryze | MID | B | 47.55 | 3.20 | 1.49 | ↑ 1 | Confidence Med |
+| Samira | DUO | A | 51.15 | 10.00 | 6.44 | ↓ 2 | Confidence High |
+| Senna | DUO | S+ | 55.16 | 3.45 | 36.40 | 0 | Confidence Med |
+| Senna | SUPPORT | S+ | 54.11 | 13.33 | 36.40 | 0 | Confidence High |
 | Seraphine | SUPPORT | A | 49.59 | 6.59 | 1.03 | ↑ 1 | Confidence Med |
+| Sett | SOLO | A | 50.05 | 8.97 | 1.64 | ↑ 1 | Confidence High |
+| Sett | SUPPORT | S | 51.49 | 1.35 | 1.64 | ↑ 10 | Confidence Low |
+| Shen | SOLO | S+ | 55.95 | 2.75 | 0.45 | 0 | Confidence Low |
+| Shen | JUNGLE | S+ | 56.10 | 1.16 | 0.45 | 0 | Confidence Low |
 | Shyvana | JUNGLE | B | 46.13 | 3.41 | 1.25 | 0 | Confidence Med |
+| Singed | SOLO | A | 52.17 | 1.21 | 0.31 | ↑ 1 | Confidence Low |
+| Sion | SOLO | A | 49.81 | 2.54 | 0.33 | 0 | Confidence Low |
 | Sivir | DUO | A | 48.78 | 3.54 | 0.06 | ↑ 1 | Confidence Med |
+| Skarner | JUNGLE | S | 52.78 | 1.90 | 0.46 | ↓ 1 | Confidence Low |
+| Smolder | DUO | S | 51.89 | 6.76 | 3.04 | 0 | Confidence Med |
+| Smolder | SOLO | A | 50.38 | 1.02 | 3.04 | 0 | Confidence Low |
+| Sona | SUPPORT | A | 51.56 | 3.96 | 0.43 | ↓ 1 | Confidence Med |
+| Soraka | SUPPORT | A | 50.99 | 4.81 | 1.56 | ↓ 3 | Confidence Med |
+| Swain | MID | A | 49.12 | 2.73 | 3.08 | 0 | Confidence Low |
+| Swain | SUPPORT | B | 46.11 | 3.01 | 3.08 | 0 | Confidence Med |
 | Syndra | MID | S | 50.86 | 6.51 | 21.08 | ↓ 1 | Confidence Med |
+| Taliyah | MID | A | 49.86 | 1.89 | 1.11 | ↓ 11 | Confidence Low |
+| Talon | JUNGLE | A | 49.26 | 2.46 | 0.80 | ↓ 2 | Confidence Low |
+| Teemo | MID | S+ | 52.69 | 2.08 | 18.81 | ↑ 1 | Confidence Low |
+| Teemo | SOLO | S+ | 52.73 | 4.95 | 18.81 | 0 | Confidence Med |
+| Thresh | SUPPORT | S | 51.25 | 14.37 | 10.18 | ↓ 2 | Confidence High |
+| Tristana | DUO | A | 48.29 | 11.20 | 0.40 | 0 | Confidence High |
+| Tristana | MID | B | 48.11 | 1.25 | 0.40 | ↓ 7 | Confidence Low |
+| Tryndamere | JUNGLE | A | 48.72 | 6.07 | 20.91 | ↑ 5 | Confidence Med |
+| Tryndamere | SOLO | B | 44.52 | 1.83 | 20.91 | ↓ 2 | Confidence Low |
+| Twisted-Fate | MID | A | 49.59 | 5.61 | 0.75 | ↓ 7 | Confidence Med |
+| Twitch | DUO | A | 49.61 | 10.53 | 6.77 | ↓ 1 | Confidence High |
+| Twitch | JUNGLE | B | 46.71 | 2.89 | 6.77 | ↑ 4 | Confidence Low |
+| Urgot | SOLO | A | 48.77 | 3.92 | 2.02 | 0 | Confidence Med |
+| Varus | DUO | S | 51.47 | 5.52 | 0.31 | ↑ 2 | Confidence Med |
+| Vayne | DUO | A | 48.42 | 5.88 | 6.37 | ↑ 3 | Confidence Med |
+| Vayne | SOLO | A | 50.58 | 1.82 | 6.37 | ↓ 1 | Confidence Low |
+| Vejgar | MID | A | 48.38 | 7.08 | 11.09 | ↑ 2 | Confidence Med |
+| Vejgar | SUPPORT | B | 46.21 | 2.58 | 11.09 | 0 | Confidence Low |
+| Velkoz | MID | A | 50.26 | 3.44 | 0.71 | ↑ 7 | Confidence Med |
+| Velkoz | SUPPORT | A | 49.82 | 1.80 | 0.71 | ↓ 2 | Confidence Low |
+| Vex | MID | A | 49.81 | 2.11 | 0.46 | ↓ 2 | Confidence Low |
+| Vi | JUNGLE | A | 49.21 | 5.31 | 1.09 | ↑ 2 | Confidence Med |
+| Viego | JUNGLE | B | 46.44 | 5.17 | 2.79 | 0 | Confidence Med |
+| Viktor | MID | A | 49.69 | 3.13 | 0.58 | 0 | Confidence Med |
+| Vladimir | MID | S | 51.52 | 3.67 | 1.28 | ↑ 7 | Confidence Med |
 | Volibear | SOLO | A | 48.25 | 5.03 | 4.51 | 0 | Confidence Med |
 | Volibear | JUNGLE | B | 48.31 | 2.34 | 4.51 | ↓ 2 | Confidence Low |
+| Vukong | JUNGLE | A | 49.81 | 3.20 | 0.40 | ↑ 1 | Confidence Med |
+| Vukong | SOLO | S | 51.68 | 1.68 | 0.40 | ↑ 3 | Confidence Low |
+| Warwick | JUNGLE | A | 49.70 | 2.06 | 0.55 | ↑ 3 | Confidence Low |
 | Xayah | DUO | A | 50.44 | 4.49 | 0.18 | 0 | Confidence Med |
+| Xin-Zhao | JUNGLE | A | 50.69 | 8.93 | 1.55 | 0 | Confidence High |
+| Yasuo | MID | B | 46.59 | 8.73 | 9.90 | ↑ 1 | Confidence High |
+| Yasuo | SOLO | B | 45.04 | 1.93 | 9.90 | ↓ 2 | Confidence Low |
+| Yone | MID | A | 49.84 | 5.20 | 8.97 | ↓ 2 | Confidence Med |
+| Yone | SOLO | A | 50.56 | 6.19 | 8.97 | ↓ 1 | Confidence Med |
+| Yone | JUNGLE | A | 48.28 | 2.93 | 8.97 | ↓ 2 | Confidence Low |
 | Yunara | DUO | S+ | 51.67 | 15.97 | 23.02 | ↑ 1 | Confidence High |
 | Yuumi | SUPPORT | A | 48.70 | 9.25 | 33.79 | ↓ 3 | Confidence High |
+| Zed | MID | A | 50.44 | 4.30 | 1.81 | ↑ 7 | Confidence Med |
+| Zed | JUNGLE | S | 51.75 | 2.21 | 1.81 | ↑ 6 | Confidence Low |
+| Zeri | DUO | B | 48.32 | 1.37 | 0.03 | 0 | Confidence Low |
+| Ziggs | MID | A | 48.81 | 5.40 | 2.15 | ↑ 3 | Confidence Med |
+| Zilean | SUPPORT | B | 48.80 | 1.15 | 0.84 | 0 | Confidence Low |
+| Zyra | SUPPORT | A | 50.02 | 4.96 | 32.53 | ↓ 4 | Confidence Med |
+| Zyra | MID | S+ | 52.46 | 3.09 | 32.53 | ↑ 1 | Confidence Med |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -10091,7 +10241,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -10605,7 +10755,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -10999,7 +11149,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -11381,7 +11531,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -11901,7 +12051,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -12395,7 +12545,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -12979,7 +13129,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-04"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -13329,7 +13479,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -13949,7 +14099,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -14210,7 +14360,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -14661,7 +14811,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -15281,7 +15431,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -15912,7 +16062,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-05"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -16407,7 +16557,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-30"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -16874,7 +17024,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -17428,7 +17578,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -17746,7 +17896,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -18286,7 +18436,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -18876,7 +19026,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -19385,7 +19535,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-27"
-updated_at: "2026-10-08"
+updated_at: "2026-10-09"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -23202,6 +23352,59 @@ def acc_runes(args=None):
     return py("optimize_runes.py", champ, *extra)
 
 
+def acc_prepush():
+    """v1.15.3 — gate ÚNICO antes de cada push (incidente CI 09/10: rama
+    desincronizada del vigía + derivados regenerados contra datos viejos).
+    Hace: fetch → ¿rama detrás de origin/main? → regenera derivados
+    (canon, registry, bundles) → gates (lint/check/bundles) → suite completa.
+    Si algo rojo: NO pushear. Todo idempotente: correrlo de más no toca nada."""
+    import subprocess
+    def sh(*cmd):
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
+    ok = True
+    print("── 1) sincronización con origin ──")
+    sh("git", "fetch", "origin", "--quiet")
+    _, behind_s = sh("git", "rev-list", "--count", "HEAD..origin/main")
+    _, ahead_s = sh("git", "rev-list", "--count", "origin/main..HEAD")
+    behind, ahead = int(behind_s.strip() or 0), int(ahead_s.strip() or 0)
+    if behind:
+        print(f"❌ rama {behind} commit(s) DETRÁS de origin/main (vigía u otros pushes).")
+        print("   → git pull --rebase origin main  y volvé a correr prepush.")
+        ok = False
+    else:
+        print(f"✓ rama al día con origin/main (ahead: {ahead})")
+    print("── 2) derivados regenerados (idempotente) ──")
+    for cmd in ([sys.executable, "model/estandarizar_metadatos.py", "--apply"],
+                [sys.executable, "model/update_reports.py", "baseline"],
+                [sys.executable, "model/build_bundles.py"]):
+        subprocess.run(cmd, capture_output=True, text=True)
+    print("✓ frontmatter canónico + registry + bundles regenerados")
+    print("── 3) gates ──")
+    for nombre, cmd in (("lint", [sys.executable, "model/lint_reportes.py"]),
+                        ("check", [sys.executable, "model/update_reports.py", "check"]),
+                        ("bundles --check", [sys.executable, "model/build_bundles.py", "--check"])):
+        rc, out = sh(*cmd)
+        print(f"{'✓' if rc == 0 else '❌'} {nombre}")
+        if rc:
+            print("   " + "\\n   ".join(out.strip().splitlines()[-6:]))
+        ok = ok and rc == 0
+    print("── 4) suite completa ──")
+    rc, out = sh(sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q")
+    tail = [l for l in out.splitlines() if l.startswith(("OK", "FAILED", "Ran"))]
+    print(f"{'✓' if rc == 0 else '❌'} suite · {' · '.join(tail[-2:])}")
+    if rc:
+        fallas = [l for l in out.splitlines() if l.startswith(("FAIL:", "ERROR:"))]
+        print("   " + "\\n   ".join(fallas[:8]))
+    ok = ok and rc == 0
+    print()
+    if ok:
+        print("🟢 TODO VERDE — podés hacer commit y push.")
+    else:
+        print("🔴 NO PUSHEAR todavía: corregí lo marcado arriba y re-corré prepush.")
+    return 0 if ok else 1
+
+
 def acc_git(_=None):
     run("git", "status", "-sb")
     run("git", "log", "--oneline", "-6")
@@ -23264,6 +23467,7 @@ COMANDOS = {   # modo no interactivo
     "bundles": lambda a: py("build_bundles.py", *a),
     "db": lambda a: py("build_db.py"),
     "motor": lambda a: py("dps_model.py"),
+    "prepush": lambda a: acc_prepush(),
     "git": acc_git,
     "menu": lambda a: menu(),
 }
@@ -24273,7 +24477,8 @@ Desde v1.6 el hash es del TEXTO del artículo, cortado antes del pie dinámico.
 Desde v1.11 las win rates viajan en el mismo ciclo del vigía (petición del autor:
 "dato vital siempre actualizado, fundamental para los reportes").
 
-Uso:  python3 model/check_patch.py [--quiet] [--winrates-only]
+Uso:  python3 model/check_patch.py [--quiet] [--winrates-only] [--roster full]
+      --roster full     refresco masivo de TODO el roster conocido (manual)
       --winrates-only   solo el paso 4 (refresco manual: wrlab.py winrates)
 """
 import csv, datetime, hashlib, html as htmllib, io, json, os, re, sys, time, urllib.request
@@ -24304,15 +24509,44 @@ WINRATE_ROSTER = ["ahri", "caitlyn", "chogath", "diana", "heimerdinger", "jinx",
 
 # IDs de página wr-meta conocidos (FUENTES.md + verificados en vivo el 01/10/2026).
 # Lo que falte se descubre con el sitemap y se persiste en state["wrmeta_ids"].
-WRMETA_IDS = {"jinx": "39", "yuumi": "321", "yunara": "545", "mordekaiser": "365",
-              "kalista": "349", "diana": "216", "karma": "323", "heimerdinger": "346",
-              "volibear": "411", "seraphine": "34", "shyvana": "23", "chogath": "339",
-              "malphite": "47", "caitlyn": "317", "sivir": "394", "norra": "552",
-              "rammus": "242",
-              # v1.15: nuevos campeones (IDs vía sitemap.xml, confirmados con fetch 04/10)
-              "orianna": "33", "ahri": "1", "nocturne": "382", "syndra": "398",
-              # nuevas guías 08/10 (IDs vía sitemap.xml de wr-meta)
-              "xayah": "165", "ornn": "383"}
+# v1.15.3: mapa COMPLETO del roster de wr-meta (sitemap 09/10). Antes solo los
+# campeones estudiados: una guía nueva de un campeón ajeno al lab no tenía
+# win rates ni id (fricción real al crear Xayah). Con el mapa completo,
+# `wrlab.py winrates --roster full` puebla el CSV de todo el roster y el
+# vigía sigue vigilando solo el subconjunto de WINRATE_ROSTER + registro.
+WRMETA_IDS = {
+              "aatrox": "332", "ahri": "1", "akali": "2", "akshan": "311", "alistar": "42", "ambessa": "528",
+              "amumu": "46", "ancient-coin": "435", "anivia": "333", "annie": "45", "aphelios": "334", "ashe": "41",
+              "aurelion-sol": "24", "aurora": "526", "azir": "335", "bard": "336", "belveth": "337", "berserkers-greaves": "431",
+              "blitzcrank": "43", "boots-of-dynamism": "433", "boots-of-mana": "432", "brand": "313", "braum": "44", "briar": "497",
+              "caitlyn": "317", "camille": "18", "cassiopeia": "338", "chempunk-chainsword": "421", "chogath": "339", "corki": "57",
+              "darius": "49", "diana": "216", "dr-mundo": "17", "draven": "51", "duskblade-of-draktharr": "66", "ekko": "328",
+              "elise": "340", "evelynn": "10", "ezreal": "40", "fiddlesticks": "341", "fiora": "9", "fizz": "8",
+              "galio": "238", "gangplank": "342", "garen": "13", "gnar": "343", "gragas": "26", "graves": "14",
+              "gwen": "344", "heartsteel": "504", "hecarim": "345", "heimerdinger": "346", "horizon-focus": "420", "hwei": "505",
+              "ignite": "493", "illaoi": "347", "irelia": "282", "ivern": "348", "janna": "28", "jarvan-iv": "16",
+              "jax": "15", "jayce": "316", "jhin": "27", "jinx": "39", "kaisa": "5", "kalista": "349",
+              "karma": "323", "karthus": "350", "kassadin": "329", "katarina": "211", "kayle": "319", "kayn": "351",
+              "kennen": "58", "kha-zix": "253", "kindred": "352", "kled": "353", "kogmaw": "354", "ksante": "419",
+              "leblanc": "355", "lee-sin": "6", "leona": "215", "lillia": "356", "lissandra": "357", "locke": "577",
+              "lucian": "295", "lulu": "56", "lux": "30", "malphite": "47", "malzahar": "361", "maokai": "364",
+              "master-yi": "7", "mejais-soulstealer": "499", "mel": "536", "milio": "426", "miss-fortune": "31", "mordekaiser": "365",
+              "morgana": "318", "naafiri": "488", "nami": "32", "nashors-talon": "429", "nasus": "20", "nautilus": "327",
+              "neeko": "366", "nidalee": "367", "nilah": "368", "nocturne": "382", "noonquiver": "430", "norra": "552",
+              "nunu-amp-willump": "314", "olaf": "21", "orianna": "33", "ornn": "383", "pantheon": "217", "poppy": "384",
+              "pyke": "326", "qiyana": "385", "quinn": "386", "rakan": "166", "rammus": "242", "reksai": "387",
+              "rell": "388", "renata-glasc": "389", "renekton": "264", "rengar": "252", "riven": "283", "rumble": "390",
+              "runaans-hurricane": "64", "ryze": "391", "samira": "330", "sejuani": "392", "senna": "296", "seraphine": "34",
+              "sett": "320", "shaco": "393", "shen": "322", "shimmering-spark": "437", "shyvana": "23", "singed": "35",
+              "sion": "331", "sivir": "394", "skarner": "395", "smolder": "506", "sona": "36", "soraka": "37",
+              "swain": "396", "sylas": "397", "syndra": "398", "tahm-kench": "399", "talisman-of-ascension": "436", "taliyah": "400",
+              "talon": "401", "taric": "402", "teemo": "59", "the-collector": "428", "thresh": "312", "tristana": "55",
+              "trundle": "403", "tryndamere": "22", "twisted-fate": "38", "twitch": "404", "udyr": "405", "urgot": "406",
+              "varus": "25", "vayne": "3", "vejgar": "315", "velkoz": "407", "vex": "381", "vi": "12",
+              "viego": "408", "viktor": "409", "vladimir": "410", "volibear": "411", "vukong": "50", "warwick": "362",
+              "xayah": "165", "xerath": "412", "xin-zhao": "19", "yasuo": "11", "yone": "363", "yorick": "413",
+              "yunara": "545", "yuumi": "321", "zaahen": "551", "zac": "414", "zed": "4", "zeri": "415",
+              "ziggs": "29", "zilean": "416", "zoe": "417", "zyra": "418"}
 
 DISPLAY = {"chogath": "Cho'Gath"}    # el resto: title()
 
@@ -24536,12 +24770,14 @@ def deltas_winrate(filas, prev):
     return findings
 
 
-def actualizar_winrates(state, findings, quiet=False):
+def actualizar_winrates(state, findings, quiet=False, roster_full=False):
     """Paso 4 del vigía. Devuelve (n_champs_ok, n_filas). Falla suave: si wr-meta no
     responde, conserva los valores previos y NO rompe los pasos 1-3."""
     ids = dict(WRMETA_IDS)
     ids.update(state.get("wrmeta_ids", {}))
-    roster = roster_winrates()
+    # v1.15.3: modo full = refrescar TODO el roster conocido (poblado inicial,
+    # onboarding de campeones nuevos); vigilado = el subset de siempre.
+    roster = sorted(ids) if roster_full else roster_winrates()
     faltan = [c for c in roster if c not in ids]
     if faltan:
         descubiertos = descubrir_ids()
@@ -24579,8 +24815,11 @@ def actualizar_winrates(state, findings, quiet=False):
     hoy = datetime.date.today().isoformat()
     for f in filas:
         f["actualizado"] = hoy
-    # drift contra el estado previo (antes de sobrescribirlo)
-    findings.extend(deltas_winrate(filas, state.get("winrates", {})))
+    # drift contra el estado previo (antes de sobrescribirlo).
+    # En modo full NO se generan findings: es un refresco masivo manual,
+    # no una señal de vigilia (evita 100+ alertas de una vez).
+    if not roster_full:
+        findings.extend(deltas_winrate(filas, state.get("winrates", {})))
     # escribe CSV + MD solo si los VALORES cambian (la columna 'actualizado' no cuenta:
     # así el vigía no genera commits/fechas parásitos cuando wr-meta no ha movido datos)
     csv_txt = winrates_csv_text(filas)
@@ -24603,12 +24842,15 @@ def actualizar_winrates(state, findings, quiet=False):
 def main():
     quiet = "--quiet" in sys.argv
     solo_wr = "--winrates-only" in sys.argv
+    argv = sys.argv[1:]
+    roster_full = "--roster" in argv and argv.index("--roster") + 1 < len(argv) \
+        and argv[argv.index("--roster") + 1] == "full"
     state = load_state()
     findings = []
 
     if not solo_wr:
         chequear_parches(state, findings)          # pasos 1-3
-    n_ch, n_filas = actualizar_winrates(state, findings, quiet)   # paso 4 (mismo proceso)
+    n_ch, n_filas = actualizar_winrates(state, findings, quiet, roster_full)  # paso 4
 
     state["last_check"] = datetime.datetime.now().isoformat(timespec="seconds")
     json.dump(state, open(STATE, "w"), indent=1)
@@ -24728,4 +24970,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 08/10/2026 · completo · sha256(cuerpo)=22feb763b04cc569 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 09/10/2026 · completo · sha256(cuerpo)=e0676136544002a0 · NO editar a mano: editar las fuentes y regenerar -->

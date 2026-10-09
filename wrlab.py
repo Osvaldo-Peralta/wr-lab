@@ -99,6 +99,59 @@ def acc_runes(args=None):
     return py("optimize_runes.py", champ, *extra)
 
 
+def acc_prepush():
+    """v1.15.3 — gate ÚNICO antes de cada push (incidente CI 09/10: rama
+    desincronizada del vigía + derivados regenerados contra datos viejos).
+    Hace: fetch → ¿rama detrás de origin/main? → regenera derivados
+    (canon, registry, bundles) → gates (lint/check/bundles) → suite completa.
+    Si algo rojo: NO pushear. Todo idempotente: correrlo de más no toca nada."""
+    import subprocess
+    def sh(*cmd):
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        return r.returncode, (r.stdout or "") + (r.stderr or "")
+    ok = True
+    print("── 1) sincronización con origin ──")
+    sh("git", "fetch", "origin", "--quiet")
+    _, behind_s = sh("git", "rev-list", "--count", "HEAD..origin/main")
+    _, ahead_s = sh("git", "rev-list", "--count", "origin/main..HEAD")
+    behind, ahead = int(behind_s.strip() or 0), int(ahead_s.strip() or 0)
+    if behind:
+        print(f"❌ rama {behind} commit(s) DETRÁS de origin/main (vigía u otros pushes).")
+        print("   → git pull --rebase origin main  y volvé a correr prepush.")
+        ok = False
+    else:
+        print(f"✓ rama al día con origin/main (ahead: {ahead})")
+    print("── 2) derivados regenerados (idempotente) ──")
+    for cmd in ([sys.executable, "model/estandarizar_metadatos.py", "--apply"],
+                [sys.executable, "model/update_reports.py", "baseline"],
+                [sys.executable, "model/build_bundles.py"]):
+        subprocess.run(cmd, capture_output=True, text=True)
+    print("✓ frontmatter canónico + registry + bundles regenerados")
+    print("── 3) gates ──")
+    for nombre, cmd in (("lint", [sys.executable, "model/lint_reportes.py"]),
+                        ("check", [sys.executable, "model/update_reports.py", "check"]),
+                        ("bundles --check", [sys.executable, "model/build_bundles.py", "--check"])):
+        rc, out = sh(*cmd)
+        print(f"{'✓' if rc == 0 else '❌'} {nombre}")
+        if rc:
+            print("   " + "\\n   ".join(out.strip().splitlines()[-6:]))
+        ok = ok and rc == 0
+    print("── 4) suite completa ──")
+    rc, out = sh(sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q")
+    tail = [l for l in out.splitlines() if l.startswith(("OK", "FAILED", "Ran"))]
+    print(f"{'✓' if rc == 0 else '❌'} suite · {' · '.join(tail[-2:])}")
+    if rc:
+        fallas = [l for l in out.splitlines() if l.startswith(("FAIL:", "ERROR:"))]
+        print("   " + "\\n   ".join(fallas[:8]))
+    ok = ok and rc == 0
+    print()
+    if ok:
+        print("🟢 TODO VERDE — podés hacer commit y push.")
+    else:
+        print("🔴 NO PUSHEAR todavía: corregí lo marcado arriba y re-corré prepush.")
+    return 0 if ok else 1
+
+
 def acc_git(_=None):
     run("git", "status", "-sb")
     run("git", "log", "--oneline", "-6")
@@ -161,6 +214,7 @@ COMANDOS = {   # modo no interactivo
     "bundles": lambda a: py("build_bundles.py", *a),
     "db": lambda a: py("build_db.py"),
     "motor": lambda a: py("dps_model.py"),
+    "prepush": lambda a: acc_prepush(),
     "git": acc_git,
     "menu": lambda a: menu(),
 }

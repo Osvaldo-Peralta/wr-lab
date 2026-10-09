@@ -1,6 +1,6 @@
 {
  "version_schema": 1,
- "generado": "2026-10-08",
+ "generado": "2026-10-09",
  "parche_motor": "7.3+7.3a",
  "reportes": {
   "Caitlyn.md": {
@@ -33,7 +33,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -68,7 +68,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -103,7 +103,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -145,7 +145,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -187,7 +187,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -222,7 +222,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -267,7 +267,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -312,7 +312,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -347,7 +347,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -382,7 +382,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -417,7 +417,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -452,7 +452,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -487,7 +487,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -522,7 +522,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -557,7 +557,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -592,7 +592,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -627,7 +627,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -662,7 +662,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -697,7 +697,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -742,7 +742,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-08",
+    "fecha": "2026-10-09",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
