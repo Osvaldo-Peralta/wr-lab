@@ -129,7 +129,10 @@ _Y_NO_BOOT = [k for k in B2.Y_ITEMS if k not in ("Crimson", "Scythe", "ionian")]
 
 ENGINES = {
     "autos": dict(
-        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"],
+        # v1.16.1: los ítems support registrados por senna_model.py (batch3)
+        # NO entran a los pools genéricos de otros campeones.
+        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"
+               and not M.ITEMS[k].comment.startswith("SENNA-SUP")],
         boots=list(M.BOOT_UPGRADES.keys()), fixed=[], n_elegir=5, oro_default=18000,
         escenarios=ESC_AUTOS, pesos=PESOS_AUTOS, podas_autos=True,
         eval_fn=lambda champ, combo, kw, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False, **kw),

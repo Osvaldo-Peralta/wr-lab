@@ -3073,7 +3073,10 @@ _Y_NO_BOOT = [k for k in B2.Y_ITEMS if k not in ("Crimson", "Scythe", "ionian")]
 
 ENGINES = {
     "autos": dict(
-        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"],
+        # v1.16.1: los ítems support registrados por senna_model.py (batch3)
+        # NO entran a los pools genéricos de otros campeones.
+        items=[k for k in M.ITEMS if k not in M.BOOTS_ALL and k != "boots_speed"
+               and not M.ITEMS[k].comment.startswith("SENNA-SUP")],
         boots=list(M.BOOT_UPGRADES.keys()), fixed=[], n_elegir=5, oro_default=18000,
         escenarios=ESC_AUTOS, pesos=PESOS_AUTOS, podas_autos=True,
         eval_fn=lambda champ, combo, kw, opts: M.eval_build(M.CHAMPS[champ], combo, validate=False, **kw),
@@ -16408,9 +16411,9 @@ SNOWBALL (Feedeado):
 tags:
   - Support
   - Marksman
-  - Crítico
+  - Crítico modificado
   - Bot-Lane
-version: 1
+version: 1.1
 Status: Beta
 champion: Senna
 slug: senna
@@ -16422,9 +16425,9 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-09"
-updated_at: "2026-10-11"
-verification: AL_DIA
-verified_patch: "7.3a"
+updated_at: "2026-10-09"
+verification: pending
+verified_patch: "null"
 ---
 **Fecha del análisis:** 11/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -16433,9 +16436,13 @@ verified_patch: "7.3a"
 **Enfoque:** Valor-aliado (cura Q / escudo R / buff Censer) como columna support, con lado DPS medido por el motor de autos para la variante DUO y para el daño de asedio que Senna aporta aunque juegue de support.
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 09/10/2026):
-> - **SUPPORT Win Rate 54.11 %** | Pick Rate 13.33 % | Ban 36.40 % | Tendencia 0 | Tier S+ (Confidence High).
-> - **DUO Win Rate 55.16 %** | Pick 3.45 % | Ban 36.40 % | Tier S+ (Confidence Med).
+> **Estado Meta Actual (Diamond+, 09/10/2026):** SUPPORT Win Rate 54.11 % | Pick Rate 13.33 % | Ban 36.40 % | Tendencia 0 | Tier S+ (Confidence High). DUO Win Rate 55.16 % | Pick 3.45 % | Ban 36.40 % | Tier S+ (Confidence Med). Fuente: `data/estructurada/champion_winrates.csv` (wr-meta Diamond+, vigía 2×/día). El ban >35 % en ambos roles es la señal de dominio más clara del parche.
+
+> [!TIP]
+> **Variante DUO/ADC (derivación v1.1, motor dedicado `senna_model.py`):** óptima **Gunmetal + Runaan's + Kraken Slayer + Terminus + BotRK + Infinity Edge** (17 250 g, score 0.938): 1v1 **1 749** · 3v3 **3 086** · vs 120 arm **951** · vs tanque **806**. Kraken y BotRK procan con la **Q** (on-hit por cast, wiki) y Terminus aporta pen sostenida sin tocar la Ley 3b. El motor estándar (`optimize_build senna`) da como óptima Gunmetal + Runaan's + C44 + Yun Tal + BotRK + IE: mismo core, discordia en slots 5-6 explicada en §8. La build community DPS (Statikk + RFC + Mortal + IE + GA) pierde **−39 %** en el motor estándar por crit truncado en 76 %.
+
+> [!WARNING]
+> Pendientes de verificación en juego: (W1) AD base 54 vs 50 de wr-meta/wildriftfire (ficha del autor D1: usar 54, sensibilidad −1 a −2 % DPS); (W2) on-hit de Relic Cannon +20 % AD (wiki) vs +10 plano (wr-meta): el ranking de builds no cambia entre ambas (sensibilidad −5.4 % DPS); (W3) wind-up 0.5 s no cancelable con habilidades desde 6.3: fuera del modelo (conservador).
 
 ---
 
@@ -16445,41 +16452,39 @@ verified_patch: "7.3a"
 
 | Slot | Ítem | Oro | Rol en la build |
 |---|---|---|---|
-| 1 (botas) | **Ionian Boots → ⬆️ Crimson Lucidity** (min 10:00, MISMO slot) | 2 000 | Haste 25 + regen; Noxian Haste proca con cura/escudo |
-| 2 | **Essence Reaver** | 3 000 | Spellblade 135 % AD base + 0.8/1 % crit (el crit gratis de Niebla lo alimenta) + maná |
-| 3 | **Ardent Censer** | 2 400 | +30 % AS y +25 dmg mágico al aliado curado/escudado (Q y R lo procan) |
-| 4 | **Black Cleaver** | 3 000 | AD + HP (570 base agradece) + shred 30 % para el daño de asedio propio |
-| 5 | **Harmonic Echo** | 2 500 | Enlaza la cura Q / escudo R al segundo aliado más bajo (30/35 %) |
-| 6 | **Guardian Angel** | 3 200 | Revivir: la única respuesta a su fragilidad estructural (570 HP, sin movilidad dura) |
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | +0.15 AS real → doble dip: acelera autos Y el −1 s de CD de Q |
+| 2 (quest) | **Spectral Sickle → ⬆️ Black Mist Scythe** (Tribute, mismo slot) | 0 | Oro pasivo + 10 AH; ejecuciones Spoils sueltan wraiths (4.166 %) = Niebla |
+| 3 | **Ardent Censer** | 2 400 | Con q_cd ≤ 6 s el uptime es 100 %: **+164 DPS al ADC** (convención valor-aliado del lab) |
+| 4 | **Echoes of Helia** | 2 400 | Enlaza la cura Q al 2.º aliado (30 %): Q-h/s 80 → valor de teamfight |
+| 5 | **Black Cleaver** | 3 000 | 400 HP sobre 570 base + Sunder 30 % que la Q staquea rápido (on-hit) |
+| 6 | **Essence Reaver** | 3 000 | Spellblade 135 % AD base + 0.8/1 % crit: el crit GRATIS de Niebla lo maximiza |
 
-> **Oro total: 16 100 g** · AD bonus de Niebla aparte (+1.25/stack) · crit 50 % gratis al checkpoint de 100 stacks · AS irrelevante para el plan support (ratio 0.3 post-7.3a).
+> **Oro total: 13 000 g** · score 0.830 del motor dedicado · Q-cura **80 h/s** · escudo R **567** por aliado · **+164 DPS al ADC**. Variante ofensiva (score 0.833, Q-h/s 63): cambiar Echoes+Cleaver por **Navori + Runaan's** (AS → más casts de Q por minuto). Defensiva vs dive: Echoes → **Guardian Angel** (3 200).
 
 ### Tabla A2 — BUILD FINAL (Variante DUO/ADC, óptima del motor)
 
 | Slot | Ítem | Oro | Rol en la build |
 |---|---|---|---|
-| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS (rinde 0.3× por el ratio) + 5 % Lifesteal |
-| 2 | **Hexoptics C44** | 2 900 | 55 AD + Magnification (pelea a 625+ ≥ 550 siempre) |
-| 3 | **Yun Tal Wildarrows** | 3 100 | Flurry +35 % AS condicional (buff 7.3a) + crit progresivo |
-| 4 | **Blade of the Ruined King** | 3 100 | 6 % vida actual on-hit: no depende de su AD bajo temprano |
-| 5 | **Runaan's Hurricane** | 2 650 | 2 rayos 55 % AD que critican y aplican Relic/on-hit |
-| 6 | **Infinity Edge** | 3 400 | Crit 200 % → 230 %; con `crit_dmg_mod` 0.9: 180 % → 207 % |
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS (rinde 0.3× por el ratio) + 5 % Lifesteal + Blessed 12/auto |
+| 2 | **Blade of the Ruined King** | 3 100 | 6 % vida actual por auto Y por Q (on-hit por cast): 1.er ítem medido (+21 % vs 2.º a L9) |
+| 3 | **Infinity Edge** | 3 400 | Crit 200 % → 230 %; con `crit_dmg_mod` 0.9: 180 % → 207 % |
+| 4 | **Runaan's Hurricane** | 2 650 | 2 rayos 55 % AD que critican y aplican Relic/on-hit |
+| 5 | **Kraken Slayer** | 2 900 | Cada 3.er golpe 168 + missing HP; a AS 1.37 proca cada ~2.2 s y proca con Q |
+| 6 | **Terminus** | 3 000 | Pen sostenida + AS sin tocar la Ley 3b (sin LDR/Mortal en la build) |
 
-> **Oro total: 17 350 g** · AD 274 · AS 1.38 · Crit 100 % (50 ítems + 50 Niebla) · Pen 0 % (ver Ley 3: BotRK la sustituye vs tanques).
+> **Oro total: 17 250 g** · AD 386 · AS 1.37 · Crit 100 % (50 ítems + 50 Niebla) · Pen 30 % · score 0.938 del motor dedicado.
 
 ### Tabla B — Ruta de compra cronológica (Support)
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|---|---|---|
-| 1 | Quest de support (relic inicial) | 0 | 0:00 |
-| 2 | Long Sword + ward de control | 500 | ~2:30 |
-| 3 | **Ionian Boots of Lucidity** | 1 500 | ~4:30 |
-| 4 | Caulfield's + Pickaxe → **Essence Reaver** | 4 500 | ~8:00 |
-| 5 | ⬆️ **Crimson Lucidity** (mismo slot, +1 000 g) | 5 500 | 10:00 (regla T3) |
-| 6 | **Ardent Censer** | 7 900 | ~12:00 |
-| 7 | **Black Cleaver** | 10 900 | ~15:00 |
-| 8 | **Harmonic Echo** | 13 400 | ~17:30 |
-| 9 | **Guardian Angel** | 16 600 | ~20:00 |
+| 1 | Quest **Spectral Sickle** (relic inicial) | 0 | 0:00 |
+| 2 | **Berserker's Greaves** | 1 200 | ~4:30 |
+| 3 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 2 200 | 10:00 (regla T3) |
+| 4 | **Ardent Censer** | 4 600 | ~12:00 |
+| 5 | **Echoes of Helia** | 7 000 | ~14:30 |
+| 6 | **Black Cleaver** | 10 000 | ~17:00 |
+| 7 | Pickaxe + Caulfield's → **Essence Reaver** | 13 000 | ~20:00 |
 
 ### Runas · Hechizos · Habilidades
 
@@ -16494,14 +16499,15 @@ verified_patch: "7.3a"
 
 ### Resultado del modelo (nivel 15, LT full, 100 stacks de Niebla)
 
-| Escenario | DUO óptima (motor) | DUO community | Soporte (valor-aliado) |
+| Escenario | DUO óptima (motor dedicado) | DUO community | Soporte (motor dedicado, valor-aliado) |
 |---|---|---|---|
-| **1v1** (pre-mitigación) | **1 326** | 810 (−39 %) | n/a (no es su rol de daño) |
-| **3v3** (AoE teamfight) | **2 186** | 810 (sin Runaan's) | n/a |
-| **vs 120 armadura** | **603** | 440 | shred Cleaver 30 % de equipo |
-| **vs Tanque** (220 arm, 4 500 HP) | **474** | 319 | BotRK/Cleaver del carry buffado |
-| **Cura Q (rank 4, 140 Niebla)** | — | — | **200** por impacto en línea (+222 con ER) |
-| **Escudo R (140 / 180 Niebla)** | — | — | **480 / 560** por aliado (+ Echo 35 %) |
+| **1v1** (pre-mitigación) | **1 749** | 810 (−39 % en motor estándar) | 913 (daño de asedio propio) |
+| **3v3** (AoE teamfight) | **3 086** | 810 (sin Runaan's) | 1 001 |
+| **vs 120 armadura** | **951** | 440 | 496 (Sunder de Cleaver incluido) |
+| **vs Tanque** (220 arm, 4 500 HP) | **806** | 319 | 385 |
+| **Cura Q (rank 4, 140 Niebla)** | — | — | **80 h/s** sostenidos (con Echoes) |
+| **Escudo R (140 Niebla)** | — | — | **567** por aliado · ~1 700/minuto en 3 aliados |
+| **Buff al ADC (Censer)** | — | — | **+164 DPS** con uptime 100 % (q_cd ≤ 6 s) |
 
 > **Titular:** Senna support no se evalúa en DPS: se evalúa en *ventanas* — cura de 200+ en línea cada ~6.8 s de CD real de Q, escudo global de 480+ pre-engage y un asedio de 625→700+ de rango que obliga al enemigo a jugar incómodo. Su lado DPS (variante DUO) es top-tier medible: la óptima del motor supera a la community en +39 % 1v1 porque el crit gratis de Niebla reescribe la Ley 1.
 
@@ -16573,6 +16579,14 @@ escudo_R     = 200 + 0.50*AP + 2*Niebla            # por aliado, 3 s; castear ~1
 echo_Q       = 0.30*cura_Q  ·  echo_R = 0.35*escudo_R   # Harmonic Echo al 2.º aliado
 censer_aliado = +30 % AS y +25 dmg mágico por 6 s  # proca con cura_Q y escudo_R
 CD_real_Q    = 15 / (1 + AS)                       # −1 s por auto/on-hit
+
+# DUO/SUPPORT (motor dedicado senna_model.py, batch3 — autoridad para Senna):
+d += AS*0.20*AD_total            # Relic Cannon on-hit (wiki; D2)
+d += pct_extraction*enemy_hp/6   # Living Extraction 1 proc/6 s por target
+q_cd = 15*haste_mult*navori/(1+AS)   # −1 s por auto + Navori ×0.75 (convención D8)
+d += (q_dmg + on_hits_Q)/q_cd + w_dmg/w_cd   # rotación Q/W sostenida
+censer_uptime = min(1, 6/q_cd)   # valor-aliado: +164 DPS al ADC
+# cross-check estándar (dps_model, spec senna con free_crit):
 
 # DUO (motor dps_model, spec senna):
 AS_total = min(0.3 + 0.3*(1.1 + 0.025*14 + items_AS + runas), 3.0)
@@ -16664,11 +16678,18 @@ En DUO el motor responde distinto: **C44 o BotRK primero** son indistinguibles e
 
 | Build | Oro | 1v1 | 3v3 AoE | vs Tanque | Fuente |
 |---|---|---|---|---|---|
-| **Óptima DUO (Gunmetal + Runaan's Hurricane + Hexoptics C44 + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 350 | **1 326** | **2 186** | **474** | ⭐ LAB (óptima) |
-| **Top-2 (Gunmetal + Runaan's Hurricane + Essence Reaver + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 450 | 1 317 | 2 162 | 471 | 🔬 LAB top-2 |
-| **Top-3 (Gunmetal + Runaan's Hurricane + Statikk Shiv + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 450 | 1 298 | 2 179 | 468 | 🔬 LAB top-3 |
+| **Óptima DUO dedicada (Gunmetal Greaves + Runaan's Hurricane + Kraken Slayer + Terminus + Blade of the Ruined King + Infinity Edge)** | 17 250 | **1 749** | **3 086** | **806** | ⭐ LAB (motor dedicado) |
+| **Óptima DUO estándar (Gunmetal Greaves + Runaan's Hurricane + Hexoptics C44 + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 350 | 1 671 | 2 939 | 768 | 🔬 LAB (motor estándar) |
+| **Support dedicada top-1 ofensiva (Gunmetal + Scythe + Censer + Navori + Runaan's + ER)** | 12 900 | 991 | 1 764 | 331 | 🔬 LAB (score 0.833) |
+| **Support dedicada top-2 valor (Gunmetal + Scythe + Censer + Echoes + Cleaver + ER)** | 13 000 | 913 | 1 001 | 385 | ⭐ LAB (support, Tabla A) |
 | **Community DPS (Gunmetal Greaves + Statikk Shiv + Rapid Firecannon + Mortal Reminder + Infinity Edge + Guardian Angel)** | 17 450 | 810 | 810 | 319 | 🌐 comunidad |
-| **Support valor-aliado (Crimson Lucidity + Essence Reaver + Ardent Censer + Black Cleaver + Harmonic Echo + Guardian Angel)** | 16 100 | n/a | n/a | n/a (cura 200 / escudo 480) | ⭐ LAB (support) |
+
+### Por qué los dos motores discrepan en slots 5-6 (y por qué está bien)
+El motor dedicado modela lo que el estándar no puede: **la Q proca on-hit** (Kraken y BotRK
+ganan un cast cada ~6-7 s de CD real), **Terminus** da pen sostenida + AS sin violar la Ley 3b,
+y la Niebla entra por checkpoint (110 stacks DUO al 15). El motor estándar, sin procs de Q,
+prefiere C44 (Magnification) + Yun Tal (AS pura). Ambos coinciden en el core
+**Gunmetal + Runaan's + BotRK + IE**: la discordia es de periferia, no de dirección.
 
 ### Desglose multiplicativo (óptima DUO vs community DPS)
 
@@ -16733,9 +16754,10 @@ En DUO el motor responde distinto: **C44 o BotRK primero** son indistinguibles e
 
 ### Validación del modelo
 
-- `validate_slots(["Crimson","ER","Censer","Cleaver","Echo","GA"])` → **PASS** (6 entradas, 1 bota).
-- `validate_slots(["Gunmetal","Runaan","C44","YunTal","BotRK","IE"])` → **PASS**.
-- `optimize_build.py senna --top 6` reproduce la Tabla A2 (497 800 hojas legales podadas a 2 800).
+- `validate_slots` → **PASS** en Tabla A (6 entradas con quest en slot propio) y Tabla A2.
+- `python3 model/senna_model.py ambos --top 4` reproduce las Tablas A/A2 (63 052 y 651 382 hojas legales).
+- `python3 model/optimize_build.py senna --top 6` reproduce la óptima del motor estándar (cross-check §8).
+- Ley 3b: Terminus convive solo en su grupo (sin LDR/Mortal) → `legales()` True.
 - Sensibilidad free_crit 0 → 0.5: la óptima no cambia de ranking (el crit de ítems ya satura el cap): el umbral blando de la Ley 1 es informativo, no restrictivo.
 
 ---
@@ -16756,6 +16778,10 @@ En DUO el motor responde distinto: **C44 o BotRK primero** son indistinguibles e
 | Runaan's Hurricane (2 650) | ✅ Core DUO | Rayos que critican |
 | Infinity Edge (3 400) | ✅ DUO / ❌ support 1.er ítem | 207 % con mod 0.9 |
 | Statikk Shiv (3 000) | ⚠️ DUO top-3 | Energized ≠ on-hit de Relic |
+| Kraken Slayer (2 900) | ✅ Core DUO | Proca con autos Y con Q (on-hit por cast) |
+| Terminus (3 000) | ✅ DUO (solo) | Pen sostenida; Ley 3b lo aísla de LDR/Mortal |
+| Navori Quickblades (2 650) | ⚠️ Support híbrido | CD ×0.75 (convención D8): más casts de Q |
+| Black Mist Scythe (quest) | ✅ Obligatoria support | Tribute + Spoils→wraiths (Niebla) |
 | Lord Dominik's / Mortal Reminder | ❌ juntos | Ley 3b |
 | Rapid Firecannon | ⚠️ niche | +150 rango: asedio 850+; sin stats de pelea |
 
@@ -16763,14 +16789,14 @@ En DUO el motor responde distinto: **C44 o BotRK primero** son indistinguibles e
 
 ```text
 SUPPORT (valor-aliado):
-Quest (0:00) → Long Sword (2:30) → Ionian (4:30) → Essence Reaver (8:00)
-→ ⬆️ Crimson (10:00) → Ardent Censer (12:00) → Black Cleaver (15:00)
-→ Harmonic Echo (17:30) → Guardian Angel (20:00)
+Quest Spectral Sickle (0:00) → Berserker's (4:30) → ⬆️ Gunmetal (10:00)
+→ Ardent Censer (12:00) → Echoes of Helia (14:30) → Black Cleaver (17:00)
+→ Essence Reaver (20:00)
 
-DUO/ADC (motor):
-Long Sword (0:00) → Berserker's (4:30) → Hexoptics C44 (7:30) → Yun Tal (10:30)
-→ ⬆️ Gunmetal (11:30) → Blade of the Ruined King (14:30) → Runaan's (17:00)
-→ Infinity Edge (20:00)
+DUO/ADC (motor dedicado):
+Long Sword (0:00) → Berserker's (4:30) → Blade of the Ruined King (7:30)
+→ Infinity Edge (10:30) → ⬆️ Gunmetal (11:30) → Runaan's (14:30)
+→ Kraken Slayer (17:30) → Terminus (20:00)
 ```
 
 ---
@@ -21516,6 +21542,69 @@ if __name__ == "__main__":
 
 ```python
 # -*- coding: utf-8 -*-
+"""WR-LAB · tests de model/senna_model.py (batch3, recuperado del chat del autor
+el 11/10/2026 e integrado en v1.16.1).
+
+Ojo con el ORDEN de imports: optimize_build primero (congela sus pools
+genéricos) y senna_model después (registra sus ítems SUP en M.ITEMS). El test
+de no-contaminación verifica justo eso.
+"""
+import os
+import sys
+import unittest
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import optimize_build as OB  # noqa: F401  (import deliberado ANTES que senna_model)
+import dps_model as M
+import senna_model as SM
+
+DUO_OPT = ["gunmetal", "runaan", "kraken", "terminus", "botrk", "ie"]
+SUP_OPT = ["gunmetal", "scythe", "censer", "echoes", "cleaver", "er"]
+
+
+class TestSennaModel(unittest.TestCase):
+    def test_sup_no_contamina_pools_genericos(self):
+        """Los ítems support de Senna no pueden colarse en optimize_build de
+        otros campeones (filtro SENNA-SUP, incidente de diseño 11/10)."""
+        for k in ("cleaver", "censer", "harmonic", "scythe", "echoes"):
+            self.assertNotIn(k, OB.ENGINES["autos"]["items"])
+
+    def test_eval_invariantes_duo(self):
+        r = SM.eval_senna(DUO_OPT, mist=110, role="duo")
+        self.assertGreater(r["dps1"], 1000)
+        self.assertLessEqual(r["crit_eff"], 100)          # cap duro
+        self.assertEqual(r["crit"], 100)                  # 50 ítems + 50 Niebla (110 stacks)
+        self.assertEqual(r["pen"], 30)                    # Terminus, sin LDR/Mortal
+        self.assertGreater(r["q_heal_hps"], 0)            # la Q cura siempre algo
+
+    def test_eval_invariantes_support(self):
+        r = SM.eval_senna(SUP_OPT, mist=140, role="support")
+        self.assertGreater(r["q_heal_hps"], 40)           # valor-aliado real
+        self.assertGreater(r["r_shield"], 400)            # escudo R con 140 de Niebla
+        self.assertGreater(r["adc_dps_add"], 100)         # Censer con uptime pleno
+
+    def test_builds_publicadas_legales(self):
+        self.assertEqual(M.validate_slots(DUO_OPT), (1, 5))   # Ley 0
+        self.assertEqual(M.validate_slots(SUP_OPT), (1, 5))   # quest en slot propio
+        self.assertTrue(SM.legales(DUO_OPT))                  # Terminus solo en su grupo
+        self.assertFalse(SM.legales(["gunmetal", "ldr", "terminus", "botrk", "ie", "runaan"]))  # Ley 3b
+
+    def test_optimizar_support_top_consistente(self):
+        fin, hojas, _ = SM.optimizar_senna("support", top=3, embudo=60)
+        self.assertGreater(hojas, 1000)
+        self.assertEqual(len(fin), 3)
+        scores = [f[0] for f in fin]
+        self.assertEqual(scores, sorted(scores, reverse=True))  # top ordenado
+        for _, combo, _, _, base in fin:
+            self.assertEqual(M.validate_slots(combo), (1, 5))   # toda hoja es legal
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+```
+
+```python
+# -*- coding: utf-8 -*-
 """
 WR-LAB · tests del simulador de timings de oro (model/sim_timings.py).
 Las curvas se derivan de las Tablas B del vault — estos tests validan el parseo
@@ -25226,4 +25315,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 11/10/2026 · completo · sha256(cuerpo)=5e28c1cb9148094e · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 11/10/2026 · completo · sha256(cuerpo)=89c31f833540dcd0 · NO editar a mano: editar las fuentes y regenerar -->
