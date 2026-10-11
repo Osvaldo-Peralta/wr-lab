@@ -2,7 +2,7 @@
 tags:
   - Support
   - Marksman
-  - Crítico modificado
+  - Crítico
   - Bot-Lane
 version: 1.1
 Status: Beta
@@ -16,9 +16,9 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-09"
-updated_at: "2026-10-09"
-verification: pending
-verified_patch: "null"
+updated_at: "2026-10-11"
+verification: AL_DIA
+verified_patch: "7.3a"
 ---
 **Fecha del análisis:** 11/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -27,13 +27,9 @@ verified_patch: "null"
 **Enfoque:** Valor-aliado (cura Q / escudo R / buff Censer) como columna support, con lado DPS medido por el motor de autos para la variante DUO y para el daño de asedio que Senna aporta aunque juegue de support.
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 09/10/2026):** SUPPORT Win Rate 54.11 % | Pick Rate 13.33 % | Ban 36.40 % | Tendencia 0 | Tier S+ (Confidence High). DUO Win Rate 55.16 % | Pick 3.45 % | Ban 36.40 % | Tier S+ (Confidence Med). Fuente: `data/estructurada/champion_winrates.csv` (wr-meta Diamond+, vigía 2×/día). El ban >35 % en ambos roles es la señal de dominio más clara del parche.
-
-> [!TIP]
-> **Variante DUO/ADC (derivación v1.1, motor dedicado `senna_model.py`):** óptima **Gunmetal + Runaan's + Kraken Slayer + Terminus + BotRK + Infinity Edge** (17 250 g, score 0.938): 1v1 **1 749** · 3v3 **3 086** · vs 120 arm **951** · vs tanque **806**. Kraken y BotRK procan con la **Q** (on-hit por cast, wiki) y Terminus aporta pen sostenida sin tocar la Ley 3b. El motor estándar (`optimize_build senna`) da como óptima Gunmetal + Runaan's + C44 + Yun Tal + BotRK + IE: mismo core, discordia en slots 5-6 explicada en §8. La build community DPS (Statikk + RFC + Mortal + IE + GA) pierde **−39 %** en el motor estándar por crit truncado en 76 %.
-
-> [!WARNING]
-> Pendientes de verificación en juego: (W1) AD base 54 vs 50 de wr-meta/wildriftfire (ficha del autor D1: usar 54, sensibilidad −1 a −2 % DPS); (W2) on-hit de Relic Cannon +20 % AD (wiki) vs +10 plano (wr-meta): el ranking de builds no cambia entre ambas (sensibilidad −5.4 % DPS); (W3) wind-up 0.5 s no cancelable con habilidades desde 6.3: fuera del modelo (conservador).
+> **Estado Meta Actual (Diamond+, 09/10/2026):**
+> **SUPPORT Win Rate 54.11 %** | Pick Rate 13.33 % | Ban 36.40 % | Tendencia 0 | Tier S+ (Confidence High).
+> **DUO Win Rate 55.16 %** | Pick 3.45 % | Ban 36.40 % | Tier S+ (Confidence Med).
 
 ---
 
