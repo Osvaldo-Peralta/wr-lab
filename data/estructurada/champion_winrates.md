@@ -29,6 +29,8 @@
 | Ornn | SOLO | S | 51.64 | 1.96 | 0.17 | ↑ 8 | Confidence Low |
 | Ornn | SUPPORT | B | 49.26 | 1.14 | 0.17 | ↓ 8 | Confidence Low |
 | Rammus | JUNGLE | S+ | 57.10 | 4.50 | 6.49 | ↓ 1 | Confidence Med |
+| Senna | DUO | S+ | 55.58 | 3.34 | 34.63 | 0 | Confidence Med |
+| Senna | SUPPORT | S+ | 53.63 | 12.92 | 34.63 | ↓ 1 | Confidence High |
 | Seraphine | SUPPORT | A | 49.04 | 6.47 | 1.03 | 0 | Confidence Med |
 | Shyvana | JUNGLE | B | 46.00 | 3.52 | 1.23 | ↓ 1 | Confidence Med |
 | Sivir | DUO | A | 49.23 | 3.40 | 0.05 | 0 | Confidence Med |

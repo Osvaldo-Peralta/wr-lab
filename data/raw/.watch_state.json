@@ -1,5 +1,5 @@
 {
- "official_73_md5": "1a00b9457fac2e354f4676c45f1bc4fc",
+ "official_73_md5": "11d3b7cc9025fbf505b276dee81c3b2b",
  "new_pages": [
   "7-3",
   "7-3a"
@@ -30,7 +30,7 @@
    "7.3A"
   ]
  },
- "last_check": "2026-10-11T14:26:57",
+ "last_check": "2026-10-11T23:26:58",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
@@ -55,6 +55,8 @@
   "Ornn|SOLO": 51.64,
   "Ornn|SUPPORT": 49.26,
   "Rammus|JUNGLE": 57.1,
+  "Senna|DUO": 55.58,
+  "Senna|SUPPORT": 53.63,
   "Seraphine|SUPPORT": 49.04,
   "Shyvana|JUNGLE": 46.0,
   "Sivir|DUO": 49.23,
@@ -72,8 +74,8 @@
  "winrates_meta": {
   "bucket": "Diamond +",
   "updated_utc": "11 OCT 2026 UTC 00:00",
-  "n_champs": 23,
-  "n_filas": 29
+  "n_champs": 24,
+  "n_filas": 31
  },
- "winrates_checked": "2026-10-11T14:26:57"
+ "winrates_checked": "2026-10-11T23:26:58"
 }
