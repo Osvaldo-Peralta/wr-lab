@@ -57,6 +57,8 @@ class ChampSpec:
     crit_dmg_mod: float = 1.0        # Jhin/Senna/Yasuo/Yone: 0.8-0.9 sobre el daño crítico
     uses_magnification: bool = False # True si siempre ataca a >=550 (Jinx con Fishbones)
     passive_burst_as: float = 0.0    # AS extra que rompe el cap (Get Excited 0.25) — informativo
+    free_crit: float = 0.0           # v1.15.3: crit GRATIS del kit (Senna +10%/20 stacks) —
+                                     # entra al total ANTES del cap 100 (Ley 1 con umbral corrido)
     mana_pool_l1: float = 345; mana_growth: float = 49   # informativo (gestión de maná)
     notes: str = ""
 
@@ -70,6 +72,18 @@ CHAMPS = {
         uses_magnification=True,     # rango cohetes 655-700 >= 550
         crit_dmg_mod=1.0, passive_burst_as=0.25,
         notes="W: 220+160%AD CD5s (~150 DPS extra, fuera del modelo). R: 450+120% bAD + 35% missing (7.3 nerf).",
+    ),
+    "senna": ChampSpec(
+        name="Senna", base_ad=54, ad_growth=0.0,         # AD growth 0: todo es bonus (Niebla + ítems)
+        base_as=0.3, as_ratio=0.3, base_bonus_as=1.1, as_per_lvl=0.025,   # 7.3a (nerf del ratio)
+        ranged=True, attack_range=625,
+        aa_mult=1.2,               # Relic Cannon: on-hit +20% AD en cada auto (wiki; D2 de la ficha)
+        crit_dmg_mod=0.9,          # crit propio al 90% del normal (180%/207% con IE)
+        uses_magnification=True,   # pelea a 625+ (>=550)
+        free_crit=0.50,            # 100 stacks de Niebla al checkpoint mid = +50% crit gratis
+        mana_pool_l1=345, mana_growth=65,
+        notes="Q 60% bAD cura/daño en línea (−1s CD por auto); W 70% bAD root; R 120% bAD+70% AP global. "
+              "Extraction +1-10% vida actual cada ~6s/target: fuera del modelo (conservador).",
     ),
     # ---- PLANTILLA para el próximo campeón (copiar y llenar desde data/estructurada/) ----
     # "nombre": ChampSpec(
@@ -316,7 +330,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
     gold = sum(i.gold for i in its)
     ad   = spec.base_ad + spec.ad_growth*(level-1) + sum(i.ad for i in its) + ad_extra
     base_ad = spec.base_ad + spec.ad_growth*(level-1)
-    crit = min(sum(i.crit for i in its), 100)/100.0
+    crit = min(sum(i.crit for i in its) + spec.free_crit, 100)/100.0
     pen  = min(sum(i.pen for i in its), 100)
     ls   = sum(i.ls for i in its)
     AS, raw_as, B = as_total(spec, items, level, lt, alacrity, self_buff_on)

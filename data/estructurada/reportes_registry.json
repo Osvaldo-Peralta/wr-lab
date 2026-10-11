@@ -1,6 +1,6 @@
 {
  "version_schema": 1,
- "generado": "2026-10-09",
+ "generado": "2026-10-11",
  "parche_motor": "7.3+7.3a",
  "reportes": {
   "Caitlyn.md": {
@@ -33,7 +33,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -68,7 +68,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -103,7 +103,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -145,7 +145,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -187,7 +187,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -222,7 +222,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -267,7 +267,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -312,7 +312,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -347,7 +347,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -382,7 +382,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -417,7 +417,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -452,7 +452,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -487,7 +487,42 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
+    "veredicto": "AL_DIA",
+    "delta_max_pct": null
+   }
+  },
+  "Senna.md": {
+   "champion": "senna",
+   "champion_display": "Senna",
+   "rol": "Support (con variante DUO/ADC declarada en [!TIP])",
+   "modelo": "desconocido",
+   "hook": null,
+   "hook_motivo": "sin modelo cuantitativo para este campeón/arquetipo",
+   "build_display": [
+    "Crimson Lucidity",
+    "Essence Reaver",
+    "Ardent Censer",
+    "Black Cleaver",
+    "Harmonic Echo",
+    "Guardian Angel"
+   ],
+   "build_keys": [],
+   "build_fuente": "Tabla A",
+   "sin_resolver": [
+    "Crimson Lucidity",
+    "Essence Reaver",
+    "Ardent Censer",
+    "Black Cleaver",
+    "Harmonic Echo",
+    "Guardian Angel"
+   ],
+   "parche_declarado": "7.3a",
+   "resumen_publico": "> **Oro total: 16 100 g** · AD bonus de Niebla aparte (+1.25/stack) · crit 50 % gratis al checkpoint de 100 stacks · AS irrelevante para el plan support (ratio 0.3 post-7.3a).\n\n### Tabla A2 — BUILD FINAL (Variante DUO/ADC, óptima del motor)\n\n| Slot | Ítem | Oro | Rol en la build |\n|---|---|---|---|\n| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS (rinde 0.3× por el ratio) + 5 % Lifesteal |\n| 2 | **Hexoptics C44** | 2 900 | 55 AD + Magnification (pelea a 625+ ≥ 550 siempre) |\n| 3 | **Yun Tal Wildarrows** | 3 100 | Flurry +35 % AS condicional (buff 7.3a) + crit progresivo |\n| 4 | **Blade of the Ruined King** | 3 100 | 6 % vida actual on-hit: no depende de su AD bajo temprano |\n| 5 | **Runaan's Hurricane** | 2 650 | 2 rayos 55 % AD que critican y aplican Relic/on-hit |\n| 6 | **Infinity Edge** | 3 400 | Crit 200 % → 230 %; con `crit_dmg_mod` 0.9: 180 % → 207 % |\n\n> **Oro total: 17 350 g** · AD 274 · AS 1.38 · Crit 100 % (50 ítems + 50 Niebla) · Pen 0 % (ver Ley 3: BotRK la sustituye vs tanques).\n\n### Tabla B — Ruta de compra cronológica (Support)\n\n| # | Compra | Oro acum. | Minuto típico |\n|---|---|---|---|\n| 1 | Quest de support (relic inicial) | 0 | 0:00 |\n| 2 | Long Sword + ward de control | 500 | ~2:30 |\n| 3 | **Ionian Boots of Lucidity** | 1 500 | ~4:30 |\n| 4 | Caulfield's + Pickaxe → **Essence Reaver** | 4 500 | ~8:00 |\n| 5 | ⬆️ **Crimson Lucidity** (mismo slot, +1 000 g) | 5 500 | 10:00 (regla T3) |\n| 6 | **Ardent Censer** | 7 900 | ~12:00 |\n| 7 | **Black Cleaver** | 10 900 | ~15:00 |\n| 8 | **Harmonic Echo** | 13 400 | ~17:30 |\n| 9 | **Guardian Angel** | 16 600 | ~20:00 |\n\n### Runas · Hechizos · Habilidades\n\n| Categoría | Elección |\n|---|---|\n| Keystone | **Glacial Augment** (slow en cadena con Q/W para el root de W) · alt. **Fleet Footwork** vs poke extremo |\n| Precisión 2 | **Triumph** (ejecuciones con R y resets de pelea) |\n| Precisión 3 | **Legend: Alacrity** solo en DUO; en support **Tenacity** vs CC |\n| Dominación | **Treasure Hunter** (acelera Crimson y el primer Censer) |\n| Hechizos | **Flash + Heal** (support) · Flash + Exhaust vs dive |\n| Skills | **Q → W → E** (R en 6/11/16). Maxear Q primero: cura+daño en línea es su motor. |\n\n### Resultado del modelo (nivel 15, LT full, 100 stacks de Niebla)\n\n| Escenario | DUO óptima (motor) | DUO community | Soporte (valor-aliado) |\n|---|---|---|---|\n| **1v1** (pre-mitigación) | **1 326** | 810 (−39 %) | n/a (no es su rol de daño) |\n| **3v3** (AoE teamfight) | **2 186** | 810 (sin Runaan's) | n/a |\n| **vs 120 armadura** | **603** | 440 | shred Cleaver 30 % de equipo |\n| **vs Tanque** (220 arm, 4 500 HP) | **474** | 319 | BotRK/Cleaver del carry buffado |\n| **Cura Q (rank 4, 140 Niebla)** | — | — | **200** por impacto en línea (+222 con ER) |\n| **Escudo R (140 / 180 Niebla)** | — | — | **480 / 560** por aliado (+ Echo 35 %) |\n\n> **Titular:** Senna support no se evalúa en DPS: se evalúa en *ventanas* — cura de 200+ en línea cada ~6.8 s de CD real de Q, escudo global de 480+ pre-engage y un asedio de 625→700+ de rango que obliga al enemigo a jugar incómodo. Su lado DPS (variante DUO) es top-tier medible: la óptima del motor supera a la community en +39 % 1v1 porque el crit gratis de Niebla reescribe la Ley 1.\n\n---\n\n## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE\n\n### 1.1 Cambios directos (Senna) — Parche 7.3\n\n| Stat/Habilidad | Antes | Ahora | Impacto |\n|---|---|---|---|\n| HP base | 600 | **570** | −5 % durabilidad early (570 = de las más frágiles) |\n| Sistema de AS | restringida | ratio 0.4 · base 0.4 · BBA 0.6 · growth 0.05 | Los ítems de AS pasaron a funcionarle |\n| Pasiva: % vida actual | 1.2–12 % | **1–10 %** | Nerf al trade de Extraction |\n| Pasiva: crit por 20 Niebla | 15 % | **10 %** | Escalado de crit más lento (100 stacks = 50 %) |\n| Daño crítico propio | 141.75 % (sistema viejo) | **90 % del normal = 180 % (207 % con IE)** | Buff estructural disfrazado de nerf |\n| Q base | 50/90/130/170 | **50/80/110/140** | Poke early −11 % (ranks 2-4) |\n| R daño | 250/375/500 +120 % bAD +50 % AP | **250/400/550 +120 % bAD +70 % AP** | Buff: ejecutora global híbrida |\n| R escudo | +40 % AP + Niebla×4 | **+50 % AP + Niebla×2** | Menos escala-Niebla, más escala-AP |\n\n### 1.2 Hotfix 7.3a — el ajuste que define su techo\n\nCita oficial: *\"Senna has been overperforming across all skill levels since we removed her Attack Speed restrictions. We're adjusting her Attack Speed ratio to rein in how effectively she scales with Attack Speed.\"*\n\n| Parámetro | 7.3 | 7.3a | Efecto real |\n|---|---|---|---|\n| AS ratio / base | 0.4 / 0.4 | **0.3 / 0.3** | Cada 1 % de AS de ítems rinde 0.3 % |\n| Base Bonus AS | 0.6 | **1.1** | Compensación early (AS lvl 1 ≈ 0.63) |\n| AS por nivel | 0.05 | **0.025** | Lvl 15 sin ítems: 0.735 |\n\n**AS efectiva resultante:** lvl 1 = 0.63 · lvl 15 sin ítems = **0.735** · con build full-AS = **1.38–1.44** (motor). El cap 3.0 queda a +755 % de AS bonus: **inalcanzable por diseño** → la Ley 2 no gobierna a Senna (caso Jhin: el valor de la AS está en acortar wind-up y el −1 s de CD de Q por auto, no en el DPS bruto).\n\n### 1.3 Cambios sistémicos que le afectan\n\n| Sistema | Cambio 7.3 | Efecto en Senna |\n|---|---|---|\n| **Crítico base** | 175 % → **200 %** | Con su mod 0.9: 180 %; con IE 207 %. Cada 1 % de crit (incluido el gratis) vale más |\n| **AS Cap** | 2.5 → **3.0** | Irrelevante para ella (techo real 1.44) |\n| **Torretas** | 3 000 → **7 000 HP** + placas | Su asedio de rango creciente siega placas/cristales desde fuera del alcance |\n| **Exclusividades (Ley 3b)** | grupo `pen_pct` | Aplica igual: LDR/Mortal/Terminus no conviven (la óptima no lleva pen) |\n\n---\n\n## 2. FICHA MATEMÁTICA (spec 7.3a)\n\n| Parámetro | Valor | Fuente |\n|---|---|---|\n| HP base / growth | 570 / +120 | notas 7.3 |\n| AD base / growth | **54 / 0** (no sube por nivel) | wiki V6.2c (⚠️ W1) |\n| Armadura / RM | 35 (+4.5) / 30 (+1.4) | wiki |\n| Maná / regen | 345 (+65) / 21 (+0.5) | wiki |\n| Rango de ataque | **625** (+15/20 stacks, cap +400 → 1 025 teórico) | wiki V4.2 |\n| AS (7.3a) | ratio **0.3** · base **0.3** · BBA **1.1** · growth **0.025** | notas 7.3a |\n| Daño crítico | **0.9×** el normal → 180 % / 207 % con IE | notas 7.3 |\n| Niebla | +1.25 AD bonus/stack · +10 % crit/20 stacks · overcap crit → 35 % Physical Vamp | notas 7.3 |\n| Proyectil | hitscan (non-projectile) · wind-up 0.5 s no cancelable (️ W3) | wiki 6.3 |\n| `crit_dmg_mod` motor | 0.9 · `free_crit` 0.50 (100 stacks al checkpoint) · `aa_mult` 1.2 (Relic +20 % AD) | spec lab v1.15.3 |\n\n**AD lvl 15 real = 54 + 1.25×Niebla + ítems.** Con 140 de Niebla: **229 AD sin comprar un solo ítem de AD** — por eso el spellblade de ER (135 % AD base + 0.8/1 % crit) y los ratios bAD de Q/W/R escalan sin compra.\n\n---\n\n## 3. MODELO Y FÓRMULAS\n\n```text\n# Soporte (valor-aliado, fuera del motor DPS — declarado):\ncura_Q(r4)   = 130 + 0.40*bAD + 0.25*AP            # bAD = Niebla*1.25 + AD de ítems\nescudo_R     = 200 + 0.50*AP + 2*Niebla            # por aliado, 3 s; castear ~1 s pre-engage\necho_Q       = 0.30*cura_Q  ·  echo_R = 0.35*escudo_R   # Harmonic Echo al 2.º aliado\ncenser_aliado = +30 % AS y +25 dmg mágico por 6 s  # proca con cura_Q y escudo_R\nCD_real_Q    = 15 / (1 + AS)                       # −1 s por auto/on-hit\n\n# DUO (motor dps_model, spec senna):\nAS_total = min(0.3 + 0.3*(1.1 + 0.025*14 + items_AS + runas), 3.0)\nCrit     = min(crit_items + 50 (Niebla 100 stacks), 100)      # Ley 1 con umbral corrido\nCritDmg  = (200 | 230 con IE) * 0.9\nhit      = AD * 1.2 (Relic) * CritMult * Magnification(C44)\nDPS_1v1  = AS * hit · DPS_3v3 = DPS_1v1 + 2 rayos Runaan (55 % AD c/u, critan)\n```\n\n### Supuestos específicos\n- **Niebla al checkpoint:** 100 stacks (50 % crit gratis) en evaluaciones de motor; benchmarks de stacks de la ficha del autor: support ≈ 90 (14 min) / 140 (18 min); DUO ≈ 65 / 110.\n- **Extraction (+1–10 % vida actual por target cada ~6 s)** queda FUERA del motor: conservador a favor del lector.\n- **Wind-up 0.5 s** fuera del modelo: el DPS real de Senna es menor que el teórico en kiting duro (⚠️ W3).\n- **Spellblade de ER** se valora cualitativo en support (el motor no tiene ítems de support en su pool: declarado en §10).\n\n---\n\n## 4. LEYES APLICADAS A SENNA\n\n- **Ley 0 — Slots:** `validate_slots` → **PASS** en ambas tablas (6 entradas, 1 bota T3 + 5 ítems; la mejora ⬆️ vive en el mismo slot).\n- **Ley 1 — Crítico (UMBRAL BLANDO):** con +50 % gratis de Niebla, el objetivo de ítems es **50 %**, no 100 %. El overcap NO es oro muerto en Senna: el exceso de crit se convierte en **35 % Physical Vamp** → pasar de 100 % es una decisión de sustain, no un error. La óptima DUO clava 100 % (50+50) igual.\n- **Ley 2 — AS Cap 3.0:** no vinculante (techo real 1.38–1.44). El valor de la AS es utilitario: wind-up y CD real de Q.\n- **Ley 3 — Penetración:** la óptima DUO lleva **0 % pen** y gana vs tanque con **BotRK (6 % vida actual)**: contra 4 500 HP el current-health domina al pen al 35 % con su AD alto. Verificado en el motor: 474 vs tanque sin pen.\n- **Ley 3b — Exclusividades:** LDR/Mortal/Terminus no conviven; ninguna build publicada los mezcla.\n- **Ley 6 — Timing:** ER al minuto 8 (Caulfield temprano da haste y spellblade usable); Crimson estrictamente ≥ 10:00 (regla T3 del parche).\n\n---\n\n## 5. ANÁLISIS DEL PRIMER ÍTEM\n\n| Candidato (post-quest) | Oro | Veredicto support | Nota |\n|---|---|---|---|\n| **Essence Reaver** | 3 000 | ✅ **Core 1** | Spellblade escala con el crit GRATIS de Niebla (0.8/1 %): 135 % AD base + ~40 con 50 % crit; +20 haste y maná |\n| **Ardent Censer** | 2 400 | ✅ Core 2 | El buff proca con cada cura Q y cada escudo R: +30 % AS al carry |\n| **Black Cleaver** | 3 000 | ✅ Core 3 | Único AD+HP del pool; shred 30 % que aprovecha TODO el equipo |\n| **Harmonic Echo** | 2 500 | ✅ Core 4 | Convierte Q/R en herramientas de 2 objetivos |\n| **Infinity Edge** (1.er ítem) | 3 400 | ❌ | Sin crit de ítems previo, el 230 % no compensa el hueco de utility en lane |\n| **Statikk Shiv** (1.er ítem support) | 3 000 | ❌ | Energized = valor de waveclear que un support no necesita; sin heal/shield |\n\nEn DUO el motor responde distinto: **C44 o BotRK primero** son indistinguibles en el top-3 (1 326 / 1 320 / 1 317 de 1v1 entre óptima, top-2 ER y top-3 Storm); BotRK aporta el sustain de lane que Fleet completa.\n\n---\n\n## 6. BUILD FINAL RANURA POR RANURA (Support)\n\n| Slot | Ítem | Justificación matemática |\n|---|---|---|\n| Botas | **Crimson Lucidity** | 25 haste + regen; Noxian Haste proca con cada cura/escudo (kiting de 570 HP) |\n| 1 | **Essence Reaver** | Ver §5: el crit gratis maximiza su spellblade; mana-fix para spamear Q |\n| 2 | **Ardent Censer** | +25 dmg mágico y +30 % AS al aliado: DPS delegado sin oro propio |\n| 3 | **Black Cleaver** | 400 HP sobre 570 base = +70 % HP efectivo relativo; shred de equipo |\n| 4 | **Harmonic Echo** | 35 % del escudo R al segundo aliado: 480 → ~648 de valor total por cast |\n| 5 | **Guardian Angel** | 570 HP sin dashes: el revivir es el único \"segundo posicionamiento\" |\n\n### 🛡️ MATRIZ SITUACIONAL\n\n| Escenario | Cambio | Motivo numérico |\n|---|---|---|\n| Vs dive duro (Malphite/Nocturne) | Echo → **Redemption** (2 450) | Activo de 150–350 HP en área + true damage 10 %, casteable muerta |\n| Vs poke mágico | Cleaver → **Redemption** + GA conservado | Sustain de área sin depender de AD propio |\n| Equipo sin carries de AS | Censer → **Harmonic Echo** temprano y Echo → **Redemption** | El valor de Censer requiere un aliado que ataque |\n| DUO/ADC | Tabla A2 completa | motor: +39 % 1v1 vs community |\n\n### RECHAZADOS (con motivo numérico)\n\n| Ítem | Motivo del rechazo |\n|---|---|\n| ❌ **Infinity Edge** en support | 3 400 g de puro daño en un campeón con 570 HP y rol de utility: el oro compite con Crimson+Censer (4 400 g de valor-aliado) |\n| ❌ **Lord Dominik's** + **Mortal Reminder** juntos | ILEGAL (Ley 3b, grupo pen_pct) |\n| ❌ **Statikk Shiv** support | 0 heal/shield; su energized no proca Censer |\n| ❌ **Full-AP** | El escudo R suma 50 % AP pero el daño Q/W/R suma bAD: la Niebla empuja a híbrido inclinado-AD, no full-AP |\n\n---\n\n## 7. RUNAS · HECHIZOS · HABILIDADES\n\n### Keystone: Glacial Augment (support)\n- **Por qué:** el slow de Glacial + el slow de Q (15 % + 10 %/100 bAD) dejan al objetivo dentro del radio 280 del root de W (1.3–2.2 s) y dentro de la línea de Q para el segundo impacto de Extraction.\n- **Alternativa:** **Fleet Footwork** vs poke extremo (sustain de lane que Glacial no da); en DUO el motor prefiere **Lethal Tempo** (+10–12 % DPS sobre Fleet en la óptima: 1 326 vs 1 112).\n\n### Orden de habilidades\n- **Q → W → E** (R en 6/11/16): Q es cura+daño+−1 s de CD por auto; W es el setup; E es utility de equipo sin escalado numérico.\n\n---\n\n## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS\n\n### Tabla maestra (Nivel 15, LT full, 100 stacks de Niebla)\n\n| Build | Oro | 1v1 | 3v3 AoE | vs Tanque | Fuente |\n|---|---|---|---|---|---|\n| **Óptima DUO (Gunmetal + Runaan's Hurricane + Hexoptics C44 + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 350 | **1 326** | **2 186** | **474** | ⭐ LAB (óptima) |\n| **Top-2 (Gunmetal + Runaan's Hurricane + Essence Reaver + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 450 | 1 317 | 2 162 | 471 | 🔬 LAB top-2 |\n| **Top-3 (Gunmetal + Runaan's Hurricane + Statikk Shiv + Yun Tal Wildarrows + Blade of the Ruined King + Infinity Edge)** | 17 450 | 1 298 | 2 179 | 468 | 🔬 LAB top-3 |\n| **Community DPS (Gunmetal Greaves + Statikk Shiv + Rapid Firecannon + Mortal Reminder + Infinity Edge + Guardian Angel)** | 17 450 | 810 | 810 | 319 | 🌐 comunidad |\n| **Support valor-aliado (Crimson Lucidity + Essence Reaver + Ardent Censer + Black Cleaver + Harmonic Echo + Guardian Angel)** | 16 100 | n/a | n/a | n/a (cura 200 / escudo 480) | ⭐ LAB (support) |\n\n### Desglose multiplicativo (óptima DUO vs community DPS)\n\n| Factor | Multiplicador | Contribución |\n|---|---|---|\n| Crit 100 % vs 76 % (Niebla incluida) | ×1.19 | La community desperdicia el crit gratis solapándolo |\n| Runaan's vs RFC (rayos que critican y aplican Relic) | ×1.35 (3v3) | El AoE de Senna son los rayos, no el energized |\n| BotRK 6 % vida actual vs Mortal (sin grievous necesario) | ×1.15 vs tanque | Current-health no depende de su AD bajo temprano |\n| **Neto** | | **+39 % DPS 1v1 efectivo** |\n\n---\n\n## 9. PLAN DE JUEGO\n\n### Early (0:00 – 9:00)\n- **Lane phase:** NO lasthees como support: cada minion grande que no matas = wraith garantizado (+1 Niebla). Lasthear = 3 % de chance.\n- **Trade estándar:** Q (marca) → auto (consume Extraction) desde 625 de rango; el CD real de Q con AS 0.63 ≈ 9.2 s.\n- **Min 4:30:** Ionian Boots; el haste acorta W (setup) y E (escape).\n\n### Mid (9:00 – 16:00)\n- **Pico ER (~8:00):** spellblade con 50–70 stacks ya pega 135 % AD base + ~30: ventana de agresión con W→auto.\n- **Min 10:00:** ⬆️ Crimson Lucidity. Desde acá, rota con E: camuflaje de equipo para herald/dragón.\n- **R como herramienta global:** ejecución + recolección de wraiths en toda la trayectoria + escudo pre-engage (castear ~1 s antes).\n\n### Late (16:00+)\n- **140+ stacks:** AD 229 sin ítems de AD, rango 730+, escudo R 480–560 por aliado. Asedio intocable: Q a través de ola y torretas (on-hit aplica a estructuras).\n- **Teamfight:** posición EXTREMA atrás (570 HP), rota targets de Extraction (el CD es por objetivo), W a minion moribundo junto al carry enemigo = root AoE instantáneo.\n\n### Reglas del parche que cambian el macro\n\n| Regla | Impacto |\n|---|---|\n| Minions 60 % daño a campeones | Su poke de línea es seguro; el enemigo no puede responder igual |\n| Placas permanentes + decaen desde 5:00 | Q a torre desde 625+ farmea placas sin exposición |\n| Botas T3 solo desde 10:00 | Crimson estrictamente a las 10:00 (Ley 6) |\n\n---\n\n## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS\n\n### Fuentes primarias (mandan)\n\n| Fuente | Acceso | Qué aporta |\n|---|---|---|\n| Notas oficiales 7.3 / 7.3a | 21/09 y 29/09/2026 | Sistema AS nuevo, nerf de ratio 7.3a, crit 90 %, R buff |\n| Wiki oficial (WR:Senna + patch history) | 09/10/2026 | AD base 54 growth 0, rango 625, wind-up, economía de wraiths |\n\n### Fuentes secundarias\n\n| Fuente | Acceso | Fiabilidad |\n|---|---|---|\n| wr-meta.com (296-senna) | 09/10/2026 | Win rates S+ ambos roles (CSV del vigía) |\n| Ficha analítica del autor (Senna 7.3a, 12/10) | 12/10/2026 | D1–D5, benchmarks de Niebla, sinergias/counters |\n\n### Discrepancias detectadas y resolución\n\n| Tema | Resolución |\n|---|---|\n| AD base 50 (wr-meta) vs 54 (wiki) | **54** (wiki V6.2c); sensibilidad −1 a −2 % DPS (⚠️ W1) |\n| Relic on-hit +20 % AD vs +10 plano | **+20 % AD** (wiki); ranking de builds invariante (⚠️ W2) |\n| `model/senna_model.py` citado por la ficha del autor NO existe en el repo | Reconstruido como spec `senna` en `dps_model.py` (v1.15.3): números del reporte = motor estándar, reproducibles con `optimize_build.py senna` |\n\n### Validación del modelo\n\n- `validate_slots([\"Crimson\",\"ER\",\"Censer\",\"Cleaver\",\"Echo\",\"GA\"])` → **PASS** (6 entradas, 1 bota).\n- `validate_slots([\"Gunmetal\",\"Runaan\",\"C44\",\"YunTal\",\"BotRK\",\"IE\"])` → **PASS**.\n- `optimize_build.py senna --top 6` reproduce la Tabla A2 (497 800 hojas legales podadas a 2 800).\n- Sensibilidad free_crit 0 → 0.5: la óptima no cambia de ranking (el crit de ítems ya satura el cap): el umbral blando de la Ley 1 es informativo, no restrictivo.\n\n---\n\n## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Senna\n\n| Ítem (oro) | Veredicto | Nota |\n|---|---|---|\n| Essence Reaver (3 000) | ✅ Core | Spellblade × crit gratis |\n| Ardent Censer (2 400) | ✅ Core support | Buff proca con Q/R |\n| Black Cleaver (3 000) | ✅ Core | HP + shred |\n| Harmonic Echo (2 500) | ✅ Core | 2.º objetivo de cura/escudo |\n| Guardian Angel (3 200) | ✅ Default 6.º | Revivir vs fragilidad |\n| Redemption (2 450) | ⚠️ vs dive | Activo casteable muerta |\n| Hexoptics C44 (2 900) | ✅ Core DUO | Magnification a 625+ |\n| Blade of the Ruined King (3 100) | ✅ Core DUO | 6 % vida actual |\n| Yun Tal Wildarrows (3 100) | ✅ Core DUO | Flurry post-7.3a |\n| Runaan's Hurricane (2 650) | ✅ Core DUO | Rayos que critican |\n| Infinity Edge (3 400) | ✅ DUO / ❌ support 1.er ítem | 207 % con mod 0.9 |\n| Statikk Shiv (3 000) | ⚠️ DUO top-3 | Energized ≠ on-hit de Relic |\n| Lord Dominik's / Mortal Reminder | ❌ juntos | Ley 3b |\n| Rapid Firecannon | ⚠️ niche | +150 rango: asedio 850+; sin stats de pelea |\n\n## APÉNDICE B — RUTAS DE COMPRA\n\n```text\nSUPPORT (valor-aliado):\nQuest (0:00) → Long Sword (2:30) → Ionian (4:30) → Essence Reaver (8:00)\n→ ⬆️ Crimson (10:00) → Ardent Censer (12:00) → Black Cleaver (15:00)\n→ Harmonic Echo (17:30) → Guardian Angel (20:00)\n\nDUO/ADC (motor):\nLong Sword (0:00) → Berserker's (4:30) → Hexoptics C44 (7:30) → Yun Tal (10:30)\n→ ⬆️ Gunmetal (11:30) → Blade of the Ruined King (14:30) → Runaan's (17:00)\n→ Infinity Edge (20:00)\n```\n\n---\n\n## Pie de página\n\n*Reporte generado el 11/10/2026 con datos del parche 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026). WR-LAB v1.15.3 (spec `senna` + `free_crit`). Las cifras de DPS son pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3b/7.4, regenerar datos antes de republishar.*\n\n**Referencias y créditos**\n- Notas oficiales del parche 7.3 y 7.3a — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios sistémicos y de Senna.\n- Wiki oficial WR:Senna + patch history — AD base, rango, wind-up, economía de Niebla.\n- Win rates Diamond+ del 09/10/2026 — wr-meta.com vía `data/estructurada/champion_winrates.csv` (vigía del lab).\n- Ficha analítica de Senna 7.3a del autor (12/10/2026) — discrepancias D1–D5 y benchmarks de Niebla.\n- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (`model/dps_model.py` + `model/optimize_build.py`).\n\n**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada ni respaldada por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.",
+   "metricas": null,
+   "ultima_verificacion": {
+    "patch": "7.3a",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -522,7 +557,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -557,7 +592,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -592,7 +627,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }
@@ -627,7 +662,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -662,7 +697,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -697,7 +732,7 @@
    "metricas": null,
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "AL_DIA",
     "delta_max_pct": null
    }
@@ -742,7 +777,7 @@
    },
    "ultima_verificacion": {
     "patch": "7.3a",
-    "fecha": "2026-10-09",
+    "fecha": "2026-10-11",
     "veredicto": "ANOTAR",
     "delta_max_pct": null
    }

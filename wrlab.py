@@ -111,10 +111,16 @@ def acc_prepush():
         return r.returncode, (r.stdout or "") + (r.stderr or "")
     ok = True
     print("── 1) sincronización con origin ──")
-    sh("git", "fetch", "origin", "--quiet")
-    _, behind_s = sh("git", "rev-list", "--count", "HEAD..origin/main")
-    _, ahead_s = sh("git", "rev-list", "--count", "origin/main..HEAD")
-    behind, ahead = int(behind_s.strip() or 0), int(ahead_s.strip() or 0)
+    rc_git, _ = sh("git", "rev-parse", "--show-toplevel")
+    if rc_git != 0:
+        print("⚠️ sin repo git en este directorio: omito el chequeo de rama "
+              "(fuera de un clon, prepush solo regenera y verifica gates).")
+        behind, ahead = 0, 0
+    else:
+        sh("git", "fetch", "origin", "--quiet")
+        _, behind_s = sh("git", "rev-list", "--count", "HEAD..origin/main")
+        _, ahead_s = sh("git", "rev-list", "--count", "origin/main..HEAD")
+        behind, ahead = int(behind_s.strip() or 0), int(ahead_s.strip() or 0)
     if behind:
         print(f"❌ rama {behind} commit(s) DETRÁS de origin/main (vigía u otros pushes).")
         print("   → git pull --rebase origin main  y volvé a correr prepush.")
