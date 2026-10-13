@@ -1,47 +1,50 @@
-WR-LAB · v1.16.1 — MOTOR DEDICADO DE SENNA + DERIVACIÓN v1.1  (2026-10-11)
-══════════════════════════════════════════════════════════════════════
+WR-LAB · v1.17 — MOTOR CHO'GATH (batch4) + DERIVACIÓN DE AMBOS CARRILES  (2026-10-11)
+════════════════════════════════════════════════════════════════════════
 
 QUÉ INCLUYE
-  · model/senna_model.py — el modelo por medida recuperado de tu chat externo
-    (batch3): híbrido autos/rotación + valor-aliado, con lo que el motor
-    estándar NO puede ver: Relic on-hit 20 % AD, Living Extraction, rotación
-    Q/W con CD reducido por autos y Navori ×0.75, checkpoints de Niebla por
-    rol (support 50/90/140 · duo 35/65/110), pool support completo (Censer,
-    Echoes, Cleaver, Scythe, Redemption…) y uptime de Censer.
-    CLI: python3 model/senna_model.py [support|duo|ambos] --top N [--mist M]
-  · model/optimize_build.py — filtro SENNA-SUP: los 19 ítems support que
-    senna_model registra en M.ITEMS NO entran a los pools genéricos de otros
-    campeones (contaminación estructuralmente imposible, sin depender del
-    orden de imports).
-  · reportes/Senna.md v1.1 — derivación nueva con el motor dedicado:
-    - Tabla A2 DUO ahora es Gunmetal + Runaan's + Kraken + Terminus + BotRK + IE
-      (17 250 g, score 0.938): Kraken/Terminus ganan porque la Q proca on-hit
-      y Terminus da pen sostenida sin tocar la Ley 3b.
-    - Tabla A support ahora es Gunmetal + Scythe + Censer + Echoes + Cleaver + ER
-      (13 000 g, score 0.830): Q-cura 80 h/s, escudo R 567, +164 DPS al ADC.
-      (Top-1 ofensiva Navori+Runaan's queda en §8 como variante 0.833.)
-    - §8 explica POR QUÉ los dos motores discrepan en slots 5-6 y coinciden en
-      el core (Gunmetal+Runaan's+BotRK+IE): discordia de periferia, no de dirección.
-    - Rutas de compra, matriz situacional y validaciones actualizadas.
-  · tests/test_senna_model.py — 5 tests: invariants de eval (cap de crit, pen,
-    valor-aliado), Ley 0/3b de las builds publicadas, no-contaminación de pools
-    y top del optimizador support. Suite total: 158 tests.
-  · Bundles regenerados (Senna.md v1.1 embebido).
+  · model/chogath_model.py — motor rotación-tanque batch4 (recuperado del chat
+    del autor): ventanas de supervivencia §1b.6.2, EHP en ventana, curva de
+    stacks de Feast, execute de R vs campeón/monstruo, Smite+R por minuto,
+    122 632 builds legales. Autocontenido (su propio pool de ítems): no toca
+    dps_model ni los pools genéricos.
+  · model/chogath_resultados.txt — corrida completa reproducible
+    (python3 model/chogath_model.py, ~2 min).
+  · NOMBRES_OFICIALES en el motor: cada key interna mapea a su nombre de
+    items_7.3.csv (Amaranth's Twinguard, Gargoyle Stoneplate…). El test nuevo
+    EXIGE que todo el pool exista en el CSV: compatibilidad Wild Rift 7.3
+    garantizada por construcción (indicación del autor: nada de desktop).
+  · reportes/Cho'Gath - Titán de la Jungla.md y …del Barón.md → v1.3 (Beta):
+    derivación nueva con el motor. Óptima de ambos carriles:
+    Armored Advance + Heartsteel + Unending Despair + Amaranth's Twinguard
+    + Gargoyle Stoneplate + Force of Nature (17 100 g):
+    HP 8 093 · VENT 55 591 · R 1 277 verdadero · hps 197 · Demolish 2 351 ·
+    Smite+R 3 290 (jungla min 22). Supera a las publicadas en +18.9 % (jungla)
+    y +16.7 % (barón) de score; la comunidad en +16.8 %.
+    TU REGLA DEL TAMAÑO, CODIFICADA: el score §A.5 pondera VENT .20 + R .15 +
+    DPS .25 + EHP .30 — y hay un test (test_tamano_es_consecuencia) que
+    verifica que el tanque puro (más HP) PIERDA ventana y daño contra la
+    óptima: gigante-derretible nunca más será "óptimo" en este lab.
+  · data/estructurada/items_7.3.csv: errata "Immortal Treds" → "Immortal
+    Treads" (la BD oficial del lab tenía el typo; afectaba nombres en
+    dps_model y fichas).
+  · tests/test_chogath_model.py — 7 tests: compatibilidad WR del pool completo,
+    exclusividad Immolate (A10), Ley 4 (Sterak/Overlord/Cleaver pierden),
+    curva de stacks monótona, optimize legal. Suite total: 165 tests.
+  · data/estructurada/fichas_autor/ — las fichas analíticas tuyas (Senna y
+    Cho'Gath) versionadas como fuente citada de los reportes.
+  · registry + bundles regenerados.
+
+ESTADO DE PUBLICACIÓN
+  Los dos reportes salen Status: Beta · verification: pending (los supuestos
+  D1-D4 del motor necesitan tu verificación en juego, en particular D2:
+  Twinguard ×1.3 a resistencias TOTALES vs solo bonus — el peor caso cambia el
+  slot 4 a Kaenic Rookern). Tras el sync, el web los muestra como Beta con
+  badge "sin verificar". Cuando verifiques: update_reports.py annotate
+  --patch 7.3a --apply → Aprobado.
 
 PASOS
-  1. cd "<tu-clon>/wr-lab" && unzip -o ruta/al/wr-lab-v1161-senna-model.zip
-  2. python3 wrlab.py prepush → 🟢 (158 tests)
-  3. git add -A && git commit -m "v1.16.1: motor dedicado de Senna (batch3) + derivación v1.1 del reporte" && git push
-  4. RECIÉN AHORA el Sync lab → web que tenías en pausa: publica Senna v1.1
-     (Beta, sin verificar) + fichas analíticas no van al web (son capa de lab).
-
-SOBRE LA ANOMALÍA DEL CI QUE VISTE (patch-watch >10 min)
-  No era el cron: era el JOB patch-watch del CI de tu push (ci.yml lo corre
-  también en pushes). El step "Vigilar parches nuevos" tardó 613 s porque
-  wr-meta respondió lentísimo en esa ventana (cada request tiene timeout 20 s
-  y el paso es serial: 24 campeones × varios timeouts parciales). Terminó
-  SUCCESS y con datos conservados (fail-suave por diseño). Los cron de vigía
-  reales siguen tardando ~50-60 s. Si vuelve a pasar: es cota superior acotada
-  (~#requests × 20 s), no un cuelgue infinito. Mejora opcional futura:
-  fetches paralelos con semáforo en check_patch (no aplicado: no se toca el
-  camino de datos del cron sin necesidad).
+  1. cd "<tu-clon>/wr-lab" && unzip -o ruta/al/wr-lab-v117-chogath.zip
+  2. python3 wrlab.py prepush → 🟢 (165 tests)
+  3. git add -A && git commit -m "v1.17: motor Cho'Gath batch4 + derivación jungla/barón v1.3 + errata Immortal Treads" && git push
+  4. Sync lab → web cuando quieras publicar la v1.3 (o espera a verificar D2
+     en juego y publica ya Aprobado: annotate antes del push).

@@ -562,9 +562,16 @@ def construir_registro(hoy=None):
         # verified_patch) para que `baseline` no destruya el sellado de
         # `annotate` según el orden en que se corran (incidente CI 08/10).
         if fm.get("verification") not in (None, "", "pending") and fm.get("verified_patch"):
+            # v1.17.1: la fecha del sello va en dd/mm/aaaa (el formato que
+            # estandarizar_metadatos parsea para updated_at). Con ISO, el regex
+            # fallaba y estandarizar reescribía updated_at a "hoy" → el test
+            # idempotente rompía al cambiar de día (incidente clean-room 12/10).
+            _f = str(fm.get("updated_at") or fm.get("published_at") or hoy)
+            _m = re.match(r"(\d{4})-(\d{2})-(\d{2})", _f)
+            _fecha = f"{_m.group(3)}/{_m.group(2)}/{_m.group(1)}" if _m else _f
             entry["ultima_verificacion"] = {
                 "patch": fm["verified_patch"],
-                "fecha": str(fm.get("updated_at") or fm.get("published_at") or hoy),
+                "fecha": _fecha,
                 "veredicto": fm["verification"],
                 "delta_max_pct": None,
             }

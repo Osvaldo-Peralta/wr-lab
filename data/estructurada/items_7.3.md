@@ -2588,10 +2588,10 @@ Boots of Dynamism
 
 ## Boots tier 3
 
-### Immortal Treds — 2000g
+### Immortal Treads — 2000g
 **Stats:** +45 Move Speed
 ```
-Immortal Treds
+Immortal Treads
 Deal bonus damage or gain increased healing and shielding
  +45 Move Speed
 Balance of Power:
@@ -2612,7 +2612,7 @@ Now and Forever:
  When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding.
  
 2000
-Immortal Treds
+Immortal Treads
 ```
 ### Gunmetal Greaves — 2200g
 **Stats:** +50% Attack Speed | +45 Move Speed | +5% Lifesteal

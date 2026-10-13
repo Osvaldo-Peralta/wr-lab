@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 11/10/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 12/10/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -1775,7 +1775,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 11 OCT 2026 UTC 00:00** · Refrescado por el vigía: 11/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 13 OCT 2026 UTC 00:00** · Refrescado por el vigía: 13/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1784,35 +1784,37 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.45 | 4.16 | 0.12 | ↓ 4 | Confidence Med |
-| Caitlyn | DUO | A | 49.56 | 20.13 | 9.28 | ↓ 2 | Confidence High |
-| Cho'Gath | SOLO | S | 50.24 | 11.20 | 35.48 | 0 | Confidence High |
-| Cho'Gath | JUNGLE | S | 50.80 | 8.57 | 35.48 | ↓ 2 | Confidence High |
-| Diana | MID | B | 47.57 | 1.07 | 0.16 | ↓ 3 | Confidence Low |
-| Diana | JUNGLE | A | 50.92 | 1.42 | 0.16 | ↑ 8 | Confidence Low |
-| Heimerdinger | MID | A | 50.12 | 1.67 | 1.27 | ↓ 3 | Confidence Low |
-| Jinx | DUO | A | 50.20 | 12.44 | 0.46 | 0 | Confidence High |
-| Kalista | DUO | S | 51.34 | 5.93 | 6.70 | ↑ 1 | Confidence Med |
-| Kalista | SOLO | S+ | 53.90 | 2.42 | 6.70 | 0 | Confidence Low |
-| Karma | SUPPORT | A | 49.61 | 4.42 | 0.37 | ↑ 3 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.76 | 7.93 | 42.29 | ↓ 1 | Confidence Med |
-| Malphite | SOLO | S+ | 55.70 | 7.06 | 42.29 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S+ | 51.62 | 10.18 | 29.90 | ↑ 1 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.34 | 10.49 | 49.29 | 0 | Confidence High |
-| Norra | MID | S | 50.69 | 1.41 | 7.44 | ↑ 4 | Confidence Low |
-| Orianna | MID | A | 51.22 | 4.41 | 0.29 | ↓ 6 | Confidence Med |
-| Ornn | SOLO | S | 51.64 | 1.96 | 0.17 | ↑ 8 | Confidence Low |
-| Ornn | SUPPORT | B | 49.26 | 1.14 | 0.17 | ↓ 8 | Confidence Low |
-| Rammus | JUNGLE | S+ | 57.10 | 4.50 | 6.49 | ↓ 1 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.04 | 6.47 | 1.03 | 0 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.00 | 3.52 | 1.23 | ↓ 1 | Confidence Med |
-| Sivir | DUO | A | 49.23 | 3.40 | 0.05 | 0 | Confidence Med |
-| Syndra | MID | S | 51.28 | 6.37 | 20.25 | 0 | Confidence Med |
-| Volibear | SOLO | B | 47.86 | 4.82 | 4.49 | ↓ 2 | Confidence Med |
-| Volibear | JUNGLE | A | 48.25 | 2.38 | 4.49 | ↑ 3 | Confidence Low |
-| Xayah | DUO | A | 50.10 | 4.32 | 0.18 | ↑ 3 | Confidence Med |
-| Yunara | DUO | S+ | 51.44 | 15.83 | 22.94 | 0 | Confidence High |
-| Yuumi | SUPPORT | S | 49.54 | 9.30 | 33.24 | ↑ 3 | Confidence High |
+| Ahri | MID | A | 50.75 | 4.34 | 0.13 | ↓ 2 | Confidence Med |
+| Caitlyn | DUO | A | 49.79 | 19.03 | 8.48 | ↑ 1 | Confidence High |
+| Cho'Gath | SOLO | A | 50.05 | 10.84 | 35.00 | ↓ 4 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.71 | 8.61 | 35.00 | ↓ 1 | Confidence High |
+| Diana | MID | B | 47.43 | 1.10 | 0.15 | 0 | Confidence Low |
+| Diana | JUNGLE | A | 50.86 | 1.48 | 0.15 | ↑ 6 | Confidence Low |
+| Heimerdinger | MID | B | 48.80 | 1.63 | 1.31 | ↓ 11 | Confidence Low |
+| Jinx | DUO | A | 50.53 | 12.32 | 0.45 | 0 | Confidence High |
+| Kalista | DUO | A | 50.39 | 6.01 | 7.22 | ↓ 3 | Confidence Med |
+| Kalista | SOLO | S+ | 53.41 | 2.40 | 7.22 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 49.63 | 4.45 | 0.35 | ↓ 3 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.47 | 7.92 | 41.21 | 0 | Confidence Med |
+| Malphite | SOLO | S+ | 55.32 | 6.98 | 41.21 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S | 51.12 | 10.96 | 29.22 | ↓ 5 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.68 | 10.64 | 53.12 | 0 | Confidence High |
+| Norra | MID | A | 50.98 | 1.43 | 7.25 | ↓ 2 | Confidence Low |
+| Orianna | MID | A | 51.09 | 4.51 | 0.30 | ↓ 6 | Confidence Med |
+| Ornn | SOLO | A | 51.75 | 1.99 | 0.17 | ↓ 3 | Confidence Low |
+| Ornn | SUPPORT | B | 49.38 | 1.16 | 0.17 | ↓ 1 | Confidence Low |
+| Rammus | JUNGLE | S+ | 57.46 | 4.35 | 6.56 | 0 | Confidence Med |
+| Senna | DUO | S+ | 55.70 | 3.25 | 33.31 | 0 | Confidence Med |
+| Senna | SUPPORT | S+ | 54.04 | 12.87 | 33.31 | 0 | Confidence High |
+| Seraphine | SUPPORT | A | 49.27 | 6.61 | 1.05 | 0 | Confidence Med |
+| Shyvana | JUNGLE | B | 45.15 | 3.41 | 1.20 | ↓ 1 | Confidence Med |
+| Sivir | DUO | B | 48.28 | 3.45 | 0.05 | ↓ 3 | Confidence Med |
+| Syndra | MID | S+ | 51.45 | 6.23 | 19.43 | ↑ 1 | Confidence Med |
+| Volibear | SOLO | A | 47.93 | 4.92 | 4.47 | ↑ 1 | Confidence Med |
+| Volibear | JUNGLE | A | 48.06 | 2.47 | 4.47 | ↑ 3 | Confidence Low |
+| Xayah | DUO | A | 49.66 | 4.50 | 0.18 | ↓ 2 | Confidence Med |
+| Yunara | DUO | S+ | 51.48 | 15.77 | 23.78 | 0 | Confidence High |
+| Yuumi | SUPPORT | A | 48.64 | 8.97 | 33.55 | ↓ 3 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -1937,7 +1939,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Ionian Boots of Lucidity | 1000 | +50% Mana Regen  /  +15 Ability Haste  /  +45 Move Speed | Boots tier 2 |
 | Boots of Mana | 1200 | +25 Ability Power  /  +8 Magic Penetration  /  +75% Mana Regeneration  /  +45 Move Speed | Boots tier 2 |
 | Boots of Dynamism | 1200 | +15 Attack Damage  /  +10 Armor Penetration  /  +45 Move Speed | Boots tier 2 |
-| Immortal Treds | 2000 | +45 Move Speed | Boots tier 3 |
+| Immortal Treads | 2000 | +45 Move Speed | Boots tier 3 |
 | Gunmetal Greaves | 2200 | +50% Attack Speed  /  +45 Move Speed  /  +5% Lifesteal | Boots tier 3 |
 | Chainlaced Crushers | 2200 | +150 Max Health  /  +30 Magic Resistance  /  +30% Tenacity  /  +45 Move Speed | Boots tier 3 |
 | Armored Advance | 2200 | +150 Max Health  /  +30 Armor  /  +45 Move Speed | Boots tier 3 |
@@ -2372,7 +2374,7 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Crimson Lucidity":"crimson","Crimson":"crimson","Boots of Mana":"boots_mana",
          "Spellslinger's Shoes":"spellslinger","Spellslinger's":"spellslinger",
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
-         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treds":"immortal_treads"}
+         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads"}
 
 # ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
 # El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +
@@ -4969,4 +4971,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 11/10/2026 · lite · sha256(cuerpo)=29be0146d02ca90a · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 12/10/2026 · lite · sha256(cuerpo)=0bfd8a3b2133fa2a · NO editar a mano: editar las fuentes y regenerar -->

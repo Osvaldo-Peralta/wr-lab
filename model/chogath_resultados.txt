@@ -1,0 +1,187 @@
+================================================================================================================
+WR-LAB · MOTOR ROTACIÓN-TANQUE (batch4) — CHO'GATH nivel 15 · Feast 15 stacks · R3 · oro ≤ 17 250
+================================================================================================================
+
+[1] ÓPTIMAS DEFAULT — pesos §A.5 tanque (EHP .15/.15 + ventana .20 + R .15 + DPS .25 + sustain .05 + util .05) · 122632 builds evaluadas:
+  # 1 score 0.694 |  17100g | HP 8093 | arm 274 | MR 316 | AP 0 | EHPp 32546 | EHPm 33626 | VENT 55591 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  # 2 score 0.693 |  17100g | HP 8093 | arm 244 | MR 346 | AP 0 | EHPp 27840 | EHPm 36054 | VENT 53506 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  # 3 score 0.682 |  16950g | HP 7655 | arm 274 | MR 316 | AP 0 | EHPp 30784 | EHPm 31806 | VENT 56377 | R 1229 | DPSf 420 | DPSt 357 | AoE 931 | hps 240
+        ArmoredAdvance + ForceOfNature + Warmog + Gargoyle + UnendingDespair + Twinguard
+  # 4 score 0.681 |  16900g | HP 7294 | arm 244 | MR 430 | AP 0 | EHPp 25093 | EHPm 38697 | VENT 55233 | R 1189 | DPSf 409 | DPSt 349 | AoE 906 | hps 176
+        Chainlaced + ForceOfNature + KaicRookern + Gargoyle + UnendingDespair + Twinguard
+  # 5 score 0.680 |  16900g | HP 7294 | arm 274 | MR 400 | AP 0 | EHPp 29335 | EHPm 36509 | VENT 56889 | R 1189 | DPSf 409 | DPSt 349 | AoE 906 | hps 176
+        ArmoredAdvance + ForceOfNature + KaicRookern + Gargoyle + UnendingDespair + Twinguard
+  # 6 score 0.680 |  16950g | HP 7655 | arm 244 | MR 346 | AP 0 | EHPp 26333 | EHPm 34103 | VENT 54275 | R 1229 | DPSf 420 | DPSt 357 | AoE 931 | hps 240
+        Chainlaced + ForceOfNature + Warmog + Gargoyle + UnendingDespair + Twinguard
+  # 7 score 0.680 |  17100g | HP 7243 | arm 324 | MR 316 | AP 0 | EHPp 33022 | EHPm 30094 | VENT 52835 | R 1184 | DPSf 471 | DPSt 393 | AoE 1067 | hps 171
+        ArmoredAdvance + ForceOfNature + Gargoyle + UnendingDespair + Iceborn + Twinguard
+  # 8 score 0.679 |  16900g | HP 7346 | arm 349 | MR 316 | AP 0 | EHPp 38587 | EHPm 30522 | VENT 55420 | R 1195 | DPSf 409 | DPSt 350 | AoE 907 | hps 174
+        ArmoredAdvance + Randuin + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  # 9 score 0.678 |  16800g | HP 7140 | arm 349 | MR 316 | AP 0 | EHPp 34471 | EHPm 29667 | VENT 53744 | R 1172 | DPSf 434 | DPSt 368 | AoE 930 | hps 169
+        ArmoredAdvance + Thornmail + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  #10 score 0.677 |  17100g | HP 7243 | arm 294 | MR 346 | AP 0 | EHPp 28537 | EHPm 32267 | VENT 50649 | R 1184 | DPSf 469 | DPSt 391 | AoE 1061 | hps 171
+        Chainlaced + ForceOfNature + Gargoyle + UnendingDespair + Iceborn + Twinguard
+
+[2] BUILDS DE REFERENCIA (mismas métricas, minuto 20, S=15):
+  LAB-JUNGLA (pub. 28/09)      16650g | HP 8711 | arm 139 | MR 220 | AP 70 | EHPp 22386 | EHPm 27919 | VENT 26292 | R 1384 | DPSf 554 | DPSt 467 | AoE 1144 | hps 67
+        ArmoredAdvance + Heartsteel + HollowRadiance + Liandry + ForceOfNature + Warmog
+  LAB-BARON (pub. 28/09)       17000g | HP 8196 | arm 234 | MR 163 | AP 160 | EHPp 29435 | EHPm 21555 | VENT 39274 | R 1377 | DPSf 518 | DPSt 441 | AoE 1143 | hps 46
+        ArmoredAdvance + Heartsteel + RodOfAges + Twinguard + Gargoyle + Liandry
+  COMUNIDAD wr-meta            16650g | HP 8711 | arm 109 | MR 250 | AP 70 | EHPp 18206 | EHPm 30532 | VENT 25437 | R 1384 | DPSf 554 | DPSt 467 | AoE 1144 | hps 67
+        Chainlaced + Heartsteel + HollowRadiance + Liandry + ForceOfNature + Warmog
+  TANQUE PURO (0 AP)           16950g | HP 8505 | arm 309 | MR 163 | AP 0 | EHPp 40695 | EHPm 22368 | VENT 49556 | R 1323 | DPSf 417 | DPSt 354 | AoE 883 | hps 66
+        ArmoredAdvance + Heartsteel + Twinguard + Gargoyle + Warmog + Randuin
+  AP PURO (glass cannon)       17400g | HP 6728 | arm 109 | MR 98 | AP 491 | EHPp 14061 | EHPm 13321 | VENT 14534 | R 1397 | DPSf 733 | DPSt 645 | AoE 1603 | hps 77
+        Chainlaced + Liandry + Riftmaker + Cryptbloom + Rabadon + Rylai
+  TITANIC HYDRA (control)      17300g | HP 8144 | arm 234 | MR 163 | AP 70 | EHPp 29250 | EHPm 21420 | VENT 39008 | R 1321 | DPSf 552 | DPSt 464 | AoE 1390 | hps 45
+        ArmoredAdvance + Heartsteel + TitanicHydra + Twinguard + Gargoyle + Liandry
+
+  CONTROLES Ley 4 (sustituir el 5.º ítem de la óptima):
+  OverlordBlood                17100g | HP 8247 | arm 224 | MR 266 | AP 0 | EHPp 28733 | EHPm 30144 | VENT 40466 | R 1294 | DPSf 457 | DPSt 383 | AoE 908 | hps 200
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + OverlordBlood
+  Sterak                       17100g | HP 8196 | arm 224 | MR 266 | AP 0 | EHPp 28554 | EHPm 29956 | VENT 44020 | R 1289 | DPSf 445 | DPSt 375 | AoE 896 | hps 199
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Sterak
+  BlackCleaver                 16900g | HP 8196 | arm 224 | MR 266 | AP 0 | EHPp 28554 | EHPm 29956 | VENT 40196 | R 1289 | DPSf 468 | DPSt 391 | AoE 929 | hps 199
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + BlackCleaver
+
+  SCORE COMPOSITE (normalizado al máx de la corrida; la óptima del motor = referencia 1.00 relativa):
+    ÓPTIMA LAB (motor batch4)    0.816   (+0.0 % vs óptima)
+    TANQUE PURO (0 AP)           0.726   (-11.1 % vs óptima)
+    TITANIC HYDRA (control)      0.687   (-15.8 % vs óptima)
+    LAB-BARON (pub. 28/09)       0.680   (-16.7 % vs óptima)
+    COMUNIDAD wr-meta            0.679   (-16.8 % vs óptima)
+    LAB-JUNGLA (pub. 28/09)      0.662   (-18.9 % vs óptima)
+    AP PURO (glass cannon)       0.633   (-22.5 % vs óptima)
+    CTRL-OverlordBlood           0.737   (-9.7 % vs óptima)
+    CTRL-Sterak                  0.759   (-7.0 % vs óptima)
+    CTRL-BlackCleaver            0.737   (-9.8 % vs óptima)
+
+[3] ÓPTIMA vs COMP AD (75 % físico):
+  #1 score 0.707 |  17100g | HP 8093 | arm 349 | MR 203 | AP 0 | EHPp 42511 | EHPm 24522 | VENT 53480 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + Randuin + Gargoyle + UnendingDespair + Twinguard
+  #2 score 0.702 |  17000g | HP 7887 | arm 349 | MR 203 | AP 0 | EHPp 38078 | EHPm 23898 | VENT 52023 | R 1255 | DPSf 471 | DPSt 393 | AoE 983 | hps 192
+        ArmoredAdvance + Heartsteel + Thornmail + Gargoyle + UnendingDespair + Twinguard
+  #3 score 0.700 |  16800g | HP 7140 | arm 424 | MR 203 | AP 0 | EHPp 43770 | EHPm 21634 | VENT 51904 | R 1172 | DPSf 436 | DPSt 369 | AoE 932 | hps 169
+        ArmoredAdvance + Thornmail + Randuin + Gargoyle + UnendingDespair + Twinguard
+
+[3] ÓPTIMA vs COMP AP (75 % mágico):
+  #1 score 0.738 |  17100g | HP 8093 | arm 244 | MR 346 | AP 0 | EHPp 27840 | EHPm 36054 | VENT 53506 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  #2 score 0.735 |  16900g | HP 7294 | arm 244 | MR 430 | AP 0 | EHPp 25093 | EHPm 38697 | VENT 55233 | R 1189 | DPSf 409 | DPSt 349 | AoE 906 | hps 176
+        Chainlaced + ForceOfNature + KaicRookern + Gargoyle + UnendingDespair + Twinguard
+  #3 score 0.730 |  17000g | HP 8247 | arm 199 | MR 386 | AP 0 | EHPp 24660 | EHPm 40041 | VENT 46670 | R 1294 | DPSf 442 | DPSt 372 | AoE 951 | hps 204
+        Chainlaced + Heartsteel + ForceOfNature + KaicRookern + UnendingDespair + Twinguard
+
+[3] ÓPTIMA vs DOBLE TANQUE (dps_tank ×2):
+  #1 score 0.679 |  17100g | HP 8093 | arm 274 | MR 316 | AP 0 | EHPp 32546 | EHPm 33626 | VENT 55591 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  #2 score 0.675 |  17100g | HP 8093 | arm 244 | MR 346 | AP 0 | EHPp 27840 | EHPm 36054 | VENT 53506 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  #3 score 0.666 |  17200g | HP 8196 | arm 279 | MR 270 | AP 0 | EHPp 33401 | EHPm 30366 | VENT 44167 | R 1289 | DPSf 501 | DPSt 413 | AoE 1103 | hps 199
+        ArmoredAdvance + Heartsteel + ForceOfNature + UnendingDespair + Iceborn + Twinguard
+
+[3] ÓPTIMA SESGO DAÑO (carry-top, DPS 50 %):
+  #1 score 0.748 |  16700g | HP 7037 | arm 159 | MR 143 | AP 302 | EHPp 18226 | EHPm 17100 | VENT 18774 | R 1327 | DPSf 810 | DPSt 711 | AoE 1772 | hps 83
+        Chainlaced + Liandry + Riftmaker + Cryptbloom + Abyssal + Iceborn
+  #2 score 0.746 |  16600g | HP 7088 | arm 149 | MR 143 | AP 303 | EHPp 17650 | EHPm 17225 | VENT 18545 | R 1333 | DPSf 826 | DPSt 726 | AoE 1809 | hps 84
+        Chainlaced + Sunfire + Liandry + Riftmaker + Cryptbloom + Abyssal
+  #3 score 0.743 |  16700g | HP 7037 | arm 189 | MR 113 | AP 302 | EHPp 21868 | EHPm 14989 | VENT 19784 | R 1327 | DPSf 812 | DPSt 713 | AoE 1778 | hps 83
+        ArmoredAdvance + Liandry + Riftmaker + Cryptbloom + Abyssal + Iceborn
+
+[4] SENSIBILIDAD — stacks de Feast (búsqueda completa por punto):
+  S= 6 R2 min13 #1: score 0.675 |  16950g | HP 5758 | arm 274 | MR 316 | AP 0 | EHPp 23155 | EHPm 23923 | VENT 41134 | R 855 | DPSf 317 | DPSt 259 | AoE 562 | hps 183
+        ArmoredAdvance + ForceOfNature + Warmog + Gargoyle + UnendingDespair + Twinguard
+  S= 6 R2 min13 #2: score 0.673 |  16950g | HP 5758 | arm 244 | MR 346 | AP 0 | EHPp 19806 | EHPm 25651 | VENT 39596 | R 855 | DPSf 317 | DPSt 259 | AoE 562 | hps 183
+        Chainlaced + ForceOfNature + Warmog + Gargoyle + UnendingDespair + Twinguard
+  S=15 R3 min20 #1: score 0.694 |  17100g | HP 8093 | arm 274 | MR 316 | AP 0 | EHPp 32546 | EHPm 33626 | VENT 55591 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  S=15 R3 min20 #2: score 0.693 |  17100g | HP 8093 | arm 244 | MR 346 | AP 0 | EHPp 27840 | EHPm 36054 | VENT 53506 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  S=22 R3 min26 #1: score 0.702 |  17100g | HP 9497 | arm 274 | MR 316 | AP 0 | EHPp 38192 | EHPm 39459 | VENT 65915 | R 1432 | DPSf 525 | DPSt 452 | AoE 1312 | hps 229
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  S=22 R3 min26 #2: score 0.701 |  17100g | HP 9497 | arm 244 | MR 346 | AP 0 | EHPp 32669 | EHPm 42309 | VENT 63445 | R 1432 | DPSf 525 | DPSt 452 | AoE 1312 | hps 229
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+
+[5] SENSIBILIDAD D2a — Endurance = +30 % solo a resistencias BONUS:
+  #1 score 0.693 |  17100g | HP 8093 | arm 274 | MR 316 | AP 0 | EHPp 32546 | EHPm 33626 | VENT 52492 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+  #2 score 0.692 |  17100g | HP 8093 | arm 244 | MR 346 | AP 0 | EHPp 27840 | EHPm 36054 | VENT 50576 | R 1277 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        Chainlaced + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+
+[5] SENSIBILIDAD D2b — Endurance sin multiplicador (peor caso):
+  #1 score 0.695 |  16700g | HP 8144 | arm 194 | MR 380 | AP 0 | EHPp 23945 | EHPm 39134 | VENT 44718 | R 1283 | DPSf 444 | DPSt 374 | AoE 895 | hps 202
+        Chainlaced + Heartsteel + ForceOfNature + KaicRookern + Gargoyle + UnendingDespair
+  #2 score 0.694 |  16700g | HP 8144 | arm 224 | MR 350 | AP 0 | EHPp 28374 | EHPm 36691 | VENT 46025 | R 1283 | DPSf 444 | DPSt 374 | AoE 895 | hps 202
+        ArmoredAdvance + Heartsteel + ForceOfNature + KaicRookern + Gargoyle + UnendingDespair
+
+[6] SENSIBILIDAD D4 (Axiom Arcanist NO amplifica el true damage de R):
+  #1 score 0.694 |  17100g | HP 8093 | arm 274 | MR 316 | AP 0 | EHPp 32546 | EHPm 33626 | VENT 55591 | R 1161 | DPSf 444 | DPSt 374 | AoE 957 | hps 197
+        ArmoredAdvance + Heartsteel + ForceOfNature + Gargoyle + UnendingDespair + Twinguard
+
+[7] CHECKPOINTS DE RUTA (oro de las Tablas B publicadas; nivel real; fight 8 s):
+  CP1 min 9:30 · lvl 9 · R2 · S=4 · ≤5 300 g · botas T2 + 1 ítem:
+    #1 score 0.785 |  4200g | Mercurys + UnendingDespair | HP 2891 | R 624 | VENT 7145 | DPSf 242 | hps 70
+    #2 score 0.776 |  4200g | Plated + UnendingDespair | HP 2891 | R 624 | VENT 7359 | DPSf 242 | hps 70
+    #3 score 0.773 |  4000g | Mercurys + ForceOfNature | HP 2991 | R 635 | VENT 7268 | DPSf 225 | hps 16
+    #4 score 0.765 |  4400g | Mercurys + Twinguard | HP 2891 | R 624 | VENT 8006 | DPSf 224 | hps 16
+  CP2 min 12:00 · lvl 12 · R2 · S=6 · ≤8 000 g · botas T2 + 2 ítems:
+    #1 score 0.719 |  7400g | Mercurys + UnendingDespair + Twinguard | HP 3880 | R 691 | VENT 14531 | DPSf 278 | hps 93
+    #2 score 0.716 |  7400g | Plated + UnendingDespair + Twinguard | HP 3880 | R 691 | VENT 14988 | DPSf 278 | hps 93
+    #3 score 0.715 |  7000g | Mercurys + ForceOfNature + UnendingDespair | HP 3980 | R 702 | VENT 12768 | DPSf 279 | hps 95
+    #4 score 0.710 |  7000g | Plated + ForceOfNature + UnendingDespair | HP 3980 | R 702 | VENT 13084 | DPSf 279 | hps 95
+  CP3 min 15:00 · lvl 14 · R3 · S=9 · ≤12 200 g · botas T3 + 3 ítems:
+    #1 score 0.703 | 11200g | Chainlaced + ForceOfNature + UnendingDespair + Twinguard | HP 5494 | R 1005 | VENT 26124 | DPSf 328 | hps 131
+    #2 score 0.703 | 11200g | ArmoredAdvance + ForceOfNature + UnendingDespair + Twinguard | HP 5494 | R 1005 | VENT 27135 | DPSf 328 | hps 131
+    #3 score 0.694 | 11300g | ArmoredAdvance + Gargoyle + UnendingDespair + Twinguard | HP 5288 | R 983 | VENT 29798 | DPSf 330 | hps 126
+    #4 score 0.691 | 11300g | Chainlaced + Gargoyle + UnendingDespair + Twinguard | HP 5288 | R 983 | VENT 28394 | DPSf 330 | hps 126
+  CP4 min 18:00 · lvl 15 · R3 · S=12 · ≤15 100 g · botas T3 + 4 ítems:
+    #1 score 0.692 | 14100g | ArmoredAdvance + ForceOfNature + Gargoyle + UnendingDespair + Twinguard | HP 6398 | R 1091 | VENT 43128 | DPSf 372 | hps 152
+    #2 score 0.690 | 14100g | Chainlaced + ForceOfNature + Gargoyle + UnendingDespair + Twinguard | HP 6398 | R 1091 | VENT 41508 | DPSf 372 | hps 152
+    #3 score 0.687 | 14200g | ArmoredAdvance + Heartsteel + ForceOfNature + UnendingDespair + Twinguard | HP 7268 | R 1186 | VENT 36244 | DPSf 407 | hps 178
+    #4 score 0.687 | 14200g | Chainlaced + Heartsteel + ForceOfNature + UnendingDespair + Twinguard | HP 7268 | R 1186 | VENT 34882 | DPSf 407 | hps 178
+
+[8] CURVA DE STACKS + EXECUTE DE R (ruta recomendada; supuestos A5/A13/A14):
+     min ítems                              lvl S-top    R    HP R champ R monstruo  Smite+R
+       6 Plated T2                            6  0/0  R1   1636     364       1354     1954
+      10 Heartsteel                           9  2/4  R2   3051     642       1467     2467
+      12 +T3                                 10  4/6  R2   3585     687       1512     2512
+      14 +Unending                           12  6/8  R3   4931     972       1632     3032
+      17 +Twinguard                          13  7/10 R3   5706    1043       1703     3103
+      20 +Gargoyle                           14  8/12 R3   6364    1101       1761     3161
+      22 +Warmog (default)                   15 10/14 R3   7661    1230       1890     3290
+    (S-top/S-jungla: stacks TOP y JUNGLA al minuto; R = execute vs campeón con Axiom; Smite+R = umbral de robo de épico)
+
+[9] FICHA DE LA ÓPTIMA DEFAULT (S=15, min 20, R3):
+{
+ "gold": 17100,
+ "maxHP": 8093.0,
+ "bonusHP": 5611.0,
+ "armor": 274.0,
+ "mr": 315.5,
+ "ap": 0,
+ "ah": 50,
+ "size": 2.1,
+ "rng": 200,
+ "aoe_t": 2.6,
+ "dps_fighter": 443.7,
+ "dps_tank": 373.8,
+ "dps_squishy": 498.6,
+ "dps_aoe": 957.3,
+ "ehp_p": 32545.9,
+ "ehp_m": 33626.3,
+ "ehp_window": 55590.6,
+ "r_exec": 1277.2,
+ "r_monster": 1937.2,
+ "hps": 196.8,
+ "ooc_hps": 10.0,
+ "util": 4.4,
+ "smite_exec": 3337.2,
+ "demolish": 2351.0,
+ "hs_growth": 425.3
+}
+
+  Smite(1400)+R monstruo = 3337 verdadero — umbral de robo de Baron
+  Demolish (3.er golpe a torreta) = 2351 físico + cristal ~770 verdadero (11 % de 7 000)
+  Rango de ataque = 200 | Tamaño +110 % | E golpea ~2.6 objetivos

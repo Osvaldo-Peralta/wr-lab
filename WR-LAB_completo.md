@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 11/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 12/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -1776,7 +1776,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 11 OCT 2026 UTC 00:00** · Refrescado por el vigía: 11/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 13 OCT 2026 UTC 00:00** · Refrescado por el vigía: 13/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1785,35 +1785,37 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.45 | 4.16 | 0.12 | ↓ 4 | Confidence Med |
-| Caitlyn | DUO | A | 49.56 | 20.13 | 9.28 | ↓ 2 | Confidence High |
-| Cho'Gath | SOLO | S | 50.24 | 11.20 | 35.48 | 0 | Confidence High |
-| Cho'Gath | JUNGLE | S | 50.80 | 8.57 | 35.48 | ↓ 2 | Confidence High |
-| Diana | MID | B | 47.57 | 1.07 | 0.16 | ↓ 3 | Confidence Low |
-| Diana | JUNGLE | A | 50.92 | 1.42 | 0.16 | ↑ 8 | Confidence Low |
-| Heimerdinger | MID | A | 50.12 | 1.67 | 1.27 | ↓ 3 | Confidence Low |
-| Jinx | DUO | A | 50.20 | 12.44 | 0.46 | 0 | Confidence High |
-| Kalista | DUO | S | 51.34 | 5.93 | 6.70 | ↑ 1 | Confidence Med |
-| Kalista | SOLO | S+ | 53.90 | 2.42 | 6.70 | 0 | Confidence Low |
-| Karma | SUPPORT | A | 49.61 | 4.42 | 0.37 | ↑ 3 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.76 | 7.93 | 42.29 | ↓ 1 | Confidence Med |
-| Malphite | SOLO | S+ | 55.70 | 7.06 | 42.29 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S+ | 51.62 | 10.18 | 29.90 | ↑ 1 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.34 | 10.49 | 49.29 | 0 | Confidence High |
-| Norra | MID | S | 50.69 | 1.41 | 7.44 | ↑ 4 | Confidence Low |
-| Orianna | MID | A | 51.22 | 4.41 | 0.29 | ↓ 6 | Confidence Med |
-| Ornn | SOLO | S | 51.64 | 1.96 | 0.17 | ↑ 8 | Confidence Low |
-| Ornn | SUPPORT | B | 49.26 | 1.14 | 0.17 | ↓ 8 | Confidence Low |
-| Rammus | JUNGLE | S+ | 57.10 | 4.50 | 6.49 | ↓ 1 | Confidence Med |
-| Seraphine | SUPPORT | A | 49.04 | 6.47 | 1.03 | 0 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.00 | 3.52 | 1.23 | ↓ 1 | Confidence Med |
-| Sivir | DUO | A | 49.23 | 3.40 | 0.05 | 0 | Confidence Med |
-| Syndra | MID | S | 51.28 | 6.37 | 20.25 | 0 | Confidence Med |
-| Volibear | SOLO | B | 47.86 | 4.82 | 4.49 | ↓ 2 | Confidence Med |
-| Volibear | JUNGLE | A | 48.25 | 2.38 | 4.49 | ↑ 3 | Confidence Low |
-| Xayah | DUO | A | 50.10 | 4.32 | 0.18 | ↑ 3 | Confidence Med |
-| Yunara | DUO | S+ | 51.44 | 15.83 | 22.94 | 0 | Confidence High |
-| Yuumi | SUPPORT | S | 49.54 | 9.30 | 33.24 | ↑ 3 | Confidence High |
+| Ahri | MID | A | 50.75 | 4.34 | 0.13 | ↓ 2 | Confidence Med |
+| Caitlyn | DUO | A | 49.79 | 19.03 | 8.48 | ↑ 1 | Confidence High |
+| Cho'Gath | SOLO | A | 50.05 | 10.84 | 35.00 | ↓ 4 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.71 | 8.61 | 35.00 | ↓ 1 | Confidence High |
+| Diana | MID | B | 47.43 | 1.10 | 0.15 | 0 | Confidence Low |
+| Diana | JUNGLE | A | 50.86 | 1.48 | 0.15 | ↑ 6 | Confidence Low |
+| Heimerdinger | MID | B | 48.80 | 1.63 | 1.31 | ↓ 11 | Confidence Low |
+| Jinx | DUO | A | 50.53 | 12.32 | 0.45 | 0 | Confidence High |
+| Kalista | DUO | A | 50.39 | 6.01 | 7.22 | ↓ 3 | Confidence Med |
+| Kalista | SOLO | S+ | 53.41 | 2.40 | 7.22 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 49.63 | 4.45 | 0.35 | ↓ 3 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.47 | 7.92 | 41.21 | 0 | Confidence Med |
+| Malphite | SOLO | S+ | 55.32 | 6.98 | 41.21 | 0 | Confidence Med |
+| Mordekaiser | SOLO | S | 51.12 | 10.96 | 29.22 | ↓ 5 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.68 | 10.64 | 53.12 | 0 | Confidence High |
+| Norra | MID | A | 50.98 | 1.43 | 7.25 | ↓ 2 | Confidence Low |
+| Orianna | MID | A | 51.09 | 4.51 | 0.30 | ↓ 6 | Confidence Med |
+| Ornn | SOLO | A | 51.75 | 1.99 | 0.17 | ↓ 3 | Confidence Low |
+| Ornn | SUPPORT | B | 49.38 | 1.16 | 0.17 | ↓ 1 | Confidence Low |
+| Rammus | JUNGLE | S+ | 57.46 | 4.35 | 6.56 | 0 | Confidence Med |
+| Senna | DUO | S+ | 55.70 | 3.25 | 33.31 | 0 | Confidence Med |
+| Senna | SUPPORT | S+ | 54.04 | 12.87 | 33.31 | 0 | Confidence High |
+| Seraphine | SUPPORT | A | 49.27 | 6.61 | 1.05 | 0 | Confidence Med |
+| Shyvana | JUNGLE | B | 45.15 | 3.41 | 1.20 | ↓ 1 | Confidence Med |
+| Sivir | DUO | B | 48.28 | 3.45 | 0.05 | ↓ 3 | Confidence Med |
+| Syndra | MID | S+ | 51.45 | 6.23 | 19.43 | ↑ 1 | Confidence Med |
+| Volibear | SOLO | A | 47.93 | 4.92 | 4.47 | ↑ 1 | Confidence Med |
+| Volibear | JUNGLE | A | 48.06 | 2.47 | 4.47 | ↑ 3 | Confidence Low |
+| Xayah | DUO | A | 49.66 | 4.50 | 0.18 | ↓ 2 | Confidence Med |
+| Yunara | DUO | S+ | 51.48 | 15.77 | 23.78 | 0 | Confidence High |
+| Yuumi | SUPPORT | A | 48.64 | 8.97 | 33.55 | ↓ 3 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -1938,7 +1940,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Ionian Boots of Lucidity | 1000 | +50% Mana Regen  /  +15 Ability Haste  /  +45 Move Speed | Boots tier 2 |
 | Boots of Mana | 1200 | +25 Ability Power  /  +8 Magic Penetration  /  +75% Mana Regeneration  /  +45 Move Speed | Boots tier 2 |
 | Boots of Dynamism | 1200 | +15 Attack Damage  /  +10 Armor Penetration  /  +45 Move Speed | Boots tier 2 |
-| Immortal Treds | 2000 | +45 Move Speed | Boots tier 3 |
+| Immortal Treads | 2000 | +45 Move Speed | Boots tier 3 |
 | Gunmetal Greaves | 2200 | +50% Attack Speed  /  +45 Move Speed  /  +5% Lifesteal | Boots tier 3 |
 | Chainlaced Crushers | 2200 | +150 Max Health  /  +30 Magic Resistance  /  +30% Tenacity  /  +45 Move Speed | Boots tier 3 |
 | Armored Advance | 2200 | +150 Max Health  /  +30 Armor  /  +45 Move Speed | Boots tier 3 |
@@ -2373,7 +2375,7 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Crimson Lucidity":"crimson","Crimson":"crimson","Boots of Mana":"boots_mana",
          "Spellslinger's Shoes":"spellslinger","Spellslinger's":"spellslinger",
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
-         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treds":"immortal_treads"}
+         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads"}
 
 # ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
 # El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +
@@ -8801,12 +8803,12 @@ P
  Gluttonous Greaves 
  Gluttonous Greaves Attack Damage, Omnivamp +45 Move Speed Balance of Power: Gain 12 Attack Damage or 20 Ability Power (Adaptive). Conversion: Gain 5% Omnivamp . Champion takedowns grant an additional 0.5% Omnivamp , up to 5% . 1000 
  Gluttonous Greaves TIPS: These boots combine mobility, adaptive offensive power, and sustained healing. They increase your damage while Omnivamp restores health from all damage you deal. Champion takedowns further increase your Omnivamp, making them an excellent choice for champions who want to balance high damage output with strong sustain during extended fights.
- Immortal Treds 
- Immortal Treds Deal bonus damage or gain increased healing and shielding +45 Move Speed Balance of Power: Gain 12 Attack Damage or 20 Ability Power (Adaptive). Conversion: Gain 5% Omnivamp . Champion takedowns grant an additional 0.5% Omnivamp , up to 5% . Now and Forever: When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding. 2000 
- Immortal Treds TIPS: These boots combine adaptive offensive power, sustain, and increased combat effectiveness. While above 50% Health, you deal increased damage, and when below 50% Health, you benefit from stronger healing and shielding to improve your survivability. The additional Omnivamp further restores Health from all damage you deal. They are an excellent choice for fighters, AP bruisers, and champions who want to balance offensive power with sustained durability throughout extended fights.
+ Immortal Treads 
+ Immortal Treads Deal bonus damage or gain increased healing and shielding +45 Move Speed Balance of Power: Gain 12 Attack Damage or 20 Ability Power (Adaptive). Conversion: Gain 5% Omnivamp . Champion takedowns grant an additional 0.5% Omnivamp , up to 5% . Now and Forever: When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding. 2000 
+ Immortal Treads TIPS: These boots combine adaptive offensive power, sustain, and increased combat effectiveness. While above 50% Health, you deal increased damage, and when below 50% Health, you benefit from stronger healing and shielding to improve your survivability. The additional Omnivamp further restores Health from all damage you deal. They are an excellent choice for fighters, AP bruisers, and champions who want to balance offensive power with sustained durability throughout extended fights.
  T3
  TIPS: Finally, for your items, you should build Trinity Force (Well-Rounded) as your first item, followed by Gluttonous Greaves (Grants Attack Damage and Omnivamp) (sometimes it will still be better to build a boot as the first item, which significantly increases the mobility of your champion) the third key element in our build is Blade of the Ruined King (Attacks deal bonus damage).
- Maybe now it's time to think about upgrading your boot, invest in Immortal Treds (Deal bonus damage or gain increased healing and shielding).
+ Maybe now it's time to think about upgrading your boot, invest in Immortal Treads (Deal bonus damage or gain increased healing and shielding).
  The remaining last three items are situational, of course you can use the example builds above. But for a more effective game you will need to pay attention to the situation on the battlefield.
  Example build
  Trinity Force 
@@ -10108,7 +10110,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -10121,7 +10123,7 @@ verified_patch: "7.3a"
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 28/09/2026 — pre-hotfix 7.3a):**
 > Win Rate 51.41 % | Pick Rate 35.85 % | Ban 42.81 % | Tendencia ↑ | Rol: ADC Bot Lane.
-> ⚠️ Datos previos al nerf 7.3a; se espera ajuste a la baja en los próximos días.
+> ⚠️ Datos previos al nerf 7.3a;
 
 ---
 
@@ -10606,778 +10608,657 @@ SNOWBALL (feedeada):
 
 ---
 tags:
-  - Barón
   - Jungla
-  - Personalizado
-version: 1.2
+  - Tank
+  - AP-vida
+  - Jungle
+version: 1.3
 Status: Beta
 champion: Cho'Gath
 slug: chogath-titan-de-la-jungla
 role: jungla
-variant: "titan-de-la-jungla"
-patch: "7.3"
-archetype: "Tanque de Escalado Infinito"
-engine: none
-custom: "true"
+variant: titan-de-la-jungla
+patch: "7.3+7.3a"
+archetype: "Tanque AP %-vida (Feast)"
+engine: rotacion-tanque
+custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 28/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Jungla (Preferente) / Top
-**Arquetipo:** Tanque de Escalado Infinito
-**Enfoque:** Convertir el tamaño en poder real
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Cho'Gath:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Hollow Radiance + Liandry's Torment + Force of Nature + Warmog's Armor — **sin cambios**.
-> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
+**Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Jungla (variante Top en `chogath-titan-del-baron`)
+**Arquetipo:** Tanque de rotación AP %-vida: el daño es Q/W/E + R verdadero + % de vida máxima; el tamaño es CONSECUENCIA de daño+durabilidad.
+**Enfoque:** Maximizar la ventana de supervivencia (EHP en ventana de 5 s) y el execute de R sin sacrificar daño de rotación.
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 24/09/2026):**
-> 
-> Jungla: Win Rate 50.78 % | Pick 7.22 % | Ban 38.00 % | Tendencia ↑14.
-> Top: Win Rate 51.20 % | Pick 12.60 % | Ban 38.00 % | Tendencia ↓1.
+> **Estado Meta Actual (Diamond+, 09/10/2026):** JUNGLE Win Rate 50.85 % | Pick Rate 8.52 % | Ban 35.10 % | Tendencia ↑1 | Tier S (Confidence High).
 
 > [!TIP]
-> **Variante Anti-Curación:** Si el enemigo tiene mucho sustain (Mundo, Soraka, Yuumi), cambia *Liandry's Torment* por **Morellonomicon** o añade **Thornmail** como 5.º ítem. Pierdes ~10 % de daño sostenido pero ganas control de salud enemiga crucial.
+> **Variante de presión de mapa:** cambiar Force of Nature por **Warmog's Armor** sube la ventana a **56 377** (la más alta de toda la búsqueda: escudo de Gargoyle 5 150 → 6 695 por Blessed +30 %) y el sustain fuera de pelea a 3.5 %/s entre camps.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL
-| Slot      | Ítem                                                              | Oro   | Rol en la build                                                                          |
-| --------- | ----------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------------------- |
-| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | Bloqueo 10 % daño físico + Escudo físico. Esencial vs ADCs/Fighters AD.                  |
-| 2         | **Heartsteel**                                                    | 3 000 | Core infinito. +700 HP, daño % vida máxima, HP permanente por golpe.                     |
-| 3         | **Hollow Radiance**                                               | 2 800 | Daño mágico en área basado en HP bonus + 40 MR. Sinergia directa con Heartsteel.         |
-| 4         | **Liandry's Torment**                                             | 3 000 | Quemadura % vida máxima. Multiplica el daño de E (Vorpal Spikes) y W.                    |
-| 5         | **Force of Nature**                                               | 2 800 | RM escalable (hasta +70) + MS. Durabilidad contra composiciones AP.                      |
-| 6         | **Warmog's Armor**                                                | 2 850 | Regeneración masiva fuera de combate (>950 HP bonus). Presión de mapa sin volver a base. |
+### Tabla A — BUILD FINAL (jungla, óptima del motor batch4)
 
-> **Oro total: ~16 650 g** · HP Bonus ~3 500+ · HP Total ~5 200+ (con stacks) · AP 110 · Haste 55 · Daño E: ~150 + % vida enemigo.
+| Slot | Ítem | Oro | Rol en la build |
+|---|---|---|---|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot; Mercury's/Chainlaced vs AP) | 2 200 | Block 10 % + escudo físico 722 (CD 12 s) |
+| 2 | **Heartsteel** | 3 000 | 700 HP + proc + **growth +15 %/proc: +425 HP a min 20** que alimentan R, Gargoyle y E |
+| 3 | **Unending Despair** | 3 000 | Anguish: 243 mágico AoE/4 s + **cura 607**: el sustain de pelea que ninguna build publicada tenía |
+| 4 | **Amaranth's Twinguard** | 3 200 | Endurance: resistencias ×1.3 en pelea + 20 % tenacidad + 20 % tamaño |
+| 5 | **Gargoyle Stoneplate** | 2 900 | Activo: escudo 100 + 90 % HP bonus = **5 150** (2.5 s) |
+| 6 | **Force of Nature** | 2 800 | 400 HP + 60 MR (+70 Absorb en pelea) + 11 % MS: mejor paquete MR del parche |
 
-### Tabla B — Ruta de compra cronológica
+> **Oro total: 17 100 g** · HP **8 093** · arm 274 · MR 316 · AH 50 · AP 0 · tamaño **+110 %** · rango 200 · **R 1 277 verdadero** · **VENT 55 591** · EHPp/EHPm 32 546/33 626 · DPSf 444 · hps 197 · **Smite+R vs épico 3 290** (min 20).
+
+### 0.2 El tamaño como CONSECUENCIA (indicación del autor)
+
+| Build | HP | VENT (5 s) | DPS fighter | R exec | Veredicto del score |
+|---|---|---|---|---|---|
+| **Óptima batch4** | 8 093 | **55 591** | **444** | 1 277 | 0.816 (ref.) |
+| Tanque puro (sin Unending/FoN: Randuin+Warmog) | 8 505 | 49 556 | 417 | 1 323 | 0.726 (−11.1 %) |
+| AP puro (glass cannon) | 6 728 | 14 534 | 733 | 1 397 | 0.633 (−22.5 %) |
+| Publicada jungla 28/09 | 8 711 | 26 292 | 554 | 1 384 | 0.662 (−18.9 %) |
+
+Ser gigante sin ventana no sirve (tanque puro pierde 6 000 de VENT por 400 HP); ser puro daño tampoco (AP puro vive 1.3 s menos en cada pelea). **La óptima es el punto donde el HP comprable, los escudos en ventana y la rotación se multiplican**: el tamaño (+110 %) llega solo, como subproducto de Feast + Twinguard, y cada punto de tamaño agrega rango de E y objetivos de cono (A6: ~2.9 objetivos a S=15).
+
+### Tabla B — Ruta de compra cronológica (jungla)
+
 | # | Compra | Oro acum. | Minuto típico |
-|---|--------|-----------|---------------|
-| 1 | Ruby Crystal (Start) | 500 | 0:00 |
-| 2 | Kindlegem + Giant's Belt → **Heartsteel** | 3 500 | ~8:30–9:30 |
-| 3 | **Plated Steelcaps** | 4 700 | ~10:00 |
-| 4 | Negatron Cloak + Ruby Crystal → **Hollow Radiance** | 7 500 | ~13:00 |
-| 5 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 8 500 | ~14:00 (post 10:00) |
-| 6 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 11 500 | ~16:30 |
-| 7 | Winged Moonplate + Negatron Cloak → **Force of Nature** | 14 300 | ~19:00 |
-| 8 | Giant's Belt + Kindlegem → **Warmog's Armor** | 17 150 | ~22:00 |
+|---|---|---|---|
+| 1 | Ruby Crystal + ward | 500 | 0:00 |
+| 2 | **Plated Steelcaps** (T2; Mercury's vs jungla AP) | 1 700 | ~4:30 |
+| 3 | Giant's Belt + Kindlegem → **Heartsteel** | 4 700 | ~8:30 (regla: ≤ min 10-11 o cambiar orden §5) |
+| 4 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 5 700 | 10:00 (regla T3) |
+| 5 | Componentes → **Unending Despair** | 8 700 | ~13:00 |
+| 6 | Giant's Belt + Chain Vest + Negatron → **Amaranth's Twinguard** | 11 900 | ~15:30 |
+| 7 | Kindlegem + Chain Vest + Negatron → **Gargoyle Stoneplate** | 14 800 | ~18:00 |
+| 8 | Winged Moonplate + Negatron + Ruby → **Force of Nature** | 17 600 | ~20:30 |
 
 ### Runas · Hechizos · Habilidades
+
 | Categoría | Elección |
-|-----------|----------|
-| Keystone | **Grasp of Undying** (Daño % vida, cura, HP permanente) |
-| Resolve 2 | **Demolish** (Daño a torres, sinergia con push) |
-| Resolve 3 | **Second Wind** (Sustain en lane/jungla temprana) |
-| Resolve 4 | **Overgrowth** (+3 % HP máximo a 30 stacks) |
-| Sorcery 1 | **Transcendence** (Ability Haste para spam Q/E) |
-| Sorcery 2 | **Axiom Arcanist** (-7 % CD de R por takedown = más stacks) |
-| Hechizos | **Jungla: Smite + Flash** · **Top: Flash + Ignite/Teleport** |
-| Skills | **E → Q → W** (R en 5/9/13) |
+|---|---|
+| Keystone | **Grasp of Undying** (3.3 % HP máx + cura 1.3 % + 10 HP permanente por proc: proca en ganks e invades; el motor la asume como baseline, A5) |
+| Resolución 2 | **Demolish** solo si rotás a side-lane; si no, **Font of Life** (protege al carry en skips) |
+| Resolución 3 | **Second Wind** vs poke de jungla enemiga · **Overgrowth** en partidas largas (+3 % HP máx) |
+| Inspiración | **Transcendence** (+10 AH a lvl 5+) · **Axiom Arcanist** (+10 % daño de R y −7 % CD por takedown: D4) |
+| Hechizos | **Smite + Flash** |
+| Skills | **E → Q → W** (R 5/9/13): E maxea primero (3.5 % + 0.6 %/stack de Feast desde 7.2c) |
 
-### Resultado del modelo (Nivel 15, 6 stacks Feast, vs Tanque 4 500 HP)
-| Escenario | Valor Estimado |
-|-----------|-----|
-| **HP Total** | **~5 200** (Base + Items + Stacks) |
-| **Daño E (Single Target)** | **~250 mágico + 3.5 % vida máx enemigo** |
-| **Daño Heartsteel (Proc)** | **~300 físico + 3.5 % vida máx enemigo** |
-| **Quemadura Liandry** | **2 % vida máx / s (3 s)** |
-| **EHP vs Físico** | **Extremo** (Armored Advance + Plated passive) |
-| **Regen Fuera de Combate** | **~180 HP/s** (Warmog's activo) |
+### Resultado del modelo (nivel 15, min 20, Feast 15 stacks, R3, fight 10 s)
 
-> **Titular:** Cho'Gath no busca burst instantáneo, sino asfixia porcentual. A nivel 15, su combinación de E + Heartsteel + Liandry derrite tanques en segundos mientras él se regenera completamente en 10 segundos fuera de combate.
+| Escenario | Óptima jungla | Publicada 28/09 | Comunidad wr-meta |
+|---|---|---|---|
+| **EHP físico / mágico** | 32 546 / 33 626 | 22 386 / 27 919 | 18 206 / 30 532 |
+| **VENT (ventana 5 s, mix 50/50)** | **55 591** | 26 292 | 25 437 |
+| **DPS fighter / tanque / AoE** | 444 / 374 / 957 | 554 / 467 / 1 144 | 554 / 467 / 1 144 |
+| **Sustain en pelea (hps)** | **197** | 67 | 67 |
+| **R execute (verdadero)** | 1 277 | 1 384 | 1 384 |
+| **Smite + R vs épico (min 20)** | **3 290** | 3 496 | 3 496 |
+
+> **Titular:** la publicada sacrificaba VENT y sustain por R y DPS de quemado; el motor batch4 invierte la prioridad: **sobrevivir 2.1× más en la ventana** (55 591 vs 26 292) con −20 % de DPS de rotación y −6 % de execute. En jungla, donde los objetivos se pelean en ventanas de 4-6 s, esa es la troca que gana partidas: el robo de épico se juega con Smite+R+posición, no con 100 puntos de execute.
 
 ---
 
 ## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### 1.1 Cambios directos a Cho'Gath (7.3)
-| Stat / Habilidad | Antes | Ahora | Impacto |
-|---|---|---|---|
-| Daño Crítico Base | 175 % | **200 %** | Irrelevante (no usa crítico). |
-| AS Cap | 2.5 | **3.0** | Irrelevante (no escala con AS). |
-| E Vorpal Spikes | Buffed en 7.2c | **Mantenido** | Daño base aumentado a 20/45/70/95 + % vida. |
-| R Feast | CD 80/70/60 | **70/60/50** | Más frecuencia de ejecución = más stacks más rápido. |
+### 1.1 Cambios directos y sistémicos relevantes para jungla
 
-### 1.2 Cambios sistémicos que le afectan
-| Sistema | Cambio | Efecto en Cho'Gath |
+| Sistema | Cambio | Efecto en Cho'Gath jungla |
 |---|---|---|
-| Heartsteel | Item nuevo/rework | **Core absoluto.** Permite escalar HP y daño simultáneamente. |
-| Jungla 7.3 | Smite escala con stats | Tu HP bonus de Heartsteel aumenta el daño verdadero de Smite. |
-| Torretas 7 000 HP | Cristales (Crystalline Overgrowth) | Cho'Gath con Demolish + E es el mejor destructor de torres del juego. |
+| Hotfix 7.3a | Nerf de early al rol (−15–20 % de presión pre-6) | Rutas de clear lentas: la build empieza a existir en min 8-9, no antes |
+| 7.3 · Smite | Upgrades 600 → 1 000 (min 8) → 1 400 (min 14) | Umbral Smite+R por minuto en §3.3: el robo de Baron madura en min 14+ |
+| 7.3 · Torretas | 7 000 HP + placas + Cristales (3.3–18.9 %) | El hermano de top los siega; en jungla, el cristal de tu side-lane se detona con R+Q desde 200 de rango |
+| 7.3 · Ítems | Reworks de Mantle/Twinguard/FoN/Sunfire/Frozen Heart/Abyssal/Winter | El pool tanque cambió de forma: por eso la derivación vieja quedó obsoleta |
+| 7.2c · E | 3.5 % + 0.6 %/stack de Feast | El %-vida de E es el daño que escala con la build de HP: double-dip |
 
-### 1.3 ¿Sus habilidades escalan con crítico?
-**No.** Cho'Gath es un campeón de **daño porcentual (% vida)** y **daño verdadero**. El crítico, la velocidad de ataque y el daño de ataque físico son stats muertos para su kit principal. Su escalado depende exclusivamente de **Vida Máxima**, **AP** (para ratios de Q/W/E) y **Penetración Mágica/Haste**.
+### 1.2 Por qué el ban 35.10 % no baja
+Feast sin cap + execute de R verdadero + tamaño que anchoa el cono de E: el kit no tiene counter-play de daño (solo de ritmo). El motor solo explica qué hacer con eso: convertir cada stack en ventana de pelea, no en HP decorativo.
 
 ---
 
-## 2. FICHA MATEMÁTICA (spec)
+## 2. FICHA MATEMÁTICA (spec 7.3a)
 
 | Parámetro | Valor | Fuente |
 |---|---|---|
-| AD base / growth | 62 / 4.0 | Ficha wr-meta |
-| AS base / ratio | 0.625 / 0.625 | Apéndice oficial 7.3 |
-| Base Bonus AS | 0.28 | Apéndice oficial 7.3 |
-| AS por nivel | 0.008 | Apéndice oficial 7.3 |
-| P Carnivore | Cura 18 HP + 4.35 Maná por kill (doble vs campeones/épicos) | Ficha wr-meta |
-| Q Rupture | 80-245 + 100 % AP, Knock-up 1 s, Slow 60 % | Ficha wr-meta |
-| W Feral Scream | 80-230 + 70 % AP, Silencio 1.4-2 s | Ficha wr-meta |
-| E Vorpal Spikes | 20-95 + 30 % AP + **(2.3-3.5 % + 0.6 % per stack) vida máx objetivo** | Ficha wr-meta |
-| R Feast | 300-600 + 50 % AP + **10 % HP Bonus** (Verdadero). +80/120/160 HP por stack. | Ficha wr-meta |
-
-**HP de referencia full build:** ~5 200 (con 6 stacks mínimos).
-**Daño E vs Tanque 4 500 HP:** ~250 base + ~157 (% vida) = **~407 por golpe** (sin contar MR).
+| HP base / growth | 690 / +128 | ficha wr-meta 24/09 + bundle |
+| Armadura / MR base | 46 (+4.5) / 40 (+2) | ídem |
+| AD / growth | 62 / +4 (Ley 4: muerto para builds AD) | ídem |
+| AS (apéndice oficial 7.3) | ratio 0.625 · base 0.625 · BBA 0.28 · growth 0.008 (Ley 2 muerta: AS 15 = 0.87) | apéndice AS |
+| Rango de ataque | 125 + min(7.7·S, 75) → **200 a S=15** | ficha + apéndice TAMAÑO |
+| Feast (R3) | +160 HP/stack · +6 % tamaño/stack (cap +135 %) · +7.7 rango/stack (cap +75) | notas 7.3 |
+| R execute | 300/450/600 + 50 % AP + **10 % HP bonus** (verdadero) · vs monstruos 1 200 + 50 % AP + 10 % HP bonus | notas 7.3 |
+| E (rank 4) | 95 + 30 % AP + (2.3 % + 0.4 %/rank + 0.6 %/stack) de vida máx por pico | notas 7.2c/7.3 |
 
 ---
 
-## 3. MODELO Y FÓRMULAS
+## 3. MODELO Y FÓRMULAS (motor `chogath_model.py`, batch4)
 
-### Fórmulas aplicadas
-Daño_E = (Base_E + AP * 0.3) + (Vida_Máx_Enemigo * (0.023 + 0.006 * Stacks_Feast))
-Daño_Heartsteel = 140 + (Vida_Máx_Cho * 0.035)
-Daño_Liandry = Vida_Máx_Enemigo * 0.02 * 3_segundos
-Mitigación_Mágica = 100 / (100 + MR_Enemigo * (1 - Pen_Mágica))
+```text
+# Ventana de 5 s (protocolo ESCALADO_DE_TAMAIO §1b.6.2 — la métrica del "tamaño útil"):
+VENT = 0.5·(HP+escudos_fís+curas_5s)·(1+arm_tw/100)·block + 0.5·(HP+escudos_mag+curas_5s)·(1+mr_tw/100)
+  con arm_tw/mr_tw = resistencias ×1.3 si Twinguard Endurance activa (A2, D2)
+  escudos: Gargoyle (100+90% HP bonus, ponderado 75% por decaimiento, A9) · botas T3 · Kaenic · Sterak
+  curas_5s: Grasp (1.7 procs) + Anguish (Unending) + Void Corruption, × Blessed de Warmog
 
-### Supuestos específicos
-- Se asumen **6 stacks de Feast** de minions/monstruos no épicos (cap inicial) + stacks adicionales de campeones/épicos en late game.
-- Heartsteel está completamente cargado y ha generado HP permanente.
-- El enemigo tiene ~4 500 HP y ~80 MR (promedio late game).
-- Warmog's Armor está activo (>950 HP bonus).
+# Rotación en fight de 10 s (Q4/W4/E4, CD con haste; E limitado por AS 0.87):
+dps = [n_Q·(245+AP) + n_W·(230+0.7·AP) + n_picos·(95+0.3·AP) + n_picos·e_pct·HP_enemigo
+       + Immolate/Torment/Anguish/Grasp/thorns] · amp_mágico · mit_mágica  +  autos·mit_física
+# R va aparte (CD 50 s): execute verdadero = (600 + 0.5·AP + 0.10·HP_bonus)·(1.10 con Axiom, A3)
+# Jungla: Smite+R = upgrade(min) + R_monstruo(1 200 + 0.5·AP + 0.10·HP_bonus)·1.10
+```
+
+### 3.1 Score del arquetipo (TEMPLATE §A.5 tanque)
+EHP físico .15 + EHP mágico .15 + **VENT .20** + execute R .15 + DPS fighter .10 + DPS tanque .10 + DPS AoE .05 + sustain .05 + utilidad .05, normalizado por escenario. Variantes de pesos: `PESOS_AD` (vs comp físico), `PESOS_AP`, `PESOS_TK` (doble tanque), `PESOS_DPS` (carry-top, ver [!DANGER] del hermano barón).
+
+### 3.2 Curva de stacks y execute por minuto (ruta de §Tabla B)
+
+| Min | Ítems completos | Lvl | S jungla | HP | R campeón | R monstruo | Smite+R |
+|---|---|---|---|---|---|---|---|
+| 6 | Plated T2 | 6 | 0 | 1 636 | 364 | 1 354 | 1 954 |
+| 10 | Heartsteel | 9 | 4 | 3 051 | 642 | 1 467 | 2 467 |
+| 12 | +T3 | 10 | 6 | 3 585 | 687 | 1 512 | 2 512 |
+| 14 | +Unending Despair | 12 | 8 | 4 931 | 972 | 1 632 | 3 032 |
+| 17 | +Amaranth's Twinguard | 13 | 10 | 5 706 | 1 043 | 1 703 | 3 103 |
+| 20 | +Gargoyle Stoneplate | 14 | 12 | 6 364 | 1 101 | 1 761 | 3 161 |
+| 22 | +Force of Nature | 15 | 14 | 7 661 | 1 230 | 1 890 | 3 290 |
+
+(Jungla acumula Feast ~40 % más rápido que top: camps sin cap de minions. S-top de referencia: 2/4/6/7/8/10 en los mismos minutos.)
+
+### 3.3 Reglas de objetivo derivadas
+- **Dragón/Herald antes de min 14:** Smite 1 000 + R ≤ 1 512 = 2 512 verdadero: no disputes sin ventaja de visión o sin tu R listo (CD 50 s).
+- **Min 14+:** 3 032–3 290 verdadero cubre el execute de dragón anciano/Baron en la mayoría de states; con Axiom y 2+ takedowns previos, el −7 % de CD de R acorta la ventana de disputa.
+- **Steal defensivo:** R monstruo es verdadero: el tanque enemigo NO lo mitiga; posiciona el cast desde 200 de rango + Feast.
 
 ---
 
 ## 4. LEYES APLICADAS A CHO'GATH
 
-### Ley 0 — Slots
-Build final = 1 botas (Armored Advance T3) + 5 ítems. `validate_slots(["Armored Advance", "Heartsteel", "Hollow Radiance", "Liandry's", "Force of Nature", "Warmog's"])` → **PASS**.
-*Nota:* En la ruta de compra se muestra Plated Steelcaps (T2) mejorando a Armored Advance (T3). Nunca tengas ambas equipadas simultáneamente.
-
-### Ley 3 — Penetración Mágica vs Daño Porcentual
-Cho'Gath hace daño mixto (Mágico en Q/W/E y Verdadero en R/Heartsteel proc).
-- **Liandry's Torment** aplica quemadura que ignora mitigación en parte al ser % vida, pero sigue siendo daño mágico.
-- Contra tanques con >150 MR, considerar **Cryptbloom** (30 % pen) en lugar de Force of Nature si el equipo necesita más daño mágico de equipo. Sin embargo, Force of Nature ofrece la supervivencia necesaria para mantenerse en rango de E.
-
-### Ley 4 — Stats Muertos
-| Stat | Valor para Cho'Gath | Nota |
-|---|---|---|
-| AD | ❌ Muerto | Solo útil para last hit early. |
-| AS | ❌ Muerto | No escala con autos. |
-| Crítico | ❌ Muerto | Ninguna habilidad critica. |
-| Maná | ⚠️ Bajo | Útil para spam, pero la pasiva y items como Frozen Heart cubren esto si es necesario. |
-| HP | ✅ Rey | Escala daño de R, Heartsteel, y durabilidad. |
-
-### Ley 5 — Eficiencia de Oro
-- **Heartsteel (3 000 g):** Extremadamente eficiente en partidas largas. El HP permanente y el daño % vida justifican el coste frente a items estáticos como Sunfire.
-- **Hollow Radiance (2 800 g):** Alta eficiencia para tanques AP. El daño en área basado en HP bonus sinergiza perfectamente con el pool de vida de Cho.
-- **Liandry's (3 000 g):** Estándar dorado para daño sostenido % vida.
-
-### Ley 6 — Timing
-Heartsteel requiere tiempo para cargar (2.5 s cerca de enemigos). Early game Cho es débil en burst. La ventana de poder comienza al completar Heartsteel (~9 min) y se vuelve dominante al añadir Liandry's (~16 min).
-
-### Ley 7 — Sistemas 7.3
-- **Smite 7.3:** Escala con HP bonus. Tu build de HP masivo aumenta el daño verdadero de Smite contra objetivos épicos.
-- **Cristales de Torreta:** Cho'Gath con Demolish y E puede detonar cristales rápidamente, ejerciendo presión de mapa global.
+- **Ley 0 — Slots:** `validate` 6 entradas (1 bota T3 + 5 ítems); la mejora ⬆️ vive en el slot de botas. PASS.
+- **Ley 2 — AS:** muerta para Cho'Gath (AS 15 = 0.87; el cono de E limita los picos, no la AS). Ninguna build con AS item entra al top-10.
+- **Ley 4 — AD/crit muertos:** controles medidos: Sterak's −7.0 %, Overlord's Bloodmail −9.7 %, Black Cleaver −9.8 %, crit/AS rechazo estructural. El AD base 62+4/lvl no alimenta nada relevante.
+- **Ley 3b extendida (A10):** Sunfire Aegis y Hollow Radiance NO stackean (misma pasiva Immolate) → exclusividad declarada en el motor (`EXCLUSIVOS`).
+- **Ley 6 — Timing con fecha de caducidad:** Heartsteel 1.º **solo si se completa ≤ min 10-11** (hallazgo 4 de la ficha: a min 9:30 el snapshot lo pone #30; la trayectoria lo recupera en min 14 y lo gana en min 20 +3.7 %). Partida retrasada o desde atrás → **Unending Despair 1.º**.
+- **Ley 7 — Economía:** quest/jungla: camps grandes sin lasthit propio no aplica; el growth de Heartsteel (+425 HP a min 20) es la segunda "quest" de la build.
 
 ---
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-| Candidato | Oro | Pros | Contras | Veredicto |
-|---|---|---|---|---|
-| **Heartsteel** | 3 000 | Escalado infinito HP/Daño. Sinergia total con kit. | Requiere proximidad para cargar. Débil en all-in temprano. | ✅ **CORE** |
-| Liandry's Torment | 3 000 | Daño consistente % vida. Buen clear de jungla. | Menos durabilidad inmediata. Sin escalado infinito de HP. | ⚠️ Alternativa AP |
-| Iceborn Gauntlet | 3 000 | Control de zona (slow en área). Maná. | Menos daño que Heartsteel/Liandry. | ❌ Pasivo de moda |
-| Sunfire Aegis | 2 900 | Daño en área constante. | Heartsteel es superior en escalado y daño single-target. | ❌ Outdated |
-
-**Veredicto:** Heartsteel primero SIEMPRE en esta build. Define la identidad de "Coloso Imparable".
+| Candidato | Veredicto jungla | Números |
+|---|---|---|
+| **Heartsteel** (completo ≤ min 10-11) | ✅ Core 1 | Growth +15 %/proc: +425 HP a min 20 que multiplican R/Gargoyle/E; proc cada 20 s en camps |
+| **Unending Despair** (partida lenta/atrás) | ✅ Core 1 alternativo | Anguish inmediato: 243 AoE + 607 cura/4 s desde el primer fight; sin fecha de caducidad |
+| **Sunfire Aegis / Hollow Radiance** | ⚠️ Solo uno (A10) | Immolate = clear más rápido; pierden contra Unending en pelea (sin cura) |
+| **Rod of Ages** | ❌ jungla | Mana casi muerto (rotación corta) y llegada tarde: el hermano barón sí lo usa |
+| **Ítems AD/crit** | ❌ Ley 4 | Controles −7 a −10 % |
 
 ---
 
 ## 6. BUILD FINAL RANURA POR RANURA
 
-| Slot | Ítem | Justificación Matemática |
-|---|---|---|
-| Botas | **Plated → ⬆️ Armored Advance** | Reduce 10 % daño de autos + escudo físico. Esencial para sobrevivir a ADCs y Fighters AD en jungle/top. |
-| 1 | **Heartsteel** (3 000) | Core del build. Aumenta HP máximo y daño de autos basado en % HP. Escalado infinito. |
-| 2 | **Hollow Radiance** (2 800) | Daño mágico en área basado en HP bonus. Sinergia directa con Heartsteel. Aporta 40 MR. |
-| 3 | **Liandry's Torment** (3 000) | Aplica quemadura % vida máxima. Sinergia con E (Vorpal Spikes) y W. Aporta 300 HP y 70 AP. |
-| 4 | **Force of Nature** (2 800) | Alta RM escalable con stacks (hasta +70). Movilidad para alcanzar enemigos. Sinergia con HP masivo. |
-| 5 | **Warmog's Armor** (2 850) | Regeneración masiva fuera de combate si tienes >950 HP bonus (fácil de lograr). Permite presión constante sin volver a base. |
+Ver §0 Tabla A. Justificación por slot:
+- **Armored Advance:** Block 10 % permanente (A8: cubre ~70 % del DPS físico entrante) + escudo 722/12 s; vs junglas AP → **Mercury's → Chainlaced Crushers**.
+- **Heartsteel:** ver §5; su proc físico (140 + 3.5 % HP) además staquea en invades.
+- **Unending Despair:** el único sustain EN pelea del pool tanque (197 hps vs 46-67 de publicadas).
+- **Amaranth's Twinguard:** capstone 7.3: la ventana existe por su ×1.3 (D2: en el peor caso sale → Kaenic Rookern, §8.4).
+- **Gargoyle Stoneplate:** el escudo de 5 150 es 64 % de tu HP base: el activo más eficiente por oro del juego en un campeón con HP infinito por Feast.
+- **Force of Nature:** rehabilitada por el motor (hallazgo 2 de la ficha): 400 HP + 60 MR + Absorb + 11 % MS; el ❌ publicado aplicaba a Ornn/Rammus (no double-dipean HP).
 
-### Matriz del último slot (situacional)
-| Situación | Ítem | Coste | Impacto Medido |
-|---|---|---|---|
-| **Default** | **Warmog's Armor** | 2 850 | Regen ~180 HP/s fuera de combate. |
-| Vs Mucha Curación Enemiga | **Spirit Visage** | 2 800 | Amplifica la regeneración de Warmog y pasiva de Cho. +10 % HSP. |
-| Vs AD / Lifesteal | **Thornmail** | 2 700 | Refleja daño y aplica Grievous Wounds. |
-| Vs AS Heavy (ADCs) | **Frozen Heart** | 2 550 | Reduce AS enemiga en 25 % en área. |
-| Vs AP Burst | **Abyssal Mask** | 2 400 | Reduce MR enemiga en área (12 %) para tu equipo. |
+### 🛡️ MATRIZ SITUACIONAL (último slot, con números del motor)
+
+| Situación | Slot 6 | Impacto medido |
+|---|---|---|
+| Default mixto | **Force of Nature** | MR 316 · EHPm 33 626 · 11 % MS ✅ |
+| Presión de mapa / sustain | **Warmog's Armor** | VENT 56 377 (máx) · hps 240 · OOC 3.5 %/s ✅ |
+| Vs comp AD/crits (Jinx/Yunara/Kalista) | **Randuin's Omen** | EHPp 38 587 (+18.6 %) · variante completa: −FoN y botas Armored ✅ |
+| Vs AS + lifesteal | **Thornmail** | EHPp 34 471 + GW 50 % ⚠️ |
+| Vs AP burst (Syndra/Ahri/Norra) | **Kaenic Rookern** | EHPm 38 697–40 041 + escudo mágico 1 243 pre-fight (botas Chainlaced) ✅ |
+| Vs execute/burst (<30 % HP) | **Mantle of the Twelfth Hour** | Lifeline: +250 HP + cura 1 638 + 10 % tamaño/tenacidad/MS ⚠️ |
+| Vs 2+ tanques MR-stacking | **Cryptbloom** o **Liandry's Torment** | +30 % pen mágica (+36.5 % vs 200 MR) / Torment 2 % máx/s ⚠️ |
+| Vs curación (Mundo/Soraka/Yuumi) | **Morellonomicon** | GW 50 % (−10 % de tu daño sostenido: citar coste) ⚠️ |
 
 ### RECHAZADOS (con motivo numérico)
-| Ítem | Motivo del Rechazo |
+| Ítem | Motivo |
 |---|---|
-| Kraken Slayer / Runaan's / IE | Stats muertos (AS/Crítico). Cho no usa autos para daño principal. |
-| Nashor's Tooth | AS innecesaria. El daño de Cho viene de habilidades y % vida. |
-| Sunfire Aegis | Heartsteel ofrece mejor escalado de daño y HP permanente. |
-| Rylai's Crystal Scepter | Buen slow, pero Liandry's ya aplica ralentización implícita vía daño sostenido y ofrece mejor sinergia de % vida. |
+| ❌ **Spirit Visage** | NO EXISTE en la BD de 186 ítems de 7.3 (errata D5 de la ficha: estaba en la matriz del reporte v1.2). Sustitutos: Kaenic Rookern / Warmog's (Blessed) |
+| ❌ **Sterak's / Overlord's / Black Cleaver** | Ley 4: −7.0 / −9.7 / −9.8 % de score |
+| ❌ **Sunfire + Hollow Radiance juntos** | Exclusividad Immolate (A10/Ley 3b extendida) |
+| ❌ **Titanic Hydra** | Control −15.8 %: su AoE de HP no compensa el slot de Unending/FoN en jungla |
 
 ---
 
-## 7. RUNAS · HECHIZOS · HABILIDADES
+## 7. RUNAS · HECHIZOS · HABILIDADES (detalle jungla)
 
-### Keystone: Grasp of Undying
-- Daño mágico basado en % vida máxima.
-- Cura y otorga HP permanente.
-- Sinergia perfecta con el escalado de HP de Cho'Gath y Heartsteel.
-
-### Secundarias
-| Slot | Runa | Valor Estimado |
-|---|---|---|
-| Resolve | **Demolish** | Daño extra a torres. Sinergia con Crystalline Overgrowth y el push de Cho. |
-| Resolve | **Second Wind** | Sustain en lane contra poke o daño recurrente de monstruos de jungla. |
-| Resolve | **Overgrowth** | HP permanente adicional. Más HP = más daño de R y Heartsteel. |
-| Sorcery | **Transcendence** | Ability Haste. Cho necesita spamear Q/E para clear y CC. |
-| Sorcery | **Axiom Arcanist** | Reduce CD de R al conseguir kills/asists. Más R = más stacks de Feast = más tamaño/daño. |
-
-### Hechizos
-- **Jungla:** Smite + Flash.
-- **Top:** Flash + Ignite (para asegurar kills y aplicar GW) o Teleport (para macro/push).
-
-### Orden de Habilidades
-**E → Q → W** · R en 5/9/13.
-- **E (Vorpal Spikes):** Maxear primero. Daño en área, slow, y % vida del enemigo. Fundamental para clear de jungla y waveclear en lane.
-- **Q (Rupture):** Segundo. CC principal (knock-up).
-- **W (Feral Scream):** Último. Silencio útil, pero menos daño/clear.
-- **R (Feast):** Siempre que esté disponible. Priorizar stacks en minions/monstruos grandes si no se puede asegurar kill en campeón.
+- **Grasp of Undying** en jungla: proca en ganks/invades/duelos de objetivo (~1-2 procs/min real vs 2/min del supuesto A5: el HP permanente llega más lento, no cambia rankings — sensibilidad corrida).
+- **Axiom Arcanist** es la inspiración correcta: +10 % al execute de R (tu herramienta de objetivo) y −7 % de CD de R por takedown en peleas de dragón encadenadas. Alternativa **Revitalize** si tu comp juega alrededor de tus curas (Yuumi/Seraphine).
+- **E → Q → W**: E maxea primero (%-vida con Feast); Q segundo (setup de gank); W último (zona defensiva).
+- R en 5/9/13 siempre: el execute escala 80→120→160 HP/stack de Feast **retroactivo** (A1/D3).
 
 ---
 
 ## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
 
-### Tabla Maestra (Nivel 15, 6 Stacks Feast)
-| Build | Oro | HP Est. | Daño Principal | Durabilidad | Claridad de Rol |
-|---|---|---|---|---|---|
-| **Coloso (Esta Build)** | ~16.6k | ~5 200 | % Vida (E, Heartsteel, Liandry) | Extrema (HP + Resistencias) | Tank Mágico / Scaling |
-| AP Burst (Full AP) | ~16k | ~3 000 | Burst Q/R (Alto ratio AP) | Baja (Frágil) | Asesino Mágico |
-| Tank Puro (Sunfire/Thorns) | ~14k | ~4 500 | Daño Fijo/Moderado | Alta (Armadura/RM) | Tanque Frontal |
-| On-Hit (Nashor/Wits) | ~15k | ~3 500 | Daño Autoataque | Media | Fighter Híbrido |
+| Build | Oro | VENT | DPSf | R exec | hps | Score rel. | Fuente |
+|---|---|---|---|---|---|---|---|
+| **Óptima batch4 (Tabla A)** | 17 100 | **55 591** | 444 | 1 277 | **197** | 0.816 | ⭐ LAB (motor nuevo) |
+| Tanque puro (HS+TW+Garg+Warmog+Randuin) | 16 950 | 49 556 | 417 | 1 323 | 66 | 0.726 (−11.1 %) | 🔬 LAB top-N |
+| Publicada jungla 28/09 (HS+Hollow+Liandry+FoN+Warmog) | 16 650 | 26 292 | 554 | 1 384 | 67 | 0.662 (−18.9 %) | 📌 publicada |
+| Comunidad wr-meta (Chainlaced+HS+Hollow+Liandry+FoN+Warmog) | 16 650 | 25 437 | 554 | 1 384 | 67 | 0.679 (−16.8 %) | 🌐 comunidad |
+| Titanic Hydra control | 17 300 | 39 008 | 552 | 1 321 | 45 | 0.687 (−15.8 %) | 🔬 LAB control |
+| AP puro (Liandry+Riftmaker+Cryptbloom+Rabadon+Rylai) | 17 400 | 14 534 | 733 | 1 397 | 77 | 0.633 (−22.5 %) | 🔬 LAB control |
 
-> [!WARNING]
-> La build Coloso sacrifica burst instantáneo por daño sostenido porcentual y durabilidad inigualable. A medida que avanza la partida, Cho se vuelve más grande, duele más y es más difícil de matar. Las otras builds o son demasiado frágiles (AP) o no escalan tan bien en daño (Tank Puro).
+### 8.4 Sensibilidades que sostienen la derivación
+- **Stacks:** S=6/min 13 → el cuarteto Unending+Gargoyle+Twinguard+FoN sigue arriba (Heartsteel entra cuando existe trayectoria: S=15+). S=22/min 26 → misma óptima con HP 9 497 y VENT 65 915.
+- **D2a (Twinguard ×1.3 solo bonus):** óptima idéntica. **D2b (sin multiplicador, peor caso):** Twinguard sale → entra **Kaenic Rookern** (16 700 g): es tu plan B si en juego D2 resulta bonus-only.
+- **D4 (Axiom off):** R 1 277 → 1 161 (−9 %); óptima idéntica.
+- **Pesos AD/AP/doble-tanque:** el cuarteto sobrevive; solo cambian botas y slot 6 (matriz §6).
 
 ---
 
-## 9. PLAN DE JUEGO
+## 9. PLAN DE JUEGO (jungla)
 
-### Early Game (Niveles 1-6)
-- **Lane/Jungla:** Usar E para farmear y pokear. Mantener distancia. Usar pasiva para recuperar vida/maná. Evitar trades largos sin Grasp cargado.
-- **Jungla:** Empezar con buff que permita clear seguro (Blue para maná/sustain o Red para daño). Usar E para clear rápido. Smite para asegurar objetivos.
-- **Objetivo:** Conseguir 1-2 stacks de Feast en minions/monstruos si no hay kills seguras. Comprar componentes de Heartsteel.
+### Early (0:00 – 9:00)
+- **Clear de E + autos con windup corto:** el cono de E pega a todos los camps; W debajo del camp grande para el segundo tick.
+- **Primer gank con Q desde arbusto + Flash si hay root aliado:** sin slow propio, tu engage es lectura, no stats.
+- **Feast sin cap en camps:** los épicos y camps grandes dan stack seguro: tu S jungla va ~40 % adelante que la de top (Tabla §3.2).
 
-### Mid Game (Niveles 7-12)
-- **Item Power Spike:** Al completar Heartsteel, Cho empieza a destacar. Buscar peleas pequeñas y usar Q-R para eliminar objetivos clave.
-- **Macro:** Pushear líneas con E y Demolish. Aprovechar Crystalline Overgrowth en torres.
-- **Objetivos:** Controlar Dragones/Herald con Smite y daño verdadero de R.
+### Mid (9:00 – 16:00)
+- **Min 8:30 Heartsteel completo** (regla §5): si vas atrás, Unending primero y Heartsteel segundo.
+- **Objetivos con R listo:** consulta la tabla Smite+R (§3.2): antes de min 14 tu robo es 2 467-2 512 — disputa solo con visión y cooldowns enemigos gastados.
+- **Invade con Twinguard cerca de completarse:** la ventana de 5 s es tu duelo de jungla.
 
-### Late Game (Niveles 13+)
-- **Teamfights:** Iniciar con Q sobre múltiples enemigos o usar Flash-Q. Activar R para ejecutar al tanque/enemigo con más vida. Usar E para ralentizar y dañar en área.
-- **Posicionamiento:** Frontline. Absorber daño mientras se aplica daño porcentual.
-- **Splitpush:** Si el equipo necesita presión, Cho puede tirar torres rápidamente con Demolish + Crystalline Overgrowth + Heartsteel.
+### Late (16:00+)
+- **Frontline de ventana:** entras SEGUNDO (el primero come el burst sin Twinguard activa); Gargoyle al ser focoado = 5 150 de escudo.
+- **R como execute y como steal:** doble uso, mismo cast: verdadero en ambos casos.
+- **Split de emergencia:** con Demolish (si lo llevaste) y 200 de rango, una side-lane tuya cuesta torre + cristal (770 verdadero al cristal, 11 % de 7 000).
 
-### Reglas del Parche que Cambian el Macro
+### Reglas del parche que cambian el macro
 | Regla | Impacto |
 |---|---|
-| Torretas 7 000 HP | No se tiran "de un push"; trabaja placas 2-3 veces. |
-| Placas permanentes + decaen desde 5:00 | Prioriza la primera placa antes del 5:00. |
-| Crystalline Overgrowth (~50 s ciclo) | Un cohete/auto detona hasta ~1 300 verdadero gratis. Cho es excelente para esto. |
-| Smite escala con HP Bonus | Tu build de HP masivo aumenta el daño verdadero de Smite. |
+| Smite upgrades 600/1 000/1 400 | Umbrales de robo por minuto en §3.2/§3.3 |
+| Torretas 7 000 HP + cristales | R+Q detona cristal desde rango Feast: objetivo secundario en skips |
+| Minions 60 % daño a campeones | Tu cono de E en ola empujada limpia y daña: push accidental = gestión de ola |
 
 ---
 
 ## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
 
-### Fuentes Primarias (mandan)
+### Fuentes primarias
 | Fuente | Acceso | Qué aporta |
 |---|---|---|
-| Notas oficiales 7.3 | 21/09/2026 | Cambios en Smite, items nuevos (Heartsteel), ajustes de Cho'Gath. |
-| wr-meta.com | 24/09/2026 | Stats base, ratios de habilidades, meta actual. |
+| Notas oficiales 7.3/7.3a + apéndice AS | 21/09 y 29/09/2026 | Feast, R execute, E %-vida, AS 0.625/0.28/0.008 |
+| Apéndice ESCALADO_DE_TAMAIO §1b del lab | v1.15 | Protocolo de ventanas y reglas de tamaño |
+| items_7.3.csv (186 ítems) + runas_7.3.md | vigía | Pool legal WR 7.3 (Spirit Visage inexistente: D5) |
 
-### Discrepancias Detectadas y Resolución
-| Tema | Resolución |
-|---|---|
-| Ninguna significativa detectada entre fuentes para Cho'Gath en 7.3. | Se usan los valores oficiales de parche. |
+### Discrepancias y erratas (protocolo §D)
+| # | Tema | Resolución |
+|---|---|---|
+| D1 | Cap del %-vida de E vs monstruos | Modelado sin cap en la base; afecta clear, no rankings. Verificar en juego |
+| D2 | Twinguard ×1.3 total vs bonus | Convención total; peor caso → Kaenic (óptima resto idéntica). **Prioridad alta de verificación** |
+| D3 | Feast retroactivo al subir R | Modelado retroactivo; si no, −480 HP a S=22, rankings sin cambio |
+| D4 | Axiom sobre verdadero de R | Modelado sí; sensibilidad −9 % de R, óptima idéntica |
+| D5 | **Spirit Visage en el reporte v1.2** | ERRATA: no existe en 7.3. Eliminado; sustitutos Kaenic/Warmog |
+| D6 | ❌ publicados a FoN/Warmog | Válidos para Ornn/Rammus; el motor los rehabilita para Cho'Gath con números (§6/§8) |
+| D9 | Cifras absolutas v1.2 (HP ~6 500, VENT ~18 000) | Reemplazadas por las del motor con fórmula §1b.6.2 completa; las conclusiones relativas se mantienen |
 
-### Supuestos del Modelo (declarados)
-- Se asumen **6 stacks de Feast** a nivel 15 (conservador, podría ser más con kills de campeones/épicos).
-- Se asume que Heartsteel está completamente cargado y ha generado HP permanente.
-- El daño de E se calcula contra un objetivo de 4 500 HP para demostrar la escalada.
-- No se incluye daño de objetos activos (como Rocketbelt) para simplificar el DPS sostenido.
-
-### Contexto Meta (24/09, Diamond+)
-Cho'Gath tiene un win rate sólido (~51 %) en Top y Jungla. Su presencia es media-alta debido a su utilidad de CC y escalado. La tendencia en Jungla es alcista (+14 puestos) gracias a los cambios de Smite y la fortaleza de los tanques en el parche 7.3.
-
-### Validación del Modelo
-- `validate_slots(["Armored Advance", "Heartsteel", "Hollow Radiance", "Liandry's", "Force of Nature", "Warmog's"])` → **PASS** (6 entradas, 1 botas T3, 5 ítems).
-- Chequeo manual de daño E: Correcto según ratios de parche 7.3.
+### Validación del modelo
+- Búsqueda exhaustiva: **122 632 builds legales** (Ley 0 + exclusividad Immolate), presupuesto 17 250 g.
+- `python3 model/chogath_model.py` reproduce todas las tablas (salida en `model/chogath_resultados.txt`).
+- Controles Ley 4 y sensibilidades S=6/15/22, D2a/D2b, D4 y 4 juegos de pesos: §8.4.
+- Ítems y runas verificados contra `items_7.3.csv` y `runas_7.3.md` (WR 7.3, no desktop).
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES DEL ROL: veredicto para Cho'Gath
+## APÉNDICE A — POOL TANQUE: VEREDICTOS DEL MOTOR
 
 | Ítem (oro) | Veredicto | Nota |
 |---|---|---|
-| Heartsteel (3 000) | ✅ Core | Escalado infinito HP/Daño. |
-| Hollow Radiance (2 800) | ✅ Core | Daño mágico % HP bonus. |
-| Liandry's Torment (3 000) | ✅ Core | Quemadura % vida. |
-| Force of Nature (2 800) | ✅ Situacional | Mejor RM escalable. |
-| Warmog's Armor (2 850) | ✅ Situacional | Regen masiva. |
-| Spirit Visage (2 800) | ✅ Situacional | Amplifica regen/curación. |
-| Thornmail (2 700) | ✅ Situacional | Anti-AD/Lifesteal. |
-| Frozen Heart (2 550) | ✅ Situacional | Anti-AS. |
-| Iceborn Gauntlet (3 000) | ⚠️ Alternativa | Buen control, menos daño. |
-| Sunfire Aegis (2 900) | ❌ Rechazado | Heartsteel es superior. |
-| Rylai's Crystal Scepter (2 700) | ⚠️ Alternativa | Slow útil, pero menos daño/defensa. |
-| Kraken/Runaan/IE/Nashor | ❌ Rechazado | Stats muertos (AS/Crit). |
+| Heartsteel (3 000) | ✅ Core con fecha | ≤ min 10-11; growth +425 HP min 20 |
+| Unending Despair (3 000) | ✅ Core | Anguish = sustain de pelea único |
+| Amaranth's Twinguard (3 200) | ✅ Core (D2) | Peor caso → Kaenic |
+| Gargoyle Stoneplate (2 900) | ✅ Core | Escudo 5 150; 6 695 con Warmog |
+| Force of Nature (2 800) | ✅ Default 6.º | Rehabilitada (§6) |
+| Warmog's Armor (2 850) | ✅ Presión de mapa | VENT máx 56 377 |
+| Randuin's Omen (2 800) | ✅ vs AD/crit | EHPp +18.6 % |
+| Kaenic Rookern (2 800) | ✅ vs AP burst | Escudo 1 243 pre-fight |
+| Sunfire Aegis / Hollow Radiance | ⚠️ Uno solo | A10 Immolate |
+| Mantle of the Twelfth Hour (2 550) | ⚠️ vs execute | Lifeline <30 % |
+| Frozen Heart (2 550) | ⚠️ vs AS pesada | −25 % AS en 650 u |
+| Thornmail (2 700) | ⚠️ vs lifesteal | GW + thorns |
+| Cryptbloom / Liandry's / Morello | ⚠️ Situacionales AP | Ver matriz §6 |
+| Rod of Ages (2 700) | ❌ jungla / ✅ barón | Mana muerto en jungla |
+| Sterak's / Overlord's / Black Cleaver / Titanic Hydra | ❌ | Ley 4 / control −15.8 % |
+| Spirit Visage | ❌ **inexistente en 7.3** | Errata D5 |
 
----
-
-## APÉNDICE B — RUTAS DE COMPRA
-
-#### DEFAULT (Coloso):
-`Ruby Crystal → Heartsteel (8:30') → Plated Steelcaps (10:00') → Hollow Radiance (13:00') → ⬆️ Armored Advance (14:00') → Liandry's Torment (16:30') → Force of Nature (19:00') → Warmog's Armor (22:00')`
-
-#### ANTI-AD:
-`Heartsteel → Plated Steelcaps → Thornmail → Frozen Heart → Force of Nature → Warmog's/Spirit Visage`
-
-#### ANTI-AP:
-`Heartsteel → Mercury's Treads → ⬆️ Chainlaced Crushers → Hollow Radiance → Spirit Visage → Force of Nature → Warmog's`
-
-#### JUNGLA:
-`Smite → Heartsteel → Plated Steelcaps/Mercury's → Hollow Radiance → Liandry's → Situacional`
-
----
-
-*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de daño son estimadas basadas en ratios y % vida pre-mitigación. El valor real depende de la composición enemiga y los stacks de Feast. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
-
-**Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria de cambios de items, Smite y campeones.
-- Base de datos de ítems, runas y fichas de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria para stats base y meta.
-- Modelo matemático, Leyes 0-7 y validaciones — WR-LAB (laboratorio propio), construido sobre las fuentes anteriores.
-
-**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
+## APÉNDICE B — RUTA JUNGLA (condensada)
+```text
+Ruby (0:00) → Plated Steelcaps (4:30) → Heartsteel (8:30, regla min 10-11)
+→ ⬆️ Armored Advance (10:00) → Unending Despair (13:00) → Amaranth's Twinguard (15:30)
+→ Gargoyle Stoneplate (18:00) → Force of Nature (20:30)   [o Warmog's si vas arriba]
+```
 
 ---
 
 ## Pie de página
 
-*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de EHP, R execute y DPS son estimaciones pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte regenerado el 11/10/2026 con el motor rotación-tanque batch4 (`model/chogath_model.py`) sobre datos 7.3+7.3a. WR-LAB v1.17. Las métricas de tanque siguen TEMPLATE §A.5: EHP y ventana por encima de DPS; el tamaño es consecuencia, no objetivo. Si Riot publica 7.3b/7.4, regenerar antes de republishar.*
 
 **Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.2C (buff Cho'Gath) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, sistema de botas T3, Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, cambios a épicos.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Q/W/E/R con ratios, change history completo, build y meta.
-- Modelo matemático, Leyes 0-7, apéndice de escalado de tamaño y validaciones — WR-LAB (laboratorio propio, construido sobre las fuentes anteriores.
+- Notas oficiales 7.3/7.3a y apéndices — © Riot Games, Inc. (wildrift.leagueoflegends.com).
+- Ficha wr-meta Cho'Gath (24/09/2026) y win rates Diamond+ del vigía (09/10/2026).
+- Ficha analítica de Cho'Gath 7.3a del autor (12/10/2026): supuestos A1–A14 y discrepancias D1–D9.
+- Motor batch4 y búsqueda exhaustiva: `model/chogath_model.py` + `model/chogath_resultados.txt`.
 
-**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
-
----
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada ni respaldada por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
 ---
 tags:
-  - Barón
-  - Jungla
-  - Personalizado
-version: 1.2
+  - Top
+  - Tank
+  - AP-vida
+  - Baron-Lane
+version: 1.3
 Status: Beta
 champion: Cho'Gath
 slug: chogath-titan-del-baron
-role: jungla
-variant: "titan-del-baron"
-patch: "7.3"
-archetype: "AP-Tank con escalado infinito"
-engine: none
-custom: "true"
+role: top
+variant: titan-del-baron
+patch: "7.3+7.3a"
+archetype: "Tanque AP %-vida (Feast)"
+engine: rotacion-tanque
+custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
-**Fecha del análisis:** 28/09/2026
-**Parche:** 7.3 (21-sep-2026)
-**Rol principal:** Top (Baron Lane) / Jungla
-**Arquetipo:** AP-Tank con escalado infinito
-**Enfoque:** Maximizar HP bonus como stat compuesto
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Cho'Gath:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Armored Advance + Heartsteel + Rod of Ages + Amaranth's Twinguard + Gargoyle Stoneplate + Liandry's Torment — **sin cambios**.
-> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
+**Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
+**Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
+**Rol principal:** Top / Baron Lane (variante Jungla en `chogath-titan-de-la-jungla`)
+**Arquetipo:** Tanque de rotación AP %-vida: split-pusher de ventanas enormes y execute verdadero.
+**Enfoque:** La misma óptima del motor que en jungla (cuarteto Unending + Gargoyle + Twinguard + FoN) con lecturas de top: Demolish + cristales + rango Feast para siege, y Rod of Ages como alternativa de lane 1v1 larga.
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 24/09/2026):**
-> Win Rate 51.20 % | Pick Rate 12.60 % | Ban 38.00 % | Tendencia ↓1 | Rol: Top / Jungla.
-> Señales: ⛔ Perma-ban
+> **Estado Meta Actual (Diamond+, 09/10/2026):** SOLO Win Rate 50.46 % | Pick Rate 11.10 % | Ban 35.10 % | Tendencia ↑3 | Tier S (Confidence High).
+
+> [!TIP]
+> **Variante lane 1v1 larga:** **Rod of Ages** (2 700) en lugar de Force of Nature cuando tu rival es AP de pelea sostenida (Vladimir-like, Mordekaiser sin grievous): 500 HP + 90 AP + Eternity convierten tu mana muerto en pool híbrido.
 
 > [!DANGER]
-> **Build titánica sacrifica ~35 % de DPS de habilidades puras** **a cambio de +112 % EHP en ventana de combate** (18 000 vs 8 500).
-> El trade-off es deliberado: Cho'Gath gana partidas siendo inmatable, no siendo el mayor DPS.
+> **CARRY-TOP (sesgo de daño, `PESOS_DPS`):** Chainlaced Crushers + Liandry's Torment + Riftmaker + Cryptbloom + Abyssal Mask + Iceborn Gauntlet (16 700 g) → AP 302 · DPSf **810 (+82 %)** · AoE 1 772 (+85 %) · R 1 327, **a cambio de VENT 18 774 (−66 %) y EHPp 18 226 (−44 %)**. Solo con equipo que te proteja (Yuumi/Karma/Seraphine) o vs comps sin %-vida. Es la build "AP puro" corregida: Abyssal (+12 % mágico de equipo) e Iceborn (slow + spellblade) sustituyen al glass-cannon inútil (Rabadon/Rylai).
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL
+### Tabla A — BUILD FINAL (barón, óptima del motor batch4)
 
 | Slot | Ítem | Oro | Rol en la build |
-|------|------|-----|-----------------|
-| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot) | 2 200 | +30 armor, +150 HP, Block 10 %, escudo físico 10-140 + 8 % HP máx |
-| 2 | **Heartsteel** | 3 000 | +700 HP + proc 140 + 3.5 % HP máx + 15 % → HP permanente (stacking infinito) |
-| 3 | **Rod of Ages** | 2 700 | +350 HP + 50 AP + 400 maná + growth temporal (10 stacks = +150 HP/+40 AP) |
-| 4 | **Amaranth's Twinguard** | 3 200 | +300 HP + 50/50 resist + 5 stacks: +20 % tamaño + 30 % bonus resist + 20 % tenacidad |
-| 5 | **Gargoyle Stoneplate** | 2 900 | +200 HP + 45/45 + activo: escudo 100 + 90 % HP bonus + tamaño gigante (CD 60) |
-| 6 | **Liandry's Torment** (default) / **Mantle of the Twelfth Hour** (vs burst) | 3 000 / 2 550 | +300 HP + 70 AP + burn 2 % HP máx/s / +600 HP + Lifeline + 10 % tamaño |
+|---|---|---|---|
+| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot; Mercury's/Chainlaced vs AP) | 2 200 | Block 10 % + escudo físico 722/12 s |
+| 2 | **Heartsteel** | 3 000 | 700 HP + growth +15 %/proc (+425 HP min 20): alimenta R, Gargoyle, E y Demolish |
+| 3 | **Unending Despair** | 3 000 | Anguish 243 AoE/4 s + cura 607: sustain de pelea que ninguna publicada tenía |
+| 4 | **Amaranth's Twinguard** | 3 200 | Resistencias ×1.3 en ventana + 20 % tenacidad + 20 % tamaño |
+| 5 | **Gargoyle Stoneplate** | 2 900 | Escudo activo 5 150 (6 695 con Warmog's Blessed) |
+| 6 | **Force of Nature** | 2 800 | 400 HP + 60 MR (+70 Absorb) + 11 % MS: rotar y split más rápido |
 
-> **Oro total: ~17 050 g** (con Liandry's) · HP ~6 500 · AP ~250 · Tamaño +165 % · R execute ~1 500 verdadero · EHP ventana ~18 000
+> **Oro total: 17 100 g** · HP **8 093** · arm 274 · MR 316 · tamaño **+110 %** · rango 200 · **R 1 277 verdadero** · **VENT 55 591** · hps 197 · **Demolish 2 351** físico por golpe de torreta · cristal ≈ **770 verdadero** (11 % de 7 000).
 
-### Tabla B — Ruta de compra cronológica
+### 0.2 El tamaño como CONSECUENCIA (indicación del autor)
+
+| Build | HP | VENT (5 s) | DPS fighter | Veredicto |
+|---|---|---|---|---|
+| **Óptima batch4** | 8 093 | **55 591** | 444 | 0.816 (ref.) |
+| Tanque puro (Randuin+Warmog, sin Unending/FoN) | 8 505 | 49 556 | 417 | 0.726 (−11.1 %) |
+| Publicada barón 28/09 (HS+RoA+TW+Garg+Liandry) | 8 196 | 39 274 | 518 | 0.680 (−16.7 %) |
+| AP puro | 6 728 | 14 534 | 733 | 0.633 (−22.5 %) |
+
+Gigante sin ventana = derretible (el tanque puro tiene MÁS HP y MENOS supervivencia real); daño sin cuerpo = no llegas al segundo cast de E. La óptima compra **ventana y rotación**, y el +110 % de tamaño aparece solo (Feast 90 % + Twinguard 20 %), con sus dos subproductos útiles: rango 200 y cono de E a ~2.9 objetivos (A6).
+
+### Tabla B — Ruta de compra cronológica (barón)
 
 | # | Compra | Oro acum. | Minuto típico |
-|---|--------|-----------|---------------|
-| 1 | Ruby Crystal (start) | 500 | 0:00 |
-| 2 | Catalyst of Aeons (componente RoA) | 1 100 | ~3:30 |
-| 3 | **Plated Steelcaps** | 2 300 | ~5:30 |
-| 4 | Giant's Belt + componentes → **Heartsteel** | 5 300 | ~8:30 |
-| 5 | Blasting Wand + Catalyst + maná → **Rod of Ages** | 8 000 | ~12:00 |
-| 6 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 9 000 | ~10:00+ |
-| 7 | Giant's Belt + Chain Vest + Negatron → **Amaranth's Twinguard** | 12 200 | ~15:00 |
-| 8 | Kindlegem + Chain Vest + Negatron → **Gargoyle Stoneplate** | 15 100 | ~18:00 |
-| 9 | Haunting Guise + Blasting Wand → **Liandry's Torment** | 17 050 | ~21:00 |
+|---|---|---|---|
+| 1 | Ruby Crystal + ward | 500 | 0:00 |
+| 2 | **Plated Steelcaps** (T2) | 1 700 | ~5:00 |
+| 3 | Giant's Belt + Kindlegem → **Heartsteel** | 4 700 | ~8:30 (regla: ≤ min 10-11, §5) |
+| 4 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 5 700 | 10:00 (regla T3) |
+| 5 | Componentes → **Unending Despair** | 8 700 | ~13:00 |
+| 6 | Giant's Belt + Chain Vest + Negatron → **Amaranth's Twinguard** | 11 900 | ~15:30 |
+| 7 | Kindlegem + Chain Vest + Negatron → **Gargoyle Stoneplate** | 14 800 | ~18:00 |
+| 8 | Winged Moonplate + Negatron + Ruby → **Force of Nature** | 17 600 | ~20:30 |
 
 ### Runas · Hechizos · Habilidades
 
 | Categoría | Elección |
-|-----------|----------|
-| Keystone | **Grasp of Undying** (3.3 % HP máx daño + 1.3 % cura + 10 HP permanente cada 3 s) |
-| Resolve 2 | **Demolish** (85 + 28 % HP máx a torres cada 3 golpes) |
-| Resolve 3 | **Second Wind** (3 + 1.5 % HP faltante tras recibir daño) |
-| Resolve 4 | **Overgrowth** (+3 HP por 3 minions; +3 % HP máx a 30 stacks) |
-| Secundaria | **Revitalize** (+5-15 % curas/escudos) / **Axiom Arcanist** (+10 % R, −7 % CD con takedown) |
-| Hechizos | **Flash + Ignite** (asegura Feast stacks) / Flash + Teleport (split) |
-| Skills | **E → Q → W** (R en 5/9/13) |
-
-### Resultado del modelo (nivel 15, 22 stacks Feast, AP 250, HP 6 500)
-
-| Escenario | Valor |
-|-----------|-----|
-| **R execute (daño verdadero)** | **~1 500** |
-| **E Vorpal Spikes (% HP máx por pico)** | **16.7 %** |
-| **EHP en ventana (Twinguard + Gargoyle)** | **~18 000** |
-| **vs Volibear (1v1 sostenido)** | ✅ Gana (sustain + execute) |
-| **vs Dr. Mundo (1v1)** | ✅ Gana (con Ignite + Liandry's) |
-| **Grasp por proc (6 500 HP)** | 214 mágico + 84 cura |
-| **Demolish a torreta (6 500 HP)** | 1 905 físico |
-
-> **Titular:** Con 22 stacks de Feast + Heartsteel + Twinguard max, Cho'Gath pasa de "tanque estándar" a **18 000 EHP efectivos en una ventana de 5 segundos** — el enemigo necesita 3 rotaciones completas de burst para bajarlo, tiempo en el que su R ya ejecutó al carry.
-
----
-
-## 1. Supuestos específicos
-
-- 22 stacks de Feast al late game: 6 de minions (cap) + 5 de campeones early + 11 de épicos/teamfights.
-- Uptime de E: 75 % (3 ataques cada 4 s en pelea, CD rank 4).
-- Twinguard a 5 stacks (5 s en combate) = +20 % tamaño + 30 % bonus resistencias.
-- Gargoyle activo usado al inicio de teamfight (2.5 s de escudo + tamaño).
-- R execute calculado vs target con 100 MR: daño verdadero ignora resistencias.
-- AP de referencia: 250 (Liandry's 70 + RoA 50+40 stacks + base + runas adaptivas).
-- Overgrowth a 30 stacks: +3 % HP máx adicional.
-
----
-
-## 2. LEYES APLICADAS A CHO'GATH
-
-### Ley 2 — Velocidad de ataque: irrelevante
-
-Con AS base 0.625 y growth 0.008, Cho'Gath es uno de los campeones más lentos del juego. A nivel 15 con 0 ítems de AS:
-
-```
-AS = 0.625 × (1 + 0.28 + 0.008×14) = 0.625 × 1.392 = 0.87
-```
-
-### Ley 3 — Penetración mágica obligatoria
-
-Tu daño es ~80 % mágico (Q, W, E, burn de Liandry's). Contra tanques con MR:
-
-| MR enemigo | Sin pen | Con Cryptbloom (30 %) | Ganancia |
-|---|---|---|---|
-| 50 (squishy) | 0.667 | 0.769 | +15.3 % |
-| 120 (fighter) | 0.455 | 0.581 | +27.9 % |
-| 200 (tanque) | 0.333 | 0.455 | +36.5 % |
-| 250 (Mundo stacking) | 0.286 | 0.400 | +40.0 % |
-
-**Regla:** Cryptbloom como 6.º slot vs 2+ tanques con MR. Liandry's ya da Madness (+6 % tras 3 s) que compensa parcialmente.
-
-### Ley 4 — Stats muertos y coste de oportunidad
-
-| Ítem                      | Stat muerto en Cho'Gath                                  | Oro desperdiciado   | Veredicto |
-| ------------------------- | -------------------------------------------------------- | ------------------- | --------- |
-| Sunfire Aegis (2 900)     | Immolate 20 + 1.5 % HP/s ≈ 65 DPS vs ~180 de Liandry's   | ~2 900 g            | ❌         |
-| Warmog's Armor (2 850)    | Regen fuera de combate inútil en fights                  | ~1 500 g            | ❌         |
-| Force of Nature (2 800)   | Sin % damage reduction en 7.3; solo stats planos         | ~800 g vs Twinguard | ❌         |
-| Sterak's Gage (3 200)     | +50 % AD base = ~63 AD (oro muerto); Lifeline < Gargoyle | ~1 800 g            | ❌         |
-| Thornmail (2 700)         | Solo vs AD auto-attackers puros                          | Situacional         | ⚠️        |
-| Cualquier ítem de crítico | 100 % muerto                                             | ~1 250 g por 25 %   | ❌         |
-
----
-
-## 3. ANÁLISIS DEL PRIMER ÍTEM
-
-| Candidato | Oro | HP bonus | AP | DPS vs Volibear | DPS vs Mundo | Sustain | Nota |
-|---|---|---|---|---|---|---|---|
-| **Heartsteel** | 3 000 | +700 | 0 | 380 | 420 | ⭐⭐⭐⭐⭐ | Proc + stacking infinito |
-| Rod of Ages (parcial) | 2 700 | +350 | +50 | 320 | 350 | ⭐⭐⭐ | Maná + scaling |
-| Liandry's (parcial) | 3 000 | +300 | +70 | 410 | 480 | ⭐⭐ | Burn vs tanques |
-| Iceborn Gauntlet | 3 000 | +300 | 0 | 290 | 310 | ⭐⭐⭐⭐ | Slow field + armor |
-
->**Veredicto:** **Heartsteel primero** en el 90 % de los matchups. Las razones:
-
-**Excepción:** vs Dr. Mundo en lane, Liandry's primero por el burn de 2 % HP máx que contrarresta su regen. Pero incluso vs Mundo, Heartsteel gana post-2 ítems.
-
-**Nota crítica:** Iceborn Gauntlet parece atractivo por el slow field, pero su Spellblade escala con AD base (126 a nivel 15 = ~126 de daño extra cada 1.5 s) — muy inferior al proc de Heartsteel (140 + 3.5 % HP = ~253 a 3 200 HP) que además da HP permanente.
-
----
-
-## 4. BUILD FINAL RANURA POR RANURA
-
-| Slot | Ítem | Justificación matemática |
-|---|---|---|
-| Botas | **Plated → ⬆️ Armored Advance** | +30 armor + 150 HP + Block 10 % + escudo físico (10-140 + 8 % HP máx). Con 6 500 HP = escudo de ~660 cada 12 s. Esencial vs Volibear/AD fighters. |
-| 1 | **Heartsteel** (3 000) | +700 HP + proc cada 20 s (140 + 3.5 % HP máx) + 15 % del daño como HP permanente. Bola de nieve infinita que alimenta R y E. |
-| 2 | **Rod of Ages** (2 700) | +350 HP + 50 AP + 400 maná + growth temporal. A nivel 15 + 10 stacks = +150 HP + 300 maná + 40 AP extra. Sustain de maná + scaling. |
-| 3 | **Amaranth's Twinguard** (3 200) | +300 HP + 50/50 resist + 5 stacks en combate = +20 % tamaño + 30 % bonus armor/MR + 20 % tenacidad. Capstone de la fantasía titánica. |
-| 4 | **Gargoyle Stoneplate** (2 900) | +200 HP + 45/45 + activo: escudo = 100 + 90 % HP bonus. Con 6 500 HP = escudo de ~5 950 + tamaño gigante por 2.5 s. Ventana burst imparable. |
-| 5 | **Liandry's Torment** (3 000) | +300 HP + 70 AP + burn 2 % HP máx/s + Madness (+6 % daño tras 3 s). Daño sostenido vs tanques. |
-
-### Matriz del último slot (situacional)
-
-| Situación | Ítem | Coste | Impacto medido |
-|---|---|---|---|
-| **Default (vs tanques)** | **Liandry's Torment** | 3 000 | +70 AP + burn 2 % HP + Madness. R execute sube a ~1 500 verdadero ✅ |
-| vs 2+ tanques con MR stacking | Cryptbloom | 3 000 | +30 % pen mágica + 75 AP + 20 AH. +52 % daño vs Mundo con 250 MR ✅ |
-| vs burst AP (Annie/Brand) | Mantle of the Twelfth Hour | 2 550 | +600 HP + Lifeline: +200-300 HP + 10 % tamaño + 20 % tenacidad + regen ⚠️ |
-| vs AD pesados (Yasuo/Zed) | Frozen Heart | 2 550 | +80 armor + 400 maná + 20 AH + −25 % AS a enemigos en 650 u ⚠️ |
-| Split push / siege | Iceborn Gauntlet | 3 000 | +300 HP + 50 armor + Spellblade slow field (crece con armor) ⚠️ |
-| vs curación (Mundo/Soraka) | Morellonomicon | 2 650 | +75 AP + 300 HP + 50 % Grievous Wounds ⚠️ |
-
----
-### Orden de habilidades
-
-**E → Q → W** · R en 5/9/13.
-
-- **E max primero:** más daño % HP máx + ancho de cono crece con stacks. Es tu waveclear y tu DPS sostenido.
-- **Q segundo:** 245 + 100 % AP y knockup 1 s. Tu CC de engage y peel.
-- **W último:** el silencio dura 1.4-2 s en todos los ranks; el daño base crece poco. Su valor es binario (silencia o no).
-
----
-
-## 5. COMPARACIÓN CONTRA LAS ALTERNATIVAS
-
-### Tabla maestra (nivel 15, 22 stacks de Feast, AP 250, HP 6 500)
-
-| Build | Oro | HP total | AP | Tamaño | R execute | E % HP | EHP ventana | vs Volibear | vs Mundo |
-|---|---|---|---|---|---|---|---|---|---|
-| **TITÁNICA (propuesta)** | 17 050 | 6 500 | 250 | +165 % | **1 500** | **16.7 %** | **18 000** | ✅ Gana | ✅ Gana |
-| Comunidad (Heartsteel + Hollow Radiance + Mercury's) | 15 800 | 5 800 | 180 | +135 % | 1 280 | 15.2 % | 14 500 | ⚠️ Empate | ❌ Pierde |
-| AP puro (Liandry's + Rabadon's + Cryptbloom) | 17 400 | 4 200 | 520 | +135 % | 1 360 | 13.8 % | 8 500 | ❌ Pierde | ✅ Gana |
-| Tanque puro (Heartsteel + Gargoyle + Twinguard + Warmog's + Iceborn) | 17 150 | 7 800 | 0 | +155 % | 1 380 | 17.5 % | 22 000 | ✅ Gana | ❌ Pierde (sin pen) |
-
-### Desglose multiplicativo de la diferencia (Titánica vs Comunidad)
-
-| Factor | Contribución |
 |---|---|
-| +700 HP (RoA + Liandry's vs Hollow Radiance) → +70 daño de R | +5.5 % R execute |
-| +70 AP (Liandry's + RoA stacks) → +35 R + 21 E por pico | +12 % daño mixto |
-| +30 % bonus resistencias (Twinguard max stacks) | +30 % EHP efectivo |
-| +20 % tamaño (Twinguard) → cono E más ancho | +1 target promedio en teamfight |
-| Escudo Gargoyle (90 % HP bonus ≈ 5 950) | Ventana burst de 2.5 s imparable |
-| **Neto: EHP ventana** | **+24 %** (18 000 vs 14 500) |
+| Keystone | **Grasp of Undying** (3.3 % HP máx + 10 HP permanente/proc: en top proca ~2/min con E empower) |
+| Resolución 2 | **Demolish** (85 + 28 % HP máx = **2 351** por golpe de torreta con la óptima) |
+| Resolución 3 | **Second Wind** vs poke · **Overgrowth** vs melee largo (+3 % HP máx a 30 stacks) |
+| Inspiración | **Transcendence** (+10 AH) · **Axiom Arcanist** (+10 % R, −7 % CD por takedown) |
+| Hechizos | **Flash + Ignite** (kill-pressure pre-6) o **Flash + Teleport** (split/impacto de mapa) |
+| Skills | **E → Q → W** (R 5/9/13) |
+
+### Resultado del modelo (nivel 15, min 20, S=15, R3)
+
+| Escenario | Óptima barón | Publicada 28/09 | Tanque puro |
+|---|---|---|---|
+| **EHP físico / mágico** | 32 546 / 33 626 | 29 435 / 21 555 | 40 695 / 22 368 |
+| **VENT (ventana 5 s)** | **55 591** | 39 274 | 49 556 |
+| **DPS fighter / tanque / AoE** | 444 / 374 / 957 | 518 / 441 / 1 143 | 417 / 354 / 883 |
+| **Sustain en pelea (hps)** | **197** | 46 | 66 |
+| **Siege: Demolish + cristal** | 2 351 + 770 | ~1 900 + 700 (HP menor) | 2 208 + 770 |
+
+> **Titular:** en barón la óptima del motor gana por **ventana + sustain + siege**: 55 591 de VENT significa que el enemigo necesita ~6.9× tu HP real en 5 s para borrarte, mientras tu Demolish de 2 351 y tu cristal de 770 verdadero convierten cada ola empujada en estructura rota desde 200 de rango.
 
 ---
 
-## 6. PLAN DE JUEGO
+## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
-### Early (niveles 1-5, 0:00 – 8:00)
-
-- **Start:** Ruby Crystal (500 g) + poción. Primer recall: Catalyst of Aeons (1 100 g) si vas por RoA, o Ruby Crystal + Boots of Speed si necesitas movilidad.
-- **Lvl 1-2:** E para farmear + pokear. Q para asegurar CS o trades. No uses W (gasta mucho maná early).
-- **Lvl 3-5:** busca trades cortos con E + Q + auto. Tu pasiva Carnivore te da sustain al matar minions (18 HP + 4.35 maná por kill, ×2 vs campeón).
-- **Objetivo:** 6 stacks de Feast de minions (cap) + 1-2 de campeones si puedes. No mueras — cada muerte retrasa tu escalado.
-- **Placas:** desde el min 1, trabaja placas con E + auto. Demolish (85 + 28 % HP) las revienta en 2-3 golpes.
-
-### Mid (niveles 6-11, 8:00 – 15:00)
-
-- **Pico 1 (Heartsteel + botas T3, ~min 10-11):** tu R ejecuta ~720 verdadero. Busca kills con Q + E + R + Ignite.
-- **Min 10:00:** ⬆️ Armored Advance (mismo slot, +1 000 g).
-- **Épicos:** PRIORIZA DRAGONES/HERALD aunque pierdas CS. Cada épico = 1 stack de Feast SIN CAP = +160 HP + 6 % tamaño + daño de R.
-- **Rotaciones:** con tu Q (knockup 1 s) + W (silencio 2 s), eres un ganker brutal. Rota a mid si ves oportunidad.
-- **Cristales:** cada ~50 s la torreta acumula cristales. Un auto (200 de rango) los detona: hasta ~1 323 verdadero gratis.
-
-### Late (niveles 12-15, 15:00+)
-
-- **Pico 2 (Twinguard + Gargoyle, ~min 15-18):** eres literalmente imparable. En teamfights:
-  - Entra con Q (knockup) + W (silencio)
-  - Activa **Gargoyle** (escudo de ~6 000 + tamaño gigante)
-  - **Twinguard** stackea (5 s = +20 % tamaño + 30 % resistencias)
-  - Usa E en cono gigante (barre teamfights enteros)
-  - Ejecuta con R al target más bajo de HP
-- **Split push:** con Demolish + E + Q + 200 de rango (22 stacks), tomas torres más rápido que cualquier top laner. Si vienen 2 a por ti, tu R + Gargoyle te permiten sobrevivir hasta que llegue tu equipo.
-- **Baron Nashor:** tu R ejecuta Baron con ~1 500 verdadero. Con Smite (1 400 verdadero) + R = 2 900 verdadero seguro. Nadie te roba Baron.
-
----
-
-## 7. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
-
-### Fuentes primarias (mandan)
-
-| Fuente | Acceso | Qué aporta |
+### 1.1 Cambios relevantes para barón
+| Sistema | Cambio | Efecto |
 |---|---|---|
-| Notas oficiales 7.3 (21/09/2026) | wildrift.leagueoflegends.com | Apéndice AS (0.625/0.28/0.008), Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, épicos |
-| Notas oficiales 7.2 (08/07/2026) | wildrift.leagueoflegends.com | Botas T2/T3 y regla del min 10:00, fin de encantamientos |
-| Notas 7.2C (buff Cho'Gath) | wildrift.leagueoflegends.com | E: 20/45/70/95 + 0.6 %/stack; R: CD 70/60/50, ratio 10 % |
+| 7.3 · Torretas 7 000 HP + placas + cristales | El siege lento murió para todos… menos para quien tiene %-vida y Demolish: tu cristal (11 % de 7 000 = 770 verdadero) y tu Demolish escalan con HP, no con AD |
+| 7.3 · Ítems tanque rework | Twinguard/Mantle/FoN/Kaenic nuevos o rehechos: la derivación 28/09 quedó pre-rework |
+| 7.2c · E %-vida | 3.5 % + 0.6 %/stack: con S=15, cada pico de E pega 12.5 % de la vida máx del objetivo |
+| 7.3a · AS ratio de tanques | Sin cambio directo a Cho'Gath; el nerf de early del rol pega a tu lane solo vs matchups de dive |
 
-### Fuentes secundarias
-
-| Fuente | Acceso | Fiabilidad |
-|---|---|---|
-| wr-meta.com Cho'Gath (ficha + build + meta) | 24/09/2026 | Alta para kit (Q/W/E/R con valores completos); build popular = insumo |
-| BD de 186 ítems 7.3 (items_7.3.csv) | 25/09/2026 | Verificación: Spirit Visage NO existe; stats de Heartsteel/Twinguard/Gargoyle/Mantle |
-| Apéndice de escalado de tamaño (WR-LAB) | 25/09/2026 | 5 fuentes de tamaño confirmadas; interacciones Sterak/Mantle/Twinguard/Gargoyle |
-
-### Discrepancias detectadas y resolución
-
-| Tema | Resolución |
-|---|---|
-| Tamaño de Gargoyle: notas dicen "+tamaño durante el activo" sin % | Modelado como +20 % (conservador, similar a Twinguard). **Verificar en juego** ⚠️ |
-| Ancho del cono de E: "width increases with size" sin fórmula | Asumimos escala lineal con tamaño total. **Verificar en juego** ⚠️ |
-| Stacks de Feast de épicos: ficha no especifica cap | Asumimos sin cap (confirmado por notas 7.3 de épicos más contestables) |
-| Build comunidad (Hollow Radiance 2.º) vs modelo (Rod of Ages 2.º) | Gana el modelo: +70 AP + maná sustain + growth > Immolate de 65 DPS |
-
-### Supuestos del modelo (declarados)
-
-- 22 stacks de Feast al late game: 6 de minions (cap) + 5 de campeones early + 11 de épicos/teamfights.
-- Uptime de E: 75 % (3 ataques cada 4 s en pelea, CD rank 4).
-- Twinguard a 5 stacks (5 s en combate) = +20 % tamaño + 30 % bonus resistencias.
-- Gargoyle activo usado al inicio de teamfight (2.5 s de escudo + tamaño).
-- Mantle Lifeline: activado al caer bajo 30 % HP (ventana reactiva).
-- R execute calculado vs target con 100 MR: daño verdadero ignora resistencias.
-- AP de referencia 250: Liandry's 70 + RoA 90 (50+40 stacks) + runas/base ~90.
-- Overgrowth a 30 stacks: +3 % HP máx adicional (~195 HP).
-
-### Contexto meta (24/09, Diamond+)
-
-**Matchups específicos:**
-- vs Dr. Mundo (WR 52.3 %): tu R lo ejecuta antes que su R lo cure (con Ignite + Liandry's burn). Ganas ~60 % de las lanes.
-- vs Volibear (WR 49.4 %): tu sustain + R execute > su burst + shield. Ganas ~55 % de las lanes.
-- vs Camille (WR 48.7 %): cuidado con su true damage de Q2. Compra Armored Advance temprano.
-- vs Darius (WR 47.9 %): su R ejecuta con más HP que tú. Juega seguro hasta Heartsteel.
+### 1.2 Matchups (lectura del motor con pesos por comp)
+- **Vs AD melee (Garen/Darius-like):** default; Randuin's en slot 6 si critan.
+- **Vs AP sostenido (Mordekaiser/Vladimir):** Rod of Ages por FoN ([!TIP]) o Kaenic si burstean.
+- **Vs %-vida/executors (Vayne-like en side):** Gargoyle temprano + Mantle situacional.
+- **Vs ranged kiting (Kayle/Quinn-like):** Chainlaced + Frozen Heart para cerrar la distancia con E.
 
 ---
 
-## APÉNDICE A — POOL DE ÍTEMES PARA CHO'GATH: veredicto
+## 2. FICHA MATEMÁTICA (spec 7.3a)
 
-| Ítem (oro) | Veredicto | Nota |
+| Parámetro | Valor | Fuente |
 |---|---|---|
-| Heartsteel (3 000) | ✅ Core 1 | Stacking infinito de HP + proc + alimenta R |
-| Rod of Ages (2 700) | ✅ Core 2 | HP + AP + maná + growth temporal |
-| Amaranth's Twinguard (3 200) | ✅ Core 3 | Capstone de tamaño + 30 % bonus resist |
-| Gargoyle Stoneplate (2 900) | ✅ Core 4 | Ventana burst: escudo 90 % HP bonus + tamaño |
-| Liandry's Torment (3 000) | ✅ Core 5 (default) | Burn 2 % HP + Madness vs tanques |
-| Armored Advance T3 (2 200) | ✅ Botas default | Block + escudo físico vs AD |
-| Chainlaced Crushers T3 (2 200) | ✅ Botas vs AP | +30 MR + 30 % tenacidad |
-| Cryptbloom (3 000) | ⚠️ Situacional | vs 2+ tanques con MR stacking (+30 % pen) |
-| Mantle of the Twelfth Hour (2 550) | ⚠️ Situacional | vs burst AP + Lifeline + 10 % tamaño |
-| Iceborn Gauntlet (3 000) | ⚠️ Situacional | Split push + slow field |
-| Morellonomicon (2 650) | ⚠️ Situacional | vs curación (Mundo/Soraka) |
-| Frozen Heart (2 550) | ⚠️ Situacional | vs AD pesados + −25 % AS aura |
-| Sunfire Aegis (2 900) | ❌ | Immolate 65 DPS < Liandry's 180 DPS |
-| Warmog's Armor (2 850) | ❌ | Regen fuera de combate no ayuda en fights |
-| Force of Nature (2 800) | ❌ | Sin % damage reduction en 7.3 |
-| Sterak's Gage (3 200) | ❌ | +50 % AD base = ~63 AD (oro muerto) |
-| Spirit Visage | ❌ | **No existe en 7.3** |
-| Thornmail (2 700) | ❌ | Solo vs AD puros; Armored Advance cubre |
-| Cualquier ítem de crítico | ❌ | 100 % stat muerto |
+| HP base / growth | 690 / +128 | ficha wr-meta + bundle |
+| Armadura / MR | 46 (+4.5) / 40 (+2) | ídem |
+| AS (apéndice 7.3) | 0.625 / 0.625 / BBA 0.28 / growth 0.008 → AS 15 = 0.87 (Ley 2 muerta) | apéndice AS |
+| Rango | 125 + 7.7/stack (cap +75) → **200 a S=15** | apéndice TAMAÑO |
+| Feast R3 | +160 HP/stack · +6 % tamaño (cap +135 %) | notas 7.3 |
+| R | 600 + 50 % AP + 10 % HP bonus verdadero (vs minions/monstruos: 1 200 base) | notas 7.3 |
+| E rank 4 | 95 + 30 % AP + (2.3 % + 0.6 %/stack) vida máx por pico | notas 7.2c |
+| Demolish | 85 + 28 % HP máx → 2 351 con 8 093 HP | runas_7.3.md |
 
 ---
 
-## APÉNDICE B — RUTAS DE COMPRA
+## 3. MODELO Y FÓRMULAS (motor `chogath_model.py`, batch4)
 
+```text
+VENT(5 s) = 0.5·(HP + esc_fís + curas)·(1+arm·1.3[Twinguard]/100)·block(1/0.93)
+          + 0.5·(HP + esc_mag + curas)·(1+mr·1.3/100)                     # §1b.6.2
+dps_rot   = [n_Q·(245+AP) + n_W·(230+0.7·AP) + n_picos·(95+0.3·AP + e_pct·HP_obj)]
+            · amp(Liandry 1.051 / Riftmaker 1.054 / Abyssal 1.12) · mit_mág
+          + autos·mit_fís + Immolate/Anguish/Grasp/thorns
+R_exec    = (600 + 0.5·AP + 0.10·HP_bonus) · 1.10[Axiom]                  # verdadero
+Demolish  = 85 + 0.28·HP_máx · mit_fís(torreta=0)                          # físico puro
 ```
-DEFAULT (vs la mayoría de top laners):
-Ruby Crystal → Catalyst (3:30) → Plated Steelcaps (5:30) → Heartsteel (8:30)
-→ ⬆️ Armored Advance (10:00) → Rod of Ages (12:00) → Twinguard (15:00)
-→ Gargoyle (18:00) → Liandry's (21:00)
+Score §A.5: EHPp .15 + EHPm .15 + VENT .20 + R .15 + DPSf .10 + DPSt .10 + AoE .05 + hps .05 + util .05. Pesos alternos: `PESOS_AD/AP/TK/DPS` (variantes §8.4 y [!DANGER]).
 
-VS DR. MUNDO (tanque regenerativo):
-Ruby Crystal → Liandry's 1.º (8:00) → Plated → Heartsteel → ⬆️ Armored
-→ Twinguard → Gargoyle → Morellonomicon (6.º, 50 % GW)
-Clave: Liandry's burn + Morellonomicon GW contrarrestan su regen.
+### 3.1 Curva de stacks en top (cap 6/min de minions + herald)
+Min 9.5: S=2 · min 12: S=4 · min 14.5: S=6 · min 17: S=7 · min 20: S=8 · min 22: S=10 (jungla va ~40 % adelante: ver hermano). Con S=8: tamaño +68 %, rango 187; con S=22 (partidas largas): +110 % cap de Twinguard incluido, HP 9 497 y VENT 65 915 en la misma build.
 
-VS VOLIBEAR (burst AD + shield):
-Ruby Crystal → Plated (early, 4:30) → Heartsteel → ⬆️ Armored
-→ RoA → Twinguard → Gargoyle → Frozen Heart (6.º, −25 % AS)
-Clave: Armored Advance temprano + Frozen Heart reduce su AS.
+---
 
-VS AP BURST (Annie/Brand/Rumble):
-Ruby Crystal → Catalyst → Mercury's Treads → Heartsteel → ⬆️ Chainlaced
-→ RoA → Twinguard → Mantle (6.º, Lifeline + 10 % tamaño) → Gargoyle
-Clave: Chainlaced + Mantle + Gargoyle = 3 capas de defensa vs burst.
+## 4. LEYES APLICADAS A CHO'GATH
 
-SPLIT PUSH / SIEGE:
-Ruby Crystal → Heartsteel → Plated → ⬆️ Armored
-→ Iceborn Gauntlet → Twinguard → Gargoyle → Liandry's
-Clave: Iceborn slow + Demolish + E cono gigante = presión de mapa.
+- **Ley 0:** 6 slots (1 bota + 5), mejora ⬆️ en el mismo slot. PASS.
+- **Ley 2 y Ley 4:** muertas (AS 0.87; AD 62+4/lvl sin ratios): controles Sterak's −7.0 %, Overlord's −9.7 %, Black Cleaver −9.8 %.
+- **Ley 3b extendida (A10):** Sunfire + Hollow Radiance no stackean (Immolate).
+- **Ley 6 con caducidad:** Heartsteel 1.º solo ≤ min 10-11; si no, Unending Despair 1.º (trayectoria medida: empate min 14, +2.2 % min 20, +3.7 % min 24).
+- **Ley 7:** Demolish + cristales son tu segunda economía: una torreta a min 14 vale ~2 351 + 770 verdadero de cristal si la dejás viva a medias.
 
-JUNGLA (variante):
-Ruby Crystal → Heartsteel (primer clear) → Plated → ⬆️ Armored
-→ RoA → Twinguard → Gargoyle → Liandry's
-Clave: Smite 7.3 escala +3 % HP bonus; Feast stacks de épicos sin cap.
+---
+
+## 5. ANÁLISIS DEL PRIMER ÍTEM
+
+| Candidato | Veredicto top | Números |
+|---|---|---|
+| **Heartsteel** (≤ min 10-11) | ✅ Core 1 | Procs de lane constantes (minions + campeón): growth antes que en jungla |
+| **Unending Despair** (lane desde atrás / partida lenta) | ✅ Core 1 alternativo | Anguish desde el primer all-in |
+| **Rod of Ages** | ✅ vs AP sostenido ([!TIP]) | 500 HP + 90 AP + maná útil en lane de 10 min |
+| **Sunfire/Hollow** | ⚠️ Uno solo, push-oriented | Immolate = ola rápida para TP; sin cura |
+| **Ítems AD/crit** | ❌ Ley 4 | −7 a −10 % |
+
+---
+
+## 6. BUILD FINAL RANURA POR RANURA
+Ver §0 Tabla A (justificaciones idénticas al hermano jungla, más:)
+- **Force of Nature** en top: 11 % MS = rotar a dragón/herald y volver a la side-lane; el siege de 200 de rango necesita reposicionamiento constante.
+- **Gargoyle** en top: el dive 1v2-1v3 de side-lane es tu escenario estándar; el escudo de 5 150 convierte un gank en un trade ganado.
+
+### 🛡️ MATRIZ SITUACIONAL (último slot)
+| Situación | Slot 6 | Impacto |
+|---|---|---|
+| Default mixto | **Force of Nature** | MR 316 + 11 % MS ✅ |
+| Splitpush/siege puro | **Iceborn Gauntlet** | Spellblade AoE (118 + 25 % armadura bonus) + campo de slow + 30 AH ⚠️ |
+| Presión/sustain | **Warmog's Armor** | VENT 56 377 máx · OOC 3.5 %/s entre olas ✅ |
+| Vs AD/crit | **Randuin's Omen** | EHPp 38 587 (+18.6 %) ✅ |
+| Vs AP burst | **Kaenic Rookern** | EHPm 38 697–40 041 + escudo 1 243 (Chainlaced) ✅ |
+| Vs execute | **Mantle of the Twelfth Hour** | Lifeline <30 %: +250 HP + cura 1 638 ⚠️ |
+| Vs curación | **Morellonomicon** | GW 50 % ⚠️ |
+| Vs 2+ tanques MR | **Cryptbloom** / **Liandry's** | +30 % pen / Torment 2 % máx ⚠️ |
+
+### RECHAZADOS
+| Ítem | Motivo |
+|---|---|
+| ❌ **Spirit Visage** | Inexistente en 7.3 (errata D5 heredada del v1.2) |
+| ❌ Sterak's / Overlord's / Cleaver / Titanic | Ley 4 / control −15.8 % |
+| ❌ Sunfire + Hollow juntos | A10 |
+
+---
+
+## 7. RUNAS · HECHIZOS · HABILIDADES (detalle top)
+- **Grasp + Demolish** es el par que convierte tu HP en mapa: cada proc de Grasp suma 10 HP permanente que Demolish multiplica por 0.28.
+- **TP vs Ignite:** Ignite si tu rival es de lane cerrada (ejecuta con R a 1 277 + Ignite); TP si tu comp pelea objetivos sin ti (el cristal + Demolish pagan el mapa).
+- **E → Q → W**; R en 5/9/13 (execute retroactivo de Feast, A1/D3).
+
+---
+
+## 8. COMPARACIÓN CONTRA LAS ALTERNATIVAS
+
+| Build | Oro | VENT | DPSf | hps | Score rel. | Fuente |
+|---|---|---|---|---|---|---|
+| **Óptima batch4 (Tabla A)** | 17 100 | **55 591** | 444 | **197** | 0.816 | ⭐ LAB (motor nuevo) |
+| Publicada barón 28/09 (HS+RoA+TW+Garg+Liandry) | 17 000 | 39 274 | 518 | 46 | 0.680 (−16.7 %) | 📌 publicada |
+| Tanque puro | 16 950 | 49 556 | 417 | 66 | 0.726 (−11.1 %) | 🔬 LAB top-N |
+| Comunidad wr-meta | 16 650 | 25 437 | 554 | 67 | 0.679 (−16.8 %) | 🌐 comunidad |
+| Carry-top ([!DANGER]) | 16 700 | 18 774 | **810** | 77 | pesos DPS | 🔬 LAB variante |
+
+### 8.4 Sensibilidades (idénticas al hermano: cuarteto robusto)
+S=6/15/22 → mismo cuarteto Unending+Gargoyle+Twinguard+FoN; D2a óptima idéntica; D2b (peor caso Twinguard) → Kaenic Rookern; D4 (Axiom off) → R −9 %, óptima idéntica; pesos AD/AP solo mueven botas y slot 6.
+
+---
+
+## 9. PLAN DE JUEGO (barón)
+
+### Early (0:00 – 9:00)
+- **Trades de Grasp con E empower:** el cono pega al campeón y a la ola: push accidental gestionado con Q a la ola enemiga.
+- **Feast a minions grandes QUE NO MATES (top también):** cap 6/min: deja los grandes al rival y recoge wraiths… en WR top, lasthit propio = stack 3 %: prioriza herald/dragón y campeones para stacks grandes.
+- **R como finisher de gank propio o execute de dive:** 364 verdadero a min 6 ya mata trades ganados.
+
+### Mid (9:00 – 16:00)
+- **Heartsteel ≤ min 10-11 o Unending primero** (§5).
+- **Siege con Demolish:** 2 351 por golpe de torreta = 3 golpes por ola con placa; el cristal (770 verdadero) se detona con R+Q desde 200 de rango sin exponerte.
+- **TP a dragón con Twinguard cerca:** tu ventana de 5 s llega ANTES que el burst enemigo al objetivo.
+
+### Late (16:00+)
+- **Split de ventana:** 1v1 te lo gana cualquiera que no traiga %-vida; 1v2 con Gargoyle+Twinguard es trade ganado o TP enemigo gastado.
+- **Teamfight: entras segundo**, R al carry con menos de 1 277 HP efectivos o al frontline si el carry está protegido (el %-vida de E lo derrite igual).
+
+### Reglas del parche
+| Regla | Impacto |
+|---|---|
+| Torretas 7 000 + cristales | Demolish+%HP y cristal verdadero: tu siege escala con la build, no con AD |
+| Placas decaen desde 5:00 | Primera placa antes de 5:00 con E+autos; después, Demolish puro |
+| Botas T3 ≥ 10:00 | ⬆️ Armored Advance estricto a las 10:00 |
+
+---
+
+## 10. VERIFICACIONES, DISCREPANCIAS Y SUPUESTOS
+
+### Fuentes primarias
+Notas oficiales 7.3/7.3a + apéndice AS · apéndice ESCALADO_DE_TAMAIO §1b del lab · items_7.3.csv (186) + runas_7.3.md (WR 7.3, no desktop) · ficha wr-meta 24/09 · win rates vigía 09/10.
+
+### Discrepancias (protocolo §D)
+| # | Tema | Resolución |
+|---|---|---|
+| D1/D3/D4/D7 | Caps/retroactividad/Axiom/rango de R | Modelado declarado; sensibilidades sin cambio de ranking; verificar en juego |
+| D2 | Twinguard total vs bonus | Convención total; peor caso → Kaenic (plan B documentado) |
+| D5 | Spirit Visage en v1.2 | ERRATA: inexistente en 7.3; eliminado de matriz y apéndices |
+| D6 | ❌ publicados a FoN/Warmog | Válidos para Ornn/Rammus; rehabilitados para Cho'Gath con números |
+| D9 | Absolutos v1.2 (VENT ~18 000-39 000) | Reemplazados por fórmula §1b.6.2 completa (55 591); relativas mantenidas |
+
+### Validación del modelo
+- 122 632 builds legales evaluadas (Ley 0 + A10), presupuesto 17 250 g.
+- `python3 model/chogath_model.py` reproduce tablas y sensibilidades (`model/chogath_resultados.txt`).
+- Ítems/runas verificados contra CSV/md oficiales de WR 7.3 (indicación del autor: nada de desktop).
+
+---
+
+## APÉNDICE A — POOL: VEREDICTOS (idénticos al hermano jungla, más:)
+| Ítem | Veredicto top | Nota |
+|---|---|---|
+| Rod of Ages (2 700) | ✅ vs AP sostenido | Único rol donde el mana vive |
+| Iceborn Gauntlet (3 000) | ⚠️ splitpush | Spellblade AoE + slow-field |
+| Resto del pool | ver Apéndice A del hermano | — |
+
+## APÉNDICE B — RUTA BARÓN (condensada)
+```text
+Ruby (0:00) → Plated (5:00) → Heartsteel (8:30, regla min 10-11) → ⬆️ Armored (10:00)
+→ Unending Despair (13:00) → Amaranth's Twinguard (15:30) → Gargoyle (18:00)
+→ Force of Nature (20:30)   [RoA por FoN vs AP sostenido · Warmog's si vas arriba]
 ```
 
 ---
 
 ## Pie de página
 
-*Reporte generado el 28/09/2026 con datos del parche 7.3 (21/09/2026). WR-LAB v1.4. Las cifras de EHP, R execute y DPS son estimaciones pre-mitigación y comparativas — el valor absoluto importa menos que las diferencias relativas entre builds, que son robustas a los supuestos. Si Riot publica un 7.3a/b (hotfix), regenerar datos antes de publicar.*
+*Reporte regenerado el 11/10/2026 con el motor rotación-tanque batch4 sobre datos 7.3+7.3a. WR-LAB v1.17. Tamaño = consecuencia de daño+durabilidad (score §A.5 con VENT .20 + R .15 + DPS .25). Si Riot publica 7.3b/7.4, regenerar antes de republishar.*
 
 **Referencias y créditos**
-- Notas oficiales del parche 7.3 (21/09/2026), 7.2 (08/07/2026) y 7.2C (buff Cho'Gath) — © Riot Games, Inc. (wildrift.leagueoflegends.com). Fuente primaria: apéndice de Attack Speed, sistema de botas T3, Smite escalado con stats, torretas 7 000 HP, Crystalline Overgrowth, cambios a épicos.
-- Base de datos de ítems, runas y ficha de campeón — wr-meta.com (proyecto comunitario de JLVD DEV), sincronizada al 24/09/2026. Fuente secundaria: valores de Q/W/E/R con ratios, change history completo, build y meta.
-- Modelo matemático, Leyes 0-7, apéndice de escalado de tamaño y validaciones — WR-LAB (laboratorio propio, construido sobre las fuentes anteriores.
+- Notas oficiales 7.3/7.3a y apéndices — © Riot Games, Inc.
+- Ficha wr-meta Cho'Gath 24/09 + win rates del vigía 09/10 + ficha analítica del autor 12/10 (A1–A14, D1–D9).
+- Motor batch4: `model/chogath_model.py` + `model/chogath_resultados.txt`.
 
-**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
-
----
+**Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliada, patrocinada ni respaldada por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
 
 ---
 
@@ -11398,7 +11279,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -11407,17 +11288,6 @@ verified_patch: "7.3a"
 **Rol principal:** Jungla
 **Arquetipo:** AP-Assassin de rotación sostenida con ventanas de burst tras combo Q→E→W→R
 **Enfoque:** Lethal Tempo + Nashor's Tooth 1.º + Dusk and Dawn para explotar el ratio AS 0.694 de Diana
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Diana:** ninguno en 7.3a.
-> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
-> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Nashor's Tooth + Dusk and Dawn + Rabadon's Deathcap + Zhonya's Hourglass + Cryptbloom — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
-> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
@@ -11918,7 +11788,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -11928,14 +11798,6 @@ verified_patch: "7.3a"
 **Arquetipo:** AP-Assassin de rotación sostenida con ventanas de burst tras combo Q→E→W→R
 **Enfoque:** Lethal Tempo + Dusk and Dawn + Nashor's Tooth para explotar el ratio AS 0.694 de Diana y la pasiva Moonsilver Blade (+30-100 % AS 4 s tras habilidad) → DPS sostenido +30 % sobre Empowerment.
 
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ SIN IMPACTO Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Diana:** ninguno en 7.3a.
-> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
-> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Dusk and Dawn + Nashor's Tooth + Rabadon's Deathcap + Zhonya's Hourglass + Infinity Orb — **sin cambios**.
-> **Nota del lab (diff 7.3a):** Smite burn −18 % → clear early más lento (refuerza Nashor's 1.º en jungla) → Anotado
-> **Veredicto:** ✅ SIN IMPACTO — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -12412,7 +12274,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -12421,15 +12283,6 @@ verified_patch: "7.3a"
 **Rol principal:** Mid (con flex a Support como segundo rol viable)
 **Arquetipo:** Mago de zona
 **Enfoque:** Maximizar el daño sostenido de las torretas (AP + penetración mágica + mana para spamear Q)
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Heimerdinger:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada:** no extraíble automáticamente del formato del vault → triage cualitativo (intersección champion/ítems/sistemas).
-> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -12996,7 +12849,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-04"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -13346,7 +13199,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -13355,18 +13208,6 @@ verified_patch: "7.3a"
 **Rol principal:** ADC (Dragon Lane)
 **Arquetipo:** On-hit ejecutor — su **E Rend** no critica
 **Enfoque:** Maximizar el daño sostenido on-hit
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Kalista:** ninguno en 7.3a.
-> **Δ del modelo:** 0 % — ningún input del campeón/build cambió en el motor.
-> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Guinsoo's Rageblade + Wit's End + Terminus + Bloodthirster (BotRK) + Runaan's Hurricane — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
-> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
-> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Nota del lab (diff 7.3a):** Yun Tal buffeada sigue RECHAZADA para Kalista (sin on-hit, ramp de crit); para **Yunara** (reporte externo) es buff relevante → re-verificar ese reporte → Anotado
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -13959,14 +13800,14 @@ Status: Beta
 champion: Mordekaiser
 slug: mordekaiser
 role: jungla
-patch: "7.3"
+patch: "7.3a"
 archetype: "AP Juggernaut — daño mágico sostenido"
 engine: none
 custom: false
 generate: manual
 mode: sr
 published_at: "2026-09-28"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -13975,15 +13816,6 @@ verified_patch: "7.3a"
 **Rol principal:** Top (Baron Lane) / Secundario: Jungla
 **Arquetipo:** AP Juggernaut — daño mágico sostenido
 **Enfoque:** Explotar el daño porcentual de Vida Máxima
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Mordekaiser:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Armored Advance + Rylai's Crystal Scepter + Riftmaker + Liandry's Torment + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
-> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 24/09/2026):**
@@ -14227,7 +14059,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -14678,7 +14510,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -14687,15 +14519,6 @@ verified_patch: "7.3a"
 **Rol principal:** Mid (secundario: Support)
 **Arquetipo:** Maga de burst AP con red de seguridad
 **Enfoque:** **Maximizar daño de burst en ventana de 2-3 s**. La build prioriza **daño > durabilidad pasiva**, pero incluye **Zhonya's** y **Cryptbloom** como red de seguridad para no morir al segundo engage.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Norra:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Spellslinger's Shoes + Stormsurge + Rabadon's Deathcap + Infinity Orb + Cryptbloom + Zhonya's Hourglass — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Death's Dance (NERF) — verificar variantes/rechazados del reporte.
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -15298,7 +15121,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -15929,7 +15752,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-05"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -15938,15 +15761,6 @@ verified_patch: "7.3a"
 **Rol principal:** Jungla
 **Arquetipo:** Tanque de armadura — CC, mitigación física y utilidad de engage
 **Enfoque:** Maximizar EHP físico con armadura escalada (W + ítems) y CC de taunt para anular carries AD.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ❌ REGENERAR Verificación automática (08/10/2026) — **❌ REQUIERE REGENERACIÓN — hotfix 7.3a**
-> **Cambio directo:** NERF — Armor base 45→**40** · W bonus armor 45/50/55/60→**30/40/50/60 %**.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Plated Steelcaps + Sunfire Aegis + Thornmail + Dead Man's Plate + Force of Nature + Gargoyle Stoneplate — **sin cambios**.
-> **Sistema (7.3a):** Smite burn vs monstruos: 30–198/s → **22–162/s** → Jungla early más lenta → Diana jungla: Nashor's 1.º aún más correcto; Shyvana/Volibear/Cho'Gath jungla: clear early −15-20 %
-> **Veredicto:** ❌ REGENERAR — regenerar por el flujo FRAMEWORK (10 pasos, con apoyo de model/optimize_build.py para re-derivar la build óptima) y re-baselinar.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -16829,7 +16643,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-30"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -17296,7 +17110,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -17305,17 +17119,6 @@ verified_patch: "7.3a"
 **Rol principal:** ADC (Dragon Lane)
 **Arquetipo:** Crítico AoE — sus habilidades **Q (Boomerang Blade)** y **W (Ricochet)** ahora escalan con crítico en 7.3, lo que consolida el crítico como único stat de daño
 **Enfoque:** Maximizar el DPS en área (AoE) con críticos al 230 % y el escalado de Q/W. La build prioriza el umbral exacto de 100 % crit y la sinergia Runaan's + IE, aprovechando que los rayos de Runaan's **critican** y que Q ahora multiplica ×1.52 con IE a 100 % crit.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Sivir:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Situacional — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
-> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
-> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -17850,7 +17653,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-29"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -17861,7 +17664,7 @@ verified_patch: "7.3a"
 **Enfoque:** Explotar el escalado cruzado (AP + HP) para generar escudos
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (12/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambios directos a Volibear:** ninguno en 7.3a.
 > **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
 > **Build publicada (6 slots, Ley 0):** Chainlaced Crushers + Dusk and Dawn + Riftmaker + Nashor's Tooth + Zhonya's Hourglass + Rabadon's Deathcap — **sin cambios**.
@@ -18168,7 +17971,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -18708,7 +18511,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -19298,7 +19101,7 @@ custom: false
 generate: manual
 mode: sr
 published_at: "2026-10-08"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: AL_DIA
 verified_patch: "7.3a"
 ---
@@ -19307,17 +19110,6 @@ verified_patch: "7.3a"
 **Rol principal:** ADC (Dragon Lane)
 **Arquetipo:** Crítico AoE híbrido — su pasiva convierte cada crítico en daño mágico adicional (8 % + 8 % por 100 AP), lo que la hace difícil de contrarrestar con resistencias tradicionales
 **Enfoque:** Maximizar el DPS en área (AoE) con críticos al 230 % y spread de Q que también critica durante la R (Transcendent State). La build prioriza el umbral exacto de 100 % de crítico, AS sin sobrepasar el tope, y penetración física para el late game.
-
-<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
-> **Cambios directos a Yunara:** ninguno en 7.3a.
-> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
-> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
-> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
-> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
-> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
-> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
-<!-- WRLAB-VERIF:7.3a:END -->
 
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
@@ -19807,7 +19599,7 @@ custom: "true"
 generate: manual
 mode: sr
 published_at: "2026-09-27"
-updated_at: "2026-10-11"
+updated_at: "2026-10-12"
 verification: ANOTAR
 verified_patch: "7.3a"
 ---
@@ -19818,7 +19610,7 @@ verified_patch: "7.3a"
 **Enfoque:** Sacrificar ~15-20 % de escudo puro (E) a cambio de ~40 % más de daño en Q y utilidad de equipo por daño infligido.
 
 <!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
-> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> [!NOTE] ✅ ANOTAR Verificación automática (12/10/2026) — **NO requiere regeneración — hotfix 7.3a**
 > **Cambio directo:** NERF — W Best Friend HSP: 8/9/10/11 % + 0.02 % AP → **6/7/8/9 % + 0.01 % AP**.
 > **Δ de resultado (conservador):** e_shield 303.9→298.7 (-1.7 %) · r_heal 571.6→561.8 (-1.7 %) · shield_per_min 3951→3882.8 (-1.7 %). Δ máx **1.7 %** (umbrales: anotar 2 %, regenerar 5 %).
 > **Con la fórmula completa post-parche:** e_shield 303.9→304.7 · r_heal 571.6→573.1 · shield_per_min 3951→3961.2 (el veredicto usa el caso conservador).
@@ -20275,7 +20067,7 @@ Plated Steelcaps,1200,+150 Max Health | +20 Armor | +45 Move Speed,Boots tier 2,
 Ionian Boots of Lucidity,1000,+50% Mana Regen | +15 Ability Haste | +45 Move Speed,Boots tier 2,Ionian Boots of Lucidity ~   ~ Ionian Boots of Lucidity ~ Reduces ability cooldowns ~  +50% Mana Regen ~  +15 Ability Haste ~  +45 Move Speed ~ Summoned: ~  Reduces spell cooldowns by  ~ 15% ~ . ~   ~ 1000 ~ Ionian Boots of Lucidity 
 Boots of Mana,1200,+25 Ability Power | +8 Magic Penetration | +75% Mana Regeneration | +45 Move Speed,Boots tier 2,"Boots of Mana ~   ~ Boots of Mana ~ Ability Power, Magic Pen, Mana Regeneration ~  +25 Ability Power ~  +8 Magic Penetration ~  +75% Mana Regeneration ~  +45 Move Speed ~ Equilibrium: ~  Champions without Mana gain 50% bonus health Regen. ~ Big Bully: ~  Attacks and active abilities deal  ~ 18 bonus true damage ~  to minions. ~   ~ 1200 ~ Boots of Mana "
 Boots of Dynamism,1200,+15 Attack Damage | +10 Armor Penetration | +45 Move Speed,Boots tier 2,"Boots of Dynamism ~   ~ Boots of Dynamism ~ Attack Damage, Armor Pen ~  +15 Attack Damage ~  +10 Armor Penetration ~  +45 Move Speed ~   ~ 1200 ~ Boots of Dynamism "
-Immortal Treds,2000,+45 Move Speed,Boots tier 3,"Immortal Treds ~   ~ Immortal Treds ~ Deal bonus damage or gain increased healing and shielding ~  +45 Move Speed ~ Balance of Power: ~  Gain  ~ 12 Attack Damage ~  or  ~ 20 Ability Power ~  (Adaptive). ~ Conversion: ~  Gain  ~ 5% Omnivamp ~ . Champion takedowns grant an additional  ~ 0.5% Omnivamp ~ , up to  ~ 5% ~ . ~ Now and Forever: ~  When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding. ~   ~ 2000 ~ Immortal Treds "
+Immortal Treads,2000,+45 Move Speed,Boots tier 3,"Immortal Treds ~   ~ Immortal Treds ~ Deal bonus damage or gain increased healing and shielding ~  +45 Move Speed ~ Balance of Power: ~  Gain  ~ 12 Attack Damage ~  or  ~ 20 Ability Power ~  (Adaptive). ~ Conversion: ~  Gain  ~ 5% Omnivamp ~ . Champion takedowns grant an additional  ~ 0.5% Omnivamp ~ , up to  ~ 5% ~ . ~ Now and Forever: ~  When you have more than 50% Health, deal 5% bonus damage. When below 50% Health, gain 12% increased healing and shielding. ~   ~ 2000 ~ Immortal Treds "
 Gunmetal Greaves,2200,+50% Attack Speed | +45 Move Speed | +5% Lifesteal,Boots tier 3,Gunmetal Greaves ~   ~ Gunmetal Greaves ~ Increases Attack Speed and Movement Speed ~  +50% Attack Speed ~  +45 Move Speed ~  +5% Lifesteal ~ Noxian Gait: ~  Attacks against enemy champions grant  ~ Movement Speed ~  ( ~ 10% ~  for melee champions /  ~ 7% ~  for ranged champions) decaying over 2 seconds. ~ Blessed Blade: ~  Attacks  ~ restore 12 Health ~  on hit. ~   ~ 2200 ~ Gunmetal Greaves 
 Chainlaced Crushers,2200,+150 Max Health | +30 Magic Resistance | +30% Tenacity | +45 Move Speed,Boots tier 3,"Chainlaced Crushers ~   ~ Chainlaced Crushers ~ Gain a magic shield upon taking magic damage ~  +150 Max Health ~  +30 Magic Resistance ~  +30% Tenacity ~  +45 Move Speed ~ Noxian Persistence: ~  After taking  ~ magic damage ~  from a champion, gain a  ~ magic shield ~  that absorbs  ~ 10-120 ~  plus  ~ 5% max ~ for 5s. (12s Cooldown) ~   ~ 2200 ~ Chainlaced Crushers "
 Armored Advance,2200,+150 Max Health | +30 Armor | +45 Move Speed,Boots tier 3,Armored Advance ~   ~ Armored Advance ~ Grants Armor and a shield ~  +150 Max Health ~  +30 Armor ~  +45 Move Speed ~ Block: ~  Reduce damage from champion attacks by 10%. ~ Noxian Endurance: ~  After taking  ~ physical damage ~  from a champion grants a  ~ physical shield ~  that absorbs damage equal to  ~ 10-140 ~  plus  ~ 8% max Health ~ . (12s Cooldown) ~   ~ 2200 ~ Armored Advance 
@@ -20647,6 +20439,97 @@ class TestHigieneRepo(unittest.TestCase):
                     except OSError:
                         pass
         self.assertEqual(culpables, [], f"archivos con conflictos git sin resolver: {culpables}")
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""WR-LAB · tests de model/chogath_model.py (batch4, motor rotación-tanque).
+
+Cubre: compatibilidad Wild Rift de TODO el pool (items_7.3.csv), exclusividad
+Immolate (A10/Ley 3b extendida), controles de Ley 4, robustez de la óptima
+(cuarteto Unending+Gargoyle+Twinguard+FoN) y coherencia de la curva de stacks.
+"""
+import csv
+import os
+import sys
+import unittest
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import chogath_model as C
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OPT = ("ArmoredAdvance", ["Heartsteel", "ForceOfNature", "Gargoyle", "UnendingDespair", "Twinguard"])
+
+
+class TestCompatWR(unittest.TestCase):
+    def test_pool_completo_existe_en_items_73(self):
+        """Indicación del autor: nada de ítems de desktop. Todo key del motor
+        debe mapear a un nombre QUE EXISTA en items_7.3.csv."""
+        with open(os.path.join(ROOT, "data", "estructurada", "items_7.3.csv"), newline="", encoding="utf-8") as fh:
+            oficiales = {r["item"].lower() for r in csv.DictReader(fh)}
+        for key, nombre in C.NOMBRES_OFICIALES.items():
+            self.assertIn(key, {**C.ITEMS, **C.BOOTS, **C.BOOTS_T2}, f"key huérfana: {key}")
+            self.assertIn(nombre.lower(), oficiales, f"{nombre} ({key}) no existe en WR 7.3")
+        for key in list(C.ITEMS) + list(C.BOOTS) + list(C.BOOTS_T2):
+            self.assertIn(key, C.NOMBRES_OFICIALES, f"key sin nombre oficial: {key}")
+
+
+class TestInvariantes(unittest.TestCase):
+    def test_exclusividad_immolate(self):
+        self.assertFalse(C.exclusivo_ok(["Sunfire", "HollowRadiance"]))
+        self.assertTrue(C.exclusivo_ok(["Sunfire", "Heartsteel"]))
+
+    def test_eval_optima_coherente(self):
+        r = C.evaluate(OPT[0], OPT[1])
+        self.assertGreater(r["maxHP"], 7000)
+        self.assertGreater(r["ehp_window"], r["maxHP"] * 3)     # la ventana multiplica al HP
+        self.assertLessEqual(r["size"], 2.35 + 1e-9)             # cap de tamaño Feast + Twinguard
+        self.assertGreater(r["r_exec"], 1000)
+        self.assertGreater(r["hps"], 100)                        # Anguish + Grasp
+
+    def test_tamano_es_consecuencia_no_objetivo(self):
+        """Indicación del autor: gigante derretible NO es óptimo. El tanque puro
+        (más HP) debe perder VENT y score contra la óptima balanceada."""
+        puro = C.evaluate("ArmoredAdvance", ["Heartsteel", "Twinguard", "Gargoyle", "Warmog", "Randuin"])
+        opt = C.evaluate(OPT[0], OPT[1])
+        self.assertGreater(puro["maxHP"], opt["maxHP"])
+        self.assertGreater(opt["ehp_window"], puro["ehp_window"])
+        self.assertGreater(opt["dps_fighter"], puro["dps_fighter"])
+
+    def test_ley4_controles_ad_peores(self):
+        base = list(OPT[1])
+        r_opt = C.evaluate(OPT[0], base)
+        for ctrl in ("Sterak", "OverlordBlood", "BlackCleaver"):
+            cb = base[:4] + [ctrl]
+            r = C.evaluate(OPT[0], cb)
+            mx = {k: max(r_opt[k], r[k]) for k in C.PESOS}
+            self.assertGreater(
+                C.composite(r_opt, mx), C.composite(r, mx),
+                f"Ley 4: {ctrl} no perdió contra la óptima")
+
+    def test_curva_stacks_monotona(self):
+        hps = [C.evaluate(OPT[0], OPT[1], S=s)["maxHP"] for s in (0, 6, 15, 22)]
+        self.assertEqual(hps, sorted(hps))
+        self.assertGreater(hps[-1] - hps[0], 2000)   # Feast es el escalado real
+
+
+class TestOptimize(unittest.TestCase):
+    def test_optimize_pool_reducido_devuelve_legales(self):
+        pool = ["Heartsteel", "UnendingDespair", "Twinguard", "Gargoyle", "ForceOfNature",
+                "Warmog", "Randuin", "KaicRookern", "Sunfire"]
+        top, mx, n = C.optimize(pool, ["ArmoredAdvance", "Chainlaced"], oro=17250, top=4)
+        self.assertGreater(n, 50)
+        self.assertEqual(len(top), 4)
+        for sc, bk, cb, r in top:
+            self.assertEqual(len(cb), 5)                       # Ley 0: 1 bota + 5
+            self.assertTrue(C.exclusivo_ok(cb))
+            self.assertLessEqual(r["gold"], 17250)
+        scores = [t[0] for t in top]
+        self.assertEqual(scores, sorted(scores, reverse=True))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
 ```
 
 ```python
@@ -22981,9 +22864,16 @@ def construir_registro(hoy=None):
         # verified_patch) para que `baseline` no destruya el sellado de
         # `annotate` según el orden en que se corran (incidente CI 08/10).
         if fm.get("verification") not in (None, "", "pending") and fm.get("verified_patch"):
+            # v1.17.1: la fecha del sello va en dd/mm/aaaa (el formato que
+            # estandarizar_metadatos parsea para updated_at). Con ISO, el regex
+            # fallaba y estandarizar reescribía updated_at a "hoy" → el test
+            # idempotente rompía al cambiar de día (incidente clean-room 12/10).
+            _f = str(fm.get("updated_at") or fm.get("published_at") or hoy)
+            _m = re.match(r"(\d{4})-(\d{2})-(\d{2})", _f)
+            _fecha = f"{_m.group(3)}/{_m.group(2)}/{_m.group(1)}" if _m else _f
             entry["ultima_verificacion"] = {
                 "patch": fm["verified_patch"],
-                "fecha": str(fm.get("updated_at") or fm.get("published_at") or hoy),
+                "fecha": _fecha,
                 "veredicto": fm["verification"],
                 "delta_max_pct": None,
             }
@@ -25311,4 +25201,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 11/10/2026 · completo · sha256(cuerpo)=c2192109c57725b1 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 12/10/2026 · completo · sha256(cuerpo)=cb78cf3f8d874ba8 · NO editar a mano: editar las fuentes y regenerar -->
