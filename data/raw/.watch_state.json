@@ -1,8 +1,9 @@
 {
- "official_73_md5": "9b5474c98e4c905725f0f4183319a9a6",
+ "official_73_md5": "907e4aa06521f0af72e36bacb50f8e0b",
  "new_pages": [
   "7-3",
-  "7-3a"
+  "7-3a",
+  "7-3b"
  ],
  "changelog_dates": {
   "jinx": [
@@ -26,46 +27,46 @@
    "7.3A"
   ],
   "hwei": [
-   "30 SEP 2026",
-   "7.3A"
+   "15 OCT 2026",
+   "7.3B"
   ]
  },
- "last_check": "2026-10-13T23:36:35",
+ "last_check": "2026-10-14T13:09:28",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
-  "Ahri|MID": 50.75,
-  "Caitlyn|DUO": 49.79,
-  "Cho'Gath|SOLO": 50.05,
-  "Cho'Gath|JUNGLE": 50.71,
-  "Diana|MID": 47.43,
-  "Diana|JUNGLE": 50.86,
-  "Heimerdinger|MID": 48.8,
-  "Jinx|DUO": 50.53,
-  "Kalista|DUO": 50.39,
-  "Kalista|SOLO": 53.41,
-  "Karma|SUPPORT": 49.63,
-  "Malphite|SUPPORT": 51.47,
-  "Malphite|SOLO": 55.32,
-  "Mordekaiser|SOLO": 51.12,
-  "Nocturne|JUNGLE": 55.68,
-  "Norra|MID": 50.98,
-  "Orianna|MID": 51.09,
-  "Ornn|SOLO": 51.75,
-  "Ornn|SUPPORT": 49.38,
-  "Rammus|JUNGLE": 57.46,
-  "Senna|DUO": 55.7,
-  "Senna|SUPPORT": 54.04,
-  "Seraphine|SUPPORT": 49.27,
-  "Shyvana|JUNGLE": 45.15,
-  "Sivir|DUO": 48.28,
-  "Syndra|MID": 51.45,
-  "Volibear|SOLO": 47.93,
-  "Volibear|JUNGLE": 48.06,
-  "Xayah|DUO": 49.66,
-  "Yunara|DUO": 51.48,
-  "Yuumi|SUPPORT": 48.64
+  "Ahri|MID": 51.11,
+  "Caitlyn|DUO": 49.68,
+  "Cho'Gath|SOLO": 50.67,
+  "Cho'Gath|JUNGLE": 50.91,
+  "Diana|MID": 47.1,
+  "Diana|JUNGLE": 50.24,
+  "Heimerdinger|MID": 49.82,
+  "Jinx|DUO": 50.62,
+  "Kalista|DUO": 50.93,
+  "Kalista|SOLO": 53.31,
+  "Karma|SUPPORT": 49.85,
+  "Malphite|SUPPORT": 51.61,
+  "Malphite|SOLO": 55.1,
+  "Mordekaiser|SOLO": 50.46,
+  "Nocturne|JUNGLE": 55.78,
+  "Norra|MID": 50.5,
+  "Orianna|MID": 51.64,
+  "Ornn|SOLO": 51.48,
+  "Ornn|SUPPORT": 49.84,
+  "Rammus|JUNGLE": 56.97,
+  "Senna|DUO": 55.51,
+  "Senna|SUPPORT": 54.11,
+  "Seraphine|SUPPORT": 48.73,
+  "Shyvana|JUNGLE": 45.68,
+  "Sivir|DUO": 48.77,
+  "Syndra|MID": 51.38,
+  "Volibear|SOLO": 47.98,
+  "Volibear|JUNGLE": 48.02,
+  "Xayah|DUO": 50.24,
+  "Yunara|DUO": 51.56,
+  "Yuumi|SUPPORT": 49.02
  },
  "wrmeta_ids": {
   "ornn": "383",
@@ -73,9 +74,9 @@
  },
  "winrates_meta": {
   "bucket": "Diamond +",
-  "updated_utc": "13 OCT 2026 UTC 00:00",
+  "updated_utc": "14 OCT 2026 UTC 00:00",
   "n_champs": 24,
   "n_filas": 31
  },
- "winrates_checked": "2026-10-13T23:36:35"
+ "winrates_checked": "2026-10-14T13:09:28"
 }
