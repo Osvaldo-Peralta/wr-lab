@@ -1,0 +1,63 @@
+======================================================================================================================
+MÓDULO JUNGLA — Cho'Gath batch4 (extensión de chogath_model.py)
+======================================================================================================================
+
+======================================================================================================================
+OPT JUNGLA (default, min 20, S=15) — 122632 hojas · pesos: tanque×0.75 + clear .13 + épicos .12 · %-vida E vs monstruos: full
+  #1 0.685 |  17200g | Chainlaced + Heartsteel + Sunfire + Liandry + Riftmaker + UnendingDespair | VENT  24798 · R  1426 · DPSf  702 · clear  6.5s · dragón  5.7s · netHP +1169
+  #2 0.684 |  17200g | ArmoredAdvance + Heartsteel + Sunfire + Liandry + Riftmaker + UnendingDespair | VENT  26206 · R  1426 · DPSf  702 · clear  6.5s · dragón  5.7s · netHP +1169
+  #3 0.682 |  17000g | Chainlaced + Sunfire + Liandry + Riftmaker + ForceOfNature + UnendingDespair | VENT  27416 · R  1336 · DPSf  646 · clear  6.7s · dragón  5.8s · netHP +1258
+  #4 0.682 |  17100g | Chainlaced + Heartsteel + HollowRadiance + Liandry + Riftmaker + UnendingDespair | VENT  24982 · R  1432 · DPSf  689 · clear  6.7s · dragón  5.8s · netHP +1213
+  #5 0.681 |  17100g | Chainlaced + Sunfire + Liandry + ForceOfNature + UnendingDespair + Twinguard | VENT  37649 · R  1239 · DPSf  547 · clear  7.4s · dragón  6.0s · netHP +1417
+  → La óptima de TOP aparece en jungla en la posición #23 (score 0.678 vs #1 0.685, Δ -1.1 %)
+
+  ÓPTIMA TOP evaluada como jungla: clear 10.6s · dragón 7.5s · netHP +2159 · burn tick 288 verdadero
+
+======================================================================================================================
+OPT JUNGLA (sensibilidad D1: E %-vida CAPADO vs monstruos) — 122632 hojas · pesos: tanque×0.75 + clear .13 + épicos .12 · %-vida E vs monstruos: capado
+  #1 0.675 |  17200g | Chainlaced + Heartsteel + Sunfire + Liandry + Riftmaker + UnendingDespair | VENT  24798 · R  1426 · DPSf  702 · clear  8.5s · dragón 13.5s · netHP +1650
+  #2 0.673 |  17200g | ArmoredAdvance + Heartsteel + Sunfire + Liandry + Riftmaker + UnendingDespair | VENT  26206 · R  1426 · DPSf  702 · clear  8.5s · dragón 13.5s · netHP +1650
+  #3 0.670 |  17200g | Chainlaced + Sunfire + Liandry + Riftmaker + Cryptbloom + UnendingDespair | VENT  21412 · R  1327 · DPSf  778 · clear  8.0s · dragón 13.4s · netHP +1576
+  #4 0.669 |  16850g | Chainlaced + Sunfire + Liandry + Riftmaker + Morello + UnendingDespair | VENT  22267 · R  1364 · DPSf  685 · clear  7.9s · dragón 13.3s · netHP +1556
+  #5 0.668 |  17200g | ArmoredAdvance + Sunfire + Liandry + Riftmaker + Cryptbloom + UnendingDespair | VENT  22629 · R  1327 · DPSf  778 · clear  8.0s · dragón 13.4s · netHP +1576
+
+======================================================================================================================
+CHECKPOINTS JUNGLA (oro J8; clear+épicos en el score desde CP2)
+  CPJ1 min 9:00 · lvl 8 · R1 · S=3 · ≤4 900 g · T2+1:
+    #1 0.783 |  4200g | Mercurys + Liandry                                   | HP  2510 · R  470 · clear 10.4s · netHP +2154
+    #2 0.775 |  4200g | Mercurys + UnendingDespair                           | HP  2510 · R  432 · clear 12.4s · netHP +2664
+    #3 0.774 |  4200g | Plated + Liandry                                     | HP  2510 · R  470 · clear 10.4s · netHP +2156
+    #4 0.769 |  4200g | Plated + UnendingDespair                             | HP  2510 · R  432 · clear 12.4s · netHP +2667
+  CPJ2 min 12:00 · lvl 10 · R2 · S=6 · ≤7 600 g · T2+2:
+    #1 0.728 |  7200g | Mercurys + Liandry + UnendingDespair                 | HP  3624 · R  730 · clear  9.7s · netHP +2002
+    #2 0.723 |  7200g | Plated + Liandry + UnendingDespair                   | HP  3624 · R  730 · clear  9.8s · netHP +2004
+    #3 0.716 |  7000g | Mercurys + HollowRadiance + Liandry                  | HP  3724 · R  741 · clear  8.6s · netHP +1720
+    #4 0.715 |  7300g | Mercurys + Liandry + Riftmaker                       | HP  3674 · R  794 · clear  8.9s · netHP +1793
+  CPJ3 min 15:00 · lvl 13 · R3 · S=8 · ≤10 900 g · T3+3:
+    #1 0.703 | 10900g | Chainlaced + Sunfire + Liandry + ForceOfNature       | HP  5249 · R 1031 · clear  8.1s · netHP +1591
+    #2 0.703 | 10800g | Chainlaced + HollowRadiance + Liandry + ForceOfNature | HP  5300 · R 1037 · clear  8.2s · netHP +1628
+    #3 0.701 | 10850g | Chainlaced + Liandry + Morello + UnendingDespair     | HP  5094 · R 1055 · clear  8.5s · netHP +1688
+    #4 0.701 | 10900g | ArmoredAdvance + Sunfire + Liandry + ForceOfNature   | HP  5249 · R 1031 · clear  8.1s · netHP +1591
+  CPJ4 min 18:00 · lvl 14 · R3 · S=11 · ≤14 300 g · T3+4:
+    #1 0.688 | 14200g | Chainlaced + Sunfire + Liandry + Riftmaker + UnendingDespair | HP  6205 · R 1201 · clear  7.1s · netHP +1340
+    #2 0.686 | 14200g | ArmoredAdvance + Sunfire + Liandry + Riftmaker + UnendingDespair | HP  6205 · R 1201 · clear  7.1s · netHP +1340
+    #3 0.686 | 14300g | ArmoredAdvance + Sunfire + Liandry + UnendingDespair + Twinguard | HP  6153 · R 1116 · clear  7.8s · netHP +1511
+    #4 0.686 | 14100g | Chainlaced + HollowRadiance + Liandry + Riftmaker + UnendingDespair | HP  6256 · R 1207 · clear  7.2s · netHP +1373
+
+======================================================================================================================
+[J-4] SMITE 7.3 — burn tick por build (verdadero/tick, 3 ticks × 2 casts por clear):
+  Óptima (HS+FoN+Garg+UD+TW)               tick   334 · clear  6.2s · dragón TTK  7.5s · robo  3337
+  Publicada jungla 28/09                   tick   314 · clear  4.5s · dragón TTK  5.9s · robo  3444
+  Tanque puro armadura (Randuin+Thornmail) tick   322 · clear  6.4s · dragón TTK  7.5s · robo  3326
+  AP (Liandry+Riftmaker)                   tick   302 · clear  5.1s · dragón TTK  6.3s · robo  3315
+
+======================================================================================================================
+[J-5] CURVA JUNGLA (R1 desde lvl 5 ~6:00; cap 6 con camps grandes ~min 10-11; épicos sin cap):
+     min ítem nuevo     lvl  S   R    HP R champ R monstruo  Smite+R  clear
+       6 Plated T2        6  0 R1   1636     364       1354     1954  25.9s
+       9 Heartsteel       8  3 R1   2910     476       1466     2466  16.6s
+      11 ⬆️T3             9  5 R2   3511     693       1518     2518  14.9s
+      13 +Unending       11  6 R2   4449     768       1593     2593  12.2s
+      16 +Twinguard      12  8 R3   5672    1053       1713     3113   9.2s
+      18 +Gargoyle       14 10 R3   6632    1131       1791     3191   7.7s
+      21 +FoN            15 12 R3   7640    1227       1887     3287   6.7s

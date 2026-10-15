@@ -1,0 +1,68 @@
+================================================================================================================
+VERIFICACIÓN — cifras publicadas del reporte xayah v2 (nivel 15, LT+Alacrity full, W en ventana)
+================================================================================================================
+  ⭐ ÓPTIMA (Tabla A)   ✅ 1v1   3146 ( -0.0%) · 3v3   5929 ( -0.0%) · vs120   1767 ( +0.0%) · vsT   1582 ( +0.0%) · heal  498 ( +0.0%)
+  🔬 top-2 (C44)        ✅ 1v1   3144 ( +0.0%) · 3v3   5769 ( -0.0%) · vs120   1766 ( +0.0%) · vsT   1571 ( -0.0%) · heal  495 ( -0.1%)
+  🔬 top-4 (glass)      ✅ 1v1   3218 ( +0.0%) · 3v3   6162 ( +0.0%) · vs120   1749 ( +0.0%) · vsT   1267 ( +0.0%) · heal  174 ( +0.2%)
+  📌 v1 Beta            ✅ 1v1   2819 ( -0.0%) · 3v3   5535 ( +0.0%) · vs120   1584 ( -0.0%) · vsT   1278 ( +0.0%) · heal  510 ( -0.0%)
+  🔬 análoga Jinx       ✅ 1v1   3063 ( +0.0%) · 3v3   5758 ( -0.0%) · vs120   1721 ( -0.0%) · vsT   1379 ( -0.0%) · heal  165 ( -0.3%)
+  🌐 comunidad          ✅ 1v1   2654 ( -0.0%) · 3v3   2945 ( +0.0%) · vs120   1491 ( -0.0%) · vsT   1198 ( +0.0%) · heal  142 ( +0.3%)
+  A2 anti-burst (GA)       1v1 2587 (-17.7 % vs óptima) · vsTanque 1171
+  A3 anti-heal (Mortal)    1v1 3146 (+0.0 % vs óptima) · vsTanque 1407
+
+  DESGLOSE ÓPTIMA 1v1: engine 2726 (autos 2118 + bala 227 + BotRK 381) ×W 1.0714 + E 165 + Q 32 + R 28 = 3146
+  DESGLOSE ÓPTIMA 3v3: engine 2726 (rayos 2330) → total 5929 (cleave 287)
+  AS 2.889 (raw 2.889, B 3.390) · AD 318.8 · crit 100 % · E(5) burst 1320 · auto crit 733
+
+================================================================================================================
+SENSIBILIDADES (las que el reporte declaró sin publicar / pendientes de resolución)
+================================================================================================================
+  D3 BotRK 7 % oficial : 1v1 3214 (+2.2 %) · vsTanque 1640 (+3.6 %)  [reporte predijo 3 210 / 1 712]
+  D1 AS growth 0.03    : 1v1 3105 (-1.3 %)  [reporte: Δ +1.5 % AS, rankings sin cambio]
+  D7 sin W (farmeo/uptime 0): 1v1 2587 (-17.8 %)  [reporte: −13.3 % engine]
+  Flurry uptime 50%     : 1v1 3267 (+3.9 %) · AS raw 3.00 → efectiva 3.00 (CAP)
+  Flurry uptime 100%     : 1v1 3276 (+4.2 %) · AS raw 3.12 → efectiva 3.00 (CAP)
+  Rayos+on-hit BotRK 6%: 3v3 6746 (+13.8 %)  [reporte predijo ~6 700 (+13 %)]
+  Rayos+on-hit BotRK 7%: 3v3 6950 (+17.2 %)
+  TECHO (7%+Flurry50%+rayos on-hit): 1v1 3338 (+6.1 %) · 3v3 7207 (+21.6 %) · vsT 1703 (+7.6 %)
+  D8 comunidad Navori  : 1v1 2587 · con CD×0.75 2654 (+2.6 %) — ¿cierra el gap vs óptima (3146)? NO (-15.6 %)
+
+  BURST E (100 % crit + IE, bAD 200): E(3)=891 E(5)=1320 E(8)=1716 E(15)=1980  [reporte: E(3)=891 root 1.25 s · E(5)=1 320 · E(8)=1 716]
+
+================================================================================================================
+CURVA DE PODER — checkpoints (ranks REALES por nivel: W1@9/W2@12/W3@14; E2@9/E4@12+; LT+Alacrity full)
+================================================================================================================
+  lvl 9  (~7:30, Yun Tal + Berserker’s)      1v1    564 · 3v3    693 · AS 2.07 · AD 143.6 · E-burst   402
+  lvl 12 (~11:30, +Runaan’s +⬆️Gunmetal)     1v1    913 · 3v3   1756 · AS 2.54 · AD 156.2 · E-burst   625
+  lvl 14 (~14:15, +IE)                       1v1   1697 · 3v3   3380 · AS 2.63 · AD 239.6 · E-burst   967
+  lvl 15 (~17:00, +BotRK)                    1v1   2577 · 3v3   4741 · AS 2.89 · AD 283.8 · E-burst  1086
+  lvl 15 (~20:15, +LDR = Tabla A)            1v1   3146 · 3v3   5929 · AS 2.89 · AD 318.8 · E-burst  1320
+  Publicado: lvl 9 565 → lvl 12 901 → lvl 14 1 719 → lvl 15 3 146 (1v1).
+
+================================================================================================================
+OPTIMIZADOR EXTENDIDO (baseline: engine 6 %, sin Flurry, sin on-hit en rayos) — 27720 hojas legales (crit=100, pen≥30, ≤18000 g, Ley 3b)
+================================================================================================================
+  #1 91.1 % |  17750 g | gunmetal + ie + runaan + ldr + yuntal + botrk              | 1v1  3146 · 3v3  5929 · vs120  1767 · vsT  1582 · AS 2.89
+  #2 90.2 % |  17550 g | gunmetal + c44 + ie + runaan + ldr + botrk                 | 1v1  3144 · 3v3  5769 · vs120  1766 · vsT  1571 · AS 2.66
+  #3 89.5 % |  17750 g | armorcrusher + ie + runaan + ldr + yuntal + botrk          | 1v1  2962 · 3v3  5657 · vs120  1810 · vsT  1662 · AS 2.56
+  #4 89.3 % |  17650 g | gunmetal + ie + runaan + ldr + storm + botrk               | 1v1  3090 · 3v3  5788 · vs120  1736 · vsT  1549 · AS 2.79
+  #5 89.2 % |  17250 g | gunmetal + c44 + ie + runaan + yuntal + terminus           | 1v1  3218 · 3v3  6162 · vs120  1749 · vsT  1267 · AS 2.92
+  #6 88.6 % |  17450 g | gunmetal + ie + runaan + mortal + yuntal + botrk           | 1v1  3146 · 3v3  5929 · vs120  1710 · vsT  1407 · AS 2.89
+
+================================================================================================================
+OPTIMIZADOR EXTENDIDO (techo 7.3a: BotRK 7 % + Flurry 50 % + rayos on-hit) — 27720 hojas legales (crit=100, pen≥30, ≤18000 g, Ley 3b)
+================================================================================================================
+  #1 92.4 % |  17750 g | gunmetal + ie + runaan + ldr + yuntal + botrk              | 1v1  3338 · 3v3  7207 · vs120  1875 · vsT  1703 · AS 2.89
+  #2 91.4 % |  17550 g | gunmetal + c44 + ie + runaan + ldr + botrk                 | 1v1  3344 · 3v3  6985 · vs120  1879 · vsT  1693 · AS 2.66
+  #3 90.8 % |  17750 g | armorcrusher + ie + runaan + ldr + yuntal + botrk          | 1v1  3155 · 3v3  6840 · vs120  1929 · vsT  1795 · AS 2.56
+  #4 90.6 % |  17650 g | gunmetal + ie + runaan + ldr + storm + botrk               | 1v1  3285 · 3v3  7041 · vs120  1846 · vsT  1671 · AS 2.79
+  #5 89.9 % |  17450 g | gunmetal + ie + runaan + mortal + yuntal + botrk           | 1v1  3338 · 3v3  7207 · vs120  1814 · vsT  1518 · AS 2.89
+  #6 89.2 % |  17650 g | gunmetal + ie + runaan + ldr + er + botrk                  | 1v1  3258 · 3v3  6857 · vs120  1830 · vsT  1645 · AS 2.66
+
+================================================================================================================
+OPTIMIZADOR EXTENDIDO (SIN restricciones Ley 1/3 — control: ¿qué cambia?) — 283760 hojas legales (crit=100, pen≥30, ≤18000 g, Ley 3b)
+================================================================================================================
+  #1 87.7 % |  17750 g | gunmetal + ie + runaan + ldr + yuntal + botrk              | 1v1  3338 · 3v3  7207 · vs120  1875 · vsT  1703 · AS 2.89
+  #2 87.6 % |  17350 g | gunmetal + c44 + ie + runaan + yuntal + botrk              | 1v1  3747 · 3v3  7797 · vs120  1703 · vsT  1333 · AS 2.89
+  #3 86.9 % |  17550 g | gunmetal + c44 + ie + runaan + ldr + botrk                 | 1v1  3344 · 3v3  6985 · vs120  1879 · vsT  1693 · AS 2.66
+  #4 86.4 % |  17750 g | armorcrusher + ie + runaan + ldr + yuntal + botrk          | 1v1  3155 · 3v3  6840 · vs120  1929 · vsT  1795 · AS 2.56

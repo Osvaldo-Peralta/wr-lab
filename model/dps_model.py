@@ -187,7 +187,10 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Crimson Lucidity":"crimson","Crimson":"crimson","Boots of Mana":"boots_mana",
          "Spellslinger's Shoes":"spellslinger","Spellslinger's":"spellslinger",
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
-         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads"}
+         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads",    # v1.17.2: alias oficiales que faltaban (names de items_7.3.csv tal cual)
+    "Dominik's Regards": "ldr", "Immortal Shieldbow": "shieldbow",
+    "The Collector": "collector", "Navori Quickblades": "navori",
+}
 
 # ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
 # El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +

@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 12/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a · 14/10/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -1776,7 +1776,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 13 OCT 2026 UTC 00:00** · Refrescado por el vigía: 13/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 14 OCT 2026 UTC 00:00** · Refrescado por el vigía: 14/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1785,37 +1785,37 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.75 | 4.34 | 0.13 | ↓ 2 | Confidence Med |
-| Caitlyn | DUO | A | 49.79 | 19.03 | 8.48 | ↑ 1 | Confidence High |
-| Cho'Gath | SOLO | A | 50.05 | 10.84 | 35.00 | ↓ 4 | Confidence High |
-| Cho'Gath | JUNGLE | S | 50.71 | 8.61 | 35.00 | ↓ 1 | Confidence High |
-| Diana | MID | B | 47.43 | 1.10 | 0.15 | 0 | Confidence Low |
-| Diana | JUNGLE | A | 50.86 | 1.48 | 0.15 | ↑ 6 | Confidence Low |
-| Heimerdinger | MID | B | 48.80 | 1.63 | 1.31 | ↓ 11 | Confidence Low |
-| Jinx | DUO | A | 50.53 | 12.32 | 0.45 | 0 | Confidence High |
-| Kalista | DUO | A | 50.39 | 6.01 | 7.22 | ↓ 3 | Confidence Med |
-| Kalista | SOLO | S+ | 53.41 | 2.40 | 7.22 | 0 | Confidence Low |
-| Karma | SUPPORT | A | 49.63 | 4.45 | 0.35 | ↓ 3 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.47 | 7.92 | 41.21 | 0 | Confidence Med |
-| Malphite | SOLO | S+ | 55.32 | 6.98 | 41.21 | 0 | Confidence Med |
-| Mordekaiser | SOLO | S | 51.12 | 10.96 | 29.22 | ↓ 5 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.68 | 10.64 | 53.12 | 0 | Confidence High |
-| Norra | MID | A | 50.98 | 1.43 | 7.25 | ↓ 2 | Confidence Low |
-| Orianna | MID | A | 51.09 | 4.51 | 0.30 | ↓ 6 | Confidence Med |
-| Ornn | SOLO | A | 51.75 | 1.99 | 0.17 | ↓ 3 | Confidence Low |
-| Ornn | SUPPORT | B | 49.38 | 1.16 | 0.17 | ↓ 1 | Confidence Low |
-| Rammus | JUNGLE | S+ | 57.46 | 4.35 | 6.56 | 0 | Confidence Med |
-| Senna | DUO | S+ | 55.70 | 3.25 | 33.31 | 0 | Confidence Med |
-| Senna | SUPPORT | S+ | 54.04 | 12.87 | 33.31 | 0 | Confidence High |
-| Seraphine | SUPPORT | A | 49.27 | 6.61 | 1.05 | 0 | Confidence Med |
-| Shyvana | JUNGLE | B | 45.15 | 3.41 | 1.20 | ↓ 1 | Confidence Med |
-| Sivir | DUO | B | 48.28 | 3.45 | 0.05 | ↓ 3 | Confidence Med |
-| Syndra | MID | S+ | 51.45 | 6.23 | 19.43 | ↑ 1 | Confidence Med |
-| Volibear | SOLO | A | 47.93 | 4.92 | 4.47 | ↑ 1 | Confidence Med |
-| Volibear | JUNGLE | A | 48.06 | 2.47 | 4.47 | ↑ 3 | Confidence Low |
-| Xayah | DUO | A | 49.66 | 4.50 | 0.18 | ↓ 2 | Confidence Med |
-| Yunara | DUO | S+ | 51.48 | 15.77 | 23.78 | 0 | Confidence High |
-| Yuumi | SUPPORT | A | 48.64 | 8.97 | 33.55 | ↓ 3 | Confidence High |
+| Ahri | MID | A | 51.11 | 4.21 | 0.13 | ↑ 5 | Confidence Med |
+| Caitlyn | DUO | A | 49.68 | 19.08 | 7.65 | ↓ 1 | Confidence High |
+| Cho'Gath | SOLO | S+ | 50.67 | 10.74 | 35.42 | ↑ 3 | Confidence High |
+| Cho'Gath | JUNGLE | S+ | 50.91 | 8.67 | 35.42 | ↑ 3 | Confidence High |
+| Diana | MID | B | 47.10 | 1.07 | 0.15 | ↓ 1 | Confidence Low |
+| Diana | JUNGLE | A | 50.24 | 1.46 | 0.15 | ↓ 4 | Confidence Low |
+| Heimerdinger | MID | A | 49.82 | 1.68 | 1.30 | ↑ 7 | Confidence Low |
+| Jinx | DUO | A | 50.62 | 12.50 | 0.44 | 0 | Confidence High |
+| Kalista | DUO | S | 50.93 | 6.19 | 7.30 | ↑ 2 | Confidence Med |
+| Kalista | SOLO | S+ | 53.31 | 2.48 | 7.30 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 49.85 | 4.39 | 0.34 | ↑ 3 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.61 | 8.10 | 41.49 | ↑ 1 | Confidence High |
+| Malphite | SOLO | S+ | 55.10 | 7.04 | 41.49 | 0 | Confidence Med |
+| Mordekaiser | SOLO | A | 50.46 | 11.73 | 29.90 | ↓ 7 | Confidence High |
+| Nocturne | JUNGLE | S+ | 55.78 | 10.23 | 55.41 | ↓ 1 | Confidence High |
+| Norra | MID | A | 50.50 | 1.43 | 7.25 | 0 | Confidence Low |
+| Orianna | MID | S | 51.64 | 4.45 | 0.30 | ↑ 7 | Confidence Med |
+| Ornn | SOLO | A | 51.48 | 1.91 | 0.16 | 0 | Confidence Low |
+| Ornn | SUPPORT | A | 49.84 | 1.16 | 0.16 | ↑ 4 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.97 | 4.46 | 6.44 | 0 | Confidence Med |
+| Senna | DUO | S+ | 55.51 | 3.20 | 32.49 | 0 | Confidence Med |
+| Senna | SUPPORT | S+ | 54.11 | 12.82 | 32.49 | 0 | Confidence High |
+| Seraphine | SUPPORT | B | 48.73 | 6.27 | 1.05 | ↓ 4 | Confidence Med |
+| Shyvana | JUNGLE | B | 45.68 | 3.45 | 1.16 | 0 | Confidence Med |
+| Sivir | DUO | A | 48.77 | 3.34 | 0.06 | ↑ 2 | Confidence Med |
+| Syndra | MID | S | 51.38 | 6.08 | 19.13 | 0 | Confidence Med |
+| Volibear | SOLO | A | 47.98 | 4.76 | 4.34 | ↑ 1 | Confidence Med |
+| Volibear | JUNGLE | B | 48.02 | 2.44 | 4.34 | ↓ 1 | Confidence Low |
+| Xayah | DUO | A | 50.24 | 4.37 | 0.17 | ↑ 3 | Confidence Med |
+| Yunara | DUO | S+ | 51.56 | 15.54 | 23.50 | 0 | Confidence High |
+| Yuumi | SUPPORT | A | 49.02 | 9.24 | 33.06 | ↑ 3 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -2375,7 +2375,10 @@ ALIAS = {"C44":"c44","Hexoptics C44":"c44","IE":"ie","Infinity Edge":"ie","Runaa
          "Crimson Lucidity":"crimson","Crimson":"crimson","Boots of Mana":"boots_mana",
          "Spellslinger's Shoes":"spellslinger","Spellslinger's":"spellslinger",
          "Boots of Dynamism":"boots_dynamism","Armorcrusher Boots":"armorcrusher","Armorcrusher":"armorcrusher",
-         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads"}
+         "Gluttonous Greaves":"gluttonous","Immortal Treads":"immortal_treads","Immortal Treads":"immortal_treads",    # v1.17.2: alias oficiales que faltaban (names de items_7.3.csv tal cual)
+    "Dominik's Regards": "ldr", "Immortal Shieldbow": "shieldbow",
+    "The Collector": "collector", "Navori Quickblades": "navori",
+}
 
 # ── Exclusividades de ítems (data/estructurada/items_exclusivos.csv) ──
 # El juego PROHÍBE combinar ciertos ítems en la misma build (p.ej. LDR + Mortal +
@@ -10612,7 +10615,7 @@ tags:
   - Tank
   - AP-vida
   - Jungle
-version: 1.3
+version: 1.4
 Status: Beta
 champion: Cho'Gath
 slug: chogath-titan-de-la-jungla
@@ -10632,31 +10635,36 @@ verified_patch: "7.3a"
 **Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
 **Rol principal:** Jungla (variante Top en `chogath-titan-del-baron`)
-**Arquetipo:** Tanque de rotación AP %-vida: el daño es Q/W/E + R verdadero + % de vida máxima; el tamaño es CONSECUENCIA de daño+durabilidad.
-**Enfoque:** Maximizar la ventana de supervivencia (EHP en ventana de 5 s) y el execute de R sin sacrificar daño de rotación.
+**Arquetipo:** Tanque de rotación AP %-vida: el daño es Q/W/E + R verdadero + % de vida máxima; el tamaño es CONSECUENCIA de daño+durabilidad, no objetivo (ver §0.2).
+**Enfoque:** Maximizar la ventana de supervivencia (EHP en ventana de 5 s) y el execute de R sin sacrificar daño de rotación: el cuarteto Unending Despair + Gargoyle + Amaranth's Twinguard + Force of Nature aparece en las 10 mejores builds de 122 632 evaluadas y sobrevive a todas las sensibilidades.
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 09/10/2026):** JUNGLE Win Rate 50.85 % | Pick Rate 8.52 % | Ban 35.10 % | Tendencia ↑1 | Tier S (Confidence High).
+> **Estado Meta Actual (Diamond+, 09/10/2026):** JUNGLE Win Rate 50.85 % | Pick Rate 8.52 % | Ban 35.10 % | Tendencia ↑1 | Tier S (Confidence High). SOLO (hermano): 50.46 % | 11.10 % | ban 35.10 % | ↑3. Fuente: `data/estructurada/champion_winrates.csv` (vigía 2×/día).
 
 > [!TIP]
-> **Variante de presión de mapa:** cambiar Force of Nature por **Warmog's Armor** sube la ventana a **56 377** (la más alta de toda la búsqueda: escudo de Gargoyle 5 150 → 6 695 por Blessed +30 %) y el sustain fuera de pelea a 3.5 %/s entre camps.
+> **Variante de ventanas/teamfight:** si tu comp necesita frontline de pelea larga en vez de tempo de objetivos, usá la óptima del hermano barón (Armored Advance + Heartsteel + Unending + Twinguard + Gargoyle + FoN): VENT 55 591 vs 24 798, a cambio de clear 10.6 s vs 6.5 s y dragón 7.5 s vs 5.7 s. El punto medio (VENT 37 649 · clear 7.4 s) es Chainlaced + Sunfire + Liandry + FoN + Unending + Twinguard (#5 del motor jungla).
+>
+> **Variante de presión de mapa:** cambiar Force of Nature por **Warmog's Armor** sube la ventana a **56 377** (la más alta de toda la búsqueda: escudo de Gargoyle 5 150 → 6 695 por Blessed +30 %) y el sustain fuera de pelea a 3.5 %/s entre camps: −1.7 % de score vs la default, legítima cuando vas arriba en el marcador.
+
+> [!WARNING]
+> Verificación en juego pendiente (motor nuevo, supuestos A1–A14): **D2** (Twinguard Endurance ×1.3 a resistencias TOTALES vs solo bonus — en el peor caso Twinguard sale y entra Kaenic Rookern), **D1** (cap del %-vida de E vs minions/monstruos), **D3** (Feast retroactivo al subir R), **D4** (Axiom Arcanist sobre daño verdadero de R: −9 % de R si no).
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (jungla, óptima del motor batch4)
+### Tabla A — BUILD FINAL (jungla, óptima del MÓDULO JUNGLA batch4 — deriva de la de barón)
 
 | Slot | Ítem | Oro | Rol en la build |
 |---|---|---|---|
-| 1 (botas) | **Plated Steelcaps → ⬆️ Armored Advance** (min 10:00, MISMO slot; Mercury's/Chainlaced vs AP) | 2 200 | Block 10 % + escudo físico 722 (CD 12 s) |
-| 2 | **Heartsteel** | 3 000 | 700 HP + proc + **growth +15 %/proc: +425 HP a min 20** que alimentan R, Gargoyle y E |
-| 3 | **Unending Despair** | 3 000 | Anguish: 243 mágico AoE/4 s + **cura 607**: el sustain de pelea que ninguna build publicada tenía |
-| 4 | **Amaranth's Twinguard** | 3 200 | Endurance: resistencias ×1.3 en pelea + 20 % tenacidad + 20 % tamaño |
-| 5 | **Gargoyle Stoneplate** | 2 900 | Activo: escudo 100 + 90 % HP bonus = **5 150** (2.5 s) |
-| 6 | **Force of Nature** | 2 800 | 400 HP + 60 MR (+70 Absorb en pelea) + 11 % MS: mejor paquete MR del parche |
+| 1 (botas) | **Mercury's Treads → ⬆️ Chainlaced Crushers** (min 10:00, MISMO slot; Armored Advance vs AD) | 2 200 | Tenacidad 30 % + 150 HP: el clear no teme CC pero los skips sí |
+| 2 | **Heartsteel** | 3 000 | Growth +15 %/proc: en jungla proca SOLO en campeones/épicos → se completa 3.º, no 2.º |
+| 3 | **Sunfire Aegis** | 2 900 | Immolate ×1.3 vs monstruos: el clear pasa de 10.6 s a ~7 s |
+| 4 | **Liandry's Torment** | 3 000 | Torment 2 % máx/s en camps Y campeones: el motor de clear+daño del rol |
+| 5 | **Riftmaker** | 3 100 | Void Corruption ×1.054 + omnivamp 10 %: netHP positivo en clears largos |
+| 6 | **Unending Despair** | 3 000 | Anguish en campeones (no en camps): el sustain de pelea que cierra el score |
 
-> **Oro total: 17 100 g** · HP **8 093** · arm 274 · MR 316 · AH 50 · AP 0 · tamaño **+110 %** · rango 200 · **R 1 277 verdadero** · **VENT 55 591** · EHPp/EHPm 32 546/33 626 · DPSf 444 · hps 197 · **Smite+R vs épico 3 290** (min 20).
+> **Oro total: 17 200 g** · HP ~7 300 · **VENT 24 798** · **R 1 426 verdadero** · DPSf **702** · **clear 6.5 s** · **dragón TTK 5.7 s** · Smite+R 3 290-3 337 · netHP/clear **+1 169**. Score jungla (tanque×0.75 + clear .13 + épicos .12): 0.685; la óptima de barón queda #23 en jungla (0.678, −1.1 %) con clear 10.6 s.
 
 ### 0.2 El tamaño como CONSECUENCIA (indicación del autor)
 
@@ -10669,18 +10677,29 @@ verified_patch: "7.3a"
 
 Ser gigante sin ventana no sirve (tanque puro pierde 6 000 de VENT por 400 HP); ser puro daño tampoco (AP puro vive 1.3 s menos en cada pelea). **La óptima es el punto donde el HP comprable, los escudos en ventana y la rotación se multiplican**: el tamaño (+110 %) llega solo, como subproducto de Feast + Twinguard, y cada punto de tamaño agrega rango de E y objetivos de cono (A6: ~2.9 objetivos a S=15).
 
-### Tabla B — Ruta de compra cronológica (jungla)
+### 0.3 Tempo vs ventana (por qué la jungla deriva de barón)
+
+| Build | VENT 5 s | DPS fighter | Clear 4 camps | Dragón TTK | Smite+R | Score jungla |
+|---|---|---|---|---|---|---|
+| **Óptima jungla batch4 (Tabla A)** | 24 798 | **702** | **6.5 s** | **5.7 s** | 3 290 | **0.685** |
+| Óptima barón evaluada en jungla | **55 591** | 444 | 10.6 s | 7.5 s | 3 287 | 0.678 (#23) |
+| Publicada jungla 28/09 | 26 292 | 554 | **4.5 s** | 5.9 s | **3 444** | ~0.67 |
+| Híbrida #5 (Sunfire+Liandry+FoN+UD+TW) | 37 649 | 547 | 7.4 s | 6.0 s | 3 240 | 0.681 |
+
+La publicada cleara más rápido (doble Immolate Hollow+Liandry sin Riftmaker) pero cede R y DPS de campeón; la de barón gana peleas y pierde el mapa. **La derivación jungla es el punto medio que el score del rol pide**: clear suficiente (6.5 s), épicos primeros (5.7 s) y el doble de DPS de campeón que la de barón.
+
+### Tabla B — Ruta de compra cronológica (jungla, checkpoints del módulo J8)
 
 | # | Compra | Oro acum. | Minuto típico |
 |---|---|---|---|
 | 1 | Ruby Crystal + ward | 500 | 0:00 |
-| 2 | **Plated Steelcaps** (T2; Mercury's vs jungla AP) | 1 700 | ~4:30 |
-| 3 | Giant's Belt + Kindlegem → **Heartsteel** | 4 700 | ~8:30 (regla: ≤ min 10-11 o cambiar orden §5) |
-| 4 | ⬆️ **Armored Advance** (mismo slot, +1 000 g) | 5 700 | 10:00 (regla T3) |
-| 5 | Componentes → **Unending Despair** | 8 700 | ~13:00 |
-| 6 | Giant's Belt + Chain Vest + Negatron → **Amaranth's Twinguard** | 11 900 | ~15:30 |
-| 7 | Kindlegem + Chain Vest + Negatron → **Gargoyle Stoneplate** | 14 800 | ~18:00 |
-| 8 | Winged Moonplate + Negatron + Ruby → **Force of Nature** | 17 600 | ~20:30 |
+| 2 | **Mercury's Treads** (T2; Plated vs jungla AD) | 1 700 | ~4:30 (CPJ1: Liandry 1.º mide 0.783) |
+| 3 | Fiendish + Kindlegem → **Liandry's Torment** | 4 700 | ~9:00 |
+| 4 | Kindlegem + Chain Vest → **Unending Despair** | 7 700 | ~12:00 (CPJ2 #1: 0.728) |
+| 5 | ⬆️ **Chainlaced Crushers** (mismo slot, +1 000 g) | 8 700 | ~14:00 |
+| 6 | Giant's Belt + Ruby → **Sunfire Aegis** | 11 600 | ~16:00 (CPJ3: Sunfire+Liandry+FoN lideran) |
+| 7 | Fiendish + Gem → **Riftmaker** | 14 700 | ~18:30 (CPJ4 #1: 0.688) |
+| 8 | Giant's Belt → **Heartsteel** | 17 700 | ~21:00 (growth tardío: proca solo en champions/épicos) |
 
 ### Runas · Hechizos · Habilidades
 
@@ -10779,6 +10798,20 @@ EHP físico .15 + EHP mágico .15 + **VENT .20** + execute R .15 + DPS fighter .
 - **Steal defensivo:** R monstruo es verdadero: el tanque enemigo NO lo mitiga; posiciona el cast desde 200 de rango + Feast.
 
 ---
+
+
+### 3.4 Módulo jungla (batch4, `model/chogath_jungla.py`)
+
+```text
+clear_s   = 9 500 HP (4 camps proxy, arm/MR 30 "increased monster resistances" 7.3)
+            / [rotación Q/W/E (E base capada 100 vs monstruos — D1/J) + Immolate×1.25-1.3
+               + Torment 2 %/s + autos + 2×Smite(execute 600/1 000/1 400 + burn 3 ticks)]
+netHP     = sustain recibido: daño monstruos (−50 % al smiter: 500→250 dps) − Carnivore − regen
+epic_TTK  = dragón 10 000 HP (60/60) · Baron 15 000 (60/60) con Smite+R+Torment+rotación
+score_jg  = 0.75·score_tanque§A.5 + 0.13·clear + 0.12·épicos      # pesos J declarados
+```
+Sensibilidad D1 (E %-vida capado vs monstruos): la óptima NO cambia (misma 6 slots); el clear sube 6.5→8.5 s y el dragón 5.7→13.5 s en TODAS las builds por igual: es un factor de escala, no de ranking.
+
 
 ## 4. LEYES APLICADAS A CHO'GATH
 
@@ -18498,7 +18531,7 @@ tags:
   - Crítico
   - AoE
   - Bot-Lane
-version: 1
+version: 1.1
 Status: Beta
 champion: Xayah
 slug: xayah
@@ -18527,6 +18560,9 @@ verified_patch: "7.3a"
 > Win Rate 49.87 % | Pick Rate 3.24 % | Ban 1.83 % | Tendencia ↑ 1 | Tier A | Rol DUO (ADC).
 
 ---
+
+> [!NOTE]
+> **Verificación batch4 (12/10/2026, `model/xayah_model.py`):** motor independiente REPRODUCE las cifras publicadas con ±0.0 % (3 146 / 5 929 / 1 767 / 1 582 / heal 498) y la re-optimización extendida (engine + E/Q/R/pasiva en el objetivo, 27 720 hojas, crit=100 y pen≥30 por Leyes 1/3) confirma la MISMA Tabla A al 91.1 % (92.4 % con techo 7.3a: BotRK 7 % + Flurry 50 % + on-hit en rayos). Sensibilidades cerradas: D1 −1.3 % · D3 +2.2 %/+3.6 % (predicción del reporte: 3 210/1 712 → medido 3 214/1 640) · D7 −17.8 % sin W.
 
 ## 0. RESUMEN EJECUTIVO
 
@@ -19089,7 +19125,7 @@ tags:
   - Crítico
   - Híbrido
   - Bot-Lane
-version: 1.2
+version: 2.0
 Status: Beta
 champion: Yunara
 slug: yunara
@@ -19111,6 +19147,17 @@ verified_patch: "7.3a"
 **Arquetipo:** Crítico AoE híbrido — su pasiva convierte cada crítico en daño mágico adicional (8 % + 8 % por 100 AP), lo que la hace difícil de contrarrestar con resistencias tradicionales
 **Enfoque:** Maximizar el DPS en área (AoE) con críticos al 230 % y spread de Q que también critica durante la R (Transcendent State). La build prioriza el umbral exacto de 100 % de crítico, AS sin sobrepasar el tope, y penetración física para el late game.
 
+<!-- WRLAB-VERIF:7.3a:START — generado por model/update_reports.py · no editar a mano -->
+> [!NOTE] ✅ ANOTAR Verificación automática (08/10/2026) — **NO requiere regeneración — hotfix 7.3a**
+> **Cambios directos a Yunara:** ninguno en 7.3a.
+> **Modelo:** sin hook cuantitativo (sin modelo cuantitativo para este campeón/arquetipo) → triage por intersección (champion/ítems/sistemas). Métricas publicadas sin cambios medibles.
+> **Build publicada (6 slots, Ley 0):** Gunmetal Greaves + Hexoptics C44 + Runaan's Hurricane + Infinity Edge + Lord Dominik's Regards + Kraken Slayer — **sin cambios**.
+> **Ítems cambiados fuera de la build final:** Yun Tal Wildarrows (BUFF) — verificar variantes/rechazados del reporte.
+> **Sistema (7.3a):** Nexus: 5 500 → **4 000 HP** → Partidas terminan antes tras inhibidores
+> **Sistema (7.3a):** Placas de torreta: Al perder placa: +30→**+20** arm/MR y 20→**10 s** → **Siege más fácil** → sube el valor de Jinx/Kalista/Yunara (siege) y de Runaan's/Energized
+> **Veredicto:** ✅ ANOTAR — build, ruta de compra y veredictos siguen vigentes; este bloque es la constancia de verificación.
+<!-- WRLAB-VERIF:7.3a:END -->
+
 > [!NOTE]
 > **Estado Meta Actual (Diamond+, 05/10/2026):**
 > Win Rate 51.64 % | Pick Rate 16.83 % | Ban 23.80 % | Tendencia ↓ 1 | Tier S+ | Rol DUO (ADC).
@@ -19120,46 +19167,49 @@ verified_patch: "7.3a"
 
 ---
 
+> [!WARNING]
+> **Auditoría batch4 (13/10/2026, `model/yunara_model.py`):** los titulares de v1.2 NO se reproducen con sus propios supuestos: el AD omitía el growth (268 vs 310 real), el "AS 2.83" es irrazastreable (2.647 con esos ítems; 2.84 con la build nueva) y los términos mágicos (pasiva 8 %, Q, W, spread) no se mitigaban por MR del objetivo (3v3 −42 %). Los RANKINGS internos sí se sostenían. Esta v2.0 re-deriva build y números con el motor dedicado riesgo-ajustado.
+
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (Ruta Estándar / AoE)
+### Tabla A — BUILD FINAL (óptima riesgo-ajustada batch4)
 
 | Slot | Ítem | Oro | Rol en la build |
-|------|------|-----|-----------------|
-| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, 5 % Lifesteal, Noxian Gait (+7 % MS al atacar campeón) |
-| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, Magnification (+10 % dmg a ≥550u) |
-| 3 | **Runaan's Hurricane** | 2 650 | 40 % AS, 25 % Crit, rayos que **critican** y aplican on-hit |
-| 4 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 200 % → **230 %** |
-| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
-| 6 | **Kraken Slayer** | 2 900 | 45 AD, 35 % AS, Bring It Down (missing HP) |
+|---|---|---|---|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS (rinde completo: B 3.39 → AS 2.84) + 5 % LS |
+| 2 | **Infinity Edge** | 3 400 | 230 % crit; la pasiva Vow (8 % AD mágico por crit) escala con crit |
+| 3 | **Runaan's Hurricane** | 2 650 | Rayos que critican y aplican on-hit; el spread de Q los multiplica en 3v3 |
+| 4 | **Lord Dominik's Regards** | 3 300 | 35 % pen (Ley 3) + Giant Slayer; único pen_pct de la build (Ley 3b) |
+| 5 | **Yun Tal Wildarrows** | 3 100 | Flurry +35 % AS (buff 7.3a): el AS que faltaba sin C44 |
+| 6 | **Blade of the Ruined King** | 3 100 | 6 % vida actual por auto: supervivencia-asesina (surv 5 325 vs 4 551 de Kraken) |
 
-> **Oro total: 17 350 g** · AD 268 · AS 2.83 (con Pow-Pow x3 equivalente) · Crit 100 % · Pen 35 % · Lifesteal 5 %
+> **Oro total: 17 750 g** · AD 310+ · AS 2.84 · Crit 100 % exacto (Ley 1) · Pen 35 % · **1v1 2 702 · 3v3 6 270 · vs120 1 549 · vsTanque 1 391 · heal 469** · score riesgo-ajustado 81.2 % (óptima en los 4 juegos de pesos: DPS puro, riesgo-ajustado, vs dive y —con C44— anti-tanque).
 
 ### Tabla A2 — BUILD FINAL (Variante Anti-Tanques: Cho'Gath / Dr. Mundo / Malphite)
 
 | Slot | Ítem | Oro | Rol en la build |
-|------|------|-----|-----------------|
-| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | 50 % AS, Lifesteal, MS condicional |
-| 2 | **Hexoptics C44** | 2 900 | 55 AD, 25 % Crit, Magnification |
-| 3 | **Yun Tal Wildarrows** | 3 100 | 50 AD, 35 % AS, Flurry (+35 % AS), Crit progresivo |
-| 4 | **Blade of the Ruined King** | 3 100 | 40 AD, 30 % AS, 12 % LS, **6 % HP actual on-hit** |
-| 5 | **Lord Dominik's Regards** | 3 300 | 35 AD, 25 % Crit, 35 % Pen, Giant Slayer +12 % |
-| 6 | **Infinity Edge** | 3 400 | 75 AD, 25 % Crit, Crit Dmg 230 % |
+|---|---|---|---|
+| 1 (botas) | **Berserker's → ⬆️ Gunmetal Greaves** (min 10:00, MISMO slot) | 2 200 | Ídem |
+| 2 | **Hexoptics C44** | 2 900 | Magnification: vuelve en la variante vs tanques (1 715 vs120 / 1 516 vsT) |
+| 3 | **Infinity Edge** | 3 400 | Ídem |
+| 4 | **Lord Dominik's Regards** | 3 300 | Giant Slayer +12 % vs ≥1 200 HP bonus |
+| 5 | **Yun Tal Wildarrows** | 3 100 | Flurry vs targets lentos de tanque |
+| 6 | **Blade of the Ruined King** | 3 100 | %-vida: el execute sostenido contra 4 500 HP |
 
-> **Oro total: 18 000 g** · AD 275 · AS 2.95 · Crit 100 % (Yun Tal a 125 stacks) · Pen 35 % · Lifesteal 17 %
+> **Oro total: 18 000 g** · 1v1 2 995 · 3v3 4 473 · vs120 1 715 · vsTanque 1 516 · heal 515 · óptima del peso ANTI-TANQUE (vsT .35) con 85.4 %.
 
 ### Tabla B — Ruta de compra cronológica (Estándar)
 
 | # | Compra | Oro acum. | Minuto típico |
-|---|--------|-----------|---------------|
-| 1 | Long Sword + Poción (Start) | 500 | 0:00 |
+|---|---|---|---|
+| 1 | Long Sword + Poción | 500 | 0:00 |
 | 2 | **Berserker's Greaves** (T2) | 1 700 | ~4:30 |
-| 3 | Noonquiver + Pickaxe → **Hexoptics C44** | 4 600 | ~7:30 |
-| 4 | Recurve Bow + Zeal → **Runaan's Hurricane** | 7 250 | ~10:30 |
-| 5 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 8 250 | ~11:30 (post 10:00) |
-| 6 | B. F. Sword + Pickaxe + Brawler's → **Infinity Edge** | 11 650 | ~14:30 |
-| 7 | Noonquiver + Last Whisper → **Lord Dominik's Regards** | 14 950 | ~17:30 |
-| 8 | Recurve Bow + Long Sword → **Kraken Slayer** | 17 350 | ~20:00 |
+| 3 | Pickaxe + Vampiric Scepter → **Blade of the Ruined King** | 4 800 | ~7:30 (checkpoint lvl 9: 683 vs 496 de C44) |
+| 4 | ⬆️ **Gunmetal Greaves** (mismo slot, +1 000 g) | 5 800 | 10:00 (regla T3) |
+| 5 | Pickaxe + Kircheis → **Infinity Edge** | 9 200 | ~12:30 |
+| 6 | Recurve + Cloak → **Runaan's Hurricane** | 11 850 | ~15:00 |
+| 7 | Recurve + Long Sword → **Yun Tal Wildarrows** | 14 950 | ~17:30 |
+| 8 | Last Whisper + Pickaxe → **Lord Dominik's Regards** | 18 250 | ~20:30 |
 
 ### Runas · Hechizos · Habilidades
 
@@ -19173,19 +19223,18 @@ verified_patch: "7.3a"
 | Hechizos | **Flash + Ghost** (o Heal si el support no lo trae) |
 | Skills | **Q → W → E** (R en 5/9/13). Maxear Q primero por el spread y AS. |
 
-### Resultado del modelo (Nivel 15, LT full, 100 % crit — datos post-7.3a)
+### Resultado del modelo (Nivel 15, LT+Alacrity full, ventana q_up/r_up 1.0 — motor batch4)
 
-| Escenario | Build Estándar | Variante Anti-Tanques |
-|-----------|----------------|-----------------------|
-| **1v1** (pre-mitigación) | **3 042** | **3 115** |
-| **3v3** (AoE teamfight) | **10 551** | **9 285** (−12 %) |
-| **vs 120 armadura** | **2 150** | **2 451** (+14 %) |
-| **vs Tanque** (220 arm, 4 500 HP) | **1 480** | **1 850** (+25 %) |
-| **Heal / Sustain** | 186 | 525 |
+| Escenario | Óptima v2.0 | A2 anti-tanques | Publicada v1.2 (re-auditada) | Comunidad wr-meta |
+|---|---|---|---|---|
+| **1v1** (pre-mitigación) | **2 702** | 2 995 | 2 613 | 2 643 |
+| **3v3** (spread + rayos) | **6 270** | 4 473 | 6 142 | 4 097 |
+| **vs 120 armadura** | **1 549** | 1 715 | 1 498 | 1 515 |
+| **vs Tanque** (220 arm, 4 500 HP) | **1 391** | **1 516** | 1 199 | 1 211 |
+| **Heal / sustain** | **469** | 515 | 155 | 157 |
+| **Supervivencia (EHP+escudos+heal)** | **5 325** | 5 449 | 4 551 | — |
 
-> **Titular:** La build estándar domina el AoE en teamfights (+13 % DPS 3v3 vs la variante anti-tanques), pero la **variante anti-tanques** es matemáticamente obligatoria contra composiciones de Baron Lane/Support con +4 000 HP (Cho'Gath, Mundo), superando a la estándar en un **+25 % de daño efectivo** gracias al sinergismo BotRK + LDR.
-
----
+> **Titular:** la óptima v2.0 gana en 1v1, 3v3 y supervivencia a la vez: BotRK+YunTal reemplazan a C44+Kraken porque el 6 % de vida actual y el Flurry rinden más por oro que la Magnification en una campeona cuyo spread ya es AoE. El único escenario donde C44 vuelve es vs doble tanque (A2).
 
 ## 1. CONTEXTO DEL CAMPEÓN EN ESTE PARCHE
 
@@ -19346,18 +19395,13 @@ C44 al minuto 7:30 (2 900 g) gracias a Noonquiver (1 300 g) que da AD + Crit sua
 
 ## 5. ANÁLISIS DEL PRIMER ÍTEM
 
-| Candidato | Oro | DPS lvl 9 (1v1) | DPS lvl 9 (3v3) | DPS lvl 12 (1v1) | Nota |
-|-----------|-----|-----------------|-----------------|------------------|------|
-| **Hexoptics C44** | 2 900 | 495 | 1 380 | 860 | Magnification +10 % permanente (rango 575) |
-| Kraken Slayer | 2 900 | 560 | 1 290 | 930 | Gana 1v1 temprano, pierde sinergia con spread de Q |
-| Yun Tal Wildarrows | 3 100 | 480 | 1 250 | 820 | Ramp lento; retrasa el pico de Crit |
-| Stormrazor | 3 000 | 520 | 1 320 | 880 | Alternativa anti-presión (Energized 120 + 45 % MS) |
-
-**Veredicto:** C44 primero. Kraken gana el duelo de autos planos (+13 %), pero Yunara **no es un ADC de autos planos**. El spread de Q durante la R es su identidad, y C44 multiplica tanto el auto principal como el spread gracias al AD plano y Magnification. A nivel 12 con IE, la ventaja de C44 se amplifica (+17 % AoE con spread + Q).
-
-**Nota crítica:** El buff 7.3a a Yun Tal Wildarrows (AS 25→35, Flurry 35 %) hace que esta sea una opción viable como **1.er ítem** si el jugador prioriza el ramp de crítico sobre el pico temprano. En el modelo, C44 sigue ganando por la Magnification y la sinergia con el spread.
-
----
+| Candidato (lvl 9, 1v1 / 3v3) | Veredicto | Números del motor |
+|---|---|---|
+| **Blade of the Ruined King** | ✅ **Core 1** | 683 / 916 — el %-vida no depende de su AD temprano ni del crit |
+| **Yun Tal Wildarrows** | ✅ Core 2-3 | 539 / 821 (Flurry 50 % uptime) — buff 7.3a confirmado como core |
+| **Kraken Slayer** | ✅ Core alternativo | 522 / 814 — pierde el slot 6 contra BotRK en supervivencia (4 551 vs 5 325) |
+| **Hexoptics C44** | ⚠️ Solo variante anti-tanque | 496 / 741 — el veredicto "C44 1.º" de v1.2 queda REVERTIDO por el checkpoint medido |
+| **Stormrazor / Fiendhunter** | ❌ | 519/774 y 393/599 — energized no sinergiza con el spread |
 
 ## 6. BUILD FINAL RANURA POR RANURA
 
@@ -19528,6 +19572,16 @@ Yunara: WR 51.64 %, pick 16.83 %, ban 23.80 %, Tier S+. El nerf de 7.3 (pasiva 1
 - Spread de Q post-7.3a: 0.30 × 268 × 2.30 × 1.10 = **203.6** por objetivo adicional. ✓
 
 ---
+
+
+### Auditoría batch4 (discrepancias Y1–Y4, protocolo §D)
+
+| # | Tema | Resolución |
+|---|---|---|
+| Y1 | AD publicado 268 omitía growth 3.0×14 | Corregido: AD base de la óptima 310 + ítems |
+| Y2 | "AS 2.83 con Pow-Pow x3" irrazastreable (Yunara no tiene Pow-Pow; B real 3.072 → AS 2.647 con ítems v1.2) | Re-derivado: AS 2.84 con YunTal+BotRK |
+| Y3 | Términos mágicos sin mitigar por MR | Mitigados por proxy (40/80/150): 3v3 −42 % vs titular v1.2 |
+| Y4 | Spread crítico permanente + Magnification sobre spread | Modelado solo durante R (Transcendent) y con magn_up declarada (1.0 ventana / 0.6 dive) |
 
 ## APÉNDICE A — POOL DE ÍTEMS DEL ROL: veredicto para Yunara
 
@@ -20338,6 +20392,111 @@ class TestEstadoVault(unittest.TestCase):
                 fm = U.parse_frontmatter(fh.read())
             self.assertEqual(fm.get("custom"), esp_custom, arch)
             self.assertEqual(fm.get("variant"), esp_variant, arch)
+```
+
+```python
+# -*- coding: utf-8 -*-
+"""WR-LAB · tests de los motores batch4 de campeones (yunara/xayah/chogath_jungla).
+
+Compatibilidad Wild Rift por construcción (todo key resuelve a un ítem de
+items_7.3.csv), reproducción de cifras publicadas (Xayah ±2 %), leyes de
+builds (crit exacto / pen mínima / Ley 3b) y las dos derivaciones que el
+motor jungla debe sostener: clear/épicos mejores que la óptima de top, y
+score jungla mayor para la óptima de jungla.
+"""
+import csv
+import os
+import sys
+import unittest
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
+import dps_model as M  # noqa: F401  (resolve oficial; importar antes no contamina: estos motores son autocontenidos)
+import yunara_model as Y
+import xayah_model as X
+import chogath_model as CG
+import chogath_jungla as CJ
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+YUN_OPT = ["gunmetal", "ie", "runaan", "ldr", "yuntal", "botrk"]
+XAY_OPT = ["gunmetal", "ie", "runaan", "ldr", "yuntal", "botrk"]
+JG_OPT = ("Chainlaced", ["Heartsteel", "Sunfire", "Liandry", "Riftmaker", "UnendingDespair"])
+TOP_OPT = ("ArmoredAdvance", ["Heartsteel", "ForceOfNature", "Gargoyle", "UnendingDespair", "Twinguard"])
+
+
+class TestCompatWR(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        with open(os.path.join(ROOT, "data", "estructurada", "items_7.3.csv"), newline="", encoding="utf-8") as fh:
+            cls.oficiales = {r["item"].lower() for r in csv.DictReader(fh)}
+
+    def _checa(self, mod):
+        for k in list(mod.ITEMS) + list(mod.BOOTS):
+            nombre = M.resolve(k)
+            cand = {k.lower(), nombre.key.lower()}
+            cand |= {a.lower() for a, v in M.ALIAS.items() if v == nombre.key}
+            self.assertTrue(cand & self.oficiales, f"{k} no mapea a ningún ítem de WR 7.3")
+
+    def test_yunara_pool_wr(self):
+        self._checa(Y)
+
+    def test_xayah_pool_wr(self):
+        self._checa(X)
+
+
+class TestXayah(unittest.TestCase):
+    def test_reproduce_publicada(self):
+        t = X.totals(XAY_OPT, scenario="1v1")["total"]
+        self.assertAlmostEqual(t, 3146, delta=63)   # ±2 %
+
+    def test_leyes_en_optima(self):
+        crit = sum(X.ITEMS[k]["crit"] for k in XAY_OPT)
+        pen = sum(X.ITEMS[k]["pen"] for k in XAY_OPT)
+        self.assertEqual(crit, 100)                # Ley 1 exacta
+        self.assertGreaterEqual(pen, 30)           # Ley 3
+        self.assertLessEqual(sum(1 for k in XAY_OPT if X.ITEMS[k].get("pen_pct_group")), 1)  # 3b
+
+
+class TestYunara(unittest.TestCase):
+    def test_optima_leyes(self):
+        crit = sum(Y.ITEMS[k]["crit"] for k in YUN_OPT)
+        self.assertEqual(crit, 100)
+        self.assertGreaterEqual(sum(Y.ITEMS[k]["pen"] for k in YUN_OPT), 30)
+
+    def test_botrk_gana_supervivencia_a_kraken(self):
+        b = Y.metrics(["gunmetal", "ie", "runaan", "ldr", "yuntal", "botrk"])
+        k = Y.metrics(["gunmetal", "ie", "runaan", "ldr", "yuntal", "kraken"])
+        self.assertGreater(b["surv"], k["surv"])
+        self.assertGreater(b["heal"], k["heal"])
+
+    def test_c44_primero_revertido(self):
+        """Checkpoint lvl 9: BotRK 1.º mide más que C44 1.º (veredicto v1.2 revertido)."""
+        botrk = Y.metrics(["berserker", "botrk"], level=9)["1v1"]
+        c44 = Y.metrics(["berserker", "c44"], level=9)["1v1"]
+        self.assertGreater(botrk, c44)
+
+
+class TestChogathJungla(unittest.TestCase):
+    def test_jungla_optima_clear_y_epicos_mejor_que_top(self):
+        j = CJ.jg_metrics(*JG_OPT)
+        t = CJ.jg_metrics(*TOP_OPT)
+        self.assertLess(j["t_clear"], t["t_clear"])      # segundos: jungla óptima cleara antes
+        self.assertLess(j["ttk_dragon"], t["ttk_dragon"])  # y toma dragón antes
+        self.assertGreater(j["dps_fighter"], t["dps_fighter"])
+
+    def test_score_jungla_prefiere_la_derivation_jungla(self):
+        j = CJ.jg_metrics(*JG_OPT)
+        t = CJ.jg_metrics(*TOP_OPT)
+        mx = {k: max(j[k], t[k]) for k in CJ.PESOS_JG}
+        self.assertGreater(CG.composite(j, mx, CJ.PESOS_JG), CG.composite(t, mx, CJ.PESOS_JG))
+
+    def test_clear_con_immolate_mejor_que_sin(self):
+        con = CJ.jg_metrics("Chainlaced", ["Sunfire", "Liandry", "Riftmaker", "UnendingDespair", "Heartsteel"])
+        sin = CJ.jg_metrics("Chainlaced", ["ForceOfNature", "Liandry", "Riftmaker", "UnendingDespair", "Heartsteel"])
+        self.assertLess(con["t_clear"], sin["t_clear"])
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
 ```
 
 ```python
@@ -25201,4 +25360,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 12/10/2026 · completo · sha256(cuerpo)=cb78cf3f8d874ba8 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 14/10/2026 · completo · sha256(cuerpo)=47034bdc2bab3a74 · NO editar a mano: editar las fuentes y regenerar -->
