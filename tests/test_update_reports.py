@@ -92,12 +92,13 @@ class TestRegistroVault(unittest.TestCase):
             self.assertIsNotNone(e["metricas"], f)
 
     def test_yuumi_poke_hybrid_con_hook_tras_expansion(self):
-        """v1.8: Y_ITEMS expandido desde items_7.3.csv → la build poke-híbrida ya es cuantificable."""
+        """v2.0: Yuumi agresiva re-derivada (batch5) — Spellslinger/Malignance ya resolvibles."""
         e = self.entry("Yuumi.md")
         self.assertEqual(e["hook"], "hook_yuumi")
         self.assertEqual(e["sin_resolver"], [])
-        self.assertEqual(round(e["metricas"]["AP"]), 230)      # AP de la build (fuente: CSV oficial)
-        self.assertLess(e["metricas"]["e_shield"], 339)        # sacrifica escudo vs Y1 clásica (~305)
+        self.assertEqual(round(e["metricas"]["AP"]), 355)       # AP de la óptima v2.0 (fuente: CSV oficial)
+        self.assertGreaterEqual(e["metricas"]["e_shield"], 350)  # la protección propia NO colapsa (v2.0)
+        self.assertLess(e["metricas"]["adc_dps_add"], 150)       # sacrificio declarado vs Y1 (248): [!DANGER]
 
     def test_reportes_sin_build_extraible(self):
         for f in ("Heimerdinger.md", "Rammus.md", "Seraphine.md"):

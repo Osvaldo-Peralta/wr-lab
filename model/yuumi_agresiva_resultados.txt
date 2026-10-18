@@ -1,0 +1,74 @@
+====================================================================================================================
+YUUMI AGRESIVA (batch5) — parche 7.3+7.3a+7.3b · nivel 15 · min 20 · runas base: Electro+Cheap(5s)+Transc+Coup | Gather
+====================================================================================================================
+
+[1] BASELINES (verificación: Y1 debe dar e_shield≈338.8 · r_heal≈650.7 · shld/min≈3 953):
+  Y1 ENCHANTER (lab)                 oro  11650 · AP  207 · AH  85 | Q-hit  275 · Q-DPS  102 · R  1409 · DPS  162 | E-shield 353.9 · R-heal 671.9 · shld/min  4365 · ADC+  248
+  POKE-HÍBRIDA PUBLICADA (corregida) oro  12300 · AP  250 · AH 105 | Q-hit  339 · Q-DPS  152 · R  1748 · DPS  240 | E-shield 301.1 · R-heal 741.8 · shld/min  5431 · ADC+   90
+
+====================================================================================================================
+OPT AGRESIVA (daño .70 / aliado .21 / util .03+) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+  #1  84.9 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge | Q  204/s · R  2833 · DPS  332 · vsT  184 · E  361 · Rc  647 · ADC+  106
+  #2  84.1 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + InfinityOrb | Q  207/s · R  2582 · DPS  314 · vsT  177 · E  346 · Rc  627 · ADC+  102
+  #3  83.7 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Blackfire | Q  200/s · R  2530 · DPS  341 · vsT  200 · E  370 · Rc  660 · ADC+  108
+  #4  82.9 % |  13000 g | Scythe + Spellslinger + Staff + Mandate + Horizon + InfinityOrb | Q  202/s · R  2665 · DPS  308 · vsT  174 · E  390 · Rc  698 · ADC+  107
+  #5  82.1 % |  12900 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + Cryptbloom | Q  203/s · R  2302 · DPS  308 · vsT  196 · E  330 · Rc  603 · ADC+   98
+  #6  81.7 % |  13000 g | Scythe + Spellslinger + Censer + Mandate + Horizon + InfinityOrb | Q  188/s · R  2604 · DPS  287 · vsT  162 · E  376 · Rc  678 · ADC+  267
+  #7  81.7 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Malignance + InfinityOrb | Q  187/s · R  2714 · DPS  302 · vsT  168 · E  351 · Rc  633 · ADC+  103
+  #8  81.1 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Luden | Q  189/s · R  2511 · DPS  328 · vsT  192 · E  366 · Rc  654 · ADC+  107
+
+====================================================================================================================
+OPT GLASS (techo de daño puro, aliado 0) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+  #1  97.2 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge | Q  204/s · R  2833 · DPS  332 · vsT  184 · E  361 · Rc  647 · ADC+  106
+  #2  94.9 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Blackfire | Q  200/s · R  2530 · DPS  341 · vsT  200 · E  370 · Rc  660 · ADC+  108
+  #3  93.4 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + InfinityOrb | Q  207/s · R  2582 · DPS  314 · vsT  177 · E  346 · Rc  627 · ADC+  102
+  #4  92.9 % |  13000 g | Scythe + Spellslinger + Staff + Mandate + Horizon + InfinityOrb | Q  202/s · R  2665 · DPS  308 · vsT  174 · E  390 · Rc  698 · ADC+  107
+
+====================================================================================================================
+OPT HÍBRIDA (daño .40 / aliado .51) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+  #1  78.4 % |  13000 g | Scythe + Spellslinger + Censer + Echoes + Mandate + Rabadon | Q  148/s · R  2169 · DPS  231 · vsT  138 · E  418 · Rc  738 · ADC+  277
+  #2  77.7 % |  13000 g | Scythe + Spellslinger + Censer + Staff + Mandate + Rabadon | Q  145/s · R  2253 · DPS  227 · vsT  136 · E  472 · Rc  824 · ADC+  284
+  #3  77.6 % |  13000 g | Scythe + Spellslinger + Censer + Mandate + Horizon + InfinityOrb | Q  188/s · R  2604 · DPS  287 · vsT  162 · E  376 · Rc  678 · ADC+  267
+  #4  76.7 % |  13000 g | Scythe + Spellslinger + Censer + Mandate + Malignance + InfinityOrb | Q  169/s · R  2737 · DPS  276 · vsT  154 · E  381 · Rc  686 · ADC+  268
+
+[3] COMPARATIVA (min 20, MR 50 squishy / MR 150 tanque, Electro+Cheap 5 s):
+  Y1 enchanter (baseline lab)    Censer + Echoes + Staff + Redemption                
+      Q-hit  275 · Q-DPS  102 · R-burst  1409 · DPS-sost  162 · vsTanque  101
+      E-shield   354 (+0 %) · R-heal   672 (+0 %) · ADC+  248 (+0 %) · Helia/E  347 · team-amp   0 %
+  Poke-híbrida publicada         Echoes + Mandate + Stormsurge + Harmonic            
+      Q-hit  339 · Q-DPS  152 · R-burst  1748 · DPS-sost  240 · vsTanque  142
+      E-shield   301 (-15 %) · R-heal   742 (+10 %) · ADC+   90 (-64 %) · Helia/E  279 · team-amp   7 %
+  ⭐ ÓPTIMA AGRESIVA              Mandate + Horizon + Malignance + Stormsurge         
+      Q-hit  509 · Q-DPS  204 · R-burst  2833 · DPS-sost  332 · vsTanque  184
+      E-shield   361 (+2 %) · R-heal   647 (-4 %) · ADC+  106 (-57 %) · Helia/E    0 · team-amp   7 %
+  Glass puro (techo)             Mandate + Horizon + Malignance + Stormsurge         
+      Q-hit  509 · Q-DPS  204 · R-burst  2833 · DPS-sost  332 · vsTanque  184
+      E-shield   361 (+2 %) · R-heal   647 (-4 %) · ADC+  106 (-57 %) · Helia/E    0 · team-amp   7 %
+  Híbrida balanceada             Censer + Echoes + Mandate + Rabadon                 
+      Q-hit  412 · Q-DPS  148 · R-burst  2169 · DPS-sost  231 · vsTanque  138
+      E-shield   418 (+18 %) · R-heal   738 (+10 %) · ADC+  277 (+12 %) · Helia/E  303 · team-amp   7 %
+
+[4] SENSIBILIDADES (sobre la óptima agresiva):
+  R interp A (conservadora)              DPS  300 (-9.7 %) · Q  204 · R  1898
+  Q mejorada uptime 80 %                 DPS  316 (-4.7 %) · Q  188 · R  2833
+  Cheap Shot CD 7 s (pre-7.3b)           DPS  329 (-0.8 %) · Q  204 · R  2833
+  keystone Dark Harvest                  DPS  324 (-2.3 %) · Q  204 · R  2833
+  keystone Empowerment                   DPS  339 (+2.2 %) · Q  215 · R  3042
+  keystone First Strike                  DPS  322 (-2.9 %) · Q  205 · R  2833
+  keystone Phase Rush                    DPS  343 (+3.2 %) · Q  219 · R  2833
+  secundaria Revitalize                  DPS  327 (-1.5 %) · Q  201 · R  2785
+  min 14 (mid-game)                      DPS  329 (-0.8 %) · Q  202 · R  2807
+
+====================================================================================================================
+OPT (presupuesto 12000) — 2259 hojas (Scythe fija + botas + 4 · ≤12000 g)
+  #1  93.4 % |  12000 g | Scythe + Spellslinger + Censer + Echoes + Staff + Mandate  | Q  139/s · R  1899 · DPS  217 · vsT  130 · E  361 · Rc  667 · ADC+  257
+
+====================================================================================================================
+OPT (presupuesto 14000) — 40524 hojas (Scythe fija + botas + 4 · ≤14000 g)
+  #1  83.7 % |  13600 g | Scythe + Spellslinger + Mandate + Horizon + InfinityOrb + Cryptbloom | Q  235/s · R  2948 · DPS  356 · vsT  215 · E  363 · Rc  651 · ADC+  107
+
+[5] FICHA DE LA ÓPTIMA AGRESIVA:
+  build: Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge · oro 13000
+  AP 375 · AH 80 (cdr 44 %) · Q-CD 2.50 s · R-CD 29.5 s · pen 33+8 %
+  Q-hit 509 (MR50) · R-burst 2833 · DPS sost 332 · vs tanque 184
+  E-shield 361 · R-heal 647 · shld/min 4330 · ADC+ 106 · Helia 0/E · pasiva 33 hps

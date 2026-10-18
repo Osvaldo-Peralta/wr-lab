@@ -1,48 +1,76 @@
-WR-LAB · v1.19 — HOTFIX 7.3b INTEGRADO + WIN RATES + VERIFICACIÓN EN METADATA  (2026-10-15)
-════════════════════════════════════════════════════════════════════════════
+WR-LAB v1.20 — RUNAS LEGALES (L1-L4) + YUUMI AGRESIVA v2.0
+============================================================
+Fecha: 18/10/2026 · Base: commit b989556 ("Hotfix 7.3b integrado, Yunara recalculado")
 
-TUS 5 PEDIDOS, EN ORDEN
-  1. VERIFICACIÓN CONTRA 7.3b: triage sobre 21 reportes → 0 REGENERAR ·
-     5 REVISAR (Senna, Yunara, Volibear ×2, Nocturne) · 16 SIN_IMPACTO.
-     Los dossiers de regeneración van APARTE (carpeta regen_7.3b/ de este zip
-     y de entregables/): reemplazos literales + números re-derivados con los
-     motores 7.3b, para que los apliques a mano sin que el lab toque el cuerpo.
-  2. WIN RATES: nueva herramienta model/refresh_winrates.py — refresca SOLO el
-     callout meta (Win Rate/Pick/Ban/Tendencia/fecha) desde el CSV del vigía.
-     Corrida aplicada: 19 reportes actualizados, 2 ya al día. Idempotente y
-     dry-run por defecto; queda para el flujo semanal.
-  3. ÍTEMS/RUNAS/HECHIZOS 7.3b: verificados contra las notas oficiales.
-     · items_7.3.csv: Youmuu 2900 · Locket 2500+300HP · Thornmail 2850 ·
-       Stattikk 2900 (+7 stacks/auto) · Yun Tal 3000 · (Warmog: umbral 1250,
-       documentado en cambios_7.3b.md; no afecta stats del CSV).
-     · runas_7.3.md: Electrocute 60-210 · Cheap Shot 5 s · Grasp 3.0 %/+8 ·
-       Aery 20-100.
-     · Hechizos de invocador y Smite: SIN cambios en 7.3b (verificado).
-     · Los pools de TODOS los motores usan estos valores (constants 7.3b en
-       dps_model, senna_model, yunara_model, xayah_model, chogath_model,
-       chogath_jungla — incl. Grasp 3.0/+8, energized /6 y raptors +HP J9).
-  4. BLOQUES VERIF FUERA DEL CUERPO: removidos de los 3 reportes que los
-     tenían (Yuumi, Yunara, Volibear Pesadilla). La verificación ahora vive
-     SOLO en frontmatter (verification + verified_patch) → badges del sitio.
-     annotate --apply ya no inserta bloques (set_verificacion_fm); lint avisa
-     si verified_patch != hotfix vigente; bundles validan cobertura de
-     frontmatter; contrato §3.1b documenta el deprecado; el web sigue
-     parseando bloques legacy (compatibilidad hacia atrás, no hacia adelante).
-  5. INTEGRACIÓN 7.3b: data/estructurada/cambios_7.3b.md (champions/ítems/
-     runas/jungla, formato hotfix del lab) → ultimo_parche_hotfix() ya dice
-     7.3b en todo el lab; vigía ahora vigila también la página 7-3b.
+QUÉ CONTIENE
+------------
+1) model/runas_wr.py (NUEVO)
+   Validador de páginas de runas Wild Rift. Reglas (confirmadas por vos y
+   verificadas contra sets equipados en cliente):
+     L1 · 1 keystone + 3 runas + 1 secundaria (5 slots exactos)
+     L2 · las 3 runas ocupan filas 1, 2 y 3 (una por fila)
+     L3 · dentro de un árbol, como máximo 1 runa por fila (en los 5 slots)
+     L4 · la secundaria es de un árbol NO usado por keystone ni runas
+   Base de datos árbol/fila de todas las runas de WR 7.3b incluida.
+   Uso:  python3 -c "import sys; sys.path.insert(0,'model'); import runas_wr as R;
+          print(R.es_legal_pagina(['Electrocute','Cheap Shot','Transcendence',
+          'Coup de Grace','Gathering Storm']))"
 
-ADEMÁS
-  · annotate --patch 7.3b --apply corrido: los 21 reportes sellados en
-    frontmatter (SIN_IMPACTO ×16, REVISAR ×5) con verified_patch 7.3b.
-  · Tests actualizados a 7.3b (goldens de precio Yun Tal, energized /6,
-    verified_patch 7.3b, regla de frontmatter) → 175 tests OK.
-  · bundles + registry regenerados; lint 0/0; prepush 🟢.
+2) model/yuumi_agresiva_model.py (NUEVO, el motor que adjuntaste)
+   + model/yuumi_agresiva_resultados.txt (salida capturada)
+   Corre con:  python3 model/yuumi_agresiva_model.py   (~10 s, 28 822 hojas)
 
-PASOS
-  1. unzip sobre tu clon · 2. python3 wrlab.py prepush → 🟢
-  3. Aplicá los 5 dossiers de regen_7.3b/ a mano (README_REGEN_7.3b.md explica)
-     y por reporte: version +0.1 + annotate --patch 7.3b --apply + prepush.
-  4. commit + push · 5. RECIÉN AHORA sync lab → web (tenías el sync en pausa:
-     ahora publicaría win rates al día, metadata de verificación 7.3b y los
-     reportes sin bloques VERIF — el sitio los renderiza como badges).
+3) reportes/Yuumi.md → v2.0 (REESCRITO)
+   Nueva óptima agresiva: Scythe (quest) + Spellslinger's Shoes + Imperial
+   Mandate + Horizon Focus + Malignance + Stormsurge · 13 000 g.
+   Q-hit 509 (+50 % vs v1.2) · R-burst 2 833 (+62 %) · DPS 332.
+   Runas LEGALES verificadas en cliente: Electrocute + Cheap Shot +
+   Transcendence + Coup de Grace | Gathering Storm.
+   [!DANGER] declara el sacrificio: ADC+ 106 (−57 % vs Y1 enchanter).
+   verification: pending (los números de daño esperan tu testeo en juego).
+
+4) tests/ (NUEVOS y actualizados)
+   test_runas_wr.py (9 tests: tus 5 sets reales + las reglas L1-L4)
+   test_yuumi_agresiva.py (4 tests: runas legales, presupuesto, sacrificio
+   acotado, cifras de la tabla publicada)
+   test_update_reports.py (test del registro actualizado a métricas v2.0)
+
+5) model/analysis_batch2.py + model/update_reports.py
+   Y_ITEMS += Spellslinger, Malignance · SINONIMOS += las dos claves
+   (para que el registro resuelva la build v2.0: hook_yuumi, AP 355).
+
+6) Derivados regenerados: reportes_registry.json, WR-LAB_completo.md,
+   WR-LAB_lite.md.
+
+CÓMO APLICAR
+------------
+1. Descomprimí este zip DENTRO de tu clon de wr-lab (sobrescribir).
+2. Corré:   python3 wrlab.py prepush
+   Debe terminar en 🟢 TODO VERDE (188 tests).
+3. Commit sugerido:
+   git add -A
+   git commit -m "Feat: runas WR legales (L1-L4) + Yuumi agresiva v2.0 (batch5)"
+   git push
+4. Después publicá la web con la Action "Sync lab → web" como siempre.
+
+DEUDA DE RUNAS DEL RESTO DE REPORTES (NO se toca en esta iteración)
+-------------------------------------------------------------------
+Barrido diagnóstico con runas_wr sobre las 21 páginas principales:
+  LEGALES (10): Caitlyn, Diana Jungla, Diana Mid, Heimerdinger, Jinx,
+                Kalista, Nocturne, Xayah, Yunara, Yuumi (v2.0)
+  CANDIDATOS A DEUDA (11): Cho'Gath Jungla, Cho'Gath Barón, Mordekaiser,
+                Norra, Ornn, Rammus, Senna, Seraphine, Sivir, Volibear,
+                Volibear Pesadilla.
+  Patrones: sets tanque de 6 slots (Resolve×N), secundarias del mismo árbol
+  del keystone, filas duplicadas. El barrido parsea la primera tabla de
+  runas de cada reporte; algunos pueden ser falsos positivos por formato
+  (tablas de variantes) — confirmar reporte por reporte en la iteración
+  dedicada. Reproducible con el script de la conversación; si querés lo
+  agrego como comando `wrlab.py runas-check` en la próxima iteración.
+
+NOTAS
+-----
+- El motor batch5 verifica su baseline Y1 contra la fixture histórica
+  (338.8/650.7/3 953) y da 353.9/671.9/4 365 con las constantes 7.3b
+  (Aery/escudos recalibrados): desvío declarado en el reporte, no es error.
+- Los reportes del sweep NO fueron modificados; solo Yuumi.md.

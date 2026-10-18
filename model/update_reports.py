@@ -132,6 +132,8 @@ SINONIMOS = {
     "morellonomicon":            {"aliado": "Morello", "rotacion": "Morello"},
     "rylai's crystal scepter":   {"aliado": "Rylai", "rotacion": "Rylai"},
     "horizon focus":             {"aliado": "HorizonFocus", "rotacion": "HorizonFocus"},
+    "spellslinger's shoes":      {"aliado": "Spellslinger", "rotacion": "Spellslinger"},
+    "malignance":                {"aliado": "Malignance", "rotacion": "Malignance"},
     "liandry's torment":         {"aliado": "Liandry", "rotacion": "Liandry"},
 }
 

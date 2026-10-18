@@ -2865,6 +2865,8 @@ Y_ITEMS = {
  'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
  'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
  'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
+ 'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=0.08),   # botas de pen mágica (Ley 1 adaptada, v2.0 Yuumi)
+ 'Malignance':   dict(g=2700, ap=90, ah=15, mana=500),        # Scorn: −MR sostenido (no entra en e_shield/r_heal)
  'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
@@ -5031,4 +5033,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 17/10/2026 · lite · sha256(cuerpo)=34ebf1a1adf7b927 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 17/10/2026 · lite · sha256(cuerpo)=7f33f9aeb694cf81 · NO editar a mano: editar las fuentes y regenerar -->
