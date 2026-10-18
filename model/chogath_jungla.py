@@ -85,7 +85,7 @@ W_BASE = {0:0,1:80,2:130,3:180,4:230}
 def e_rank_at(level): return {1:1,2:1,3:2,4:3,5:3,6:4}.get(level, 4)
 
 def clear_metrics(boot_key, item_keys, level=12, minute=12.0, S=6, r_rank=2, e_rank=None,
-                  e_pct_mode='full', pool_hp=9500.0, kills=10):
+                  e_pct_mode='full', pool_hp=9800.0, kills=10):  # 7.3b: raptors +HP (J9)
     """Segundos por full-clear (J1) y net-HP perdido."""
     st = _stats(boot_key, item_keys, level, minute)
     e_rank = e_rank or e_rank_at(level)

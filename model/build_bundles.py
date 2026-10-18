@@ -29,7 +29,7 @@ import argparse, csv, datetime, hashlib, io, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 E = os.path.join(ROOT, "data", "estructurada")
-PATCH_LABEL = "7.3+7.3a"
+PATCH_LABEL = "7.3+7.3a+7.3b"
 
 
 def leer(*ruta):
@@ -266,22 +266,15 @@ def validar(texto, kind):
             cuerpo = leer("reportes", f)
             if cuerpo[:2000] not in texto or cuerpo[-500:].rstrip() not in texto:
                 problemas.append(f"reporte ausente o truncado: {f}")
-        # Regla v1.15.1: solo los reportes que NO declaran cubrir el hotfix actual
-        # necesitan bloque WRLAB-VERIF (los AL_DIA por frontmatter no lo llevan).
-        # Antes se exigía 1 bloque por reporte → rompía al publicar guías nuevas
-        # verificadas de origen (incidente CI 08/10 con Xayah/Nocturne/Ornn).
-        import update_reports as _U
-        hotfix = _U.ultimo_parche_hotfix()[0]
-        exigen_bloque = 0
+        # v1.19: la verificación vive en el frontmatter (bloques WRLAB-VERIF
+        # retirados del cuerpo por decisión del autor 14/10): exigimos que todo
+        # reporte publique su campo verification:.
         for f in reportes:
             txt_rep = leer("reportes", f)
-            fm = _U.parse_frontmatter(txt_rep)
-            pd = _U.parche_declarado(fm, txt_rep)
-            if not (pd and _U.patch_key(pd) >= _U.patch_key(hotfix)):
-                exigen_bloque += 1
-        n_verif = len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", texto)) // 2
-        if n_verif < exigen_bloque:
-            problemas.append(f"solo {n_verif} bloques WRLAB-VERIF para {exigen_bloque} reportes que lo exigen")
+            mfm = re.match(r"^---\n(.*?)\n---\n", txt_rep, re.S)
+            if not mfm or "verification:" not in mfm.group(1):
+                problemas.append(f"{f}: frontmatter sin campo verification:")
+        n_verif = 0
         for ficha in sorted(os.listdir(os.path.join(E, "campeones"))):
             if ficha.endswith(".md"):
                 primera = leer("data", "estructurada", "campeones", ficha).splitlines()[0]

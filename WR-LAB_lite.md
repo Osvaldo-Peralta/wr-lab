@@ -22,7 +22,7 @@
 > números con espacio de miles (`2 900`, `17 350 g`) y `%` con espacio (`25 %`) · veredictos ✅/⚠️/❌ siempre con número.
 > Bloque de verificación de hotfix (§A.8): gestionado por tooling, no editar a mano.
 
-> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
+> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a+7.3b — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
 > Los cambios de 7.3a (nerfs a Hwei/Malphite/Caitlyn/Senna/Yuumi/Rammus/Syndra; buffs a Samira/Tristana/
 > Draven/Viego; Yun Tal AS 35 %; Diadem/Circlet nerf; Death's Dance 3 300; Smite burn −; Nexus 4 000;
 > placas −resist) están en §3b y YA aplicados a specs, motor y apéndices de este bundle.
@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a · 14/10/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a+7.3b · 17/10/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -787,6 +787,62 @@ y menor resistencia contra split-push/siege continuo. Ajustes a Augments y campe
 | Reportes externos (Yunara/Cho'Gath/Shyvana hechos en otro chat) | Yunara: Yun Tal buff + placas (revisar 1.er ítem) · Cho'Gath: smite nerf jungla · Shyvana: smite nerf | Marcar para revisión en su próxima regeneración |
 | FRAMEWORK test de Caitlyn | El ejemplo oficial (1.48125) usaba growth 0.04 (pre-7.3a); con 0.025 el resultado esperado a lvl15 con Alacrity+Berserker's es **1.35** | Test actualizado con ambos valores |
 
+## 3c. HOTFIX 7.3b — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
+
+# HOTFIX 7.3b — Cambios completos (despliegue: 15-oct-2026)
+
+> **Fuente:** notas oficiales EN (wildrift.leagueoflegends.com/…/wild-rift-patch-notes-7-3b/,
+> publicadas el 14/10/2026, obtenidas directamente por el vigía y esta integración).
+> **Estado en el lab:** datos aplicados en items_7.3.csv, runas_7.3.md, specs y motores (v1.19).
+> **Sin cambios de summoner spells ni de Smite** (verificación tarea 3 del autor 14/10).
+
+## RESUMEN DE INTENCIÓN
+Ayuda a campeones que no encontraban pie en el meta nuevo, recorte a los que
+sobrerrendían (Hwei, Senna, Yunara, Nocturne), herramientas de snowball para
+asesinos (ítems y runas), y ajuste de jungla (raptors más duros).
+
+## CAMPEONES
+
+| Campeón | Tipo | Cambio |
+|---|---|---|
+| **Volibear** | BUFF | Q Frenzied Maul: ratio AD 100→**110 %**; empower AD 160→**176 %**; empower heal por vida faltante 5/6/7/8 → **5/8/11/14 %** |
+| **Jhin** | BUFF | Pasiva Whisper: crit estándar 80→**85 %**; %vida faltante 11-25 % (cap lvl 15) → 11.5-25 % (**cap lvl 10**) |
+| **Tryndamere** | BUFF | Pasiva: crit por fury 0.3-0.5 % (por nivel) → **0.5 %** plano; E: 80/120/160/200 +100 % bAD → **80/130/180/230 +110 % bAD** |
+| **Yasuo** | BUFF | Pasiva: crit estándar 90→**95 %**; escudo 77-529 → **77-630** por nivel |
+| **Hwei** | NERF | Pasiva: 40-285 +30 % AP → **30-280 +25 % AP**; W escudo inicial 60/80/100/120 +35 % AP → **50/70/90/110 +30 % AP**; escudo máx 108/128/148/168 +71 % AP → **98/118/138/158 +60 % AP**; W daño bonus 30/40/50/60 → **20/30/40/50**; Q Crushing Maw: rango 7.5→**7**, daño 70/120/170/220 +70 % AP → **60/110/160/210 +60 % AP** |
+| **Nocturne** | NERF | HP por nivel 134→**128**; Q Duskbringer: AD 20/30/40/50 → **10/25/40/55**, base 70/125/180/235 → **60/115/170/225**; R CD 110/90/70 → **120/100/80 s** |
+| **Yunara** | NERF | Q Cultivation: daño pasivo y activo 10/15/20/25 → **5/10/15/20**; R CD 70/60/50 → **70/65/60 s** |
+| **Senna** | NERF | Pasiva: crit estándar 90→**80 %**; AD por stack de Niebla 1.25→**0.9**; Q base 50/80/110/140 → **30/60/90/120** |
+
+## ÍTEMS (aplicados a items_7.3.csv)
+
+| Ítem | Cambio |
+|---|---|
+| Youmuu's Ghostblade | precio 3 000 → **2 900** |
+| Locket of the Iron Solari | precio 2 600 → **2 500**; HP 200 → **300** |
+| Thornmail | precio 2 700 → **2 850** |
+| Warmog's Armor | umbral Warmog's Heart 900 → **1 250** HP bonus |
+| Statikk Shiv | precio 3 000 → **2 900**; stacks energized por auto 5 → **7** |
+| Yun Tal Wildarrows | precio 3 100 → **3 000** |
+
+## RUNAS (aplicadas a runas_7.3.md)
+
+| Runa | Cambio |
+|---|---|
+| Electrocute | daño 40-210 → **60-210** (+10 % bAD +5 % AP igual) |
+| Cheap Shot | CD 7 → **5 s** |
+| Grasp of the Undying | daño 3.3 % → **3.0 %** HP máx; growth +10 → **+8** HP por proc |
+| Aery | escudo 25-120 → **20-100** (+10 % bAD +5 % AP igual) |
+
+## JUNGLA / OTROS
+
+| Sistema | Cambio |
+|---|---|
+| Crimson Raptor | HP base 1 000 → **1 100**; HP/nivel 110 → **125** |
+| Raptor | HP base 500 → **550**; HP/nivel 55 → **65** |
+| Bugfix Yun Tal | "AS effect occasionally triggered incorrectly" → el uptime de Flurry modelado (50 %) queda como convención conservadora |
+| ARAM | cambios de modo excluidos del lab (solo SR) |
+
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
 # Mecanica de Attack Speed 7.3 (explicacion oficial)
@@ -843,7 +899,7 @@ KEYSTONE
 Electrocute
 Burst Damage
 Within 3 seconds, hit the same enemy champion with 3 basick attacks or abilities to cause additional adaptive damage to the target.
-Damage value: 40-210 (
+Damage value: 60-210 (
 ) + 
 10% extra 
  + 
@@ -930,7 +986,7 @@ Every 3s in combat, your next attack on a champion will be enhanced.
 Bonus 
 magic damage
 : 
-3.3%
+3.0%
 Heal: 
 1.3%
 Permanently 
@@ -959,7 +1015,7 @@ Damage: 15-70 (
 10% bonus
  + 
 5%
-Shield: 25-120 (
+Shield: 20-100 (
 ) + 
 10% bonus
  + 
@@ -1775,7 +1831,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 14 OCT 2026 UTC 00:00** · Refrescado por el vigía: 14/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 17 OCT 2026 UTC 00:00** · Refrescado por el vigía: 17/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1784,37 +1840,38 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 51.11 | 4.21 | 0.13 | ↑ 5 | Confidence Med |
-| Caitlyn | DUO | A | 49.68 | 19.08 | 7.65 | ↓ 1 | Confidence High |
-| Cho'Gath | SOLO | S+ | 50.67 | 10.74 | 35.42 | ↑ 3 | Confidence High |
-| Cho'Gath | JUNGLE | S+ | 50.91 | 8.67 | 35.42 | ↑ 3 | Confidence High |
-| Diana | MID | B | 47.10 | 1.07 | 0.15 | ↓ 1 | Confidence Low |
-| Diana | JUNGLE | A | 50.24 | 1.46 | 0.15 | ↓ 4 | Confidence Low |
-| Heimerdinger | MID | A | 49.82 | 1.68 | 1.30 | ↑ 7 | Confidence Low |
-| Jinx | DUO | A | 50.62 | 12.50 | 0.44 | 0 | Confidence High |
-| Kalista | DUO | S | 50.93 | 6.19 | 7.30 | ↑ 2 | Confidence Med |
-| Kalista | SOLO | S+ | 53.31 | 2.48 | 7.30 | 0 | Confidence Low |
-| Karma | SUPPORT | A | 49.85 | 4.39 | 0.34 | ↑ 3 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.61 | 8.10 | 41.49 | ↑ 1 | Confidence High |
-| Malphite | SOLO | S+ | 55.10 | 7.04 | 41.49 | 0 | Confidence Med |
-| Mordekaiser | SOLO | A | 50.46 | 11.73 | 29.90 | ↓ 7 | Confidence High |
-| Nocturne | JUNGLE | S+ | 55.78 | 10.23 | 55.41 | ↓ 1 | Confidence High |
-| Norra | MID | A | 50.50 | 1.43 | 7.25 | 0 | Confidence Low |
-| Orianna | MID | S | 51.64 | 4.45 | 0.30 | ↑ 7 | Confidence Med |
-| Ornn | SOLO | A | 51.48 | 1.91 | 0.16 | 0 | Confidence Low |
-| Ornn | SUPPORT | A | 49.84 | 1.16 | 0.16 | ↑ 4 | Confidence Low |
-| Rammus | JUNGLE | S+ | 56.97 | 4.46 | 6.44 | 0 | Confidence Med |
-| Senna | DUO | S+ | 55.51 | 3.20 | 32.49 | 0 | Confidence Med |
-| Senna | SUPPORT | S+ | 54.11 | 12.82 | 32.49 | 0 | Confidence High |
-| Seraphine | SUPPORT | B | 48.73 | 6.27 | 1.05 | ↓ 4 | Confidence Med |
-| Shyvana | JUNGLE | B | 45.68 | 3.45 | 1.16 | 0 | Confidence Med |
-| Sivir | DUO | A | 48.77 | 3.34 | 0.06 | ↑ 2 | Confidence Med |
-| Syndra | MID | S | 51.38 | 6.08 | 19.13 | 0 | Confidence Med |
-| Volibear | SOLO | A | 47.98 | 4.76 | 4.34 | ↑ 1 | Confidence Med |
-| Volibear | JUNGLE | B | 48.02 | 2.44 | 4.34 | ↓ 1 | Confidence Low |
-| Xayah | DUO | A | 50.24 | 4.37 | 0.17 | ↑ 3 | Confidence Med |
-| Yunara | DUO | S+ | 51.56 | 15.54 | 23.50 | 0 | Confidence High |
-| Yuumi | SUPPORT | A | 49.02 | 9.24 | 33.06 | ↑ 3 | Confidence High |
+| Ahri | MID | A | 50.95 | 4.37 | 0.13 | 0 | Confidence Med |
+| Caitlyn | DUO | A | 49.74 | 16.80 | 6.55 | ↓ 1 | Confidence High |
+| Cho'Gath | SOLO | S | 50.39 | 10.22 | 36.00 | 0 | Confidence High |
+| Cho'Gath | JUNGLE | A | 50.35 | 8.63 | 36.00 | ↓ 5 | Confidence High |
+| Diana | MID | B | 47.83 | 1.05 | 0.15 | ↑ 1 | Confidence Low |
+| Diana | JUNGLE | A | 50.46 | 1.42 | 0.15 | ↑ 2 | Confidence Low |
+| Heimerdinger | MID | A | 50.10 | 1.63 | 1.35 | ↓ 6 | Confidence Low |
+| Jinx | DUO | S | 50.82 | 12.63 | 0.46 | ↑ 1 | Confidence High |
+| Kalista | DUO | S | 51.08 | 6.13 | 7.81 | ↑ 2 | Confidence Med |
+| Kalista | SOLO | S+ | 53.77 | 2.50 | 7.81 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 50.74 | 4.39 | 0.34 | ↑ 7 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.58 | 8.89 | 41.47 | 0 | Confidence High |
+| Malphite | SOLO | S+ | 54.94 | 7.12 | 41.47 | 0 | Confidence Med |
+| Malphite | MID | A | 50.04 | 1.01 | 41.47 | ↓ 2 | Confidence Low |
+| Mordekaiser | SOLO | S+ | 51.02 | 11.00 | 30.52 | ↑ 2 | Confidence High |
+| Nocturne | JUNGLE | S+ | 52.81 | 8.15 | 58.59 | ↓ 5 | Confidence High |
+| Norra | MID | A | 50.10 | 1.37 | 6.79 | ↓ 7 | Confidence Low |
+| Orianna | MID | S | 51.32 | 4.48 | 0.30 | ↑ 3 | Confidence Med |
+| Ornn | SOLO | A | 51.48 | 1.85 | 0.18 | ↑ 9 | Confidence Low |
+| Ornn | SUPPORT | B | 49.47 | 1.24 | 0.18 | ↓ 10 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.80 | 4.10 | 6.81 | 0 | Confidence Med |
+| Senna | DUO | S | 50.98 | 1.54 | 26.20 | ↓ 6 | Confidence Low |
+| Senna | SUPPORT | A | 50.25 | 9.33 | 26.20 | ↓ 17 | Confidence High |
+| Seraphine | SUPPORT | A | 49.99 | 6.31 | 1.02 | ↑ 9 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.27 | 3.42 | 1.07 | 0 | Confidence Med |
+| Sivir | DUO | A | 48.89 | 3.27 | 0.05 | ↑ 1 | Confidence Med |
+| Syndra | MID | S+ | 51.77 | 5.95 | 19.32 | ↑ 4 | Confidence Med |
+| Volibear | SOLO | A | 48.82 | 8.56 | 7.67 | ↑ 5 | Confidence High |
+| Volibear | JUNGLE | A | 49.06 | 4.26 | 7.67 | ↑ 4 | Confidence Med |
+| Xayah | DUO | A | 50.42 | 4.70 | 0.17 | ↑ 1 | Confidence Med |
+| Yunara | DUO | A | 50.13 | 8.92 | 20.77 | ↓ 6 | Confidence High |
+| Yuumi | SUPPORT | A | 48.23 | 8.92 | 33.84 | ↓ 3 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -1849,7 +1906,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Divine Sunderer | 3400 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
 | Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
-| Youmuu's Ghostblade | 3000 | +55 Attack Damage  /  +15 Armor Penetration  /  +15 Ability Haste  /  +4% Move Speed | ASSASSIN ITEMS |
+| Youmuu's Ghostblade | 2900 | +55 Attack Damage  /  +15 Armor Penetration  /  +15 Ability Haste  /  +4% Move Speed | ASSASSIN ITEMS |
 | Duskblade of Draktharr | 3000 | +55 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
 | Edge of Night | 3000 | +250 Max Health  /  +50 Attack Damage | ASSASSIN ITEMS |
 | The Collector | 3000 | +50 Attack Damage  /  +10 Armor Penetration  /  +25% Critical Rate | ASSASSIN ITEMS; MARKSMAN ITEMS |
@@ -1862,14 +1919,14 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Hexoptics C44 | 2900 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Kraken Slayer | 2900 | +45 Attack Damage  /  +35% Attack Speed  /  +4% Move Speed | MARKSMAN ITEMS |
 | Nashor's Tooth | 2900 | +50% Attack Speed  /  +80 Ability Power  /  +15 Ability Haste | MARKSMAN ITEMS; MAGIC ITEMS |
-| Statikk Shiv | 3000 | +40 Attack Damage  /  +30% Attack Speed  /  +40 Ability Power  /  +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
+| Statikk Shiv | 2900 | +40 Attack Damage  /  +30% Attack Speed  /  +40 Ability Power  /  +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
 | Guinsoo's Rageblade | 3000 | +35 Attack Damage  /  +30% Attack Speed  /  +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
 | Mortal Reminder | 3000 | +35 Attack Damage  /  +30% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Essence Reaver | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20 Ability Haste | MARKSMAN ITEMS |
 | Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
-| Yun Tal Wildarrows | 3100 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
+| Yun Tal Wildarrows | 3000 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
 | Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
 | Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
@@ -1906,11 +1963,11 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Knight's Vow | 2450 | +200 Max Health  /  +100% Health Regen  /  +40 Armor  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
 | Frozen Heart | 2550 | +80 Armor  /  +400 Max Mana  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
 | Mantle of the Twelfth Hour | 2550 | +600 Max Health  /  +20 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Locket of the Iron Solari | 2600 | +200 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
+| Locket of the Iron Solari | 2500 | +300 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
 | Winter's Approach | 2600 | +500 Max Health  /  +500 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
 | Fimbulwinter |  | +500 Max Health  /  +1200 Max Mana  /  +15 Ability Haste | DEFENSE ITEMS |
 | Radiant Virtue | 2650 | +300 Max Health  /  +30 Armor  /  +30 Magic Resistance  /  +10 Ability Haste | DEFENSE ITEMS; SUPPORT ITEMS |
-| Thornmail | 2700 | +200 Max Health  /  +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
+| Thornmail | 2850 | +200 Max Health  /  +75 Armor | DEFENSE ITEMS; SUPPORT ITEMS |
 | Dawnshroud | 2700 | +250 Max Health  /  +50 Armor  /  +30 Magic Resistance | DEFENSE ITEMS; SUPPORT ITEMS |
 | Hollow Radiance | 2800 | +400 Max Health  /  +40 Magic Resistance  /  +15 Ability Haste | DEFENSE ITEMS |
 | Randuin's Omen | 2800 | +400 Max Health  /  +75 Armor | DEFENSE ITEMS |
@@ -2265,7 +2322,7 @@ CHAMPS = {
         base_as=0.3, as_ratio=0.3, base_bonus_as=1.1, as_per_lvl=0.025,   # 7.3a (nerf del ratio)
         ranged=True, attack_range=625,
         aa_mult=1.2,               # Relic Cannon: on-hit +20% AD en cada auto (wiki; D2 de la ficha)
-        crit_dmg_mod=0.9,          # crit propio al 90% del normal (180%/207% con IE)
+        crit_dmg_mod=0.8,   # 7.3b: crit al 80 % del normal (era 90 %)          # crit propio al 90% del normal (180%/207% con IE)
         uses_magnification=True,   # pelea a 625+ (>=550)
         free_crit=0.50,            # 100 stacks de Niebla al checkpoint mid = +50% crit gratis
         mana_pool_l1=345, mana_growth=65,
@@ -2313,14 +2370,14 @@ ITEMS = {i.key: i for i in [
     I("pd",        2650, a_s=40, crit=25, ms=7, comment="stacks 6%AS+1%MS x5; ya NO da AD en 7.3"),
     I("navori",    2650, a_s=40, crit=25, ms=4, comment="ataques -15% CDs básicos (validar mecánica)"),
     I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0, comment="Spellblade 135% AD base + 0-80 por crit (1.5s ICD)"),
-    I("yuntal",    3100, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques"),
+    I("yuntal",    3000, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques · 7.3b: precio 3100→3000"),
     I("manamune",  2900, ad=40, ah=15, comment="+2% mana como AD; Shock 1.5% mana (Muramana)"),
     # --- on-hit ---
     I("witsend",   2800, a_s=50, mr=45, onhit_flat=40, comment="+20% tenacidad"),
     I("terminus",  3000, ad=35, a_s=35, onhit_flat=30, pen=30, comment="stacks light/dark; pen cap 40%"),
     I("botrk",     3100, ad=40, a_s=30, ls=12, onhit_pct_current=6, comment="6% vida actual (min 15)"),
     I("guinsoo",   3000, ad=35, ap=30, a_s=30, onhit_flat=30, comment="cada 3er golpe aplica on-hit 2 veces"),
-    I("statikk",   3000, ad=40, ap=40, a_s=30, ms=4, energized=60, comment="cadena 4-7 objetivos, aplica on-hit"),
+    I("statikk",   2900, ad=40, ap=40, a_s=30, ms=4, energized=60, comment="cadena 4-7 objetivos, aplica on-hit"),
     # --- defensa/utilidad ---
     I("scimitar",  3100, ad=45, mr=40, ls=12, comment="activo Quicksilver (CC cleanse)"),
     I("ga",        3200, ad=45, armor=40, comment="revivir"),
@@ -2535,7 +2592,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
         if i.kraken:
             base = (KRAKEN_RANGED_L15 if spec.ranged else KRAKEN_MELEE_L15) * (level/15)
             d += AS/3 * base * (1 + KRAKEN_MISSING_BONUS*missing_hp)
-        if i.energized: d += AS/7 * i.energized
+        if i.energized: d += AS/6 * i.energized   # 7.3b: Stattikk +7 stacks/auto (antes +5) → proc ~cada 6 autos
         if i.onhit_flat: d += AS * i.onhit_flat
         if i.onhit_pct_current: d += AS * max(15, i.onhit_pct_current/100*enemy_hp)  # sin cap vs campeones
         if i.spellblade: d += spellblade_uptime * (1.35*base_ad + 80*crit)
@@ -4974,4 +5031,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 14/10/2026 · lite · sha256(cuerpo)=c2019cec3c19cf9e · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 17/10/2026 · lite · sha256(cuerpo)=34ebf1a1adf7b927 · NO editar a mano: editar las fuentes y regenerar -->

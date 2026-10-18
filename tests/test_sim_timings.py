@@ -128,7 +128,7 @@ class TestPrediccion(unittest.TestCase):
         self.assertLessEqual(t, 25.0)
 
     def test_ruta_nueva_variante_antitanques(self):
-        """Variante 7.3a (C44+Terminus+YunTal+IE+LDR, upgrade Gunmetal): 17 900 g acumulados,
+        """Variante 7.3a (C44+Terminus+YunTal+IE+LDR, upgrade Gunmetal): 17 800 g acumulados,
         tiempos crecientes y pico final razonable."""
         puntos, _, glob = S.anclas_por_rol()
         curva = S.fit_curva(puntos["adc"] if len(puntos["adc"]) >= 3 else glob)
@@ -144,7 +144,7 @@ class TestPrediccion(unittest.TestCase):
             t_ant = t
         acum += 1000                                       # ⬆️ Gunmetal (mismo slot, min ≥10)
         t_fin = max(S.minuto_para(acum, curva) or 0, t_ant, 10.0)
-        self.assertEqual(acum, 17900)
+        self.assertEqual(acum, 17800)  # 7.3b: Yun Tal −100 g
         ts = [t for _, _, t in filas] + [t_fin]
         self.assertEqual(ts, sorted(ts))                   # monótono
         self.assertGreaterEqual(t_fin, 19.0)
@@ -152,7 +152,7 @@ class TestPrediccion(unittest.TestCase):
 
     def test_precio_desde_el_motor(self):
         self.assertEqual(S.precio("Hexoptics C44"), 2900)
-        self.assertEqual(S.precio("Yun Tal"), 3100)
+        self.assertEqual(S.precio("Yun Tal"), 3000)  # 7.3b: precio 3100→3000
         self.assertEqual(S.precio("Gunmetal Greaves"), 2200)
 
 

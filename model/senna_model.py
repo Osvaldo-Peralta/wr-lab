@@ -53,7 +53,7 @@ M.CHAMPS["senna"] = ChampSpec(
     base_as=0.3, as_ratio=0.3, base_bonus_as=1.1, as_per_lvl=0.025,   # 7.3a OFICIAL
     ranged=True, attack_range=625,
     self_as_buff=0.0, aa_mult=1.0, aa_aoe=False,
-    crit_dmg_mod=0.9,            # 7.3: críticos al 90 % del daño crítico normal
+    crit_dmg_mod=0.8,   # 7.3b: crit al 80 % del normal (era 90 %)            # 7.3: críticos al 90 % del daño crítico normal
     uses_magnification=True,     # siempre ataca a >=550 (rango base 625 + niebla)
     notes=("Niebla: +1.25 AD/stack, +15 rango y +10 % crit/20 stacks (cap +400 rango/100 % crit); "
            "exceso crit → 35 % physical vamp. Relic Cannon on-hit 20 % AD (wiki) + robo MS. "
@@ -80,7 +80,7 @@ SUP = {
  "mikael":      S(2500, hp=300, hsp=9, ah=15, cleanse=1, nombre="Mikael's Blessing"),
  "shurelya":    S(2500, ap=55, ah=20, ms=4, nombre="Shurelya's Battlesong"),
  "zeke":        S(2400, hp=300, armor=25, mr=25, ah=10, nombre="Zeke's Convergence"),
- "locket":      S(2600, hp=200, armor=30, mr=30, ah=10, nombre="Locket of the Iron Solari"),
+ "locket":      S(2500, hp=300, armor=30, mr=30, ah=10, nombre="Locket of the Iron Solari"),
  "morello":     S(2650, ap=75, hp=300, ah=15, gw=1, nombre="Morellonomicon"),
  "horizon":     S(2700, ap=80, ah=25, nombre="Horizon Focus"),
  "duskdawn":    S(3100, hp=300, a_s=20, ap=60, ah=20, nombre="Dusk and Dawn"),
@@ -141,14 +141,16 @@ PRESUPUESTO = {"support":13000, "duo":17500}
 CHECK_BUDGET = {("support",9):4500, ("support",12):7500, ("support",15):13000,
                 ("duo",9):7500, ("duo",12):11500, ("duo",15):17500}
 
-Q_BASE = [50,80,110,140]; W_BASE = [90,155,220,285]; R_BASE = [250,400,550]
+Q_BASE = [30,60,90,120]   # 7.3b: era 50/80/110/140
+W_BASE = [90,155,220,285]
+R_BASE = [250,400,550]
 def q_rank(l): return min(4, (l+2)//3)
 def w_rank(l): return min(4, max(1, 1+(l-2)//3))
 def r_rank(l): return min(3, max(1, 1+(l-5)//4))
 
 def mist_stats(mist):
     brackets = mist//20
-    return dict(ad=1.25*mist, crit=10*brackets, rango=625+15*brackets, brackets=brackets)
+    return dict(ad=0.9*mist, crit=10*brackets, rango=625+15*brackets, brackets=brackets)
 
 # ---------------------------------------------------------------- evaluación principal
 def eval_senna(items, mist=140, level=15, targets=1, armor=0.0, tank=False, enemy_hp=2200,
@@ -209,7 +211,7 @@ def eval_senna(items, mist=140, level=15, targets=1, armor=0.0, tank=False, enem
         if i["kraken"]:
             d += AS/3*(168*(level/15))*(1+0.0075*50)*amp_cd           # missing 50 % default
         if i["energized"]:
-            d += AS/7*i["energized"]                                   # mágico (aprox física, conservador)
+            d += AS/6*i["energized"]   # 7.3b Stattikk +7/auto                                   # mágico (aprox física, conservador)
         if i["onhit_flat"]:
             d += AS*i["onhit_flat"]
         if i["onhit_pct_current"]:

@@ -7,7 +7,7 @@ KEYSTONE
 Electrocute
 Burst Damage
 Within 3 seconds, hit the same enemy champion with 3 basick attacks or abilities to cause additional adaptive damage to the target.
-Damage value: 40-210 (
+Damage value: 60-210 (
 ) + 
 10% extra 
  + 
@@ -94,7 +94,7 @@ Every 3s in combat, your next attack on a champion will be enhanced.
 Bonus 
 magic damage
 : 
-3.3%
+3.0%
 Heal: 
 1.3%
 Permanently 
@@ -123,7 +123,7 @@ Damage: 15-70 (
 10% bonus
  + 
 5%
-Shield: 25-120 (
+Shield: 20-100 (
 ) + 
 10% bonus
  + 

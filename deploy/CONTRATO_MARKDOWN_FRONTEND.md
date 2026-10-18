@@ -156,4 +156,14 @@ Fuera de cobertura → mensaje honesto + borrador. Los avisos de aproximación d
   El frontend asocia métricas por `slug`.
 - Build/optimización/validación: responsabilidad exclusiva del lab; el frontend solo muestra.
 - ARAM AAA (futuro módulo): cuando exista, sus guías llevarán `mode: aram` en frontmatter
-  (extensión reservada desde ya) y slugs `aram/{champion}` — el núcleo SR no se mezcla.
+  (extensión reservada desde ya) y slugs `aram/{champion}` — el núcleo SR no se mezcla.## §3.1b VERIFICACIÓN EN METADATA (v1.3 del contrato, 14/10/2026)
+
+Los bloques `<!-- WRLAB-VERIF:... -->` del cuerpo quedan **DEPRECADOS**: la
+constancia de verificación vive en el frontmatter (`verification:` +
+`verified_patch:`), que el sitio renderiza como badges compactos. `annotate
+--apply` ya no inserta bloques; `wr-guides-web` sigue parseando bloques legacy
+por compatibilidad (preprocesar §3.1 viejo) pero ningún reporte los lleva.
+Motivo: decisión del autor — los callouts de verificación acaparaban el cuerpo
+de las guías sin aportar al lector (el badge ya comunica el estado).
+
+

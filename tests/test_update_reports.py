@@ -246,24 +246,24 @@ class TestAnotacion(unittest.TestCase):
         out = U.insertar_bloque(out, b2, "9.9z")
         self.assertLess(out.index("9.8z:END"), out.index("9.9z:START"))
 
-    def test_reportes_del_vault_bloque_o_al_dia(self):
-        """Cada reporte del vault tiene bloque WRLAB-VERIF:7.3a O declara patch ≥ 7.3a (AL_DIA)."""
-        import glob
-        for ruta in glob.glob(os.path.join(U.REPORTES, "*.md")):
-            with open(ruta, encoding="utf-8") as fh:
-                txt = fh.read()
+    def test_reportes_del_vault_verificacion_en_frontmatter(self):
+        """v1.19: cada reporte declara su verificación en el FRONTMATTER
+        (verification + verified_patch al hotfix vigente, o patch declarado ≥ hotfix)."""
+        import update_reports as U
+        patch, _ = U.ultimo_parche_hotfix()
+        reg = U.construir_registro()
+        for f, e in reg["reportes"].items():
+            txt = open(os.path.join(U.REPORTES, f), encoding="utf-8").read()
             fm = U.parse_frontmatter(txt)
             pd = U.parche_declarado(fm, txt)
-            al_dia = pd and U.patch_key(pd) >= U.patch_key("7.3a")
-            self.assertTrue("WRLAB-VERIF:7.3a:START" in txt or al_dia,
-                            f"{os.path.basename(ruta)}: ni bloque ni patch declarado ≥7.3a")
+            al_dia = pd and U.patch_key(pd) >= U.patch_key(patch)
+            ver_ok = str(fm.get("verified_patch", "")).strip('"') == patch or fm.get("verification") == "pending"
+            self.assertTrue(al_dia or ver_ok, f"{f}: sin verificación {patch} en frontmatter ni patch declarado")
 
-
-class TestUtilidades(unittest.TestCase):
-    def test_ultimo_parche_es_73a(self):
+    def test_ultimo_parche_es_73b(self):
         p, ruta = U.ultimo_parche_hotfix()
-        self.assertEqual(p, "7.3a")
-        self.assertTrue(ruta.endswith("cambios_7.3a.md"))
+        self.assertEqual(p, "7.3b")  # v1.19: hotfix vigente
+        self.assertTrue(ruta.endswith("cambios_7.3b.md"))
 
 
 if __name__ == "__main__":

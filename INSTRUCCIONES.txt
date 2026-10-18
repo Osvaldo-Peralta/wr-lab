@@ -1,56 +1,48 @@
-WR-LAB · v1.18 — MOTORES YUNARA/XAYAH/JUNGLA-CHOGATH + DERIVACIONES  (2026-10-12)
-══════════════════════════════════════════════════════════════════════════
+WR-LAB · v1.19 — HOTFIX 7.3b INTEGRADO + WIN RATES + VERIFICACIÓN EN METADATA  (2026-10-15)
+════════════════════════════════════════════════════════════════════════════
 
-QUÉ INCLUYE
-  · model/yunara_model.py + yunara_resultados.txt — motor batch4 de Yunara:
-    re-verificación (los titulares v1.2 NO se reproducían: AD sin growth,
-    "AS 2.83" irrazastreable, mágicos sin mitigar por MR) + derivación
-    riesgo-ajustada con módulo de supervivencia (EHP/escudos/revivir).
-  · model/xayah_model.py + xayah_resultados.txt — motor de verificación de
-    Xayah: REPRODUCE las cifras publicadas ±0.0 % y re-optimiza con objetivo
-    extendido (engine + E/Q/R/pasiva): confirma la MISMA Tabla A (91.1 %
-    baseline, 92.4 % techo 7.3a). Sensibilidades D1/D3/D7 cerradas.
-  · model/chogath_jungla.py + chogath_jungla_resultados.txt — módulo jungla
-    del motor batch4: clear de 4 camps, netHP, TTK de épicos, Smite burn 7.3,
-    checkpoints con oro de jungla (J8) y pesos jungla (tanque×0.75 + clear .13
-    + épicos .12). Extiende chogath_model.py, no lo reemplaza.
-  · model/dps_model.py — 4 alias oficiales que faltaban (Dominik's Regards,
-    Immortal Shieldbow, The Collector, Navori Quickblades): resolve() ahora
-    acepta los nombres del CSV tal cual.
-  · tests/test_batch4_models.py — 10 tests: compatibilidad WR de los pools de
-    yunara/xayah contra items_7.3.csv, reproducción Xayah ±2 %, Leyes 1/3/3b en
-    óptimas, BotRK>supervivencia>Kraken y C44-1.º revertido en Yunara, y la
-    derivación jungla de Cho'Gath (clear/épicos/score vs la óptima de top).
-    Suite total: 175 tests.
-  · Reportes actualizados:
-    - Yunara.md v2.0: Tabla A nueva (Gunmetal + IE + Runaan's + LDR + Yun Tal
-      + BotRK, 17 750 g: 1v1 2 702 · 3v3 6 270 · surv 5 325), A2 anti-tanque
-      con C44, Tabla B con BotRK 1.º (checkpoint lvl 9: 683 vs 496 de C44),
-      §5 revertido, auditoría Y1–Y4 en §10, verification: pending.
-    - Xayah.md v1.1: sin cambios de build (la derivación RESISTIÓ la
-      verificación independiente) + [!NOTE] de verificación batch4.
-    - Cho'Gath jungla v1.4: Tabla A propia de jungla (Chainlaced + Heartsteel
-      + Sunfire + Liandry's + Riftmaker + Unending Despair, 17 200 g: clear
-      6.5 s · dragón 5.7 s · R 1 426 · DPSf 702), sección 0.3 "tempo vs
-      ventana", §3.4 módulo jungla, ruta por checkpoints CPJ, [!TIP] con la
-      variante de ventanas (óptima de barón) y la híbrida #5.
-  · fichas_autor/ + registry + bundles regenerados.
+TUS 5 PEDIDOS, EN ORDEN
+  1. VERIFICACIÓN CONTRA 7.3b: triage sobre 21 reportes → 0 REGENERAR ·
+     5 REVISAR (Senna, Yunara, Volibear ×2, Nocturne) · 16 SIN_IMPACTO.
+     Los dossiers de regeneración van APARTE (carpeta regen_7.3b/ de este zip
+     y de entregables/): reemplazos literales + números re-derivados con los
+     motores 7.3b, para que los apliques a mano sin que el lab toque el cuerpo.
+  2. WIN RATES: nueva herramienta model/refresh_winrates.py — refresca SOLO el
+     callout meta (Win Rate/Pick/Ban/Tendencia/fecha) desde el CSV del vigía.
+     Corrida aplicada: 19 reportes actualizados, 2 ya al día. Idempotente y
+     dry-run por defecto; queda para el flujo semanal.
+  3. ÍTEMS/RUNAS/HECHIZOS 7.3b: verificados contra las notas oficiales.
+     · items_7.3.csv: Youmuu 2900 · Locket 2500+300HP · Thornmail 2850 ·
+       Stattikk 2900 (+7 stacks/auto) · Yun Tal 3000 · (Warmog: umbral 1250,
+       documentado en cambios_7.3b.md; no afecta stats del CSV).
+     · runas_7.3.md: Electrocute 60-210 · Cheap Shot 5 s · Grasp 3.0 %/+8 ·
+       Aery 20-100.
+     · Hechizos de invocador y Smite: SIN cambios en 7.3b (verificado).
+     · Los pools de TODOS los motores usan estos valores (constants 7.3b en
+       dps_model, senna_model, yunara_model, xayah_model, chogath_model,
+       chogath_jungla — incl. Grasp 3.0/+8, energized /6 y raptors +HP J9).
+  4. BLOQUES VERIF FUERA DEL CUERPO: removidos de los 3 reportes que los
+     tenían (Yuumi, Yunara, Volibear Pesadilla). La verificación ahora vive
+     SOLO en frontmatter (verification + verified_patch) → badges del sitio.
+     annotate --apply ya no inserta bloques (set_verificacion_fm); lint avisa
+     si verified_patch != hotfix vigente; bundles validan cobertura de
+     frontmatter; contrato §3.1b documenta el deprecado; el web sigue
+     parseando bloques legacy (compatibilidad hacia atrás, no hacia adelante).
+  5. INTEGRACIÓN 7.3b: data/estructurada/cambios_7.3b.md (champions/ítems/
+     runas/jungla, formato hotfix del lab) → ultimo_parche_hotfix() ya dice
+     7.3b en todo el lab; vigía ahora vigila también la página 7-3b.
 
-RESPUESTAS A TUS TRES PREGUNTAS DE DERIVACIÓN
-  1. Cho'Gath jungla SÍ tiene derivación propia: la óptima de top queda #23
-     en jungla (−1.1 %): cleara 10.6 s vs 6.5 s y tarda 7.5 s vs 5.7 s en
-     dragón. La jungla pide AP-híbrida (Sunfire+Liandry+Riftmaker) porque el
-     clear y los épicos son el sueldo del rol; la de top gana VENT (55 591 vs
-     24 798) y queda como variante de teamfight ([!TIP]).
-  2. Yunara SÍ tiene derivación nueva: sale C44/Kraken, entran YunTal+BotRK
-     (supervivencia 5 325 vs 4 551 con heal 469 vs 155); los titulares
-     publicados se corrigieron a la baja (−14 % 1v1, −42 % 3v3 vs v1.2).
-  3. Xayah NO cambia: su derivación publicada es óptima también bajo el motor
-     dedicado (reproducción ±0.0 % y re-optimización al 91.1/92.4 %). Eso es
-     un resultado, no una ausencia: quedó VERIFICADA por segunda vía.
+ADEMÁS
+  · annotate --patch 7.3b --apply corrido: los 21 reportes sellados en
+    frontmatter (SIN_IMPACTO ×16, REVISAR ×5) con verified_patch 7.3b.
+  · Tests actualizados a 7.3b (goldens de precio Yun Tal, energized /6,
+    verified_patch 7.3b, regla de frontmatter) → 175 tests OK.
+  · bundles + registry regenerados; lint 0/0; prepush 🟢.
 
 PASOS
-  1. unzip sobre tu clon · 2. python3 wrlab.py prepush → 🟢 (175 tests)
-  3. commit + push · 4. Sync lab → web cuando quieras publicar (Yunara saldrá
-     como pending/sin verificar hasta que chequees en juego; Xayah y Cho'Gath
-     conservan sus estados).
+  1. unzip sobre tu clon · 2. python3 wrlab.py prepush → 🟢
+  3. Aplicá los 5 dossiers de regen_7.3b/ a mano (README_REGEN_7.3b.md explica)
+     y por reporte: version +0.1 + annotate --patch 7.3b --apply + prepush.
+  4. commit + push · 5. RECIÉN AHORA sync lab → web (tenías el sync en pausa:
+     ahora publicaría win rates al día, metadata de verificación 7.3b y los
+     reportes sin bloques VERIF — el sitio los renderiza como badges).

@@ -57,20 +57,18 @@ class TestContenidoBundles(unittest.TestCase):
         self.assertNotIn("def cmd_baseline", self.lite)
 
     def test_reportes_con_verificacion_en_el_completo(self):
-        """Fidelidad de embebido: §14 lleva exactamente los bloques WRLAB-VERIF
-        que existen en los reportes fuente (ni uno fantasma ni uno perdido).
-        v1.15.2: antes comparaba contra "quién debería tener bloque", política
-        que ya vive en build_bundles.validar(); acá se prueba el embebido."""
+        """Fidelidad de embebido (v1.19): §14 lleva el frontmatter de cada
+        reporte con su campo verification: tal cual está en disco (los bloques
+        WRLAB-VERIF del cuerpo se retiraron: la metadata es la fuente)."""
         m = re.search(r"^## 14\. REPORTES.*?(?=^## 15\.)", self.completo, re.S | re.M)
         self.assertIsNotNone(m, "sección §14 no encontrada")
-        n = len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", m.group(0))) // 2
-        en_fuentes = 0
         for f in sorted(os.listdir(os.path.join(BB.ROOT, "reportes"))):
             if not f.endswith(".md"):
                 continue
             txt = open(os.path.join(BB.ROOT, "reportes", f), encoding="utf-8").read()
-            en_fuentes += len(re.findall(r"WRLAB-VERIF:[\d.]+[a-z]?:(START|END)", txt)) // 2
-        self.assertEqual(n, en_fuentes)
+            fm = re.match(r"^---\n(.*?)\n---\n", txt, re.S)
+            ver = re.search(r"^verification:\s*(\S+)", fm.group(1), re.M)
+            self.assertIn(f"verification: {ver.group(1)}", m.group(0), f)
 
 
 if __name__ == "__main__":

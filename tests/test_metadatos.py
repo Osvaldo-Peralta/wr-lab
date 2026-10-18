@@ -29,8 +29,8 @@ class TestEstandar(unittest.TestCase):
     def test_jinx_v15_normalizado(self):
         fm = U.parse_frontmatter(open(os.path.join(REP, "Jinx.md"), encoding="utf-8").read())
         self.assertEqual(fm["role"], "adc")
-        self.assertEqual(fm["verification"], "AL_DIA")
-        self.assertEqual(fm["verified_patch"], "7.3a")
+        self.assertIn(fm["verification"], ("AL_DIA", "SIN_IMPACTO"))  # 7.3b: sin cambios directos → SIN_IMPACTO
+        self.assertEqual(fm["verified_patch"], "7.3b")  # v1.19: hotfix vigente
         self.assertEqual(fm["generate"], "manual")
         self.assertEqual(fm["published_at"], "2026-10-04")
         self.assertEqual(fm["version"], "1.5")

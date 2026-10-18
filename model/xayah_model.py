@@ -79,13 +79,13 @@ ITEMS = {i['key']: i for i in [
     I("pd",        2650, a_s=40, crit=25, ms=7),
     I("navori",    2650, a_s=40, crit=25, ms=4),
     I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0),
-    I("yuntal",    3100, ad=50, a_s=35, crit=25),
+    I("yuntal",    3000, ad=50, a_s=35, crit=25),
     I("manamune",  2900, ad=40, ah=15),
     I("witsend",   2800, a_s=50, mr=45, onhit_flat=40),
     I("terminus",  3000, ad=35, a_s=35, onhit_flat=30, pen=30, pen_pct_group=True),
     I("botrk",     3100, ad=40, a_s=30, ls=12, onhit_pct_current=6),
     I("guinsoo",   3000, ad=35, ap=30, a_s=30, onhit_flat=30),
-    I("statikk",   3000, ad=40, ap=40, a_s=30, ms=4, energized=60),
+    I("statikk",   2900, ad=40, ap=40, a_s=30, ms=4, energized=60),
     I("scimitar",  3100, ad=45, mr=40, ls=12),
     I("ga",        3200, ad=45, armor=40),
     I("maw",       3000, ad=55, mr=45, ah=10),
@@ -147,7 +147,7 @@ def eval_build(keys, level=15, targets=1, armor=0.0, tank=False, lt=True,
         if i['kraken']:
             base = KRAKEN_RANGED_L15*(level/15)
             d += AS/3 * base * (1 + KRAKEN_MISSING_BONUS*missing_hp)
-        if i['energized']: d += AS/7 * i['energized']
+        if i['energized']: d += AS/6 * i['energized']
         if i['onhit_flat']: d += AS * i['onhit_flat']
         if i['onhit_pct_current']:
             pct = (botrk_pct if (botrk_pct is not None and i['key']=='botrk') else i['onhit_pct_current'])

@@ -28,7 +28,7 @@ notas 7.3 —pasiva 8 %, Kraken proca con spread—, wiki):
     /10 s, MÁGICO. En R → Arc of Ruin (160 + 120 % bAD + 75 % AP) + refund 80 % al
     entrar/salir (≈ +1 cast por ventana).
   - Uptimes: q_up (default 1.0 en ventana de pelea — durante R es automática; 0.7 el
-    supuesto publicado), r_up (1.0 ventana teamfight ≤15 s; 0.23 sostenido 15/65),
+    supuesto publicado), r_up (1.0 ventana teamfight ≤15 s; 0.214 sostenido 15/65),
     magn_up (1.0 publicado; 0.6 en comps de dive — exige ≥550 u).
   - Términos MÁGICOS mitigados por MR del proxy (40 squishy / 80 vs120 / 150 tanque) —
     el reporte publicado NO los mitigaba (uno de sus infladores).
@@ -45,7 +45,7 @@ LT_RANGED_STACK, LT_BULLET_SCALE, ALACRITY_FULL = 0.064, 0.0067, 0.21
 KRAKEN_RANGED_L15, KRAKEN_MISSING_BONUS = 168, 0.0075
 
 SPEC = dict(name="Yunara", base_ad=58.0, ad_growth=3.0, base_as=0.65, as_ratio=0.65,
-            base_bonus_as=0.23, as_per_lvl=0.032, self_as_buff=0.55)
+            base_bonus_as=0.23, as_per_lvl=0.032, self_as_buff=0.55)  # apéndice oficial 7.3
 
 def I(key, gold, ad=0, ap=0, a_s=0, crit=0, pen=0, ls=0, mr=0, armor=0, hp=0, ah=0, ms=0,
       kraken=False, magnification=False, ie=False, runaan=False, energized=0,
@@ -75,13 +75,13 @@ ITEMS = {i['key']: i for i in [
     I("pd",        2650, a_s=40, crit=25, ms=7),
     I("navori",    2650, a_s=40, crit=25, ms=4),
     I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0),
-    I("yuntal",    3100, ad=50, a_s=35, crit=25),
+    I("yuntal",    3000, ad=50, a_s=35, crit=25),
     I("manamune",  2900, ad=40, ah=15),
     I("botrk",     3100, ad=40, a_s=30, ls=12, onhit_pct_current=6),
     I("witsend",   2800, a_s=50, mr=45, onhit_flat=40, ten=20),
     I("terminus",  3000, ad=35, a_s=35, onhit_flat=30, pen=30, pen_pct_group=True),
     I("guinsoo",   3000, ad=35, ap=30, a_s=30, onhit_flat=30),
-    I("statikk",   3000, ad=40, ap=40, a_s=30, ms=4, energized=60),
+    I("statikk",   2900, ad=40, ap=40, a_s=30, ms=4, energized=60),
     I("scimitar",  3100, ad=45, mr=40, ls=12, util=150),                     # QSS (lab UTIL_FLAGS)
     I("ga",        3200, ad=45, armor=40, util=300),                         # revivir (lab)
     I("maw",       3000, ad=55, mr=45, ah=10, esc_mag=300*0.5),
@@ -132,7 +132,7 @@ def eval_build(keys, level=15, targets=1, armor=0.0, tank=False, lt=True,
     for i in its:
         if i['kraken']:
             d += AS/3 * KRAKEN_RANGED_L15*(level/15) * (1 + KRAKEN_MISSING_BONUS*kraken_missing)
-        if i['energized']: d += AS/7 * i['energized']
+        if i['energized']: d += AS/6 * i['energized']
         if i['onhit_flat']: d += AS * i['onhit_flat']
         if i['onhit_pct_current']:
             pct = botrk_pct if (botrk_pct is not None and i['key']=='botrk') else i['onhit_pct_current']
@@ -166,7 +166,7 @@ def yunara_terms(keys, level=15, scenario='1v1', q_up=1.0, r_up=1.0, passive_mod
     per_crit = 0.08*ev['AD'] if passive_mode=='A' else 0.08*ev['AD']*ev['cmult']*ev['magn']
     pasiva = per_crit*(ev['crit']/100.0)*AS*mrm
     # Q on-hit mágico (rank 4 = 25; "+20 %" de fuente truncada → AP=0)
-    q_onhit = 25*AS*q_up*mrm
+    q_onhit = 20*AS*q_up*mrm   # 7.3b: Q rank4 25→20
     # spread (físico, mit por armadura del escenario; critica solo en R)
     spread_unit = (18 + 0.30*ev['AD']) * (r_up*ev['cmult'] + (1-r_up)*1.0)
     n_extra = min(2, targets-1)
@@ -272,7 +272,7 @@ def main():
     ev = eval_build(B_STD)
     P(f"\n[1] TABLA A PUBLICADA — inputs auditados:")
     P(f"    AD = 100 (58+3.0×14) + 210 ítems = {ev['AD']:.0f}   [publicado: 268 → omitió el growth (+42)]")
-    P(f"    B = 0.23+0.448+1.25(ítems)+0.384+0.21+0.55(Q) = {ev['B']:.3f} → AS = {ev['AS']:.3f}")
+    P(f"    B = 0.214+0.448+1.25(ítems)+0.384+0.21+0.55(Q) = {ev['B']:.3f} → AS = {ev['AS']:.3f}")
     P(f"    [publicado: 'AS 2.83 con Pow-Pow x3' — irrazastreable; su §3 usa 2.42 con AS-ítems 0.90 (omite Kraken 35 %)]")
     P(f"    crit {ev['crit']:.0f} % · pen {ev['pen']:.0f} % · magn {ev['magn']:.2f} · engine 1v1 {ev['engine1']:.0f} · heal {ev['heal']:.0f}")
 
@@ -295,7 +295,7 @@ def main():
     base1 = totals(B_STD)['total']; base3 = totals(B_STD, scenario='3v3')['total']
     for etiqueta, kw, sc in [
         ('q_up 0.70 (supuesto publicado)', dict(q_up=0.7), '1v1'),
-        ('sostenido real (q .7, r .23, magn .8)', dict(q_up=0.7, r_up=0.23, magn_uptime=0.8), '3v3'),
+        ('sostenido real (q .7, r .23, magn .8)', dict(q_up=0.7, r_up=0.214, magn_uptime=0.8), '3v3'),
         ('magn 0.6 (comps de dive)', dict(magn_uptime=0.6), '1v1'),
         ('pasiva conv. B (8 % del golpe crit)', dict(passive_mode='B'), '1v1'),
         ('BotRK 7 % n/a — Kraken missing 75 %', dict(kraken_missing=75), '1v1'),

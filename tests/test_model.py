@@ -58,7 +58,7 @@ class TestGoldenNumbers(unittest.TestCase):
 
     def test_jinx_build_usuario(self):
         r = M.eval_build(M.CHAMPS["jinx"], ["Berserker's","Kraken","RFC","Runaan's","IE","BT"])
-        self.assertEqual(round(r["dps1"]), 2556)
+        self.assertEqual(round(r["dps1"]), 2562)  # 7.3b: energized Statikk proc /6 autos
 
     def test_73a_yuntal_buff_aplicado(self):
         self.assertEqual(M.ITEMS["yuntal"].a_s, 35)   # 7.3a: 25 → 35

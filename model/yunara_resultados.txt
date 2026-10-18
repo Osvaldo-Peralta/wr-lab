@@ -4,53 +4,53 @@ RE-VERIFICACIÓN YUNARA — nivel 15, LT+Alacrity full, ventana de pelea (Q acti
 
 [1] TABLA A PUBLICADA — inputs auditados:
     AD = 100 (58+3.0×14) + 210 ítems = 310   [publicado: 268 → omitió el growth (+42)]
-    B = 0.23+0.448+1.25(ítems)+0.384+0.21+0.55(Q) = 3.072 → AS = 2.647
+    B = 0.214+0.448+1.25(ítems)+0.384+0.21+0.55(Q) = 3.072 → AS = 2.647
     [publicado: 'AS 2.83 con Pow-Pow x3' — irrazastreable; su §3 usa 2.42 con AS-ítems 0.90 (omite Kraken 35 %)]
     crit 100 % · pen 35 % · magn 1.10 · engine 1v1 2474 · heal 155
 
 [2] TITULARES: publicado vs re-verificado (ventana: q_up 1.0, r_up 1.0 en 3v3, magn 1.0, Kraken missing 50):
-    STD            1v1   2613 (-14 %) · 3v3   6142 (-42 %) · vs120   1498 (-30 %) · vsTanque   1199 (-19 %) · heal    155 (-16 %)
-    TANK           1v1   2995 (-4 %) · 3v3   4473 (-52 %) · vs120   1715 (-30 %) · vsTanque   1516 (-18 %) · heal    515 (-2 %)
-    COMUNIDAD-RFC  1v1   2643 (-7 %) · 3v3   4097 (-54 %) · vs120   1515 · vsTanque   1211 (-8 %) · heal    157
+    STD            1v1   2604 (-14 %) · 3v3   6133 (-42 %) · vs120   1491 (-31 %) · vsTanque   1193 (-19 %) · heal    155 (-16 %)
+    TANK           1v1   2985 (-4 %) · 3v3   4464 (-52 %) · vs120   1707 (-30 %) · vsTanque   1510 (-18 %) · heal    515 (-2 %)
+    COMUNIDAD-RFC  1v1   2639 (-7 %) · 3v3   4092 (-54 %) · vs120   1511 · vsTanque   1208 (-8 %) · heal    157
     → Los titulares publicados NO se reproducen ni con SUS propios supuestos: el inflado viene de
       AS 2.83 (vs 2.647 real), spread crítico permanente + Magnification sobre el spread, y términos
       mágicos sin mitigar por MR. Los rankings internos, en cambio, sí se sostienen (ver [3]-[5]).
 
 [3] SENSIBILIDADES (sobre Tabla A, 1v1 / 3v3):
-    q_up 0.70 (supuesto publicado)             1v1:   2599 (-0.5 %)
-    sostenido real (q .7, r .23, magn .8)      3v3:   5271 (-14.2 %)
-    magn 0.6 (comps de dive)                   1v1:   2538 (-2.9 %)
-    pasiva conv. B (8 % del golpe crit)        1v1:   2685 (+2.7 %)
-    BotRK 7 % n/a — Kraken missing 75 %        1v1:   2641 (+1.1 %)
-    Flurry Yun Tal uptime 50% (variante A2)     1v1:   3132 · AS raw 2.70
-    Flurry Yun Tal uptime 100% (variante A2)     1v1:   3270 · AS raw 2.81
-    BotRK 6→7 % (build BotRK-6.º)                1v1: 2689 → 2746 (+2.1 %)
+    q_up 0.70 (supuesto publicado)             1v1:   2592 (-0.4 %)
+    sostenido real (q .7, r .23, magn .8)      3v3:   5256 (-14.3 %)
+    magn 0.6 (comps de dive)                   1v1:   2528 (-2.9 %)
+    pasiva conv. B (8 % del golpe crit)        1v1:   2676 (+2.8 %)
+    BotRK 7 % n/a — Kraken missing 75 %        1v1:   2632 (+1.1 %)
+    Flurry Yun Tal uptime 50% (variante A2)     1v1:   3122 · AS raw 2.70
+    Flurry Yun Tal uptime 100% (variante A2)     1v1:   3260 · AS raw 2.81
+    BotRK 6→7 % (build BotRK-6.º)                1v1: 2680 → 2737 (+2.1 %)
 
 [4] MATRIZ RIESGO/DAÑO — núcleo C44+Runaan's+IE+LDR + X (6.º slot) y variantes de botas/slot:
     variante                                       1v1    3v3  vs120   vsT    EHP  heal   surv
-    Kraken (publicada)                            2613   6142   1498  1199   4162   155   4551
-    BotRK                                         2689   6023   1540  1375   4162   465   5325
-    BotRK + Flurry→YunTal x C44                   2995   4473   1715  1516   4162   515   5449
-    Guardian Angel                                2193   5325   1260  1015   4641   132   5271
-    Mercurial Scimitar                            2193   5325   1260  1015   4641   379   5739
-    Bloodthirster                                 2384   5801   1370  1105   4289   478   5484
-    Death’s Dance                                 2225   5405   1278  1030   4701   134   5155
-    Shieldbow (por C44)                           2425   5954   1392  1112   4373   146   4738
-    Shieldbow+BotRK (por C44/Krak)                2506   5840   1437  1290   4373   434   5458
-    Maw (por Kraken)                              2256   5484   1297  1045   4847   135   5185
-    Wit’s End (por Kraken)                        2288   5358   1313  1051   4701   141   5053
-    Fiendhunter (por C44)                         2333   5621   1340  1065   4162   145   4586
-    Yun Tal (por C44)                             2611   6387   1498  1196   4162   158   4557
-    Stormrazor (por C44)                          2565   6213   1472  1173   4162   154   4548
-    Armored Advance (por Gunmetal)                2279   5375   1308  1047   4864     0   4864
-    Chainlaced (por Gunmetal)                     2279   5375   1308  1047   4805     0   4805
+    Kraken (publicada)                            2604   6133   1491  1193   4162   155   4551
+    BotRK                                         2680   6014   1533  1370   4162   465   5325
+    BotRK + Flurry→YunTal x C44                   2985   4464   1707  1510   4162   515   5449
+    Guardian Angel                                2184   5317   1253  1011   4641   132   5271
+    Mercurial Scimitar                            2184   5317   1253  1011   4641   379   5739
+    Bloodthirster                                 2376   5792   1363  1100   4289   478   5484
+    Death’s Dance                                 2216   5396   1272  1026   4701   134   5155
+    Shieldbow (por C44)                           2415   5944   1385  1106   4373   146   4738
+    Shieldbow+BotRK (por C44/Krak)                2496   5830   1430  1285   4373   434   5458
+    Maw (por Kraken)                              2248   5475   1290  1040   4847   135   5185
+    Wit’s End (por Kraken)                        2278   5348   1306  1046   4701   141   5053
+    Fiendhunter (por C44)                         2323   5610   1332  1059   4162   145   4586
+    Yun Tal (por C44)                             2600   6377   1490  1190   4162   158   4557
+    Stormrazor (por C44)                          2563   6211   1468  1170   4162   155   4549
+    Armored Advance (por Gunmetal)                2271   5367   1302  1042   4864     0   4864
+    Chainlaced (por Gunmetal)                     2271   5367   1302  1042   4805     0   4805
 
 [6] CHECKPOINTS — 1.er/2.º ítem (Berserker's T2 + 1; Gunmetal + 2), modelo completo:
     candidato                      lvl9 1v1 lvl9 3v3 lvl12 1v1    AS    AD
-    C44                                 496      741       770  1.92   137
-    Kraken                              522      814       824  2.14   127
-    Yun Tal (+Flurry 50 %)              539      821       818  2.26   132
-    Stormrazor                          519      774       787  2.05   132
-    Fiendhunter                         393      599       606  2.21    82
-    BotRK                               683      916       974  2.11   122
+    C44                                 489      735       762  1.92   137
+    Kraken                              514      807       815  2.14   127
+    Yun Tal (+Flurry 50 %)              531      813       808  2.26   132
+    Stormrazor                          517      773       785  2.05   132
+    Fiendhunter                         385      591       597  2.21    82
+    BotRK                               676      909       965  2.11   122
     Publicado (lvl 9 1v1): C44 495 · Kraken 560 · Yun Tal 480 · Storm 520 — veredicto C44-1.º por sinergia de spread.

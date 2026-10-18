@@ -828,6 +828,21 @@ def bloque_verificacion(t, fecha=None):
 
 
 
+def set_verificacion_fm(txt, veredicto, patch):
+    """v1.19: la constancia de verificación va en el FRONTMATTER (resumida),
+    no en bloques WRLAB-VERIF del cuerpo (decisión del autor 14/10/2026)."""
+    m = re.match(r"^---\n(.*?)\n---\n", txt, re.S)
+    if not m:
+        return txt
+    fm = m.group(1)
+    for k, v in (("verification", veredicto), ("verified_patch", f'"{patch}"')):
+        if re.search(rf"^{k}:", fm, re.M):
+            fm = re.sub(rf"^{k}:.*$", f"{k}: {v}", fm, count=1, flags=re.M)
+        else:
+            fm += f"\n{k}: {v}"
+    return txt[:m.start(1)] + fm + txt[m.end(1):]
+
+
 def insertar_bloque(txt, bloque, patch):
     """Idempotente a nivel de bytes:
     - si ya existe el bloque del mismo parche → lo reemplaza in-place (normaliza espacios previos);
@@ -1092,13 +1107,13 @@ def cmd_annotate(args):
         if args.apply:
             with open(ruta, encoding="utf-8") as fh:
                 txt = fh.read()
-            nuevo = insertar_bloque(txt, bloque, patch)
+            nuevo = set_verificacion_fm(txt, t["veredicto"], patch)
             if nuevo != txt:
                 with open(ruta, "w", encoding="utf-8") as fh:
                     fh.write(nuevo)
-                print(f"✍️  {t['archivo']}: bloque {patch} insertado/actualizado ({VEREDICTOS[t['veredicto']]})")
+                print(f"✍️  {t['archivo']}: frontmatter verification={t['veredicto']} / verified_patch={patch}")
             else:
-                print(f"=  {t['archivo']}: sin cambios (bloque ya vigente)")
+                print(f"=  {t['archivo']}: sin cambios (metadata ya vigente)")
             reg["reportes"][t["archivo"]]["ultima_verificacion"] = {
                 "patch": patch, "fecha": fecha, "veredicto": t["veredicto"],
                 "delta_max_pct": t["delta_max"]}

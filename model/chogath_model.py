@@ -161,7 +161,7 @@ def evaluate(boot_key, item_keys, S=15, r_rank=3, fight=10.0, window=5.0,
     awe_hp = 0.15*mana if has('awe') else 0.0        # Fimbulwinter Awe
 
     # A5/A13: acumulaciones dependientes del minuto
-    gflat = 10*min(40, minute*2)
+    gflat = 8*min(40, minute*2)   # Grasp 7.3b: +10→+8 HP/proc
     oflat = min(100, minute*6)
     opct  = 0.03 if minute >= 13 else 0.0
     hs_growth = 0.9*max(0.0, minute-9.5)*45 if has('hs_proc') else 0.0
@@ -203,7 +203,7 @@ def evaluate(boot_key, item_keys, S=15, r_rank=3, fight=10.0, window=5.0,
             d_mag += imm*fight*aoe_targets
         if has('torment'): d_mag += 0.02*en['hp']*fight*torments        # A12
         if has('anguish'): d_mag += 0.03*maxHP*(fight/4.0)*aoe_targets
-        d_mag += (fight/3.0)*(0.033*maxHP)                               # Grasp
+        d_mag += (fight/3.0)*(0.030*maxHP)   # Grasp 7.3b: 3.3→3.0 %                               # Grasp
         if has('zeke'):    d_mag += 150*(fight/50.0)*aoe_targets
         if has('thorns'):  d_mag += 0.5*(1.2*fight)*(20+0.06*(armor-bs['armor'])+0.01*bonusHP)
         d_mag *= amp*m_f

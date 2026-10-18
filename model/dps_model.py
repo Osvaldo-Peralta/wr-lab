@@ -78,7 +78,7 @@ CHAMPS = {
         base_as=0.3, as_ratio=0.3, base_bonus_as=1.1, as_per_lvl=0.025,   # 7.3a (nerf del ratio)
         ranged=True, attack_range=625,
         aa_mult=1.2,               # Relic Cannon: on-hit +20% AD en cada auto (wiki; D2 de la ficha)
-        crit_dmg_mod=0.9,          # crit propio al 90% del normal (180%/207% con IE)
+        crit_dmg_mod=0.8,   # 7.3b: crit al 80 % del normal (era 90 %)          # crit propio al 90% del normal (180%/207% con IE)
         uses_magnification=True,   # pelea a 625+ (>=550)
         free_crit=0.50,            # 100 stacks de Niebla al checkpoint mid = +50% crit gratis
         mana_pool_l1=345, mana_growth=65,
@@ -126,14 +126,14 @@ ITEMS = {i.key: i for i in [
     I("pd",        2650, a_s=40, crit=25, ms=7, comment="stacks 6%AS+1%MS x5; ya NO da AD en 7.3"),
     I("navori",    2650, a_s=40, crit=25, ms=4, comment="ataques -15% CDs básicos (validar mecánica)"),
     I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0, comment="Spellblade 135% AD base + 0-80 por crit (1.5s ICD)"),
-    I("yuntal",    3100, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques"),
+    I("yuntal",    3000, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques · 7.3b: precio 3100→3000"),
     I("manamune",  2900, ad=40, ah=15, comment="+2% mana como AD; Shock 1.5% mana (Muramana)"),
     # --- on-hit ---
     I("witsend",   2800, a_s=50, mr=45, onhit_flat=40, comment="+20% tenacidad"),
     I("terminus",  3000, ad=35, a_s=35, onhit_flat=30, pen=30, comment="stacks light/dark; pen cap 40%"),
     I("botrk",     3100, ad=40, a_s=30, ls=12, onhit_pct_current=6, comment="6% vida actual (min 15)"),
     I("guinsoo",   3000, ad=35, ap=30, a_s=30, onhit_flat=30, comment="cada 3er golpe aplica on-hit 2 veces"),
-    I("statikk",   3000, ad=40, ap=40, a_s=30, ms=4, energized=60, comment="cadena 4-7 objetivos, aplica on-hit"),
+    I("statikk",   2900, ad=40, ap=40, a_s=30, ms=4, energized=60, comment="cadena 4-7 objetivos, aplica on-hit"),
     # --- defensa/utilidad ---
     I("scimitar",  3100, ad=45, mr=40, ls=12, comment="activo Quicksilver (CC cleanse)"),
     I("ga",        3200, ad=45, armor=40, comment="revivir"),
@@ -348,7 +348,7 @@ def eval_build(spec, items, level=15, targets=1, armor=0.0, tank=False,
         if i.kraken:
             base = (KRAKEN_RANGED_L15 if spec.ranged else KRAKEN_MELEE_L15) * (level/15)
             d += AS/3 * base * (1 + KRAKEN_MISSING_BONUS*missing_hp)
-        if i.energized: d += AS/7 * i.energized
+        if i.energized: d += AS/6 * i.energized   # 7.3b: Stattikk +7 stacks/auto (antes +5) → proc ~cada 6 autos
         if i.onhit_flat: d += AS * i.onhit_flat
         if i.onhit_pct_current: d += AS * max(15, i.onhit_pct_current/100*enemy_hp)  # sin cap vs campeones
         if i.spellblade: d += spellblade_uptime * (1.35*base_ad + 80*crit)
