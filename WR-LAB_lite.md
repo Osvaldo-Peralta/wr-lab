@@ -1434,6 +1434,31 @@ Cooldown:
  8s
 Nimbus Cloak
 
+---
+
+## COMPLEMENTO WR-LAB v1.21 (18/10/2026) — estructura de página confirmada in-game
+
+El scrape de wr-meta anterior está TRUNCADO (termina en "Nimbus Cloak", sin
+descripciones de Gathering Storm / Ixtal Seedjar ni sección Inspiration). Este
+complemento codifica lo confirmado en cliente por el autor (18/10/2026):
+
+- **Página legal (L1-L4)** = 1 KEYSTONE + 3 RUNAS del árbol del keystone (una por
+  fila: fila 1, fila 2, fila 3) + 1 SECUNDARIA de cualquier OTRO árbol = 5 slots.
+- **Keystones por árbol:** Domination {Electrocute, Dark Harvest, Empowerment} ·
+  Precision {Lethal Tempo, Fleet Footwork, Conqueror} · Resolve {Grasp of Undying,
+  Guardian} · Sorcery {Aery, Arcane Comet, Phase Rush} · Inspiration {First Strike,
+  Ice Overlord}.
+- **SORCERY, filas (confirmadas in-game):**
+  - f1: Axiom Arcanist | Manaflow Band | Botanist | Hextech Flashtraption (Hexflash)
+  - f2: Transcendence | Celerity | Absolute Focus
+  - f3: Scorch | Nimbus Cloak | Gathering Storm | Ixtal Seedjar
+- **RESOLVE f3 (confirmada in-game):** Overgrowth | Revitalize | Perseverance.
+- **Gathering Storm** = Sorcery f3 (runa de escalado AP/AD por tramos de minuto;
+  NO es de Inspiration como figuraba en la DB v1.20 del lab).
+- Las filas de DOMINATION / PRECISION / RESOLVE f1-f2 se infieren del orden de
+  secciones de este md: PENDIENTES de verificación in-game.
+- DB legible por máquina (validador L1-L4): `model/runas_wr.py`.
+
 ## 6. SISTEMAS DE CAMPO 7.3 (+ ajustes 7.3a: Smite burn, Nexus, placas — ver §3b)
 
 # Sistemas de campo - Wild Rift 7.3 (notas oficiales)
@@ -3541,6 +3566,12 @@ Motores soportados (v1):
 
 FUENTE DE VALORES: data/estructurada/runas_7.3.md (scrape de wr-meta; las notas oficiales
 7.3 mandan para Lethal Tempo, ya dentro del motor). SUPUESTOS DECLARADOS (auditables):
+    · NOTA v1.21 (18/10): la ESTRUCTURA de página real la fija model/runas_wr.py
+      (L1-L4): 1 keystone + 3 runas del ÁRBOL DEL KEYSTONE (filas 1-2-3) + 1
+      secundaria de OTRO árbol. La "secundaria" que puntúa este buscador v1 es en
+      realidad una runa principal del árbol del keystone (p.ej. Legend: Alacrity =
+      Precision f3); la secundaria real (otro árbol) no se puntúa todavía. Verificar
+      cualquier página resultante contra runas_wr.es_legal_pagina antes de publicar.
     · Conqueror: 5 AD × 6 stacks = 30 AD con uptime 85 % en pelea sostenida (→ 25.5 efectivo)
       + 5 % omnivamp ranged a stacks llenos (va a la columna de sustain, no al DPS).
     · First Strike: +7 % verdadero 3 s cada 25 s → +0.84 % efectivo sostenido (+oro no modelado).
@@ -5033,4 +5064,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 17/10/2026 · lite · sha256(cuerpo)=7f33f9aeb694cf81 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 17/10/2026 · lite · sha256(cuerpo)=b3a05a0b7b0f644c · NO editar a mano: editar las fuentes y regenerar -->

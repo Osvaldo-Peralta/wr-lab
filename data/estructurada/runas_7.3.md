@@ -541,3 +541,28 @@ Damaging an enemy champion with an ability burns them, dealing
 Cooldown:
  8s
 Nimbus Cloak
+
+---
+
+## COMPLEMENTO WR-LAB v1.21 (18/10/2026) — estructura de página confirmada in-game
+
+El scrape de wr-meta anterior está TRUNCADO (termina en "Nimbus Cloak", sin
+descripciones de Gathering Storm / Ixtal Seedjar ni sección Inspiration). Este
+complemento codifica lo confirmado en cliente por el autor (18/10/2026):
+
+- **Página legal (L1-L4)** = 1 KEYSTONE + 3 RUNAS del árbol del keystone (una por
+  fila: fila 1, fila 2, fila 3) + 1 SECUNDARIA de cualquier OTRO árbol = 5 slots.
+- **Keystones por árbol:** Domination {Electrocute, Dark Harvest, Empowerment} ·
+  Precision {Lethal Tempo, Fleet Footwork, Conqueror} · Resolve {Grasp of Undying,
+  Guardian} · Sorcery {Aery, Arcane Comet, Phase Rush} · Inspiration {First Strike,
+  Ice Overlord}.
+- **SORCERY, filas (confirmadas in-game):**
+  - f1: Axiom Arcanist | Manaflow Band | Botanist | Hextech Flashtraption (Hexflash)
+  - f2: Transcendence | Celerity | Absolute Focus
+  - f3: Scorch | Nimbus Cloak | Gathering Storm | Ixtal Seedjar
+- **RESOLVE f3 (confirmada in-game):** Overgrowth | Revitalize | Perseverance.
+- **Gathering Storm** = Sorcery f3 (runa de escalado AP/AD por tramos de minuto;
+  NO es de Inspiration como figuraba en la DB v1.20 del lab).
+- Las filas de DOMINATION / PRECISION / RESOLVE f1-f2 se infieren del orden de
+  secciones de este md: PENDIENTES de verificación in-game.
+- DB legible por máquina (validador L1-L4): `model/runas_wr.py`.

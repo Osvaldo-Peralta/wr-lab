@@ -13,6 +13,12 @@ Motores soportados (v1):
 
 FUENTE DE VALORES: data/estructurada/runas_7.3.md (scrape de wr-meta; las notas oficiales
 7.3 mandan para Lethal Tempo, ya dentro del motor). SUPUESTOS DECLARADOS (auditables):
+    · NOTA v1.21 (18/10): la ESTRUCTURA de página real la fija model/runas_wr.py
+      (L1-L4): 1 keystone + 3 runas del ÁRBOL DEL KEYSTONE (filas 1-2-3) + 1
+      secundaria de OTRO árbol. La "secundaria" que puntúa este buscador v1 es en
+      realidad una runa principal del árbol del keystone (p.ej. Legend: Alacrity =
+      Precision f3); la secundaria real (otro árbol) no se puntúa todavía. Verificar
+      cualquier página resultante contra runas_wr.es_legal_pagina antes de publicar.
     · Conqueror: 5 AD × 6 stacks = 30 AD con uptime 85 % en pelea sostenida (→ 25.5 efectivo)
       + 5 % omnivamp ranged a stacks llenos (va a la columna de sustain, no al DPS).
     · First Strike: +7 % verdadero 3 s cada 25 s → +0.84 % efectivo sostenido (+oro no modelado).

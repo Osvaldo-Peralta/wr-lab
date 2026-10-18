@@ -1,76 +1,113 @@
-WR-LAB v1.20 — RUNAS LEGALES (L1-L4) + YUUMI AGRESIVA v2.0
-============================================================
-Fecha: 18/10/2026 · Base: commit b989556 ("Hotfix 7.3b integrado, Yunara recalculado")
+════════════════════════════════════════════════════════════════════════════
+ WR-LAB v1.21 — CORRECCIÓN DE RUNAS (el caos de la v1.20) + Yuumi v2.1
+ 18/10/2026
+════════════════════════════════════════════════════════════════════════════
 
-QUÉ CONTIENE
-------------
-1) model/runas_wr.py (NUEVO)
-   Validador de páginas de runas Wild Rift. Reglas (confirmadas por vos y
-   verificadas contra sets equipados en cliente):
-     L1 · 1 keystone + 3 runas + 1 secundaria (5 slots exactos)
-     L2 · las 3 runas ocupan filas 1, 2 y 3 (una por fila)
-     L3 · dentro de un árbol, como máximo 1 runa por fila (en los 5 slots)
-     L4 · la secundaria es de un árbol NO usado por keystone ni runas
-   Base de datos árbol/fila de todas las runas de WR 7.3b incluida.
-   Uso:  python3 -c "import sys; sys.path.insert(0,'model'); import runas_wr as R;
-          print(R.es_legal_pagina(['Electrocute','Cheap Shot','Transcendence',
-          'Coup de Grace','Gathering Storm']))"
+QUÉ PASÓ
+--------
+La v1.20 codificó mal las runas de Wild Rift:
+  · Keystones en árboles equivocados y filas mal asignadas (p.ej. Gathering
+    Storm figuraba como "Inspiration" cuando es Sorcery fila 3).
+  · Permitía que las 3 runas principales fueran de árboles mezclados.
+  · Declaró "ilegal (6 slots)" tu página publicada de Yuumi leyendo las
+    OPCIONES de cada fila de tu ficha como si fueran slots.
 
-2) model/yuumi_agresiva_model.py (NUEVO, el motor que adjuntaste)
-   + model/yuumi_agresiva_resultados.txt (salida capturada)
-   Corre con:  python3 model/yuumi_agresiva_model.py   (~10 s, 28 822 hojas)
+Con tu explicación del 18/10, las reglas reales quedaron fijadas:
+  L1 · 1 keystone + 3 runas + 1 secundaria = 5 slots exactos.
+  L2 · Las 3 runas son del ÁRBOL DEL KEYSTONE, una por fila (1, 2 y 3).
+  L3 · ≤1 runa por fila dentro del árbol principal.
+  L4 · La secundaria es de CUALQUIER OTRO árbol (Revitalize, Sudden Impact,
+       Cut Down, Second Wind...), nunca del principal.
 
-3) reportes/Yuumi.md → v2.0 (REESCRITO)
-   Nueva óptima agresiva: Scythe (quest) + Spellslinger's Shoes + Imperial
-   Mandate + Horizon Focus + Malignance + Stormsurge · 13 000 g.
-   Q-hit 509 (+50 % vs v1.2) · R-burst 2 833 (+62 %) · DPS 332.
-   Runas LEGALES verificadas en cliente: Electrocute + Cheap Shot +
-   Transcendence + Coup de Grace | Gathering Storm.
-   [!DANGER] declara el sacrificio: ADC+ 106 (−57 % vs Y1 enchanter).
-   verification: pending (los números de daño esperan tu testeo en juego).
+Página publicada de Yuumi agresiva (LEGAL, verificada in-game por vos):
+  Aery + Manaflow Band (f1) + Transcendence (f2) + Scorch (f3) | Revitalize.
 
-4) tests/ (NUEVOS y actualizados)
-   test_runas_wr.py (9 tests: tus 5 sets reales + las reglas L1-L4)
-   test_yuumi_agresiva.py (4 tests: runas legales, presupuesto, sacrificio
-   acotado, cifras de la tabla publicada)
-   test_update_reports.py (test del registro actualizado a métricas v2.0)
+Consecuencias corregidas acá:
+  · El set del motor batch5 (Electrocute + Cheap Shot + Transcendence +
+    Coup de Grace | Gathering Storm) es ILEGAL (L2: runas de 3 árboles).
+    Nunca debió publicarse como "verificado en cliente": retractado en el
+    reporte (post-mortem §4).
+  · Yuumi.md re-derivado a v2.1 con tu página real. La build óptima de
+    ítems NO cambia (Scythe + Spellslinger + Mandate + Horizon + Malignance
+    + Stormsurge, 13 000 g); cambian las cifras: Q-hit 501 · R-burst 2 785
+    · DPS 330 · E-shield 367 (+4 % vs Y1) · R-heal 662 (−2 %) · ADC+ 103
+    (−58 %, el sacrificio declarado).
+  · Los +50 % Q-hit / +62 % R-burst vs la v1.2 publicada ahora son 100 %
+    de ítems (misma página de runas): desglose cadena de swaps en §5.
 
-5) model/analysis_batch2.py + model/update_reports.py
-   Y_ITEMS += Spellslinger, Malignance · SINONIMOS += las dos claves
-   (para que el registro resuelva la build v2.0: hook_yuumi, AP 355).
+⚠ IMPORTANTE — EL COMMIT v1.20 YA ESTÁ EN GITHUB
+-------------------------------------------------
+Dijiste que no habías hecho push, pero al clonar veo el commit a9f996e
+("Feat: runas WR legales (L1-L4) + Yuumi agresiva v2.0") en origin/main.
+Si está ahí, el cron de "Sync lab → web" (08:35/20:35 UTC) puede publicar
+Yuumi v2.0 con las runas mal. Aplicá este zip y pusheá cuanto antes para
+que la v2.1 lo pise.
 
-6) Derivados regenerados: reportes_registry.json, WR-LAB_completo.md,
-   WR-LAB_lite.md.
+CÓMO APLICAR (sobre tu clon de wr-lab)
+--------------------------------------
+1. Descomprimí este zip EN LA RAÍZ del clon (sobrescribe 11 archivos):
+       Laboratorio_Wild_Rift/wr-lab/
+2. Verificá:
+       python3 wrlab.py prepush
+   Debe dar 🟢 TODO VERDE (suite de 199 tests; ya lo corrí en limpio:
+   clon fresco de GitHub + zip + prepush = 🟢).
+3. Commit y push sugeridos:
+       git add -A
+       git commit -m "Fix v1.21: runas WR reales (L1-L4) + Yuumi v2.1 con la página publicada"
+       git push
+4. En wr-guides-web: dispará la Action "Sync lab → web" (o esperá el cron)
+   y verificá que la guía de Yuumi muestre la página Aery.
 
-CÓMO APLICAR
-------------
-1. Descomprimí este zip DENTRO de tu clon de wr-lab (sobrescribir).
-2. Corré:   python3 wrlab.py prepush
-   Debe terminar en 🟢 TODO VERDE (188 tests).
-3. Commit sugerido:
-   git add -A
-   git commit -m "Feat: runas WR legales (L1-L4) + Yuumi agresiva v2.0 (batch5)"
-   git push
-4. Después publicá la web con la Action "Sync lab → web" como siempre.
+ARCHIVOS DEL ZIP (11 + estas instrucciones)
+-------------------------------------------
+  model/runas_wr.py                    DB árboles/filas corregida + reglas L1-L4
+                                       reales (fuente: runas_7.3.md + tu verificación
+                                       in-game). API compatible (es_legal, es_legal_pagina).
+  model/yuumi_agresiva_model.py        página base = la publicada (Aery/Manaflow/
+                                       Transcendence/Scorch | Revitalize); keystone
+                                       'aery' y 'comet' modelados; sección [0] valida
+                                       la página contra L1-L4 en cada corrida;
+                                       Electro/DarkHarvest quedan como sensibilidades.
+  model/yuumi_agresiva_resultados.txt  salida regenerada del motor.
+  model/optimize_runes.py              solo docstring: nota de que la estructura de
+                                       página la fija runas_wr (su "secundaria" v1 es
+                                       en realidad una runa principal del árbol).
+  reportes/Yuumi.md                    v2.1: WARNING de corrección, runas publicadas
+                                       con opciones por fila, números nuevos, §4
+                                       post-mortem (retractación de la v2.0), D-v2.5
+                                       (relectura de los CDs de 3.1 s).
+  tests/test_runas_wr.py               18 tests: tus sets reales (página Yuumi legal,
+                                       variantes de fila, secundarias alternativas,
+                                       set batch5 ilegal, L4/L2/L1, DB de filas).
+  tests/test_yuumi_agresiva.py         6 tests: página legal, regresión batch5 ilegal,
+                                       presupuesto, sacrificio acotado, cifras v2.1,
+                                       óptima invariante.
+  data/estructurada/runas_7.3.md       COMPLEMENTO v1.21 al final: estructura de
+                                       página, keystones por árbol, filas Sorcery
+                                       confirmadas (el scrape estaba truncado).
+  data/estructurada/reportes_registry.json  regenerado.
+  WR-LAB_completo.md / WR-LAB_lite.md  bundles regenerados (embedan modelos/tests).
 
-DEUDA DE RUNAS DEL RESTO DE REPORTES (NO se toca en esta iteración)
--------------------------------------------------------------------
-Barrido diagnóstico con runas_wr sobre las 21 páginas principales:
-  LEGALES (10): Caitlyn, Diana Jungla, Diana Mid, Heimerdinger, Jinx,
-                Kalista, Nocturne, Xayah, Yunara, Yuumi (v2.0)
-  CANDIDATOS A DEUDA (11): Cho'Gath Jungla, Cho'Gath Barón, Mordekaiser,
-                Norra, Ornn, Rammus, Senna, Seraphine, Sivir, Volibear,
-                Volibear Pesadilla.
-  Patrones: sets tanque de 6 slots (Resolve×N), secundarias del mismo árbol
-  del keystone, filas duplicadas. El barrido parsea la primera tabla de
-  runas de cada reporte; algunos pueden ser falsos positivos por formato
-  (tablas de variantes) — confirmar reporte por reporte en la iteración
-  dedicada. Reproducible con el script de la conversación; si querés lo
-  agrego como comando `wrlab.py runas-check` en la próxima iteración.
-
-NOTAS
------
-- El motor batch5 verifica su baseline Y1 contra la fixture histórica
-  (338.8/650.7/3 953) y da 353.9/671.9/4 365 con las constantes 7.3b
-  (Aery/escudos recalibrados): desvío declarado en el reporte, no es error.
-- Los reportes del sweep NO fueron modificados; solo Yuumi.md.
+PENDIENTES / HUECOS DECLARADOS
+------------------------------
+  · Filas de Domination/Precision/Resolve f1-f2: inferidas del orden del md
+    (coincide con lo que confirmaste en Sorcery y Resolve f3). Cuando puedas,
+    verificá in-game y ajustamos la DB (la regla manda, la DB se ajusta).
+  · Menores de Inspiration: el md está truncado y no los liste → hueco de datos.
+  · Deuda de runas en otros reportes (barrido diagnóstico con la DB corregida,
+    NO toca nada — la corrección es la iteración separada que acordamos):
+      - ILEGAL claro: Cho'Gath Jungla (6 slots), Mordekaiser (3 runas Resolve
+        con keystone Conqueror), Norra (filas repetidas + secundaria mismo
+        árbol), Sivir (secundaria Cut Down con keystone Precision), Volibear
+        (filas [1,3,3] + secundaria mismo árbol).
+      - Revisión manual (formato antiguo con 2 secundarias o runas que no
+        existen —"Ultimate Hunter", "Hero"—): Diana Jungla, Diana Mid, Senna,
+        Kalista, Xayah, Heimerdinger (su alternativa "Axiom como secundaria"
+        con Comet es L4-ilegal; la página principal sí es legal).
+      - Legales con la DB corregida: Caitlyn, Jinx, Nocturne, Yunara,
+        Cho'Gath Barón, Ornn, Rammus, Seraphine (página principal),
+        Volibear Pesadilla, Yuumi v2.1.
+    Si querés, en la próxima iteración agrego el comando `wrlab.py runas-check`
+    que corre este barrido oficializado sobre los 21 reportes.
+  · Yuumi v2.1: cifras de daño pendientes de tu verificación en juego. Cuando
+    las confirmes (o no), avisame y las anotamos con annotate --patch 7.3b.

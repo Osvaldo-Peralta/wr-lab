@@ -1435,6 +1435,31 @@ Cooldown:
  8s
 Nimbus Cloak
 
+---
+
+## COMPLEMENTO WR-LAB v1.21 (18/10/2026) — estructura de página confirmada in-game
+
+El scrape de wr-meta anterior está TRUNCADO (termina en "Nimbus Cloak", sin
+descripciones de Gathering Storm / Ixtal Seedjar ni sección Inspiration). Este
+complemento codifica lo confirmado en cliente por el autor (18/10/2026):
+
+- **Página legal (L1-L4)** = 1 KEYSTONE + 3 RUNAS del árbol del keystone (una por
+  fila: fila 1, fila 2, fila 3) + 1 SECUNDARIA de cualquier OTRO árbol = 5 slots.
+- **Keystones por árbol:** Domination {Electrocute, Dark Harvest, Empowerment} ·
+  Precision {Lethal Tempo, Fleet Footwork, Conqueror} · Resolve {Grasp of Undying,
+  Guardian} · Sorcery {Aery, Arcane Comet, Phase Rush} · Inspiration {First Strike,
+  Ice Overlord}.
+- **SORCERY, filas (confirmadas in-game):**
+  - f1: Axiom Arcanist | Manaflow Band | Botanist | Hextech Flashtraption (Hexflash)
+  - f2: Transcendence | Celerity | Absolute Focus
+  - f3: Scorch | Nimbus Cloak | Gathering Storm | Ixtal Seedjar
+- **RESOLVE f3 (confirmada in-game):** Overgrowth | Revitalize | Perseverance.
+- **Gathering Storm** = Sorcery f3 (runa de escalado AP/AD por tramos de minuto;
+  NO es de Inspiration como figuraba en la DB v1.20 del lab).
+- Las filas de DOMINATION / PRECISION / RESOLVE f1-f2 se infieren del orden de
+  secciones de este md: PENDIENTES de verificación in-game.
+- DB legible por máquina (validador L1-L4): `model/runas_wr.py`.
+
 ## 6. SISTEMAS DE CAMPO 7.3 (+ ajustes 7.3a: Smite burn, Nexus, placas — ver §3b)
 
 # Sistemas de campo - Wild Rift 7.3 (notas oficiales)
@@ -3542,6 +3567,12 @@ Motores soportados (v1):
 
 FUENTE DE VALORES: data/estructurada/runas_7.3.md (scrape de wr-meta; las notas oficiales
 7.3 mandan para Lethal Tempo, ya dentro del motor). SUPUESTOS DECLARADOS (auditables):
+    · NOTA v1.21 (18/10): la ESTRUCTURA de página real la fija model/runas_wr.py
+      (L1-L4): 1 keystone + 3 runas del ÁRBOL DEL KEYSTONE (filas 1-2-3) + 1
+      secundaria de OTRO árbol. La "secundaria" que puntúa este buscador v1 es en
+      realidad una runa principal del árbol del keystone (p.ej. Legend: Alacrity =
+      Precision f3); la secundaria real (otro árbol) no se puntúa todavía. Verificar
+      cualquier página resultante contra runas_wr.es_legal_pagina antes de publicar.
     · Conqueror: 5 AD × 6 stacks = 30 AD con uptime 85 % en pelea sostenida (→ 25.5 efectivo)
       + 5 % omnivamp ranged a stacks llenos (va a la columna de sustain, no al DPS).
     · First Strike: +7 % verdadero 3 s cada 25 s → +0.84 % efectivo sostenido (+oro no modelado).
@@ -18628,10 +18659,6 @@ verified_patch: "7.3b"
 > Win Rate 50.24 % | Pick Rate 4.37 % | Ban 0.17 % | Tendencia ↑3 1 | Tier A | Rol DUO (ADC).
 
 ---
-
-> [!NOTE]
-> **Verificación batch4 (12/10/2026, `model/xayah_model.py`):** motor independiente REPRODUCE las cifras publicadas con ±0.0 % (3 146 / 5 929 / 1 767 / 1 582 / heal 498) y la re-optimización extendida (engine + E/Q/R/pasiva en el objetivo, 27 720 hojas, crit=100 y pen≥30 por Leyes 1/3) confirma la MISMA Tabla A al 91.1 % (92.4 % con techo 7.3a: BotRK 7 % + Flurry 50 % + on-hit en rayos). Sensibilidades cerradas: D1 −1.3 % · D3 +2.2 %/+3.6 % (predicción del reporte: 3 210/1 712 → medido 3 214/1 640) · D7 −17.8 % sin W.
-
 ## 0. RESUMEN EJECUTIVO
 
 ### Tabla A — BUILD FINAL (DPS Máximo · óptima del optimizador, 91.6 %)
@@ -19667,7 +19694,7 @@ tags:
   - Enchanter
   - AP-Burst
   - Bot-Lane
-version: 2.0
+version: 2.1
 Status: Beta
 champion: Yuumi
 slug: yuumi
@@ -19683,26 +19710,23 @@ updated_at: "2026-10-12"
 verification: SIN_IMPACTO
 verified_patch: "7.3b"
 ---
-**Fecha del análisis:** 18/10/2026 (re-derivación v2.0 con motor `yuumi_agresiva_model.py`, batch5, constantes 7.3b)
+**Fecha del análisis:** 18/10/2026 (rev. v2.1 — corrección de runas: la página publicada es LEGAL y vuelve a ser la base; motor `yuumi_agresiva_model.py`, batch5, constantes 7.3b)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026) + hotfix 7.3b (15-oct-2026)
 **Rol principal:** Support agresivo (custom): dañar con Q mejorada y R de 7 olas
-**Arquetipo:** AP-burst de poke montado (Best Friend): el daño es Q/R + runas de daño, no autos
-**Enfoque:** Maximizar daño de Q/R con maná y haste sostenibles: Imperial Mandate + Horizon Focus + Malignance + Stormsurge sobre botas de penetración, con Black Mist Scythe de quest. La curación pasa a segundo plano pero NO colapsa (R-heal 647, −4 % vs baseline enchanter).
+**Arquetipo:** AP-burst de poke montado (Best Friend): el daño es Q/R + ítems amplificadores, no autos
+**Enfoque:** Maximizar daño de Q/R con maná y haste sostenibles sobre botas de penetración. La curación pasa a segundo plano pero NO colapsa (R-heal 662, −2 % vs baseline enchanter).
 
 > [!NOTE]
-> **Estado Meta Actual (Diamond+, 17/10/2026):** SUPPORT Win Rate 48.23 % | Pick Rate 8.92 % | Ban 33.84 % | Tendencia ↓3 | Tier A (Confidence High). Fuente: `data/estructurada/champion_winrates.csv` (vigía 2×/día). Tras los nerfs 7.3/7.3a (HSP de W 6-9 % + 0.01 % AP) y el meta de engages rápidos, la Yuumi enchanter pura cayó de S a A: la variante agresiva existe precisamente para devolver impacto medible por oro.
-
-> [!WARNING]
-> **Runas publicadas en v1.2 eran ILEGALES en el cliente** (6 slots: Aery/Comet + Manaflow + Transcendence + Scorch + Revitalize). Un testeo en juego de un set parecido (Electrocute + Axiom + Transcendence + Gathering Storm + Cheap Shot) midió **CDs mayores a los publicados**: la página real no aceptaba Transcendence + Axiom a la vez (misma fila de árbol) ni la secundaria del árbol del keystone. La página de esta v2.0 está **verificada en cliente por el autor y un amigo (16/10)** y validada por `model/runas_wr.py` (reglas L1-L4).
+> **Estado Meta Actual (Diamond+, 17/10/2026):** SUPPORT Win Rate 48.23 % | Pick Rate 8.92 % | Ban 33.84 % | Tendencia ↓3 | Tier A (Confidence High).
 
 > [!DANGER]
-> **Sacrificio declarado vs baseline enchanter (Y1: Censer + Echoes + Staff + Redemption):** ADC+ **106 vs 248 (−57 %)** y Helia/E 0 (la cura por daño de Q desaparece). A cambio: Q-hit 275→**509 (+85 %)**, R-burst 1 409→**2 833 (+101 %)**, DPS sostenido 162→**332 (+105 %)**, y el escudo/curación propios casi no caen (E-shield 361, +2 %; R-heal 647, −4 %). Es una build de *impacto*, no de protección: si tu ADC necesita babysitting, jugá Y1.
+> **Sacrificio declarado vs baseline enchanter (Y1: Censer + Echoes + Staff + Redemption):** ADC+ **103 vs 248 (−58 %)** y Helia/E 0 (la cura por daño de Q desaparece). A cambio: Q-hit 275→**501 (+82 %)**, R-burst 1 409→**2 785 (+98 %)**, DPS sostenido 162→**330 (+104 %)**, y el escudo/curación propios casi no caen (E-shield 367, +4 %; R-heal 662, −2 %). Es una build de *impacto*, no de protección: si tu ADC necesita niñera, juega Y1.
 
 ---
 
 ## 0. RESUMEN EJECUTIVO
 
-### Tabla A — BUILD FINAL (óptima agresiva batch5, 28 822 hojas legales)
+### Tabla A — BUILD FINAL (óptima agresiva batch5 + runas corregidas, 28 822 hojas legales)
 
 | Slot | Ítem | Oro | Rol en la build |
 |---|---|---|---|
@@ -19713,7 +19737,7 @@ verified_patch: "7.3b"
 | 5 | **Malignance** | 2 700 | Scorn: −MR sostenido + 20 AH de R + Hatefog post-R; el amplificador de las 7 olas |
 | 6 | **Stormsurge** | 2 800 | 90 AP + 15 pen plana + Squall: ejecuta lo que tu R dejó a <25 % |
 
-> **Oro total: 13 000 g** (convención lab de support: quest 0 g + botas + 4) · **AP 375 · AH 80 (cdr 44 %) · pen 33 plana + 8 %** · **Q-CD 2.50 s · R-CD 29.5 s** · validate_slots PASS (1 bota + quest + 4).
+> **Oro total: 13 000 g** (convención lab de support: quest 0 g + botas + 4) · **AP 355 · AH 80 (cdr 44 %) · pen 33 plana + 8 %** · **Q-CD 2.50 s · R-CD 29.5 s** · validate_slots PASS (1 bota + quest + 4).
 
 ### Tabla B — Ruta de compra cronológica
 
@@ -19728,36 +19752,38 @@ verified_patch: "7.3b"
 | 7 | Blasting Wand + Codex + 600 → **Malignance** | 11 200 | ~15:00 |
 | 8 | Blasting Wand + Void Amethyst + Aether Wisp → **Stormsurge** | 13 500 | ~18:00 |
 
-### Runas · Hechizos · Habilidades (página LEGAL verificada en cliente 16/10)
+### Runas · Hechizos · Habilidades (página PUBLICADA, legal, verificada in-game por el autor)
 
-| Categoría | Elección |
-|---|---|
-| Keystone | **Electrocute** (7.3b: 60-210 + 10 % bAD + 5 % AP; tu Q cargada + auto attachado lo procan solos) |
-| Dominación 1 | **Cheap Shot** (7.3b: CD 5 s; el slow/reveal de Q lo activa con uptime ~100 %: 45 verdadero/5 s) |
-| Hechicería 2 | **Transcendence** (+10 AH y el −8 % CD post-hit del nivel 9: es tu "manaflow" de haste) |
-| Precisión 3 | **Coup de Grace** (+8 % a <40 % HP: sinergia con Squall de Stormsurge y las olas de R) |
-| Secundaria | **Gathering Storm** (Inspiration: árbol libre — +16 AP al min 18; el árbol Sorcery ya está usado por Transcendence, regla L4) |
-| Hechizos | **Flash + Ignite** (ejecución post-poke) · **Flash + Exhaust** vs dive |
-| Skills | **Q > E > W** (R en 6/11/16): Q maxea el poke; E sostiene el attach; W solo 1 punto early |
+Estructura legal (reglas L1-L4 de `model/runas_wr.py` v1.21): **1 keystone + 3 runas del árbol del keystone (una por fila: 1, 2 y 3) + 1 secundaria de cualquier OTRO árbol** = 5 slots.
 
-### Resultado del modelo (nivel 15, min 20, MR 50 squishy / MR 150 tanque, runas de la Tabla)
+| Categoría | Elección | Opciones de la fila |
+|---|---|---|
+| Keystone (Sorcery) | **Aery** — daño 15-70 + 5 % AP por proc (7.3b: su escudo aliado 25-120→20-100); proca con cada Q cargada | Arcane Comet · Phase Rush |
+| Sorcery · fila 1 | **Manaflow Band** — +30 maná máx por Q impactada (hasta +300): el poke sostenido existe | Axiom Arcanist · Botanist · Hexflash |
+| Sorcery · fila 2 | **Transcendence** — +5 AH (lvl 1) y +5 AH (lvl 5); lvl 9: −8 % CD de la básica tras impactar | Celerity · Absolute Focus |
+| Sorcery · fila 3 | **Scorch** — 21-49 daño mágico extra por habilidad, CD 8 s | Nimbus Cloak · Gathering Storm · Ixtal Seedjar |
+| Secundaria (Resolve) | **Revitalize** — +5 % curación y escudos (+10 % extra con objetivo <40 % HP): amplifica tu E y tu R | Overgrowth · Perseverance — y en general CUALQUIER runa de otro árbol: Sudden Impact, Cut Down, Second Wind… |
+| Hechizos | **Flash + Ignite** (ejecución post-poke) · **Flash + Exhaust** vs dive | — |
+| Skills | **Q > E > W** (R en 6/11/16): Q maxea el poke; E sostiene el attach; W solo 1 punto early | — |
 
-| Escenario | Óptima agresiva v2.0 | Poke-híbrida publicada v1.2 | Y1 enchanter (baseline lab) |
+### Resultado del modelo (nivel 15, min 20, MR 50 squishy / MR 150 tanque, página publicada)
+
+| Escenario | Óptima agresiva v2.1 | Poke-híbrida publicada v1.2 | Y1 enchanter (baseline lab) |
 |---|---|---|---|
-| **Q-hit (poke cargado)** | **509** | 339 | 275 |
-| **Q-DPS sostenido** | **204** | 152 | 102 |
-| **R-burst (7 olas)** | **2 833** | 1 748 | 1 409 |
-| **DPS sostenido total** | **332** | 240 | 162 |
-| **vs Tanque (MR 150)** | **184** | 142 | 101 |
-| **E-shield / R-heal** | 361 / 647 | 301 / 742 | 354 / 672 |
-| **ADC+ (Censer)** | 106 | 90 | 248 |
+| **Q-hit (poke cargado)** | **501** | 333 | 275 |
+| **Q-DPS sostenido** | **201** | 150 | 102 |
+| **R-burst (7 olas)** | **2 785** | 1 714 | 1 409 |
+| **DPS sostenido total** | **330** | 236 | 162 |
+| **vs Tanque (MR 150)** | **179** | 136 | 97 |
+| **E-shield / R-heal** | 367 / 662 | 305 / 757 | 354 / 672 |
+| **ADC+ (Censer)** | 103 | 87 | 248 |
 
-> **Titular:** la v2.0 gana a la publicada en todo el eje de daño (**+50 % Q-hit, +62 % R-burst**) con el mismo oro, porque corrige dos errores de la v1.2: botas de penetración desde el slot 1 (la pen plana de Spellslinger multiplica Q/R enteros) y el doble amplificador Mandate+Horizon que la v1.2 dividía con Echoes/Harmonic. El costo real es único y declarado: el buff de AS al ADC (−57 %).
+> **Titular:** la v2.1 gana a la publicada en todo el eje de daño (**+50 % Q-hit, +62 % R-burst**) con el mismo oro **y la misma página de runas** — la diferencia es 100 % de ítems: botas de penetración desde el slot 1 y la cadena de amplificadores Mandate + Horizon + Malignance. El costo real es único y declarado: el buff de AS al ADC (−58 %).
 
 ### 0.3 ¿Por qué esta build funciona para "dañar con Q"?
-- **Q mejorada rank 4 = 340 + 35 % AP** y se castea GRATIS estando attachada (Best Friend): cada 2.5 s (cdr 44 %) es un misil de 509 con pen de 33+8 %.
-- **R de 7 olas con Wave Damage Stacks:** Σ = 7×(120+15 % AP) + 21×(40+5 % AP) = 1 680 + 2.10×AP → con 375 AP = **2 467 base + amps** (Malignance ×1.04, Hypershot 0.8, Mandate ×1.07): 2 833 medidos.
-- **Electrocute + Cheap Shot** convierten cada Q cargada en ~105 daño verdadero/mágico extra por ventana de 5 s: las runas de daño suman ~18 % del Q-hit (antes, las runas de la v1.2 sumaban sustain que esta build no usa).
+- **Q mejorada rank 4 = 340 + 35 % AP** y se castea GRATIS estando attachada (Best Friend): cada 2.5 s (cdr 44 %) es un misil de 501 con pen de 33+8 %.
+- **R de 7 olas con Wave Damage Stacks:** Σ = 7×(120+15 % AP) + 21×(40+5 % AP) = 1 680 + 2.10×AP → con 355 AP = **2 426 base + amps** (Hypershot ×1.08 efectivo, Mandate ×1.07) + Hatefog (180 + 15 % AP): **2 785** post-pen.
+- **La página de runas habilita la rotación, no la sustituye:** Aery + Scorch suman ~30 DPS sostenido (9 % del total); Manaflow Band sostiene el maná del poke y Transcendence + Revitalize dan haste y amplificación de E/R. El daño pesado viene de los ítems: así está diseñada (y publicada) la build.
 
 ---
 
@@ -19765,7 +19791,7 @@ verified_patch: "7.3b"
 
 - **Ley 0 — Slots:** 6 entradas (botas T3 + quest + 4); la quest vive en su slot propio y no compite. PASS.
 - **Ley 1 adaptada — Penetración = crit del mago:** 33 plana + 8 % (Spellslinger) + 15 (Stormsurge) + Scorn de Malignance (−MR sostenido): contra MR 50, el paquete de pen vale +27 % de daño efectivo de Q/R; sin botas de pen (v1.2 con Crimson) se perdían 18 puntos de pen plana.
-- **Ley 2 adaptada — Haste = frecuencia de Q:** AH 80 → Q-CD 2.50 s y R-CD 29.5 s: cada punto de AH por encima de 60 rinde +0.9 % de daño minuto a minuto (medido en el motor).
+- **Ley 2 adaptada — Haste = frecuencia de Q:** AH 80 (70 de ítems + 10 de Transcendence) → Q-CD 2.50 s y R-CD 29.5 s: cada punto de AH por encima de 60 rinde +0.9 % de daño minuto a minuto (medido en el motor).
 - **Ley 3b:** sin ítems de pen física porcentual en el pool (grupo pen_pct ajeno a AP) — no aplica.
 - **Ley 5-6 — Timing:** Mandate al min 8 (su Command necesita un slow: tu Q lo da desde lvl 1); Spellslinger estricto a las 10:00 (regla T3); Malignance antes que Stormsurge si el enemigo tiene 2+ curas (GW de Scorn).
 
@@ -19779,7 +19805,7 @@ verified_patch: "7.3b"
 | **Horizon Focus** | ✅ Core 2 | Hypershot ×1.10: sin él, el R-burst cae 8 % |
 | **Echoes of Helia** | ⚠️ Solo híbrida | Convierte 30 % del daño en cura: en la óptima agresiva su oro rinde menos que Malignance (−6 % R-burst pero +18 % E-shield): ver variante [!TIP] |
 | **Luden's Echo** | ❌ | Su proc compite con el misil de Q por el mismo objetivo ya marcado; sin pen ni AH de CC: −7 % Q-DPS vs Mandate |
-| **Riftmaker** | ❌ | Omnivamp sin daño de auto: el_void corr multiplica daño que Yuumi casi no sostiene |
+| **Riftmaker** | ❌ | Omnivamp sin daño de auto: el void corr multiplica daño que Yuumi casi no sostiene |
 
 ---
 
@@ -19796,17 +19822,21 @@ Ver Tabla A. Notas por slot:
 
 | Situación | Slot 6 | Impacto medido |
 |---|---|---|
-| Default daño | **Stormsurge** | Q-DPS 204 · R 2 833 ✅ |
-| Vs 2+ curas | **Malignance duplicada no: Morellonomicon** | GW 50 %: −8 % R-burst por el swap ⚠️ |
-| Híbrida con cura de equipo | **Echoes of Helia por Stormsurge** | E-shield 418 (+18 %) · R-heal 738 (+10 %) · ADC+ 277 con Censer en slot 3 ([!TIP]) |
+| Default daño | **Stormsurge** | Q-DPS 201 · R 2 785 ✅ |
+| Vs 2+ curas | **Morellonomicon** por Stormsurge | GW 50 %: Q-hit 436 · R 2 417 (−13 %) ⚠️ |
+| Híbrida con cura de equipo | ruta [!TIP]: **Censer + Echoes + Mandate + Rabadon** | Q-hit 404 · R 2 123 · E-shield 421 (+19 %) · R-heal 748 (+11 %) · ADC+ 274 |
 | Vs burst mágico | **Maw of Malmortius**? fuera de pool AP | declarar: jugá Y1 enchanter |
-| Oro adelantado (ventaja) | **Rabadon's Deathcap** por Stormsurge | +AP puro: R 2 900 pero sin ejecución Squall ⚠️ |
+| Oro adelantado (13 600 g) | **Rabadon's Deathcap** por Stormsurge | Q 493 · R 2 778 (daño ≈ igual, sin Squall) pero E 447 · R-heal 776: protección ⬆ |
+| Presupuesto 14 000 g | **Infinity Orb + Cryptbloom** por Malignance + Stormsurge | Q-DPS 231 · R 2 898 · DPS 355 (13 600 g, motor [4]) |
+
+> [!TIP]
+> **Variante híbrida de emergencia (78.4 % del score agresivo):** Scythe + Spellslinger + **Censer + Echoes** + Mandate + **Rabadon** (13 000 g). Sacrifica 24 % de R-burst y 28 % de Q-DPS vs la óptima, y recupera el juego de equipo: ADC+ 274 (+11 % vs Y1), E-shield 421, R-heal 748. Con Aery + Revitalize, cada E además escuda ~+5 %: la híbrida es la página publicada en su forma más teamfight.
 
 ### RECHAZADOS (con motivo numérico)
 | Ítem | Motivo |
 |---|---|
-| ❌ **Echoes of Helia + Ardent Censer juntos** en agresiva | El motor los mide como redundantes: la cura de Helia escala con daño que esta build ya no spamea (shld/min 4 330 vs 5 431 de la poke v1.2, pero con −35 % de R-burst) |
-| ❌ **Crimson Lucidity** | Sin pen: Q-hit 509 → 431 (−15 %) con el mismo AH |
+| ❌ **Echoes of Helia + Ardent Censer juntos** en agresiva | El motor los mide como redundantes para el objetivo de daño: la híbrida baja R-burst a 2 123 (−24 %) y Q-DPS a 145 (−28 %); su valor es aliado (ADC+ 274), no tuyo |
+| ❌ **Crimson Lucidity** | Sin pen: Q-hit 501 → 406 (−19 %) con el mismo AH |
 | ❌ **Staff of Flowing Waters** | El buff de AS al ADC no se usa si tu plan es pokear montada: 0 sinergia con Q/R |
 | ❌ **Warmog's / Locket** | Umbral 7.3b de Warmog (1 250 HP bonus) inalcanzable para Yuumi; Locket es valor de teamfight que esta build delega |
 
@@ -19814,13 +19844,26 @@ Ver Tabla A. Notas por slot:
 
 ## 4. RUNAS · HECHIZOS · HABILIDADES
 
-### Por qué Electrocute y no Aery/Comet en 7.3b
-- **Electrocute (60-210 + 10 % bAD + 5 % AP, CD 20-13 s):** con Q-CD 2.5 s y auto attachado, el proc es cada ~2_procs de Q = una vez por trade de 6 s: ~35 % del Q-hit early cuando más importa (lane).
-- **Arcane Comet** quedó sin su sinergia de "Q cargada gratis" tras el nerf de maná de 7.3a: el cometa consume el mismo maná que ya no sobra.
-- **Aery** es la opción de la Y1 enchanter (escuda con cada cura): en agresiva, su escudo 20-100 (nerf 7.3b) no compite con 210 de Electrocute.
+### La página publicada (Aery), por qué se sostiene en 7.3b
+- **Aery (daño 15-70 + 10 % bAD + 5 % AP; escudo aliado 20-100 + 5 % AP):** proca con cada Q cargada (~1 proc/3 s contando su viaje de vuelta) = ~88 de daño pre-mit a lvl 15 con 355 AP, y su escudo cae sobre el carry justo cuando tu E ya está amplificando curas. Con Revitalize, ambos lados de Aery rinden +5 %.
+- **Manaflow Band + Transcendence + Scorch (filas 1-2-3 de Sorcery):** maná para el poke continuo (+300 máx), los 10 AH que completan el cdr 44 % y 21-49 de daño extra por habilidad. Es la página que habilita la rotación Q cada 2.5 s sin quedarte seca.
+- **Motor, término de runas:** ~30 DPS de los 330 totales (9 %). La build NO depende de las runas para su daño: por eso la óptima de ítems no cambió al corregirlas.
 
-### La página ilegal de v1.2, explicada (post-mortem)
-La v1.2 publicaba Aery/Comet + Manaflow + Transcendence + Scorch + Revitalize = **keystone + 4 runas + secundaria (6 slots)**: el cliente acepta 5. Al reconstruirla en juego, el slot que caía era Transcendence o Scorch → **menos AH o menos daño del declarado**, y en la variante con Axiom + Transcendence (misma fila de árbol) caía una de las dos → **CDs reales mayores que los publicados** (medido por el amigo del autor: Q ~3.1 s vs 2.5 s teóricos). Reglas formales ahora en `model/runas_wr.py` (L1-L4) con test de los 5 sets reales.
+### Alternativas legales (mismo árbol Sorcery) y referencias teóricas
+| Keystone | Legalidad | Medición del motor (óptima, min 20) |
+|---|---|---|
+| **Aery** (publicada) | ✅ | DPS 330 · Q-DPS 201 — referencia |
+| **Phase Rush** | ✅ página legal (MS + −20 % CDs restantes al proc) | DPS 328 (−0.8 %) · Q-DPS 216 (+7 %): la opción de kiting extremo |
+| **Arcane Comet** | ✅ página legal | DPS 314 (−4.9 %): el cometa se esquiva; Aery no |
+| **Electrocute / Dark Harvest** (Domination) | ⚠️ estructura legal solo con 3 runas Domination (f3 = Relentless/Zombie Ward: inútiles en Yuumi) | DPS 318 / 310 (−3.9 % / −6.2 %): tu rotación attachada no encaja 3 hits independientes en 3 s — no viable en la práctica |
+
+Secundaria: **Revitalize** (publicada) vs **Coup de Grace** (Precision, +2.0 % DPS medido) vs **Second Wind / Sudden Impact** (supervivencia/true damage). Gathering Storm NO es secundaria legal con keystone Sorcery (L4).
+
+### Post-mortem de la v2.0 (qué hizo mal el lab, corregido en v2.1)
+1. **"6 slots" inexistente:** la ficha del autor lista las OPCIONES de cada fila (p.ej. "fila 1: Axiom Arcanist, Manaflow Band (elegí esta), Botanist, Hexflash") — el lab v1.20 las contó como slots y declaró ilegal una página que era legal de 5 slots.
+2. **DB de runas errónea:** la v1.20 tenía keystones y filas mal mapeadas (Gathering Storm figuraba "Inspiration"; Axiom/Transcendence en filas equivocadas). Con la DB corregida (fuente: `runas_7.3.md` + verificación in-game del autor), la regla L2 real es: **las 3 runas son del árbol del keystone, una por fila**.
+3. **Set Electrocute "verificado en cliente":** falso. El set del motor batch5 (Electrocute + Cheap Shot + Transcendence + Coup de Grace | Gathering Storm) viola L2 (runas de 3 árboles) y nunca fue una página equipada. Los tests lo fijan como ILEGAL.
+4. **Los CDs de 3.1 s (medición del 16/10):** no los causó una "página ilegal" — la página publicada es legal y lleva Transcendence. La lectura coherente: el Q-CD de 2.5 s es de nivel 15 con la óptima completa (AH 80 + 20 de Mandate = cdr 50 % en CC); una medición a mid-game sin esos ítems da ~3.1 s. Pendiente de confirmación del autor.
 
 ---
 
@@ -19828,46 +19871,46 @@ La v1.2 publicaba Aery/Comet + Manaflow + Transcendence + Scorch + Revitalize = 
 
 | Build | Oro | Q-hit | R-burst | ADC+ | Score agresivo | Fuente |
 |---|---|---|---|---|---|---|
-| **Óptima v2.0 (Tabla A)** | 13 000 | **509** | **2 833** | 106 | 84.9 % | ⭐ LAB (batch5) |
-| Híbrida balanceada (Scythe + Spellslinger + Censer + Echoes + Mandate + Rabadon) | 13 000 | 412 | 2 169 | **277** | 78.4 % (peso aliado .51) | 🔬 LAB top-N |
-| Poke-híbrida publicada v1.2 (Echoes + Mandate + Stormsurge + Harmonic) | 12 300 | 339 | 1 748 | 90 | — | 📌 publicada |
+| **Óptima v2.1 (Tabla A)** | 13 000 | **501** | **2 785** | 103 | 85.1 % | ⭐ LAB (batch5 + runas corregidas) |
+| Híbrida balanceada (Scythe + Spellslinger + Censer + Echoes + Mandate + Rabadon) | 13 000 | 404 | 2 123 | **274** | 78.4 % (peso aliado .51) | 🔬 LAB top-N |
+| Poke-híbrida publicada v1.2 (Echoes + Mandate + Stormsurge + Harmonic) | 12 300 | 333 | 1 714 | 87 | — | 📌 publicada |
 | Y1 enchanter (Censer + Echoes + Staff + Redemption) | 11 650 | 275 | 1 409 | **248** | — | 📌 baseline lab |
 
-### Desglose de la diferencia (v2.0 vs v1.2 publicada)
-| Factor | Contribución |
-|---|---|
-| Spellslinger desde slot 1 (pen 33+8 vs Crimson 0) | +15 % Q-hit |
-| Malignance (Scorn + Hatefog en R) | +9 % R-burst |
-| Horizon Focus (Hypershot 1.0/0.8) | +8 % Q y R |
-| Runas de daño legales (Electrocute/Cheap Shot vs Aery/Scorch ilegales) | +6 % early |
-| **Neto medido** | **+50 % Q-hit · +62 % R-burst** |
+### Desglose de la diferencia (v2.1 vs v1.2 publicada — MISMA página de runas, cadena de swaps del motor)
+| Swap | Q-hit | R-burst |
+|---|---|---|
+| Base v1.2 (Crimson + Echoes + Mandate + Stormsurge + Harmonic) | 333 | 1 714 |
+| ⬆️ Spellslinger por Crimson (pen desde slot 1) | 410 (+23 %) | 2 118 (+24 %) |
+| ⬆️ Horizon por Harmonic (Hypershot) | 465 (+14 %) | 2 373 (+12 %) |
+| ⬆️ Malignance por Echoes (Scorn + Hatefog) = ÓPTIMA | **501 (+8 %)** | **2 785 (+17 %)** |
+| **Neto** | **+50 %** | **+62 %** |
 
 ---
 
 ## 6. PLAN DE JUEGO
 
 ### Early (0:00 – 8:00)
-- **Attach al carry de poke** (Caitlyn/Jinx/Varus-like): Q cargada cada 4-5 s + Electrocute en el trade 2 y 4.
+- **Attach al carry de poke** (Caitlyn/Jinx/Varus-like): Q cargada cada 4-5 s con Aery procando en cada impacto (daño al enemigo + escudo al aliado cuando casteas E).
 - **Quest primero que componentes:** los executes de Tribute (Spoils) pagan Mandate al min 8.
-- **Manaflow no existe en esta página:** gestiona maná con Q SOLO cargada (castear sin carga cuesta el doble por impacto).
+- **Manaflow Band trabaja solo:** cada Q impactada suma +30 de maná (hasta +300): a partir de mid-game el poke continuo es gratis.
 
 ### Mid (8:00 – 14:00)
-- **Mandate + Spellslinger = ventana de ejecuciones:** el carry enemigo a <40 % activa Coup de Grace + Squall de Stormsurge (min 18) o el execute de R.
-- **R como zoning de objetivos:** 7 olas en área = 2 833 repartidos; castealo PRE-engage (el viaje de las olas es lento).
+- **Mandate + Spellslinger = ventana de ejecuciones:** el carry enemigo a <25 % activa Squall de Stormsurge tras tu R; el Command de Mandate amplifica el follow-up de tu equipo +7 %.
+- **R como zoning de objetivos:** 7 olas en área = 2 785 repartidos; castealo PRE-engage (el viaje de las olas es lento).
 
 ### Late (14:00+)
-- **Gathering Storm online (+16 AP/min 18):** el Q-hit cruza 540; el side-poke tuyo quita un tercio de squishy por trade.
+- **Scorch + Aery sostienen el poke:** ~30 DPS constantes que no dependen de CDs de ítem; tu side-poke quita un tercio de squishy por trade.
+- **Revitalize brilla en teamfight:** +5 % a toda cura/escudo (+10 % extra con el objetivo <40 % HP): tu E (367) y tu R-heal (662) rinden 385/695 efectivos sobre aliados heridos.
 - **No pelees sin attach:** 500 HP base y cero escapes: tu posición ES tu carry.
 
 ### Regla de Oro
-Si al min 10 tu ADC está 0/2 o el jungla enemigo campea bot: **convertite a la híbrida** ([!TIP]: Censer + Echoes por Stormsurge + Malignance) — el motor la puntúa 78.4 % con ADC+ 277: pierdes 18 % de R-burst y recuperas el juego.
+Si al min 10 tu ADC está 0/2 o el jungla enemigo campea bot: **convertite a la híbrida** ([!TIP]: Censer + Echoes + Mandate + Rabadon) — el motor la puntúa 78.4 % con ADC+ 274: pierdes 24 % de R-burst y recuperas el juego.
 
 ### Reglas del parche que cambian el macro
 | Regla | Impacto |
 |---|---|
-| 7.3b: Electrocute 60-210 | El keystone agresivo rinde +20 early vs 7.3a |
-| 7.3b: Cheap Shot CD 5 s | True-damage casi permanente sobre Q-mark |
-| 7.3b: Aery 20-100 | Enchanter puro ligeramente nerfeado: la híbrida gana valor relativo |
+| 7.3b: Aery escudo 25-120→20-100 | El keystone publicado conserva su daño (15-70 intacto); el lado enchanter cae levemente: la variante agresiva gana valor relativo |
+| 7.3: runas — Ingenious Hunter removida, Legend: Tenacity→Legend: Haste | DB del lab corregida (`runas_7.3.md` + `runas_wr.py` v1.21) |
 | 7.3: torretas 7 000 HP | Tu poke de torre con Q attachada es de los pocos que escala sin AD |
 
 ---
@@ -19877,22 +19920,25 @@ Si al min 10 tu ADC está 0/2 o el jungla enemigo campea bot: **convertite a la 
 ### Fuentes primarias
 | Fuente | Acceso | Qué aporta |
 |---|---|---|
-| Notas oficiales 7.3/7.3a/7.3b | 21/09, 29/09, 15/10/2026 | Q/R valores, HSP de W 7.3a, Electrocute/Cheap Shot/Aery 7.3b |
-| Cliente WR (testeo del autor + amigo) | 16/10/2026 | Legalidad de la página de runas y CDs reales con ella |
+| Notas oficiales 7.3/7.3a/7.3b | 21/09, 29/09, 15/10/2026 | Q/R valores, HSP de W 7.3a, runas 7.3b (Aery/Electrocute/Cheap Shot) |
+| Cliente WR (autor) | 16-18/10/2026 | Estructura real de páginas (árbol/filas L1-L4), página publicada de Yuumi y CDs observados |
+| runas_7.3.md (wr-meta 24/09) | lab | Nombres y valores de runas 7.3 (+ complemento in-game del autor: filas Sorcery/Resolve) |
 | items_7.3.csv + diff 7.3b | vigía | Precios y stats del pool (Locket/Warmog/Statikk/Yun Tal/Youmuu 7.3b) |
 
 ### Discrepancias y erratas
 | # | Tema | Resolución |
 |---|---|---|
-| D-v2.1 | Página de runas v1.2 ilegal (6 slots) | Reemplazada por la página verificada en cliente; reglas L1-L4 en `model/runas_wr.py` |
-| D-v2.2 | Cifras de daño v1.2 ("Q ~120-150", "haste 65-75") sin motor | Re-derivadas con batch5: Q-hit 509 con pen completa; AH 80 |
-| D-v2.3 | R de 7 olas: stacking por ola impactada | Interp B default (Σ 1 680 + 2.10×AP); interp A conservadora = 1 080 + 1.35×AP (−38 %): rankings sin cambio |
+| D-v2.1 | La v2.0 declaró ilegal (6 slots) la página publicada y propuso un set Electrocute "verificado" | **Retractado:** la página publicada (Aery + Manaflow + Transcendence + Scorch \| Revitalize) es LEGAL y verificada in-game; el set Electrocute es ILEGAL (L2). DB y reglas corregidas en `runas_wr.py` v1.21; números re-derivados |
+| D-v2.2 | Cifras de daño v1.2 ("Q ~120-150", "haste 65-75") sin motor | Re-derivadas con batch5: Q-hit 501 con pen completa; AH 80 |
+| D-v2.3 | R de 7 olas: stacking por ola impactada | Interp B default (Σ 1 680 + 2.10×AP); interp A conservadora = 1 080 + 1.35×AP (−9 % DPS): rankings sin cambio |
 | D-v2.4 | Q mejorada: misil ≥1 s de viaje | Poke attachado estándar (uptime 1.0); sin attach, el misil falla más: declarado |
+| D-v2.5 | Q-CD medido 3.1 s vs 2.5 s publicado (16/10) | No explicable por runas (página legal con Transcendence); coherente con medición a mid-game sin el AH completo (2.5 s exige AH 100 en CC: 80 + Mandate 20). Pendiente de confirmación del autor |
 
 ### Validación del modelo
-- `python3 model/yuumi_agresiva_model.py` reproduce todas las tablas (28 822 hojas legales, presupuesto 13 000 g, Ley 0 y L1-L4 de runas aplicadas).
-- Baseline Y1 replicado: e_shield 353.9 / r_heal 671.9 / shld-min 4 365 (fixture de tests del lab: 338.8/650.7/3 953 con sus runas originales).
-- `tests/test_yuumi_agresiva.py`: legalidad de runas de la Tabla, presupuesto, y sacrificio acotado (ADC+ ≥ 90 y R-heal ≥ 600).
+- `python3 model/yuumi_agresiva_model.py` reproduce todas las tablas (28 822 hojas legales, presupuesto 13 000 g, Ley 0; sección [0] valida la página publicada contra L1-L4 y fija el set batch5 v1.20 como ilegal).
+- Baseline Y1 replicado: e_shield 353.9 / r_heal 671.9 / shld-min 4 365 (fixture de tests del lab: 338.8/650.7/3 953 con sus runas originales — deriva por constantes 7.3b, declarada).
+- `tests/test_yuumi_agresiva.py` (6 tests): página publicada legal, set batch5 ilegal (regresión), presupuesto, sacrificio acotado (ADC+ ≥ 90 y R-heal ≥ 600), cifras de la tabla y óptima invariante.
+- `tests/test_runas_wr.py` (18 tests): los sets reales del autor + reglas L1-L4 + DB de filas/árboles.
 
 ---
 
@@ -19906,26 +19952,26 @@ Si al min 10 tu ADC está 0/2 o el jungla enemigo campea bot: **convertite a la 
 | Stormsurge (2 800) | ✅ Default 6.º | Squall de ejecución |
 | Spellslinger's Shoes (2 200) | ✅ Botas | Pen = crit del mago |
 | Echoes of Helia (2 400) | ⚠️ Híbrida | Cura por daño de Q |
-| Ardent Censer (2 400) | ⚠️ Híbrida | ADC+ 277 en la híbrida |
-| Rabadon's Deathcap (3 400) | ⚠️ Ventaja | +AP sin utilidad |
+| Ardent Censer (2 400) | ⚠️ Híbrida | ADC+ 274 en la híbrida |
+| Rabadon's Deathcap (3 400) | ⚠️ Ventaja | +AP sin utilidad (13 600 g) |
 | Luden's / Riftmaker / Crimson | ❌ | Ver §2/§3 |
 
 ## APÉNDICE B — RUTA HÍBRIDA DE EMERGENCIA
 ```text
 Quest (0:00) → Boots of Mana (5:00) → Mandate (8:00) → ⬆️ Spellslinger (10:00)
-→ Censer (12:30) → Echoes (15:00) → Rabadon (18:30)   [ADC+ 277 · R-heal 738]
+→ Censer (12:30) → Echoes (15:00) → Rabadon (18:30)   [ADC+ 274 · R-heal 748]
 ```
 
 ---
 
 ## Pie de página
 
-*Reporte re-derivado el 18/10/2026 con `model/yuumi_agresiva_model.py` (batch5) sobre 7.3+7.3a+7.3b. WR-LAB v1.20. Runas verificadas en cliente 16/10; números de daño pendientes de verificación propia en juego (verification: pending). Si Riot publica 7.3c/7.4, regenerar antes de republishar.*
+*Reporte re-derivado el 18/10/2026 con `model/yuumi_agresiva_model.py` (batch5, rev. runas) sobre 7.3+7.3a+7.3b. WR-LAB v1.21. Página de runas = la publicada por el autor, verificada in-game (18/10); cifras de daño del motor pendientes de confirmación propia en juego. Si Riot publica 7.3c/7.4, regenerar antes de republishar.*
 
 **Referencias y créditos**
 - Notas oficiales 7.3/7.3a/7.3b — © Riot Games, Inc. (wildrift.leagueoflegends.com).
 - Win rates Diamond+ del vigía (17/10/2026) vía `data/estructurada/champion_winrates.csv`.
-- Testeo en cliente del autor y colaborador (16/10/2026): legalidad de runas y CDs reales.
+- Verificación in-game del autor (16-18/10/2026): estructura de páginas de runas (L1-L4) y página publicada de Yuumi.
 - Motor batch5 y búsqueda: `model/yuumi_agresiva_model.py` + `model/yuumi_agresiva_resultados.txt`.
 
 **Aviso legal:** Wild Rift y League of Legends son marcas registradas de Riot Games, Inc. Este documento es una guía de comunidad con fines educativos, **no está afiliado, patrocinado ni respaldado por Riot Games**. Los nombres de ítems, campeones y estadísticas pertenecen a sus respectivos dueños. El análisis y las conclusiones son trabajo original del autor apoyado en WR-LAB.
@@ -21505,13 +21551,20 @@ if __name__ == "__main__":
 
 ```python
 # -*- coding: utf-8 -*-
-"""WR-LAB · tests de model/runas_wr.py — la legalidad de runas WR como estándar.
+"""WR-LAB · tests de model/runas_wr.py — la legalidad de runas WR como estándar (v1.21).
 
-Los sets-spec son los ejemplos reales del autor (16/10/2026): dos legales
-(Jinx publicada; motor agresivo de Yuumi verificado en cliente por el autor y
-un amigo) y cuatro ilegales (Yuumi publicada de 4 runas; el set de Electrocute
-con secundaria del árbol del keystone —el que midió CDs imposibles en juego—;
-el 2 Resolve + 2 Sorcery de la regla; y los 6 slots de los reportes tanque).
+Reglas confirmadas in-game por el autor (18/10/2026):
+  L1 = 1 keystone + 3 runas + 1 secundaria (5 slots exactos).
+  L2 = las 3 runas son del ÁRBOL DEL KEYSTONE, una por cada fila (1, 2 y 3).
+  L3 = ≤1 runa por fila dentro del árbol principal (contenida en L2).
+  L4 = la secundaria es de CUALQUIER OTRO árbol, nunca del principal.
+
+Los sets-spec son los ejemplos reales del autor: páginas legales publicadas
+(Yuumi agresiva = Aery + Manaflow Band + Transcendence + Scorch | Revitalize;
+Jinx = Lethal Tempo + Brutal + Legend: Alacrity + Cut Down | Bone Plating),
+secundarias alternativas legales (Sudden Impact / Cut Down / Second Wind en vez
+de Revitalize) e ilegales (el set del motor batch5 v1.20 —runas de 3 árboles—;
+secundaria del árbol principal; fila repetida; 4 y 6 slots; runas removidas).
 """
 import os
 import sys
@@ -21520,36 +21573,79 @@ import unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "model"))
 import runas_wr as R
 
+YUUMI_PUBLICADA = ["Aery", "Manaflow Band", "Transcendence", "Scorch", "Revitalize"]
+MOTOR_BATCH5_V120 = ["Electrocute", "Cheap Shot", "Transcendence", "Coup de Grace", "Gathering Storm"]
+
 
 class TestSetsSpec(unittest.TestCase):
+    def test_yuumi_publicada_legal(self):
+        """La build publicada de Yuumi agresiva (autor, in-game): LEGAL."""
+        ok, motivos = R.es_legal_pagina(YUUMI_PUBLICADA)
+        self.assertTrue(ok, motivos)
+        # alias del md antiguo
+        ok2, m2 = R.es_legal_pagina(["Summon Aery", "Manaflow Band", "Transcendence", "Scorch", "Revitalize"])
+        self.assertTrue(ok2, m2)
+
+    def test_yuumi_variantes_de_fila_legal(self):
+        """Cualquier opción de cada fila Sorcery mantiene la página legal."""
+        for f1 in ("Axiom Arcanist", "Botanist", "Hexflash"):
+            ok, motivos = R.es_legal_pagina(["Aery", f1, "Transcendence", "Scorch", "Revitalize"])
+            self.assertTrue(ok, (f1, motivos))
+        ok, motivos = R.es_legal_pagina(["Aery", "Hexflash", "Celerity", "Ixtali Seedjar", "Perseverance"])
+        self.assertTrue(ok, motivos)
+
     def test_jinx_publicada_legal(self):
         ok, motivos = R.es_legal_pagina(
             ["Lethal Tempo", "Brutal", "Legend: Alacrity", "Cut Down", "Bone Plating"])
         self.assertTrue(ok, motivos)
 
-    def test_motor_yuumi_agresiva_legal(self):
-        """Verificado en cliente por el autor y su amigo (16/10): sí se equipa."""
-        ok, motivos = R.es_legal_pagina(
-            ["Electrocute", "Cheap Shot", "Transcendence", "Coup de Grace", "Gathering Storm"])
-        self.assertTrue(ok, motivos)
+    def test_secundaria_de_cualquier_otro_arbol_legal(self):
+        """Ejemplos textuales del autor: en lugar de Revitalize pueden ser
+        Sudden Impact (Domination), Cut Down (Precision) o Second Wind (Resolve)."""
+        for sec in ("Sudden Impact", "Cut Down", "Second Wind", "Revitalize", "Triumph", "Overgrowth"):
+            pagina = YUUMI_PUBLICADA[:4] + [sec]
+            ok, motivos = R.es_legal_pagina(pagina)
+            self.assertTrue(ok, (sec, motivos))
 
-    def test_yuumi_publicada_cuatro_runas_ilegal(self):
-        ok, motivos = R.es_legal_pagina(["Summon Aery", "Manaflow Band", "Scorch", "Revitalize"])
+    def test_motor_batch5_v120_ilegal(self):
+        """CORRECCIÓN 18/10: el set del motor batch5 (dado 'legal' por la DB v1.20)
+        viola L2 — Transcendence (Sorcery) y Coup de Grace (Precision) no son del
+        árbol del keystone Electrocute (Domination)."""
+        ok, motivos = R.es_legal_pagina(MOTOR_BATCH5_V120)
         self.assertFalse(ok)
-        self.assertTrue(any("L1" in m for m in motivos), motivos)
+        self.assertTrue(any("L2" in m for m in motivos), motivos)
 
     def test_electrocute_con_secundaria_del_keystone_ilegal(self):
-        """El set que midió CDs imposibles: secundaria Domination con keystone Domination."""
         ok, motivos = R.es_legal_pagina(
             ["Electrocute", "Axiom Arcanist", "Transcendence", "Gathering Storm", "Cheap Shot"])
         self.assertFalse(ok)
+        self.assertTrue(any("L2" in m for m in motivos), motivos)
         self.assertTrue(any("L4" in m for m in motivos), motivos)
+
+    def test_secundaria_del_arbol_principal_ilegal(self):
+        """Gathering Storm es Sorcery f3 (no Inspiration como decía la DB v1.20):
+        con keystone Aery viola L4."""
+        ok, motivos = R.es_legal_pagina(["Aery", "Manaflow Band", "Transcendence", "Scorch", "Gathering Storm"])
+        self.assertFalse(ok)
+        self.assertTrue(any("L4" in m for m in motivos), motivos)
+
+    def test_fila_repetida_en_arbol_principal_ilegal(self):
+        ok, motivos = R.es_legal_pagina(["Aery", "Manaflow Band", "Axiom Arcanist", "Transcendence", "Revitalize"])
+        self.assertFalse(ok)
+        self.assertTrue(any("L2" in m or "L3" in m for m in motivos), motivos)
 
     def test_dos_resolve_dos_sorcery_ilegal(self):
         ok, motivos = R.es_legal_pagina(
             ["Grasp of the Undying", "Bone Plating", "Overgrowth", "Manaflow Band", "Scorch"])
-        self.assertFalse(ok)  # secundaria Sorcery con runas Sorcery (L4)
-        self.assertTrue(any("L4" in m for m in motivos), motivos)
+        self.assertFalse(ok)  # Manaflow Band (Sorcery) entre las 3 runas de Resolve: L2
+        self.assertTrue(any("L2" in m for m in motivos), motivos)
+
+    def test_cuatro_slots_ilegal(self):
+        """La lectura que originó el caos v1.20: la ficha del autor lista las
+        OPCIONES de cada fila; los slots reales son 5, no 4 ni 6."""
+        ok, motivos = R.es_legal_pagina(["Summon Aery", "Manaflow Band", "Scorch", "Revitalize"])
+        self.assertFalse(ok)
+        self.assertTrue(any("L1" in m for m in motivos), motivos)
 
     def test_chogath_seis_runas_ilegal(self):
         """Deuda conocida de los reportes tanque (6 slots): se corrige en otra iteración."""
@@ -21561,23 +21657,60 @@ class TestSetsSpec(unittest.TestCase):
 
 
 class TestReglas(unittest.TestCase):
-    def test_fila_global_duplicada_ilegal(self):
-        ok, motivos = R.es_legal(
-            "Lethal Tempo", ["Brutal", "Triumph", "Cut Down"], "Bone Plating")
-        self.assertFalse(ok)  # Dominación r1 (Brutal) y Precisión r1 (Triumph): filas 1,1,3 (L2)
-        self.assertTrue(any("L2" in m for m in motivos), motivos)
-
     def test_control_legal(self):
         ok, motivos = R.es_legal(
             "Lethal Tempo", ["Brutal", "Legend: Alacrity", "Cut Down"], "Bone Plating")
         self.assertTrue(ok, motivos)
 
-    def test_mismo_arbol_misma_fila_ilegal(self):
+    def test_filas_1_1_2_ilegal(self):
         ok, motivos = R.es_legal(
-            "Electrocute", ["Cheap Shot", "Brutal", "Transcendence"], "Bone Plating")
+            "Lethal Tempo", ["Brutal", "Triumph", "Cut Down"], "Bone Plating")
+        self.assertFalse(ok)  # Brutal y Triumph: Precision f1 ×2 → filas [1,1,2]
+        self.assertTrue(any("L2" in m for m in motivos), motivos)
+
+    def test_pagina_domination_completa_legal(self):
+        ok, motivos = R.es_legal(
+            "Electrocute", ["Cheap Shot", "Tyrant", "Relentless Hunter"], "Transcendence")
+        self.assertTrue(ok, motivos)
+
+    def test_runa_removida_ilegal(self):
+        ok, motivos = R.es_legal_pagina(
+            ["Electrocute", "Cheap Shot", "Tyrant", "Ingenious Hunter", "Transcendence"])
         self.assertFalse(ok)
-        self.assertTrue(any("L3" in m for m in motivos), motivos)  # Domination fila 1 ×2
-        self.assertTrue(any("L2" in m for m in motivos), motivos)  # y filas [1,1,2]
+        self.assertTrue(any("L1" in m for m in motivos), motivos)
+
+
+class TestDB(unittest.TestCase):
+    """La DB replica el layout in-game confirmado por el autor (18/10)."""
+
+    def test_filas_sorcery_confirmadas(self):
+        self.assertEqual(R.ficha("Aery"), ("Sorcery", 0))
+        self.assertEqual(R.ficha("Axiom Arcanist"), ("Sorcery", 1))
+        self.assertEqual(R.ficha("Manaflow Band"), ("Sorcery", 1))
+        self.assertEqual(R.ficha("Botanist"), ("Sorcery", 1))
+        self.assertEqual(R.ficha("Hexflash"), ("Sorcery", 1))
+        self.assertEqual(R.ficha("Transcendence"), ("Sorcery", 2))
+        self.assertEqual(R.ficha("Celerity"), ("Sorcery", 2))
+        self.assertEqual(R.ficha("Absolute Focus"), ("Sorcery", 2))
+        self.assertEqual(R.ficha("Scorch"), ("Sorcery", 3))
+        self.assertEqual(R.ficha("Nimbus Cloak"), ("Sorcery", 3))
+        self.assertEqual(R.ficha("Gathering Storm"), ("Sorcery", 3))
+        self.assertEqual(R.ficha("Ixtali Seedjar"), ("Sorcery", 3))
+
+    def test_resolve_fila3_confirmada(self):
+        for runa in ("Overgrowth", "Revitalize", "Perseverance"):
+            self.assertEqual(R.ficha(runa), ("Resolve", 3), runa)
+
+    def test_keystones_por_arbol(self):
+        esperados = {"Electrocute": "Domination", "Dark Harvest": "Domination",
+                     "Lethal Tempo": "Precision", "Fleet Footwork": "Precision",
+                     "Conquistador": "Precision", "Grasp": "Resolve", "Guardian": "Resolve",
+                     "Aery": "Sorcery", "Arcane Comet": "Sorcery", "Phase Rush": "Sorcery",
+                     "First Strike": "Inspiration", "Ice Overlord": "Inspiration"}
+        for nombre, arbol in esperados.items():
+            ficha = R.ficha(nombre)
+            self.assertIsNotNone(ficha, nombre)
+            self.assertEqual(ficha, (arbol, 0), nombre)
 
 
 if __name__ == "__main__":
@@ -22465,11 +22598,14 @@ if __name__ == "__main__":
 
 ```python
 # -*- coding: utf-8 -*-
-"""WR-LAB · tests de Yuumi agresiva v2.0 (model/yuumi_agresiva_model.py).
+"""WR-LAB · tests de Yuumi agresiva v2.1 (model/yuumi_agresiva_model.py).
 
-Invariantes de la re-derivación batch5 que publica reportes/Yuumi.md v2.0:
-la página de runas es LEGAL (runas_wr), el presupuesto es de support (13 000 g)
-y el sacrificio vs el baseline enchanter está acotado (declarado en [!DANGER]).
+Invariantes de la re-derivación batch5 + corrección de runas 18/10 que publica
+reportes/Yuumi.md v2.1: la página de runas es la PUBLICADA por el autor (Aery +
+Manaflow Band + Transcendence + Scorch | Revitalize) y es LEGAL (runas_wr v1.21,
+L1-L4); el set batch5 v1.20 (Electrocute mixto) queda ILEGAL; el presupuesto es
+de support (13 000 g) y el sacrificio vs el baseline enchanter está acotado
+(declarado en [!DANGER]).
 """
 import os
 import sys
@@ -22480,14 +22616,21 @@ import runas_wr as R
 import yuumi_agresiva_model as YA
 
 OPTIMA = ["Scythe", "Spellslinger", "Mandate", "Horizon", "Malignance", "Stormsurge"]
-RUNAS = ["Electrocute", "Cheap Shot", "Transcendence", "Coup de Grace", "Gathering Storm"]
+RUNAS = ["Aery", "Manaflow Band", "Transcendence", "Scorch", "Revitalize"]
+RUNAS_BATCH5_V120 = ["Electrocute", "Cheap Shot", "Transcendence", "Coup de Grace", "Gathering Storm"]
 
 
 class TestYuumiAgresiva(unittest.TestCase):
     def test_pagina_de_runas_legal(self):
-        """La página publicada en Yuumi.md v2.0 pasa L1-L4 (verificada en cliente 16/10)."""
+        """La página publicada en Yuumi.md v2.1 pasa L1-L4 (verificada in-game por el autor)."""
         ok, motivos = R.es_legal_pagina(RUNAS)
         self.assertTrue(ok, motivos)
+
+    def test_set_batch5_v120_ilegal(self):
+        """Regresión: la DB v1.20 daba legal este set; con las reglas corregidas no lo es."""
+        ok, motivos = R.es_legal_pagina(RUNAS_BATCH5_V120)
+        self.assertFalse(ok)
+        self.assertTrue(any("L2" in m for m in motivos), motivos)
 
     def test_presupuesto_support(self):
         """Óptima = 13 000 g exactos: convención quest 0 g + botas + 4."""
@@ -22496,17 +22639,21 @@ class TestYuumiAgresiva(unittest.TestCase):
 
     def test_sacrificio_acotado_vs_baseline(self):
         """El [!DANGER] de Yuumi.md: la protección propia NO colapsa aunque la aliada sí."""
-        a = YA.ally(OPTIMA)
-        self.assertGreaterEqual(a["e_shield"], 350.0)    # v1.2: 301 · baseline Y1: 354
-        self.assertGreaterEqual(a["r_heal"], 600.0)      # baseline Y1: 672 → −4 % máximo
+        a = YA.ally(OPTIMA)  # defaults = página publicada (Aery | Revitalize)
+        self.assertGreaterEqual(a["e_shield"], 350.0)    # v2.1: 367 · baseline Y1: 354
+        self.assertGreaterEqual(a["r_heal"], 600.0)      # v2.1: 662 · baseline Y1: 672 → −2 %
         self.assertGreaterEqual(a["adc_dps_add"], 90.0)  # suelo declarado vs Y1 (248)
 
     def test_dano_de_la_tabla_publicada(self):
-        """Cifras del resumen: Q-hit ≈ 509 y R-burst ≈ 2 833 (tolerancia 1 %)."""
-        d = YA.damage(OPTIMA, keystone="electro", minors=("cheap", "transc", "coup"),
-                      second="gather")
-        self.assertAlmostEqual(d["q_dmg"], 509, delta=5)
-        self.assertAlmostEqual(d["r_dmg"], 2833, delta=28)
+        """Cifras del resumen v2.1: Q-hit ≈ 501 y R-burst ≈ 2 785 (tolerancia 1 %)."""
+        d = YA.damage(OPTIMA)  # defaults = keystone Aery, minors manaflow/transc/scorch, sec. Revitalize
+        self.assertAlmostEqual(d["q_dmg"], 501, delta=5)
+        self.assertAlmostEqual(d["r_dmg"], 2785, delta=28)
+
+    def test_optima_sigue_siendo_la_misma(self):
+        """La corrección de runas NO cambia la build óptima (el search es de ítems)."""
+        scored, _ = YA.optimize(YA.PESOS_AGRESIVA, top=1, label="test")
+        self.assertEqual(list(scored[0][1]), OPTIMA)
 
 
 if __name__ == "__main__":
@@ -25437,4 +25584,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 17/10/2026 · completo · sha256(cuerpo)=60ec3956d0deeb3e · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 17/10/2026 · completo · sha256(cuerpo)=c448cd45e4463096 · NO editar a mano: editar las fuentes y regenerar -->

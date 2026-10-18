@@ -31,10 +31,19 @@ FÓRMULAS DE DAÑO (fuente: ficha wr-meta 24/09, valores 7.3):
   Amps declarados: Hypershot ×1.10 (Q ≥600u, uptime 1.0; R 0.8) · Mandate Command
     ×1.07 (Q slow siempre marca, BF) · Madness ×1.04 promedio · Infinity Orb ×1.05
     promedio (×1.20 a <40 % HP, uptime .25) · Empowerment/First Strike según runa.
-  Runas (7.3b): Electrocute (210+5 %AP)/13 s ×upt .7 · Dark Harvest (145+5 %AP)/20 s
-    ×upt .5 · Cheap Shot 45 verdadero/5 s (Q slow BF = uptime ~100 %) · Sudden Impact
-    +5 verdadero/s eq. · Scorch 49/8 s · Transcendence +10 AH · Gathering Storm +16 AP
-    (min 18+) · Coup/Cut Down ×1.02/×1.033 promedio.
+  Runas (7.3b) — PÁGINA BASE v1.21 = la publicada legal (autor, in-game 18/10):
+    Aery (70+5 %AP lvl 15, ciclo ~3 s, upt .9 — su escudo aliado no se puntúa:
+    convención batch2) · Manaflow Band (+300 maná máx., sin término de daño) ·
+    Transcendence +10 AH (y −8 % CD post-hit lvl 9, no modelado) · Scorch 49/8 s ·
+    Revitalize secundaria (+5 % hsp). Referencias teóricas (sensibilidades):
+    Electrocute (210+5 %AP)/13 s ×upt .7 · Dark Harvest (145+5 %AP)/20 s ×upt .5 ·
+    Arcane Comet (100+5 %AP)/8 s ×upt .6 · Cheap Shot 45 verdadero/5 s ·
+    Sudden Impact +5 verdadero/s eq. · Gathering Storm +16 AP (min 18+; SOLO con
+    keystone de otro árbol — con Aery la secundaria Gathering Storm es ILEGAL L4) ·
+    Coup/Cut Down ×1.02/×1.033 promedio (como secundaria de otro árbol).
+    OJO (corrección 18/10): el set batch5 original (Electrocute + Cheap Shot +
+    Transcendence + Coup de Grace | Gathering Storm) es ILEGAL en el cliente:
+    las 3 runas deben ser del árbol del keystone (L2, runas_wr.py v1.21).
   Ítems de daño: Torment 2 % máx/s + Madness · Luden Echo 7.3 (140+15 %AP +3×(20+1.2 %AP)
     single-focus /9 s) · Blackfire (20+2 %AP)/s + 4 %AP/enemigo quemado (2 = +8 %) ·
     Squall (125+10 %AP)/25 s · Hatefog (180+15 %AP) por R · Protobelt (100+10 %AP)/30 s.
@@ -105,7 +114,7 @@ BOOTS = ('Crimson','Spellslinger')
 DAMAGE_POOL = [k for k in ITEMS if k not in BOOTS and k != 'Scythe']
 
 # ══════════════════════════════ ESTADO ══════════════════════════════
-def stats(keys, keystone='electro', minors=('cheap','transc','coup'), second='gather', minute=20.0):
+def stats(keys, keystone='aery', minors=('manaflow','transc','scorch'), second='revitalize', minute=20.0):
     its = [ITEMS[k] for k in keys]
     has = lambda f: any(f in i for i in its)
     gold = sum(i['g'] for i in its)
@@ -135,8 +144,8 @@ def mit_mr(mr, st, malign_upt=0.4, vile_upt=0.7):
     return 100.0/(100.0+max(0.0, mr_ef))
 
 # ══════════════════════════════ MÓDULO DE DAÑO ══════════════════════════════
-def damage(keys, mr=50, enemy_hp=2200, keystone='electro', minors=('cheap','transc','coup'),
-           second='gather', minute=20.0, r_interp='B', q_enhanced_upt=1.0, teamfight=False,
+def damage(keys, mr=50, enemy_hp=2200, keystone='aery', minors=('manaflow','transc','scorch'),
+           second='revitalize', minute=20.0, r_interp='B', q_enhanced_upt=1.0, teamfight=False,
            cheap_cd=5.0):
     st = stats(keys, keystone, minors, second, minute)
     ap, ah = st['ap'], st['ah']
@@ -179,7 +188,18 @@ def damage(keys, mr=50, enemy_hp=2200, keystone='electro', minors=('cheap','tran
     if has('voidcorr'): extra *= 1.054                            # Void Corruption prom.
 
     # ── runas de daño ──
+    # BASE (v1.21) = página PUBLICADA legal: Aery + Manaflow/Transcendence/Scorch | Revitalize.
+    # Aery: 15-70 (70 a lvl 15) + 10 % bAD (≈0) + 5 % AP por proc; viaja y VUELVE →
+    #   ciclo efectivo ~3.0 s con Q cada 2.5 s, uptime 0.9 (convención declarada).
+    #   Su escudo aliado (20-100 + 5 % AP, nerf 7.3b) NO se puntúa en ally() —
+    #   misma convención que el fixture batch2 (comparabilidad 1:1 con Y1).
+    # Arcane Comet: 100 + 5 % AP a lvl 15, CD 8 s, uptime 0.6 (esquivable) — ref. teórica.
+    # 'manaflow' = maná (+300 máx.): sin término de daño (su valor es sostenibilidad de Q).
+    # Electro/DarkHarvest/Cheap/Sudden quedan como referencias de sensibilidad (páginas
+    #   Domination: legales en estructura pero NO viables en Yuumi — ver reporte §4).
     runes = 0.0; rune_true = 0.0
+    if keystone == 'aery':         runes += (70+0.05*ap)*mit/3.0*0.9
+    if keystone == 'comet':        runes += (100+0.05*ap)*mit/8.0*0.6
     if keystone == 'electro':      runes += (210+0.05*ap)*mit/13.0*0.7
     if keystone == 'darkharvest':  runes += (145+0.05*ap)*mit/20.0*0.5
     if 'cheap' in minors:          rune_true += 45.0/cheap_cd     # 7.3b: CD 5 s (verdadero)
@@ -188,6 +208,8 @@ def damage(keys, mr=50, enemy_hp=2200, keystone='electro', minors=('cheap','tran
     amp_post = 1.0
     if 'coup' in minors: amp_post *= 1.02
     if 'cutdown' in minors: amp_post *= 1.033
+    if second == 'coup': amp_post *= 1.02      # Coup de Grace como secundaria legal (Precision)
+    if second == 'cutdown': amp_post *= 1.033
 
     total = (q_dps + r_dps + extra + runes)*amp_post + rune_true
     return dict(q_dmg=q_dmg, q_cd=q_cd, q_dps=q_dps, r_dmg=r_dmg, r_cd=r_cd, r_dps=r_dps,
@@ -195,7 +217,7 @@ def damage(keys, mr=50, enemy_hp=2200, keystone='electro', minors=('cheap','tran
                 mit=mit, st=st)
 
 # ══════════════════════════════ MÓDULO ALIADO (batch2 idéntico) ══════════════════════════════
-def ally(keys, keystone='electro', minors=('cheap','transc','coup'), second='gather',
+def ally(keys, keystone='aery', minors=('manaflow','transc','scorch'), second='revitalize',
          minute=20.0, adc_as_base=2.6, adc_dmg_per_hit=330, revitalize=None):
     st = stats(keys, keystone, minors, second, minute)
     ap, ah, hsp = st['ap'], st['ah'], st['hsp']
@@ -280,14 +302,22 @@ if __name__ == '__main__':
         s=' '.join(str(x) for x in a); OUT.append(s); _p(s, **k)
 
     print('='*116)
-    print('YUUMI AGRESIVA (batch5) — parche 7.3+7.3a+7.3b · nivel 15 · min 20 · runas base: Electro+Cheap(5s)+Transc+Coup | Gather')
+    print('YUUMI AGRESIVA (batch5, rev. runas 18/10) — 7.3+7.3a+7.3b · nivel 15 · min 20 · PÁGINA PUBLICADA LEGAL: Aery + Manaflow/Transcendence/Scorch | Revitalize')
     print('='*116)
 
-    KW = dict(keystone='electro', minors=('cheap','transc','coup'), second='gather', minute=20.0)
+    KW = dict(keystone='aery', minors=('manaflow','transc','scorch'), second='revitalize', minute=20.0)
+
+    # [0] validación de la página publicada contra las reglas L1-L4 (runas_wr v1.21)
+    import runas_wr as _RW
+    _pagina = ["Aery", "Manaflow Band", "Transcendence", "Scorch", "Revitalize"]
+    _ok, _mot = _RW.es_legal_pagina(_pagina)
+    print(f"\n[0] PÁGINA PUBLICADA ({' + '.join(_pagina)}) → L1-L4: {'LEGAL ✅' if _ok else 'ILEGAL ❌ ' + str(_mot)}")
+    _ileg, _ = _RW.es_legal_pagina(["Electrocute", "Cheap Shot", "Transcendence", "Coup de Grace", "Gathering Storm"])
+    print(f"    set batch5 original (Electrocute+Cheap+Transc+Coup|Gather) → L1-L4: {'LEGAL ✅' if _ileg else 'ILEGAL ❌ (L2: runas de 3 árboles; corregido 18/10)'}")
 
     # [1] baselines (verificación contra fixtures del lab)
     print("\n[1] BASELINES (verificación: Y1 debe dar e_shield≈338.8 · r_heal≈650.7 · shld/min≈3 953):")
-    run_baseline('Y1 ENCHANTER (lab)', Y1_ENCH, keystone='electro', minors=('cheap','transc','coup'), second='revitalize', minute=20.0)
+    run_baseline('Y1 ENCHANTER (lab)', Y1_ENCH, **KW)
     run_baseline('POKE-HÍBRIDA PUBLICADA (corregida)', POKE_PUB, **KW)
 
     # [2] optimizaciones
@@ -296,15 +326,15 @@ if __name__ == '__main__':
     opt_h, _    = optimize(PESOS_HIBRIDO,  label='HÍBRIDA (daño .40 / aliado .51)', top=4, **KW)
 
     # [3] tabla comparativa final (mismas métricas)
-    print(f"\n[3] COMPARATIVA (min 20, MR 50 squishy / MR 150 tanque, Electro+Cheap 5 s):")
-    rows = [('Y1 enchanter (baseline lab)', Y1_ENCH, dict(second='revitalize')),
+    print(f"\n[3] COMPARATIVA (min 20, MR 50 squishy / MR 150 tanque, página publicada Aery+Scorch|Revitalize):")
+    rows = [('Y1 enchanter (baseline lab)', Y1_ENCH, {}),
             ('Poke-híbrida publicada', POKE_PUB, {}),
             ('⭐ ÓPTIMA AGRESIVA', list(opt_a[0][1]), {}),
             ('Glass puro (techo)', list(opt_g[0][1]), {}),
             ('Híbrida balanceada', list(opt_h[0][1]), {})]
     base_d, base_a = None, None
     for name, b, kwo in rows:
-        kw2 = dict(keystone='electro', minors=('cheap','transc','coup'), second='gather', minute=20.0); kw2.update(kwo)
+        kw2 = dict(KW); kw2.update(kwo)
         d = damage(b, **kw2); a = ally(b, **{k:kw2[k] for k in ('keystone','minors','second','minute')})
         if base_d is None: base_d, base_a = d, a
         print(f"  {name:<30} {' + '.join(b[2:]):<52}")
@@ -317,12 +347,12 @@ if __name__ == '__main__':
     d0 = damage(b, **KW)
     for etiqueta, kw2 in [('R interp A (conservadora)', dict(r_interp='A')),
                           ('Q mejorada uptime 80 %', dict(q_enhanced_upt=0.8)),
-                          ('Cheap Shot CD 7 s (pre-7.3b)', dict(cheap_cd=7.0)),
-                          ('keystone Dark Harvest', dict(keystone='darkharvest')),
-                          ('keystone Empowerment', dict(keystone='empower')),
-                          ('keystone First Strike', dict(keystone='firststrike')),
-                          ('keystone Phase Rush', dict(keystone='phaserush')),
-                          ('secundaria Revitalize', dict(second='revitalize')),
+                          ('keystone Phase Rush (ref.)', dict(keystone='phaserush')),
+                          ('keystone Arcane Comet (ref.)', dict(keystone='comet')),
+                          ('keystone Electrocute (ref. teórica)', dict(keystone='electro')),
+                          ('keystone Dark Harvest (ref. teórica)', dict(keystone='darkharvest')),
+                          ('secundaria Coup de Grace (Precision)', dict(second='coup')),
+                          ('secundaria Gathering Storm (ILEGAL L4, ref.)', dict(second='gather')),
                           ('min 14 (mid-game)', dict(minute=14.0))]:
         d2 = damage(b, **{**KW, **kw2})
         print(f"  {etiqueta:<38} DPS {d2['total']:>4.0f} ({(d2['total']/d0['total']-1)*100:+.1f} %) · Q {d2['q_dps']:>4.0f} · R {d2['r_dmg']:>5.0f}")
