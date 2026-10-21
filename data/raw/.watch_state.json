@@ -1,9 +1,10 @@
 {
- "official_73_md5": "734bf5763115ad588999ba8add0fee2a",
+ "official_73_md5": "98ae96dbf640f2ec4546314ccf95de13",
  "new_pages": [
   "7-3",
   "7-3a",
-  "7-3b"
+  "7-3b",
+  "7-3c"
  ],
  "changelog_dates": {
   "jinx": [
@@ -31,41 +32,41 @@
    "7.3B"
   ]
  },
- "last_check": "2026-10-20T22:56:17",
+ "last_check": "2026-10-21T13:17:13",
  "official_73_content_md5": "67297cacada0a9021ea0577a9448ed73",
  "content_7-3": "0d56b99c75a2e71d01cd9abaf1348ace",
  "content_7-3a": "d9bb870542d04b4ce308bdbe53ea9e97",
  "winrates": {
-  "Ahri|MID": 51.24,
-  "Caitlyn|DUO": 49.86,
-  "Cho'Gath|SOLO": 50.68,
-  "Cho'Gath|JUNGLE": 50.51,
-  "Diana|MID": 47.53,
-  "Diana|JUNGLE": 50.88,
-  "Heimerdinger|MID": 49.43,
-  "Jinx|DUO": 50.73,
-  "Kalista|DUO": 50.61,
-  "Kalista|SOLO": 53.37,
-  "Karma|SUPPORT": 49.73,
-  "Malphite|SUPPORT": 51.78,
-  "Malphite|SOLO": 55.0,
-  "Mordekaiser|SOLO": 51.11,
-  "Nocturne|JUNGLE": 52.51,
-  "Norra|MID": 49.9,
-  "Orianna|MID": 52.22,
-  "Ornn|SOLO": 51.28,
-  "Ornn|SUPPORT": 49.14,
-  "Rammus|JUNGLE": 56.17,
-  "Senna|SUPPORT": 49.92,
-  "Seraphine|SUPPORT": 49.83,
-  "Shyvana|JUNGLE": 46.6,
-  "Sivir|DUO": 49.57,
-  "Syndra|MID": 51.85,
-  "Volibear|SOLO": 48.49,
-  "Volibear|JUNGLE": 49.49,
-  "Xayah|DUO": 50.41,
-  "Yunara|DUO": 49.5,
-  "Yuumi|SUPPORT": 48.26
+  "Ahri|MID": 50.88,
+  "Caitlyn|DUO": 49.66,
+  "Cho'Gath|SOLO": 50.71,
+  "Cho'Gath|JUNGLE": 50.11,
+  "Diana|MID": 47.13,
+  "Diana|JUNGLE": 50.21,
+  "Heimerdinger|MID": 49.98,
+  "Jinx|DUO": 50.75,
+  "Kalista|DUO": 50.4,
+  "Kalista|SOLO": 53.43,
+  "Karma|SUPPORT": 49.72,
+  "Malphite|SUPPORT": 51.88,
+  "Malphite|SOLO": 54.36,
+  "Mordekaiser|SOLO": 51.84,
+  "Nocturne|JUNGLE": 52.41,
+  "Norra|MID": 50.63,
+  "Orianna|MID": 51.66,
+  "Ornn|SOLO": 50.11,
+  "Ornn|SUPPORT": 50.01,
+  "Rammus|JUNGLE": 55.85,
+  "Senna|SUPPORT": 49.89,
+  "Seraphine|SUPPORT": 49.63,
+  "Shyvana|JUNGLE": 46.31,
+  "Sivir|DUO": 49.38,
+  "Syndra|MID": 51.93,
+  "Volibear|SOLO": 48.29,
+  "Volibear|JUNGLE": 48.8,
+  "Xayah|DUO": 51.3,
+  "Yunara|DUO": 49.4,
+  "Yuumi|SUPPORT": 47.91
  },
  "wrmeta_ids": {
   "ornn": "383",
@@ -73,10 +74,10 @@
  },
  "winrates_meta": {
   "bucket": "Diamond +",
-  "updated_utc": "20 OCT 2026 UTC 00:00",
+  "updated_utc": "21 OCT 2026 UTC 00:00",
   "n_champs": 24,
   "n_filas": 30
  },
- "winrates_checked": "2026-10-20T22:56:17",
+ "winrates_checked": "2026-10-21T13:17:13",
  "content_7-3b": "9a58ab6d4f8f9eb985202470a5c666ca"
 }
