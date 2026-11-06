@@ -82,8 +82,8 @@ ITEMS = {i['key']: i for i in [
     I('Staff',     2400, ap=50, hsp=8, ah=10, rapids=1),
     I('Redemption',2450, ap=40, hsp=8, ah=10, redempt=1),
     I('Mikael',    2500, hp=300, hsp=9, ah=15, cleanse=1),
-    I('Diadem',    2400, hp=200, hsp=8, mana=1200, diadem=1),          # 7.3a: Harmonize 0.25 %
-    I('Circlet',   2400, hp=200, hsp=8, mana=500, circlet=1),
+    I('Diadem',    2400, hp=200, hsp=6, mana=1200, diadem=1),          # 7.3a: Harmonize 0.25 %
+    I('Circlet',   2400, hp=200, hsp=6, mana=500, circlet=1),
     I('Shurelya',  2500, ap=55, ah=20, ms=4, shurelya=1),
     I('Harmonic',  2500, ap=40, hp=200, ah=20, harmonic=1),
     I('Mandate',   2600, ap=60, ah=20, mandate=1),

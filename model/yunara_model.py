@@ -66,7 +66,7 @@ ITEMS = {i['key']: i for i in [
     I("mortal",    3000, ad=35, pen=30, crit=25, pen_pct_group=True),
     I("kraken",    2900, ad=45, a_s=35, ms=4, kraken=True),
     I("rfc",       2650, a_s=40, crit=25, ms=4, energized=80),
-    I("storm",     3000, ad=50, crit=25, a_s=20, energized=120),
+    I("storm",     3000, ad=50, crit=25, a_s=20, energized=100),  # 7.3d: 120→100
     I("bt",        3200, ad=75, ls=15, esc_fis=255*0.5),                      # Ichorshield (lab)
     I("gale",      3100, ad=60, crit=25, ms=4),
     I("shieldbow", 3000, ad=55, crit=25, esc_fis=425*0.5),                    # Lifeline (lab)
@@ -74,7 +74,7 @@ ITEMS = {i['key']: i for i in [
     I("collector", 3000, ad=50, pen=10, crit=25),
     I("pd",        2650, a_s=40, crit=25, ms=7),
     I("navori",    2650, a_s=40, crit=25, ms=4),
-    I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0),
+    I("er",        3000, ad=55, crit=25, ah=20, spellblade=1.0),  # 7.3d: AD 50→55
     I("yuntal",    3000, ad=50, a_s=35, crit=25),
     I("manamune",  2900, ad=40, ah=15),
     I("botrk",     3100, ad=40, a_s=30, ls=12, onhit_pct_current=6),
