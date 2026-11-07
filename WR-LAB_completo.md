@@ -22,7 +22,7 @@
 > números con espacio de miles (`2 900`, `17 350 g`) y `%` con espacio (`25 %`) · veredictos ✅/⚠️/❌ siempre con número.
 > Bloque de verificación de hotfix (§A.8): gestionado por tooling, no editar a mano.
 
-> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a+7.3b — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
+> ## 🔥 ESTADO DE DATOS: parche 7.3+7.3a+7.3b+7.3d — hotfix 7.3a LIBERADO (29-sep-2026) e integrado
 > Los cambios de 7.3a (nerfs a Hwei/Malphite/Caitlyn/Senna/Yuumi/Rammus/Syndra; buffs a Samira/Tristana/
 > Draven/Viego; Yun Tal AS 35 %; Diadem/Circlet nerf; Death's Dance 3 300; Smite burn −; Nexus 4 000;
 > placas −resist) están en §3b y YA aplicados a specs, motor y apéndices de este bundle.
@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a+7.3b · 17/10/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a+7.3b+7.3d · 07/11/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -306,23 +306,27 @@ Su R Feast convierte CADA stack en un compuesto de 5 stats. Con R rank 3 (+160 H
 
 Meta actual: **WR 52.17 %, ban 21.89 %** — el tanque más respetado del parche. Su kit convierte armadura en TODO:
 - Base armor **49 (+5/nivel) = 119 a nivel 15** (la más alta de tu roster).
-- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **15 % armadura (7.3a; era 20 %)** (primer golpe: 40-100 + 40 % AD + **40 % armadura**).
+- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **15 % armadura (7.3a; era 20 %)** (primer golpe, 7.3d: **30/45/60/75 + 20 % armadura**; era 40/60/80/100 + 30 %).
 - **E:** 60-210 + 45 % AP + **40 % armadura (7.3a; era 45 %)** AoE + **slow de AS 35-50 %** (anti-ADC duro: −50 % AS a una Jinx/Kalista enemiga = −40 % de su DPS).
 - **Iceborn Gauntlet:** el campo de hielo **crece con tu armadura** (AoE de slow permanente).
-- P Granite Shield: **11 % de vida máx** como escudo fuera de combate (con 3500 HP = 385 gratis cada 6 s).
+- P Granite Shield: **10 % de vida máx (7.3d; era 11 %)** como escudo fuera de combate (con 3500 HP = 350 gratis cada 6 s).
 
 **Números de la ruta armor-stack (nivel 15):**
 
 | Etapa | Armadura | E (mágico AoE) | W golpe sostenido | W primer golpe | Escudo pasiva |
 |---|---|---|---|---|---|
-| Iceborn+Thornmail+Armored Advance | ~274 | 320 | 91 | 210 | 276 |
-| + W rank 4 (+40 % bonus armor) | ~336 | 344 | 100 | 234 | 276 |
-| + Gargoyle/Twinguard situacional | ~386 | **364** | **108** | **254** | 276+ |
+| Iceborn+Thornmail+Armored Advance | ~274 | 320 | 91 | 130 | 251 |
+| + W rank 4 (+40 % bonus armor) | ~336 | 344 | 100 | 142 | 251 |
+| + Gargoyle/Twinguard situacional | ~386 | **364** | **108** | **152** | 251+ |
 
 > [!WARNING]
 > **7.3a (29-sep-2026) nerfeó a Malphite:** ratio de armadura de W 20→15 %, de E 45→40 % y R CD 75/70/65→85/80/75 s.
 > La tabla de arriba YA refleja el hotfix. Su identidad armor-stack sobrevive (sigue siendo el tanque con más ban),
 > pero su pico de daño y la frecuencia de su wombo bajaron ~5-8 % / +10 s de CD.
+
+> [!WARNING]
+> **7.3d (28-oct-2026) nerfeó de nuevo a Malphite:** Granite Shield 11→10 % de vida máx; Thunderclap, primer golpe: daño base 40/60/80/100→30/45/60/75 y ratio de armadura 30→20 %.
+> Las columnas «W primer golpe» (base 75 + 20 % armadura, rango 4, sin AD) y «Escudo pasiva» (10 % sobre la misma base de vida de 2 509) YA reflejan 7.3d.
 
 **El tamaño en Malphite:** solo viene de ítems (Gargoyle activo + Twinguard + Sterak's si va fighter). NO tiene tamaño innato — su fantasía de "gigante" es 100 % armadura. Build comunidad validada: **Iceborn → Plated/Mercury's T3 → Thornmail → Zeke's → Gargoyle** (runas Grasp+Demolish+Second Wind+Overgrowth). Ajustes del modelo: vs comps AD puras, **Armored Advance** sobre Thornmail 2.º; Twinguard como 6.º capstone (con su uptime de combate permanente es el ítem de tamaño más consistente del juego). Zeke's potencia a tus carries AP (Diana/Yunara) con su R.
 
@@ -843,6 +847,99 @@ asesinos (ítems y runas), y ajuste de jungla (raptors más duros).
 | Raptor | HP base 500 → **550**; HP/nivel 55 → **65** |
 | Bugfix Yun Tal | "AS effect occasionally triggered incorrectly" → el uptime de Flurry modelado (50 %) queda como convención conservadora |
 | ARAM | cambios de modo excluidos del lab (solo SR) |
+
+## 3d. HOTFIX 7.3d — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
+
+# HOTFIX 7.3d — Cambios completos (publicado: 28-oct-2026, 09:00 UTC)
+
+> **Fuente:** notas oficiales EN (wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/), leídas directamente el 06-nov-2026.
+> **Estado en el lab:** APLICADO (v1.22) a `champion_attack_speed_7.3.csv` (vía `OVERRIDES_73D` en `extract_data.py`), `items_7.3.csv`, `dps_model.py`, `xayah_model.py`, `yunara_model.py`, `analysis_batch2.py`, `yuumi_agresiva_model.py`, `champspecs.py`, `champion_base_stats.json` y `ESCALADO_DE_TAMANIO.md`. Base previa: 7.3+7.3a+7.3b (v1.21).
+> **Formato:** igual que `cambios_7.3b.md` (insumo de `update_reports.py`).
+
+## REGISTRO DE 7.3c Y 7.3e (sin impacto en Summoner's Rift)
+
+| Parche | Fecha | Contenido | Acción en el lab |
+|---|---|---|---|
+| 7.3c | 21-oct-2026 | Solo **AAA ARAM**: 4 augments nuevos (Chromacrash, Quick Reflexes, Back to Basics, Origin: Grasp of the Undying), 10 ajustes de augments, y modificadores de daño de modo para Jarvan IV, Taliyah, Ryze, Kayn, Vladimir | Excluido (el lab es solo SR). Registrar en FUENTES |
+| 7.3e | 04-nov-2026, 10:00 UTC | Solo **AAA ARAM**: 6 augments nuevos (series K/DA, Star Guardian, Minion + Mimicking Sands, Arcane Shadow, All in Good Fun). Sin ajustes de campeones, ítems ni números | Excluido. Registrar en FUENTES |
+| 7.3d | 28-oct-2026 | Balance de SR (campeones, ítems, Barón, minions, torretas) + ajustes de augments ARAM | **Aplicar** (abajo) |
+
+Los hotfixes 7.3c y 7.3e no obligan a re-triar reportes. El estado de datos pasa a **7.3+7.3a+7.3b+7.3c+7.3d+7.3e**, con c y e sin cambios de SR.
+
+## CAMPEONES
+
+| Campeón | Tipo | Cambio |
+|---|---|---|
+| **Shyvana** | MIXTO | Base: HP/nivel 120→**130**, regen/nivel 9→**12**, **AS/nivel 0.012→0.024**. Twin Bite CD 8.5/7.5/6.5/5.5→**7/6.5/6/5.5 s**. Burnout CD 13/12/11/10→**12/11/10/9 s**; Wings of the Cloud MS 25→**15 %**. Flame Breath CD 11/10/9/8→**10/9/8/7**; ratio 30 % AD+40 % AP→**50 % AD+80 % AP**; detonación forma dragón 50 % AD+70 % AP→**100 % AD+100 % AP**; scorched earth ratio AD 10→**15 %**. Dragon's Descent: omnivamp Life of the Ocean 20→**10 %** |
+| **Camille** | BUFF | AS/nivel 0.016→**0.028** |
+| **Malphite** | NERF | Granite Shield: ratio vida máx 11→**10 %**. Thunderclap primer golpe: daño base 40/60/80/100→**30/45/60/75**; ratio de armadura 30→**20 %** |
+| **Ekko** | NERF | Z-Drive Resonance vs monstruos 120→**110 %**; Timewinder vs monstruos 115→**100 %** |
+| **Lee Sin** | BUFF | AS/nivel 0.02→**0.04**; Dragon's Rage base 125/350/575→**150/375/600** |
+| **Akali** | BUFF | AS/nivel 0.02→**0.04**; armadura base 34→**37** |
+| **Nasus** | MIXTO | AD base 58→**62**; Spirit Fire base 55/110/165/220→**50/90/130/170**; Fury of the Sands RA/RM 40/50/60→**40/55/70** |
+| **Samira** | NERF | Flair ratio AD 125→**115 %**; Inferno Trigger ratio AD 50→**45 %** |
+| **Ashe** | NERF | Frost Shot, daño bonus de autos 0~130 %→**0~123.5 %** (según crit) |
+| **Miss Fortune** | BUFF | Love Tap multiplicador de AD bonus 40→**50 %**; Bullet Time crit 130~139 %→**135~145.5 %** (según crit) |
+| **Singed** | NERF | HP 690→**660**; MS 355→**350**; Mega Adhesive CD 11→**14/13/12/11 s**; Fling CD 12→**13 s** |
+
+## ÍTEMS (aplicar a items_7.3.csv, §8 del bundle y `dps_model.py`)
+
+| Ítem | Cambio |
+|---|---|
+| **Fiendhunter Bolts** | Opening Barrage: crit normal 80→**85 %**; daño verdadero 15→**17.5 %** |
+| **Divine Sunderer** | precio 3 400→**3 300** |
+| **Essence Reaver** | AD 50→**55** |
+| **Whispering Circlet** | Heal and Shield Power 8→**6 %** |
+| **Diadem of Songs** | Heal and Shield Power 8→**6 %** |
+| **Stormrazor** | Bolt: daño 120→**100**; MS 45→**35 %** |
+
+## MAPA Y SISTEMAS
+
+| Sistema | Cambio |
+|---|---|
+| **Hand of Baron** | Reducción de daño de minions vs campeones: melee/caster 50-70→**55-75 %**; cañón/siege 30→**35 %**. Vs minions: melee 80→**90 %**, otros 20→**25 %** (excepto super minion). Vs torretas 25→**30 %** (excepto super minion) |
+| **Minions (ventaja de empuje)** | Sube la reducción de daño de minions del equipo que va ganando. **⚠️ El texto oficial extraído NO trae las cifras** — verificar en la nota original antes de registrar números |
+| **Torretas** | Multiplicador por ataques consecutivos 100/150/215/300 %→**100/150/210/270 %** |
+| **ARAM** | Ajustes a Violet Toxin, Chromacrash Series, Rhythm Hunter, Red-Blue Remix, Transmissible Agents, Crimson Burst: excluidos del lab. Skins K/DA Ahri: sin efecto |
+
+## APLICADO EN EL LAB
+
+- `extract_data.py`: `OVERRIDES_73D` (Shyvana 0.024, Camille 0.028, Lee Sin 0.04, Akali 0.04) y `champion_attack_speed_7.3.csv` con marca `(7.3d: era …)`.
+- `items_7.3.csv`: Divine Sunderer 3 300 · Essence Reaver +55 AD · Circlet/Diadem HSP 6 % · Stormrazor Bolt 100 / MS 35 % · Fiendhunter 85 % / 17.5 %. (`items_7.3.md` y `data/raw/wrmeta_items.html` siguen en el estado 7.3: re-ejecutar `extract_data.py` NO toca el CSV de ítems.)
+- Motores: `storm` energized 100 y `er` AD 55 en `dps_model.py`, `xayah_model.py`, `yunara_model.py`; HSP 6 en `analysis_batch2.py` y `yuumi_agresiva_model.py`. `yunara_model.py` conserva el supuesto amortizado de Opening Barrage (13) sin reescalar.
+- `champspecs.py`: Shyvana `as_per_lvl` 0.024; notas de Malphite con 7.3d.
+- `champion_base_stats.json` (Shyvana): HP/nivel 130 y AS 7.3d. Regen 9→12 NO se aplicó: el campo de wr-meta ("9 (0.9)") no permite saber si «per level» de la nota es base o crecimiento.
+- `metodologia/ESCALADO_DE_TAMANIO.md`: Malphite según el hotfix (escudo 10 %, W primer golpe 30/45/60/75 + 20 % armadura).
+
+## DISCREPANCIAS A REGISTRAR EN data/FUENTES.md
+
+1. **Malphite, primer golpe de W:** el apéndice del lab traía 40 % de armadura; la nota 7.3d declara 30 %→20 %. **Regla aplicada: manda la fuente oficial** — el apéndice y los números derivados se rehicieron con 30/45/60/75 + 20 %.
+2. **Minions:** la nota oficial describe el cambio de ventaja de empuje sin cifras; no modelado, sin impacto en motores.
+3. **Shyvana:** el texto oficial describe subidas de ratio en Flame Breath mientras la intención declarada es recortar su fuerza a pleno escalado. Transcrito tal cual está publicado.
+4. **Regen de Shyvana (wr-meta):** ver «Aplicado en el lab».
+
+## IMPACTO EN REPORTES/SPECS DEL LAB (hipótesis previa al triage)
+
+| Archivo | Exposición | Veredicto probable |
+|---|---|---|
+| `Caitlyn` | Ruta con Stormrazor a los 8' y Essence Reaver | ⚠️ REVISAR |
+| `Yuumi` (×2) | HSP −2 pts en Circlet/Diadem; precedente 7.3a: −5 % de input → −1.4 % de resultado | ⚠️ REVISAR o ✅ ANOTAR |
+| `Xayah` | Stormrazor alternativa (−1.8 % a nivel 15), ER; Fiendhunter sigue ❌ por Ley 1 | ✅ ANOTAR o ⚠️ |
+| `Sivir` | Stormrazor alternativa (+9 % 1v1 / −14 % 3v3) empeora | ✅ ANOTAR |
+| `Senna` | Essence Reaver +5 AD (buff) | ✅ ANOTAR |
+| `Yunara`, `Nocturne` | Fiendhunter/Stormrazor/Divine Sunderer ya rechazados; el precio o el buff no cambia el veredicto | ✅ SIN_IMPACTO |
+| `Jinx` y resto (Kalista, Diana ×2, Cho'Gath ×2, Mordekaiser, Norra, Ornn, Rammus, Seraphine, Heimerdinger, Volibear ×2) | Sin ítems ni campeones tocados; Malphite, Ashe y Samira solo como referencia en texto (Jinx cita a Malphite 9 veces: revisar cifras citadas) | ✅ SIN_IMPACTO |
+| `Shyvana` (spec) | Sin reporte publicado en el bundle; AS/nivel ×2 y cambios de kit | Regenerar en `_auto/` si se quiere reporte |
+
+## CHECKLIST (FRAMEWORK §E)
+
+1. ✅ Notas 7.3c/7.3d/7.3e leídas de la fuente oficial (06-nov-2026). Pendiente: guardar `data/raw/patch73d.txt` y re-descargar `wrmeta_items.html` (requiere red fuera del sandbox).
+2. ✅ Datos y motores (ver arriba).
+3. ⏳ `python3 wrlab.py winrates` (win rates tras 7.3d) — local con red.
+4. ✅ Este archivo en `data/estructurada/`; falta anotar 7.3c/7.3d/7.3e en `data/FUENTES.md`.
+5. ✅ Triage/refresh/annotate/baseline ejecutados (ver commit siguiente).
+6. ✅ Tests, bundles y BD regenerados.
+7. ⏳ Revisar slugs vigilados en `check_patch.py` (siguiente: 7.3f / 7.4) y el pie de los reportes.
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
@@ -1684,7 +1781,7 @@ Nilah,0.67,0.67,0.21,0.02
 Morgana,0.625,0.625,0.2,0.005
 Evelynn,0.667,0.667,0.2,0.012
 Pantheon,0.658,0.658,0.22,0.02
-Akali,0.625,0.625,0.28,0.02
+Akali,0.625,0.625,0.28,0.04 (7.3d: era 0.02)
 Fiora,0.69,0.69,0.16,0.026
 Blitzcrank,0.625,0.625,0.2,0.006
 Seraphine,0.699,0.669,0.12,0.017
@@ -1701,16 +1798,16 @@ Tristana,0.694,0.694,0.17,0.02
 Teemo,0.69,0.69,0.09,0.03
 Sona,0.644,0.644,0.17,0.016
 Lulu,0.625,0.625,0.2,0.013
-Shyvana,0.638,0.638,0.25,0.012
+Shyvana,0.638,0.638,0.25,0.024 (7.3d: era 0.012)
 Vi,0.644,0.644,0.24,0.012
 Xayah,0.658,0.658,0.22,0.034
 Rakan,0.635,0.635,0.18,0.022
 Twitch,0.679,0.679,0.18,0.03
 Gwen,0.69,0.69,0.16,0.026
-Camille,0.644,0.644,0.24,0.016
+Camille,0.644,0.644,0.24,0.028 (7.3d: era 0.016)
 Viego,0.658,0.658,0.22,0.025
 Volibear,0.7,0.7,0.05,0.014
-Lee Sin,0.651,0.651,0.23,0.02
+Lee Sin,0.651,0.651,0.23,0.04 (7.3d: era 0.02)
 Corki,0.644,0.644,0.17,0.032
 Kennen,0.69,0.69,0.09,0.028
 Dr. Mundo,0.625,0.625,0.28,0.028
@@ -1857,7 +1954,7 @@ Nocturne,,,,,120 → 134
 
 # Win rates del roster — wr-meta (Meta Overview)
 
-> Bucket: **Diamond +** · Datos wr-meta: **Updated 17 OCT 2026 UTC 00:00** · Refrescado por el vigía: 17/10/2026
+> Bucket: **Diamond +** · Datos wr-meta: **Updated 29 OCT 2026 UTC 00:00** · Refrescado por el vigía: 29/10/2026
 > Fuente: `wr-meta.com/{id}-{champ}.html` (bloque Meta Overview) vía
 > `model/check_patch.py` paso 4 — el MISMO proceso que busca parches nuevos (cron 2×/día
 > en `patch-watch.yml`, o manual: `python3 wrlab.py winrates`).
@@ -1866,38 +1963,37 @@ Nocturne,,,,,120 → 134
 
 | Campeón | Rol | Tier | Win % | Pick % | Ban % | Tendencia | Confianza |
 |---|---|---|---|---|---|---|---|
-| Ahri | MID | A | 50.95 | 4.37 | 0.13 | 0 | Confidence Med |
-| Caitlyn | DUO | A | 49.74 | 16.80 | 6.55 | ↓ 1 | Confidence High |
-| Cho'Gath | SOLO | S | 50.39 | 10.22 | 36.00 | 0 | Confidence High |
-| Cho'Gath | JUNGLE | A | 50.35 | 8.63 | 36.00 | ↓ 5 | Confidence High |
-| Diana | MID | B | 47.83 | 1.05 | 0.15 | ↑ 1 | Confidence Low |
-| Diana | JUNGLE | A | 50.46 | 1.42 | 0.15 | ↑ 2 | Confidence Low |
-| Heimerdinger | MID | A | 50.10 | 1.63 | 1.35 | ↓ 6 | Confidence Low |
-| Jinx | DUO | S | 50.82 | 12.63 | 0.46 | ↑ 1 | Confidence High |
-| Kalista | DUO | S | 51.08 | 6.13 | 7.81 | ↑ 2 | Confidence Med |
-| Kalista | SOLO | S+ | 53.77 | 2.50 | 7.81 | 0 | Confidence Low |
-| Karma | SUPPORT | A | 50.74 | 4.39 | 0.34 | ↑ 7 | Confidence Med |
-| Malphite | SUPPORT | S+ | 51.58 | 8.89 | 41.47 | 0 | Confidence High |
-| Malphite | SOLO | S+ | 54.94 | 7.12 | 41.47 | 0 | Confidence Med |
-| Malphite | MID | A | 50.04 | 1.01 | 41.47 | ↓ 2 | Confidence Low |
-| Mordekaiser | SOLO | S+ | 51.02 | 11.00 | 30.52 | ↑ 2 | Confidence High |
-| Nocturne | JUNGLE | S+ | 52.81 | 8.15 | 58.59 | ↓ 5 | Confidence High |
-| Norra | MID | A | 50.10 | 1.37 | 6.79 | ↓ 7 | Confidence Low |
-| Orianna | MID | S | 51.32 | 4.48 | 0.30 | ↑ 3 | Confidence Med |
-| Ornn | SOLO | A | 51.48 | 1.85 | 0.18 | ↑ 9 | Confidence Low |
-| Ornn | SUPPORT | B | 49.47 | 1.24 | 0.18 | ↓ 10 | Confidence Low |
-| Rammus | JUNGLE | S+ | 56.80 | 4.10 | 6.81 | 0 | Confidence Med |
-| Senna | DUO | S | 50.98 | 1.54 | 26.20 | ↓ 6 | Confidence Low |
-| Senna | SUPPORT | A | 50.25 | 9.33 | 26.20 | ↓ 17 | Confidence High |
-| Seraphine | SUPPORT | A | 49.99 | 6.31 | 1.02 | ↑ 9 | Confidence Med |
-| Shyvana | JUNGLE | B | 46.27 | 3.42 | 1.07 | 0 | Confidence Med |
-| Sivir | DUO | A | 48.89 | 3.27 | 0.05 | ↑ 1 | Confidence Med |
-| Syndra | MID | S+ | 51.77 | 5.95 | 19.32 | ↑ 4 | Confidence Med |
-| Volibear | SOLO | A | 48.82 | 8.56 | 7.67 | ↑ 5 | Confidence High |
-| Volibear | JUNGLE | A | 49.06 | 4.26 | 7.67 | ↑ 4 | Confidence Med |
-| Xayah | DUO | A | 50.42 | 4.70 | 0.17 | ↑ 1 | Confidence Med |
-| Yunara | DUO | A | 50.13 | 8.92 | 20.77 | ↓ 6 | Confidence High |
-| Yuumi | SUPPORT | A | 48.23 | 8.92 | 33.84 | ↓ 3 | Confidence High |
+| Ahri | MID | A | 50.66 | 4.71 | 0.17 | ↑ 1 | Confidence Med |
+| Caitlyn | DUO | A | 49.81 | 15.47 | 4.31 | ↑ 1 | Confidence High |
+| Cho'Gath | SOLO | A | 50.33 | 9.15 | 35.67 | ↓ 4 | Confidence High |
+| Cho'Gath | JUNGLE | S | 50.56 | 8.18 | 35.67 | ↑ 2 | Confidence High |
+| Diana | MID | B | 48.25 | 1.01 | 0.13 | ↑ 5 | Confidence Low |
+| Diana | JUNGLE | B | 49.21 | 1.29 | 0.13 | ↓ 12 | Confidence Low |
+| Heimerdinger | MID | A | 50.37 | 1.70 | 1.57 | ↑ 4 | Confidence Low |
+| Jinx | DUO | A | 50.53 | 12.68 | 0.53 | 0 | Confidence High |
+| Kalista | DUO | A | 50.56 | 7.84 | 11.77 | 0 | Confidence Med |
+| Kalista | SOLO | S+ | 53.27 | 2.95 | 11.77 | 0 | Confidence Low |
+| Karma | SUPPORT | A | 49.93 | 4.55 | 0.46 | ↓ 2 | Confidence Med |
+| Malphite | SUPPORT | S+ | 51.67 | 9.54 | 43.15 | ↓ 1 | Confidence High |
+| Malphite | SOLO | S+ | 54.20 | 7.45 | 43.15 | ↓ 1 | Confidence Med |
+| Malphite | MID | S+ | 50.86 | 1.02 | 43.15 | ↑ 4 | Confidence Low |
+| Mordekaiser | SOLO | S+ | 51.51 | 10.84 | 33.78 | ↑ 5 | Confidence High |
+| Nocturne | JUNGLE | S+ | 52.81 | 7.05 | 59.60 | ↑ 2 | Confidence Med |
+| Norra | MID | S | 51.04 | 1.30 | 6.77 | ↑ 12 | Confidence Low |
+| Orianna | MID | S | 52.24 | 4.86 | 0.36 | ↑ 3 | Confidence Med |
+| Ornn | SOLO | A | 50.90 | 1.93 | 0.22 | ↓ 2 | Confidence Low |
+| Ornn | SUPPORT | B | 49.28 | 1.29 | 0.22 | ↓ 8 | Confidence Low |
+| Rammus | JUNGLE | S+ | 56.41 | 3.86 | 6.79 | 0 | Confidence Med |
+| Senna | SUPPORT | A | 50.05 | 6.05 | 9.82 | ↑ 2 | Confidence Med |
+| Seraphine | SUPPORT | A | 49.77 | 6.61 | 1.16 | ↓ 5 | Confidence Med |
+| Shyvana | JUNGLE | B | 46.36 | 3.14 | 0.97 | 0 | Confidence Med |
+| Sivir | DUO | A | 49.72 | 4.70 | 0.10 | ↑ 1 | Confidence Med |
+| Syndra | MID | S+ | 51.72 | 5.87 | 17.82 | 0 | Confidence Med |
+| Volibear | SOLO | A | 49.00 | 7.15 | 7.54 | ↓ 1 | Confidence Med |
+| Volibear | JUNGLE | A | 48.93 | 3.93 | 7.54 | ↓ 4 | Confidence Med |
+| Xayah | DUO | A | 50.86 | 4.82 | 0.25 | ↓ 2 | Confidence Med |
+| Yunara | DUO | A | 49.48 | 7.68 | 10.09 | ↑ 1 | Confidence Med |
+| Yuumi | SUPPORT | A | 48.12 | 8.09 | 33.87 | ↑ 1 | Confidence High |
 
 Roles wr-meta: SOLO = top (Baron Lane) · JUNGLE · MID · DUO = ADC (Dragon Lane) · SUPPORT.
 Máquina: `champion_winrates.csv` (mismas filas) · BD: tabla `winrates` (`build_db.py`).
@@ -1930,7 +2026,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Sterak's Gage | 3200 | +400 Max Health  /  +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
 | Death's Dance | 3200 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
 | Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
-| Divine Sunderer | 3400 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
+| Divine Sunderer | 3300 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
 | Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
 | Youmuu's Ghostblade | 2900 | +55 Attack Damage  /  +15 Armor Penetration  /  +15 Ability Haste  /  +4% Move Speed | ASSASSIN ITEMS |
 | Duskblade of Draktharr | 3000 | +55 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
@@ -1948,7 +2044,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Statikk Shiv | 2900 | +40 Attack Damage  /  +30% Attack Speed  /  +40 Ability Power  /  +4% Move Speed | MARKSMAN ITEMS; MAGIC ITEMS |
 | Guinsoo's Rageblade | 3000 | +35 Attack Damage  /  +30% Attack Speed  /  +30 Ability Power | MARKSMAN ITEMS; MAGIC ITEMS |
 | Mortal Reminder | 3000 | +35 Attack Damage  /  +30% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
-| Essence Reaver | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20 Ability Haste | MARKSMAN ITEMS |
+| Essence Reaver | 3000 | +55 Attack Damage  /  +25% Critical Rate  /  +20 Ability Haste | MARKSMAN ITEMS |
 | Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
@@ -1956,8 +2052,8 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
 | Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
-| Whispering Circlet | 2400 | +200 Max Health  /  +500 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
-| Diadem of Songs |  | +200 Max Health  /  +1200 Max Mana  /  +50% Mana Regen  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Whispering Circlet | 2400 | +200 Max Health  /  +500 Max Mana  /  +50% Mana Regen  /  +6% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
+| Diadem of Songs |  | +200 Max Health  /  +1200 Max Mana  /  +50% Mana Regen  /  +6% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
 | Redemption | 2450 | +40 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
 | Imperial Mandate | 2600 | +60 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
 | Oceanid's Trident | 2600 | +200 Max Health  /  +80 Ability Power  /  +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
@@ -2172,7 +2268,7 @@ SPECS = {
 
 "shyvana": dict(
     name="Shyvana", roles=["Jungla"], archetype="fighter-on-hit / AP-burst (dragón)",
-    base_ad=62, ad_growth=4.6, base_as=0.638, as_ratio=0.638, base_bonus_as=0.25, as_per_lvl=0.012,
+    base_ad=62, ad_growth=4.6, base_as=0.638, as_ratio=0.638, base_bonus_as=0.25, as_per_lvl=0.024,
     ranged=False, attack_range=None,
     self_as_buff=0.0, aa_mult=1.0, aa_aoe=False, crit_dmg_mod=1.0, uses_magnification=False,
     notes=("Q Twin Bite: doble golpe (100% + 20/40/60/80% AD) y los autos reducen su CD 0.5s → spellblade/on-hit. "
@@ -2207,8 +2303,8 @@ SPECS = {
     ranged=False, attack_range=None,
     self_as_buff=0.0, aa_mult=1.0, aa_aoe=False, crit_dmg_mod=1.0, uses_magnification=False,
     notes=("Meta 7.3: WR 52.17%, BAN 21.89% — el tanque más respetado. Armadura = daño: W pasiva +25-40% armor, "
-           "W activa cono 20-50+20%AD+20%ARMOR (primer golpe +40%/40%), E 60-210+45%AP+45%ARMOR + slow de AS 35-50%. "
-           "P Granite Shield: 11% vida máx fuera de combate. Iceborn: campo crece con armadura. Base armor 49(+5) = 119 lvl15. "
+           "W activa cono 20-50+20%AD+15%ARMOR (7.3a), primer golpe 30/45/60/75 + 20%ARMOR (7.3d), E 60-210+45%AP+40%ARMOR (7.3a) + slow de AS 35-50%. "
+           "P Granite Shield: 10% vida máx (7.3d; era 11%) fuera de combate. Iceborn: campo crece con armadura. Base armor 49(+5) = 119 lvl15. "
            "TAMAÑO: solo de ítems (Gargoyle activo, Twinguard, Sterak's, Mantle) — ver metodologia/ESCALADO_DE_TAMANIO.md. "
            "Comunidad: Iceborn → Plated/Mercury T3 → Thornmail → Zeke's → Gargoyle; Grasp+Demolish+Second Wind+Overgrowth."),
     model_terms_pending=["W pasiva (% armor: ¿bonus o total? verificar)", "E slow-AS al DPS enemigo (defensa)", "R engage value"]),
@@ -2387,15 +2483,15 @@ ITEMS = {i.key: i for i in [
     I("mortal",    3000, ad=35, pen=30, crit=25, comment="Grievous Wounds 50%"),
     I("kraken",    2900, ad=45, a_s=35, ms=4, kraken=True, comment="cada 3er golpe 120-168 (rango) +missing HP"),
     I("rfc",       2650, a_s=40, crit=25, ms=4, energized=80, comment="Energized +80 mágico, +150 rango"),
-    I("storm",     3000, ad=50, crit=25, a_s=20, energized=120, comment="Energized +120 mágico +45% MS"),
+    I("storm",     3000, ad=50, crit=25, a_s=20, energized=100, comment="7.3d NERF: Energized 120→100 mágico, MS 45→35% (+35% MS)"),
     I("bt",        3200, ad=75, ls=15, comment="overheal->escudo 165-345"),
     I("gale",      3100, ad=60, crit=25, ms=4, comment="dash+misiles 40-125+35% bAD (activo)"),
     I("shieldbow", 3000, ad=55, crit=25, comment="Lifeline: escudo 300-550 bajo 35% (70s)"),
-    I("fiend",     2650, a_s=45, crit=25, ms=4, comment="20 ult haste; post-R 3 ataques +50%AS y crit garantizado (80% dmg crit; si ya critaba +15% true)"),
+    I("fiend",     2650, a_s=45, crit=25, ms=4, comment="20 ult haste; post-R 3 ataques +50%AS y crit garantizado (7.3d: 85% dmg crit; si ya critaba +17.5% true)"),
     I("collector", 3000, ad=50, pen=10, crit=25, execute_pct=5, comment="pen plana; ejecuta <5% (+25g)"),
     I("pd",        2650, a_s=40, crit=25, ms=7, comment="stacks 6%AS+1%MS x5; ya NO da AD en 7.3"),
     I("navori",    2650, a_s=40, crit=25, ms=4, comment="ataques -15% CDs básicos (validar mecánica)"),
-    I("er",        3000, ad=50, crit=25, ah=20, spellblade=1.0, comment="Spellblade 135% AD base + 0-80 por crit (1.5s ICD)"),
+    I("er",        3000, ad=55, crit=25, ah=20, spellblade=1.0, comment="7.3d BUFF: AD 50→55. Spellblade 135% AD base + 0-80 por crit (1.5s ICD)"),
     I("yuntal",    3000, ad=50, a_s=35, crit=25, comment="7.3a BUFF: AS 25->35; Flurry +35%AS CD25; crit 0->25% en 125 ataques · 7.3b: precio 3100→3000"),
     I("manamune",  2900, ad=40, ah=15, comment="+2% mana como AD; Shock 1.5% mana (Muramana)"),
     # --- on-hit ---
@@ -2900,7 +2996,7 @@ Y_ITEMS = {
  'Staff':      dict(g=2400, ap=50, hsp=8, ah=10, rapids=1),
  'Redemption': dict(g=2450, ap=40, hsp=8, ah=10, redempt=1),
  'Mikael':     dict(g=2500, hp=300, hsp=9, ah=15, cleanse=1),
- 'Diadem':     dict(g=2400, hp=200, hsp=8, diadem=1),
+ 'Diadem':     dict(g=2400, hp=200, hsp=6, diadem=1),  # 7.3d: HSP 8→6
  'Locket':     dict(g=2600, hp=200, armor=30, mr=30, ah=10, locket=1),
  'Shurelya':   dict(g=2500, ap=55, ah=20, shurelya=1),
  'Zeke':       dict(g=2400, hp=300, armor=25, mr=25, ah=10, zeke=1),
@@ -10204,8 +10300,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -10721,7 +10817,7 @@ mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -11108,7 +11204,7 @@ mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -11407,7 +11503,7 @@ mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -11917,7 +12013,7 @@ mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -12403,7 +12499,7 @@ mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -12978,8 +13074,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-04"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 04/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -13329,8 +13425,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -13939,7 +14035,7 @@ mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -14191,8 +14287,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: REVISAR
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -14644,7 +14740,7 @@ mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -15256,7 +15352,7 @@ mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -15888,7 +15984,7 @@ mode: sr
 published_at: "2026-10-05"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 05/10/2026 (regeneración post-7.3a)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -16376,7 +16472,7 @@ mode: sr
 published_at: "2026-10-09"
 updated_at: "2026-10-11"
 verification: REVISAR
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 11/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -16781,7 +16877,7 @@ mode: sr
 published_at: "2026-09-30"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 30/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -17248,8 +17344,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -17792,8 +17888,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
-verification: REVISAR
-verified_patch: "7.3b"
+verification: SIN_IMPACTO
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -18102,8 +18198,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: REVISAR
-verified_patch: "7.3b"
+verification: SIN_IMPACTO
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -18643,8 +18739,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -19233,8 +19329,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: REVISAR
-verified_patch: "7.3b"
+verification: ANOTAR
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v2.0 con motor dedicado batch4) · **Refresh 7.3b:** 15/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3b (15-oct-2026)
@@ -19708,7 +19804,7 @@ mode: sr
 published_at: "2026-09-27"
 updated_at: "2026-10-12"
 verification: SIN_IMPACTO
-verified_patch: "7.3b"
+verified_patch: "7.3d"
 ---
 **Fecha del análisis:** 18/10/2026 (rev. v2.1 — corrección de runas: la página publicada es LEGAL y vuelve a ser la base; motor `yuumi_agresiva_model.py`, batch5, constantes 7.3b)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026) + hotfix 7.3b (15-oct-2026)
@@ -20002,13 +20098,13 @@ Bloodthirster,3200,+75 Attack Damage | +15% Lifesteal,FIGHTER ITEMS; MARKSMAN IT
 Sterak's Gage,3200,+400 Max Health | +20% Tenacity,FIGHTER ITEMS; DEFENSE ITEMS,Sterak's Gage ~   ~ Sterak's Gage ~ Taking damage triggers a shield ~  +400 Max Health ~  +20% Tenacity ~ Heavy Handed: ~   ~ +50% base Attack Damage ~  as  ~ bonus Attack Damage ~ . ~ Lifeline: ~  Damage that puts you under  ~ 35% ~  Health ~  grants a  ~ shield ~  that equal to  ~ 75% of your bonus health ~  that decays over 5 seconds (70s Cooldown). ~ Sterak's Fury: ~  Triggering Lifeline increases size and grants  ~ 30% Tenacity ~  for 8 seconds. ~   ~ 3200 ~ Sterak's Gage 
 Death's Dance,3200,+50 Attack Damage | +45 Armor | +15 Ability Haste,FIGHTER ITEMS; DEFENSE ITEMS,"Death's Dance ~   ~ Death's Dance ~ Delays damage taken ~  +50 Attack Damage ~  +45 Armor ~  +15 Ability Haste ~ Cauterize: ~  30% of all  ~ physical damage ~  and  ~ magic damage ~  received (12% for ranged champions) is dealt to you over 3 seconds as true damage instead. ~ Defy: ~  When a champion that you damaged within 3 second(s) dies, cleanse Cauterize's remaining damage pool and restore  ~ Health ~  equal to  ~ 90% bonus AD ~  over 2 second(s). ~   ~ 3200 ~ Death's Dance "
 Trinity Force,3333,+333 Max Health | +36 Attack Damage | +30% Attack Speed | +15 Ability Haste,FIGHTER ITEMS; MARKSMAN ITEMS,"Trinity Force ~   ~ Trinity Force ~ Well-Rounded ~  +333 Max Health ~  +36 Attack Damage ~  +30% Attack Speed ~  +15 Ability Haste ~ Valor: ~  On hit, attacks grant  ~ 20 Move Speed ~  for 2 seconds. Bonuses do not stack.  ~ Bonus Movement Speed ~  does not stack. Ranged champions gain halved values.  ~ Spellblade: ~  Using an ability causes the next attack used within 10 seconds to deal  ~ bonus physical damage ~  equal to  ~ 200% base AD ~ (1.5s Cooldown). Damage is reduced vs structures. ~   ~ 3333 ~ Trinity Force "
-Divine Sunderer,3400,+425 Max Health | +25 Attack Damage | +25 Ability Haste,FIGHTER ITEMS,"Divine Sunderer ~   ~ Divine Sunderer ~ Anti-Health attacks ~  +425 Max Health ~  +25 Attack Damage ~  +25 Ability Haste ~ Spellblade: ~  After using an ability, your next attack within 10 seconds deals  ~ (10% melee / 7% ranged) ~  of target's maximum health as bonus  ~ physical damage ~ . If the target is a champion, heal for  ~ (6% melee / 2.5% ranged) ~  of the target's maximum  ~ health ~ . (1.5s Cooldown) Damage is reduced vs structure. ~   ~ 3400 ~ Divine Sunderer "
+Divine Sunderer,3300,+425 Max Health | +25 Attack Damage | +25 Ability Haste,FIGHTER ITEMS,"Divine Sunderer ~   ~ Divine Sunderer ~ Anti-Health attacks ~  +425 Max Health ~  +25 Attack Damage ~  +25 Ability Haste ~ Spellblade: ~  After using an ability, your next attack within 10 seconds deals  ~ (10% melee / 7% ranged) ~  of target's maximum health as bonus  ~ physical damage ~ . If the target is a champion, heal for  ~ (6% melee / 2.5% ranged) ~  of the target's maximum  ~ health ~ . (1.5s Cooldown) Damage is reduced vs structure. ~   ~ 3300 ~ Divine Sunderer "
 Serpent's Fang,2800,+50 Attack Damage | +10 Ability Haste,ASSASSIN ITEMS,"Serpent's Fang ~   ~ Serpent's Fang ~ Anti-Shielding ~  +50 Attack Damage ~  +10 Ability Haste ~ Stab: ~   ~  +15 Armor Penetration. ~ Shield Reaver: ~  Dealing damage to an enemy champion reduces any  ~ shields ~  they gain for 3s. Melee champions apply ( ~ 10% of bonus AD ~  + 40)% shield reduction, capped at 60%; while ranged champions apply ( ~ 10% of bonus AD ~  + 25)% shield reduction, capped at 45%. When you damage an enemy who is unaffected by Shield Reaver, all shields on them are reduced by the same values. ~   ~ 2800 ~ Serpent's Fang "
 Youmuu's Ghostblade,2900,+55 Attack Damage | +15 Armor Penetration | +15 Ability Haste | +4% Move Speed,ASSASSIN ITEMS,"Youmuu's Ghostblade ~   ~ Youmuu's Ghostblade ~ Increases Movement Speed ~  +55 Attack Damage ~  +15 Armor Penetration ~  +15 Ability Haste ~  +4% Move Speed ~ Momentum: ~  3 second(s) after leaving champion combat, gain  ~ 30 Move Speed ~  (20 for ranged champions). ~   ~ 3000 ~ Youmuu's Ghostblade "
 Duskblade of Draktharr,3000,+55 Attack Damage | +10 Ability Haste,ASSASSIN ITEMS,Duskblade of Draktharr ~   ~ Duskblade of Draktharr ~ Attacks deal bonus damage ~  +55 Attack Damage ~  +10 Ability Haste ~ Razor: ~   ~  +18 Armor Penetration. ~ Nightstalker: ~  The first attack against a champion deals  ~ 60-160 bonus physical damage ~  and  ~ slows ~  them by 99% for 0.35s (10s cooldown). Champion takedowns refresh cooldown. ~   ~ 3000 ~ Duskblade of Draktharr 
 Edge of Night,3000,+250 Max Health | +50 Attack Damage,ASSASSIN ITEMS,Edge of Night ~   ~ Edge of Night ~ Blocks an enemy ability ~  +250 Max Health ~  +50 Attack Damage ~ Gouge: ~   ~  +12 Armor Penetration. ~ Annul: ~  Grants a spell shield that blocks the next hostile ability. This spell shield refreshes upon leaving combat with enemy champions. (35 second cooldown) ~   ~ 3000 ~ Edge of Night 
 The Collector,3000,+50 Attack Damage | +10 Armor Penetration | +25% Critical Rate,ASSASSIN ITEMS; MARKSMAN ITEMS,"The Collector ~   ~ The Collector ~ Execute low health champions ~  +50 Attack Damage ~  +10 Armor Penetration ~  +25% Critical Rate ~ Death and Taxes: ~  Dealing damage that would leave an enemy champion below 5% of their  ~ max Health ~  executes them, permanently increases the  ~ max Health ~  percentage execution threshold by 0.1%, and grants  ~ 25 bonus gold ~ . ~ Limited to 1 The Collector. ~   ~ 3000 ~ The Collector "
-Fiendhunter Bolts,2650,+25% Critical Rate | +45% Attack Speed | +4% Move Speed,MARKSMAN ITEMS,"Fiendhunter Bolts ~   ~ Fiendhunter Bolts ~ After using your ultimate ability, your next few attacks Critically Strike ~  +25% Critical Rate ~  +45% Attack Speed ~  +4% Move Speed ~ Night Vigil: ~  Gain  ~ 20 ~  Ultimate  ~ Ability haste ~ . ~ Opening Barrage: ~  After casting your ultimate ability, your next 3 attacks within 8s gain  ~ 50% Attack Speed ~  and  ~ Critically Strike ~  for 80% of your normal  ~ Critical Damage ~ . If an attack would already Critically Strike, it deals  ~ 15% ~  bonus  ~ true damage ~  instead. (45s Cooldown) ~   ~ 2650 ~ Fiendhunter Bolts "
+Fiendhunter Bolts,2650,+25% Critical Rate | +45% Attack Speed | +4% Move Speed,MARKSMAN ITEMS,"Fiendhunter Bolts ~   ~ Fiendhunter Bolts ~ After using your ultimate ability, your next few attacks Critically Strike ~  +25% Critical Rate ~  +45% Attack Speed ~  +4% Move Speed ~ Night Vigil: ~  Gain  ~ 20 ~  Ultimate  ~ Ability haste ~ . ~ Opening Barrage: ~  After casting your ultimate ability, your next 3 attacks within 8s gain  ~ 50% Attack Speed ~  and  ~ Critically Strike ~  for 85% of your normal  ~ Critical Damage ~ . If an attack would already Critically Strike, it deals  ~ 17.5% ~  bonus  ~ true damage ~  instead. (45s Cooldown) ~   ~ 2650 ~ Fiendhunter Bolts "
 Rapid Firecannon,2650,+25% Critical Rate | +40% Attack Speed | +4% Move Speed,MARKSMAN ITEMS,Rapid Firecannon ~   ~ Rapid Firecannon ~ Increases attack range and damage ~  +25% Critical Rate ~  +40% Attack Speed ~  +4% Move Speed ~ Sharpshooter: ~  Moving and attacking generates an  ~ Energized Attack ~  with 35% bonus Attack Range (max 150 range) that deals  ~ 80 bonus magic damage ~ . ~   ~ 2650 ~ Rapid Firecannon 
 Runaan's Hurricane,2650,+40% Attack Speed | +25% Critical Rate | +4% Move Speed,MARKSMAN ITEMS,"Runaan's Hurricane ~   ~ Runaan's Hurricane ~ Ranged Attacks hit 3 targets ~  +40% Attack Speed ~  +25% Critical Rate ~  +4% Move Speed ~ Wind's Fury: ~  Attacks strike 2 additional nearby enemies, each dealing  ~ 55% AD ~ . These strikes can  ~ Critically Strike ~  and trigger  ~ on-hit ~  effects. ~ This item cannot only be used by melee champions. ~   ~ 2650 ~ Runaan's Hurricane "
 Phantom Dancer,2650,+25% Critical Rate | +40% Attack Speed | +7% Movement Speed,MARKSMAN ITEMS,"Phantom Dancer ~   ~ Phantom Dancer ~ Movement speed and attack speed ~  +25% Critical Rate ~  +40% Attack Speed ~  +7% Movement Speed ~ Spectral Waltz: ~   ~ On hit ~ , your attacks against a champion grant  ~ 6% Attack Speed ~  and  ~ 1% Movement Speed ~  for 6 second(s). Bonuses stack up to 5 times. ~   ~ 2650 ~ Phantom Dancer "
@@ -20020,16 +20116,16 @@ Nashor's Tooth,2900,+50% Attack Speed | +80 Ability Power | +15 Ability Haste,MA
 Statikk Shiv,2900,+40 Attack Damage | +30% Attack Speed | +40 Ability Power | +4% Move Speed,MARKSMAN ITEMS; MAGIC ITEMS,"Statikk Shiv ~   ~ Statikk Shiv ~ Energized Attacks deal chain damage ~  +40 Attack Damage ~  +30% Attack Speed ~  +40 Ability Power ~  +4% Move Speed ~ Electroshock: ~  Attacks grant 5 extra  ~ Energized stacks ~ . ~ Electrospark: ~  Moving and attacking generate an  ~ Energized Attack ~  that fires chain lightning to 4–7 targets ( ~ ), dealing  ~ 60 magic damage ~  (increased to  ~ 90 magic damage ~  against minions and monsters) and applying  ~ on-hit effects ~  to secondary bounce targets. ~   ~ 3000 ~ Statikk Shiv "
 Guinsoo's Rageblade,3000,+35 Attack Damage | +30% Attack Speed | +30 Ability Power,MARKSMAN ITEMS; MAGIC ITEMS,"Guinsoo's Rageblade ~   ~ Guinsoo's Rageblade ~ Applies on-hit effects ~  +35 Attack Damage ~  +30% Attack Speed ~  +30 Ability Power ~ Wrath: ~  Attacks deal  ~ 30 bonus magic damage ~   ~ on hit ~ . ~ Seething Strike: ~  Attacks grant  ~ 8% Attack Speed ~ , stacking up to 4 times for a maximum of  ~ 32% Attack Speed ~ . While fully stacked, every 3 attack(s) applies  ~ on-hit ~  effects an additional 1 time(s). ~   ~ 3000 ~ Guinsoo's Rageblade "
 Mortal Reminder,3000,+35 Attack Damage | +30% Armor Penetration | +25% Critical Rate,MARKSMAN ITEMS,Mortal Reminder ~   ~ Mortal Reminder ~ Armor Penetration (%) and reduced enemy healing ~  +35 Attack Damage ~  +30% Armor Penetration ~  +25% Critical Rate ~ Sepsis: ~  Dealing  ~ physical damage ~  to enemy champions applies  ~ 50% Grievous Wounds ~  for 3 seconds. ~ Grievous Wounds ~  reduces the effectiveness of Healing and Regeneration effects. ~   ~ 3000 ~ Mortal Reminder 
-Essence Reaver,3000,+50 Attack Damage | +25% Critical Rate | +20 Ability Haste,MARKSMAN ITEMS,"Essence Reaver ~   ~ Essence Reaver ~ Attacks casting an ability, your next attack deals bonus damage ~  +50 Attack Damage ~  +25% Critical Rate ~  +20 Ability Haste ~ Spellblade: ~  Using an ability causes your next attack within 10s to deal bonus  ~ physical damage ~  equal to  ~ 135% base AD ~  plus  ~ 0–80 ~  (increased by 0.8 per  ~ 1% Critical Rate ~ ) and restore  ~ 50% ~  of this damage as  ~ Mana ~ . (1.5s Cooldown) ~   ~ 3000 ~ Essence Reaver "
+Essence Reaver,3000,+55 Attack Damage | +25% Critical Rate | +20 Ability Haste,MARKSMAN ITEMS,"Essence Reaver ~   ~ Essence Reaver ~ Attacks casting an ability, your next attack deals bonus damage ~  +55 Attack Damage ~  +25% Critical Rate ~  +20 Ability Haste ~ Spellblade: ~  Using an ability causes your next attack within 10s to deal bonus  ~ physical damage ~  equal to  ~ 135% base AD ~  plus  ~ 0–80 ~  (increased by 0.8 per  ~ 1% Critical Rate ~ ) and restore  ~ 50% ~  of this damage as  ~ Mana ~ . (1.5s Cooldown) ~   ~ 3000 ~ Essence Reaver "
 Immortal Shieldbow,3000,+55 Attack Damage | +25% Critical Rate,MARKSMAN ITEMS,Immortal Shieldbow ~   ~ Immortal Shieldbow ~ Gain a shield when Health is low ~  +55 Attack Damage ~  +25% Critical Rate ~ Lifeline: ~  Damage that puts you under  ~ 35% Health ~  grants a  ~ shield ~  for 3s. The  ~ shield ~  absorbs  ~ 350–650 ~  damage for melee champions and  ~ 300–550 ~  damage for ranged champions. (70s cooldown) ~   ~ 3000 ~ Immortal Shieldbow 
 Terminus,3000,+35 Attack Damage | +35% Attack Speed,MARKSMAN ITEMS,"Terminus ~   ~ Terminus ~ Increases Armor Pen, Megic Pen, Armor, and Magic Resist ~  +35 Attack Damage ~  +35% Attack Speed ~ Shadow: ~  Attacks deal  ~ 30 bonus magic damage ~   ~ on-hit ~ . ~ Juxtaposition: ~  Alternate between Light and Dark on-hits when attacking. Light attacks grant 5-8  ~ Armor ~  and  ~ Magic Resist ~ ( ~ ) for 5 seconds on hit. Dark attacks grant  ~ 10% Armor Pen ~  and  ~ 10% Magic Pen ~  for 5 seconds  ~ on hit ~ . Each on-hit effect stacks up to 3 times. While you have this item, bonus  ~ Armor Pen ~  and  ~ Magic Pen ~  granted by it is capped at 40%. ~ You cannot own this item concurrently with Void Staff. ~   ~ 3000 ~ Terminus "
-Stormrazor,3000,+50 Attack Damage | +25% Critical Rate | +20% Attack Speed,MARKSMAN ITEMS,Stormrazor ~   ~ Stormrazor ~ Energized Attacks deal extra damage and grant Movement Speed ~  +50 Attack Damage ~  +25% Critical Rate ~  +20% Attack Speed ~ Bolt: ~  Moving and attacking generates an  ~ Energized Attack ~  that deals  ~ 120 ~  bonus  ~ magic damage ~  and grants 45% Movement Speed for 1.5 second(s)  ~ on hit ~ . ~   ~ 3000 ~ Stormrazor 
+Stormrazor,3000,+50 Attack Damage | +25% Critical Rate | +20% Attack Speed,MARKSMAN ITEMS,Stormrazor ~   ~ Stormrazor ~ Energized Attacks deal extra damage and grant Movement Speed ~  +50 Attack Damage ~  +25% Critical Rate ~  +20% Attack Speed ~ Bolt: ~  Moving and attacking generates an  ~ Energized Attack ~  that deals  ~ 100 ~  bonus  ~ magic damage ~  and grants 35% Movement Speed for 1.5 second(s)  ~ on hit ~ . ~   ~ 3000 ~ Stormrazor 
 Yun Tal Wildarrows,3000,+50 Attack Damage | +25% Attack Speed,MARKSMAN ITEMS,"Yun Tal Wildarrows ~   ~ Yun Tal Wildarrows ~ Attacks gain Critical Rate ~  +50 Attack Damage ~  +25% Attack Speed ~ Practice Makes Perfect: ~  On attack, gain  ~ Critical Rate ~  permanently ( ~ 0.4% ~  for melee champions and  ~ 0.2% ~  for ranged champions per attack), up to  ~ 25% ~ . ~ Flurry: ~  On attacking an enemy champion, gain  ~ 25% Attack Speed ~  for 6s. (20s Cooldown) Attacks reduce this cooldown by 1s, increased to 2s for  ~ Critical Strikes ~ . ~   ~ 3100 ~ Yun Tal Wildarrows "
 Galeforce,3100,+60 Attack Damage | +25% Critical Rate | +4% Move Speed,MARKSMAN ITEMS,"Galeforce ~   ~ Galeforce ~ Grants a dash and damage bonus ~  +60 Attack Damage ~  +25% Critical Rate ~  +4% Move Speed ~ Cloudburst (Active): ~  Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal  ~ physical damage ~  equal to  ~ 40-125 ~  ( ~ ) plus  ~ 35% bonus ~ . (60s Cooldown) ~   ~ 3100 ~ Galeforce "
 Dominik's Regards,3300,+35 Attack Damage | +35% Armor Penetration | +25% Critical Rate,MARKSMAN ITEMS,"Dominik's Regards ~   ~ Dominik's Regards ~ Armor Pen and bonus damage ~  +35 Attack Damage ~  +35% Armor Penetration ~  +25% Critical Rate ~ Giant Slayer: ~  Deal bonus damage based on the enemy champion's  ~ bonus Health ~ , up to 12% bonus damage when the enemy champion has  ~ 1.200 bonus Health ~ . ~   ~ 3300 ~ Dominik's Regards "
 Infinity Edge,3400,+75 Attack Damage | +25% Critical Rate,MARKSMAN ITEMS,Infinity Edge ~   ~ Infinity Edge ~ Increases Critical Strike Damage ~  +75 Attack Damage ~  +25% Critical Rate ~ Infinity: ~  Critical Strikes deal  ~ 230% damage ~  instead of  ~ 200% ~ . ~   ~ 3400 ~ Infinity Edge 
-Whispering Circlet,2400,+200 Max Health | +500 Max Mana | +50% Mana Regen | +8% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,Whispering Circlet ~   ~ Whispering Circlet ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +500 Max Mana ~  +50% Mana Regen ~  +8% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Mana Charge: ~  Grants  ~ 14 max Mana ~  for each Mana expenditure (occurs up to 3 times every 10 seconds). Caps at  ~ 700 max Mana ~ . This item then transforms into Diadem of Songs. ~   ~ 2400 ~ Whispering Circlet 
-Diadem of Songs,,+200 Max Health | +1200 Max Mana | +50% Mana Regen | +8% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Diadem of Songs ~   ~ Diadem of Songs ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +1200 Max Mana ~  +50% Mana Regen ~  +8% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Diadem: ~  While you or an ally you've healed or shielded in the last 3 second(s) is in combat with champions, each second,  ~ heal ~  the lowest Health ally within 800 units of you for  ~ Health ~  equal to  ~ 0.8% max Mana ~ . ~ Diadem of Songs "
+Whispering Circlet,2400,+200 Max Health | +500 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,Whispering Circlet ~   ~ Whispering Circlet ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +500 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Mana Charge: ~  Grants  ~ 14 max Mana ~  for each Mana expenditure (occurs up to 3 times every 10 seconds). Caps at  ~ 700 max Mana ~ . This item then transforms into Diadem of Songs. ~   ~ 2400 ~ Whispering Circlet 
+Diadem of Songs,,+200 Max Health | +1200 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Diadem of Songs ~   ~ Diadem of Songs ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +1200 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Diadem: ~  While you or an ally you've healed or shielded in the last 3 second(s) is in combat with champions, each second,  ~ heal ~  the lowest Health ally within 800 units of you for  ~ Health ~  equal to  ~ 0.8% max Mana ~ . ~ Diadem of Songs "
 Redemption,2450,+40 Ability Power | +50% Mana Regen | +10 Ability Haste | +8% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Redemption ~   ~ Redemption ~ Heal allies in an area ~  +40 Ability Power ~  +50% Mana Regen ~  +10 Ability Haste ~  +8% Heal and Shield Strength ~ Intervention (Active): ~  Target a large area. After 2.5s,  ~ restore 150-350 Health ~  (based on ally's level) to allied units and deal  ~ 10% of max ~  as  ~ true damage ~  to enemy champions. (60s Cooldown) ~ Can be cast while dead. ~   ~ 2450 ~ Redemption "
 Imperial Mandate,2600,+60 Ability Power | +50% Mana Regen | +20 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,"Imperial Mandate ~   ~ Imperial Mandate ~ Crowd control grants additional ally damage ~  +60 Ability Power ~  +50% Mana Regen ~  +20 Ability Haste ~ Control: ~  Your crowd control abilities gain  ~ 20 Ability Haste ~ . ~ Command: ~  Crowd controlling an enemy champion marks them for 4 second(s), causing them to take 7% increased damage. ~   ~ 2600 ~ Imperial Mandate "
 Oceanid's Trident,2600,+200 Max Health | +80 Ability Power | +10 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,"Oceanid's Trident ~   ~ Oceanid's Trident ~ Anti-Shielding ~  +200 Max Health ~  +80 Ability Power ~  +10 Ability Haste ~ Lethal Weapon: ~  Dealing ability damage to an enemy champion reduces any  ~ shields ~  they gain for 3 seconds. Area of effect abilities apply ( ~ 5% of bonus AP ~  + 25)% shield reduction, capped at 45%; while single target abilities apply ( ~ 5% of bonus AP ~  + 40)% shield reduction, capped at 60%. When you damage an enemy who is unaffected by  ~ Lethal Weapon ~ , all shields on them are reduced by the same values. ~   ~ 2600 ~ Oceanid's Trident "
@@ -21165,8 +21261,8 @@ class TestEstandar(unittest.TestCase):
     def test_jinx_v15_normalizado(self):
         fm = U.parse_frontmatter(open(os.path.join(REP, "Jinx.md"), encoding="utf-8").read())
         self.assertEqual(fm["role"], "adc")
-        self.assertIn(fm["verification"], ("AL_DIA", "SIN_IMPACTO"))  # 7.3b: sin cambios directos → SIN_IMPACTO
-        self.assertEqual(fm["verified_patch"], "7.3b")  # v1.19: hotfix vigente
+        self.assertIn(fm["verification"], ("AL_DIA", "SIN_IMPACTO", "ANOTAR"))  # 7.3d: cambios sistémicos → ANOTAR
+        self.assertEqual(fm["verified_patch"], "7.3d")  # v1.22: hotfix vigente
         self.assertEqual(fm["generate"], "manual")
         self.assertEqual(fm["published_at"], "2026-10-04")
         self.assertEqual(fm["version"], "1.5")
@@ -22207,10 +22303,10 @@ class TestAnotacion(unittest.TestCase):
             ver_ok = str(fm.get("verified_patch", "")).strip('"') == patch or fm.get("verification") == "pending"
             self.assertTrue(al_dia or ver_ok, f"{f}: sin verificación {patch} en frontmatter ni patch declarado")
 
-    def test_ultimo_parche_es_73b(self):
+    def test_ultimo_parche_es_73d(self):
         p, ruta = U.ultimo_parche_hotfix()
-        self.assertEqual(p, "7.3b")  # v1.19: hotfix vigente
-        self.assertTrue(ruta.endswith("cambios_7.3b.md"))
+        self.assertEqual(p, "7.3d")  # v1.22: hotfix vigente
+        self.assertTrue(ruta.endswith("cambios_7.3d.md"))
 
 
 if __name__ == "__main__":
@@ -24808,6 +24904,15 @@ OVERRIDES_73A = {
             "Base Bonus Attack Speed": "1.1 (7.3a)", "Attack Speed per Level": "0.025 (7.3a)"},
 }
 
+# ⚠️ Overrides del HOTFIX 7.3d (28-oct-2026) — el apéndice oficial 7.3 aún trae AS/nivel viejos.
+# Fuente: data/estructurada/cambios_7.3d.md
+OVERRIDES_73D = {
+  "Shyvana": {"Attack Speed per Level": "0.024 (7.3d: era 0.012)"},
+  "Camille": {"Attack Speed per Level": "0.028 (7.3d: era 0.016)"},
+  "Lee Sin": {"Attack Speed per Level": "0.04 (7.3d: era 0.02)"},
+  "Akali":   {"Attack Speed per Level": "0.04 (7.3d: era 0.02)"},
+}
+
 def write_csv(name, rows, cols):
     p = os.path.join(OUT, name)
     with open(p, "w", newline="", encoding="utf-8") as f:
@@ -24818,6 +24923,7 @@ def write_csv(name, rows, cols):
 as_cols = ["champion","Attack Speed Ratio","Base Attack Speed","Base Bonus Attack Speed","Attack Speed per Level"]
 for _r in as_rows:
     _r.update(OVERRIDES_73A.get(_r["champion"], {}))
+    _r.update(OVERRIDES_73D.get(_r["champion"], {}))
 write_csv("champion_attack_speed_7.3.csv", as_rows, as_cols)
 
 dur_cols = ["champion"]
@@ -25584,4 +25690,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 17/10/2026 · completo · sha256(cuerpo)=c448cd45e4463096 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 07/11/2026 · completo · sha256(cuerpo)=f61ba0b57375a723 · NO editar a mano: editar las fuentes y regenerar -->

@@ -65,7 +65,7 @@ SPECS = {
 
 "shyvana": dict(
     name="Shyvana", roles=["Jungla"], archetype="fighter-on-hit / AP-burst (dragón)",
-    base_ad=62, ad_growth=4.6, base_as=0.638, as_ratio=0.638, base_bonus_as=0.25, as_per_lvl=0.012,
+    base_ad=62, ad_growth=4.6, base_as=0.638, as_ratio=0.638, base_bonus_as=0.25, as_per_lvl=0.024,
     ranged=False, attack_range=None,
     self_as_buff=0.0, aa_mult=1.0, aa_aoe=False, crit_dmg_mod=1.0, uses_magnification=False,
     notes=("Q Twin Bite: doble golpe (100% + 20/40/60/80% AD) y los autos reducen su CD 0.5s → spellblade/on-hit. "
@@ -100,8 +100,8 @@ SPECS = {
     ranged=False, attack_range=None,
     self_as_buff=0.0, aa_mult=1.0, aa_aoe=False, crit_dmg_mod=1.0, uses_magnification=False,
     notes=("Meta 7.3: WR 52.17%, BAN 21.89% — el tanque más respetado. Armadura = daño: W pasiva +25-40% armor, "
-           "W activa cono 20-50+20%AD+20%ARMOR (primer golpe +40%/40%), E 60-210+45%AP+45%ARMOR + slow de AS 35-50%. "
-           "P Granite Shield: 11% vida máx fuera de combate. Iceborn: campo crece con armadura. Base armor 49(+5) = 119 lvl15. "
+           "W activa cono 20-50+20%AD+15%ARMOR (7.3a), primer golpe 30/45/60/75 + 20%ARMOR (7.3d), E 60-210+45%AP+40%ARMOR (7.3a) + slow de AS 35-50%. "
+           "P Granite Shield: 10% vida máx (7.3d; era 11%) fuera de combate. Iceborn: campo crece con armadura. Base armor 49(+5) = 119 lvl15. "
            "TAMAÑO: solo de ítems (Gargoyle activo, Twinguard, Sterak's, Mantle) — ver metodologia/ESCALADO_DE_TAMANIO.md. "
            "Comunidad: Iceborn → Plated/Mercury T3 → Thornmail → Zeke's → Gargoyle; Grasp+Demolish+Second Wind+Overgrowth."),
     model_terms_pending=["W pasiva (% armor: ¿bonus o total? verificar)", "E slow-AS al DPS enemigo (defensa)", "R engage value"]),

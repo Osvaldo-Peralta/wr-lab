@@ -213,7 +213,7 @@ Y_ITEMS = {
  'Staff':      dict(g=2400, ap=50, hsp=8, ah=10, rapids=1),
  'Redemption': dict(g=2450, ap=40, hsp=8, ah=10, redempt=1),
  'Mikael':     dict(g=2500, hp=300, hsp=9, ah=15, cleanse=1),
- 'Diadem':     dict(g=2400, hp=200, hsp=8, diadem=1),
+ 'Diadem':     dict(g=2400, hp=200, hsp=6, diadem=1),  # 7.3d: HSP 8→6
  'Locket':     dict(g=2600, hp=200, armor=30, mr=30, ah=10, locket=1),
  'Shurelya':   dict(g=2500, ap=55, ah=20, shurelya=1),
  'Zeke':       dict(g=2400, hp=300, armor=25, mr=25, ah=10, zeke=1),

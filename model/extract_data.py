@@ -93,6 +93,15 @@ OVERRIDES_73A = {
             "Base Bonus Attack Speed": "1.1 (7.3a)", "Attack Speed per Level": "0.025 (7.3a)"},
 }
 
+# ⚠️ Overrides del HOTFIX 7.3d (28-oct-2026) — el apéndice oficial 7.3 aún trae AS/nivel viejos.
+# Fuente: data/estructurada/cambios_7.3d.md
+OVERRIDES_73D = {
+  "Shyvana": {"Attack Speed per Level": "0.024 (7.3d: era 0.012)"},
+  "Camille": {"Attack Speed per Level": "0.028 (7.3d: era 0.016)"},
+  "Lee Sin": {"Attack Speed per Level": "0.04 (7.3d: era 0.02)"},
+  "Akali":   {"Attack Speed per Level": "0.04 (7.3d: era 0.02)"},
+}
+
 def write_csv(name, rows, cols):
     p = os.path.join(OUT, name)
     with open(p, "w", newline="", encoding="utf-8") as f:
@@ -103,6 +112,7 @@ def write_csv(name, rows, cols):
 as_cols = ["champion","Attack Speed Ratio","Base Attack Speed","Base Bonus Attack Speed","Attack Speed per Level"]
 for _r in as_rows:
     _r.update(OVERRIDES_73A.get(_r["champion"], {}))
+    _r.update(OVERRIDES_73D.get(_r["champion"], {}))
 write_csv("champion_attack_speed_7.3.csv", as_rows, as_cols)
 
 dur_cols = ["champion"]

@@ -210,7 +210,7 @@
   "name": "Shyvana",
   "stats": {
    "attackdamage": "62 (4.6)",
-   "heal": "660 (120)",
+   "heal": "660 (130)",
    "healthregeneration": "9 (0.9)",
    "attackspeed": "0.8 (0.008)",
    "mana": "0 (0)",
@@ -226,7 +226,7 @@
    "Attack Speed Ratio": "0.638",
    "Base Attack Speed": "0.638",
    "Base Bonus Attack Speed": "0.25",
-   "Attack Speed per Level": "0.012"
+   "Attack Speed per Level": "0.024 (7.3d: era 0.012)"
   },
   "durability_73": null
  },

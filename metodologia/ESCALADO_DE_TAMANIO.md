@@ -50,23 +50,27 @@ Su R Feast convierte CADA stack en un compuesto de 5 stats. Con R rank 3 (+160 H
 
 Meta actual: **WR 52.17 %, ban 21.89 %** — el tanque más respetado del parche. Su kit convierte armadura en TODO:
 - Base armor **49 (+5/nivel) = 119 a nivel 15** (la más alta de tu roster).
-- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **15 % armadura (7.3a; era 20 %)** (primer golpe: 40-100 + 40 % AD + **40 % armadura**).
+- **W pasiva:** +25/30/35/40 % de armadura extra; **W activa:** golpes en cono 20-50 + 20 % AD + **15 % armadura (7.3a; era 20 %)** (primer golpe, 7.3d: **30/45/60/75 + 20 % armadura**; era 40/60/80/100 + 30 %).
 - **E:** 60-210 + 45 % AP + **40 % armadura (7.3a; era 45 %)** AoE + **slow de AS 35-50 %** (anti-ADC duro: −50 % AS a una Jinx/Kalista enemiga = −40 % de su DPS).
 - **Iceborn Gauntlet:** el campo de hielo **crece con tu armadura** (AoE de slow permanente).
-- P Granite Shield: **11 % de vida máx** como escudo fuera de combate (con 3500 HP = 385 gratis cada 6 s).
+- P Granite Shield: **10 % de vida máx (7.3d; era 11 %)** como escudo fuera de combate (con 3500 HP = 350 gratis cada 6 s).
 
 **Números de la ruta armor-stack (nivel 15):**
 
 | Etapa | Armadura | E (mágico AoE) | W golpe sostenido | W primer golpe | Escudo pasiva |
 |---|---|---|---|---|---|
-| Iceborn+Thornmail+Armored Advance | ~274 | 320 | 91 | 210 | 276 |
-| + W rank 4 (+40 % bonus armor) | ~336 | 344 | 100 | 234 | 276 |
-| + Gargoyle/Twinguard situacional | ~386 | **364** | **108** | **254** | 276+ |
+| Iceborn+Thornmail+Armored Advance | ~274 | 320 | 91 | 130 | 251 |
+| + W rank 4 (+40 % bonus armor) | ~336 | 344 | 100 | 142 | 251 |
+| + Gargoyle/Twinguard situacional | ~386 | **364** | **108** | **152** | 251+ |
 
 > [!WARNING]
 > **7.3a (29-sep-2026) nerfeó a Malphite:** ratio de armadura de W 20→15 %, de E 45→40 % y R CD 75/70/65→85/80/75 s.
 > La tabla de arriba YA refleja el hotfix. Su identidad armor-stack sobrevive (sigue siendo el tanque con más ban),
 > pero su pico de daño y la frecuencia de su wombo bajaron ~5-8 % / +10 s de CD.
+
+> [!WARNING]
+> **7.3d (28-oct-2026) nerfeó de nuevo a Malphite:** Granite Shield 11→10 % de vida máx; Thunderclap, primer golpe: daño base 40/60/80/100→30/45/60/75 y ratio de armadura 30→20 %.
+> Las columnas «W primer golpe» (base 75 + 20 % armadura, rango 4, sin AD) y «Escudo pasiva» (10 % sobre la misma base de vida de 2 509) YA reflejan 7.3d.
 
 **El tamaño en Malphite:** solo viene de ítems (Gargoyle activo + Twinguard + Sterak's si va fighter). NO tiene tamaño innato — su fantasía de "gigante" es 100 % armadura. Build comunidad validada: **Iceborn → Plated/Mercury's T3 → Thornmail → Zeke's → Gargoyle** (runas Grasp+Demolish+Second Wind+Overgrowth). Ajustes del modelo: vs comps AD puras, **Armored Advance** sobre Thornmail 2.º; Twinguard como 6.º capstone (con su uptime de combate permanente es el ítem de tamaño más consistente del juego). Zeke's potencia a tus carries AP (Diana/Yunara) con su R.
 
