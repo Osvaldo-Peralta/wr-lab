@@ -29,7 +29,7 @@ import argparse, csv, datetime, hashlib, io, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 E = os.path.join(ROOT, "data", "estructurada")
-PATCH_LABEL = "7.3+7.3a+7.3b"
+PATCH_LABEL = "7.3+7.3a+7.3b+7.3d"
 
 
 def leer(*ruta):
