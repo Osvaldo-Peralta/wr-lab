@@ -10,7 +10,7 @@ YUUMI AGRESIVA (batch5, rev. runas 18/10) — 7.3+7.3a+7.3b · nivel 15 · min 2
   POKE-HÍBRIDA PUBLICADA (corregida) oro  12300 · AP  230 · AH 105 | Q-hit  333 · Q-DPS  150 · R  1714 · DPS  236 | E-shield 304.7 · R-heal 756.5 · shld/min  5497 · ADC+   87
 
 ====================================================================================================================
-OPT AGRESIVA (daño .70 / aliado .21 / util .03+) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+OPT AGRESIVA (daño .70 / aliado .21 / util .03+) — 29249 hojas (Scythe fija + botas + 4 · ≤13000 g)
   #1  85.1 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge | Q  201/s · R  2785 · DPS  330 · vsT  179 · E  367 · Rc  662 · ADC+  103
   #2  84.3 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + InfinityOrb | Q  203/s · R  2537 · DPS  312 · vsT  172 · E  352 · Rc  640 · ADC+   99
   #3  83.7 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Blackfire | Q  196/s · R  2485 · DPS  337 · vsT  193 · E  376 · Rc  674 · ADC+  106
@@ -18,17 +18,17 @@ OPT AGRESIVA (daño .70 / aliado .21 / util .03+) — 28822 hojas (Scythe fija +
   #5  82.3 % |  12900 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + Cryptbloom | Q  200/s · R  2261 · DPS  305 · vsT  191 · E  334 · Rc  615 · ADC+   95
   #6  81.9 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Malignance + InfinityOrb | Q  184/s · R  2668 · DPS  302 · vsT  164 · E  357 · Rc  647 · ADC+  101
   #7  81.9 % |  13000 g | Scythe + Spellslinger + Censer + Mandate + Horizon + InfinityOrb | Q  185/s · R  2559 · DPS  286 · vsT  158 · E  381 · Rc  691 · ADC+  264
-  #8  81.3 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Luden | Q  186/s · R  2469 · DPS  324 · vsT  186 · E  372 · Rc  669 · ADC+  105
+  #8  81.4 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Luden | Q  186/s · R  2469 · DPS  326 · vsT  187 · E  372 · Rc  669 · ADC+  105
 
 ====================================================================================================================
-OPT GLASS (techo de daño puro, aliado 0) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+OPT GLASS (techo de daño puro, aliado 0) — 29249 hojas (Scythe fija + botas + 4 · ≤13000 g)
   #1  97.4 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge | Q  201/s · R  2785 · DPS  330 · vsT  179 · E  367 · Rc  662 · ADC+  103
   #2  94.9 % |  13000 g | Scythe + Spellslinger + Mandate + Horizon + Malignance + Blackfire | Q  196/s · R  2485 · DPS  337 · vsT  193 · E  376 · Rc  674 · ADC+  106
   #3  93.5 % |  13000 g | Scythe + Spellslinger + Echoes + Mandate + Horizon + InfinityOrb | Q  203/s · R  2537 · DPS  312 · vsT  172 · E  352 · Rc  640 · ADC+   99
   #4  93.1 % |  13000 g | Scythe + Spellslinger + Staff + Mandate + Horizon + InfinityOrb | Q  199/s · R  2620 · DPS  306 · vsT  169 · E  395 · Rc  712 · ADC+  104
 
 ====================================================================================================================
-OPT HÍBRIDA (daño .40 / aliado .51) — 28822 hojas (Scythe fija + botas + 4 · ≤13000 g)
+OPT HÍBRIDA (daño .40 / aliado .51) — 29249 hojas (Scythe fija + botas + 4 · ≤13000 g)
   #1  78.4 % |  13000 g | Scythe + Spellslinger + Censer + Echoes + Mandate + Rabadon | Q  145/s · R  2123 · DPS  230 · vsT  134 · E  421 · Rc  748 · ADC+  274
   #2  77.8 % |  13000 g | Scythe + Spellslinger + Censer + Mandate + Horizon + InfinityOrb | Q  185/s · R  2559 · DPS  286 · vsT  158 · E  381 · Rc  691 · ADC+  264
   #3  77.7 % |  13000 g | Scythe + Spellslinger + Censer + Staff + Mandate + Rabadon | Q  142/s · R  2207 · DPS  226 · vsT  132 · E  475 · Rc  834 · ADC+  280
@@ -63,12 +63,12 @@ OPT HÍBRIDA (daño .40 / aliado .51) — 28822 hojas (Scythe fija + botas + 4 �
   min 14 (mid-game)                      DPS  330 (+0.0 %) · Q  201 · R  2785
 
 ====================================================================================================================
-OPT (presupuesto 12000) — 2259 hojas (Scythe fija + botas + 4 · ≤12000 g)
-  #1  93.7 % |  12000 g | Scythe + Spellslinger + Censer + Echoes + Staff + Mandate  | Q  137/s · R  1864 · DPS  216 · vsT  126 · E  364 · Rc  677 · ADC+  255
+OPT (presupuesto 12000) — 2468 hojas (Scythe fija + botas + 4 · ≤12000 g)
+  #1  93.4 % |  12000 g | Scythe + Spellslinger + Censer + Echoes + Staff + Mandate  | Q  137/s · R  1864 · DPS  216 · vsT  126 · E  364 · Rc  677 · ADC+  255
 
 ====================================================================================================================
-OPT (presupuesto 14000) — 40524 hojas (Scythe fija + botas + 4 · ≤14000 g)
-  #1  83.8 % |  13600 g | Scythe + Spellslinger + Mandate + Horizon + InfinityOrb + Cryptbloom | Q  231/s · R  2898 · DPS  355 · vsT  210 · E  369 · Rc  665 · ADC+  104
+OPT (presupuesto 14000) — 40543 hojas (Scythe fija + botas + 4 · ≤14000 g)
+  #1  83.9 % |  13600 g | Scythe + Spellslinger + Mandate + Horizon + InfinityOrb + Cryptbloom | Q  231/s · R  2898 · DPS  355 · vsT  210 · E  369 · Rc  665 · ADC+  104
 
 [5] FICHA DE LA ÓPTIMA AGRESIVA:
   build: Scythe + Spellslinger + Mandate + Horizon + Malignance + Stormsurge · oro 13000

@@ -81,10 +81,10 @@ SUP = {
  "shurelya":    S(2500, ap=55, ah=20, ms=4, nombre="Shurelya's Battlesong"),
  "zeke":        S(2400, hp=300, armor=25, mr=25, ah=10, nombre="Zeke's Convergence"),
  "locket":      S(2500, hp=300, armor=30, mr=30, ah=10, nombre="Locket of the Iron Solari"),
- "morello":     S(2650, ap=75, hp=300, ah=15, gw=1, nombre="Morellonomicon"),
+ "morello":     S(2550, ap=75, hp=300, ah=15, gw=1, nombre="Morellonomicon"),   # 7.3f: 2650→2550
  "horizon":     S(2700, ap=80, ah=25, nombre="Horizon Focus"),
  "duskdawn":    S(3100, hp=300, a_s=20, ap=60, ah=20, nombre="Dusk and Dawn"),
- "liandry":     S(3000, ap=70, hp=300, nombre="Liandry's Torment"),
+ "liandry":     S(3000, ap=60, hp=300, nombre="Liandry's Torment"),   # 7.3f: AP 70→60
  "youmuu":      S(3000, ad=55, ah=15, ms=4, nombre="Youmuu's Ghostblade"),   # +15 pen PLANA no modelada (conservador)
  "trinity":     S(3333, hp=333, ad=36, a_s=30, ah=15, nombre="Trinity Force"),  # spellblade de base AD (54) → débil en ella
 }
@@ -306,9 +306,14 @@ SUP_POOL = ["statikk", "rfc", "ie", "mortal", "ldr", "c44", "gale", "collector",
             "redemption", "mandate", "harmonic", "mikael", "shurelya", "zeke", "locket",
             "morello", "horizon", "duskdawn", "ga", "shieldbow", "scimitar", "maw", "er", "runaan"]
 GRUPO_PEN = {"ldr", "mortal", "terminus"}   # Ley 3b (items_exclusivos.csv)
+# v1.23 — Spellblade: solo UNO por build (items_exclusivos.csv grupo spellblade). Claves propias de Senna.
+GRUPO_SPELLBLADE = {"er", "duskdawn", "trinity"}
+GRUPO_TEAR = {"manamune"}                   # familia Tear (1 por build); hoy un solo miembro en el pool
 
 def legales(combo):
-    if len(set(GRUPO_PEN) & set(combo)) > 1: return False
+    c = set(combo)
+    for g in (GRUPO_PEN, GRUPO_SPELLBLADE, GRUPO_TEAR):
+        if len(g & c) > 1: return False
     return True
 
 def optimizar_senna(role, nivel=15, mist=None, oro=None, top=8, embudo=300, **kw):

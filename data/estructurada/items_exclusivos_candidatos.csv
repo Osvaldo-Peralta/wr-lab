@@ -1,0 +1,11 @@
+grupo,items,evidencia,estado
+lifeline,Maw of Malmortius|Sterak's Gage|Immortal Shieldbow|Seraph's Embrace|Mantle of the Twelfth Hour,Pasiva Lifeline compartida por 5 ítems (items_7.3.csv). Sin texto oficial de restricción.,pendiente de verificar en juego
+energized,Rapid Firecannon|Statikk Shiv|Stormrazor,Pasiva Energized compartida; las notas 7.3 hablan de 'consolidar los efectos Energized' en pocos ítems.,pendiente de verificar en juego
+annul_spellshield,Edge of Night|Banshee's Veil|Verdant Barrier,Pasiva Annul (escudo antihechizos) compartida por 3 ítems.,pendiente de verificar en juego
+terminus_void_staff,Terminus|Cryptbloom,Texto oficial de Terminus: 'You cannot own this item concurrently with Void Staff'. Void Staff no existe en items_7.3.csv; Cryptbloom es el ítem de %pen mágica (30 %) y probablemente lo reemplaza. Nombre sin confirmar.,pendiente de verificar en juego (nombre)
+icy,Serylda's Grudge|Rylai's Crystal Scepter,Pasiva Icy compartida (ralentización).,pendiente de verificar en juego
+eternity,Rod of Ages|Catalyst of Aeons,Pasiva Eternity compartida.,pendiente de verificar en juego
+madness,Liandry's Torment|Haunting Guise,Pasiva Madness compartida.,pendiente de verificar en juego
+momentum,Youmuu's Ghostblade|Dead Man's Plate,Pasiva Momentum compartida.,pendiente de verificar en juego
+thorns,Thornmail|Bramble Vest,Pasiva Thorns compartida (Bramble es componente de Thornmail).,pendiente de verificar en juego
+support_quest,Relic Shield|Spectral Sickle|Bulwark of the Mountain|Black Mist Scythe,Pasiva Quest/Tribute compartida; el texto oficial solo dice que entre varios del equipo solo uno surte efecto.,pendiente de verificar en juego

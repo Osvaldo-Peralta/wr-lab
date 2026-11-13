@@ -261,10 +261,10 @@ class TestAnotacion(unittest.TestCase):
             ver_ok = str(fm.get("verified_patch", "")).strip('"') == patch or fm.get("verification") == "pending"
             self.assertTrue(al_dia or ver_ok, f"{f}: sin verificación {patch} en frontmatter ni patch declarado")
 
-    def test_ultimo_parche_es_73d(self):
+    def test_ultimo_parche_es_73f(self):
         p, ruta = U.ultimo_parche_hotfix()
-        self.assertEqual(p, "7.3d")  # v1.22: hotfix vigente
-        self.assertTrue(ruta.endswith("cambios_7.3d.md"))
+        self.assertEqual(p, "7.3f")  # v1.23: hotfix vigente
+        self.assertTrue(ruta.endswith("cambios_7.3f.md"))
 
 
 if __name__ == "__main__":

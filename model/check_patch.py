@@ -25,7 +25,7 @@ import csv, datetime, hashlib, html as htmllib, io, json, os, re, sys, time, url
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "data", "raw", ".watch_state.json")
 OFFICIAL = "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-{slug}/"
-CANDIDATES = ["7-3c", "7-4", "7-4a", "7-5", "7-3c-hotfix", "7-4-hotfix"]
+CANDIDATES = ["7-3g", "7-3h", "7-4", "7-4a", "7-5", "7-3g-hotfix", "7-4-hotfix"]   # v1.23: 7-3c/d/e/f ya publicadas (la lista anterior nunca probó 7-3d/e/f)
 WATCH_PAGES = ["7-3", "7-3a", "7-3b"]  # páginas activas: vigilar cambios de CONTENIDO
 WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": "317-caitlyn", "hwei": "505-hwei",
                     "yuumi": "321-yuumi", "kalista": "349-kalista", "malphite": "47-malphite"}

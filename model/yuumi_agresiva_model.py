@@ -91,8 +91,8 @@ ITEMS = {i['key']: i for i in [
     I('Zeke',      2400, hp=300, armor=25, mr=25, ah=10, zeke=1),
     I('YordleTrap',2400, hp=200, armor=20, mr=20, ah=15, trap=1),
     # ── daño AP (pool agresivo) ──
-    I('Liandry',   3000, ap=70, hp=300, torment=1),
-    I('Morello',   2650, ap=75, hp=300, ah=15, gw=1),
+    I('Liandry',   3000, ap=60, hp=300, torment=1),   # 7.3f: AP 70→60
+    I('Morello',   2550, ap=75, hp=300, ah=15, gw=1),   # 7.3f: 2650→2550
     I('Rylai',     2700, ap=65, hp=350, icy=1),
     I('Horizon',   2700, ap=80, ah=25, hypershot=1),
     I('Malignance',2700, ap=90, ah=15, mana=500, scorn=1, hatefog=1),
@@ -102,7 +102,7 @@ ITEMS = {i['key']: i for i in [
     I('Bloodletter',2900, ap=65, hp=350, ah=15, vile=1),
     I('InfinityOrb',3100, ap=110, pen_f=15, demise=1),
     I('Oceanid',   2600, ap=80, hp=200, ah=10, lethal=1),
-    I('Roketbelt', 2700, ap=70, hp=250, ah=20, protobelt=1),
+    I('Roketbelt', 2650, ap=70, hp=300, ah=20, protobelt=1),   # 7.3f: 2700→2650, HP 250→300
     I('Cryptbloom',3000, ap=75, pen_p=30, ah=20, lifedeath=1),
     I('Rabadon',   3400, ap=130, capstone=1),
     I('Riftmaker', 3100, ap=70, hp=350, ah=15, voidcorr=1, omnivamp=0.10),
@@ -182,9 +182,9 @@ def damage(keys, mr=50, enemy_hp=2200, keystone='aery', minors=('manaflow','tran
     extra = 0.0
     if has('torment'):  extra += 0.02*enemy_hp*mit*1.04          # Torment + Madness prom.
     if has('baleful'):  extra += (20+0.02*ap)*mit
-    if has('echo'):     extra += ((140+0.15*ap) + 3*(20+0.012*ap))/9.0*mit   # single-focus 7.3
+    if has('echo'):     extra += ((145+0.16*ap) + 3*(22.5+0.014*ap))/9.0*mit   # single-focus 7.3 · 7.3f: +5/+1 pt AP (primario) y +2.5/+0.2 pt (por objetivo menos)
     if has('squall'):   extra += (125+0.10*ap)*mit/25.0
-    if has('protobelt'):extra += (100+0.10*ap)*mit/30.0
+    if has('protobelt'):extra += (110+0.15*ap)*mit/30.0   # 7.3f Protobelt 100+10%→110+15% AP
     if has('voidcorr'): extra *= 1.054                            # Void Corruption prom.
 
     # ── runas de daño ──
