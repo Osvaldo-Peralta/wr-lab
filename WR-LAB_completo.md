@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a+7.3b+7.3d · 07/11/2026
+# ⚗️ WR-LAB PORTABLE (COMPLETO) — Wild Rift 7.3+7.3a+7.3b+7.3d · 13/11/2026
 
 > Laboratorio COMPLETO en UN archivo: respaldo total del proyecto (todo lo del LITE +
 > diffs oficiales 7.3, fichas de los 11 campeones del equipo, reportes publicados con su
@@ -940,6 +940,114 @@ Los hotfixes 7.3c y 7.3e no obligan a re-triar reportes. El estado de datos pasa
 5. ✅ Triage/refresh/annotate/baseline ejecutados (ver commit siguiente).
 6. ✅ Tests, bundles y BD regenerados.
 7. ⏳ Revisar slugs vigilados en `check_patch.py` (siguiente: 7.3f / 7.4) y el pie de los reportes.
+
+## 3e. HOTFIX 7.3f — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
+
+# HOTFIX 7.3f — Cambios completos (publicado: 11-nov-2026, 10:00 UTC)
+
+> **Fuente:** notas oficiales EN (wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3f/), leídas directamente el 12-nov-2026.
+> **Estado en el lab:** APLICADO (v1.23) a `items_7.3.csv`, `analysis_batch2.py`, `chogath_model.py`, `chogath_jungla.py`, `senna_model.py`, `yuumi_agresiva_model.py` y `champspecs.py`. Base previa: 7.3+7.3a+7.3b+7.3d (v1.22).
+> **Formato:** igual que `cambios_7.3d.md` (insumo de `update_reports.py`).
+
+## REGISTRO DE 7.3c Y 7.3e (sin impacto en Summoner's Rift)
+
+| Parche | Fecha | Contenido | Acción en el lab |
+|---|---|---|---|
+| 7.3c | 21-oct-2026 | Solo **AAA ARAM** (augments y modificadores de daño de modo) | Excluido (el lab es solo SR) |
+| 7.3e | 04-nov-2026 | Solo **AAA ARAM** (augments K/DA, Star Guardian, Minion…) | Excluido |
+| 7.3f | 11-nov-2026 | Balance de SR (10 campeones, 10 ítems), Sylas, jungla/Smite, ajustes de augments ARAM | **Aplicar** (abajo) |
+
+El estado de datos pasa a **7.3+7.3a+7.3b+7.3d+7.3f** (7.3c y 7.3e sin cambios de SR).
+
+## CAMPEONES
+
+| Campeón | Tipo | Cambio |
+|---|---|---|
+| **Sylas** | NUEVO | Campeón nuevo. Las notas no traen stats: **sin datos en el lab** (AS, stats base, win rates, specs) hasta extraerlos de wr-meta |
+| **Kalista** | NERF | Pierce (Q): daño base 70/135/200/265→**30/110/190/270** |
+| **Viktor** | MIXTO | Siphon Power: inicial 45/60/75/90+30 % AP→**50/70/90/110+40 % AP**. Hextech Ray: inicial 75/120/165/210+30 % AP→**70/115/160/205+40 % AP**; Blastquake 30/70/110/150+60 % AP→**20/60/100/140+75 % AP**. Arcane Storm: ratio AP DoT 40→**35 %** |
+| **Shen** | NERF | Stand United: CD 110/100/90→**120/110/100 s**; escudo base 170/340/510→**160/260/360** |
+| **Irelia** | MIXTO | Ionian Fervor: AS 3–17 %→**11–25 %** (por nivel); daño 25–150+30 % AD bonus→**10–80+20 % AD bonus**. Bladesurge: ratio AD 65→**80 %**; curación 11/14/17/20 %→**9/11/13/15 %** AD |
+| **Graves** | BUFF | Armadura base 36→**40**; armadura/nivel 4.5→**5** |
+| **Akshan** | BUFF | Resistencia mágica base 30→**34** |
+| **Lucian** | BUFF | Lightslinger: 2.º disparo ratio AD 40/50/60→**45/55/65 %**. Piercing Light: ratio AD bonus 100→**120 %** |
+| **Rumble** | BUFF | Junkyard Titan: ratio AP del daño mágico de autos 20→**25 %**. The Equalizer: daño 700/1050/1400+200 % AP→**800/1200/1600+220 % AP** |
+| **Kassadin** | NERF | Resistencia mágica base 38→**34**. Force Pulse: ratio AP 60→**50 %** |
+| **Yasuo** | BUFF | Armadura/nivel 4.3→**5.2**. Sweeping Blade: daño base 70/80/90/100→**70/90/110/130** |
+
+## ÍTEMS (aplicar a items_7.3.csv y a los motores)
+
+| Ítem | Cambio |
+|---|---|
+| **Luden's Echo** | Discordic Echo: primer proyectil 75+8 % AP→**80+9 % AP**; proyectiles siguientes 20+1.2 % AP→**22.5+1.4 % AP** |
+| **Rod of Ages** | Precio 2 700→**2 600**. Eternity: reembolso de maná 15→**20 %**. Veteran: HP por stack 15→**20**, maná por stack 30→**40** |
+| **Lich Bane** | Velocidad de movimiento 5→**6 %**. Spellblade: ratio AP 45→**50 %** |
+| **Morellonomicon** | Precio 2 650→**2 550** |
+| **Hextech Rocketbelt** | Precio 2 700→**2 650**; vida 250→**300**. Protobelt: daño 100+10 % AP→**110+15 % AP** |
+| **Liandry's Torment** | AP 70→**60** |
+| **Bulwark of the Mountain** | Soulcast: oro por minuto 75→**60** |
+| **Black Mist Scythe** | Soulcast: oro por minuto 75→**60** |
+| **Eclipse** | AD 65→**60** |
+| **Goredrinker** | AD 40→**45**; vida 350→**400** |
+
+## MAPA Y SISTEMAS
+
+| Sistema | Cambio |
+|---|---|
+| **Smite** | Daño base de quemadura 22–162→**18–158**; ratio de armadura bonus 25→**20 %**; ratio de resistencia mágica bonus 25→**20 %** |
+| **Conservation** | Oro 40→**30**; oro cuando vas perdiendo 65→**55** |
+| **Jungla** | Clear temprano más lento (sobre todo junglers tanque); sin cifras adicionales en la nota |
+| **ARAM** | Ajustes a 12 augments y un bug fix de Battle Arsenal: excluidos del lab |
+
+## APLICADO EN EL LAB
+
+- `items_7.3.csv`: los 10 ítems de arriba. Luden's Echo: el texto base de wr-meta («140 + 15 %… hasta 3 enemigos») estaba desactualizado frente a las notas oficiales 7.3/7.3f; se reescribió con la mecánica oficial (80+9 % AP al objetivo principal y hasta 5 cercanos, +22.5+1.4 % AP por cada objetivo menos).
+- **Filas que estaban atrasadas respecto a notas anteriores** (el motor ya las tenía bien; el CSV no): Yun Tal AS 25→35 % y Flurry 35 %/25 s (7.3a) · Death's Dance 3 200→3 300 (7.3a) · Blade of the Ruined King AS 35→30 % (7.3) · Tear of the Goddess 500→400 (7.3) · Warmog's umbral 950→1 250 (7.3b) · Whispering Circlet y Diadem Harmony 0.5→0.25 % (7.3a) · Statikk Shiv +7 stacks por auto (7.3b).
+- Motores: `analysis_batch2.py` (Luden 80+9 %, Morello 2 550, Liandry 60 AP) · `chogath_model.py` (Liandry, Morello, Rod of Ages 2 600 con Veteran 200 HP/400 maná a 10 stacks) · `chogath_jungla.py` (burn de Smite 18–158) · `senna_model.py` (Morello, Liandry) · `yuumi_agresiva_model.py` (Roketbelt 2 650/300 HP, Protobelt 110+15 %, Liandry, Morello, Luden +5/+1 pt y +2.5/+0.2 pt por objetivo).
+- `champspecs.py`: nota de Kalista con el nerf de Pierce (no entra en el DPS sostenido).
+- `check_patch.py`: la lista de páginas candidatas del vigía ahora arranca en 7-3g (la anterior nunca probó 7-3d/e/f).
+- Campeones: los cambios de stats base (Graves, Akshan, Kassadin, Yasuo) y de kit no se reflejan en CSV porque `champion_durability_7.3.csv` solo lista los cambios de 7.3 y se regenera desde la fuente; quedan documentados aquí.
+
+## EXCLUSIVIDADES NUEVAS (v1.23)
+
+Registradas en `items_exclusivos.csv` (aplican en `validate_slots`, optimizador, linter y generador):
+
+- **spellblade** — Trinity Force, Divine Sunderer, Essence Reaver, Lich Bane, Dusk and Dawn, Iceborn Gauntlet. Confirmado por el autor para Divine Sunderer + Iceborn Gauntlet; el resto de pares, por analogía (misma pasiva), pendientes de confirmar en juego.
+- **tear_of_the_goddess** — Tear of the Goddess, Manamune/Muramana, Archangel's Staff/Seraph's Embrace, Winter's Approach/Fimbulwinter. Texto oficial del ítem: «solo puedes llevar un ítem Tear of the Goddess a la vez».
+- **immolate** — Hollow Radiance, Sunfire Aegis (supuesto A10 de Cho'Gath, ahora centralizado).
+
+Candidatos sin confirmar (NO aplican): `items_exclusivos_candidatos.csv` (Lifeline, Energized, Annul, Terminus↔«Void Staff»/Cryptbloom, Icy, Eternity, Madness, Momentum, Thorns, ítems de soporte). Ninguna build publicada del lab viola los grupos aplicados ni los candidatos.
+
+## DISCREPANCIAS A REGISTRAR EN data/FUENTES.md
+
+1. **Sylas:** campeón nuevo sin datos (AS, stats, win rates).
+2. **Luden's Echo:** el modelo `yuumi_agresiva_model.py` usa «(140+15 % AP)+3×(20+1.2 % AP)» como single-focus; la nota oficial 7.3 describe 75+8 % AP al objetivo principal más 20+1.2 % AP por cada objetivo menos (hasta 5). Se aplicaron solo los deltas de 7.3f sobre la estructura existente; la discrepancia es previa.
+3. **Smite, ratio de armadura/RM bonus:** la nota oficial dice 25→20 %; `chogath_jungla.py` ya usaba 20 % antes de 7.3f. Confirmar qué reflejaba ese valor.
+4. **Terminus:** su texto dice «Void Staff»; ese ítem no existe en la base 7.3 (probable renombre a Cryptbloom).
+5. **Minions/jungla:** la nota 7.3f no trae cifras de la ralentización del clear.
+
+## IMPACTO EN REPORTES/SPECS DEL LAB (triage 7.3f: 12 sin regeneración · 9 revisión acotada · 0 regeneración completa)
+
+| Archivo | Exposición | Veredicto |
+|---|---|---|
+| `Cho'Gath - Titán de la Jungla` | Liandry −10 AP, Smite burn 18–158. Con `chogath_model` y `chogath_jungla`: la óptima no cambia; la build publicada de jungla mantiene su score (0.662) y DPS −0.7 %; sube la tasa de clear 0.1–0.2 s | ⚠️ REVISAR (cuantificado: Δ < 1 %, sin cambio de build) |
+| `Cho'Gath - Titán del Barón` | Rod of Ages 2 600 con Veteran más fuerte, Liandry −10 AP: build publicada 0.680→0.682 y 100 g más barata | ✅ ANOTAR |
+| `Heimerdinger`, `Mordekaiser`, `Ornn` | Liandry −10 AP en la build final; sin modelo cuantitativo (estimación aritmética: −10 AP sobre ~450–600 AP → ≤ −2 %) | ⚠️ REVISAR |
+| `Nocturne` | Eclipse −5 AD en la build final (sin modelo de Eclipse; ≈ −1.2 % de DPS por ~−1.7 % de AD) | ⚠️ REVISAR |
+| `Kalista` | Pierce nerf directo: solo recorta rangos bajos (rango 4: 265→270), sin impacto a nivel 15; no modelado | ⚠️ REVISAR |
+| `Senna`, `Seraphine`, `Yuumi` | Black Mist Scythe: −15 g/min de Soulcast (≈ −225 g a los 15', ~1.7 % del oro de la build) | ⚠️ REVISAR |
+| `Diana` (×2), `Norra`, `Rammus`, `Volibear` (×2) | Ítems de variantes/rechazados y cambios sistémicos de jungla | ✅ ANOTAR |
+| `Caitlyn`, `Jinx`, `Sivir`, `Xayah`, `Yunara` | Sin ítems ni campeones tocados | ✅ SIN_IMPACTO |
+
+## CHECKLIST (FRAMEWORK §E)
+
+1. ✅ Notas 7.3f leídas de la fuente oficial (12-nov-2026). Pendiente: guardar `data/raw/patch73f.txt` y re-descargar `wrmeta_items.html` (red fuera del sandbox).
+2. ✅ Datos y motores (ver arriba).
+3. ⏳ `python3 wrlab.py winrates` (los win rates del CSV son del 29-oct) y extraer los datos de Sylas.
+4. ✅ Este archivo en `data/estructurada/`; falta anotar 7.3c/7.3d/7.3e/7.3f en `data/FUENTES.md`.
+5. ✅ Triage/refresh/annotate/baseline ejecutados.
+6. ✅ Tests, bundles y BD regenerados.
+7. ✅ Vigía: candidatos ampliados.
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
@@ -2007,16 +2115,16 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Chempunk Chainsword | 2800 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Manamune | 2900 | +40 Attack Damage  /  +500 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
 | Muramana |  | +40 Attack Damage  /  +1200 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Eclipse | 3000 | +65 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Eclipse | 3000 | +60 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
 | Sundered Sky | 3000 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Experimental Hexplate | 3000 | +400 Max Health  /  +35 Attack Damage  /  +20% Attack Speed | FIGHTER ITEMS |
 | Maw of Malmortius | 3000 | +55 Attack Damage  /  +45 Magic Resistance  /  +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
 | Black Cleaver | 3000 | +400 Max Health  /  +40 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
 | Titanic Hydra | 3000 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
 | Stridebreaker | 3100 | +400 Max Health  /  +40 Attack Damage  /  +25% Attack Speed | FIGHTER ITEMS |
-| Goredrinker | 3100 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Goredrinker | 3100 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Mercurial Scimitar | 3100 | +45 Attack Damage  /  +12% Lifesteal  /  +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +35% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +30% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Serylda's Grudge | 3100 | +50 Attack Damage  /  +35% Armor Penetration  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
 | Spear of Shojin | 3100 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS |
 | Hullbreaker | 3100 | +400 Max Health  /  +50 Attack Damage | FIGHTER ITEMS |
@@ -2024,7 +2132,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Guardian Angel | 3200 | +45 Attack Damage  /  +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
 | Bloodthirster | 3200 | +75 Attack Damage  /  +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Sterak's Gage | 3200 | +400 Max Health  /  +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
-| Death's Dance | 3200 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
+| Death's Dance | 3300 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
 | Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Divine Sunderer | 3300 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
 | Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
@@ -2048,7 +2156,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
-| Yun Tal Wildarrows | 3000 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
+| Yun Tal Wildarrows | 3000 | +50 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
 | Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
@@ -2057,20 +2165,20 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Redemption | 2450 | +40 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
 | Imperial Mandate | 2600 | +60 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
 | Oceanid's Trident | 2600 | +200 Max Health  /  +80 Ability Power  /  +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Morellonomicon | 2650 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Hextech Roketbelt | 2700 | +250 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Morellonomicon | 2550 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Hextech Roketbelt | 2650 | +300 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
 | Rylai's Crystal Scepter | 2700 | +350 Max Health  /  +65 Ability Power | MAGIC ITEMS |
-| Rod of Ages | 2700 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
+| Rod of Ages | 2600 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
 | Horizon Focus | 2700 | +80 Ability Power  /  +25 Ability Haste | MAGIC ITEMS |
 | Malignance | 2700 | +90 Ability Power  /  +500 Max Mana  /  +15 Ability Haste | MAGIC ITEMS |
 | Stormsurge | 2800 | +90 Ability Power  /  +15 Magic Penetration  /  +6% Move Speed | MAGIC ITEMS |
 | Blackfire Torch | 2800 | +80 Ability Power  /  +500 Maximum Mana  /  +20 Ability Haste | MAGIC ITEMS |
 | Luden's Echo | 2800 | +100 Ability Power  /  +500 Max Mana  /  +10 Ability Haste | MAGIC ITEMS |
-| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +5% Move Speed | MAGIC ITEMS |
+| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +6% Move Speed | MAGIC ITEMS |
 | Bloodletter's Curse | 2900 | +350 Maximum Health  /  +65 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
 | Banshee's Veil | 3000 | +105 Ability Power  /  +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
 | Cryptbloom | 3000 | +75 Ability Power  /  +30% Magic Penetration  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Liandry's Torment | 3000 | +300 Max Health  /  +70 Ability Power | MAGIC ITEMS |
+| Liandry's Torment | 3000 | +300 Max Health  /  +60 Ability Power | MAGIC ITEMS |
 | Archangel's Staff | 3000 | +60 Ability Power  /  +500 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
 | Seraph's Embrace |  | +60 Ability Power  /  +1200 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
 | Cosmic Drive | 3000 | +300 Max Health  /  +70 Ability Power  /  +25 Ability Haste  /  +4% Move Speed | MAGIC ITEMS |
@@ -2173,7 +2281,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Brawler's Gloves | 500 | +10% Critical Rate | Basic Items |
 | Dagger | 400 | +12% Attack Speed | Basic Items |
 | Shimmering Spark | 500 | +50 Max Health | Basic Items |
-| Tear of the Goddess | 500 | +200 Max Mana | Basic Items |
+| Tear of the Goddess | 400 | +200 Max Mana | Basic Items |
 | Amplifying Tome | 500 | +20 Ability Power | Basic Items |
 | Ruby Crystal | 500 | +150 Max Health | Basic Items |
 | Cloth Armor | 500 | +20 Armor | Basic Items |
@@ -2196,6 +2304,25 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 ```csv
 grupo,items,fuente,verificado
 pen_pct,Lord Dominik's Regards|Mortal Reminder|Terminus,"Verificado en juego por el autor (03/10/2026): con Terminus equipado no se pueden comprar LDR ni Mortal Reminder. El modelo del lab asumía pen % sumable (LDR 35 + Mortal 30 = 65) — corregido. Pendiente de documentación oficial (ni wr-meta ni las notas 7.3/7.3a lo mencionan).",2026-10-03
+spellblade,Trinity Force|Divine Sunderer|Essence Reaver|Lich Bane|Dusk and Dawn|Iceborn Gauntlet,Verificado en juego por el autor (12/11/2026): Divine Sunderer e Iceborn Gauntlet no pueden convivir. Los 6 ítems terminados con la pasiva Spellblade (items_7.3.csv) se agrupan por analogía; los demás pares están pendientes de confirmación en juego. Sheen (componente) queda fuera.,2026-11-12
+tear_of_the_goddess,Tear of the Goddess|Manamune|Muramana|Archangel's Staff|Seraph's Embrace|Winter's Approach|Fimbulwinter,"Texto oficial de los ítems (items_7.3.csv, wr-meta/notas 7.3): 'You may only carry one Tear of the Goddess item at a time' (Tear, Manamune, Archangel's Staff, Winter's Approach). Muramana, Seraph's Embrace y Fimbulwinter son sus mejoras en el mismo slot.",2026-11-12
+immolate,Hollow Radiance|Sunfire Aegis,Misma pasiva Immolate (items_7.3.csv). Supuesto A10 de chogath_model.py hasta ahora local; se centraliza aquí. Pendiente de confirmación en juego.,supuesto A10
+```
+
+## 8c. CANDIDATOS A EXCLUSIVIDAD (pasivas compartidas SIN confirmar — NO se aplican en el motor; pasar a items_exclusivos.csv al verificarlos en juego)
+
+```csv
+grupo,items,evidencia,estado
+lifeline,Maw of Malmortius|Sterak's Gage|Immortal Shieldbow|Seraph's Embrace|Mantle of the Twelfth Hour,Pasiva Lifeline compartida por 5 ítems (items_7.3.csv). Sin texto oficial de restricción.,pendiente de verificar en juego
+energized,Rapid Firecannon|Statikk Shiv|Stormrazor,Pasiva Energized compartida; las notas 7.3 hablan de 'consolidar los efectos Energized' en pocos ítems.,pendiente de verificar en juego
+annul_spellshield,Edge of Night|Banshee's Veil|Verdant Barrier,Pasiva Annul (escudo antihechizos) compartida por 3 ítems.,pendiente de verificar en juego
+terminus_void_staff,Terminus|Cryptbloom,Texto oficial de Terminus: 'You cannot own this item concurrently with Void Staff'. Void Staff no existe en items_7.3.csv; Cryptbloom es el ítem de %pen mágica (30 %) y probablemente lo reemplaza. Nombre sin confirmar.,pendiente de verificar en juego (nombre)
+icy,Serylda's Grudge|Rylai's Crystal Scepter,Pasiva Icy compartida (ralentización).,pendiente de verificar en juego
+eternity,Rod of Ages|Catalyst of Aeons,Pasiva Eternity compartida.,pendiente de verificar en juego
+madness,Liandry's Torment|Haunting Guise,Pasiva Madness compartida.,pendiente de verificar en juego
+momentum,Youmuu's Ghostblade|Dead Man's Plate,Pasiva Momentum compartida.,pendiente de verificar en juego
+thorns,Thornmail|Bramble Vest,Pasiva Thorns compartida (Bramble es componente de Thornmail).,pendiente de verificar en juego
+support_quest,Relic Shield|Spectral Sickle|Bulwark of the Mountain|Black Mist Scythe,Pasiva Quest/Tribute compartida; el texto oficial solo dice que entre varios del equipo solo uno surte efecto.,pendiente de verificar en juego
 ```
 
 ## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
@@ -2238,6 +2365,7 @@ SPECS = {
            "escala AS 'gratis' (a lvl15 bonus de niveles ≈ +0.644). Pasiva Martial Poise: dash al atacar "
            "(kiting extremo; no puede atacar mientras se mueve... compensación). E Rend: stacks de lanza, "
            "detona % vida + slow, resetea con kill → ejecutor. Comunidad 7.3: Statikk Shiv 1.er ítem (energized on-hit). "
+           "7.3f NERF: Pierce (Q) daño base 70/135/200/265→30/110/190/270 (menos presión early en Baron Lane; Pierce NO entra en el modelo de DPS sostenido). "
            "Modelo: término de E por ventana (stacks×AS) + reseteos. REPORTE COMPLETO: reportes/Kalista_WR_7.3_Build_Optimizada.md (build: Gunmetal+Guinsoo+WE+Terminus+BotRK+Runaan's)."),
     model_terms_pending=["E Rend por stack (ratios)", "uptime de dash (kiting = más DPS efectivo)", "Statikk bounce"]),
 
@@ -2596,10 +2724,15 @@ def canonical_key(x):
 
 def violaciones_exclusividad(items):
     """[(grupo, [claves presentes])] por cada grupo con 2+ ítems de la misma build."""
-    claves = [canonical_key(x) for x in items]
+    # Se comparan la clave canónica Y el nombre en minúsculas: otros módulos (senna_model) registran
+    # alias/ítems nuevos en ITEMS tras cargar el CSV y cambian la clave canónica de p.ej. 'Trinity Force'.
+    claves = set()
+    for x in items:
+        claves.add(canonical_key(x))
+        claves.add(str(x).strip().lower())
     out = []
     for grupo, conjunto in EXCLUSIVIDAD:
-        presentes = sorted(set(claves) & conjunto)
+        presentes = sorted(claves & conjunto)
         if len(presentes) >= 2:
             out.append((grupo, presentes))
     return out
@@ -2899,10 +3032,10 @@ D_ITEMS = {
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
 # v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
-D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Morello',      dict(g=2550, ap=75, hp=300, ah=15))   # 7.3f: 2650→2550
 D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
 D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
-D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=60, hp=300))   # 7.3f: AP 70→60
 
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
@@ -2934,7 +3067,7 @@ def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15,
     sb_n = int(fight/1.5) if any(i.get('sb') for i in its) else 0
     sb = sb_n*(0.75*sum(i.get('sb',0) for i in its)*base_ad + 0.10*ap)
     # echo Luden / squall
-    echo = (75 + 0.08*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0
+    echo = (80 + 0.09*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0   # 7.3f Luden: 75+8%→80+9% AP
     squall = (125+0.1*ap)*max(1,int(fight/25*4)) if any(i.get('squall') for i in its) else 0  # ~1 cada 2.5s de dmg
     total_mag = (q+e+w+r+auto_mag+proc3+sb+echo+squall)*mitm
     total_phys = auto_phys*100/(100+60)  # autos físicos vs ~60 armadura
@@ -2984,12 +3117,12 @@ Y_ITEMS = {
  'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
  'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
  'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
- 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Morello':      dict(g=2550, ap=75, hp=300, ah=15, gw=1),   # 7.3f: 2650→2550
  'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
  'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
  'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=0.08),   # botas de pen mágica (Ley 1 adaptada, v2.0 Yuumi)
  'Malignance':   dict(g=2700, ap=90, ah=15, mana=500),        # Scorn: −MR sostenido (no entra en e_shield/r_heal)
- 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
+ 'Liandry':      dict(g=3000, ap=60, hp=300, torment=1),   # 7.3f: AP 70→60
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
@@ -10300,8 +10433,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: SIN_IMPACTO
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -10816,8 +10949,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -11203,8 +11336,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v1.3 con motor dedicado batch4)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -11502,8 +11635,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -12012,8 +12145,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -12498,8 +12631,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -13074,8 +13207,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-04"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: SIN_IMPACTO
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 04/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -13425,8 +13558,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -14034,8 +14167,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-28"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 28/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -14287,8 +14420,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -14739,8 +14872,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -15351,8 +15484,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -15983,8 +16116,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-05"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 05/10/2026 (regeneración post-7.3a)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -16472,7 +16605,7 @@ mode: sr
 published_at: "2026-10-09"
 updated_at: "2026-10-11"
 verification: REVISAR
-verified_patch: "7.3d"
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 11/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -16876,8 +17009,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-30"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 30/09/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -17344,8 +17477,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: SIN_IMPACTO
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -17888,8 +18021,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-29"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 29/09/2026
 **Parche:** 7.3 (21-sep-2026)
@@ -18198,8 +18331,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: ANOTAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -18739,8 +18872,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: SIN_IMPACTO
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 08/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026)
@@ -19329,8 +19462,8 @@ generate: manual
 mode: sr
 published_at: "2026-10-08"
 updated_at: "2026-10-12"
-verification: ANOTAR
-verified_patch: "7.3d"
+verification: SIN_IMPACTO
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 11/10/2026 (regeneración v2.0 con motor dedicado batch4) · **Refresh 7.3b:** 15/10/2026
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3b (15-oct-2026)
@@ -19803,8 +19936,8 @@ generate: manual
 mode: sr
 published_at: "2026-09-27"
 updated_at: "2026-10-12"
-verification: SIN_IMPACTO
-verified_patch: "7.3d"
+verification: REVISAR
+verified_patch: "7.3f"
 ---
 **Fecha del análisis:** 18/10/2026 (rev. v2.1 — corrección de runas: la página publicada es LEGAL y vuelve a ser la base; motor `yuumi_agresiva_model.py`, batch5, constantes 7.3b)
 **Parche:** 7.3 (21-sep-2026) + hotfix 7.3a (29-sep-2026) + hotfix 7.3b (15-oct-2026)
@@ -20079,16 +20212,16 @@ item,precio_oro,stats,categorias,detalle_completo
 Chempunk Chainsword,2800,+400 Max Health | +45 Attack Damage | +15 Ability Haste,FIGHTER ITEMS,Chempunk Chainsword ~   ~ Chempunk Chainsword ~ Reduces enemy healing ~  +400 Max Health ~  +45 Attack Damage ~  +15 Ability Haste ~ Punishment: ~  Dealing  ~ physical damage ~  to enemy champions applies  ~ 50% Grievous Wounds ~  for 3 seconds. ~ Grievous Wounds ~  reduces the effectiveness of Healing and Regeneration effects. ~   ~ 2800 ~ Chempunk Chainsword 
 Manamune,2900,+40 Attack Damage | +500 Max Mana | +15 Ability Haste,FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS,"Manamune ~   ~ Manamune ~ Converts Mana to Attack Damage ~  +40 Attack Damage ~  +500 Max Mana ~  +15 Ability Haste ~ Awe: ~  Grants  ~ Attack Damage ~  equal to  ~ 2% ~  of max Mana and refunds  ~ 15% ~  of all Mana spent. ~ Mana Charge: ~  Grants  ~ 14 ~  max Mana for each attack or Mana expenditure. Grants a maximum of  ~ 700 ~  max Mana, at which point this item transforms into Muramana. Occurs up to 3 times every 10 seconds. You may only carry one Tear of the Goddess item at a time. ~   ~ 2900 ~ Manamune "
 Muramana,,+40 Attack Damage | +1200 Max Mana | +15 Ability Haste,FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS,"Muramana ~   ~ Muramana ~ Converts Mana to Attack Damage ~  +40 Attack Damage ~  +1200 Max Mana ~  +15 Ability Haste ~ Awe: ~  Grants  ~ Attack Damage ~  equal to  ~ 2% ~ of max Mana and refunds  ~ 15% ~ of all Mana spent. ~ Shock: ~  Attacks against champions deal  ~ 1.5% max Mana ~  as bonus  ~ physical damage ~ , and ability damage against champions deals  ~ 3.5% max Mana ~  (3% for ranged champions) as bonus  ~ physical damage ~ . This effect can only be triggered once per attack or ability cast against the same champion. ~ Muramana "
-Eclipse,3000,+65 Attack Damage | +20 Ability Haste,FIGHTER ITEMS,"Eclipse ~   ~ Eclipse ~ Gain a shield and deal bonus damage ~  +65 Attack Damage ~  +20 Ability Haste ~ Ever Rising Moon: ~  Hitting an enemy champion with 2 separate attacks or abilities within 1.8s deals bonus  ~ physical damage ~  equal to  ~ 7% of the target's max Health ~ (3.5% for ranged champions), and grants you a  ~ shield ~  that absorbs damage equal to  ~ 140 + 35% bonus Attack Damage ~  ( ~ 70 + 18% bonus Attack Damage ~  for ranged champions) for 2s. (6s Cooldawn) ~   ~ 3000 ~ Eclipse "
+Eclipse,3000,+60 Attack Damage | +20 Ability Haste,FIGHTER ITEMS,"Eclipse ~   ~ Eclipse ~ Gain a shield and deal bonus damage ~  +60 Attack Damage ~  +20 Ability Haste ~ Ever Rising Moon: ~  Hitting an enemy champion with 2 separate attacks or abilities within 1.8s deals bonus  ~ physical damage ~  equal to  ~ 7% of the target's max Health ~ (3.5% for ranged champions), and grants you a  ~ shield ~  that absorbs damage equal to  ~ 140 + 35% bonus Attack Damage ~  ( ~ 70 + 18% bonus Attack Damage ~  for ranged champions) for 2s. (6s Cooldawn) ~   ~ 3000 ~ Eclipse "
 Sundered Sky,3000,+350 Max Health | +40 Attack Damage | +15 Ability Haste,FIGHTER ITEMS,"Sundered Sky ~   ~ Sundered Sky ~ Periodically empowers attacks ~  +350 Max Health ~  +40 Attack Damage ~  +15 Ability Haste ~ Lightshield Strike: ~  The first attack against an enemy champion deals  ~ Critically Strikes ~  (6s cooldown per target), dealing 160% damage  and  ~ restores Health ~  (equal to  ~ 125% base Attack Damage ~  +  ~ 6% of missing Health ~  to you. ~   ~ 3000 ~ Sundered Sky "
 Experimental Hexplate,3000,+400 Max Health | +35 Attack Damage | +20% Attack Speed,FIGHTER ITEMS,"Experimental Hexplate ~   ~ Experimental Hexplate ~ Gain Attack Speed & Movement Speed when your ultimate is cast ~  +400 Max Health ~  +35 Attack Damage ~  +20% Attack Speed ~ Hexcharged: ~   ~  Gain  ~ +20 Ability Haste ~  for your ultimate ability. ~ Overdrive: ~  After using your ultimate ability, gain  ~ 40% Attack Speed ~  and  ~ 20% Movement Speed ~   for 8s. (30s Cooldown) ~   ~ 3000 ~ Experimental Hexplate "
 Maw of Malmortius,3000,+55 Attack Damage | +45 Magic Resistance | +10 Ability Haste,FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS,"Maw of Malmortius ~   ~ Maw of Malmortius ~ Converts damage from attacks into a magic shield ~  +55 Attack Damage ~  +45 Magic Resistance ~  +10 Ability Haste ~ Lifeline: ~  Upon taking Magic Damage that would reduce your  ~ Health ~  to below  ~ 35% ~ , gain  ~ +10% Omni Vamp. ~  until the end of combat and a  ~ magic shield ~  that absorbs  ~ 220-530 Magic Damage ~  for 3s. (70s Cooldown) ~   ~ 3000 ~ Maw of Malmortius "
 Black Cleaver,3000,+400 Max Health | +40 Attack Damage | +20 Ability Haste,FIGHTER ITEMS,"Black Cleaver ~   ~ Black Cleaver ~ Physical Damage reduces Armor ~  +400 Max Health ~  +40 Attack Damage ~  +20 Ability Haste ~ Sunder: ~  Dealing  ~ physical damage ~  to a champion reduces their  ~ Armor ~  by 6% for 6 seconds, stacking 5 times for 30% reduction. ~ Rage: ~  Gain  ~ 20 Movement Speed ~  when you deal  ~ physical damage ~ . When moving toward enemy champions with 5 Sunder stacks, gain  ~ 40 Move Speed ~ . Ranged champions gain halved values. ~   ~ 3000 ~ Black Cleaver "
 Titanic Hydra,3000,+450 Max Health | +40 Attack Damage,FIGHTER ITEMS; DEFENSE ITEMS,"Titanic Hydra ~   ~ Titanic Hydra ~ Attacks deal bonus damage in a area ~  +450 Max Health ~  +40 Attack Damage ~ Cleave: ~  Every 1.75 second(s), your next attack deals bonus  ~ physical damage ~  equal to  ~ 25 ~  +  ~ 3% bonus ~  (also applies to turrets) and creates a shockwave that deals  ~ physical damage ~  equal to  ~ 80 ~  +  ~ 10% bonus ~  to enemies behind the target. Ranged champions deal 75% of the damage. ~   ~ 3000 ~ Titanic Hydra "
 Stridebreaker,3100,+400 Max Health | +40 Attack Damage | +25% Attack Speed,FIGHTER ITEMS,"Stridebreaker ~   ~ Stridebreaker ~ Slows enemies nearby after a short dash ~  +400 Max Health ~  +40 Attack Damage ~  +25% Attack Speed ~ Breaking Shockwave (Active): ~  Activate to dash a short distance, dealing  ~ 100% AD ~  as  ~ Physical Damage ~  to nearby enemies and  ~ slowing them by 40% ~  for 3s (25s cooldown) ~ Stride (Passive): ~  Gain  ~ 20 Movement Speed ~  for 2 second(s) when you deal  ~ physical damage ~ . ~   ~ 3100 ~ Stridebreaker "
-Goredrinker,3100,+350 Max Health | +40 Attack Damage | +15 Ability Haste,FIGHTER ITEMS,Goredrinker ~   ~ Goredrinker ~ Deal damage in an area ~  +350 Max Health ~  +40 Attack Damage ~  +15 Ability Haste ~ Goredrink (Passive): Gain ~ 8% Omni Vamp. ~ Thirsting Slash (Active): ~  Deal  ~ 175% base AD ~  as  ~ physical damage ~  to nearby enemies. Restore Health equal to  ~ 20% ~  plus  ~ 10% missing ~  for each enemy champion hit. (12s cooldown) ~   ~ 3100 ~ Goredrinker 
+Goredrinker,3100,+400 Max Health | +45 Attack Damage | +15 Ability Haste,FIGHTER ITEMS,Goredrinker ~   ~ Goredrinker ~ Deal damage in an area ~  +400 Max Health ~  +45 Attack Damage ~  +15 Ability Haste ~ Goredrink (Passive): Gain ~ 8% Omni Vamp. ~ Thirsting Slash (Active): ~  Deal  ~ 175% base AD ~  as  ~ physical damage ~  to nearby enemies. Restore Health equal to  ~ 20% ~  plus  ~ 10% missing ~  for each enemy champion hit. (12s cooldown) ~   ~ 3100 ~ Goredrinker 
 Mercurial Scimitar,3100,+45 Attack Damage | +12% Lifesteal | +40 Magic Resistance,FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS,"Mercurial Scimitar ~   ~ Mercurial Scimitar ~ Dispels crowd control ~  +45 Attack Damage ~  +12% Lifesteal ~  +40 Magic Resistance ~ Quicksilver Sash (Active): ~  Removes all  ~ crowd control ~  debuffs from you and grants immunity to  ~ crowd control ~  for 0.25s. ~ Perseverance (Passive): ~  When the  ~ Quicksilver ~  effects ends, grant  ~ 30% Tenacity ~  and  ~ 30% Slow Resist ~  for 1.5 seconds. (60s Cooldown) ~ Cannot be used during knock up or knock back effects. ~   ~ 3100 ~ Mercurial Scimitar "
-Blade of the Ruined King,3100,+40 Attack Damage | +35% Attack Speed | +12% Lifesteal,FIGHTER ITEMS; MARKSMAN ITEMS,Blade of the Ruined King ~   ~ Blade of the Ruined King ~ Attacks deal bonus damage ~  +40 Attack Damage ~  +35% Attack Speed ~  +12% Lifesteal ~ Ruined Strikes: ~  Attacks deal  ~ bonus physical damage ~  equal to  ~ 6% ~  of the enemy's current  ~ Health ~   ~ on-hit ~ . (Melee attacks deal  ~ 8% ~ ). Minimum damage: 15. Max damage vs monsters: 100. ~ Drain: ~  Hitting a champion with 3 attacks or abilities slows them by 30% for 1.5s. (30s Cooldown) ~   ~ 3100 ~ Blade of the Ruined King 
+Blade of the Ruined King,3100,+40 Attack Damage | +30% Attack Speed | +12% Lifesteal,FIGHTER ITEMS; MARKSMAN ITEMS,Blade of the Ruined King ~   ~ Blade of the Ruined King ~ Attacks deal bonus damage ~  +40 Attack Damage ~  +30% Attack Speed ~  +12% Lifesteal ~ Ruined Strikes: ~  Attacks deal  ~ bonus physical damage ~  equal to  ~ 6% ~  of the enemy's current  ~ Health ~   ~ on-hit ~ . (Melee attacks deal  ~ 8% ~ ). Minimum damage: 15. Max damage vs monsters: 100. ~ Drain: ~  Hitting a champion with 3 attacks or abilities slows them by 30% for 1.5s. (30s Cooldown) ~   ~ 3100 ~ Blade of the Ruined King 
 Serylda's Grudge,3100,+50 Attack Damage | +35% Armor Penetration | +15 Ability Haste,FIGHTER ITEMS; ASSASSIN ITEMS,Serylda's Grudge ~   ~ Serylda's Grudge ~ Armor Penetration (%) and apply slows ~  +50 Attack Damage ~  +35% Armor Penetration ~  +15 Ability Haste ~ Icy: ~  Damaging active abilities and  ~ empowered ~  attacks  ~ slow ~  enemies below  ~ 60% ~  current Health by  ~ 30% Movement Speed ~  for 1 second. ~   ~ 3100 ~ Serylda's Grudge 
 Spear of Shojin,3100,+450 Max Health | +40 Attack Damage,FIGHTER ITEMS,Spear of Shojin ~   ~ Spear of Shojin ~ Gain damage bonuses ~  +450 Max Health ~  +40 Attack Damage ~ Dragonforce: ~   ~   ~ +20% Ability Haste. ~ Focused Will: ~  Dealing damage to monsters or enemies with abilities increases your champion's ability and passive damage by 3% for 6s. (Stacks 4 times). ~   ~ 3100 ~ Spear of Shojin 
 Hullbreaker,3100,+400 Max Health | +50 Attack Damage,FIGHTER ITEMS,"Hullbreaker ~   ~ Hullbreaker ~ Split-pushing power ~  +400 Max Health ~  +50 Attack Damage ~ Set Sail: ~  Gain  ~ 5% Movement Speed ~ . ~ Skipper: ~  Every 4th attack against champions and epic monsters deals  ~ bonus physical damage ~  equal to  ~ 160% base  ~  plus  ~ 5% ~ (ranged champions deal  ~ 40% of the damage ~ ), increased to  ~ 240% base  ~  plus  ~ 9% ~ against structures (ranged champions deal  ~ 40% of the damage ~ ). ~ Boarding Party: ~  Nearby allied siege and super minions gain  ~ 20-130 Armor ~  (25% bonus if you're a ranged champion) and  ~ 10-120 Magic Resistance ~ ( ~ ) (25% bonus if you're a ranged champion). ~   ~ 3100 ~ Hullbreaker "
@@ -20096,7 +20229,7 @@ Overlord's Bloodmail,3200,+450 Max Health | +30 Attack Damage,FIGHTER ITEMS; DEF
 Guardian Angel,3200,+45 Attack Damage | +40 Armor,FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS,"Guardian Angel ~   ~ Guardian Angel ~ Revives at death ~  +45 Attack Damage ~  +40 Armor ~ Resurrect: ~  Upon taking lethal damage, restores  ~ 50% Health ~  and  ~ 100% Mana ~  after 4 seconds of stasis. (180s Cooldown) ~   ~ 3200 ~ Guardian Angel "
 Bloodthirster,3200,+75 Attack Damage | +15% Lifesteal,FIGHTER ITEMS; MARKSMAN ITEMS,Bloodthirster ~   ~ Bloodthirster ~ Gain Lifesteal and convert excess healing into a shield ~  +75 Attack Damage ~  +15% Lifesteal ~ Ichorshield: ~  Convert excess healing from your  ~ Lifesteal ~  to a  ~ shield ~  that absorbs up to  ~ 165–345 ~  damage. ~   ~ 3200 ~ Bloodthirster 
 Sterak's Gage,3200,+400 Max Health | +20% Tenacity,FIGHTER ITEMS; DEFENSE ITEMS,Sterak's Gage ~   ~ Sterak's Gage ~ Taking damage triggers a shield ~  +400 Max Health ~  +20% Tenacity ~ Heavy Handed: ~   ~ +50% base Attack Damage ~  as  ~ bonus Attack Damage ~ . ~ Lifeline: ~  Damage that puts you under  ~ 35% ~  Health ~  grants a  ~ shield ~  that equal to  ~ 75% of your bonus health ~  that decays over 5 seconds (70s Cooldown). ~ Sterak's Fury: ~  Triggering Lifeline increases size and grants  ~ 30% Tenacity ~  for 8 seconds. ~   ~ 3200 ~ Sterak's Gage 
-Death's Dance,3200,+50 Attack Damage | +45 Armor | +15 Ability Haste,FIGHTER ITEMS; DEFENSE ITEMS,"Death's Dance ~   ~ Death's Dance ~ Delays damage taken ~  +50 Attack Damage ~  +45 Armor ~  +15 Ability Haste ~ Cauterize: ~  30% of all  ~ physical damage ~  and  ~ magic damage ~  received (12% for ranged champions) is dealt to you over 3 seconds as true damage instead. ~ Defy: ~  When a champion that you damaged within 3 second(s) dies, cleanse Cauterize's remaining damage pool and restore  ~ Health ~  equal to  ~ 90% bonus AD ~  over 2 second(s). ~   ~ 3200 ~ Death's Dance "
+Death's Dance,3300,+50 Attack Damage | +45 Armor | +15 Ability Haste,FIGHTER ITEMS; DEFENSE ITEMS,"Death's Dance ~   ~ Death's Dance ~ Delays damage taken ~  +50 Attack Damage ~  +45 Armor ~  +15 Ability Haste ~ Cauterize: ~  30% of all  ~ physical damage ~  and  ~ magic damage ~  received (12% for ranged champions) is dealt to you over 3 seconds as true damage instead. ~ Defy: ~  When a champion that you damaged within 3 second(s) dies, cleanse Cauterize's remaining damage pool and restore  ~ Health ~  equal to  ~ 90% bonus AD ~  over 2 second(s). ~   ~ 3300 ~ Death's Dance "
 Trinity Force,3333,+333 Max Health | +36 Attack Damage | +30% Attack Speed | +15 Ability Haste,FIGHTER ITEMS; MARKSMAN ITEMS,"Trinity Force ~   ~ Trinity Force ~ Well-Rounded ~  +333 Max Health ~  +36 Attack Damage ~  +30% Attack Speed ~  +15 Ability Haste ~ Valor: ~  On hit, attacks grant  ~ 20 Move Speed ~  for 2 seconds. Bonuses do not stack.  ~ Bonus Movement Speed ~  does not stack. Ranged champions gain halved values.  ~ Spellblade: ~  Using an ability causes the next attack used within 10 seconds to deal  ~ bonus physical damage ~  equal to  ~ 200% base AD ~ (1.5s Cooldown). Damage is reduced vs structures. ~   ~ 3333 ~ Trinity Force "
 Divine Sunderer,3300,+425 Max Health | +25 Attack Damage | +25 Ability Haste,FIGHTER ITEMS,"Divine Sunderer ~   ~ Divine Sunderer ~ Anti-Health attacks ~  +425 Max Health ~  +25 Attack Damage ~  +25 Ability Haste ~ Spellblade: ~  After using an ability, your next attack within 10 seconds deals  ~ (10% melee / 7% ranged) ~  of target's maximum health as bonus  ~ physical damage ~ . If the target is a champion, heal for  ~ (6% melee / 2.5% ranged) ~  of the target's maximum  ~ health ~ . (1.5s Cooldown) Damage is reduced vs structure. ~   ~ 3300 ~ Divine Sunderer "
 Serpent's Fang,2800,+50 Attack Damage | +10 Ability Haste,ASSASSIN ITEMS,"Serpent's Fang ~   ~ Serpent's Fang ~ Anti-Shielding ~  +50 Attack Damage ~  +10 Ability Haste ~ Stab: ~   ~  +15 Armor Penetration. ~ Shield Reaver: ~  Dealing damage to an enemy champion reduces any  ~ shields ~  they gain for 3s. Melee champions apply ( ~ 10% of bonus AD ~  + 40)% shield reduction, capped at 60%; while ranged champions apply ( ~ 10% of bonus AD ~  + 25)% shield reduction, capped at 45%. When you damage an enemy who is unaffected by Shield Reaver, all shields on them are reduced by the same values. ~   ~ 2800 ~ Serpent's Fang "
@@ -20113,36 +20246,36 @@ Wit's End,2800,+50% Attack Speed | +45 Magic Resistance | +20% Tenacity,MARKSMAN
 Hexoptics C44,2900,+55 Attack Damage | +25% Critical Rate,MARKSMAN ITEMS,"Hexoptics C44 ~   ~ Hexoptics C44 ~ Increases attack range and damage ~  +55 Attack Damage ~  +25% Critical Rate ~ Magnification: ~  Deal 0–10% increased damage with attacks, based on how far away the enemy is (max damage at 550 range). ~ Arcane Aim: ~  When a champion you damaged within 3 seconds dies, gain  ~ 100 ~  additional  ~ Attack Range ~  for 8 seconds. ~   ~ 2900 ~ Hexoptics C44 "
 Kraken Slayer,2900,+45 Attack Damage | +35% Attack Speed | +4% Move Speed,MARKSMAN ITEMS,"Kraken Slayer ~   ~ Kraken Slayer ~ Deal bonus physical damage ~  +45 Attack Damage ~  +35% Attack Speed ~  +4% Move Speed ~ Bring it Down: ~  Every third attack deals  ~ 150–210 ~  bonus  ~ physical damage ~  ( ~ 120–168 ~  for ranged champions), increased by 0.75% per 1% Health the target is missing, up to an increase of 75%. ~   ~ 2900 ~ Kraken Slayer "
 Nashor's Tooth,2900,+50% Attack Speed | +80 Ability Power | +15 Ability Haste,MARKSMAN ITEMS; MAGIC ITEMS,Nashor's Tooth ~   ~ Nashor's Tooth ~ Attacks deal bonus damage ~  +50% Attack Speed ~  +80 Ability Power ~  +15 Ability Haste ~ Gnaw: ~  Attacks deal (15 +  ~ 20% bonus ~ )  ~ magic damage ~  as  ~ on-hit ~ . ~   ~ 2900 ~ Nashor's Tooth 
-Statikk Shiv,2900,+40 Attack Damage | +30% Attack Speed | +40 Ability Power | +4% Move Speed,MARKSMAN ITEMS; MAGIC ITEMS,"Statikk Shiv ~   ~ Statikk Shiv ~ Energized Attacks deal chain damage ~  +40 Attack Damage ~  +30% Attack Speed ~  +40 Ability Power ~  +4% Move Speed ~ Electroshock: ~  Attacks grant 5 extra  ~ Energized stacks ~ . ~ Electrospark: ~  Moving and attacking generate an  ~ Energized Attack ~  that fires chain lightning to 4–7 targets ( ~ ), dealing  ~ 60 magic damage ~  (increased to  ~ 90 magic damage ~  against minions and monsters) and applying  ~ on-hit effects ~  to secondary bounce targets. ~   ~ 3000 ~ Statikk Shiv "
+Statikk Shiv,2900,+40 Attack Damage | +30% Attack Speed | +40 Ability Power | +4% Move Speed,MARKSMAN ITEMS; MAGIC ITEMS,"Statikk Shiv ~   ~ Statikk Shiv ~ Energized Attacks deal chain damage ~  +40 Attack Damage ~  +30% Attack Speed ~  +40 Ability Power ~  +4% Move Speed ~ Electroshock: ~  Attacks grant 7 extra  ~ Energized stacks ~ . ~ Electrospark: ~  Moving and attacking generate an  ~ Energized Attack ~  that fires chain lightning to 4–7 targets ( ~ ), dealing  ~ 60 magic damage ~  (increased to  ~ 90 magic damage ~  against minions and monsters) and applying  ~ on-hit effects ~  to secondary bounce targets. ~   ~ 3000 ~ Statikk Shiv "
 Guinsoo's Rageblade,3000,+35 Attack Damage | +30% Attack Speed | +30 Ability Power,MARKSMAN ITEMS; MAGIC ITEMS,"Guinsoo's Rageblade ~   ~ Guinsoo's Rageblade ~ Applies on-hit effects ~  +35 Attack Damage ~  +30% Attack Speed ~  +30 Ability Power ~ Wrath: ~  Attacks deal  ~ 30 bonus magic damage ~   ~ on hit ~ . ~ Seething Strike: ~  Attacks grant  ~ 8% Attack Speed ~ , stacking up to 4 times for a maximum of  ~ 32% Attack Speed ~ . While fully stacked, every 3 attack(s) applies  ~ on-hit ~  effects an additional 1 time(s). ~   ~ 3000 ~ Guinsoo's Rageblade "
 Mortal Reminder,3000,+35 Attack Damage | +30% Armor Penetration | +25% Critical Rate,MARKSMAN ITEMS,Mortal Reminder ~   ~ Mortal Reminder ~ Armor Penetration (%) and reduced enemy healing ~  +35 Attack Damage ~  +30% Armor Penetration ~  +25% Critical Rate ~ Sepsis: ~  Dealing  ~ physical damage ~  to enemy champions applies  ~ 50% Grievous Wounds ~  for 3 seconds. ~ Grievous Wounds ~  reduces the effectiveness of Healing and Regeneration effects. ~   ~ 3000 ~ Mortal Reminder 
 Essence Reaver,3000,+55 Attack Damage | +25% Critical Rate | +20 Ability Haste,MARKSMAN ITEMS,"Essence Reaver ~   ~ Essence Reaver ~ Attacks casting an ability, your next attack deals bonus damage ~  +55 Attack Damage ~  +25% Critical Rate ~  +20 Ability Haste ~ Spellblade: ~  Using an ability causes your next attack within 10s to deal bonus  ~ physical damage ~  equal to  ~ 135% base AD ~  plus  ~ 0–80 ~  (increased by 0.8 per  ~ 1% Critical Rate ~ ) and restore  ~ 50% ~  of this damage as  ~ Mana ~ . (1.5s Cooldown) ~   ~ 3000 ~ Essence Reaver "
 Immortal Shieldbow,3000,+55 Attack Damage | +25% Critical Rate,MARKSMAN ITEMS,Immortal Shieldbow ~   ~ Immortal Shieldbow ~ Gain a shield when Health is low ~  +55 Attack Damage ~  +25% Critical Rate ~ Lifeline: ~  Damage that puts you under  ~ 35% Health ~  grants a  ~ shield ~  for 3s. The  ~ shield ~  absorbs  ~ 350–650 ~  damage for melee champions and  ~ 300–550 ~  damage for ranged champions. (70s cooldown) ~   ~ 3000 ~ Immortal Shieldbow 
 Terminus,3000,+35 Attack Damage | +35% Attack Speed,MARKSMAN ITEMS,"Terminus ~   ~ Terminus ~ Increases Armor Pen, Megic Pen, Armor, and Magic Resist ~  +35 Attack Damage ~  +35% Attack Speed ~ Shadow: ~  Attacks deal  ~ 30 bonus magic damage ~   ~ on-hit ~ . ~ Juxtaposition: ~  Alternate between Light and Dark on-hits when attacking. Light attacks grant 5-8  ~ Armor ~  and  ~ Magic Resist ~ ( ~ ) for 5 seconds on hit. Dark attacks grant  ~ 10% Armor Pen ~  and  ~ 10% Magic Pen ~  for 5 seconds  ~ on hit ~ . Each on-hit effect stacks up to 3 times. While you have this item, bonus  ~ Armor Pen ~  and  ~ Magic Pen ~  granted by it is capped at 40%. ~ You cannot own this item concurrently with Void Staff. ~   ~ 3000 ~ Terminus "
 Stormrazor,3000,+50 Attack Damage | +25% Critical Rate | +20% Attack Speed,MARKSMAN ITEMS,Stormrazor ~   ~ Stormrazor ~ Energized Attacks deal extra damage and grant Movement Speed ~  +50 Attack Damage ~  +25% Critical Rate ~  +20% Attack Speed ~ Bolt: ~  Moving and attacking generates an  ~ Energized Attack ~  that deals  ~ 100 ~  bonus  ~ magic damage ~  and grants 35% Movement Speed for 1.5 second(s)  ~ on hit ~ . ~   ~ 3000 ~ Stormrazor 
-Yun Tal Wildarrows,3000,+50 Attack Damage | +25% Attack Speed,MARKSMAN ITEMS,"Yun Tal Wildarrows ~   ~ Yun Tal Wildarrows ~ Attacks gain Critical Rate ~  +50 Attack Damage ~  +25% Attack Speed ~ Practice Makes Perfect: ~  On attack, gain  ~ Critical Rate ~  permanently ( ~ 0.4% ~  for melee champions and  ~ 0.2% ~  for ranged champions per attack), up to  ~ 25% ~ . ~ Flurry: ~  On attacking an enemy champion, gain  ~ 25% Attack Speed ~  for 6s. (20s Cooldown) Attacks reduce this cooldown by 1s, increased to 2s for  ~ Critical Strikes ~ . ~   ~ 3100 ~ Yun Tal Wildarrows "
+Yun Tal Wildarrows,3000,+50 Attack Damage | +35% Attack Speed,MARKSMAN ITEMS,"Yun Tal Wildarrows ~   ~ Yun Tal Wildarrows ~ Attacks gain Critical Rate ~  +50 Attack Damage ~  +35% Attack Speed ~ Practice Makes Perfect: ~  On attack, gain  ~ Critical Rate ~  permanently ( ~ 0.4% ~  for melee champions and  ~ 0.2% ~  for ranged champions per attack), up to  ~ 25% ~ . ~ Flurry: ~  On attacking an enemy champion, gain  ~ 35% Attack Speed ~  for 6s. (25s Cooldown) Attacks reduce this cooldown by 1s, increased to 2s for  ~ Critical Strikes ~ . ~   ~ 3000 ~ Yun Tal Wildarrows "
 Galeforce,3100,+60 Attack Damage | +25% Critical Rate | +4% Move Speed,MARKSMAN ITEMS,"Galeforce ~   ~ Galeforce ~ Grants a dash and damage bonus ~  +60 Attack Damage ~  +25% Critical Rate ~  +4% Move Speed ~ Cloudburst (Active): ~  Dash in a target direction and fire 3 missile(s) at the lowest Health enemy near your destination, prioritizing champions. Deal  ~ physical damage ~  equal to  ~ 40-125 ~  ( ~ ) plus  ~ 35% bonus ~ . (60s Cooldown) ~   ~ 3100 ~ Galeforce "
 Dominik's Regards,3300,+35 Attack Damage | +35% Armor Penetration | +25% Critical Rate,MARKSMAN ITEMS,"Dominik's Regards ~   ~ Dominik's Regards ~ Armor Pen and bonus damage ~  +35 Attack Damage ~  +35% Armor Penetration ~  +25% Critical Rate ~ Giant Slayer: ~  Deal bonus damage based on the enemy champion's  ~ bonus Health ~ , up to 12% bonus damage when the enemy champion has  ~ 1.200 bonus Health ~ . ~   ~ 3300 ~ Dominik's Regards "
 Infinity Edge,3400,+75 Attack Damage | +25% Critical Rate,MARKSMAN ITEMS,Infinity Edge ~   ~ Infinity Edge ~ Increases Critical Strike Damage ~  +75 Attack Damage ~  +25% Critical Rate ~ Infinity: ~  Critical Strikes deal  ~ 230% damage ~  instead of  ~ 200% ~ . ~   ~ 3400 ~ Infinity Edge 
-Whispering Circlet,2400,+200 Max Health | +500 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,Whispering Circlet ~   ~ Whispering Circlet ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +500 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Mana Charge: ~  Grants  ~ 14 max Mana ~  for each Mana expenditure (occurs up to 3 times every 10 seconds). Caps at  ~ 700 max Mana ~ . This item then transforms into Diadem of Songs. ~   ~ 2400 ~ Whispering Circlet 
-Diadem of Songs,,+200 Max Health | +1200 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Diadem of Songs ~   ~ Diadem of Songs ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +1200 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.5% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Diadem: ~  While you or an ally you've healed or shielded in the last 3 second(s) is in combat with champions, each second,  ~ heal ~  the lowest Health ally within 800 units of you for  ~ Health ~  equal to  ~ 0.8% max Mana ~ . ~ Diadem of Songs "
+Whispering Circlet,2400,+200 Max Health | +500 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,Whispering Circlet ~   ~ Whispering Circlet ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +500 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.25% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Mana Charge: ~  Grants  ~ 14 max Mana ~  for each Mana expenditure (occurs up to 3 times every 10 seconds). Caps at  ~ 700 max Mana ~ . This item then transforms into Diadem of Songs. ~   ~ 2400 ~ Whispering Circlet 
+Diadem of Songs,,+200 Max Health | +1200 Max Mana | +50% Mana Regen | +6% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Diadem of Songs ~   ~ Diadem of Songs ~ Convert Mana into Heal and Shield Powe ~  +200 Max Health ~  +1200 Max Mana ~  +50% Mana Regen ~  +6% Heal and Shield Strength ~ Harmony: ~  Gain  ~ 0.25% max Mana ~  as bonus  ~ Heal and Shield Power ~ . Casting an ability refunds  ~ 25% of its Mana ~  cost. ~ Diadem: ~  While you or an ally you've healed or shielded in the last 3 second(s) is in combat with champions, each second,  ~ heal ~  the lowest Health ally within 800 units of you for  ~ Health ~  equal to  ~ 0.8% max Mana ~ . ~ Diadem of Songs "
 Redemption,2450,+40 Ability Power | +50% Mana Regen | +10 Ability Haste | +8% Heal and Shield Strength,MAGIC ITEMS; SUPPORT ITEMS,"Redemption ~   ~ Redemption ~ Heal allies in an area ~  +40 Ability Power ~  +50% Mana Regen ~  +10 Ability Haste ~  +8% Heal and Shield Strength ~ Intervention (Active): ~  Target a large area. After 2.5s,  ~ restore 150-350 Health ~  (based on ally's level) to allied units and deal  ~ 10% of max ~  as  ~ true damage ~  to enemy champions. (60s Cooldown) ~ Can be cast while dead. ~   ~ 2450 ~ Redemption "
 Imperial Mandate,2600,+60 Ability Power | +50% Mana Regen | +20 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,"Imperial Mandate ~   ~ Imperial Mandate ~ Crowd control grants additional ally damage ~  +60 Ability Power ~  +50% Mana Regen ~  +20 Ability Haste ~ Control: ~  Your crowd control abilities gain  ~ 20 Ability Haste ~ . ~ Command: ~  Crowd controlling an enemy champion marks them for 4 second(s), causing them to take 7% increased damage. ~   ~ 2600 ~ Imperial Mandate "
 Oceanid's Trident,2600,+200 Max Health | +80 Ability Power | +10 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,"Oceanid's Trident ~   ~ Oceanid's Trident ~ Anti-Shielding ~  +200 Max Health ~  +80 Ability Power ~  +10 Ability Haste ~ Lethal Weapon: ~  Dealing ability damage to an enemy champion reduces any  ~ shields ~  they gain for 3 seconds. Area of effect abilities apply ( ~ 5% of bonus AP ~  + 25)% shield reduction, capped at 45%; while single target abilities apply ( ~ 5% of bonus AP ~  + 40)% shield reduction, capped at 60%. When you damage an enemy who is unaffected by  ~ Lethal Weapon ~ , all shields on them are reduced by the same values. ~   ~ 2600 ~ Oceanid's Trident "
-Morellonomicon,2650,+300 Max Health | +75 Ability Power | +15 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,Morellonomicon ~   ~ Morellonomicon ~ Magic damage reduces enemy healing ~  +300 Max Health ~  +75 Ability Power ~  +15 Ability Haste ~ Affliction: ~  Dealing  ~ magic damage ~  to enemy champions inflicts  ~ 50% Grievous Wounds ~  for 3 seconds. ~ Grievous Wounds ~  reduces the effectiveness of Healing and Regeneration effects. ~   ~ 2650 ~ Morellonomicon 
-Hextech Roketbelt,2700,+250 Max Health | +70 Ability Power | +20 Ability Haste,MAGIC ITEMS,"Hextech Roketbelt ~   ~ Hextech Roketbelt ~ Small dash ~  +250 Max Health ~  +70 Ability Power ~  +20 Ability Haste ~ Protobelt (Active): ~  Dash forward and unleash a cone of missiles, dealing  ~ 100 ~  plus  ~ 10% ~   ~ magic damage. ~  (30s Cooldown) ~ If champions or monsters are hit by more than one missile, missiles after the first will deal only 10% damage. ~   ~ 2700 ~ Hextech Roketbelt "
+Morellonomicon,2550,+300 Max Health | +75 Ability Power | +15 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,Morellonomicon ~   ~ Morellonomicon ~ Magic damage reduces enemy healing ~  +300 Max Health ~  +75 Ability Power ~  +15 Ability Haste ~ Affliction: ~  Dealing  ~ magic damage ~  to enemy champions inflicts  ~ 50% Grievous Wounds ~  for 3 seconds. ~ Grievous Wounds ~  reduces the effectiveness of Healing and Regeneration effects. ~   ~ 2550 ~ Morellonomicon 
+Hextech Roketbelt,2650,+300 Max Health | +70 Ability Power | +20 Ability Haste,MAGIC ITEMS,"Hextech Roketbelt ~   ~ Hextech Roketbelt ~ Small dash ~  +300 Max Health ~  +70 Ability Power ~  +20 Ability Haste ~ Protobelt (Active): ~  Dash forward and unleash a cone of missiles, dealing  ~ 110 ~  plus  ~ 15% ~   ~ magic damage. ~  (30s Cooldown) ~ If champions or monsters are hit by more than one missile, missiles after the first will deal only 10% damage. ~   ~ 2650 ~ Hextech Roketbelt "
 Rylai's Crystal Scepter,2700,+350 Max Health | +65 Ability Power,MAGIC ITEMS,Rylai's Crystal Scepter ~   ~ Rylai's Crystal Scepter ~ Abilities apply slows ~  +350 Max Health ~  +65 Ability Power ~ Icy: ~  Damaging abilities and  ~ empowered attacks ~   ~ slow enemies ~  by 30% for 0.75 second. ~   ~ 2700 ~ Rylai's Crystal Scepter 
-Rod of Ages,2700,+350 Max Health | +50 Ability Power | +400 Max Mana,MAGIC ITEMS,"Rod of Ages ~   ~ Rod of Ages ~ Stats grow over time ~  +350 Max Health ~  +50 Ability Power ~  +400 Max Mana ~ Eternity: ~  Restore  ~ Mana ~  equal to  ~ 15% ~  of the damage taken from champions. Regen  ~ Health ~  equal to  ~ 20% Mana ~  spent. Capped at  ~ 25 Health ~  per cast. ~ Veteran: ~  Each stack provides  ~ 15 Health ~ ,  ~ 30 Mana ~  and  ~ 4 Ability Power ~ , stacking at a rate of 1 every 35 seconds. Max of 10 stacks, providing  ~ 150 Health ~ ,  ~ 300 Mana ~ , and  ~ 40 Ability Power ~ . ~   ~ 2700 ~ Rod of Ages "
+Rod of Ages,2600,+350 Max Health | +50 Ability Power | +400 Max Mana,MAGIC ITEMS,"Rod of Ages ~   ~ Rod of Ages ~ Stats grow over time ~  +350 Max Health ~  +50 Ability Power ~  +400 Max Mana ~ Eternity: ~  Restore  ~ Mana ~  equal to  ~ 20% ~  of the damage taken from champions. Regen  ~ Health ~  equal to  ~ 20% Mana ~  spent. Capped at  ~ 25 Health ~  per cast. ~ Veteran: ~  Each stack provides  ~ 20 Health ~ ,  ~ 40 Mana ~  and  ~ 4 Ability Power ~ , stacking at a rate of 1 every 35 seconds. Max of 10 stacks, providing  ~ 200 Health ~ ,  ~ 400 Mana ~ , and  ~ 40 Ability Power ~ . ~   ~ 2600 ~ Rod of Ages "
 Horizon Focus,2700,+80 Ability Power | +25 Ability Haste,MAGIC ITEMS,"Horizon Focus ~   ~ Horizon Focus ~ Deals bonus damage to marked targets ~  +80 Ability Power ~  +25 Ability Haste ~ Hypershot: ~  Damaging an enemy champion with an ability from 600 units away reveals them for 8 seconds and increases damage dealt to them by 10%. ~ Focus: ~  When Hypershot is triggered, it reveals all enemy champions within 1.200 units of the target for 3s. (12s Cooldown) ~   ~ 2700 ~ Horizon Focus "
 Malignance,2700,+90 Ability Power | +500 Max Mana | +15 Ability Haste,MAGIC ITEMS,"Malignance ~   ~ Malignance ~ An item made for Ultimate-centric playstyles ~  +90 Ability Power ~  +500 Max Mana ~  +15 Ability Haste ~ Scorn: ~  Your Ultimate abilities gain  ~ 20 Ability Haste ~ . ~ Hatefog: ~  Damaging a champion with your Ultimate burns the ground beneath them for 3 second(s), dealing  ~ magic damage ~  equal to  ~ 60 ~  plus  ~ 5% AP ~  per second and reducing their  ~ Magic Resist by 10 ~ . Burn radius increases with damage, reaching maximum radius at 800 damage. ~   ~ 2700 ~ Malignance "
 Stormsurge,2800,+90 Ability Power | +15 Magic Penetration | +6% Move Speed,MAGIC ITEMS,"Stormsurge ~   ~ Stormsurge ~ A powerful item for Scaling Mages ~  +90 Ability Power ~  +15 Magic Penetration ~  +6% Move Speed ~ Stormraider: ~  When damaging a champion, dealing damage equal to  ~ 25% of their max Health ~  within 2.5 second(s) applies  ~ Squall ~  to them and grants you  ~ 25% bonus Movement Speed ~  for 2.5s. (25s Cooldown) ~ Squall: ~  After 2 second(s), strike the target, dealing  ~ magic damage ~  equal to  ~ 125 ~  plus  ~ 10% ~ . If the target is killed before the strike, it detonates immediately in a large area and grants  ~ 25 gold ~ . ~   ~ 2800 ~ Stormsurge "
 Blackfire Torch,2800,+80 Ability Power | +500 Maximum Mana | +20 Ability Haste,MAGIC ITEMS,"Blackfire Torch ~   ~ Blackfire Torch ~ Deal burn damage ~  +80 Ability Power ~  +500 Maximum Mana ~  +20 Ability Haste ~ Baleful Blaze: ~  Dealing damage with abilities causes enemies to burn for  ~ 20 ~  +  ~ 2% ~ magic damage ~  per second for 3 seconds. ~ Deal  ~ 40 ~  plus  ~ 2% ~ magic damage ~  every second to monsters. ~ Blackfire: ~  For each enemy champion or monster affected by your Baleful Blaze, gain  ~ 4% Ability Power ~ . ~   ~ 2800 ~ Blackfire Torch "
-Luden's Echo,2800,+100 Ability Power | +500 Max Mana | +10 Ability Haste,MAGIC ITEMS,Luden's Echo ~   ~ Luden's Echo ~ Abilities deal bonus damage ~  +100 Ability Power ~  +500 Max Mana ~  +10 Ability Haste ~ Echo: ~  Your next damaging ability or  ~ empowered attack ~  deals an additional  ~ 140 ~  +  ~ 15% ~   ~ magic damage ~  to the target and up to  ~ 3 ~  nearby enemies. (9s Cooldown) ~   ~ 2800 ~ Luden's Echo 
-Lich Bane,2800,+100 Ability Power | +10 Ability Haste | +5% Move Speed,MAGIC ITEMS,Lich Bane ~   ~ Lich Bane ~ Attacks deal bonus damage aster ability casts ~  +100 Ability Power ~  +10 Ability Haste ~  +5% Move Speed ~ Spellblade: ~  Using an ability causes the next attack used within 10 seconds to deal  ~ bonus magic damage ~  equal to  ~ 75% base AD  ~  +  ~ 45% AP  ~ . (1.5s Cooldown) Damage is reduced vs structures. ~   ~ 2800 ~ Lich Bane 
+Luden's Echo,2800,+100 Ability Power | +500 Max Mana | +10 Ability Haste,MAGIC ITEMS,Luden's Echo ~   ~ Luden's Echo ~ Abilities deal bonus damage ~  +100 Ability Power ~  +500 Max Mana ~  +10 Ability Haste ~ Echo: ~  Your next damaging ability or empowered attack deals 80 + 9% Ability Power magic damage to the primary target and up to 5 nearby enemies. For each fewer target hit by Echo, the primary target takes an additional 22.5 + 1.4% Ability Power magic damage. (9s Cooldown) [7.3f Discordic Echo; texto base reescrito desde las notas oficiales 7.3/7.3f] ~   ~ 2800 ~ Luden's Echo 
+Lich Bane,2800,+100 Ability Power | +10 Ability Haste | +6% Move Speed,MAGIC ITEMS,Lich Bane ~   ~ Lich Bane ~ Attacks deal bonus damage aster ability casts ~  +100 Ability Power ~  +10 Ability Haste ~  +6% Move Speed ~ Spellblade: ~  Using an ability causes the next attack used within 10 seconds to deal  ~ bonus magic damage ~  equal to  ~ 75% base AD  ~  +  ~ 50% AP  ~ . (1.5s Cooldown) Damage is reduced vs structures. ~   ~ 2800 ~ Lich Bane 
 Bloodletter's Curse,2900,+350 Maximum Health | +65 Ability Power | +15 Ability Haste,MAGIC ITEMS,Bloodletter's Curse ~   ~ Bloodletter's Curse ~ Reduces enemy's Magic Resist ~  +350 Maximum Health ~  +65 Ability Power ~  +15 Ability Haste ~ Vile Decay: ~  Dealing  ~ magic damage ~  with abilities or passives to champions reduces their  ~ Magic Resist by 7.5% ~  for 6 seconds (max 30%). ~   ~ 2900 ~ Bloodletter's Curse 
 Banshee's Veil,3000,+105 Ability Power | +40 Magic Resistance,MAGIC ITEMS; DEFENSE ITEMS,Banshee's Veil ~   ~ Banshee's Veil ~ Blocks an enemy ability ~  +105 Ability Power ~  +40 Magic Resistance ~ Annul: ~  Grants a  ~ spell shield ~  that blocks the next hostile ability. (30s Cooldown) ~   ~ 3000 ~ Banshee's Veil 
 Cryptbloom,3000,+75 Ability Power | +30% Magic Penetration | +20 Ability Haste,MAGIC ITEMS; SUPPORT ITEMS,"Cryptbloom ~   ~ Cryptbloom ~ Restore health on champion kill ~  +75 Ability Power ~  +30% Magic Penetration ~  +20 Ability Haste ~ Life from Death: ~  When a champion that you damaged within 3s dies, a nova spreads from their corpse that  ~ restores 100 ~  plus  ~ 20% ~ Health ~  to allies. (60s Cooldown) ~   ~ 3000 ~ Cryptbloom "
-Liandry's Torment,3000,+300 Max Health | +70 Ability Power,MAGIC ITEMS,"Liandry's Torment ~   ~ Liandry's Torment ~ Abilities deal bonus damage ~  +300 Max Health ~  +70 Ability Power ~ Torment: ~  Damaging abilities and  ~ empowered attacks ~  burn enemies for 2%  ~ max Health ~   ~ magic damage ~  for 3 seconds. ~ Madness: ~  Deals 2% more damage for each second in combat against champions, capped at 6% after 3 seconds. ~   ~ 3000 ~ Liandry's Torment "
+Liandry's Torment,3000,+300 Max Health | +60 Ability Power,MAGIC ITEMS,"Liandry's Torment ~   ~ Liandry's Torment ~ Abilities deal bonus damage ~  +300 Max Health ~  +60 Ability Power ~ Torment: ~  Damaging abilities and  ~ empowered attacks ~  burn enemies for 2%  ~ max Health ~   ~ magic damage ~  for 3 seconds. ~ Madness: ~  Deals 2% more damage for each second in combat against champions, capped at 6% after 3 seconds. ~   ~ 3000 ~ Liandry's Torment "
 Archangel's Staff,3000,+60 Ability Power | +500 Max Mana | +25 Ability Haste,MAGIC ITEMS,"Archangel's Staff ~   ~ Archangel's Staff ~ Converts Mana to Ability Power ~  +60 Ability Power ~  +500 Max Mana ~  +25 Ability Haste ~ Awe: ~  Grants Ability Power equal to  ~ 1% ~  max Mana and refunds  ~ 25%  ~  of all Mana spent. ~ Mana Charge: ~  Increases max Mana by  ~ 14 ~  every time Mana is spent. Caps at  ~ 700 bonus Mana ~ , transforming Archangel's Staff into Seraph's Embrace. Triggers up to 3 times every 10 seconds. You may only carry one Tear of the Goddess item at a time. ~   ~ 3000 ~ Archangel's Staff "
 Seraph's Embrace,,+60 Ability Power | +1200 Max Mana | +25 Ability Haste,MAGIC ITEMS,"Seraph's Embrace ~   ~ Seraph's Embrace ~ Converts Mana to Ability Power ~  +60 Ability Power ~  +1200 Max Mana ~  +25 Ability Haste ~ Awe: ~  Grants Ability Power equal to  ~ 2% ~  max Mana and refunds  ~ 25%  ~  of all Mana spent. ~ Lifeline: ~  Damage that puts you under  ~ 35%  ~  Health ~  consumes  ~ 20% ~  of your current  ~ Mana ~  to grant a  ~ shield ~ , equal to that amount  ~ +100 ~  for 2 seconds. (70s cooldown). ~ Seraph's Embrace "
 Cosmic Drive,3000,+300 Max Health | +70 Ability Power | +25 Ability Haste | +4% Move Speed,MAGIC ITEMS,Cosmic Drive ~   ~ Cosmic Drive ~ Dealing ability damage grants movement speed ~  +300 Max Health ~  +70 Ability Power ~  +25 Ability Haste ~  +4% Move Speed ~ Spelldance: ~  Dealing  ~ magic ~  or  ~ true damage ~  to champions grants  ~ 30 Movement Speed ~  for 4 second(s). ~   ~ 3000 ~ Cosmic Drive 
@@ -20169,14 +20302,14 @@ Dead Man's Plate,2800,+350 Max Health | +70 Armor | +4% Movement Speed,DEFENSE I
 Force of Nature,2800,+400 Max Health | +60 Magic Resistance | +5% Move Speed,DEFENSE ITEMS,"Force of Nature ~   ~ Force of Nature ~ Stacking Magic Resist and Move Speed ~  +400 Max Health ~  +60 Magic Resistance ~  +5% Move Speed ~ Absorb: ~  Taking ability damage from enemy champions grants 1 stack(s) of Steadfast for 7 seconds (max 4 stacks). Dealing damage to an enemy champion refreshes the duration of the stacks. At maximum stacks, gain  ~ 6% Movement Speed ~  and  ~ 70 ~  bonus  ~ Magic Resistance ~ . ~   ~ 2800 ~ Force of Nature "
 Heartsteel,3000,+700 Max Health | +150% Health Regen | +20 Ability Haste,DEFENSE ITEMS,"Heartsteel ~   ~ Heartsteel ~ Increase Maximum Health ~  +700 Max Health ~  +150% Health Regen ~  +20 Ability Haste ~ Colossal Consumption: ~  While within 700 units of an enemy champion, charges for 2.5 seconds before dealing a huge strike against the enemy champion. This charged attack deals bonus  ~ physical damage ~  equal to  ~ 140 ~  +  ~ 3.5% of maximum Health ~ , and grants  ~ maximum Health ~  equal to  ~ 15% ~  of the damage dealt. The charge for each target has a 20 second cooldown. ~   ~ 3000 ~ Heartsteel "
 Kaenic Rookern,2800,+350 Max Health | +100% Health Regen | +85 Magic Resistance,DEFENSE ITEMS,"Kaenic Rookern ~   ~ Kaenic Rookern ~ Gains a magic shield when out of combat ~  +350 Max Health ~  +100% Health Regen ~  +85 Magic Resistance ~ Magebane: ~  After not taking  ~ magic damage ~  for 12 seconds, gain a  ~ magic shield ~  that absorbs damage equal to  ~ 50-150 ~  +  ~ 14% of max Health ~ . ~   ~ 2800 ~ Kaenic Rookern "
-Warmog's Armor,2850,+700 Max Health | +100% Health Regen | +20 Ability Haste,DEFENSE ITEMS,"Warmog's Armor ~   ~ Warmog's Armor ~ Out of combat Heath Regen ~  +700 Max Health ~  +100% Health Regen ~  +20 Ability Haste ~ Warmog's Heart: ~  If you have at least  ~ 950 bonus Health ~ , restore  ~ 3.5% Health ~  per second if you haven't taken damage within the last 5 seconds. ~ Blessed: ~  Increases all  ~ healing ~  and  ~ shielding ~  effects on you by 30%. ~   ~ 2850 ~ Warmog's Armor "
+Warmog's Armor,2850,+700 Max Health | +100% Health Regen | +20 Ability Haste,DEFENSE ITEMS,"Warmog's Armor ~   ~ Warmog's Armor ~ Out of combat Heath Regen ~  +700 Max Health ~  +100% Health Regen ~  +20 Ability Haste ~ Warmog's Heart: ~  If you have at least  ~ 1250 bonus Health ~ , restore  ~ 3.5% Health ~  per second if you haven't taken damage within the last 5 seconds. ~ Blessed: ~  Increases all  ~ healing ~  and  ~ shielding ~  effects on you by 30%. ~   ~ 2850 ~ Warmog's Armor "
 Gargoyle Stoneplate,2900,+200 Max Health | +45 Armor | +45 Magic Resistance | +10 Ability Haste,DEFENSE ITEMS,"Gargoyle Stoneplate ~   ~ Gargoyle Stoneplate ~ Shield ~  +200 Max Health ~  +45 Armor ~  +45 Magic Resistance ~  +10 Ability Haste ~ Stoneplate (Active): ~  Gain a base  ~ shield ~  that absorbs damage equal to  ~ 100 ~  plus  ~ 90% bonus ~ and gain size, decayng over 2.5s. (60s Cooldown) ~   ~ 2900 ~ Gargoyle Stoneplate "
 Sunfire Aegis,2900,+350 Max Health | +40 Armor | +15 Ability Haste,DEFENSE ITEMS,"Sunfire Aegis ~   ~ Sunfire Aegis ~ Burns nearby emenies ~  +350 Max Health ~  +40 Armor ~  +15 Ability Haste ~ Immolate: ~  While in combat, deal  ~ magic damage ~  equal to  ~ 20 ~  plus  ~ 1.5% bonus HP ~  every second to nearby enemies.  ~ Immolate ~  deals 130% damage against monsters and 175-250% damage ( ~ ) against minions. ~   ~ 2900 ~ Sunfire Aegis "
 Unending Despair,3000,+300 Max Health | +40 Armor | +40 Magic Resistance | +10 Ability Haste,DEFENSE ITEMS,"Unending Despair ~   ~ Unending Despair ~ Increases tanks' sustain in teamfights ~  +300 Max Health ~  +40 Armor ~  +40 Magic Resistance ~  +10 Ability Haste ~ Anguish: ~  Every 4 second(s) while in combat with a champion, deal  ~ 3% of your max Health ~  as  ~ magic damage ~  to nearby champions and  ~ heal ~  for 250% of the damage dealt. Anguish is unaffected by Item Ability Haste. ~   ~ 3000 ~ Unending Despair "
 Iceborn Gauntlet,3000,+300 Max Health | +50 Armor | +250 Max Mana | +30 Ability Haste,DEFENSE ITEMS,Iceborn Gauntlet ~   ~ Iceborn Gauntlet ~ Attacks create a slowing field ~  +300 Max Health ~  +50 Armor ~  +250 Max Mana ~  +30 Ability Haste ~ Spellblade: ~  Using an ability causes your next attack within 10 seconds to deal  ~ bonus physical damage ~  equal to ( ~ 100% base AD  ~  +  ~ 25% Bonus Armor  ~ ) in an area and creates an icy field for 2 seconds that slows by 30%.  ~ Armor ~  increases the size of the icy field. (1.5s Cooldown) ~ Damage is reduced vs structures. ~   ~ 3000 ~ Iceborn Gauntlet 
 Amaranth's Twinguard,3200,+300 Max Health | +50 Armor | +50 Magic Resistance,DEFENSE ITEMS,"Amaranth's Twinguard ~   ~ Amaranth's Twinguard ~ In-combat durability ~  +300 Max Health ~  +50 Armor ~  +50 Magic Resistance ~ Endurance: ~  Gain 1 stacks of Endurance every 1 seconds while in combat with enemy champions (max 5 stacks). At maximum stacks, gain 20% size,  ~ 20% Tenacity ~ , and increase  ~ Armor ~  by 30% and  ~ Magic Resistance ~  by 30% until out of combat with champion. ~   ~ 3200 ~ Amaranth's Twinguard "
-Black Mist Scythe,0,+10 Ability Haste,SUPPORT ITEMS,"Black Mist Scythe ~   ~ Black Mist Scythe ~ Attack champions and structures to gain bonus gold ~  +10 Ability Haste ~ Versatile: ~  Gain  ~ 14 Attack Damage ~  or  ~ 28 Ability Power ~  (Adaptive). ~ Soulcast: ~  Every 60 seconds, gains  ~ 75 gold ~ ,  ~ 25 Health ~  and  ~ 2 Attack Damage ~ , or  ~ 4 Ability Power ~  (Adaptive); up to  ~ 250 Health ~  and  ~ 20 Attack Damage ~ , or  ~ 40 Ability Power ~  (Adaptive). ~ Deal 2 more damage to Sight Wards revealed by Sweeping Lens, Control Ward, and Scryer's Bloom. When out of combat, gain 10% Movement Speed when you move toward your Perfect Partner. If you're more than 2,500 units apart, this bonus increases to 30%. ~   ~ 0 ~ Black Mist Scythe "
-Bulwark of the Mountain,0,+175 Max Health | +10 Ability Haste,SUPPORT ITEMS,"Bulwark of the Mountain ~   ~ Bulwark of the Mountain ~ Kill minions to earn bonus gold ~  +175 Max Health ~  +10 Ability Haste ~ Soulcast: ~  Every 60 seconds, gains  ~ 75 gold ~ ,  ~ 25 Health ~  and  ~ 2 Attack Damage ~ , or  ~ 4 Ability Power ~  (Adaptive); up to  ~ 250 Health ~  and  ~ 20 Attack Damage ~  or  ~ 40 Ability Power ~  (Adaptive). ~ Deal 2 more damage to Sight Wards revealed by Sweeping Lens, Control Ward, and Scryer's Bloom. When out of combat, gain 10% Movement Speed when you move toward your Perfect Partner. If you're more than 2,500 units apart, this bonus increases to 30%. ~   ~ 0 ~ Bulwark of the Mountain "
+Black Mist Scythe,0,+10 Ability Haste,SUPPORT ITEMS,"Black Mist Scythe ~   ~ Black Mist Scythe ~ Attack champions and structures to gain bonus gold ~  +10 Ability Haste ~ Versatile: ~  Gain  ~ 14 Attack Damage ~  or  ~ 28 Ability Power ~  (Adaptive). ~ Soulcast: ~  Every 60 seconds, gains  ~ 60 gold ~ ,  ~ 25 Health ~  and  ~ 2 Attack Damage ~ , or  ~ 4 Ability Power ~  (Adaptive); up to  ~ 250 Health ~  and  ~ 20 Attack Damage ~ , or  ~ 40 Ability Power ~  (Adaptive). ~ Deal 2 more damage to Sight Wards revealed by Sweeping Lens, Control Ward, and Scryer's Bloom. When out of combat, gain 10% Movement Speed when you move toward your Perfect Partner. If you're more than 2,500 units apart, this bonus increases to 30%. ~   ~ 0 ~ Black Mist Scythe "
+Bulwark of the Mountain,0,+175 Max Health | +10 Ability Haste,SUPPORT ITEMS,"Bulwark of the Mountain ~   ~ Bulwark of the Mountain ~ Kill minions to earn bonus gold ~  +175 Max Health ~  +10 Ability Haste ~ Soulcast: ~  Every 60 seconds, gains  ~ 60 gold ~ ,  ~ 25 Health ~  and  ~ 2 Attack Damage ~ , or  ~ 4 Ability Power ~  (Adaptive); up to  ~ 250 Health ~  and  ~ 20 Attack Damage ~  or  ~ 40 Ability Power ~  (Adaptive). ~ Deal 2 more damage to Sight Wards revealed by Sweeping Lens, Control Ward, and Scryer's Bloom. When out of combat, gain 10% Movement Speed when you move toward your Perfect Partner. If you're more than 2,500 units apart, this bonus increases to 30%. ~   ~ 0 ~ Bulwark of the Mountain "
 Echoes of Helia,2400,+200 Max Health | +40 Ability Power | +50% Mana Regen | +20 Ability Haste,SUPPORT ITEMS,"Echoes of Helia ~   ~ Echoes of Helia ~ Protect allies, granting them increased healing ~  +200 Max Health ~  +40 Ability Power ~  +50% Mana Regen ~  +20 Ability Haste ~ Soul Siphon: ~  Store 30% of the premitigation damage dealt to enemy champions as  ~ Soul Shards ~  (max 80–250 shards ( ~ )).  ~ Healing ~  or  ~ shielding ~  a teammate consumes all  ~ Soul Shards ~  to  ~ heal ~  them for the corresponding amount. ~   ~ 2400 ~ Echoes of Helia "
 Ardent Censer,2400,+50 Ability Power | +50% Mana Regen | +8% Heal and Shield Strength | +4% Move Speed.,SUPPORT ITEMS,"Ardent Censer ~   ~ Ardent Censer ~ Increases allies Attack Speed ~  +50 Ability Power ~  +50% Mana Regen ~  +8% Heal and Shield Strength ~  +4% Move Speed. ~ Censer: ~  When you  ~ heal ~  or  ~ shield ~  an allied champion other than yourself, for the next 6 seconds, you and the ally gain  ~ 30% Attack Speed ~  and deal  ~ 25 ~  bonus  ~ magic damage ~  whenever you attack. ~   ~ 2400 ~ Ardent Censer "
 Staff of Flowing Waters,2400,+50 Ability Power | +50% Mana Regen | +10 Ability Haste | +8% Heal and Shield Strength,SUPPORT ITEMS,Staff of Flowing Waters ~   ~ Staff of Flowing Waters ~ Enhance allies Ability Power and Ability Haste ~  +50 Ability Power ~  +50% Mana Regen ~  +10 Ability Haste ~  +8% Heal and Shield Strength ~ Rapids: ~   ~ Healing ~  or  ~ shielding ~  an ally grants you both  ~ 15 Ability Haste ~  and  ~ 40 ~ Ability Power ~  for 6 seconds. ~   ~ 2400 ~ Staff of Flowing Waters 
@@ -20245,7 +20378,7 @@ Long Sword,500,+12 Attack Damage,Basic Items,Long Sword ~   ~ Long Sword ~  +12 
 Brawler's Gloves,500,+10% Critical Rate,Basic Items,Brawler's Gloves ~   ~ Brawler's Gloves ~  +10% Critical Rate ~   ~ 500
 Dagger,400,+12% Attack Speed,Basic Items,Dagger ~   ~ Dagger ~  +12% Attack Speed ~   ~ 400
 Shimmering Spark,500,+50 Max Health,Basic Items,Shimmering Spark ~   ~ Shimmering Spark ~ Burns nearby enemies ~  +50 Max Health ~ Burn: ~  Deals  ~ 5-10 magic damage ~  per second to nearby enemies. ~   ~ 500
-Tear of the Goddess,500,+200 Max Mana,Basic Items,Tear of the Goddess ~   ~ Tear of the Goddess ~ Increases Mana ~  +200 Max Mana ~ Awe: ~   ~ 10% ~  of  ~ Mana ~  spent is refunded. ~ Mana Charge: ~  Increases max  ~ Mana ~  by  ~ 5 ~  every time Mana is spent. Caps at  ~ 700 bonus Mana ~ . Triggers up to 3 times every 10 seconds. You may only carry one Tear of the Goddess item at a time. ~   ~ 500
+Tear of the Goddess,400,+200 Max Mana,Basic Items,Tear of the Goddess ~   ~ Tear of the Goddess ~ Increases Mana ~  +200 Max Mana ~ Awe: ~   ~ 10% ~  of  ~ Mana ~  spent is refunded. ~ Mana Charge: ~  Increases max  ~ Mana ~  by  ~ 5 ~  every time Mana is spent. Caps at  ~ 700 bonus Mana ~ . Triggers up to 3 times every 10 seconds. You may only carry one Tear of the Goddess item at a time. ~   ~ 400
 Amplifying Tome,500,+20 Ability Power,Basic Items,Amplifying Tome ~   ~ Amplifying Tome ~  +20 Ability Power ~   ~ 500
 Ruby Crystal,500,+150 Max Health,Basic Items,Ruby Crystal ~   ~ Ruby Crystal ~  +150 Max Health ~   ~ 500
 Cloth Armor,500,+20 Armor,Basic Items,Cloth Armor ~   ~ Cloth Armor ~  +20 Armor ~   ~ 500
@@ -20803,6 +20936,54 @@ class TestValidador(unittest.TestCase):
         self.assertEqual(v[0][0], "pen_pct")
 
 
+class TestGruposV123(unittest.TestCase):
+    """v1.23 — Spellblade, familia Tear of the Goddess e Immolate; candidatos NO aplicados."""
+    def test_grupos_cargados(self):
+        g = dict(M.EXCLUSIVIDAD)
+        for nombre in ("spellblade", "tear_of_the_goddess", "immolate"):
+            self.assertIn(nombre, g)
+        self.assertIn("divine sunderer", g["spellblade"])
+        self.assertIn("iceborn gauntlet", g["spellblade"])
+        self.assertIn("er", g["spellblade"])          # Essence Reaver resuelve a su clave 'er'
+
+    def test_divine_sunderer_e_iceborn_no_conviven(self):
+        v = M.violaciones_exclusividad(["Gunmetal", "Divine Sunderer", "Iceborn Gauntlet", "IE", "LDR", "Kraken"])
+        self.assertEqual([x[0] for x in v], ["spellblade"])
+
+    def test_spellblade_otros_pares(self):
+        for a, b in (("Essence Reaver", "Trinity Force"), ("Lich Bane", "Dusk and Dawn"), ("ER", "Divine Sunderer")):
+            self.assertTrue(M.violaciones_exclusividad([a, b]), (a, b))
+
+    def test_un_solo_spellblade_es_legal(self):
+        self.assertEqual(M.validate_slots(["Gunmetal", "Essence Reaver", "Navori", "IE", "Runaan's", "BotRK"]), (1, 5))
+
+    def test_familia_tear(self):
+        self.assertTrue(M.violaciones_exclusividad(["Manamune", "Archangel's Staff"]))
+        self.assertTrue(M.violaciones_exclusividad(["Tear of the Goddess", "Winter's Approach"]))
+        self.assertFalse(M.violaciones_exclusividad(["Manamune", "Essence Reaver"]))
+
+    def test_candidatos_no_se_aplican(self):
+        import csv
+        ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                            "data", "estructurada", "items_exclusivos_candidatos.csv")
+        with open(ruta, encoding="utf-8", newline="") as fh:
+            filas = list(csv.DictReader(fh))
+        self.assertEqual(set(filas[0].keys()), {"grupo", "items", "evidencia", "estado"})
+        aplicados = {g for g, _ in M.EXCLUSIVIDAD}
+        for f in filas:
+            self.assertNotIn(f["grupo"], aplicados, f["grupo"])      # un candidato no está aplicado a la vez
+            self.assertIn("pendiente", f["estado"])
+        # Lifeline sin confirmar: Shieldbow + Sterak's sigue siendo legal
+        self.assertEqual(M.violaciones_exclusividad(["Immortal Shieldbow", "Sterak's Gage"]), [])
+
+    def test_senna_respeta_spellblade(self):
+        import optimize_build  # noqa: F401  (import deliberado ANTES que senna_model)
+        import senna_model as S
+        self.assertFalse(S.legales(["er", "duskdawn"]))
+        self.assertFalse(S.legales(["er", "trinity"]))
+        self.assertTrue(S.legales(["er", "maw"]))
+
+
 class TestOptimizadorLimpio(unittest.TestCase):
     def test_jinx_pool_completo_sin_pares_ilegales(self):
         finales, _ = O.optimizar("jinx", top=8, crit_min=100, pen_min=30, verbose=False)
@@ -21262,7 +21443,7 @@ class TestEstandar(unittest.TestCase):
         fm = U.parse_frontmatter(open(os.path.join(REP, "Jinx.md"), encoding="utf-8").read())
         self.assertEqual(fm["role"], "adc")
         self.assertIn(fm["verification"], ("AL_DIA", "SIN_IMPACTO", "ANOTAR"))  # 7.3d: cambios sistémicos → ANOTAR
-        self.assertEqual(fm["verified_patch"], "7.3d")  # v1.22: hotfix vigente
+        self.assertEqual(fm["verified_patch"], "7.3f")  # v1.23: hotfix vigente
         self.assertEqual(fm["generate"], "manual")
         self.assertEqual(fm["published_at"], "2026-10-04")
         self.assertEqual(fm["version"], "1.5")
@@ -22303,10 +22484,10 @@ class TestAnotacion(unittest.TestCase):
             ver_ok = str(fm.get("verified_patch", "")).strip('"') == patch or fm.get("verification") == "pending"
             self.assertTrue(al_dia or ver_ok, f"{f}: sin verificación {patch} en frontmatter ni patch declarado")
 
-    def test_ultimo_parche_es_73d(self):
+    def test_ultimo_parche_es_73f(self):
         p, ruta = U.ultimo_parche_hotfix()
-        self.assertEqual(p, "7.3d")  # v1.22: hotfix vigente
-        self.assertTrue(ruta.endswith("cambios_7.3d.md"))
+        self.assertEqual(p, "7.3f")  # v1.23: hotfix vigente
+        self.assertTrue(ruta.endswith("cambios_7.3f.md"))
 
 
 if __name__ == "__main__":
@@ -25206,7 +25387,7 @@ import csv, datetime, hashlib, html as htmllib, io, json, os, re, sys, time, url
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "data", "raw", ".watch_state.json")
 OFFICIAL = "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-{slug}/"
-CANDIDATES = ["7-3c", "7-4", "7-4a", "7-5", "7-3c-hotfix", "7-4-hotfix"]
+CANDIDATES = ["7-3g", "7-3h", "7-4", "7-4a", "7-5", "7-3g-hotfix", "7-4-hotfix"]   # v1.23: 7-3c/d/e/f ya publicadas (la lista anterior nunca probó 7-3d/e/f)
 WATCH_PAGES = ["7-3", "7-3a", "7-3b"]  # páginas activas: vigilar cambios de CONTENIDO
 WRMETA_SENTINELS = {"jinx": "39-jinx", "caitlyn": "317-caitlyn", "hwei": "505-hwei",
                     "yuumi": "321-yuumi", "kalista": "349-kalista", "malphite": "47-malphite"}
@@ -25690,4 +25871,4 @@ json.dump(results, open(os.path.join(ROOT,"data","estructurada","champion_base_s
 print("JSON guardado")
 ```
 
-<!-- generado por model/build_bundles.py · 07/11/2026 · completo · sha256(cuerpo)=f61ba0b57375a723 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 13/11/2026 · completo · sha256(cuerpo)=ec53fcb7f7ad2218 · NO editar a mano: editar las fuentes y regenerar -->

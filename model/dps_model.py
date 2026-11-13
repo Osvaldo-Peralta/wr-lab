@@ -230,10 +230,15 @@ def canonical_key(x):
 
 def violaciones_exclusividad(items):
     """[(grupo, [claves presentes])] por cada grupo con 2+ ítems de la misma build."""
-    claves = [canonical_key(x) for x in items]
+    # Se comparan la clave canónica Y el nombre en minúsculas: otros módulos (senna_model) registran
+    # alias/ítems nuevos en ITEMS tras cargar el CSV y cambian la clave canónica de p.ej. 'Trinity Force'.
+    claves = set()
+    for x in items:
+        claves.add(canonical_key(x))
+        claves.add(str(x).strip().lower())
     out = []
     for grupo, conjunto in EXCLUSIVIDAD:
-        presentes = sorted(set(claves) & conjunto)
+        presentes = sorted(claves & conjunto)
         if len(presentes) >= 2:
             out.append((grupo, presentes))
     return out

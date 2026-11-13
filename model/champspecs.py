@@ -35,6 +35,7 @@ SPECS = {
            "escala AS 'gratis' (a lvl15 bonus de niveles ≈ +0.644). Pasiva Martial Poise: dash al atacar "
            "(kiting extremo; no puede atacar mientras se mueve... compensación). E Rend: stacks de lanza, "
            "detona % vida + slow, resetea con kill → ejecutor. Comunidad 7.3: Statikk Shiv 1.er ítem (energized on-hit). "
+           "7.3f NERF: Pierce (Q) daño base 70/135/200/265→30/110/190/270 (menos presión early en Baron Lane; Pierce NO entra en el modelo de DPS sostenido). "
            "Modelo: término de E por ventana (stacks×AS) + reseteos. REPORTE COMPLETO: reportes/Kalista_WR_7.3_Build_Optimizada.md (build: Gunmetal+Guinsoo+WE+Terminus+BotRK+Runaan's)."),
     model_terms_pending=["E Rend por stack (ratios)", "uptime de dash (kiting = más DPS efectivo)", "Statikk bounce"]),
 

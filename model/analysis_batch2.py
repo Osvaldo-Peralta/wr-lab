@@ -116,10 +116,10 @@ D_ITEMS = {
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
 # v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
-D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Morello',      dict(g=2550, ap=75, hp=300, ah=15))   # 7.3f: 2650→2550
 D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
 D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
-D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=60, hp=300))   # 7.3f: AP 70→60
 
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
@@ -151,7 +151,7 @@ def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15,
     sb_n = int(fight/1.5) if any(i.get('sb') for i in its) else 0
     sb = sb_n*(0.75*sum(i.get('sb',0) for i in its)*base_ad + 0.10*ap)
     # echo Luden / squall
-    echo = (75 + 0.08*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0
+    echo = (80 + 0.09*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0   # 7.3f Luden: 75+8%→80+9% AP
     squall = (125+0.1*ap)*max(1,int(fight/25*4)) if any(i.get('squall') for i in its) else 0  # ~1 cada 2.5s de dmg
     total_mag = (q+e+w+r+auto_mag+proc3+sb+echo+squall)*mitm
     total_phys = auto_phys*100/(100+60)  # autos físicos vs ~60 armadura
@@ -201,12 +201,12 @@ Y_ITEMS = {
  'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
  'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
  'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
- 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Morello':      dict(g=2550, ap=75, hp=300, ah=15, gw=1),   # 7.3f: 2650→2550
  'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
  'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
  'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=0.08),   # botas de pen mágica (Ley 1 adaptada, v2.0 Yuumi)
  'Malignance':   dict(g=2700, ap=90, ah=15, mana=500),        # Scorn: −MR sostenido (no entra en e_shield/r_heal)
- 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
+ 'Liandry':      dict(g=3000, ap=60, hp=300, torment=1),   # 7.3f: AP 70→60
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),

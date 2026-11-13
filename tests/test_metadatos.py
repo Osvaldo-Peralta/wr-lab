@@ -30,7 +30,7 @@ class TestEstandar(unittest.TestCase):
         fm = U.parse_frontmatter(open(os.path.join(REP, "Jinx.md"), encoding="utf-8").read())
         self.assertEqual(fm["role"], "adc")
         self.assertIn(fm["verification"], ("AL_DIA", "SIN_IMPACTO", "ANOTAR"))  # 7.3d: cambios sistémicos → ANOTAR
-        self.assertEqual(fm["verified_patch"], "7.3d")  # v1.22: hotfix vigente
+        self.assertEqual(fm["verified_patch"], "7.3f")  # v1.23: hotfix vigente
         self.assertEqual(fm["generate"], "manual")
         self.assertEqual(fm["published_at"], "2026-10-04")
         self.assertEqual(fm["version"], "1.5")

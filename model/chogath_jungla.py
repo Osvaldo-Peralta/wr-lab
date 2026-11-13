@@ -71,7 +71,7 @@ def _stats(boot_key, item_keys, level=15, minute=20.0):
 def smite_exec(minute):  return 600 if minute < 8 else (1000 if minute < 14 else 1400)   # J3
 def smite_burn_tick(st, level, S):
     bonusHP0 = st['hp_i'] + st['gflat'] + st['oflat'] + st['awe_hp'] + st['hs_growth']
-    return (22 + (162-22)*min(1.0,(level-1)/14)          # 7.3a: 22-162/s por nivel
+    return (18 + (158-18)*min(1.0,(level-1)/14)          # 7.3f: 18-158/s por nivel (7.3a: 22-162)
             + 0.10*max(0.0, st['ad']-st['bs']['ad']) + 0.12*st['ap']
             + 0.20*(st['armor']-st['bs']['armor']) + 0.20*(st['mr']-st['bs']['mr'])
             + 0.03*bonusHP0)

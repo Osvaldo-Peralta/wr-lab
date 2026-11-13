@@ -178,6 +178,9 @@ def secciones_comunes():
         ("8b", "EXCLUSIVIDADES DE ÍTEMS (no pueden convivir en la misma build — validado por "
                "validate_slots/optimizador/lint; escalable: 1 fila = 1 grupo)",
          csv_literal("data/estructurada/items_exclusivos.csv")),
+        ("8c", "CANDIDATOS A EXCLUSIVIDAD (pasivas compartidas SIN confirmar — NO se aplican en el motor; "
+               "pasar a items_exclusivos.csv al verificarlos en juego)",
+         csv_literal("data/estructurada/items_exclusivos_candidatos.csv")),
         ("9", f"SPECS PRECARGADAS ({n_specs} campeones, notas 7.3a incluidas)",
          fence("python", leer("model", "champspecs.py"))),
         ("10", "MOTOR DE DPS (con validate_slots — ver Ley 0)",

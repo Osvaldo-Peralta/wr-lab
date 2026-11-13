@@ -81,11 +81,11 @@ ITEMS = {
  'Heartsteel':   dict(g=3000, hp=700, ah=20, hpregen=1.5, hs_proc=1),
  'HollowRadiance':dict(g=2800, hp=400, mr=40, ah=15, immolate=('hollow',)),
  'Sunfire':      dict(g=2900, hp=350, armor=40, ah=15, immolate=('sunfire',)),
- 'Liandry':      dict(g=3000, hp=300, ap=70, torment=1, madness=1),
+ 'Liandry':      dict(g=3000, hp=300, ap=60, torment=1, madness=1),   # 7.3f: AP 70→60
  'Riftmaker':    dict(g=3100, hp=350, ap=70, ah=15, voidcorr=1, omnivamp=0.10, hp2ap=0.02),
- 'RodOfAges':    dict(g=2700, hp=500, ap=90, mana=700, eternity=1),   # Veteran 10 stacks incluido
+ 'RodOfAges':    dict(g=2600, hp=550, ap=90, mana=800, eternity=1),   # Veteran 10 stacks incluido · 7.3f: 2700→2600, Veteran 20 HP/40 mana por stack (+200/+400 a 10)
  'Rylai':        dict(g=2700, hp=350, ap=65, slow=1),
- 'Morello':      dict(g=2650, hp=300, ap=75, ah=15, gw=1),
+ 'Morello':      dict(g=2550, hp=300, ap=75, ah=15, gw=1),   # 7.3f: 2650→2550
  'Cryptbloom':   dict(g=3000, ap=75, pen_p=30, ah=20),
  'Abyssal':      dict(g=2400, hp=350, mr=45, ah=10, unmake=1),
  'Zeke':         dict(g=2400, hp=300, armor=25, mr=25, ah=10, ult_haste=10, zeke=1),

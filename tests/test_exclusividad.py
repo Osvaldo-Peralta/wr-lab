@@ -42,6 +42,54 @@ class TestValidador(unittest.TestCase):
         self.assertEqual(v[0][0], "pen_pct")
 
 
+class TestGruposV123(unittest.TestCase):
+    """v1.23 — Spellblade, familia Tear of the Goddess e Immolate; candidatos NO aplicados."""
+    def test_grupos_cargados(self):
+        g = dict(M.EXCLUSIVIDAD)
+        for nombre in ("spellblade", "tear_of_the_goddess", "immolate"):
+            self.assertIn(nombre, g)
+        self.assertIn("divine sunderer", g["spellblade"])
+        self.assertIn("iceborn gauntlet", g["spellblade"])
+        self.assertIn("er", g["spellblade"])          # Essence Reaver resuelve a su clave 'er'
+
+    def test_divine_sunderer_e_iceborn_no_conviven(self):
+        v = M.violaciones_exclusividad(["Gunmetal", "Divine Sunderer", "Iceborn Gauntlet", "IE", "LDR", "Kraken"])
+        self.assertEqual([x[0] for x in v], ["spellblade"])
+
+    def test_spellblade_otros_pares(self):
+        for a, b in (("Essence Reaver", "Trinity Force"), ("Lich Bane", "Dusk and Dawn"), ("ER", "Divine Sunderer")):
+            self.assertTrue(M.violaciones_exclusividad([a, b]), (a, b))
+
+    def test_un_solo_spellblade_es_legal(self):
+        self.assertEqual(M.validate_slots(["Gunmetal", "Essence Reaver", "Navori", "IE", "Runaan's", "BotRK"]), (1, 5))
+
+    def test_familia_tear(self):
+        self.assertTrue(M.violaciones_exclusividad(["Manamune", "Archangel's Staff"]))
+        self.assertTrue(M.violaciones_exclusividad(["Tear of the Goddess", "Winter's Approach"]))
+        self.assertFalse(M.violaciones_exclusividad(["Manamune", "Essence Reaver"]))
+
+    def test_candidatos_no_se_aplican(self):
+        import csv
+        ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                            "data", "estructurada", "items_exclusivos_candidatos.csv")
+        with open(ruta, encoding="utf-8", newline="") as fh:
+            filas = list(csv.DictReader(fh))
+        self.assertEqual(set(filas[0].keys()), {"grupo", "items", "evidencia", "estado"})
+        aplicados = {g for g, _ in M.EXCLUSIVIDAD}
+        for f in filas:
+            self.assertNotIn(f["grupo"], aplicados, f["grupo"])      # un candidato no está aplicado a la vez
+            self.assertIn("pendiente", f["estado"])
+        # Lifeline sin confirmar: Shieldbow + Sterak's sigue siendo legal
+        self.assertEqual(M.violaciones_exclusividad(["Immortal Shieldbow", "Sterak's Gage"]), [])
+
+    def test_senna_respeta_spellblade(self):
+        import optimize_build  # noqa: F401  (import deliberado ANTES que senna_model)
+        import senna_model as S
+        self.assertFalse(S.legales(["er", "duskdawn"]))
+        self.assertFalse(S.legales(["er", "trinity"]))
+        self.assertTrue(S.legales(["er", "maw"]))
+
+
 class TestOptimizadorLimpio(unittest.TestCase):
     def test_jinx_pool_completo_sin_pares_ilegales(self):
         finales, _ = O.optimizar("jinx", top=8, crit_min=100, pen_min=30, verbose=False)

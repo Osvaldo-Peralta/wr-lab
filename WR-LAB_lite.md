@@ -30,7 +30,7 @@
 > diff CN aplicado al lab coinciden con la fuente primaria (registro en §3, data/FUENTES.md).
 > Sin páginas 7.3b/7.4 al 29-sep-2026.
 
-# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a+7.3b+7.3d · 07/11/2026
+# ⚗️ WR-LAB PORTABLE (LITE) — Wild Rift 7.3+7.3a+7.3b+7.3d · 13/11/2026
 
 > Laboratorio de builds matemáticas en UN archivo. Adjunta o pega este archivo en cualquier
 > herramienta/IA y pide: "Usando WR-LAB, genera el análisis nivel-Jinx para {CAMPEÓN},
@@ -939,6 +939,114 @@ Los hotfixes 7.3c y 7.3e no obligan a re-triar reportes. El estado de datos pasa
 5. ✅ Triage/refresh/annotate/baseline ejecutados (ver commit siguiente).
 6. ✅ Tests, bundles y BD regenerados.
 7. ⏳ Revisar slugs vigilados en `check_patch.py` (siguiente: 7.3f / 7.4) y el pie de los reportes.
+
+## 3e. HOTFIX 7.3f — DIFF COMPLETO (APLICADO A ESTE BUNDLE)
+
+# HOTFIX 7.3f — Cambios completos (publicado: 11-nov-2026, 10:00 UTC)
+
+> **Fuente:** notas oficiales EN (wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3f/), leídas directamente el 12-nov-2026.
+> **Estado en el lab:** APLICADO (v1.23) a `items_7.3.csv`, `analysis_batch2.py`, `chogath_model.py`, `chogath_jungla.py`, `senna_model.py`, `yuumi_agresiva_model.py` y `champspecs.py`. Base previa: 7.3+7.3a+7.3b+7.3d (v1.22).
+> **Formato:** igual que `cambios_7.3d.md` (insumo de `update_reports.py`).
+
+## REGISTRO DE 7.3c Y 7.3e (sin impacto en Summoner's Rift)
+
+| Parche | Fecha | Contenido | Acción en el lab |
+|---|---|---|---|
+| 7.3c | 21-oct-2026 | Solo **AAA ARAM** (augments y modificadores de daño de modo) | Excluido (el lab es solo SR) |
+| 7.3e | 04-nov-2026 | Solo **AAA ARAM** (augments K/DA, Star Guardian, Minion…) | Excluido |
+| 7.3f | 11-nov-2026 | Balance de SR (10 campeones, 10 ítems), Sylas, jungla/Smite, ajustes de augments ARAM | **Aplicar** (abajo) |
+
+El estado de datos pasa a **7.3+7.3a+7.3b+7.3d+7.3f** (7.3c y 7.3e sin cambios de SR).
+
+## CAMPEONES
+
+| Campeón | Tipo | Cambio |
+|---|---|---|
+| **Sylas** | NUEVO | Campeón nuevo. Las notas no traen stats: **sin datos en el lab** (AS, stats base, win rates, specs) hasta extraerlos de wr-meta |
+| **Kalista** | NERF | Pierce (Q): daño base 70/135/200/265→**30/110/190/270** |
+| **Viktor** | MIXTO | Siphon Power: inicial 45/60/75/90+30 % AP→**50/70/90/110+40 % AP**. Hextech Ray: inicial 75/120/165/210+30 % AP→**70/115/160/205+40 % AP**; Blastquake 30/70/110/150+60 % AP→**20/60/100/140+75 % AP**. Arcane Storm: ratio AP DoT 40→**35 %** |
+| **Shen** | NERF | Stand United: CD 110/100/90→**120/110/100 s**; escudo base 170/340/510→**160/260/360** |
+| **Irelia** | MIXTO | Ionian Fervor: AS 3–17 %→**11–25 %** (por nivel); daño 25–150+30 % AD bonus→**10–80+20 % AD bonus**. Bladesurge: ratio AD 65→**80 %**; curación 11/14/17/20 %→**9/11/13/15 %** AD |
+| **Graves** | BUFF | Armadura base 36→**40**; armadura/nivel 4.5→**5** |
+| **Akshan** | BUFF | Resistencia mágica base 30→**34** |
+| **Lucian** | BUFF | Lightslinger: 2.º disparo ratio AD 40/50/60→**45/55/65 %**. Piercing Light: ratio AD bonus 100→**120 %** |
+| **Rumble** | BUFF | Junkyard Titan: ratio AP del daño mágico de autos 20→**25 %**. The Equalizer: daño 700/1050/1400+200 % AP→**800/1200/1600+220 % AP** |
+| **Kassadin** | NERF | Resistencia mágica base 38→**34**. Force Pulse: ratio AP 60→**50 %** |
+| **Yasuo** | BUFF | Armadura/nivel 4.3→**5.2**. Sweeping Blade: daño base 70/80/90/100→**70/90/110/130** |
+
+## ÍTEMS (aplicar a items_7.3.csv y a los motores)
+
+| Ítem | Cambio |
+|---|---|
+| **Luden's Echo** | Discordic Echo: primer proyectil 75+8 % AP→**80+9 % AP**; proyectiles siguientes 20+1.2 % AP→**22.5+1.4 % AP** |
+| **Rod of Ages** | Precio 2 700→**2 600**. Eternity: reembolso de maná 15→**20 %**. Veteran: HP por stack 15→**20**, maná por stack 30→**40** |
+| **Lich Bane** | Velocidad de movimiento 5→**6 %**. Spellblade: ratio AP 45→**50 %** |
+| **Morellonomicon** | Precio 2 650→**2 550** |
+| **Hextech Rocketbelt** | Precio 2 700→**2 650**; vida 250→**300**. Protobelt: daño 100+10 % AP→**110+15 % AP** |
+| **Liandry's Torment** | AP 70→**60** |
+| **Bulwark of the Mountain** | Soulcast: oro por minuto 75→**60** |
+| **Black Mist Scythe** | Soulcast: oro por minuto 75→**60** |
+| **Eclipse** | AD 65→**60** |
+| **Goredrinker** | AD 40→**45**; vida 350→**400** |
+
+## MAPA Y SISTEMAS
+
+| Sistema | Cambio |
+|---|---|
+| **Smite** | Daño base de quemadura 22–162→**18–158**; ratio de armadura bonus 25→**20 %**; ratio de resistencia mágica bonus 25→**20 %** |
+| **Conservation** | Oro 40→**30**; oro cuando vas perdiendo 65→**55** |
+| **Jungla** | Clear temprano más lento (sobre todo junglers tanque); sin cifras adicionales en la nota |
+| **ARAM** | Ajustes a 12 augments y un bug fix de Battle Arsenal: excluidos del lab |
+
+## APLICADO EN EL LAB
+
+- `items_7.3.csv`: los 10 ítems de arriba. Luden's Echo: el texto base de wr-meta («140 + 15 %… hasta 3 enemigos») estaba desactualizado frente a las notas oficiales 7.3/7.3f; se reescribió con la mecánica oficial (80+9 % AP al objetivo principal y hasta 5 cercanos, +22.5+1.4 % AP por cada objetivo menos).
+- **Filas que estaban atrasadas respecto a notas anteriores** (el motor ya las tenía bien; el CSV no): Yun Tal AS 25→35 % y Flurry 35 %/25 s (7.3a) · Death's Dance 3 200→3 300 (7.3a) · Blade of the Ruined King AS 35→30 % (7.3) · Tear of the Goddess 500→400 (7.3) · Warmog's umbral 950→1 250 (7.3b) · Whispering Circlet y Diadem Harmony 0.5→0.25 % (7.3a) · Statikk Shiv +7 stacks por auto (7.3b).
+- Motores: `analysis_batch2.py` (Luden 80+9 %, Morello 2 550, Liandry 60 AP) · `chogath_model.py` (Liandry, Morello, Rod of Ages 2 600 con Veteran 200 HP/400 maná a 10 stacks) · `chogath_jungla.py` (burn de Smite 18–158) · `senna_model.py` (Morello, Liandry) · `yuumi_agresiva_model.py` (Roketbelt 2 650/300 HP, Protobelt 110+15 %, Liandry, Morello, Luden +5/+1 pt y +2.5/+0.2 pt por objetivo).
+- `champspecs.py`: nota de Kalista con el nerf de Pierce (no entra en el DPS sostenido).
+- `check_patch.py`: la lista de páginas candidatas del vigía ahora arranca en 7-3g (la anterior nunca probó 7-3d/e/f).
+- Campeones: los cambios de stats base (Graves, Akshan, Kassadin, Yasuo) y de kit no se reflejan en CSV porque `champion_durability_7.3.csv` solo lista los cambios de 7.3 y se regenera desde la fuente; quedan documentados aquí.
+
+## EXCLUSIVIDADES NUEVAS (v1.23)
+
+Registradas en `items_exclusivos.csv` (aplican en `validate_slots`, optimizador, linter y generador):
+
+- **spellblade** — Trinity Force, Divine Sunderer, Essence Reaver, Lich Bane, Dusk and Dawn, Iceborn Gauntlet. Confirmado por el autor para Divine Sunderer + Iceborn Gauntlet; el resto de pares, por analogía (misma pasiva), pendientes de confirmar en juego.
+- **tear_of_the_goddess** — Tear of the Goddess, Manamune/Muramana, Archangel's Staff/Seraph's Embrace, Winter's Approach/Fimbulwinter. Texto oficial del ítem: «solo puedes llevar un ítem Tear of the Goddess a la vez».
+- **immolate** — Hollow Radiance, Sunfire Aegis (supuesto A10 de Cho'Gath, ahora centralizado).
+
+Candidatos sin confirmar (NO aplican): `items_exclusivos_candidatos.csv` (Lifeline, Energized, Annul, Terminus↔«Void Staff»/Cryptbloom, Icy, Eternity, Madness, Momentum, Thorns, ítems de soporte). Ninguna build publicada del lab viola los grupos aplicados ni los candidatos.
+
+## DISCREPANCIAS A REGISTRAR EN data/FUENTES.md
+
+1. **Sylas:** campeón nuevo sin datos (AS, stats, win rates).
+2. **Luden's Echo:** el modelo `yuumi_agresiva_model.py` usa «(140+15 % AP)+3×(20+1.2 % AP)» como single-focus; la nota oficial 7.3 describe 75+8 % AP al objetivo principal más 20+1.2 % AP por cada objetivo menos (hasta 5). Se aplicaron solo los deltas de 7.3f sobre la estructura existente; la discrepancia es previa.
+3. **Smite, ratio de armadura/RM bonus:** la nota oficial dice 25→20 %; `chogath_jungla.py` ya usaba 20 % antes de 7.3f. Confirmar qué reflejaba ese valor.
+4. **Terminus:** su texto dice «Void Staff»; ese ítem no existe en la base 7.3 (probable renombre a Cryptbloom).
+5. **Minions/jungla:** la nota 7.3f no trae cifras de la ralentización del clear.
+
+## IMPACTO EN REPORTES/SPECS DEL LAB (triage 7.3f: 12 sin regeneración · 9 revisión acotada · 0 regeneración completa)
+
+| Archivo | Exposición | Veredicto |
+|---|---|---|
+| `Cho'Gath - Titán de la Jungla` | Liandry −10 AP, Smite burn 18–158. Con `chogath_model` y `chogath_jungla`: la óptima no cambia; la build publicada de jungla mantiene su score (0.662) y DPS −0.7 %; sube la tasa de clear 0.1–0.2 s | ⚠️ REVISAR (cuantificado: Δ < 1 %, sin cambio de build) |
+| `Cho'Gath - Titán del Barón` | Rod of Ages 2 600 con Veteran más fuerte, Liandry −10 AP: build publicada 0.680→0.682 y 100 g más barata | ✅ ANOTAR |
+| `Heimerdinger`, `Mordekaiser`, `Ornn` | Liandry −10 AP en la build final; sin modelo cuantitativo (estimación aritmética: −10 AP sobre ~450–600 AP → ≤ −2 %) | ⚠️ REVISAR |
+| `Nocturne` | Eclipse −5 AD en la build final (sin modelo de Eclipse; ≈ −1.2 % de DPS por ~−1.7 % de AD) | ⚠️ REVISAR |
+| `Kalista` | Pierce nerf directo: solo recorta rangos bajos (rango 4: 265→270), sin impacto a nivel 15; no modelado | ⚠️ REVISAR |
+| `Senna`, `Seraphine`, `Yuumi` | Black Mist Scythe: −15 g/min de Soulcast (≈ −225 g a los 15', ~1.7 % del oro de la build) | ⚠️ REVISAR |
+| `Diana` (×2), `Norra`, `Rammus`, `Volibear` (×2) | Ítems de variantes/rechazados y cambios sistémicos de jungla | ✅ ANOTAR |
+| `Caitlyn`, `Jinx`, `Sivir`, `Xayah`, `Yunara` | Sin ítems ni campeones tocados | ✅ SIN_IMPACTO |
+
+## CHECKLIST (FRAMEWORK §E)
+
+1. ✅ Notas 7.3f leídas de la fuente oficial (12-nov-2026). Pendiente: guardar `data/raw/patch73f.txt` y re-descargar `wrmeta_items.html` (red fuera del sandbox).
+2. ✅ Datos y motores (ver arriba).
+3. ⏳ `python3 wrlab.py winrates` (los win rates del CSV son del 29-oct) y extraer los datos de Sylas.
+4. ✅ Este archivo en `data/estructurada/`; falta anotar 7.3c/7.3d/7.3e/7.3f en `data/FUENTES.md`.
+5. ✅ Triage/refresh/annotate/baseline ejecutados.
+6. ✅ Tests, bundles y BD regenerados.
+7. ✅ Vigía: candidatos ampliados.
 
 ## 4. MECÁNICA OFICIAL DE ATTACK SPEED (7.3) + TEST DE CAITLYN
 
@@ -2006,16 +2114,16 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Chempunk Chainsword | 2800 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Manamune | 2900 | +40 Attack Damage  /  +500 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
 | Muramana |  | +40 Attack Damage  /  +1200 Max Mana  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Eclipse | 3000 | +65 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
+| Eclipse | 3000 | +60 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
 | Sundered Sky | 3000 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Experimental Hexplate | 3000 | +400 Max Health  /  +35 Attack Damage  /  +20% Attack Speed | FIGHTER ITEMS |
 | Maw of Malmortius | 3000 | +55 Attack Damage  /  +45 Magic Resistance  /  +10 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
 | Black Cleaver | 3000 | +400 Max Health  /  +40 Attack Damage  /  +20 Ability Haste | FIGHTER ITEMS |
 | Titanic Hydra | 3000 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS; DEFENSE ITEMS |
 | Stridebreaker | 3100 | +400 Max Health  /  +40 Attack Damage  /  +25% Attack Speed | FIGHTER ITEMS |
-| Goredrinker | 3100 | +350 Max Health  /  +40 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
+| Goredrinker | 3100 | +400 Max Health  /  +45 Attack Damage  /  +15 Ability Haste | FIGHTER ITEMS |
 | Mercurial Scimitar | 3100 | +45 Attack Damage  /  +12% Lifesteal  /  +40 Magic Resistance | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS |
-| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +35% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
+| Blade of the Ruined King | 3100 | +40 Attack Damage  /  +30% Attack Speed  /  +12% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Serylda's Grudge | 3100 | +50 Attack Damage  /  +35% Armor Penetration  /  +15 Ability Haste | FIGHTER ITEMS; ASSASSIN ITEMS |
 | Spear of Shojin | 3100 | +450 Max Health  /  +40 Attack Damage | FIGHTER ITEMS |
 | Hullbreaker | 3100 | +400 Max Health  /  +50 Attack Damage | FIGHTER ITEMS |
@@ -2023,7 +2131,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Guardian Angel | 3200 | +45 Attack Damage  /  +40 Armor | FIGHTER ITEMS; ASSASSIN ITEMS; MARKSMAN ITEMS; DEFENSE ITEMS |
 | Bloodthirster | 3200 | +75 Attack Damage  /  +15% Lifesteal | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Sterak's Gage | 3200 | +400 Max Health  /  +20% Tenacity | FIGHTER ITEMS; DEFENSE ITEMS |
-| Death's Dance | 3200 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
+| Death's Dance | 3300 | +50 Attack Damage  /  +45 Armor  /  +15 Ability Haste | FIGHTER ITEMS; DEFENSE ITEMS |
 | Trinity Force | 3333 | +333 Max Health  /  +36 Attack Damage  /  +30% Attack Speed  /  +15 Ability Haste | FIGHTER ITEMS; MARKSMAN ITEMS |
 | Divine Sunderer | 3300 | +425 Max Health  /  +25 Attack Damage  /  +25 Ability Haste | FIGHTER ITEMS |
 | Serpent's Fang | 2800 | +50 Attack Damage  /  +10 Ability Haste | ASSASSIN ITEMS |
@@ -2047,7 +2155,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Immortal Shieldbow | 3000 | +55 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Terminus | 3000 | +35 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Stormrazor | 3000 | +50 Attack Damage  /  +25% Critical Rate  /  +20% Attack Speed | MARKSMAN ITEMS |
-| Yun Tal Wildarrows | 3000 | +50 Attack Damage  /  +25% Attack Speed | MARKSMAN ITEMS |
+| Yun Tal Wildarrows | 3000 | +50 Attack Damage  /  +35% Attack Speed | MARKSMAN ITEMS |
 | Galeforce | 3100 | +60 Attack Damage  /  +25% Critical Rate  /  +4% Move Speed | MARKSMAN ITEMS |
 | Dominik's Regards | 3300 | +35 Attack Damage  /  +35% Armor Penetration  /  +25% Critical Rate | MARKSMAN ITEMS |
 | Infinity Edge | 3400 | +75 Attack Damage  /  +25% Critical Rate | MARKSMAN ITEMS |
@@ -2056,20 +2164,20 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Redemption | 2450 | +40 Ability Power  /  +50% Mana Regen  /  +10 Ability Haste  /  +8% Heal and Shield Strength | MAGIC ITEMS; SUPPORT ITEMS |
 | Imperial Mandate | 2600 | +60 Ability Power  /  +50% Mana Regen  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
 | Oceanid's Trident | 2600 | +200 Max Health  /  +80 Ability Power  /  +10 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Morellonomicon | 2650 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Hextech Roketbelt | 2700 | +250 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
+| Morellonomicon | 2550 | +300 Max Health  /  +75 Ability Power  /  +15 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
+| Hextech Roketbelt | 2650 | +300 Max Health  /  +70 Ability Power  /  +20 Ability Haste | MAGIC ITEMS |
 | Rylai's Crystal Scepter | 2700 | +350 Max Health  /  +65 Ability Power | MAGIC ITEMS |
-| Rod of Ages | 2700 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
+| Rod of Ages | 2600 | +350 Max Health  /  +50 Ability Power  /  +400 Max Mana | MAGIC ITEMS |
 | Horizon Focus | 2700 | +80 Ability Power  /  +25 Ability Haste | MAGIC ITEMS |
 | Malignance | 2700 | +90 Ability Power  /  +500 Max Mana  /  +15 Ability Haste | MAGIC ITEMS |
 | Stormsurge | 2800 | +90 Ability Power  /  +15 Magic Penetration  /  +6% Move Speed | MAGIC ITEMS |
 | Blackfire Torch | 2800 | +80 Ability Power  /  +500 Maximum Mana  /  +20 Ability Haste | MAGIC ITEMS |
 | Luden's Echo | 2800 | +100 Ability Power  /  +500 Max Mana  /  +10 Ability Haste | MAGIC ITEMS |
-| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +5% Move Speed | MAGIC ITEMS |
+| Lich Bane | 2800 | +100 Ability Power  /  +10 Ability Haste  /  +6% Move Speed | MAGIC ITEMS |
 | Bloodletter's Curse | 2900 | +350 Maximum Health  /  +65 Ability Power  /  +15 Ability Haste | MAGIC ITEMS |
 | Banshee's Veil | 3000 | +105 Ability Power  /  +40 Magic Resistance | MAGIC ITEMS; DEFENSE ITEMS |
 | Cryptbloom | 3000 | +75 Ability Power  /  +30% Magic Penetration  /  +20 Ability Haste | MAGIC ITEMS; SUPPORT ITEMS |
-| Liandry's Torment | 3000 | +300 Max Health  /  +70 Ability Power | MAGIC ITEMS |
+| Liandry's Torment | 3000 | +300 Max Health  /  +60 Ability Power | MAGIC ITEMS |
 | Archangel's Staff | 3000 | +60 Ability Power  /  +500 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
 | Seraph's Embrace |  | +60 Ability Power  /  +1200 Max Mana  /  +25 Ability Haste | MAGIC ITEMS |
 | Cosmic Drive | 3000 | +300 Max Health  /  +70 Ability Power  /  +25 Ability Haste  /  +4% Move Speed | MAGIC ITEMS |
@@ -2172,7 +2280,7 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 | Brawler's Gloves | 500 | +10% Critical Rate | Basic Items |
 | Dagger | 400 | +12% Attack Speed | Basic Items |
 | Shimmering Spark | 500 | +50 Max Health | Basic Items |
-| Tear of the Goddess | 500 | +200 Max Mana | Basic Items |
+| Tear of the Goddess | 400 | +200 Max Mana | Basic Items |
 | Amplifying Tome | 500 | +20 Ability Power | Basic Items |
 | Ruby Crystal | 500 | +150 Max Health | Basic Items |
 | Cloth Armor | 500 | +20 Armor | Basic Items |
@@ -2195,6 +2303,25 @@ coincide con un hotfix, el flujo es el de FRAMEWORK §E (triage/annotate).
 ```csv
 grupo,items,fuente,verificado
 pen_pct,Lord Dominik's Regards|Mortal Reminder|Terminus,"Verificado en juego por el autor (03/10/2026): con Terminus equipado no se pueden comprar LDR ni Mortal Reminder. El modelo del lab asumía pen % sumable (LDR 35 + Mortal 30 = 65) — corregido. Pendiente de documentación oficial (ni wr-meta ni las notas 7.3/7.3a lo mencionan).",2026-10-03
+spellblade,Trinity Force|Divine Sunderer|Essence Reaver|Lich Bane|Dusk and Dawn|Iceborn Gauntlet,Verificado en juego por el autor (12/11/2026): Divine Sunderer e Iceborn Gauntlet no pueden convivir. Los 6 ítems terminados con la pasiva Spellblade (items_7.3.csv) se agrupan por analogía; los demás pares están pendientes de confirmación en juego. Sheen (componente) queda fuera.,2026-11-12
+tear_of_the_goddess,Tear of the Goddess|Manamune|Muramana|Archangel's Staff|Seraph's Embrace|Winter's Approach|Fimbulwinter,"Texto oficial de los ítems (items_7.3.csv, wr-meta/notas 7.3): 'You may only carry one Tear of the Goddess item at a time' (Tear, Manamune, Archangel's Staff, Winter's Approach). Muramana, Seraph's Embrace y Fimbulwinter son sus mejoras en el mismo slot.",2026-11-12
+immolate,Hollow Radiance|Sunfire Aegis,Misma pasiva Immolate (items_7.3.csv). Supuesto A10 de chogath_model.py hasta ahora local; se centraliza aquí. Pendiente de confirmación en juego.,supuesto A10
+```
+
+## 8c. CANDIDATOS A EXCLUSIVIDAD (pasivas compartidas SIN confirmar — NO se aplican en el motor; pasar a items_exclusivos.csv al verificarlos en juego)
+
+```csv
+grupo,items,evidencia,estado
+lifeline,Maw of Malmortius|Sterak's Gage|Immortal Shieldbow|Seraph's Embrace|Mantle of the Twelfth Hour,Pasiva Lifeline compartida por 5 ítems (items_7.3.csv). Sin texto oficial de restricción.,pendiente de verificar en juego
+energized,Rapid Firecannon|Statikk Shiv|Stormrazor,Pasiva Energized compartida; las notas 7.3 hablan de 'consolidar los efectos Energized' en pocos ítems.,pendiente de verificar en juego
+annul_spellshield,Edge of Night|Banshee's Veil|Verdant Barrier,Pasiva Annul (escudo antihechizos) compartida por 3 ítems.,pendiente de verificar en juego
+terminus_void_staff,Terminus|Cryptbloom,Texto oficial de Terminus: 'You cannot own this item concurrently with Void Staff'. Void Staff no existe en items_7.3.csv; Cryptbloom es el ítem de %pen mágica (30 %) y probablemente lo reemplaza. Nombre sin confirmar.,pendiente de verificar en juego (nombre)
+icy,Serylda's Grudge|Rylai's Crystal Scepter,Pasiva Icy compartida (ralentización).,pendiente de verificar en juego
+eternity,Rod of Ages|Catalyst of Aeons,Pasiva Eternity compartida.,pendiente de verificar en juego
+madness,Liandry's Torment|Haunting Guise,Pasiva Madness compartida.,pendiente de verificar en juego
+momentum,Youmuu's Ghostblade|Dead Man's Plate,Pasiva Momentum compartida.,pendiente de verificar en juego
+thorns,Thornmail|Bramble Vest,Pasiva Thorns compartida (Bramble es componente de Thornmail).,pendiente de verificar en juego
+support_quest,Relic Shield|Spectral Sickle|Bulwark of the Mountain|Black Mist Scythe,Pasiva Quest/Tribute compartida; el texto oficial solo dice que entre varios del equipo solo uno surte efecto.,pendiente de verificar en juego
 ```
 
 ## 9. SPECS PRECARGADAS (13 campeones, notas 7.3a incluidas)
@@ -2237,6 +2364,7 @@ SPECS = {
            "escala AS 'gratis' (a lvl15 bonus de niveles ≈ +0.644). Pasiva Martial Poise: dash al atacar "
            "(kiting extremo; no puede atacar mientras se mueve... compensación). E Rend: stacks de lanza, "
            "detona % vida + slow, resetea con kill → ejecutor. Comunidad 7.3: Statikk Shiv 1.er ítem (energized on-hit). "
+           "7.3f NERF: Pierce (Q) daño base 70/135/200/265→30/110/190/270 (menos presión early en Baron Lane; Pierce NO entra en el modelo de DPS sostenido). "
            "Modelo: término de E por ventana (stacks×AS) + reseteos. REPORTE COMPLETO: reportes/Kalista_WR_7.3_Build_Optimizada.md (build: Gunmetal+Guinsoo+WE+Terminus+BotRK+Runaan's)."),
     model_terms_pending=["E Rend por stack (ratios)", "uptime de dash (kiting = más DPS efectivo)", "Statikk bounce"]),
 
@@ -2595,10 +2723,15 @@ def canonical_key(x):
 
 def violaciones_exclusividad(items):
     """[(grupo, [claves presentes])] por cada grupo con 2+ ítems de la misma build."""
-    claves = [canonical_key(x) for x in items]
+    # Se comparan la clave canónica Y el nombre en minúsculas: otros módulos (senna_model) registran
+    # alias/ítems nuevos en ITEMS tras cargar el CSV y cambian la clave canónica de p.ej. 'Trinity Force'.
+    claves = set()
+    for x in items:
+        claves.add(canonical_key(x))
+        claves.add(str(x).strip().lower())
     out = []
     for grupo, conjunto in EXCLUSIVIDAD:
-        presentes = sorted(set(claves) & conjunto)
+        presentes = sorted(claves & conjunto)
         if len(presentes) >= 2:
             out.append((grupo, presentes))
     return out
@@ -2898,10 +3031,10 @@ D_ITEMS = {
  'CosmicDrive':  dict(g=3000, ap=70, hp=300, ah=25),
 }
 # v1.8: añadidos desde items_7.3.csv (Torment/Hypershot/GW sin modelar en la rotación: conservador)
-D_ITEMS.setdefault('Morello',      dict(g=2650, ap=75, hp=300, ah=15))
+D_ITEMS.setdefault('Morello',      dict(g=2550, ap=75, hp=300, ah=15))   # 7.3f: 2650→2550
 D_ITEMS.setdefault('Rylai',        dict(g=2700, ap=65, hp=350))
 D_ITEMS.setdefault('HorizonFocus', dict(g=2700, ap=80, ah=25))
-D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=70, hp=300))
+D_ITEMS.setdefault('Liandry',      dict(g=3000, ap=60, hp=300))   # 7.3f: AP 70→60
 
 def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15, fight=10.0, burst=False):
     its = [D_ITEMS[i] for i in items]
@@ -2933,7 +3066,7 @@ def diana(items, ap_extra=0, keystone='empower', mr=80, pen_note=None, level=15,
     sb_n = int(fight/1.5) if any(i.get('sb') for i in its) else 0
     sb = sb_n*(0.75*sum(i.get('sb',0) for i in its)*base_ad + 0.10*ap)
     # echo Luden / squall
-    echo = (75 + 0.08*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0
+    echo = (80 + 0.09*ap)*max(1,int(fight/9)) if any(i.get('echo') for i in its) else 0   # 7.3f Luden: 75+8%→80+9% AP
     squall = (125+0.1*ap)*max(1,int(fight/25*4)) if any(i.get('squall') for i in its) else 0  # ~1 cada 2.5s de dmg
     total_mag = (q+e+w+r+auto_mag+proc3+sb+echo+squall)*mitm
     total_phys = auto_phys*100/(100+60)  # autos físicos vs ~60 armadura
@@ -2983,12 +3116,12 @@ Y_ITEMS = {
  'Mandate':      dict(g=2600, ap=60, ah=20, mandate=1),      # CC marca: +7% dmg aliado (amp de equipo, no HSP)
  'Stormsurge':   dict(g=2800, ap=90, ah=0,  squall=1),       # +15 pen mágica (pen no entra en e_shield/r_heal)
  'HarmonicEcho': dict(g=2500, ap=40, hp=200, ah=20, harmonic=1),  # cura post-cast no modelada (conservador)
- 'Morello':      dict(g=2650, ap=75, hp=300, ah=15, gw=1),
+ 'Morello':      dict(g=2550, ap=75, hp=300, ah=15, gw=1),   # 7.3f: 2650→2550
  'Rylai':        dict(g=2700, ap=65, hp=350, slow=1),
  'HorizonFocus': dict(g=2700, ap=80, ah=25, hypershot=1),
  'Spellslinger': dict(g=2200, ap=35, pen_f=18, pen_p=0.08),   # botas de pen mágica (Ley 1 adaptada, v2.0 Yuumi)
  'Malignance':   dict(g=2700, ap=90, ah=15, mana=500),        # Scorn: −MR sostenido (no entra en e_shield/r_heal)
- 'Liandry':      dict(g=3000, ap=70, hp=300, torment=1),
+ 'Liandry':      dict(g=3000, ap=60, hp=300, torment=1),   # 7.3f: AP 70→60
  'Crimson':    dict(g=2000, ah=25),
  'Censer':     dict(g=2400, ap=50, hsp=8),
  'Echoes':     dict(g=2400, ap=40, hp=200, ah=20, siphon=1),
@@ -5160,4 +5293,4 @@ if __name__ == "__main__":
     main()
 ```
 
-<!-- generado por model/build_bundles.py · 07/11/2026 · lite · sha256(cuerpo)=0dc0484fed1b7f80 · NO editar a mano: editar las fuentes y regenerar -->
+<!-- generado por model/build_bundles.py · 13/11/2026 · lite · sha256(cuerpo)=f36cde369759da25 · NO editar a mano: editar las fuentes y regenerar -->
